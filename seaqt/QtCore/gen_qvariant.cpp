@@ -16,6 +16,7 @@
 #include <QLocale>
 #include <QMap>
 #include <QModelIndex>
+#include <QObject>
 #include <QPersistentModelIndex>
 #include <QPoint>
 #include <QPointF>
@@ -604,6 +605,10 @@ float QVariant_toFloat1(const QVariant* self, bool* ok) {
 double QVariant_toReal1(const QVariant* self, bool* ok) {
 	qreal _ret = self->toReal(ok);
 	return static_cast<double>(_ret);
+}
+
+QVariant* QVariant_fromValue(QObject* value) {
+	return new QVariant(QVariant::fromValue(value));
 }
 
 void QVariant_delete(QVariant* self) {
