@@ -19,16 +19,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QCameraFlashControl_flashReady(intptr_t, bool);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QCameraFlashControl_virtbase(QCameraFlashControl* src, QMediaControl** outptr_QMediaControl) {
 	*outptr_QMediaControl = static_cast<QMediaControl*>(src);
 }
@@ -88,11 +78,16 @@ void QCameraFlashControl_flashReady(QCameraFlashControl* self, bool param1) {
 	self->flashReady(param1);
 }
 
-void QCameraFlashControl_connect_flashReady(QCameraFlashControl* self, intptr_t slot) {
-	QCameraFlashControl::connect(self, static_cast<void (QCameraFlashControl::*)(bool)>(&QCameraFlashControl::flashReady), self, [=](bool param1) {
-		bool sigval1 = param1;
-		miqt_exec_callback_QCameraFlashControl_flashReady(slot, sigval1);
-	});
+void QCameraFlashControl_connect_flashReady(QCameraFlashControl* self, intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, bool);
+		void operator()(bool param1) {
+			bool sigval1 = param1;
+			callback(slot, sigval1);
+		}
+	};
+	QCameraFlashControl::connect(self, static_cast<void (QCameraFlashControl::*)(bool)>(&QCameraFlashControl::flashReady), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QCameraFlashControl_tr2(const char* s, const char* c) {

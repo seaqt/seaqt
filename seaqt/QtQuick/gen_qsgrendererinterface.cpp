@@ -13,15 +13,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 int QSGRendererInterface_graphicsApi(const QSGRendererInterface* self) {
 	QSGRendererInterface::GraphicsApi _ret = self->graphicsApi();
 	return static_cast<int>(_ret);

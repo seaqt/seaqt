@@ -28,15 +28,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QMediaServiceProviderHint* QMediaServiceProviderHint_new() {
 	return new (std::nothrow) QMediaServiceProviderHint();
 }

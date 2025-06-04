@@ -25,20 +25,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QCoreApplication_organizationNameChanged(intptr_t);
-void miqt_exec_callback_QCoreApplication_organizationDomainChanged(intptr_t);
-void miqt_exec_callback_QCoreApplication_applicationNameChanged(intptr_t);
-void miqt_exec_callback_QCoreApplication_applicationVersionChanged(intptr_t);
-void miqt_exec_callback_QCoreApplication_aboutToQuit(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQCoreApplication final : public QCoreApplication {
 	const QCoreApplication_VTable* vtbl;
 public:
@@ -520,40 +506,60 @@ void QCoreApplication_organizationNameChanged(QCoreApplication* self) {
 	self->organizationNameChanged();
 }
 
-void QCoreApplication_connect_organizationNameChanged(QCoreApplication* self, intptr_t slot) {
-	QCoreApplication::connect(self, static_cast<void (QCoreApplication::*)()>(&QCoreApplication::organizationNameChanged), self, [=]() {
-		miqt_exec_callback_QCoreApplication_organizationNameChanged(slot);
-	});
+void QCoreApplication_connect_organizationNameChanged(QCoreApplication* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QCoreApplication::connect(self, static_cast<void (QCoreApplication::*)()>(&QCoreApplication::organizationNameChanged), self, local_caller{slot, callback, release});
 }
 
 void QCoreApplication_organizationDomainChanged(QCoreApplication* self) {
 	self->organizationDomainChanged();
 }
 
-void QCoreApplication_connect_organizationDomainChanged(QCoreApplication* self, intptr_t slot) {
-	QCoreApplication::connect(self, static_cast<void (QCoreApplication::*)()>(&QCoreApplication::organizationDomainChanged), self, [=]() {
-		miqt_exec_callback_QCoreApplication_organizationDomainChanged(slot);
-	});
+void QCoreApplication_connect_organizationDomainChanged(QCoreApplication* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QCoreApplication::connect(self, static_cast<void (QCoreApplication::*)()>(&QCoreApplication::organizationDomainChanged), self, local_caller{slot, callback, release});
 }
 
 void QCoreApplication_applicationNameChanged(QCoreApplication* self) {
 	self->applicationNameChanged();
 }
 
-void QCoreApplication_connect_applicationNameChanged(QCoreApplication* self, intptr_t slot) {
-	QCoreApplication::connect(self, static_cast<void (QCoreApplication::*)()>(&QCoreApplication::applicationNameChanged), self, [=]() {
-		miqt_exec_callback_QCoreApplication_applicationNameChanged(slot);
-	});
+void QCoreApplication_connect_applicationNameChanged(QCoreApplication* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QCoreApplication::connect(self, static_cast<void (QCoreApplication::*)()>(&QCoreApplication::applicationNameChanged), self, local_caller{slot, callback, release});
 }
 
 void QCoreApplication_applicationVersionChanged(QCoreApplication* self) {
 	self->applicationVersionChanged();
 }
 
-void QCoreApplication_connect_applicationVersionChanged(QCoreApplication* self, intptr_t slot) {
-	QCoreApplication::connect(self, static_cast<void (QCoreApplication::*)()>(&QCoreApplication::applicationVersionChanged), self, [=]() {
-		miqt_exec_callback_QCoreApplication_applicationVersionChanged(slot);
-	});
+void QCoreApplication_connect_applicationVersionChanged(QCoreApplication* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QCoreApplication::connect(self, static_cast<void (QCoreApplication::*)()>(&QCoreApplication::applicationVersionChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QCoreApplication_tr2(const char* s, const char* c) {

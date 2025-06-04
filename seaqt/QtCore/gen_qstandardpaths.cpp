@@ -17,15 +17,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 struct seaqt_string QStandardPaths_writableLocation(int type) {
 	QString _ret = QStandardPaths::writableLocation(static_cast<QStandardPaths::StandardLocation>(type));
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory

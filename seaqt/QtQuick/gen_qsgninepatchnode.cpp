@@ -19,15 +19,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QSGNinePatchNode_virtbase(QSGNinePatchNode* src, QSGGeometryNode** outptr_QSGGeometryNode) {
 	*outptr_QSGGeometryNode = static_cast<QSGGeometryNode*>(src);
 }

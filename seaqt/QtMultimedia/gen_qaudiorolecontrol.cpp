@@ -20,16 +20,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QAudioRoleControl_audioRoleChanged(intptr_t, int);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QAudioRoleControl_virtbase(QAudioRoleControl* src, QMediaControl** outptr_QMediaControl) {
 	*outptr_QMediaControl = static_cast<QMediaControl*>(src);
 }
@@ -95,12 +85,17 @@ void QAudioRoleControl_audioRoleChanged(QAudioRoleControl* self, int role) {
 	self->audioRoleChanged(static_cast<QAudio::Role>(role));
 }
 
-void QAudioRoleControl_connect_audioRoleChanged(QAudioRoleControl* self, intptr_t slot) {
-	QAudioRoleControl::connect(self, static_cast<void (QAudioRoleControl::*)(QAudio::Role)>(&QAudioRoleControl::audioRoleChanged), self, [=](QAudio::Role role) {
-		QAudio::Role role_ret = role;
-		int sigval1 = static_cast<int>(role_ret);
-		miqt_exec_callback_QAudioRoleControl_audioRoleChanged(slot, sigval1);
-	});
+void QAudioRoleControl_connect_audioRoleChanged(QAudioRoleControl* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(QAudio::Role role) {
+			QAudio::Role role_ret = role;
+			int sigval1 = static_cast<int>(role_ret);
+			callback(slot, sigval1);
+		}
+	};
+	QAudioRoleControl::connect(self, static_cast<void (QAudioRoleControl::*)(QAudio::Role)>(&QAudioRoleControl::audioRoleChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QAudioRoleControl_tr2(const char* s, const char* c) {

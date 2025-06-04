@@ -24,17 +24,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QAudioProbe_audioBufferProbed(intptr_t, QAudioBuffer*);
-void miqt_exec_callback_QAudioProbe_flush(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQAudioProbe final : public QAudioProbe {
 	const QAudioProbe_VTable* vtbl;
 public:
@@ -244,23 +233,33 @@ void QAudioProbe_audioBufferProbed(QAudioProbe* self, QAudioBuffer* buffer) {
 	self->audioBufferProbed(*buffer);
 }
 
-void QAudioProbe_connect_audioBufferProbed(QAudioProbe* self, intptr_t slot) {
-	QAudioProbe::connect(self, static_cast<void (QAudioProbe::*)(const QAudioBuffer&)>(&QAudioProbe::audioBufferProbed), self, [=](const QAudioBuffer& buffer) {
-		const QAudioBuffer& buffer_ret = buffer;
-		// Cast returned reference into pointer
-		QAudioBuffer* sigval1 = const_cast<QAudioBuffer*>(&buffer_ret);
-		miqt_exec_callback_QAudioProbe_audioBufferProbed(slot, sigval1);
-	});
+void QAudioProbe_connect_audioBufferProbed(QAudioProbe* self, intptr_t slot, void (*callback)(intptr_t, QAudioBuffer*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QAudioBuffer*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QAudioBuffer*);
+		void operator()(const QAudioBuffer& buffer) {
+			const QAudioBuffer& buffer_ret = buffer;
+			// Cast returned reference into pointer
+			QAudioBuffer* sigval1 = const_cast<QAudioBuffer*>(&buffer_ret);
+			callback(slot, sigval1);
+		}
+	};
+	QAudioProbe::connect(self, static_cast<void (QAudioProbe::*)(const QAudioBuffer&)>(&QAudioProbe::audioBufferProbed), self, local_caller{slot, callback, release});
 }
 
 void QAudioProbe_flush(QAudioProbe* self) {
 	self->flush();
 }
 
-void QAudioProbe_connect_flush(QAudioProbe* self, intptr_t slot) {
-	QAudioProbe::connect(self, static_cast<void (QAudioProbe::*)()>(&QAudioProbe::flush), self, [=]() {
-		miqt_exec_callback_QAudioProbe_flush(slot);
-	});
+void QAudioProbe_connect_flush(QAudioProbe* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QAudioProbe::connect(self, static_cast<void (QAudioProbe::*)()>(&QAudioProbe::flush), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QAudioProbe_tr2(const char* s, const char* c) {

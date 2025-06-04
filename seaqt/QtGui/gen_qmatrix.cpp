@@ -21,15 +21,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QMatrix* QMatrix_new(int param1) {
 	return new (std::nothrow) QMatrix(static_cast<Qt::Initialization>(param1));
 }

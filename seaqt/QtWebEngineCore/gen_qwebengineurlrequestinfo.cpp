@@ -14,15 +14,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 int QWebEngineUrlRequestInfo_resourceType(const QWebEngineUrlRequestInfo* self) {
 	QWebEngineUrlRequestInfo::ResourceType _ret = self->resourceType();
 	return static_cast<int>(_ret);

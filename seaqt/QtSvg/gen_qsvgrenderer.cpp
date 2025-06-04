@@ -29,16 +29,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QSvgRenderer_repaintNeeded(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQSvgRenderer final : public QSvgRenderer {
 	const QSvgRenderer_VTable* vtbl;
 public:
@@ -380,10 +370,15 @@ void QSvgRenderer_repaintNeeded(QSvgRenderer* self) {
 	self->repaintNeeded();
 }
 
-void QSvgRenderer_connect_repaintNeeded(QSvgRenderer* self, intptr_t slot) {
-	QSvgRenderer::connect(self, static_cast<void (QSvgRenderer::*)()>(&QSvgRenderer::repaintNeeded), self, [=]() {
-		miqt_exec_callback_QSvgRenderer_repaintNeeded(slot);
-	});
+void QSvgRenderer_connect_repaintNeeded(QSvgRenderer* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QSvgRenderer::connect(self, static_cast<void (QSvgRenderer::*)()>(&QSvgRenderer::repaintNeeded), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QSvgRenderer_tr2(const char* s, const char* c) {

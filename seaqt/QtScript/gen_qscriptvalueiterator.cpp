@@ -17,15 +17,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QScriptValueIterator* QScriptValueIterator_new(QScriptValue* value) {
 	return new (std::nothrow) QScriptValueIterator(*value);
 }

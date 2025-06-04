@@ -51,16 +51,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QProgressDialog_canceled(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQProgressDialog final : public QProgressDialog {
 	const QProgressDialog_VTable* vtbl;
 public:
@@ -935,10 +925,15 @@ void QProgressDialog_canceled(QProgressDialog* self) {
 	self->canceled();
 }
 
-void QProgressDialog_connect_canceled(QProgressDialog* self, intptr_t slot) {
-	QProgressDialog::connect(self, static_cast<void (QProgressDialog::*)()>(&QProgressDialog::canceled), self, [=]() {
-		miqt_exec_callback_QProgressDialog_canceled(slot);
-	});
+void QProgressDialog_connect_canceled(QProgressDialog* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QProgressDialog::connect(self, static_cast<void (QProgressDialog::*)()>(&QProgressDialog::canceled), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QProgressDialog_tr2(const char* s, const char* c) {

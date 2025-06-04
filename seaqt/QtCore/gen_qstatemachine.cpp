@@ -29,18 +29,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QStateMachine_runningChanged(intptr_t, bool);
-void miqt_exec_callback_QStateMachine_started(intptr_t);
-void miqt_exec_callback_QStateMachine_stopped(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQStateMachine final : public QStateMachine {
 	const QStateMachine_VTable* vtbl;
 public:
@@ -435,11 +423,16 @@ void QStateMachine_runningChanged(QStateMachine* self, bool running) {
 	self->runningChanged(running);
 }
 
-void QStateMachine_connect_runningChanged(QStateMachine* self, intptr_t slot) {
-	QStateMachine::connect(self, static_cast<void (QStateMachine::*)(bool)>(&QStateMachine::runningChanged), self, [=](bool running) {
-		bool sigval1 = running;
-		miqt_exec_callback_QStateMachine_runningChanged(slot, sigval1);
-	});
+void QStateMachine_connect_runningChanged(QStateMachine* self, intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, bool);
+		void operator()(bool running) {
+			bool sigval1 = running;
+			callback(slot, sigval1);
+		}
+	};
+	QStateMachine::connect(self, static_cast<void (QStateMachine::*)(bool)>(&QStateMachine::runningChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QStateMachine_tr2(const char* s, const char* c) {

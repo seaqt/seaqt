@@ -54,16 +54,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QMdiArea_subWindowActivated(intptr_t, QMdiSubWindow*);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQMdiArea final : public QMdiArea {
 	const QMdiArea_VTable* vtbl;
 public:
@@ -914,11 +904,16 @@ void QMdiArea_subWindowActivated(QMdiArea* self, QMdiSubWindow* param1) {
 	self->subWindowActivated(param1);
 }
 
-void QMdiArea_connect_subWindowActivated(QMdiArea* self, intptr_t slot) {
-	QMdiArea::connect(self, static_cast<void (QMdiArea::*)(QMdiSubWindow*)>(&QMdiArea::subWindowActivated), self, [=](QMdiSubWindow* param1) {
-		QMdiSubWindow* sigval1 = param1;
-		miqt_exec_callback_QMdiArea_subWindowActivated(slot, sigval1);
-	});
+void QMdiArea_connect_subWindowActivated(QMdiArea* self, intptr_t slot, void (*callback)(intptr_t, QMdiSubWindow*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QMdiSubWindow*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QMdiSubWindow*);
+		void operator()(QMdiSubWindow* param1) {
+			QMdiSubWindow* sigval1 = param1;
+			callback(slot, sigval1);
+		}
+	};
+	QMdiArea::connect(self, static_cast<void (QMdiArea::*)(QMdiSubWindow*)>(&QMdiArea::subWindowActivated), self, local_caller{slot, callback, release});
 }
 
 void QMdiArea_setActiveSubWindow(QMdiArea* self, QMdiSubWindow* window) {

@@ -24,18 +24,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QHistoryState_defaultTransitionChanged(intptr_t);
-void miqt_exec_callback_QHistoryState_defaultStateChanged(intptr_t);
-void miqt_exec_callback_QHistoryState_historyTypeChanged(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQHistoryState final : public QHistoryState {
 	const QHistoryState_VTable* vtbl;
 public:

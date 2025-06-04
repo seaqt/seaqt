@@ -46,15 +46,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QAccessible_installActivationObserver(QAccessible__ActivationObserver* param1) {
 	QAccessible::installActivationObserver(param1);
 }

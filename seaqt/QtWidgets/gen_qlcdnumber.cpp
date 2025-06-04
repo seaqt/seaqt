@@ -49,16 +49,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QLCDNumber_overflow(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQLCDNumber final : public QLCDNumber {
 	const QLCDNumber_VTable* vtbl;
 public:
@@ -841,10 +831,15 @@ void QLCDNumber_overflow(QLCDNumber* self) {
 	self->overflow();
 }
 
-void QLCDNumber_connect_overflow(QLCDNumber* self, intptr_t slot) {
-	QLCDNumber::connect(self, static_cast<void (QLCDNumber::*)()>(&QLCDNumber::overflow), self, [=]() {
-		miqt_exec_callback_QLCDNumber_overflow(slot);
-	});
+void QLCDNumber_connect_overflow(QLCDNumber* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QLCDNumber::connect(self, static_cast<void (QLCDNumber::*)()>(&QLCDNumber::overflow), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QLCDNumber_tr2(const char* s, const char* c) {

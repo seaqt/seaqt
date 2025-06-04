@@ -24,16 +24,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QSequentialAnimationGroup_currentAnimationChanged(intptr_t, QAbstractAnimation*);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQSequentialAnimationGroup final : public QSequentialAnimationGroup {
 	const QSequentialAnimationGroup_VTable* vtbl;
 public:
@@ -298,11 +288,16 @@ void QSequentialAnimationGroup_currentAnimationChanged(QSequentialAnimationGroup
 	self->currentAnimationChanged(current);
 }
 
-void QSequentialAnimationGroup_connect_currentAnimationChanged(QSequentialAnimationGroup* self, intptr_t slot) {
-	QSequentialAnimationGroup::connect(self, static_cast<void (QSequentialAnimationGroup::*)(QAbstractAnimation*)>(&QSequentialAnimationGroup::currentAnimationChanged), self, [=](QAbstractAnimation* current) {
-		QAbstractAnimation* sigval1 = current;
-		miqt_exec_callback_QSequentialAnimationGroup_currentAnimationChanged(slot, sigval1);
-	});
+void QSequentialAnimationGroup_connect_currentAnimationChanged(QSequentialAnimationGroup* self, intptr_t slot, void (*callback)(intptr_t, QAbstractAnimation*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QAbstractAnimation*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QAbstractAnimation*);
+		void operator()(QAbstractAnimation* current) {
+			QAbstractAnimation* sigval1 = current;
+			callback(slot, sigval1);
+		}
+	};
+	QSequentialAnimationGroup::connect(self, static_cast<void (QSequentialAnimationGroup::*)(QAbstractAnimation*)>(&QSequentialAnimationGroup::currentAnimationChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QSequentialAnimationGroup_tr2(const char* s, const char* c) {

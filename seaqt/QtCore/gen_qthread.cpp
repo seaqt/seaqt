@@ -23,17 +23,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QThread_started(intptr_t);
-void miqt_exec_callback_QThread_finished(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQThread final : public QThread {
 	const QThread_VTable* vtbl;
 public:

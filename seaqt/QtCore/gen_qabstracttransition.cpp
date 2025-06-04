@@ -26,18 +26,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QAbstractTransition_triggered(intptr_t);
-void miqt_exec_callback_QAbstractTransition_targetStateChanged(intptr_t);
-void miqt_exec_callback_QAbstractTransition_targetStatesChanged(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQAbstractTransition final : public QAbstractTransition {
 	const QAbstractTransition_VTable* vtbl;
 public:

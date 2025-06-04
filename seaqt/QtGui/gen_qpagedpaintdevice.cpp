@@ -21,15 +21,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQPagedPaintDevice final : public QPagedPaintDevice {
 	const QPagedPaintDevice_VTable* vtbl;
 public:

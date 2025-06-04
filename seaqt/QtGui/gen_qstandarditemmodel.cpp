@@ -35,16 +35,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QStandardItemModel_itemChanged(intptr_t, QStandardItem*);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQStandardItem final : public QStandardItem {
 	const QStandardItem_VTable* vtbl;
 public:
@@ -1818,11 +1808,16 @@ void QStandardItemModel_itemChanged(QStandardItemModel* self, QStandardItem* ite
 	self->itemChanged(item);
 }
 
-void QStandardItemModel_connect_itemChanged(QStandardItemModel* self, intptr_t slot) {
-	QStandardItemModel::connect(self, static_cast<void (QStandardItemModel::*)(QStandardItem*)>(&QStandardItemModel::itemChanged), self, [=](QStandardItem* item) {
-		QStandardItem* sigval1 = item;
-		miqt_exec_callback_QStandardItemModel_itemChanged(slot, sigval1);
-	});
+void QStandardItemModel_connect_itemChanged(QStandardItemModel* self, intptr_t slot, void (*callback)(intptr_t, QStandardItem*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QStandardItem*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QStandardItem*);
+		void operator()(QStandardItem* item) {
+			QStandardItem* sigval1 = item;
+			callback(slot, sigval1);
+		}
+	};
+	QStandardItemModel::connect(self, static_cast<void (QStandardItemModel::*)(QStandardItem*)>(&QStandardItemModel::itemChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QStandardItemModel_tr2(const char* s, const char* c) {

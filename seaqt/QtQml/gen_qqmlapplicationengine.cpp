@@ -28,16 +28,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QQmlApplicationEngine_objectCreated(intptr_t, QObject*, QUrl*);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQQmlApplicationEngine final : public QQmlApplicationEngine {
 	const QQmlApplicationEngine_VTable* vtbl;
 public:
@@ -312,14 +302,19 @@ void QQmlApplicationEngine_objectCreated(QQmlApplicationEngine* self, QObject* o
 	self->objectCreated(object, *url);
 }
 
-void QQmlApplicationEngine_connect_objectCreated(QQmlApplicationEngine* self, intptr_t slot) {
-	QQmlApplicationEngine::connect(self, static_cast<void (QQmlApplicationEngine::*)(QObject*, const QUrl&)>(&QQmlApplicationEngine::objectCreated), self, [=](QObject* object, const QUrl& url) {
-		QObject* sigval1 = object;
-		const QUrl& url_ret = url;
-		// Cast returned reference into pointer
-		QUrl* sigval2 = const_cast<QUrl*>(&url_ret);
-		miqt_exec_callback_QQmlApplicationEngine_objectCreated(slot, sigval1, sigval2);
-	});
+void QQmlApplicationEngine_connect_objectCreated(QQmlApplicationEngine* self, intptr_t slot, void (*callback)(intptr_t, QObject*, QUrl*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QObject*, QUrl*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QObject*, QUrl*);
+		void operator()(QObject* object, const QUrl& url) {
+			QObject* sigval1 = object;
+			const QUrl& url_ret = url;
+			// Cast returned reference into pointer
+			QUrl* sigval2 = const_cast<QUrl*>(&url_ret);
+			callback(slot, sigval1, sigval2);
+		}
+	};
+	QQmlApplicationEngine::connect(self, static_cast<void (QQmlApplicationEngine::*)(QObject*, const QUrl&)>(&QQmlApplicationEngine::objectCreated), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QQmlApplicationEngine_tr2(const char* s, const char* c) {

@@ -21,16 +21,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QTimer_timeout(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQTimer final : public QTimer {
 	const QTimer_VTable* vtbl;
 public:

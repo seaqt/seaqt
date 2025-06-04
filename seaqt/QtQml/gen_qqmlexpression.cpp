@@ -26,16 +26,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QQmlExpression_valueChanged(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQQmlExpression final : public QQmlExpression {
 	const QQmlExpression_VTable* vtbl;
 public:
@@ -341,10 +331,15 @@ void QQmlExpression_valueChanged(QQmlExpression* self) {
 	self->valueChanged();
 }
 
-void QQmlExpression_connect_valueChanged(QQmlExpression* self, intptr_t slot) {
-	QQmlExpression::connect(self, static_cast<void (QQmlExpression::*)()>(&QQmlExpression::valueChanged), self, [=]() {
-		miqt_exec_callback_QQmlExpression_valueChanged(slot);
-	});
+void QQmlExpression_connect_valueChanged(QQmlExpression* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QQmlExpression::connect(self, static_cast<void (QQmlExpression::*)()>(&QQmlExpression::valueChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QQmlExpression_tr2(const char* s, const char* c) {
