@@ -15,9 +15,11 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
+class QMetaObject;
 class QPdfSelection;
 class QRectF;
 #else
+typedef struct QMetaObject QMetaObject;
 typedef struct QPdfSelection QPdfSelection;
 typedef struct QRectF QRectF;
 #endif
@@ -33,6 +35,7 @@ int QPdfSelection_endIndex(const QPdfSelection* self);
 void QPdfSelection_copyToClipboard(const QPdfSelection* self);
 void QPdfSelection_copyToClipboardWithMode(const QPdfSelection* self, int mode);
 
+const QMetaObject* QPdfSelection_staticMetaObject();
 void QPdfSelection_delete(QPdfSelection* self);
 
 #ifdef __cplusplus

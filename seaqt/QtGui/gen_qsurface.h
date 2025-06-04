@@ -15,10 +15,12 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
+class QMetaObject;
 class QSize;
 class QSurface;
 class QSurfaceFormat;
 #else
+typedef struct QMetaObject QMetaObject;
 typedef struct QSize QSize;
 typedef struct QSurface QSurface;
 typedef struct QSurfaceFormat QSurfaceFormat;
@@ -30,6 +32,7 @@ int QSurface_surfaceType(const QSurface* self);
 bool QSurface_supportsOpenGL(const QSurface* self);
 QSize* QSurface_size(const QSurface* self);
 
+const QMetaObject* QSurface_staticMetaObject();
 void QSurface_delete(QSurface* self);
 
 #ifdef __cplusplus

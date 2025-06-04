@@ -97,6 +97,7 @@ QTabBar* QTabBar_new2();
 void QTabBar_virtbase(QTabBar* src, QWidget** outptr_QWidget);
 QMetaObject* QTabBar_metaObject(const QTabBar* self);
 void* QTabBar_metacast(QTabBar* self, const char* param1);
+int QTabBar_metacall(QTabBar* self, int param1, int param2, void** param3);
 struct seaqt_string QTabBar_tr(const char* s);
 int QTabBar_shape(const QTabBar* self);
 void QTabBar_setShape(QTabBar* self, int shape);
@@ -187,6 +188,12 @@ void QTabBar_initStyleOption(const QTabBar* self, QStyleOptionTab* option, int t
 struct seaqt_string QTabBar_tr2(const char* s, const char* c);
 struct seaqt_string QTabBar_tr3(const char* s, const char* c, int n);
 
+bool QTabBar_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QTabBar_virtualbase_metaObject(const void* self);
+bool QTabBar_override_virtual_metacast(void* self, intptr_t slot);
+void* QTabBar_virtualbase_metacast(void* self, const char* param1);
+bool QTabBar_override_virtual_metacall(void* self, intptr_t slot);
+int QTabBar_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QTabBar_override_virtual_sizeHint(void* self, intptr_t slot);
 QSize* QTabBar_virtualbase_sizeHint(const void* self);
 bool QTabBar_override_virtual_minimumSizeHint(void* self, intptr_t slot);
@@ -304,6 +311,7 @@ int QTabBar_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* 
 int QTabBar_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QTabBar_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QTabBar_staticMetaObject();
 void QTabBar_delete(QTabBar* self);
 
 #ifdef __cplusplus

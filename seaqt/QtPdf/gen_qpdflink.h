@@ -15,11 +15,13 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
+class QMetaObject;
 class QPdfLink;
 class QPointF;
 class QRectF;
 class QUrl;
 #else
+typedef struct QMetaObject QMetaObject;
 typedef struct QPdfLink QPdfLink;
 typedef struct QPointF QPointF;
 typedef struct QRectF QRectF;
@@ -42,6 +44,7 @@ struct seaqt_string QPdfLink_toString(const QPdfLink* self);
 void QPdfLink_copyToClipboard(const QPdfLink* self);
 void QPdfLink_copyToClipboardWithMode(const QPdfLink* self, int mode);
 
+const QMetaObject* QPdfLink_staticMetaObject();
 void QPdfLink_delete(QPdfLink* self);
 
 #ifdef __cplusplus

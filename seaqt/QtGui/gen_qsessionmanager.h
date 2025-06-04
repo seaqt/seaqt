@@ -29,6 +29,7 @@ typedef struct QSessionManager QSessionManager;
 void QSessionManager_virtbase(QSessionManager* src, QObject** outptr_QObject);
 QMetaObject* QSessionManager_metaObject(const QSessionManager* self);
 void* QSessionManager_metacast(QSessionManager* self, const char* param1);
+int QSessionManager_metacall(QSessionManager* self, int param1, int param2, void** param3);
 struct seaqt_string QSessionManager_tr(const char* s);
 struct seaqt_string QSessionManager_sessionId(const QSessionManager* self);
 struct seaqt_string QSessionManager_sessionKey(const QSessionManager* self);
@@ -49,6 +50,7 @@ void QSessionManager_requestPhase2(QSessionManager* self);
 struct seaqt_string QSessionManager_tr2(const char* s, const char* c);
 struct seaqt_string QSessionManager_tr3(const char* s, const char* c, int n);
 
+const QMetaObject* QSessionManager_staticMetaObject();
 
 #ifdef __cplusplus
 } /* extern C */

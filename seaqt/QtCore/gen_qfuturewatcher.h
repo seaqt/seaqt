@@ -31,6 +31,7 @@ typedef struct QObject QObject;
 void QFutureWatcherBase_virtbase(QFutureWatcherBase* src, QObject** outptr_QObject);
 QMetaObject* QFutureWatcherBase_metaObject(const QFutureWatcherBase* self);
 void* QFutureWatcherBase_metacast(QFutureWatcherBase* self, const char* param1);
+int QFutureWatcherBase_metacall(QFutureWatcherBase* self, int param1, int param2, void** param3);
 struct seaqt_string QFutureWatcherBase_tr(const char* s);
 int QFutureWatcherBase_progressValue(const QFutureWatcherBase* self);
 int QFutureWatcherBase_progressMinimum(const QFutureWatcherBase* self);
@@ -83,6 +84,7 @@ void QFutureWatcherBase_disconnectNotify(QFutureWatcherBase* self, QMetaMethod* 
 struct seaqt_string QFutureWatcherBase_tr2(const char* s, const char* c);
 struct seaqt_string QFutureWatcherBase_tr3(const char* s, const char* c, int n);
 
+const QMetaObject* QFutureWatcherBase_staticMetaObject();
 void QFutureWatcherBase_delete(QFutureWatcherBase* self);
 
 #ifdef __cplusplus

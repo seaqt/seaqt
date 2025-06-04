@@ -1,3 +1,4 @@
+#include <QMetaObject>
 #include <QSizePolicy>
 #include <QVariant>
 #include <qsizepolicy.h>
@@ -119,6 +120,7 @@ QSizePolicy* QSizePolicy_transposed(const QSizePolicy* self) {
 	return new QSizePolicy(self->transposed());
 }
 
+const QMetaObject* QSizePolicy_staticMetaObject() { return &QSizePolicy::staticMetaObject; }
 void QSizePolicy_delete(QSizePolicy* self) {
 	delete self;
 }

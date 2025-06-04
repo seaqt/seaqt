@@ -52,6 +52,7 @@ QQmlExpression* QQmlExpression_new7(QQmlScriptString* param1, QQmlContext* param
 void QQmlExpression_virtbase(QQmlExpression* src, QObject** outptr_QObject);
 QMetaObject* QQmlExpression_metaObject(const QQmlExpression* self);
 void* QQmlExpression_metacast(QQmlExpression* self, const char* param1);
+int QQmlExpression_metacall(QQmlExpression* self, int param1, int param2, void** param3);
 struct seaqt_string QQmlExpression_tr(const char* s);
 QQmlEngine* QQmlExpression_engine(const QQmlExpression* self);
 QQmlContext* QQmlExpression_context(const QQmlExpression* self);
@@ -75,6 +76,12 @@ struct seaqt_string QQmlExpression_tr3(const char* s, const char* c, int n);
 void QQmlExpression_setSourceLocation2(QQmlExpression* self, struct seaqt_string fileName, int line, int column);
 QVariant* QQmlExpression_evaluateWithValueIsUndefined(QQmlExpression* self, bool* valueIsUndefined);
 
+bool QQmlExpression_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QQmlExpression_virtualbase_metaObject(const void* self);
+bool QQmlExpression_override_virtual_metacast(void* self, intptr_t slot);
+void* QQmlExpression_virtualbase_metacast(void* self, const char* param1);
+bool QQmlExpression_override_virtual_metacall(void* self, intptr_t slot);
+int QQmlExpression_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QQmlExpression_override_virtual_event(void* self, intptr_t slot);
 bool QQmlExpression_virtualbase_event(void* self, QEvent* event);
 bool QQmlExpression_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -95,6 +102,7 @@ int QQmlExpression_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const
 int QQmlExpression_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QQmlExpression_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QQmlExpression_staticMetaObject();
 void QQmlExpression_delete(QQmlExpression* self);
 
 #ifdef __cplusplus

@@ -15,8 +15,10 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
+class QMetaObject;
 class QStandardPaths;
 #else
+typedef struct QMetaObject QMetaObject;
 typedef struct QStandardPaths QStandardPaths;
 #endif
 
@@ -32,6 +34,7 @@ struct seaqt_string QStandardPaths_locate2(int type, struct seaqt_string fileNam
 struct seaqt_array /* of struct seaqt_string */  QStandardPaths_locateAll2(int type, struct seaqt_string fileName, int options);
 struct seaqt_string QStandardPaths_findExecutable2(struct seaqt_string executableName, struct seaqt_array /* of struct seaqt_string */  paths);
 
+const QMetaObject* QStandardPaths_staticMetaObject();
 
 #ifdef __cplusplus
 } /* extern C */
