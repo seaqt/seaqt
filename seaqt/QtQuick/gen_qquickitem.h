@@ -99,6 +99,7 @@ QQuickTransform* QQuickTransform_new2(QObject* parent);
 void QQuickTransform_virtbase(QQuickTransform* src, QObject** outptr_QObject);
 QMetaObject* QQuickTransform_metaObject(const QQuickTransform* self);
 void* QQuickTransform_metacast(QQuickTransform* self, const char* param1);
+int QQuickTransform_metacall(QQuickTransform* self, int param1, int param2, void** param3);
 struct seaqt_string QQuickTransform_tr(const char* s);
 struct seaqt_string QQuickTransform_trUtf8(const char* s);
 void QQuickTransform_appendToItem(QQuickTransform* self, QQuickItem* param1);
@@ -109,6 +110,12 @@ struct seaqt_string QQuickTransform_tr3(const char* s, const char* c, int n);
 struct seaqt_string QQuickTransform_trUtf82(const char* s, const char* c);
 struct seaqt_string QQuickTransform_trUtf83(const char* s, const char* c, int n);
 
+bool QQuickTransform_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QQuickTransform_virtualbase_metaObject(const void* self);
+bool QQuickTransform_override_virtual_metacast(void* self, intptr_t slot);
+void* QQuickTransform_virtualbase_metacast(void* self, const char* param1);
+bool QQuickTransform_override_virtual_metacall(void* self, intptr_t slot);
+int QQuickTransform_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QQuickTransform_override_virtual_applyTo(void* self, intptr_t slot);
 void QQuickTransform_virtualbase_applyTo(const void* self, QMatrix4x4* matrix);
 bool QQuickTransform_override_virtual_event(void* self, intptr_t slot);
@@ -132,6 +139,7 @@ int QQuickTransform_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, cons
 int QQuickTransform_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QQuickTransform_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QQuickTransform_staticMetaObject();
 void QQuickTransform_delete(QQuickTransform* self);
 
 QQuickItem* QQuickItem_new();
@@ -139,6 +147,7 @@ QQuickItem* QQuickItem_new2(QQuickItem* parent);
 void QQuickItem_virtbase(QQuickItem* src, QObject** outptr_QObject, QQmlParserStatus** outptr_QQmlParserStatus);
 QMetaObject* QQuickItem_metaObject(const QQuickItem* self);
 void* QQuickItem_metacast(QQuickItem* self, const char* param1);
+int QQuickItem_metacall(QQuickItem* self, int param1, int param2, void** param3);
 struct seaqt_string QQuickItem_tr(const char* s);
 struct seaqt_string QQuickItem_trUtf8(const char* s);
 QQuickWindow* QQuickItem_window(const QQuickItem* self);
@@ -343,6 +352,12 @@ void QQuickItem_setFlag2(QQuickItem* self, int flag, bool enabled);
 bool QQuickItem_grabToImage3(QQuickItem* self, QJSValue* callback, QSize* targetSize);
 QQuickItem* QQuickItem_nextItemInFocusChainWithForward(QQuickItem* self, bool forward);
 
+bool QQuickItem_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QQuickItem_virtualbase_metaObject(const void* self);
+bool QQuickItem_override_virtual_metacast(void* self, intptr_t slot);
+void* QQuickItem_virtualbase_metacast(void* self, const char* param1);
+bool QQuickItem_override_virtual_metacall(void* self, intptr_t slot);
+int QQuickItem_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QQuickItem_override_virtual_boundingRect(void* self, intptr_t slot);
 QRectF* QQuickItem_virtualbase_boundingRect(const void* self);
 bool QQuickItem_override_virtual_clipRect(void* self, intptr_t slot);
@@ -439,6 +454,7 @@ int QQuickItem_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const voi
 int QQuickItem_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QQuickItem_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QQuickItem_staticMetaObject();
 void QQuickItem_delete(QQuickItem* self);
 
 QQuickItem__ItemChangeData* QQuickItem__ItemChangeData_new(QQuickItem* v);

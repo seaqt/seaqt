@@ -43,6 +43,7 @@ QSoundEffect* QSoundEffect_new4(QAudioDeviceInfo* audioDevice, QObject* parent);
 void QSoundEffect_virtbase(QSoundEffect* src, QObject** outptr_QObject);
 QMetaObject* QSoundEffect_metaObject(const QSoundEffect* self);
 void* QSoundEffect_metacast(QSoundEffect* self, const char* param1);
+int QSoundEffect_metacall(QSoundEffect* self, int param1, int param2, void** param3);
 struct seaqt_string QSoundEffect_tr(const char* s);
 struct seaqt_string QSoundEffect_trUtf8(const char* s);
 struct seaqt_array /* of struct seaqt_string */  QSoundEffect_supportedMimeTypes();
@@ -85,6 +86,12 @@ struct seaqt_string QSoundEffect_tr3(const char* s, const char* c, int n);
 struct seaqt_string QSoundEffect_trUtf82(const char* s, const char* c);
 struct seaqt_string QSoundEffect_trUtf83(const char* s, const char* c, int n);
 
+bool QSoundEffect_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QSoundEffect_virtualbase_metaObject(const void* self);
+bool QSoundEffect_override_virtual_metacast(void* self, intptr_t slot);
+void* QSoundEffect_virtualbase_metacast(void* self, const char* param1);
+bool QSoundEffect_override_virtual_metacall(void* self, intptr_t slot);
+int QSoundEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QSoundEffect_override_virtual_event(void* self, intptr_t slot);
 bool QSoundEffect_virtualbase_event(void* self, QEvent* event);
 bool QSoundEffect_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -105,6 +112,7 @@ int QSoundEffect_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const v
 int QSoundEffect_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QSoundEffect_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QSoundEffect_staticMetaObject();
 void QSoundEffect_delete(QSoundEffect* self);
 
 #ifdef __cplusplus

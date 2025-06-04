@@ -1,4 +1,5 @@
 #include <QCborError>
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -29,6 +30,7 @@ struct seaqt_string QCborError_toString(const QCborError* self) {
 	return _ms;
 }
 
+const QMetaObject* QCborError_staticMetaObject() { return &QCborError::staticMetaObject; }
 void QCborError_delete(QCborError* self) {
 	delete self;
 }

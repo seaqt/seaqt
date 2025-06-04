@@ -104,6 +104,7 @@ QMessageBox* QMessageBox_new9(struct seaqt_string title, struct seaqt_string tex
 void QMessageBox_virtbase(QMessageBox* src, QDialog** outptr_QDialog);
 QMetaObject* QMessageBox_metaObject(const QMessageBox* self);
 void* QMessageBox_metacast(QMessageBox* self, const char* param1);
+int QMessageBox_metacall(QMessageBox* self, int param1, int param2, void** param3);
 struct seaqt_string QMessageBox_tr(const char* s);
 struct seaqt_string QMessageBox_trUtf8(const char* s);
 void QMessageBox_addButton(QMessageBox* self, QAbstractButton* button, int role);
@@ -207,6 +208,12 @@ int QMessageBox_critical9(QWidget* parent, struct seaqt_string title, struct sea
 int QMessageBox_critical10(QWidget* parent, struct seaqt_string title, struct seaqt_string text, struct seaqt_string button0Text, struct seaqt_string button1Text, struct seaqt_string button2Text, int defaultButtonNumber);
 int QMessageBox_critical11(QWidget* parent, struct seaqt_string title, struct seaqt_string text, struct seaqt_string button0Text, struct seaqt_string button1Text, struct seaqt_string button2Text, int defaultButtonNumber, int escapeButtonNumber);
 
+bool QMessageBox_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QMessageBox_virtualbase_metaObject(const void* self);
+bool QMessageBox_override_virtual_metacast(void* self, intptr_t slot);
+void* QMessageBox_virtualbase_metacast(void* self, const char* param1);
+bool QMessageBox_override_virtual_metacall(void* self, intptr_t slot);
+int QMessageBox_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QMessageBox_override_virtual_event(void* self, intptr_t slot);
 bool QMessageBox_virtualbase_event(void* self, QEvent* e);
 bool QMessageBox_override_virtual_resizeEvent(void* self, intptr_t slot);
@@ -323,6 +330,7 @@ int QMessageBox_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const vo
 int QMessageBox_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QMessageBox_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QMessageBox_staticMetaObject();
 void QMessageBox_delete(QMessageBox* self);
 
 #ifdef __cplusplus

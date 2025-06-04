@@ -172,6 +172,7 @@ QStandardItemModel* QStandardItemModel_new4(int rows, int columns, QObject* pare
 void QStandardItemModel_virtbase(QStandardItemModel* src, QAbstractItemModel** outptr_QAbstractItemModel);
 QMetaObject* QStandardItemModel_metaObject(const QStandardItemModel* self);
 void* QStandardItemModel_metacast(QStandardItemModel* self, const char* param1);
+int QStandardItemModel_metacall(QStandardItemModel* self, int param1, int param2, void** param3);
 struct seaqt_string QStandardItemModel_tr(const char* s);
 struct seaqt_string QStandardItemModel_trUtf8(const char* s);
 void QStandardItemModel_setItemRoleNames(QStandardItemModel* self, struct seaqt_map /* of int to struct seaqt_string */  roleNames);
@@ -244,6 +245,12 @@ QStandardItem* QStandardItemModel_takeItem2(QStandardItemModel* self, int row, i
 struct seaqt_array /* of QStandardItem* */  QStandardItemModel_findItems2(const QStandardItemModel* self, struct seaqt_string text, int flags);
 struct seaqt_array /* of QStandardItem* */  QStandardItemModel_findItems3(const QStandardItemModel* self, struct seaqt_string text, int flags, int column);
 
+bool QStandardItemModel_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QStandardItemModel_virtualbase_metaObject(const void* self);
+bool QStandardItemModel_override_virtual_metacast(void* self, intptr_t slot);
+void* QStandardItemModel_virtualbase_metacast(void* self, const char* param1);
+bool QStandardItemModel_override_virtual_metacall(void* self, intptr_t slot);
+int QStandardItemModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QStandardItemModel_override_virtual_index(void* self, intptr_t slot);
 QModelIndex* QStandardItemModel_virtualbase_index(const void* self, int row, int column, QModelIndex* parent);
 bool QStandardItemModel_override_virtual_parent(void* self, intptr_t slot);
@@ -353,6 +360,7 @@ int QStandardItemModel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, c
 int QStandardItemModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QStandardItemModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QStandardItemModel_staticMetaObject();
 void QStandardItemModel_delete(QStandardItemModel* self);
 
 #ifdef __cplusplus

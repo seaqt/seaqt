@@ -61,6 +61,7 @@ QProcess* QProcess_new2(QObject* parent);
 void QProcess_virtbase(QProcess* src, QIODevice** outptr_QIODevice);
 QMetaObject* QProcess_metaObject(const QProcess* self);
 void* QProcess_metacast(QProcess* self, const char* param1);
+int QProcess_metacall(QProcess* self, int param1, int param2, void** param3);
 struct seaqt_string QProcess_tr(const char* s);
 struct seaqt_string QProcess_trUtf8(const char* s);
 void QProcess_start(QProcess* self, struct seaqt_string program, struct seaqt_array /* of struct seaqt_string */  arguments);
@@ -144,6 +145,12 @@ bool QProcess_waitForStartedWithMsecs(QProcess* self, int msecs);
 bool QProcess_waitForFinishedWithMsecs(QProcess* self, int msecs);
 bool QProcess_startDetached4(struct seaqt_string program, struct seaqt_array /* of struct seaqt_string */  arguments, struct seaqt_string workingDirectory, long long* pid);
 
+bool QProcess_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QProcess_virtualbase_metaObject(const void* self);
+bool QProcess_override_virtual_metacast(void* self, intptr_t slot);
+void* QProcess_virtualbase_metacast(void* self, const char* param1);
+bool QProcess_override_virtual_metacall(void* self, intptr_t slot);
+int QProcess_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QProcess_override_virtual_open(void* self, intptr_t slot);
 bool QProcess_virtualbase_open(void* self, int mode);
 bool QProcess_override_virtual_waitForReadyRead(void* self, intptr_t slot);
@@ -206,6 +213,7 @@ void QProcess_connect_stateChanged(QProcess* self, intptr_t slot);
 void QProcess_connect_readyReadStandardOutput(QProcess* self, intptr_t slot);
 void QProcess_connect_readyReadStandardError(QProcess* self, intptr_t slot);
 
+const QMetaObject* QProcess_staticMetaObject();
 void QProcess_delete(QProcess* self);
 
 #ifdef __cplusplus

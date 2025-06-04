@@ -58,6 +58,7 @@ QQmlEngine* QQmlEngine_new2(QObject* p);
 void QQmlEngine_virtbase(QQmlEngine* src, QJSEngine** outptr_QJSEngine);
 QMetaObject* QQmlEngine_metaObject(const QQmlEngine* self);
 void* QQmlEngine_metacast(QQmlEngine* self, const char* param1);
+int QQmlEngine_metacall(QQmlEngine* self, int param1, int param2, void** param3);
 struct seaqt_string QQmlEngine_tr(const char* s);
 struct seaqt_string QQmlEngine_trUtf8(const char* s);
 QQmlContext* QQmlEngine_rootContext(const QQmlEngine* self);
@@ -104,6 +105,12 @@ struct seaqt_string QQmlEngine_tr3(const char* s, const char* c, int n);
 struct seaqt_string QQmlEngine_trUtf82(const char* s, const char* c);
 struct seaqt_string QQmlEngine_trUtf83(const char* s, const char* c, int n);
 
+bool QQmlEngine_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QQmlEngine_virtualbase_metaObject(const void* self);
+bool QQmlEngine_override_virtual_metacast(void* self, intptr_t slot);
+void* QQmlEngine_virtualbase_metacast(void* self, const char* param1);
+bool QQmlEngine_override_virtual_metacall(void* self, intptr_t slot);
+int QQmlEngine_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QQmlEngine_override_virtual_event(void* self, intptr_t slot);
 bool QQmlEngine_virtualbase_event(void* self, QEvent* param1);
 bool QQmlEngine_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -124,6 +131,7 @@ int QQmlEngine_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const voi
 int QQmlEngine_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QQmlEngine_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QQmlEngine_staticMetaObject();
 void QQmlEngine_delete(QQmlEngine* self);
 
 #ifdef __cplusplus

@@ -89,6 +89,7 @@ QFocusFrame* QFocusFrame_new2();
 void QFocusFrame_virtbase(QFocusFrame* src, QWidget** outptr_QWidget);
 QMetaObject* QFocusFrame_metaObject(const QFocusFrame* self);
 void* QFocusFrame_metacast(QFocusFrame* self, const char* param1);
+int QFocusFrame_metacall(QFocusFrame* self, int param1, int param2, void** param3);
 struct seaqt_string QFocusFrame_tr(const char* s);
 struct seaqt_string QFocusFrame_trUtf8(const char* s);
 void QFocusFrame_setWidget(QFocusFrame* self, QWidget* widget);
@@ -101,6 +102,12 @@ struct seaqt_string QFocusFrame_tr3(const char* s, const char* c, int n);
 struct seaqt_string QFocusFrame_trUtf82(const char* s, const char* c);
 struct seaqt_string QFocusFrame_trUtf83(const char* s, const char* c, int n);
 
+bool QFocusFrame_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QFocusFrame_virtualbase_metaObject(const void* self);
+bool QFocusFrame_override_virtual_metacast(void* self, intptr_t slot);
+void* QFocusFrame_virtualbase_metacast(void* self, const char* param1);
+bool QFocusFrame_override_virtual_metacall(void* self, intptr_t slot);
+int QFocusFrame_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QFocusFrame_override_virtual_event(void* self, intptr_t slot);
 bool QFocusFrame_virtualbase_event(void* self, QEvent* e);
 bool QFocusFrame_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -207,6 +214,7 @@ int QFocusFrame_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const vo
 int QFocusFrame_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QFocusFrame_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QFocusFrame_staticMetaObject();
 void QFocusFrame_delete(QFocusFrame* self);
 
 #ifdef __cplusplus

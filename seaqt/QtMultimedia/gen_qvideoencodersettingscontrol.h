@@ -35,6 +35,7 @@ typedef struct QVideoEncoderSettingsControl QVideoEncoderSettingsControl;
 void QVideoEncoderSettingsControl_virtbase(QVideoEncoderSettingsControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QVideoEncoderSettingsControl_metaObject(const QVideoEncoderSettingsControl* self);
 void* QVideoEncoderSettingsControl_metacast(QVideoEncoderSettingsControl* self, const char* param1);
+int QVideoEncoderSettingsControl_metacall(QVideoEncoderSettingsControl* self, int param1, int param2, void** param3);
 struct seaqt_string QVideoEncoderSettingsControl_tr(const char* s);
 struct seaqt_string QVideoEncoderSettingsControl_trUtf8(const char* s);
 struct seaqt_array /* of QSize* */  QVideoEncoderSettingsControl_supportedResolutions(const QVideoEncoderSettingsControl* self, QVideoEncoderSettings* settings, bool* continuous);
@@ -48,6 +49,7 @@ struct seaqt_string QVideoEncoderSettingsControl_tr3(const char* s, const char* 
 struct seaqt_string QVideoEncoderSettingsControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QVideoEncoderSettingsControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QVideoEncoderSettingsControl_staticMetaObject();
 void QVideoEncoderSettingsControl_delete(QVideoEncoderSettingsControl* self);
 
 #ifdef __cplusplus

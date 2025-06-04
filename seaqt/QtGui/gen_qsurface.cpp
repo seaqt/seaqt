@@ -1,3 +1,4 @@
+#include <QMetaObject>
 #include <QSize>
 #include <QSurface>
 #include <QSurfaceFormat>
@@ -34,6 +35,7 @@ QSize* QSurface_size(const QSurface* self) {
 	return new QSize(self->size());
 }
 
+const QMetaObject* QSurface_staticMetaObject() { return &QSurface::staticMetaObject; }
 void QSurface_delete(QSurface* self) {
 	delete self;
 }

@@ -1,4 +1,5 @@
 #include <QByteArray>
+#include <QMetaObject>
 #include <QWebEngineUrlScheme>
 #include <qwebengineurlscheme.h>
 #include "gen_qwebengineurlscheme.h"
@@ -85,6 +86,7 @@ QWebEngineUrlScheme* QWebEngineUrlScheme_schemeByName(struct seaqt_string name) 
 	return new QWebEngineUrlScheme(QWebEngineUrlScheme::schemeByName(name_QByteArray));
 }
 
+const QMetaObject* QWebEngineUrlScheme_staticMetaObject() { return &QWebEngineUrlScheme::staticMetaObject; }
 void QWebEngineUrlScheme_delete(QWebEngineUrlScheme* self) {
 	delete self;
 }

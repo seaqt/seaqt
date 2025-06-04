@@ -1,3 +1,4 @@
+#include <QMetaObject>
 #include <QPdfDestination>
 #include <QPdfSearchResult>
 #include <QRectF>
@@ -63,6 +64,7 @@ struct seaqt_array /* of QRectF* */  QPdfSearchResult_rectangles(const QPdfSearc
 	return _out;
 }
 
+const QMetaObject* QPdfSearchResult_staticMetaObject() { return &QPdfSearchResult::staticMetaObject; }
 void QPdfSearchResult_delete(QPdfSearchResult* self) {
 	delete self;
 }

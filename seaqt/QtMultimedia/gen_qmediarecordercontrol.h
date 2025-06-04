@@ -33,6 +33,7 @@ typedef struct QUrl QUrl;
 void QMediaRecorderControl_virtbase(QMediaRecorderControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QMediaRecorderControl_metaObject(const QMediaRecorderControl* self);
 void* QMediaRecorderControl_metacast(QMediaRecorderControl* self, const char* param1);
+int QMediaRecorderControl_metacall(QMediaRecorderControl* self, int param1, int param2, void** param3);
 struct seaqt_string QMediaRecorderControl_tr(const char* s);
 struct seaqt_string QMediaRecorderControl_trUtf8(const char* s);
 QUrl* QMediaRecorderControl_outputLocation(const QMediaRecorderControl* self);
@@ -65,6 +66,7 @@ struct seaqt_string QMediaRecorderControl_tr3(const char* s, const char* c, int 
 struct seaqt_string QMediaRecorderControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QMediaRecorderControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QMediaRecorderControl_staticMetaObject();
 void QMediaRecorderControl_delete(QMediaRecorderControl* self);
 
 #ifdef __cplusplus

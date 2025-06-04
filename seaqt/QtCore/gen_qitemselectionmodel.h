@@ -77,6 +77,7 @@ QItemSelectionModel* QItemSelectionModel_new3(QAbstractItemModel* model);
 void QItemSelectionModel_virtbase(QItemSelectionModel* src, QObject** outptr_QObject);
 QMetaObject* QItemSelectionModel_metaObject(const QItemSelectionModel* self);
 void* QItemSelectionModel_metacast(QItemSelectionModel* self, const char* param1);
+int QItemSelectionModel_metacall(QItemSelectionModel* self, int param1, int param2, void** param3);
 struct seaqt_string QItemSelectionModel_tr(const char* s);
 struct seaqt_string QItemSelectionModel_trUtf8(const char* s);
 QModelIndex* QItemSelectionModel_currentIndex(const QItemSelectionModel* self);
@@ -121,6 +122,12 @@ bool QItemSelectionModel_columnIntersectsSelection2(const QItemSelectionModel* s
 struct seaqt_array /* of QModelIndex* */  QItemSelectionModel_selectedRowsWithColumn(const QItemSelectionModel* self, int column);
 struct seaqt_array /* of QModelIndex* */  QItemSelectionModel_selectedColumnsWithRow(const QItemSelectionModel* self, int row);
 
+bool QItemSelectionModel_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QItemSelectionModel_virtualbase_metaObject(const void* self);
+bool QItemSelectionModel_override_virtual_metacast(void* self, intptr_t slot);
+void* QItemSelectionModel_virtualbase_metacast(void* self, const char* param1);
+bool QItemSelectionModel_override_virtual_metacall(void* self, intptr_t slot);
+int QItemSelectionModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QItemSelectionModel_override_virtual_setCurrentIndex(void* self, intptr_t slot);
 void QItemSelectionModel_virtualbase_setCurrentIndex(void* self, QModelIndex* index, int command);
 bool QItemSelectionModel_override_virtual_select(void* self, intptr_t slot);
@@ -154,6 +161,7 @@ int QItemSelectionModel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, 
 int QItemSelectionModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QItemSelectionModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QItemSelectionModel_staticMetaObject();
 void QItemSelectionModel_delete(QItemSelectionModel* self);
 
 QItemSelection* QItemSelection_new();
