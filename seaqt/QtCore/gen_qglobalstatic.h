@@ -1,6 +1,6 @@
 #pragma once
-#ifndef SEAQT_QTQML_GEN_QQML_H
-#define SEAQT_QTQML_GEN_QQML_H
+#ifndef SEAQT_QTCORE_GEN_QGLOBALSTATIC_H
+#define SEAQT_QTCORE_GEN_QGLOBALSTATIC_H
 
 #include <stdbool.h>
 #include <stddef.h>

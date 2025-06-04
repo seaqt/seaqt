@@ -230,6 +230,7 @@ void QQuickFramebufferObject_delete(QQuickFramebufferObject* self);
 
 void QQuickFramebufferObject__Renderer_render(QQuickFramebufferObject__Renderer* self);
 void QQuickFramebufferObject__Renderer_synchronize(QQuickFramebufferObject__Renderer* self, QQuickFramebufferObject* param1);
+void QQuickFramebufferObject__Renderer_operatorAssign(QQuickFramebufferObject__Renderer* self, QQuickFramebufferObject__Renderer* param1);
 
 
 #ifdef __cplusplus

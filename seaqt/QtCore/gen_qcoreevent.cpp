@@ -142,6 +142,10 @@ struct seaqt_string QDynamicPropertyChangeEvent_propertyName(const QDynamicPrope
 	return _ms;
 }
 
+void QDynamicPropertyChangeEvent_operatorAssign(QDynamicPropertyChangeEvent* self, QDynamicPropertyChangeEvent* param1) {
+	self->operator=(*param1);
+}
+
 void QDynamicPropertyChangeEvent_delete(QDynamicPropertyChangeEvent* self) {
 	delete self;
 }

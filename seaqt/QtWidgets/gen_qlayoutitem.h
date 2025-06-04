@@ -138,6 +138,7 @@ void QSpacerItem_setGeometry(QSpacerItem* self, QRect* geometry);
 QRect* QSpacerItem_geometry(const QSpacerItem* self);
 QSpacerItem* QSpacerItem_spacerItem(QSpacerItem* self);
 QSizePolicy* QSpacerItem_sizePolicy(const QSpacerItem* self);
+void QSpacerItem_operatorAssign(QSpacerItem* self, QSpacerItem* param1);
 void QSpacerItem_changeSize2(QSpacerItem* self, int w, int h, int hData);
 void QSpacerItem_changeSize3(QSpacerItem* self, int w, int h, int hData, int vData);
 

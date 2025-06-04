@@ -64,6 +64,7 @@ double QTextLength_rawValue(const QTextLength* self);
 bool QTextLength_operatorEqual(const QTextLength* self, QTextLength* other);
 bool QTextLength_operatorNotEqual(const QTextLength* self, QTextLength* other);
 QVariant* QTextLength_ToQVariant(const QTextLength* self);
+void QTextLength_operatorAssign(QTextLength* self, QTextLength* param1);
 
 void QTextLength_delete(QTextLength* self);
 

@@ -50,6 +50,7 @@ typedef struct QUrl QUrl;
 
 int QQmlImageProviderBase_imageType(const QQmlImageProviderBase* self);
 int QQmlImageProviderBase_flags(const QQmlImageProviderBase* self);
+void QQmlImageProviderBase_operatorAssign(QQmlImageProviderBase* self, QQmlImageProviderBase* param1);
 
 void QQmlImageProviderBase_delete(QQmlImageProviderBase* self);
 

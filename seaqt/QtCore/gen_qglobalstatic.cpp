@@ -1,5 +1,5 @@
-#include <qqml.h>
-#include "gen_qqml.h"
+#include <qglobalstatic.h>
+#include "gen_qglobalstatic.h"
 
 #ifndef SEAQT_ALIGNED_SIZEOF
 #define SEAQT_ALIGNED_SIZEOF 1
