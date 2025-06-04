@@ -105,7 +105,9 @@ public:
 
 		int sigval1 = role;
 		QVariant* callback_return_value = vtbl->data(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QListWidgetItem_virtualbase_data(const VirtualQListWidgetItem* self, int role);
@@ -548,8 +550,10 @@ public:
 		struct seaqt_string* callback_return_value_arr = static_cast<struct seaqt_string*>(callback_return_value.data);
 		for(size_t i = 0; i < callback_return_value.len; ++i) {
 			QString callback_return_value_arr_i_QString = QString::fromUtf8(callback_return_value_arr[i].data, callback_return_value_arr[i].len);
+			free(callback_return_value_arr[i].data);
 			callback_return_value_QList.push_back(callback_return_value_arr_i_QString);
 		}
+		free(callback_return_value.data);
 		return callback_return_value_QList;
 	}
 
@@ -611,7 +615,9 @@ public:
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
 		QRect* callback_return_value = vtbl->visualRect(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRect* QListWidget_virtualbase_visualRect(const VirtualQListWidget* self, QModelIndex* index);
@@ -641,7 +647,9 @@ public:
 		// Cast returned reference into pointer
 		QPoint* sigval1 = const_cast<QPoint*>(&p_ret);
 		QModelIndex* callback_return_value = vtbl->indexAt(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QModelIndex* QListWidget_virtualbase_indexAt(const VirtualQListWidget* self, QPoint* p);
@@ -907,7 +915,9 @@ public:
 		Qt::KeyboardModifiers modifiers_ret = modifiers;
 		int sigval2 = static_cast<int>(modifiers_ret);
 		QModelIndex* callback_return_value = vtbl->moveCursor(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QModelIndex* QListWidget_virtualbase_moveCursor(VirtualQListWidget* self, int cursorAction, int modifiers);
@@ -937,7 +947,9 @@ public:
 		// Cast returned reference into pointer
 		QItemSelection* sigval1 = const_cast<QItemSelection*>(&selection_ret);
 		QRegion* callback_return_value = vtbl->visualRegionForSelection(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRegion* QListWidget_virtualbase_visualRegionForSelection(const VirtualQListWidget* self, QItemSelection* selection);
@@ -954,6 +966,7 @@ public:
 		for(size_t i = 0; i < callback_return_value.len; ++i) {
 			callback_return_value_QList.push_back(*(callback_return_value_arr[i]));
 		}
+		free(callback_return_value.data);
 		return callback_return_value_QList;
 	}
 
@@ -1024,7 +1037,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->viewportSizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QListWidget_virtualbase_viewportSizeHint(const VirtualQListWidget* self);
@@ -1094,7 +1109,9 @@ public:
 		Qt::InputMethodQuery query_ret = query;
 		int sigval1 = static_cast<int>(query_ret);
 		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QListWidget_virtualbase_inputMethodQuery(const VirtualQListWidget* self, int query);
@@ -1377,7 +1394,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->minimumSizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QListWidget_virtualbase_minimumSizeHint(const VirtualQListWidget* self);
@@ -1388,7 +1407,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->sizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QListWidget_virtualbase_sizeHint(const VirtualQListWidget* self);

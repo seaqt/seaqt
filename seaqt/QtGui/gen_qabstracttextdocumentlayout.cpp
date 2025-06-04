@@ -124,7 +124,9 @@ public:
 		}
 
 		QSizeF* callback_return_value = vtbl->documentSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	virtual QRectF frameBoundingRect(QTextFrame* frame) const override {
@@ -134,7 +136,9 @@ public:
 
 		QTextFrame* sigval1 = frame;
 		QRectF* callback_return_value = vtbl->frameBoundingRect(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	virtual QRectF blockBoundingRect(const QTextBlock& block) const override {
@@ -146,7 +150,9 @@ public:
 		// Cast returned reference into pointer
 		QTextBlock* sigval1 = const_cast<QTextBlock*>(&block_ret);
 		QRectF* callback_return_value = vtbl->blockBoundingRect(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	virtual void documentChanged(int from, int charsRemoved, int charsAdded) override {

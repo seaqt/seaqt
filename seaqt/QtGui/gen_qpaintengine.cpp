@@ -346,7 +346,9 @@ public:
 		}
 
 		QPoint* callback_return_value = vtbl->coordinateOffset(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QPoint* QPaintEngine_virtualbase_coordinateOffset(const VirtualQPaintEngine* self);
@@ -367,7 +369,9 @@ public:
 
 		QSize* sigval1 = new QSize(size);
 		QPixmap* callback_return_value = vtbl->createPixmap(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QPixmap* QPaintEngine_virtualbase_createPixmap(VirtualQPaintEngine* self, QSize* size);
@@ -381,7 +385,9 @@ public:
 		Qt::ImageConversionFlags flags_ret = flags;
 		int sigval2 = static_cast<int>(flags_ret);
 		QPixmap* callback_return_value = vtbl->createPixmapFromImage(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QPixmap* QPaintEngine_virtualbase_createPixmapFromImage(VirtualQPaintEngine* self, QImage* image, int flags);

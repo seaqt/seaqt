@@ -116,7 +116,9 @@ public:
 		// Cast returned reference into pointer
 		QUrl* sigval2 = const_cast<QUrl*>(&name_ret);
 		QVariant* callback_return_value = vtbl->loadResource(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QTextBrowser_virtualbase_loadResource(VirtualQTextBrowser* self, int type, QUrl* name);
@@ -285,7 +287,9 @@ public:
 		Qt::InputMethodQuery property_ret = property;
 		int sigval1 = static_cast<int>(property_ret);
 		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QTextBrowser_virtualbase_inputMethodQuery(const VirtualQTextBrowser* self, int property);
@@ -526,7 +530,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->minimumSizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QTextBrowser_virtualbase_minimumSizeHint(const VirtualQTextBrowser* self);
@@ -537,7 +543,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->sizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QTextBrowser_virtualbase_sizeHint(const VirtualQTextBrowser* self);
@@ -585,7 +593,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->viewportSizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QTextBrowser_virtualbase_viewportSizeHint(const VirtualQTextBrowser* self);

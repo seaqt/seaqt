@@ -88,7 +88,9 @@ public:
 		}
 
 		QRectF* callback_return_value = vtbl->rect(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRectF* QSGRenderNode_virtualbase_rect(const VirtualQSGRenderNode* self);
