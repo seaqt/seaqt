@@ -8,117 +8,106 @@
 #include <qfileiconprovider.h>
 #include "gen_qfileiconprovider.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QIcon* miqt_exec_callback_QFileIconProvider_icon(const QFileIconProvider*, intptr_t, int);
-QIcon* miqt_exec_callback_QFileIconProvider_iconWithInfo(const QFileIconProvider*, intptr_t, QFileInfo*);
-struct seaqt_string miqt_exec_callback_QFileIconProvider_type(const QFileIconProvider*, intptr_t, QFileInfo*);
-void miqt_exec_callback_QFileIconProvider_setOptions(QFileIconProvider*, intptr_t, int);
-int miqt_exec_callback_QFileIconProvider_options(const QFileIconProvider*, intptr_t);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQFileIconProvider final : public QFileIconProvider {
+	const QFileIconProvider_VTable* vtbl;
 public:
+	friend void* QFileIconProvider_vdata(VirtualQFileIconProvider* self);
+	friend VirtualQFileIconProvider* vdata_QFileIconProvider(void* vdata);
 
-	VirtualQFileIconProvider(): QFileIconProvider() {}
+	VirtualQFileIconProvider(const QFileIconProvider_VTable* vtbl): QFileIconProvider(), vtbl(vtbl) {}
 
-	virtual ~VirtualQFileIconProvider() override = default;
+	virtual ~VirtualQFileIconProvider() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__icon = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QIcon icon(QAbstractFileIconProvider::IconType type) const override {
-		if (handle__icon == 0) {
+		if (vtbl->icon == 0) {
 			return QFileIconProvider::icon(type);
 		}
 
 		QAbstractFileIconProvider::IconType type_ret = type;
 		int sigval1 = static_cast<int>(type_ret);
-		QIcon* callback_return_value = miqt_exec_callback_QFileIconProvider_icon(this, handle__icon, sigval1);
+		QIcon* callback_return_value = vtbl->icon(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QIcon* QFileIconProvider_virtualbase_icon(const void* self, int type);
+	friend QIcon* QFileIconProvider_virtualbase_icon(const VirtualQFileIconProvider* self, int type);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__iconWithInfo = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QIcon icon(const QFileInfo& info) const override {
-		if (handle__iconWithInfo == 0) {
+		if (vtbl->iconWithInfo == 0) {
 			return QFileIconProvider::icon(info);
 		}
 
 		const QFileInfo& info_ret = info;
 		// Cast returned reference into pointer
 		QFileInfo* sigval1 = const_cast<QFileInfo*>(&info_ret);
-		QIcon* callback_return_value = miqt_exec_callback_QFileIconProvider_iconWithInfo(this, handle__iconWithInfo, sigval1);
+		QIcon* callback_return_value = vtbl->iconWithInfo(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QIcon* QFileIconProvider_virtualbase_iconWithInfo(const void* self, QFileInfo* info);
+	friend QIcon* QFileIconProvider_virtualbase_iconWithInfo(const VirtualQFileIconProvider* self, QFileInfo* info);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__type = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString type(const QFileInfo& param1) const override {
-		if (handle__type == 0) {
+		if (vtbl->type == 0) {
 			return QFileIconProvider::type(param1);
 		}
 
 		const QFileInfo& param1_ret = param1;
 		// Cast returned reference into pointer
 		QFileInfo* sigval1 = const_cast<QFileInfo*>(&param1_ret);
-		struct seaqt_string callback_return_value = miqt_exec_callback_QFileIconProvider_type(this, handle__type, sigval1);
+		struct seaqt_string callback_return_value = vtbl->type(this, sigval1);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	friend struct seaqt_string QFileIconProvider_virtualbase_type(const void* self, QFileInfo* param1);
+	friend struct seaqt_string QFileIconProvider_virtualbase_type(const VirtualQFileIconProvider* self, QFileInfo* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setOptions = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setOptions(QAbstractFileIconProvider::Options options) override {
-		if (handle__setOptions == 0) {
+		if (vtbl->setOptions == 0) {
 			QFileIconProvider::setOptions(options);
 			return;
 		}
 
 		QAbstractFileIconProvider::Options options_ret = options;
 		int sigval1 = static_cast<int>(options_ret);
-		miqt_exec_callback_QFileIconProvider_setOptions(this, handle__setOptions, sigval1);
-
+		vtbl->setOptions(this, sigval1);
 	}
 
-	friend void QFileIconProvider_virtualbase_setOptions(void* self, int options);
+	friend void QFileIconProvider_virtualbase_setOptions(VirtualQFileIconProvider* self, int options);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__options = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QAbstractFileIconProvider::Options options() const override {
-		if (handle__options == 0) {
+		if (vtbl->options == 0) {
 			return QFileIconProvider::options();
 		}
 
-		int callback_return_value = miqt_exec_callback_QFileIconProvider_options(this, handle__options);
+		int callback_return_value = vtbl->options(this);
 		return static_cast<QAbstractFileIconProvider::Options>(callback_return_value);
 	}
 
-	friend int QFileIconProvider_virtualbase_options(const void* self);
+	friend int QFileIconProvider_virtualbase_options(const VirtualQFileIconProvider* self);
 
 };
 
-QFileIconProvider* QFileIconProvider_new() {
-	return new (std::nothrow) VirtualQFileIconProvider();
+VirtualQFileIconProvider* QFileIconProvider_new(const QFileIconProvider_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQFileIconProvider>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQFileIconProvider(vtbl) : nullptr;
 }
 
 void QFileIconProvider_virtbase(QFileIconProvider* src, QAbstractFileIconProvider** outptr_QAbstractFileIconProvider) {
@@ -133,46 +122,22 @@ QIcon* QFileIconProvider_iconWithInfo(const QFileIconProvider* self, QFileInfo* 
 	return new QIcon(self->icon(*info));
 }
 
-bool QFileIconProvider_override_virtual_icon(void* self, intptr_t slot) {
-	VirtualQFileIconProvider* self_cast = dynamic_cast<VirtualQFileIconProvider*>( (QFileIconProvider*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QFileIconProvider_vdata(VirtualQFileIconProvider* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQFileIconProvider>()); }
+VirtualQFileIconProvider* vdata_QFileIconProvider(void* vdata) { return reinterpret_cast<VirtualQFileIconProvider*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQFileIconProvider>()); }
 
-	self_cast->handle__icon = slot;
-	return true;
+QIcon* QFileIconProvider_virtualbase_icon(const VirtualQFileIconProvider* self, int type) {
+
+	return new QIcon(self->QFileIconProvider::icon(static_cast<VirtualQFileIconProvider::IconType>(type)));
 }
 
-QIcon* QFileIconProvider_virtualbase_icon(const void* self, int type) {
-	return new QIcon(static_cast<const VirtualQFileIconProvider*>(self)->QFileIconProvider::icon(static_cast<VirtualQFileIconProvider::IconType>(type)));
+QIcon* QFileIconProvider_virtualbase_iconWithInfo(const VirtualQFileIconProvider* self, QFileInfo* info) {
+
+	return new QIcon(self->QFileIconProvider::icon(*info));
 }
 
-bool QFileIconProvider_override_virtual_iconWithInfo(void* self, intptr_t slot) {
-	VirtualQFileIconProvider* self_cast = dynamic_cast<VirtualQFileIconProvider*>( (QFileIconProvider*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+struct seaqt_string QFileIconProvider_virtualbase_type(const VirtualQFileIconProvider* self, QFileInfo* param1) {
 
-	self_cast->handle__iconWithInfo = slot;
-	return true;
-}
-
-QIcon* QFileIconProvider_virtualbase_iconWithInfo(const void* self, QFileInfo* info) {
-	return new QIcon(static_cast<const VirtualQFileIconProvider*>(self)->QFileIconProvider::icon(*info));
-}
-
-bool QFileIconProvider_override_virtual_type(void* self, intptr_t slot) {
-	VirtualQFileIconProvider* self_cast = dynamic_cast<VirtualQFileIconProvider*>( (QFileIconProvider*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__type = slot;
-	return true;
-}
-
-struct seaqt_string QFileIconProvider_virtualbase_type(const void* self, QFileInfo* param1) {
-	QString _ret = static_cast<const VirtualQFileIconProvider*>(self)->QFileIconProvider::type(*param1);
+	QString _ret = self->QFileIconProvider::type(*param1);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
 	QByteArray _b = _ret.toUtf8();
 	struct seaqt_string _ms;
@@ -182,32 +147,14 @@ struct seaqt_string QFileIconProvider_virtualbase_type(const void* self, QFileIn
 	return _ms;
 }
 
-bool QFileIconProvider_override_virtual_setOptions(void* self, intptr_t slot) {
-	VirtualQFileIconProvider* self_cast = dynamic_cast<VirtualQFileIconProvider*>( (QFileIconProvider*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileIconProvider_virtualbase_setOptions(VirtualQFileIconProvider* self, int options) {
 
-	self_cast->handle__setOptions = slot;
-	return true;
+	self->QFileIconProvider::setOptions(static_cast<VirtualQFileIconProvider::Options>(options));
 }
 
-void QFileIconProvider_virtualbase_setOptions(void* self, int options) {
-	static_cast<VirtualQFileIconProvider*>(self)->QFileIconProvider::setOptions(static_cast<VirtualQFileIconProvider::Options>(options));
-}
+int QFileIconProvider_virtualbase_options(const VirtualQFileIconProvider* self) {
 
-bool QFileIconProvider_override_virtual_options(void* self, intptr_t slot) {
-	VirtualQFileIconProvider* self_cast = dynamic_cast<VirtualQFileIconProvider*>( (QFileIconProvider*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__options = slot;
-	return true;
-}
-
-int QFileIconProvider_virtualbase_options(const void* self) {
-	VirtualQFileIconProvider::Options _ret = static_cast<const VirtualQFileIconProvider*>(self)->QFileIconProvider::options();
+	VirtualQFileIconProvider::Options _ret = self->QFileIconProvider::options();
 	return static_cast<int>(_ret);
 }
 

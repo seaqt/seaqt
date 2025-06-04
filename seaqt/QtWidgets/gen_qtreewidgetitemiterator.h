@@ -29,6 +29,7 @@ QTreeWidgetItemIterator* QTreeWidgetItemIterator_new2(QTreeWidget* widget);
 QTreeWidgetItemIterator* QTreeWidgetItemIterator_new3(QTreeWidgetItem* item);
 QTreeWidgetItemIterator* QTreeWidgetItemIterator_new4(QTreeWidget* widget, int flags);
 QTreeWidgetItemIterator* QTreeWidgetItemIterator_new5(QTreeWidgetItem* item, int flags);
+
 void QTreeWidgetItemIterator_operatorAssign(QTreeWidgetItemIterator* self, QTreeWidgetItemIterator* it);
 QTreeWidgetItemIterator* QTreeWidgetItemIterator_operatorPlusPlus(QTreeWidgetItemIterator* self);
 QTreeWidgetItemIterator* QTreeWidgetItemIterator_operatorPlusPlusWithInt(QTreeWidgetItemIterator* self, int param1);

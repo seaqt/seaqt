@@ -20,14 +20,23 @@ class QQmlParserStatus;
 typedef struct QQmlParserStatus QQmlParserStatus;
 #endif
 
-QQmlParserStatus* QQmlParserStatus_new();
+typedef struct VirtualQQmlParserStatus VirtualQQmlParserStatus;
+typedef struct QQmlParserStatus_VTable{
+	void (*destructor)(VirtualQQmlParserStatus* self);
+	void (*classBegin)(VirtualQQmlParserStatus* self);
+	void (*componentComplete)(VirtualQQmlParserStatus* self);
+}QQmlParserStatus_VTable;
+
+void* QQmlParserStatus_vdata(VirtualQQmlParserStatus* self);
+VirtualQQmlParserStatus* vdata_QQmlParserStatus(void* vdata);
+
+VirtualQQmlParserStatus* QQmlParserStatus_new(const QQmlParserStatus_VTable* vtbl, size_t vdata);
+
 void QQmlParserStatus_classBegin(QQmlParserStatus* self);
 void QQmlParserStatus_componentComplete(QQmlParserStatus* self);
 
-bool QQmlParserStatus_override_virtual_classBegin(void* self, intptr_t slot);
-void QQmlParserStatus_virtualbase_classBegin(void* self);
-bool QQmlParserStatus_override_virtual_componentComplete(void* self, intptr_t slot);
-void QQmlParserStatus_virtualbase_componentComplete(void* self);
+void QQmlParserStatus_virtualbase_classBegin(VirtualQQmlParserStatus* self);
+void QQmlParserStatus_virtualbase_componentComplete(VirtualQQmlParserStatus* self);
 
 void QQmlParserStatus_delete(QQmlParserStatus* self);
 

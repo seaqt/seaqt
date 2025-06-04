@@ -23,107 +23,62 @@
 #include <qpdfbookmarkmodel.h>
 #include "gen_qpdfbookmarkmodel.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void miqt_exec_callback_QPdfBookmarkModel_documentChanged(intptr_t, QPdfDocument*);
-QMetaObject* miqt_exec_callback_QPdfBookmarkModel_metaObject(const QPdfBookmarkModel*, intptr_t);
-void* miqt_exec_callback_QPdfBookmarkModel_metacast(QPdfBookmarkModel*, intptr_t, const char*);
-int miqt_exec_callback_QPdfBookmarkModel_metacall(QPdfBookmarkModel*, intptr_t, int, int, void**);
-QVariant* miqt_exec_callback_QPdfBookmarkModel_data(const QPdfBookmarkModel*, intptr_t, QModelIndex*, int);
-QModelIndex* miqt_exec_callback_QPdfBookmarkModel_index(const QPdfBookmarkModel*, intptr_t, int, int, QModelIndex*);
-QModelIndex* miqt_exec_callback_QPdfBookmarkModel_parent(const QPdfBookmarkModel*, intptr_t, QModelIndex*);
-int miqt_exec_callback_QPdfBookmarkModel_rowCount(const QPdfBookmarkModel*, intptr_t, QModelIndex*);
-int miqt_exec_callback_QPdfBookmarkModel_columnCount(const QPdfBookmarkModel*, intptr_t, QModelIndex*);
-struct seaqt_map /* of int to struct seaqt_string */  miqt_exec_callback_QPdfBookmarkModel_roleNames(const QPdfBookmarkModel*, intptr_t);
-QModelIndex* miqt_exec_callback_QPdfBookmarkModel_sibling(const QPdfBookmarkModel*, intptr_t, int, int, QModelIndex*);
-bool miqt_exec_callback_QPdfBookmarkModel_hasChildren(const QPdfBookmarkModel*, intptr_t, QModelIndex*);
-bool miqt_exec_callback_QPdfBookmarkModel_setData(QPdfBookmarkModel*, intptr_t, QModelIndex*, QVariant*, int);
-QVariant* miqt_exec_callback_QPdfBookmarkModel_headerData(const QPdfBookmarkModel*, intptr_t, int, int, int);
-bool miqt_exec_callback_QPdfBookmarkModel_setHeaderData(QPdfBookmarkModel*, intptr_t, int, int, QVariant*, int);
-struct seaqt_map /* of int to QVariant* */  miqt_exec_callback_QPdfBookmarkModel_itemData(const QPdfBookmarkModel*, intptr_t, QModelIndex*);
-bool miqt_exec_callback_QPdfBookmarkModel_setItemData(QPdfBookmarkModel*, intptr_t, QModelIndex*, struct seaqt_map /* of int to QVariant* */ );
-bool miqt_exec_callback_QPdfBookmarkModel_clearItemData(QPdfBookmarkModel*, intptr_t, QModelIndex*);
-struct seaqt_array /* of struct seaqt_string */  miqt_exec_callback_QPdfBookmarkModel_mimeTypes(const QPdfBookmarkModel*, intptr_t);
-QMimeData* miqt_exec_callback_QPdfBookmarkModel_mimeData(const QPdfBookmarkModel*, intptr_t, struct seaqt_array /* of QModelIndex* */ );
-bool miqt_exec_callback_QPdfBookmarkModel_canDropMimeData(const QPdfBookmarkModel*, intptr_t, QMimeData*, int, int, int, QModelIndex*);
-bool miqt_exec_callback_QPdfBookmarkModel_dropMimeData(QPdfBookmarkModel*, intptr_t, QMimeData*, int, int, int, QModelIndex*);
-int miqt_exec_callback_QPdfBookmarkModel_supportedDropActions(const QPdfBookmarkModel*, intptr_t);
-int miqt_exec_callback_QPdfBookmarkModel_supportedDragActions(const QPdfBookmarkModel*, intptr_t);
-bool miqt_exec_callback_QPdfBookmarkModel_insertRows(QPdfBookmarkModel*, intptr_t, int, int, QModelIndex*);
-bool miqt_exec_callback_QPdfBookmarkModel_insertColumns(QPdfBookmarkModel*, intptr_t, int, int, QModelIndex*);
-bool miqt_exec_callback_QPdfBookmarkModel_removeRows(QPdfBookmarkModel*, intptr_t, int, int, QModelIndex*);
-bool miqt_exec_callback_QPdfBookmarkModel_removeColumns(QPdfBookmarkModel*, intptr_t, int, int, QModelIndex*);
-bool miqt_exec_callback_QPdfBookmarkModel_moveRows(QPdfBookmarkModel*, intptr_t, QModelIndex*, int, int, QModelIndex*, int);
-bool miqt_exec_callback_QPdfBookmarkModel_moveColumns(QPdfBookmarkModel*, intptr_t, QModelIndex*, int, int, QModelIndex*, int);
-void miqt_exec_callback_QPdfBookmarkModel_fetchMore(QPdfBookmarkModel*, intptr_t, QModelIndex*);
-bool miqt_exec_callback_QPdfBookmarkModel_canFetchMore(const QPdfBookmarkModel*, intptr_t, QModelIndex*);
-int miqt_exec_callback_QPdfBookmarkModel_flags(const QPdfBookmarkModel*, intptr_t, QModelIndex*);
-void miqt_exec_callback_QPdfBookmarkModel_sort(QPdfBookmarkModel*, intptr_t, int, int);
-QModelIndex* miqt_exec_callback_QPdfBookmarkModel_buddy(const QPdfBookmarkModel*, intptr_t, QModelIndex*);
-struct seaqt_array /* of QModelIndex* */  miqt_exec_callback_QPdfBookmarkModel_match(const QPdfBookmarkModel*, intptr_t, QModelIndex*, int, QVariant*, int, int);
-QSize* miqt_exec_callback_QPdfBookmarkModel_span(const QPdfBookmarkModel*, intptr_t, QModelIndex*);
-void miqt_exec_callback_QPdfBookmarkModel_multiData(const QPdfBookmarkModel*, intptr_t, QModelIndex*, QModelRoleDataSpan*);
-bool miqt_exec_callback_QPdfBookmarkModel_submit(QPdfBookmarkModel*, intptr_t);
-void miqt_exec_callback_QPdfBookmarkModel_revert(QPdfBookmarkModel*, intptr_t);
-void miqt_exec_callback_QPdfBookmarkModel_resetInternalData(QPdfBookmarkModel*, intptr_t);
-bool miqt_exec_callback_QPdfBookmarkModel_event(QPdfBookmarkModel*, intptr_t, QEvent*);
-bool miqt_exec_callback_QPdfBookmarkModel_eventFilter(QPdfBookmarkModel*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QPdfBookmarkModel_timerEvent(QPdfBookmarkModel*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QPdfBookmarkModel_childEvent(QPdfBookmarkModel*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QPdfBookmarkModel_customEvent(QPdfBookmarkModel*, intptr_t, QEvent*);
-void miqt_exec_callback_QPdfBookmarkModel_connectNotify(QPdfBookmarkModel*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QPdfBookmarkModel_disconnectNotify(QPdfBookmarkModel*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQPdfBookmarkModel final : public QPdfBookmarkModel {
+	const QPdfBookmarkModel_VTable* vtbl;
 public:
+	friend void* QPdfBookmarkModel_vdata(VirtualQPdfBookmarkModel* self);
+	friend VirtualQPdfBookmarkModel* vdata_QPdfBookmarkModel(void* vdata);
 
-	VirtualQPdfBookmarkModel(): QPdfBookmarkModel() {}
-	VirtualQPdfBookmarkModel(QObject* parent): QPdfBookmarkModel(parent) {}
+	VirtualQPdfBookmarkModel(const QPdfBookmarkModel_VTable* vtbl): QPdfBookmarkModel(), vtbl(vtbl) {}
+	VirtualQPdfBookmarkModel(const QPdfBookmarkModel_VTable* vtbl, QObject* parent): QPdfBookmarkModel(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQPdfBookmarkModel() override = default;
+	virtual ~VirtualQPdfBookmarkModel() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QPdfBookmarkModel::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QPdfBookmarkModel_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QPdfBookmarkModel_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QPdfBookmarkModel_virtualbase_metaObject(const VirtualQPdfBookmarkModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QPdfBookmarkModel::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QPdfBookmarkModel_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QPdfBookmarkModel_virtualbase_metacast(void* self, const char* param1);
+	friend void* QPdfBookmarkModel_virtualbase_metacast(VirtualQPdfBookmarkModel* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QPdfBookmarkModel::qt_metacall(param1, param2, param3);
 		}
 
@@ -131,18 +86,14 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QPdfBookmarkModel_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QPdfBookmarkModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QPdfBookmarkModel_virtualbase_metacall(VirtualQPdfBookmarkModel* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__data = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant data(const QModelIndex& index, int role) const override {
-		if (handle__data == 0) {
+		if (vtbl->data == 0) {
 			return QPdfBookmarkModel::data(index, role);
 		}
 
@@ -150,18 +101,14 @@ public:
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
 		int sigval2 = role;
-		QVariant* callback_return_value = miqt_exec_callback_QPdfBookmarkModel_data(this, handle__data, sigval1, sigval2);
+		QVariant* callback_return_value = vtbl->data(this, sigval1, sigval2);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QPdfBookmarkModel_virtualbase_data(const void* self, QModelIndex* index, int role);
+	friend QVariant* QPdfBookmarkModel_virtualbase_data(const VirtualQPdfBookmarkModel* self, QModelIndex* index, int role);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__index = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QModelIndex index(int row, int column, const QModelIndex& parent) const override {
-		if (handle__index == 0) {
+		if (vtbl->index == 0) {
 			return QPdfBookmarkModel::index(row, column, parent);
 		}
 
@@ -170,76 +117,60 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&parent_ret);
-		QModelIndex* callback_return_value = miqt_exec_callback_QPdfBookmarkModel_index(this, handle__index, sigval1, sigval2, sigval3);
+		QModelIndex* callback_return_value = vtbl->index(this, sigval1, sigval2, sigval3);
 		return *callback_return_value;
 	}
 
-	friend QModelIndex* QPdfBookmarkModel_virtualbase_index(const void* self, int row, int column, QModelIndex* parent);
+	friend QModelIndex* QPdfBookmarkModel_virtualbase_index(const VirtualQPdfBookmarkModel* self, int row, int column, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__parent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QModelIndex parent(const QModelIndex& index) const override {
-		if (handle__parent == 0) {
+		if (vtbl->parent == 0) {
 			return QPdfBookmarkModel::parent(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		QModelIndex* callback_return_value = miqt_exec_callback_QPdfBookmarkModel_parent(this, handle__parent, sigval1);
+		QModelIndex* callback_return_value = vtbl->parent(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QModelIndex* QPdfBookmarkModel_virtualbase_parent(const void* self, QModelIndex* index);
+	friend QModelIndex* QPdfBookmarkModel_virtualbase_parent(const VirtualQPdfBookmarkModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__rowCount = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int rowCount(const QModelIndex& parent) const override {
-		if (handle__rowCount == 0) {
+		if (vtbl->rowCount == 0) {
 			return QPdfBookmarkModel::rowCount(parent);
 		}
 
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&parent_ret);
-		int callback_return_value = miqt_exec_callback_QPdfBookmarkModel_rowCount(this, handle__rowCount, sigval1);
+		int callback_return_value = vtbl->rowCount(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QPdfBookmarkModel_virtualbase_rowCount(const void* self, QModelIndex* parent);
+	friend int QPdfBookmarkModel_virtualbase_rowCount(const VirtualQPdfBookmarkModel* self, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__columnCount = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int columnCount(const QModelIndex& parent) const override {
-		if (handle__columnCount == 0) {
+		if (vtbl->columnCount == 0) {
 			return QPdfBookmarkModel::columnCount(parent);
 		}
 
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&parent_ret);
-		int callback_return_value = miqt_exec_callback_QPdfBookmarkModel_columnCount(this, handle__columnCount, sigval1);
+		int callback_return_value = vtbl->columnCount(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QPdfBookmarkModel_virtualbase_columnCount(const void* self, QModelIndex* parent);
+	friend int QPdfBookmarkModel_virtualbase_columnCount(const VirtualQPdfBookmarkModel* self, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__roleNames = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QHash<int, QByteArray> roleNames() const override {
-		if (handle__roleNames == 0) {
+		if (vtbl->roleNames == 0) {
 			return QPdfBookmarkModel::roleNames();
 		}
 
-		struct seaqt_map /* of int to struct seaqt_string */  callback_return_value = miqt_exec_callback_QPdfBookmarkModel_roleNames(this, handle__roleNames);
+		struct seaqt_map /* of int to struct seaqt_string */  callback_return_value = vtbl->roleNames(this);
 		QHash<int, QByteArray> callback_return_value_QMap;
 		callback_return_value_QMap.reserve(callback_return_value.len);
 		int* callback_return_value_karr = static_cast<int*>(callback_return_value.keys);
@@ -251,14 +182,10 @@ public:
 		return callback_return_value_QMap;
 	}
 
-	friend struct seaqt_map /* of int to struct seaqt_string */  QPdfBookmarkModel_virtualbase_roleNames(const void* self);
+	friend struct seaqt_map /* of int to struct seaqt_string */  QPdfBookmarkModel_virtualbase_roleNames(const VirtualQPdfBookmarkModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sibling = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QModelIndex sibling(int row, int column, const QModelIndex& idx) const override {
-		if (handle__sibling == 0) {
+		if (vtbl->sibling == 0) {
 			return QPdfBookmarkModel::sibling(row, column, idx);
 		}
 
@@ -267,36 +194,28 @@ public:
 		const QModelIndex& idx_ret = idx;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&idx_ret);
-		QModelIndex* callback_return_value = miqt_exec_callback_QPdfBookmarkModel_sibling(this, handle__sibling, sigval1, sigval2, sigval3);
+		QModelIndex* callback_return_value = vtbl->sibling(this, sigval1, sigval2, sigval3);
 		return *callback_return_value;
 	}
 
-	friend QModelIndex* QPdfBookmarkModel_virtualbase_sibling(const void* self, int row, int column, QModelIndex* idx);
+	friend QModelIndex* QPdfBookmarkModel_virtualbase_sibling(const VirtualQPdfBookmarkModel* self, int row, int column, QModelIndex* idx);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hasChildren = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool hasChildren(const QModelIndex& parent) const override {
-		if (handle__hasChildren == 0) {
+		if (vtbl->hasChildren == 0) {
 			return QPdfBookmarkModel::hasChildren(parent);
 		}
 
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_hasChildren(this, handle__hasChildren, sigval1);
+		bool callback_return_value = vtbl->hasChildren(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_hasChildren(const void* self, QModelIndex* parent);
+	friend bool QPdfBookmarkModel_virtualbase_hasChildren(const VirtualQPdfBookmarkModel* self, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool setData(const QModelIndex& index, const QVariant& value, int role) override {
-		if (handle__setData == 0) {
+		if (vtbl->setData == 0) {
 			return QPdfBookmarkModel::setData(index, value, role);
 		}
 
@@ -307,18 +226,14 @@ public:
 		// Cast returned reference into pointer
 		QVariant* sigval2 = const_cast<QVariant*>(&value_ret);
 		int sigval3 = role;
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_setData(this, handle__setData, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->setData(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_setData(void* self, QModelIndex* index, QVariant* value, int role);
+	friend bool QPdfBookmarkModel_virtualbase_setData(VirtualQPdfBookmarkModel* self, QModelIndex* index, QVariant* value, int role);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__headerData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const override {
-		if (handle__headerData == 0) {
+		if (vtbl->headerData == 0) {
 			return QPdfBookmarkModel::headerData(section, orientation, role);
 		}
 
@@ -326,18 +241,14 @@ public:
 		Qt::Orientation orientation_ret = orientation;
 		int sigval2 = static_cast<int>(orientation_ret);
 		int sigval3 = role;
-		QVariant* callback_return_value = miqt_exec_callback_QPdfBookmarkModel_headerData(this, handle__headerData, sigval1, sigval2, sigval3);
+		QVariant* callback_return_value = vtbl->headerData(this, sigval1, sigval2, sigval3);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QPdfBookmarkModel_virtualbase_headerData(const void* self, int section, int orientation, int role);
+	friend QVariant* QPdfBookmarkModel_virtualbase_headerData(const VirtualQPdfBookmarkModel* self, int section, int orientation, int role);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setHeaderData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool setHeaderData(int section, Qt::Orientation orientation, const QVariant& value, int role) override {
-		if (handle__setHeaderData == 0) {
+		if (vtbl->setHeaderData == 0) {
 			return QPdfBookmarkModel::setHeaderData(section, orientation, value, role);
 		}
 
@@ -348,25 +259,21 @@ public:
 		// Cast returned reference into pointer
 		QVariant* sigval3 = const_cast<QVariant*>(&value_ret);
 		int sigval4 = role;
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_setHeaderData(this, handle__setHeaderData, sigval1, sigval2, sigval3, sigval4);
+		bool callback_return_value = vtbl->setHeaderData(this, sigval1, sigval2, sigval3, sigval4);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_setHeaderData(void* self, int section, int orientation, QVariant* value, int role);
+	friend bool QPdfBookmarkModel_virtualbase_setHeaderData(VirtualQPdfBookmarkModel* self, int section, int orientation, QVariant* value, int role);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__itemData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QMap<int, QVariant> itemData(const QModelIndex& index) const override {
-		if (handle__itemData == 0) {
+		if (vtbl->itemData == 0) {
 			return QPdfBookmarkModel::itemData(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		struct seaqt_map /* of int to QVariant* */  callback_return_value = miqt_exec_callback_QPdfBookmarkModel_itemData(this, handle__itemData, sigval1);
+		struct seaqt_map /* of int to QVariant* */  callback_return_value = vtbl->itemData(this, sigval1);
 		QMap<int, QVariant> callback_return_value_QMap;
 		int* callback_return_value_karr = static_cast<int*>(callback_return_value.keys);
 		QVariant** callback_return_value_varr = static_cast<QVariant**>(callback_return_value.values);
@@ -376,14 +283,10 @@ public:
 		return callback_return_value_QMap;
 	}
 
-	friend struct seaqt_map /* of int to QVariant* */  QPdfBookmarkModel_virtualbase_itemData(const void* self, QModelIndex* index);
+	friend struct seaqt_map /* of int to QVariant* */  QPdfBookmarkModel_virtualbase_itemData(const VirtualQPdfBookmarkModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setItemData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool setItemData(const QModelIndex& index, const QMap<int, QVariant>& roles) override {
-		if (handle__setItemData == 0) {
+		if (vtbl->setItemData == 0) {
 			return QPdfBookmarkModel::setItemData(index, roles);
 		}
 
@@ -405,40 +308,32 @@ public:
 		roles_out.keys = static_cast<void*>(roles_karr);
 		roles_out.values = static_cast<void*>(roles_varr);
 		struct seaqt_map /* of int to QVariant* */  sigval2 = roles_out;
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_setItemData(this, handle__setItemData, sigval1, sigval2);
+		bool callback_return_value = vtbl->setItemData(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_setItemData(void* self, QModelIndex* index, struct seaqt_map /* of int to QVariant* */  roles);
+	friend bool QPdfBookmarkModel_virtualbase_setItemData(VirtualQPdfBookmarkModel* self, QModelIndex* index, struct seaqt_map /* of int to QVariant* */  roles);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clearItemData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool clearItemData(const QModelIndex& index) override {
-		if (handle__clearItemData == 0) {
+		if (vtbl->clearItemData == 0) {
 			return QPdfBookmarkModel::clearItemData(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_clearItemData(this, handle__clearItemData, sigval1);
+		bool callback_return_value = vtbl->clearItemData(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_clearItemData(void* self, QModelIndex* index);
+	friend bool QPdfBookmarkModel_virtualbase_clearItemData(VirtualQPdfBookmarkModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mimeTypes = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QStringList mimeTypes() const override {
-		if (handle__mimeTypes == 0) {
+		if (vtbl->mimeTypes == 0) {
 			return QPdfBookmarkModel::mimeTypes();
 		}
 
-		struct seaqt_array /* of struct seaqt_string */  callback_return_value = miqt_exec_callback_QPdfBookmarkModel_mimeTypes(this, handle__mimeTypes);
+		struct seaqt_array /* of struct seaqt_string */  callback_return_value = vtbl->mimeTypes(this);
 		QStringList callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		struct seaqt_string* callback_return_value_arr = static_cast<struct seaqt_string*>(callback_return_value.data);
@@ -449,14 +344,10 @@ public:
 		return callback_return_value_QList;
 	}
 
-	friend struct seaqt_array /* of struct seaqt_string */  QPdfBookmarkModel_virtualbase_mimeTypes(const void* self);
+	friend struct seaqt_array /* of struct seaqt_string */  QPdfBookmarkModel_virtualbase_mimeTypes(const VirtualQPdfBookmarkModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mimeData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QMimeData* mimeData(const QModelIndexList& indexes) const override {
-		if (handle__mimeData == 0) {
+		if (vtbl->mimeData == 0) {
 			return QPdfBookmarkModel::mimeData(indexes);
 		}
 
@@ -470,18 +361,14 @@ public:
 		indexes_out.len = indexes_ret.length();
 		indexes_out.data = static_cast<void*>(indexes_arr);
 		struct seaqt_array /* of QModelIndex* */  sigval1 = indexes_out;
-		QMimeData* callback_return_value = miqt_exec_callback_QPdfBookmarkModel_mimeData(this, handle__mimeData, sigval1);
+		QMimeData* callback_return_value = vtbl->mimeData(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QMimeData* QPdfBookmarkModel_virtualbase_mimeData(const void* self, struct seaqt_array /* of QModelIndex* */  indexes);
+	friend QMimeData* QPdfBookmarkModel_virtualbase_mimeData(const VirtualQPdfBookmarkModel* self, struct seaqt_array /* of QModelIndex* */  indexes);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__canDropMimeData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool canDropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent) const override {
-		if (handle__canDropMimeData == 0) {
+		if (vtbl->canDropMimeData == 0) {
 			return QPdfBookmarkModel::canDropMimeData(data, action, row, column, parent);
 		}
 
@@ -493,18 +380,14 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval5 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_canDropMimeData(this, handle__canDropMimeData, sigval1, sigval2, sigval3, sigval4, sigval5);
+		bool callback_return_value = vtbl->canDropMimeData(this, sigval1, sigval2, sigval3, sigval4, sigval5);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_canDropMimeData(const void* self, QMimeData* data, int action, int row, int column, QModelIndex* parent);
+	friend bool QPdfBookmarkModel_virtualbase_canDropMimeData(const VirtualQPdfBookmarkModel* self, QMimeData* data, int action, int row, int column, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dropMimeData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent) override {
-		if (handle__dropMimeData == 0) {
+		if (vtbl->dropMimeData == 0) {
 			return QPdfBookmarkModel::dropMimeData(data, action, row, column, parent);
 		}
 
@@ -516,48 +399,36 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval5 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_dropMimeData(this, handle__dropMimeData, sigval1, sigval2, sigval3, sigval4, sigval5);
+		bool callback_return_value = vtbl->dropMimeData(this, sigval1, sigval2, sigval3, sigval4, sigval5);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_dropMimeData(void* self, QMimeData* data, int action, int row, int column, QModelIndex* parent);
+	friend bool QPdfBookmarkModel_virtualbase_dropMimeData(VirtualQPdfBookmarkModel* self, QMimeData* data, int action, int row, int column, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__supportedDropActions = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual Qt::DropActions supportedDropActions() const override {
-		if (handle__supportedDropActions == 0) {
+		if (vtbl->supportedDropActions == 0) {
 			return QPdfBookmarkModel::supportedDropActions();
 		}
 
-		int callback_return_value = miqt_exec_callback_QPdfBookmarkModel_supportedDropActions(this, handle__supportedDropActions);
+		int callback_return_value = vtbl->supportedDropActions(this);
 		return static_cast<Qt::DropActions>(callback_return_value);
 	}
 
-	friend int QPdfBookmarkModel_virtualbase_supportedDropActions(const void* self);
+	friend int QPdfBookmarkModel_virtualbase_supportedDropActions(const VirtualQPdfBookmarkModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__supportedDragActions = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual Qt::DropActions supportedDragActions() const override {
-		if (handle__supportedDragActions == 0) {
+		if (vtbl->supportedDragActions == 0) {
 			return QPdfBookmarkModel::supportedDragActions();
 		}
 
-		int callback_return_value = miqt_exec_callback_QPdfBookmarkModel_supportedDragActions(this, handle__supportedDragActions);
+		int callback_return_value = vtbl->supportedDragActions(this);
 		return static_cast<Qt::DropActions>(callback_return_value);
 	}
 
-	friend int QPdfBookmarkModel_virtualbase_supportedDragActions(const void* self);
+	friend int QPdfBookmarkModel_virtualbase_supportedDragActions(const VirtualQPdfBookmarkModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__insertRows = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool insertRows(int row, int count, const QModelIndex& parent) override {
-		if (handle__insertRows == 0) {
+		if (vtbl->insertRows == 0) {
 			return QPdfBookmarkModel::insertRows(row, count, parent);
 		}
 
@@ -566,18 +437,14 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_insertRows(this, handle__insertRows, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->insertRows(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_insertRows(void* self, int row, int count, QModelIndex* parent);
+	friend bool QPdfBookmarkModel_virtualbase_insertRows(VirtualQPdfBookmarkModel* self, int row, int count, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__insertColumns = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool insertColumns(int column, int count, const QModelIndex& parent) override {
-		if (handle__insertColumns == 0) {
+		if (vtbl->insertColumns == 0) {
 			return QPdfBookmarkModel::insertColumns(column, count, parent);
 		}
 
@@ -586,18 +453,14 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_insertColumns(this, handle__insertColumns, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->insertColumns(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_insertColumns(void* self, int column, int count, QModelIndex* parent);
+	friend bool QPdfBookmarkModel_virtualbase_insertColumns(VirtualQPdfBookmarkModel* self, int column, int count, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__removeRows = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool removeRows(int row, int count, const QModelIndex& parent) override {
-		if (handle__removeRows == 0) {
+		if (vtbl->removeRows == 0) {
 			return QPdfBookmarkModel::removeRows(row, count, parent);
 		}
 
@@ -606,18 +469,14 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_removeRows(this, handle__removeRows, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->removeRows(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_removeRows(void* self, int row, int count, QModelIndex* parent);
+	friend bool QPdfBookmarkModel_virtualbase_removeRows(VirtualQPdfBookmarkModel* self, int row, int count, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__removeColumns = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool removeColumns(int column, int count, const QModelIndex& parent) override {
-		if (handle__removeColumns == 0) {
+		if (vtbl->removeColumns == 0) {
 			return QPdfBookmarkModel::removeColumns(column, count, parent);
 		}
 
@@ -626,18 +485,14 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_removeColumns(this, handle__removeColumns, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->removeColumns(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_removeColumns(void* self, int column, int count, QModelIndex* parent);
+	friend bool QPdfBookmarkModel_virtualbase_removeColumns(VirtualQPdfBookmarkModel* self, int column, int count, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__moveRows = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool moveRows(const QModelIndex& sourceParent, int sourceRow, int count, const QModelIndex& destinationParent, int destinationChild) override {
-		if (handle__moveRows == 0) {
+		if (vtbl->moveRows == 0) {
 			return QPdfBookmarkModel::moveRows(sourceParent, sourceRow, count, destinationParent, destinationChild);
 		}
 
@@ -650,18 +505,14 @@ public:
 		// Cast returned reference into pointer
 		QModelIndex* sigval4 = const_cast<QModelIndex*>(&destinationParent_ret);
 		int sigval5 = destinationChild;
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_moveRows(this, handle__moveRows, sigval1, sigval2, sigval3, sigval4, sigval5);
+		bool callback_return_value = vtbl->moveRows(this, sigval1, sigval2, sigval3, sigval4, sigval5);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_moveRows(void* self, QModelIndex* sourceParent, int sourceRow, int count, QModelIndex* destinationParent, int destinationChild);
+	friend bool QPdfBookmarkModel_virtualbase_moveRows(VirtualQPdfBookmarkModel* self, QModelIndex* sourceParent, int sourceRow, int count, QModelIndex* destinationParent, int destinationChild);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__moveColumns = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool moveColumns(const QModelIndex& sourceParent, int sourceColumn, int count, const QModelIndex& destinationParent, int destinationChild) override {
-		if (handle__moveColumns == 0) {
+		if (vtbl->moveColumns == 0) {
 			return QPdfBookmarkModel::moveColumns(sourceParent, sourceColumn, count, destinationParent, destinationChild);
 		}
 
@@ -674,18 +525,14 @@ public:
 		// Cast returned reference into pointer
 		QModelIndex* sigval4 = const_cast<QModelIndex*>(&destinationParent_ret);
 		int sigval5 = destinationChild;
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_moveColumns(this, handle__moveColumns, sigval1, sigval2, sigval3, sigval4, sigval5);
+		bool callback_return_value = vtbl->moveColumns(this, sigval1, sigval2, sigval3, sigval4, sigval5);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_moveColumns(void* self, QModelIndex* sourceParent, int sourceColumn, int count, QModelIndex* destinationParent, int destinationChild);
+	friend bool QPdfBookmarkModel_virtualbase_moveColumns(VirtualQPdfBookmarkModel* self, QModelIndex* sourceParent, int sourceColumn, int count, QModelIndex* destinationParent, int destinationChild);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__fetchMore = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void fetchMore(const QModelIndex& parent) override {
-		if (handle__fetchMore == 0) {
+		if (vtbl->fetchMore == 0) {
 			QPdfBookmarkModel::fetchMore(parent);
 			return;
 		}
@@ -693,54 +540,41 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&parent_ret);
-		miqt_exec_callback_QPdfBookmarkModel_fetchMore(this, handle__fetchMore, sigval1);
-
+		vtbl->fetchMore(this, sigval1);
 	}
 
-	friend void QPdfBookmarkModel_virtualbase_fetchMore(void* self, QModelIndex* parent);
+	friend void QPdfBookmarkModel_virtualbase_fetchMore(VirtualQPdfBookmarkModel* self, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__canFetchMore = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool canFetchMore(const QModelIndex& parent) const override {
-		if (handle__canFetchMore == 0) {
+		if (vtbl->canFetchMore == 0) {
 			return QPdfBookmarkModel::canFetchMore(parent);
 		}
 
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_canFetchMore(this, handle__canFetchMore, sigval1);
+		bool callback_return_value = vtbl->canFetchMore(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_canFetchMore(const void* self, QModelIndex* parent);
+	friend bool QPdfBookmarkModel_virtualbase_canFetchMore(const VirtualQPdfBookmarkModel* self, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__flags = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual Qt::ItemFlags flags(const QModelIndex& index) const override {
-		if (handle__flags == 0) {
+		if (vtbl->flags == 0) {
 			return QPdfBookmarkModel::flags(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		int callback_return_value = miqt_exec_callback_QPdfBookmarkModel_flags(this, handle__flags, sigval1);
+		int callback_return_value = vtbl->flags(this, sigval1);
 		return static_cast<Qt::ItemFlags>(callback_return_value);
 	}
 
-	friend int QPdfBookmarkModel_virtualbase_flags(const void* self, QModelIndex* index);
+	friend int QPdfBookmarkModel_virtualbase_flags(const VirtualQPdfBookmarkModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sort = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void sort(int column, Qt::SortOrder order) override {
-		if (handle__sort == 0) {
+		if (vtbl->sort == 0) {
 			QPdfBookmarkModel::sort(column, order);
 			return;
 		}
@@ -748,36 +582,27 @@ public:
 		int sigval1 = column;
 		Qt::SortOrder order_ret = order;
 		int sigval2 = static_cast<int>(order_ret);
-		miqt_exec_callback_QPdfBookmarkModel_sort(this, handle__sort, sigval1, sigval2);
-
+		vtbl->sort(this, sigval1, sigval2);
 	}
 
-	friend void QPdfBookmarkModel_virtualbase_sort(void* self, int column, int order);
+	friend void QPdfBookmarkModel_virtualbase_sort(VirtualQPdfBookmarkModel* self, int column, int order);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__buddy = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QModelIndex buddy(const QModelIndex& index) const override {
-		if (handle__buddy == 0) {
+		if (vtbl->buddy == 0) {
 			return QPdfBookmarkModel::buddy(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		QModelIndex* callback_return_value = miqt_exec_callback_QPdfBookmarkModel_buddy(this, handle__buddy, sigval1);
+		QModelIndex* callback_return_value = vtbl->buddy(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QModelIndex* QPdfBookmarkModel_virtualbase_buddy(const void* self, QModelIndex* index);
+	friend QModelIndex* QPdfBookmarkModel_virtualbase_buddy(const VirtualQPdfBookmarkModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__match = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QModelIndexList match(const QModelIndex& start, int role, const QVariant& value, int hits, Qt::MatchFlags flags) const override {
-		if (handle__match == 0) {
+		if (vtbl->match == 0) {
 			return QPdfBookmarkModel::match(start, role, value, hits, flags);
 		}
 
@@ -791,7 +616,7 @@ public:
 		int sigval4 = hits;
 		Qt::MatchFlags flags_ret = flags;
 		int sigval5 = static_cast<int>(flags_ret);
-		struct seaqt_array /* of QModelIndex* */  callback_return_value = miqt_exec_callback_QPdfBookmarkModel_match(this, handle__match, sigval1, sigval2, sigval3, sigval4, sigval5);
+		struct seaqt_array /* of QModelIndex* */  callback_return_value = vtbl->match(this, sigval1, sigval2, sigval3, sigval4, sigval5);
 		QModelIndexList callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		QModelIndex** callback_return_value_arr = static_cast<QModelIndex**>(callback_return_value.data);
@@ -801,32 +626,24 @@ public:
 		return callback_return_value_QList;
 	}
 
-	friend struct seaqt_array /* of QModelIndex* */  QPdfBookmarkModel_virtualbase_match(const void* self, QModelIndex* start, int role, QVariant* value, int hits, int flags);
+	friend struct seaqt_array /* of QModelIndex* */  QPdfBookmarkModel_virtualbase_match(const VirtualQPdfBookmarkModel* self, QModelIndex* start, int role, QVariant* value, int hits, int flags);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__span = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize span(const QModelIndex& index) const override {
-		if (handle__span == 0) {
+		if (vtbl->span == 0) {
 			return QPdfBookmarkModel::span(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		QSize* callback_return_value = miqt_exec_callback_QPdfBookmarkModel_span(this, handle__span, sigval1);
+		QSize* callback_return_value = vtbl->span(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QSize* QPdfBookmarkModel_virtualbase_span(const void* self, QModelIndex* index);
+	friend QSize* QPdfBookmarkModel_virtualbase_span(const VirtualQPdfBookmarkModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__multiData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void multiData(const QModelIndex& index, QModelRoleDataSpan roleDataSpan) const override {
-		if (handle__multiData == 0) {
+		if (vtbl->multiData == 0) {
 			QPdfBookmarkModel::multiData(index, roleDataSpan);
 			return;
 		}
@@ -835,149 +652,107 @@ public:
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
 		QModelRoleDataSpan* sigval2 = new QModelRoleDataSpan(roleDataSpan);
-		miqt_exec_callback_QPdfBookmarkModel_multiData(this, handle__multiData, sigval1, sigval2);
-
+		vtbl->multiData(this, sigval1, sigval2);
 	}
 
-	friend void QPdfBookmarkModel_virtualbase_multiData(const void* self, QModelIndex* index, QModelRoleDataSpan* roleDataSpan);
+	friend void QPdfBookmarkModel_virtualbase_multiData(const VirtualQPdfBookmarkModel* self, QModelIndex* index, QModelRoleDataSpan* roleDataSpan);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__submit = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool submit() override {
-		if (handle__submit == 0) {
+		if (vtbl->submit == 0) {
 			return QPdfBookmarkModel::submit();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_submit(this, handle__submit);
+		bool callback_return_value = vtbl->submit(this);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_submit(void* self);
+	friend bool QPdfBookmarkModel_virtualbase_submit(VirtualQPdfBookmarkModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__revert = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void revert() override {
-		if (handle__revert == 0) {
+		if (vtbl->revert == 0) {
 			QPdfBookmarkModel::revert();
 			return;
 		}
 
-		miqt_exec_callback_QPdfBookmarkModel_revert(this, handle__revert);
-
+		vtbl->revert(this);
 	}
 
-	friend void QPdfBookmarkModel_virtualbase_revert(void* self);
+	friend void QPdfBookmarkModel_virtualbase_revert(VirtualQPdfBookmarkModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__resetInternalData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void resetInternalData() override {
-		if (handle__resetInternalData == 0) {
+		if (vtbl->resetInternalData == 0) {
 			QPdfBookmarkModel::resetInternalData();
 			return;
 		}
 
-		miqt_exec_callback_QPdfBookmarkModel_resetInternalData(this, handle__resetInternalData);
-
+		vtbl->resetInternalData(this);
 	}
 
-	friend void QPdfBookmarkModel_virtualbase_resetInternalData(void* self);
+	friend void QPdfBookmarkModel_virtualbase_resetInternalData(VirtualQPdfBookmarkModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QPdfBookmarkModel::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_event(void* self, QEvent* event);
+	friend bool QPdfBookmarkModel_virtualbase_event(VirtualQPdfBookmarkModel* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QPdfBookmarkModel::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QPdfBookmarkModel_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QPdfBookmarkModel_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QPdfBookmarkModel_virtualbase_eventFilter(VirtualQPdfBookmarkModel* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QPdfBookmarkModel::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QPdfBookmarkModel_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QPdfBookmarkModel_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QPdfBookmarkModel_virtualbase_timerEvent(VirtualQPdfBookmarkModel* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QPdfBookmarkModel::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QPdfBookmarkModel_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QPdfBookmarkModel_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QPdfBookmarkModel_virtualbase_childEvent(VirtualQPdfBookmarkModel* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QPdfBookmarkModel::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QPdfBookmarkModel_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QPdfBookmarkModel_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QPdfBookmarkModel_virtualbase_customEvent(VirtualQPdfBookmarkModel* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QPdfBookmarkModel::connectNotify(signal);
 			return;
 		}
@@ -985,18 +760,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QPdfBookmarkModel_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QPdfBookmarkModel_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QPdfBookmarkModel_virtualbase_connectNotify(VirtualQPdfBookmarkModel* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QPdfBookmarkModel::disconnectNotify(signal);
 			return;
 		}
@@ -1004,45 +774,46 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QPdfBookmarkModel_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QPdfBookmarkModel_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QPdfBookmarkModel_virtualbase_disconnectNotify(VirtualQPdfBookmarkModel* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QModelIndex* QPdfBookmarkModel_protectedbase_createIndex(bool* _dynamic_cast_ok, const void* self, int row, int column);
-	friend void QPdfBookmarkModel_protectedbase_encodeData(bool* _dynamic_cast_ok, const void* self, struct seaqt_array /* of QModelIndex* */  indexes, QDataStream* stream);
-	friend bool QPdfBookmarkModel_protectedbase_decodeData(bool* _dynamic_cast_ok, void* self, int row, int column, QModelIndex* parent, QDataStream* stream);
-	friend void QPdfBookmarkModel_protectedbase_beginInsertRows(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last);
-	friend void QPdfBookmarkModel_protectedbase_endInsertRows(bool* _dynamic_cast_ok, void* self);
-	friend void QPdfBookmarkModel_protectedbase_beginRemoveRows(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last);
-	friend void QPdfBookmarkModel_protectedbase_endRemoveRows(bool* _dynamic_cast_ok, void* self);
-	friend bool QPdfBookmarkModel_protectedbase_beginMoveRows(bool* _dynamic_cast_ok, void* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationRow);
-	friend void QPdfBookmarkModel_protectedbase_endMoveRows(bool* _dynamic_cast_ok, void* self);
-	friend void QPdfBookmarkModel_protectedbase_beginInsertColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last);
-	friend void QPdfBookmarkModel_protectedbase_endInsertColumns(bool* _dynamic_cast_ok, void* self);
-	friend void QPdfBookmarkModel_protectedbase_beginRemoveColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last);
-	friend void QPdfBookmarkModel_protectedbase_endRemoveColumns(bool* _dynamic_cast_ok, void* self);
-	friend bool QPdfBookmarkModel_protectedbase_beginMoveColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationColumn);
-	friend void QPdfBookmarkModel_protectedbase_endMoveColumns(bool* _dynamic_cast_ok, void* self);
-	friend void QPdfBookmarkModel_protectedbase_beginResetModel(bool* _dynamic_cast_ok, void* self);
-	friend void QPdfBookmarkModel_protectedbase_endResetModel(bool* _dynamic_cast_ok, void* self);
-	friend void QPdfBookmarkModel_protectedbase_changePersistentIndex(bool* _dynamic_cast_ok, void* self, QModelIndex* from, QModelIndex* to);
-	friend void QPdfBookmarkModel_protectedbase_changePersistentIndexList(bool* _dynamic_cast_ok, void* self, struct seaqt_array /* of QModelIndex* */  from, struct seaqt_array /* of QModelIndex* */  to);
-	friend struct seaqt_array /* of QModelIndex* */  QPdfBookmarkModel_protectedbase_persistentIndexList(bool* _dynamic_cast_ok, const void* self);
-	friend QObject* QPdfBookmarkModel_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QPdfBookmarkModel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QPdfBookmarkModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QPdfBookmarkModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QModelIndex* QPdfBookmarkModel_protectedbase_createIndex(const VirtualQPdfBookmarkModel* self, int row, int column);
+	friend void QPdfBookmarkModel_protectedbase_encodeData(const VirtualQPdfBookmarkModel* self, struct seaqt_array /* of QModelIndex* */  indexes, QDataStream* stream);
+	friend bool QPdfBookmarkModel_protectedbase_decodeData(VirtualQPdfBookmarkModel* self, int row, int column, QModelIndex* parent, QDataStream* stream);
+	friend void QPdfBookmarkModel_protectedbase_beginInsertRows(VirtualQPdfBookmarkModel* self, QModelIndex* parent, int first, int last);
+	friend void QPdfBookmarkModel_protectedbase_endInsertRows(VirtualQPdfBookmarkModel* self);
+	friend void QPdfBookmarkModel_protectedbase_beginRemoveRows(VirtualQPdfBookmarkModel* self, QModelIndex* parent, int first, int last);
+	friend void QPdfBookmarkModel_protectedbase_endRemoveRows(VirtualQPdfBookmarkModel* self);
+	friend bool QPdfBookmarkModel_protectedbase_beginMoveRows(VirtualQPdfBookmarkModel* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationRow);
+	friend void QPdfBookmarkModel_protectedbase_endMoveRows(VirtualQPdfBookmarkModel* self);
+	friend void QPdfBookmarkModel_protectedbase_beginInsertColumns(VirtualQPdfBookmarkModel* self, QModelIndex* parent, int first, int last);
+	friend void QPdfBookmarkModel_protectedbase_endInsertColumns(VirtualQPdfBookmarkModel* self);
+	friend void QPdfBookmarkModel_protectedbase_beginRemoveColumns(VirtualQPdfBookmarkModel* self, QModelIndex* parent, int first, int last);
+	friend void QPdfBookmarkModel_protectedbase_endRemoveColumns(VirtualQPdfBookmarkModel* self);
+	friend bool QPdfBookmarkModel_protectedbase_beginMoveColumns(VirtualQPdfBookmarkModel* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationColumn);
+	friend void QPdfBookmarkModel_protectedbase_endMoveColumns(VirtualQPdfBookmarkModel* self);
+	friend void QPdfBookmarkModel_protectedbase_beginResetModel(VirtualQPdfBookmarkModel* self);
+	friend void QPdfBookmarkModel_protectedbase_endResetModel(VirtualQPdfBookmarkModel* self);
+	friend void QPdfBookmarkModel_protectedbase_changePersistentIndex(VirtualQPdfBookmarkModel* self, QModelIndex* from, QModelIndex* to);
+	friend void QPdfBookmarkModel_protectedbase_changePersistentIndexList(VirtualQPdfBookmarkModel* self, struct seaqt_array /* of QModelIndex* */  from, struct seaqt_array /* of QModelIndex* */  to);
+	friend struct seaqt_array /* of QModelIndex* */  QPdfBookmarkModel_protectedbase_persistentIndexList(const VirtualQPdfBookmarkModel* self);
+	friend QObject* QPdfBookmarkModel_protectedbase_sender(const VirtualQPdfBookmarkModel* self);
+	friend int QPdfBookmarkModel_protectedbase_senderSignalIndex(const VirtualQPdfBookmarkModel* self);
+	friend int QPdfBookmarkModel_protectedbase_receivers(const VirtualQPdfBookmarkModel* self, const char* signal);
+	friend bool QPdfBookmarkModel_protectedbase_isSignalConnected(const VirtualQPdfBookmarkModel* self, QMetaMethod* signal);
 };
 
-QPdfBookmarkModel* QPdfBookmarkModel_new() {
-	return new (std::nothrow) VirtualQPdfBookmarkModel();
+VirtualQPdfBookmarkModel* QPdfBookmarkModel_new(const QPdfBookmarkModel_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQPdfBookmarkModel>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQPdfBookmarkModel(vtbl) : nullptr;
 }
 
-QPdfBookmarkModel* QPdfBookmarkModel_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQPdfBookmarkModel(parent);
+VirtualQPdfBookmarkModel* QPdfBookmarkModel_new2(const QPdfBookmarkModel_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQPdfBookmarkModel>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQPdfBookmarkModel(vtbl, parent) : nullptr;
 }
 
 void QPdfBookmarkModel_virtbase(QPdfBookmarkModel* src, QAbstractItemModel** outptr_QAbstractItemModel) {
@@ -1157,130 +928,52 @@ struct seaqt_string QPdfBookmarkModel_tr3(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QPdfBookmarkModel_staticMetaObject() { return &QPdfBookmarkModel::staticMetaObject; }
-bool QPdfBookmarkModel_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QPdfBookmarkModel_vdata(VirtualQPdfBookmarkModel* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQPdfBookmarkModel>()); }
+VirtualQPdfBookmarkModel* vdata_QPdfBookmarkModel(void* vdata) { return reinterpret_cast<VirtualQPdfBookmarkModel*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQPdfBookmarkModel>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QPdfBookmarkModel_virtualbase_metaObject(const VirtualQPdfBookmarkModel* self) {
+
+	return (QMetaObject*) self->QPdfBookmarkModel::metaObject();
 }
 
-QMetaObject* QPdfBookmarkModel_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::metaObject();
+void* QPdfBookmarkModel_virtualbase_metacast(VirtualQPdfBookmarkModel* self, const char* param1) {
+
+	return self->QPdfBookmarkModel::qt_metacast(param1);
 }
 
-bool QPdfBookmarkModel_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QPdfBookmarkModel_virtualbase_metacall(VirtualQPdfBookmarkModel* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QPdfBookmarkModel::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QPdfBookmarkModel_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::qt_metacast(param1);
+QVariant* QPdfBookmarkModel_virtualbase_data(const VirtualQPdfBookmarkModel* self, QModelIndex* index, int role) {
+
+	return new QVariant(self->QPdfBookmarkModel::data(*index, static_cast<int>(role)));
 }
 
-bool QPdfBookmarkModel_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QModelIndex* QPdfBookmarkModel_virtualbase_index(const VirtualQPdfBookmarkModel* self, int row, int column, QModelIndex* parent) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return new QModelIndex(self->QPdfBookmarkModel::index(static_cast<int>(row), static_cast<int>(column), *parent));
 }
 
-int QPdfBookmarkModel_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+QModelIndex* QPdfBookmarkModel_virtualbase_parent(const VirtualQPdfBookmarkModel* self, QModelIndex* index) {
+
+	return new QModelIndex(self->QPdfBookmarkModel::parent(*index));
 }
 
-bool QPdfBookmarkModel_override_virtual_data(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QPdfBookmarkModel_virtualbase_rowCount(const VirtualQPdfBookmarkModel* self, QModelIndex* parent) {
 
-	self_cast->handle__data = slot;
-	return true;
+	return self->QPdfBookmarkModel::rowCount(*parent);
 }
 
-QVariant* QPdfBookmarkModel_virtualbase_data(const void* self, QModelIndex* index, int role) {
-	return new QVariant(static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::data(*index, static_cast<int>(role)));
+int QPdfBookmarkModel_virtualbase_columnCount(const VirtualQPdfBookmarkModel* self, QModelIndex* parent) {
+
+	return self->QPdfBookmarkModel::columnCount(*parent);
 }
 
-bool QPdfBookmarkModel_override_virtual_index(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+struct seaqt_map /* of int to struct seaqt_string */  QPdfBookmarkModel_virtualbase_roleNames(const VirtualQPdfBookmarkModel* self) {
 
-	self_cast->handle__index = slot;
-	return true;
-}
-
-QModelIndex* QPdfBookmarkModel_virtualbase_index(const void* self, int row, int column, QModelIndex* parent) {
-	return new QModelIndex(static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::index(static_cast<int>(row), static_cast<int>(column), *parent));
-}
-
-bool QPdfBookmarkModel_override_virtual_parent(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__parent = slot;
-	return true;
-}
-
-QModelIndex* QPdfBookmarkModel_virtualbase_parent(const void* self, QModelIndex* index) {
-	return new QModelIndex(static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::parent(*index));
-}
-
-bool QPdfBookmarkModel_override_virtual_rowCount(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__rowCount = slot;
-	return true;
-}
-
-int QPdfBookmarkModel_virtualbase_rowCount(const void* self, QModelIndex* parent) {
-	return static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::rowCount(*parent);
-}
-
-bool QPdfBookmarkModel_override_virtual_columnCount(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__columnCount = slot;
-	return true;
-}
-
-int QPdfBookmarkModel_virtualbase_columnCount(const void* self, QModelIndex* parent) {
-	return static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::columnCount(*parent);
-}
-
-bool QPdfBookmarkModel_override_virtual_roleNames(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__roleNames = slot;
-	return true;
-}
-
-struct seaqt_map /* of int to struct seaqt_string */  QPdfBookmarkModel_virtualbase_roleNames(const void* self) {
-	QHash<int, QByteArray> _ret = static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::roleNames();
+	QHash<int, QByteArray> _ret = self->QPdfBookmarkModel::roleNames();
 	// Convert QMap<> from C++ memory to manually-managed C memory
 	int* _karr = static_cast<int*>(malloc(sizeof(int) * _ret.size()));
 	struct seaqt_string* _varr = static_cast<struct seaqt_string*>(malloc(sizeof(struct seaqt_string) * _ret.size()));
@@ -1302,88 +995,34 @@ struct seaqt_map /* of int to struct seaqt_string */  QPdfBookmarkModel_virtualb
 	return _out;
 }
 
-bool QPdfBookmarkModel_override_virtual_sibling(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QModelIndex* QPdfBookmarkModel_virtualbase_sibling(const VirtualQPdfBookmarkModel* self, int row, int column, QModelIndex* idx) {
 
-	self_cast->handle__sibling = slot;
-	return true;
+	return new QModelIndex(self->QPdfBookmarkModel::sibling(static_cast<int>(row), static_cast<int>(column), *idx));
 }
 
-QModelIndex* QPdfBookmarkModel_virtualbase_sibling(const void* self, int row, int column, QModelIndex* idx) {
-	return new QModelIndex(static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::sibling(static_cast<int>(row), static_cast<int>(column), *idx));
+bool QPdfBookmarkModel_virtualbase_hasChildren(const VirtualQPdfBookmarkModel* self, QModelIndex* parent) {
+
+	return self->QPdfBookmarkModel::hasChildren(*parent);
 }
 
-bool QPdfBookmarkModel_override_virtual_hasChildren(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QPdfBookmarkModel_virtualbase_setData(VirtualQPdfBookmarkModel* self, QModelIndex* index, QVariant* value, int role) {
 
-	self_cast->handle__hasChildren = slot;
-	return true;
+	return self->QPdfBookmarkModel::setData(*index, *value, static_cast<int>(role));
 }
 
-bool QPdfBookmarkModel_virtualbase_hasChildren(const void* self, QModelIndex* parent) {
-	return static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::hasChildren(*parent);
+QVariant* QPdfBookmarkModel_virtualbase_headerData(const VirtualQPdfBookmarkModel* self, int section, int orientation, int role) {
+
+	return new QVariant(self->QPdfBookmarkModel::headerData(static_cast<int>(section), static_cast<Qt::Orientation>(orientation), static_cast<int>(role)));
 }
 
-bool QPdfBookmarkModel_override_virtual_setData(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QPdfBookmarkModel_virtualbase_setHeaderData(VirtualQPdfBookmarkModel* self, int section, int orientation, QVariant* value, int role) {
 
-	self_cast->handle__setData = slot;
-	return true;
+	return self->QPdfBookmarkModel::setHeaderData(static_cast<int>(section), static_cast<Qt::Orientation>(orientation), *value, static_cast<int>(role));
 }
 
-bool QPdfBookmarkModel_virtualbase_setData(void* self, QModelIndex* index, QVariant* value, int role) {
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::setData(*index, *value, static_cast<int>(role));
-}
+struct seaqt_map /* of int to QVariant* */  QPdfBookmarkModel_virtualbase_itemData(const VirtualQPdfBookmarkModel* self, QModelIndex* index) {
 
-bool QPdfBookmarkModel_override_virtual_headerData(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__headerData = slot;
-	return true;
-}
-
-QVariant* QPdfBookmarkModel_virtualbase_headerData(const void* self, int section, int orientation, int role) {
-	return new QVariant(static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::headerData(static_cast<int>(section), static_cast<Qt::Orientation>(orientation), static_cast<int>(role)));
-}
-
-bool QPdfBookmarkModel_override_virtual_setHeaderData(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setHeaderData = slot;
-	return true;
-}
-
-bool QPdfBookmarkModel_virtualbase_setHeaderData(void* self, int section, int orientation, QVariant* value, int role) {
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::setHeaderData(static_cast<int>(section), static_cast<Qt::Orientation>(orientation), *value, static_cast<int>(role));
-}
-
-bool QPdfBookmarkModel_override_virtual_itemData(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__itemData = slot;
-	return true;
-}
-
-struct seaqt_map /* of int to QVariant* */  QPdfBookmarkModel_virtualbase_itemData(const void* self, QModelIndex* index) {
-	QMap<int, QVariant> _ret = static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::itemData(*index);
+	QMap<int, QVariant> _ret = self->QPdfBookmarkModel::itemData(*index);
 	// Convert QMap<> from C++ memory to manually-managed C memory
 	int* _karr = static_cast<int*>(malloc(sizeof(int) * _ret.size()));
 	QVariant** _varr = static_cast<QVariant**>(malloc(sizeof(QVariant*) * _ret.size()));
@@ -1400,52 +1039,25 @@ struct seaqt_map /* of int to QVariant* */  QPdfBookmarkModel_virtualbase_itemDa
 	return _out;
 }
 
-bool QPdfBookmarkModel_override_virtual_setItemData(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setItemData = slot;
-	return true;
-}
-
-bool QPdfBookmarkModel_virtualbase_setItemData(void* self, QModelIndex* index, struct seaqt_map /* of int to QVariant* */  roles) {
+bool QPdfBookmarkModel_virtualbase_setItemData(VirtualQPdfBookmarkModel* self, QModelIndex* index, struct seaqt_map /* of int to QVariant* */  roles) {
 	QMap<int, QVariant> roles_QMap;
 	int* roles_karr = static_cast<int*>(roles.keys);
 	QVariant** roles_varr = static_cast<QVariant**>(roles.values);
 	for(size_t i = 0; i < roles.len; ++i) {
 		roles_QMap[static_cast<int>(roles_karr[i])] = *(roles_varr[i]);
 	}
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::setItemData(*index, roles_QMap);
+
+	return self->QPdfBookmarkModel::setItemData(*index, roles_QMap);
 }
 
-bool QPdfBookmarkModel_override_virtual_clearItemData(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QPdfBookmarkModel_virtualbase_clearItemData(VirtualQPdfBookmarkModel* self, QModelIndex* index) {
 
-	self_cast->handle__clearItemData = slot;
-	return true;
+	return self->QPdfBookmarkModel::clearItemData(*index);
 }
 
-bool QPdfBookmarkModel_virtualbase_clearItemData(void* self, QModelIndex* index) {
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::clearItemData(*index);
-}
+struct seaqt_array /* of struct seaqt_string */  QPdfBookmarkModel_virtualbase_mimeTypes(const VirtualQPdfBookmarkModel* self) {
 
-bool QPdfBookmarkModel_override_virtual_mimeTypes(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mimeTypes = slot;
-	return true;
-}
-
-struct seaqt_array /* of struct seaqt_string */  QPdfBookmarkModel_virtualbase_mimeTypes(const void* self) {
-	QStringList _ret = static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::mimeTypes();
+	QStringList _ret = self->QPdfBookmarkModel::mimeTypes();
 	// Convert QList<> from C++ memory to manually-managed C memory
 	struct seaqt_string* _arr = static_cast<struct seaqt_string*>(malloc(sizeof(struct seaqt_string) * _ret.length()));
 	for (size_t i = 0, e = _ret.length(); i < e; ++i) {
@@ -1464,251 +1076,98 @@ struct seaqt_array /* of struct seaqt_string */  QPdfBookmarkModel_virtualbase_m
 	return _out;
 }
 
-bool QPdfBookmarkModel_override_virtual_mimeData(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mimeData = slot;
-	return true;
-}
-
-QMimeData* QPdfBookmarkModel_virtualbase_mimeData(const void* self, struct seaqt_array /* of QModelIndex* */  indexes) {
+QMimeData* QPdfBookmarkModel_virtualbase_mimeData(const VirtualQPdfBookmarkModel* self, struct seaqt_array /* of QModelIndex* */  indexes) {
 	QModelIndexList indexes_QList;
 	indexes_QList.reserve(indexes.len);
 	QModelIndex** indexes_arr = static_cast<QModelIndex**>(indexes.data);
 	for(size_t i = 0; i < indexes.len; ++i) {
 		indexes_QList.push_back(*(indexes_arr[i]));
 	}
-	return static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::mimeData(indexes_QList);
+
+	return self->QPdfBookmarkModel::mimeData(indexes_QList);
 }
 
-bool QPdfBookmarkModel_override_virtual_canDropMimeData(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QPdfBookmarkModel_virtualbase_canDropMimeData(const VirtualQPdfBookmarkModel* self, QMimeData* data, int action, int row, int column, QModelIndex* parent) {
 
-	self_cast->handle__canDropMimeData = slot;
-	return true;
+	return self->QPdfBookmarkModel::canDropMimeData(data, static_cast<Qt::DropAction>(action), static_cast<int>(row), static_cast<int>(column), *parent);
 }
 
-bool QPdfBookmarkModel_virtualbase_canDropMimeData(const void* self, QMimeData* data, int action, int row, int column, QModelIndex* parent) {
-	return static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::canDropMimeData(data, static_cast<Qt::DropAction>(action), static_cast<int>(row), static_cast<int>(column), *parent);
+bool QPdfBookmarkModel_virtualbase_dropMimeData(VirtualQPdfBookmarkModel* self, QMimeData* data, int action, int row, int column, QModelIndex* parent) {
+
+	return self->QPdfBookmarkModel::dropMimeData(data, static_cast<Qt::DropAction>(action), static_cast<int>(row), static_cast<int>(column), *parent);
 }
 
-bool QPdfBookmarkModel_override_virtual_dropMimeData(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QPdfBookmarkModel_virtualbase_supportedDropActions(const VirtualQPdfBookmarkModel* self) {
 
-	self_cast->handle__dropMimeData = slot;
-	return true;
-}
-
-bool QPdfBookmarkModel_virtualbase_dropMimeData(void* self, QMimeData* data, int action, int row, int column, QModelIndex* parent) {
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::dropMimeData(data, static_cast<Qt::DropAction>(action), static_cast<int>(row), static_cast<int>(column), *parent);
-}
-
-bool QPdfBookmarkModel_override_virtual_supportedDropActions(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__supportedDropActions = slot;
-	return true;
-}
-
-int QPdfBookmarkModel_virtualbase_supportedDropActions(const void* self) {
-	Qt::DropActions _ret = static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::supportedDropActions();
+	Qt::DropActions _ret = self->QPdfBookmarkModel::supportedDropActions();
 	return static_cast<int>(_ret);
 }
 
-bool QPdfBookmarkModel_override_virtual_supportedDragActions(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QPdfBookmarkModel_virtualbase_supportedDragActions(const VirtualQPdfBookmarkModel* self) {
 
-	self_cast->handle__supportedDragActions = slot;
-	return true;
-}
-
-int QPdfBookmarkModel_virtualbase_supportedDragActions(const void* self) {
-	Qt::DropActions _ret = static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::supportedDragActions();
+	Qt::DropActions _ret = self->QPdfBookmarkModel::supportedDragActions();
 	return static_cast<int>(_ret);
 }
 
-bool QPdfBookmarkModel_override_virtual_insertRows(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QPdfBookmarkModel_virtualbase_insertRows(VirtualQPdfBookmarkModel* self, int row, int count, QModelIndex* parent) {
 
-	self_cast->handle__insertRows = slot;
-	return true;
+	return self->QPdfBookmarkModel::insertRows(static_cast<int>(row), static_cast<int>(count), *parent);
 }
 
-bool QPdfBookmarkModel_virtualbase_insertRows(void* self, int row, int count, QModelIndex* parent) {
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::insertRows(static_cast<int>(row), static_cast<int>(count), *parent);
+bool QPdfBookmarkModel_virtualbase_insertColumns(VirtualQPdfBookmarkModel* self, int column, int count, QModelIndex* parent) {
+
+	return self->QPdfBookmarkModel::insertColumns(static_cast<int>(column), static_cast<int>(count), *parent);
 }
 
-bool QPdfBookmarkModel_override_virtual_insertColumns(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QPdfBookmarkModel_virtualbase_removeRows(VirtualQPdfBookmarkModel* self, int row, int count, QModelIndex* parent) {
 
-	self_cast->handle__insertColumns = slot;
-	return true;
+	return self->QPdfBookmarkModel::removeRows(static_cast<int>(row), static_cast<int>(count), *parent);
 }
 
-bool QPdfBookmarkModel_virtualbase_insertColumns(void* self, int column, int count, QModelIndex* parent) {
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::insertColumns(static_cast<int>(column), static_cast<int>(count), *parent);
+bool QPdfBookmarkModel_virtualbase_removeColumns(VirtualQPdfBookmarkModel* self, int column, int count, QModelIndex* parent) {
+
+	return self->QPdfBookmarkModel::removeColumns(static_cast<int>(column), static_cast<int>(count), *parent);
 }
 
-bool QPdfBookmarkModel_override_virtual_removeRows(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QPdfBookmarkModel_virtualbase_moveRows(VirtualQPdfBookmarkModel* self, QModelIndex* sourceParent, int sourceRow, int count, QModelIndex* destinationParent, int destinationChild) {
 
-	self_cast->handle__removeRows = slot;
-	return true;
+	return self->QPdfBookmarkModel::moveRows(*sourceParent, static_cast<int>(sourceRow), static_cast<int>(count), *destinationParent, static_cast<int>(destinationChild));
 }
 
-bool QPdfBookmarkModel_virtualbase_removeRows(void* self, int row, int count, QModelIndex* parent) {
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::removeRows(static_cast<int>(row), static_cast<int>(count), *parent);
+bool QPdfBookmarkModel_virtualbase_moveColumns(VirtualQPdfBookmarkModel* self, QModelIndex* sourceParent, int sourceColumn, int count, QModelIndex* destinationParent, int destinationChild) {
+
+	return self->QPdfBookmarkModel::moveColumns(*sourceParent, static_cast<int>(sourceColumn), static_cast<int>(count), *destinationParent, static_cast<int>(destinationChild));
 }
 
-bool QPdfBookmarkModel_override_virtual_removeColumns(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfBookmarkModel_virtualbase_fetchMore(VirtualQPdfBookmarkModel* self, QModelIndex* parent) {
 
-	self_cast->handle__removeColumns = slot;
-	return true;
+	self->QPdfBookmarkModel::fetchMore(*parent);
 }
 
-bool QPdfBookmarkModel_virtualbase_removeColumns(void* self, int column, int count, QModelIndex* parent) {
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::removeColumns(static_cast<int>(column), static_cast<int>(count), *parent);
+bool QPdfBookmarkModel_virtualbase_canFetchMore(const VirtualQPdfBookmarkModel* self, QModelIndex* parent) {
+
+	return self->QPdfBookmarkModel::canFetchMore(*parent);
 }
 
-bool QPdfBookmarkModel_override_virtual_moveRows(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QPdfBookmarkModel_virtualbase_flags(const VirtualQPdfBookmarkModel* self, QModelIndex* index) {
 
-	self_cast->handle__moveRows = slot;
-	return true;
-}
-
-bool QPdfBookmarkModel_virtualbase_moveRows(void* self, QModelIndex* sourceParent, int sourceRow, int count, QModelIndex* destinationParent, int destinationChild) {
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::moveRows(*sourceParent, static_cast<int>(sourceRow), static_cast<int>(count), *destinationParent, static_cast<int>(destinationChild));
-}
-
-bool QPdfBookmarkModel_override_virtual_moveColumns(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__moveColumns = slot;
-	return true;
-}
-
-bool QPdfBookmarkModel_virtualbase_moveColumns(void* self, QModelIndex* sourceParent, int sourceColumn, int count, QModelIndex* destinationParent, int destinationChild) {
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::moveColumns(*sourceParent, static_cast<int>(sourceColumn), static_cast<int>(count), *destinationParent, static_cast<int>(destinationChild));
-}
-
-bool QPdfBookmarkModel_override_virtual_fetchMore(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__fetchMore = slot;
-	return true;
-}
-
-void QPdfBookmarkModel_virtualbase_fetchMore(void* self, QModelIndex* parent) {
-	static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::fetchMore(*parent);
-}
-
-bool QPdfBookmarkModel_override_virtual_canFetchMore(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__canFetchMore = slot;
-	return true;
-}
-
-bool QPdfBookmarkModel_virtualbase_canFetchMore(const void* self, QModelIndex* parent) {
-	return static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::canFetchMore(*parent);
-}
-
-bool QPdfBookmarkModel_override_virtual_flags(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__flags = slot;
-	return true;
-}
-
-int QPdfBookmarkModel_virtualbase_flags(const void* self, QModelIndex* index) {
-	Qt::ItemFlags _ret = static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::flags(*index);
+	Qt::ItemFlags _ret = self->QPdfBookmarkModel::flags(*index);
 	return static_cast<int>(_ret);
 }
 
-bool QPdfBookmarkModel_override_virtual_sort(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfBookmarkModel_virtualbase_sort(VirtualQPdfBookmarkModel* self, int column, int order) {
 
-	self_cast->handle__sort = slot;
-	return true;
+	self->QPdfBookmarkModel::sort(static_cast<int>(column), static_cast<Qt::SortOrder>(order));
 }
 
-void QPdfBookmarkModel_virtualbase_sort(void* self, int column, int order) {
-	static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::sort(static_cast<int>(column), static_cast<Qt::SortOrder>(order));
+QModelIndex* QPdfBookmarkModel_virtualbase_buddy(const VirtualQPdfBookmarkModel* self, QModelIndex* index) {
+
+	return new QModelIndex(self->QPdfBookmarkModel::buddy(*index));
 }
 
-bool QPdfBookmarkModel_override_virtual_buddy(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+struct seaqt_array /* of QModelIndex* */  QPdfBookmarkModel_virtualbase_match(const VirtualQPdfBookmarkModel* self, QModelIndex* start, int role, QVariant* value, int hits, int flags) {
 
-	self_cast->handle__buddy = slot;
-	return true;
-}
-
-QModelIndex* QPdfBookmarkModel_virtualbase_buddy(const void* self, QModelIndex* index) {
-	return new QModelIndex(static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::buddy(*index));
-}
-
-bool QPdfBookmarkModel_override_virtual_match(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__match = slot;
-	return true;
-}
-
-struct seaqt_array /* of QModelIndex* */  QPdfBookmarkModel_virtualbase_match(const void* self, QModelIndex* start, int role, QVariant* value, int hits, int flags) {
-	QModelIndexList _ret = static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::match(*start, static_cast<int>(role), *value, static_cast<int>(hits), static_cast<Qt::MatchFlags>(flags));
+	QModelIndexList _ret = self->QPdfBookmarkModel::match(*start, static_cast<int>(role), *value, static_cast<int>(hits), static_cast<Qt::MatchFlags>(flags));
 	// Convert QList<> from C++ memory to manually-managed C memory
 	QModelIndex** _arr = static_cast<QModelIndex**>(malloc(sizeof(QModelIndex*) * _ret.length()));
 	for (size_t i = 0, e = _ret.length(); i < e; ++i) {
@@ -1720,386 +1179,145 @@ struct seaqt_array /* of QModelIndex* */  QPdfBookmarkModel_virtualbase_match(co
 	return _out;
 }
 
-bool QPdfBookmarkModel_override_virtual_span(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QSize* QPdfBookmarkModel_virtualbase_span(const VirtualQPdfBookmarkModel* self, QModelIndex* index) {
 
-	self_cast->handle__span = slot;
-	return true;
+	return new QSize(self->QPdfBookmarkModel::span(*index));
 }
 
-QSize* QPdfBookmarkModel_virtualbase_span(const void* self, QModelIndex* index) {
-	return new QSize(static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::span(*index));
+void QPdfBookmarkModel_virtualbase_multiData(const VirtualQPdfBookmarkModel* self, QModelIndex* index, QModelRoleDataSpan* roleDataSpan) {
+
+	self->QPdfBookmarkModel::multiData(*index, *roleDataSpan);
 }
 
-bool QPdfBookmarkModel_override_virtual_multiData(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QPdfBookmarkModel_virtualbase_submit(VirtualQPdfBookmarkModel* self) {
 
-	self_cast->handle__multiData = slot;
-	return true;
+	return self->QPdfBookmarkModel::submit();
 }
 
-void QPdfBookmarkModel_virtualbase_multiData(const void* self, QModelIndex* index, QModelRoleDataSpan* roleDataSpan) {
-	static_cast<const VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::multiData(*index, *roleDataSpan);
+void QPdfBookmarkModel_virtualbase_revert(VirtualQPdfBookmarkModel* self) {
+
+	self->QPdfBookmarkModel::revert();
 }
 
-bool QPdfBookmarkModel_override_virtual_submit(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfBookmarkModel_virtualbase_resetInternalData(VirtualQPdfBookmarkModel* self) {
 
-	self_cast->handle__submit = slot;
-	return true;
+	self->QPdfBookmarkModel::resetInternalData();
 }
 
-bool QPdfBookmarkModel_virtualbase_submit(void* self) {
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::submit();
+bool QPdfBookmarkModel_virtualbase_event(VirtualQPdfBookmarkModel* self, QEvent* event) {
+
+	return self->QPdfBookmarkModel::event(event);
 }
 
-bool QPdfBookmarkModel_override_virtual_revert(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QPdfBookmarkModel_virtualbase_eventFilter(VirtualQPdfBookmarkModel* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__revert = slot;
-	return true;
+	return self->QPdfBookmarkModel::eventFilter(watched, event);
 }
 
-void QPdfBookmarkModel_virtualbase_revert(void* self) {
-	static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::revert();
+void QPdfBookmarkModel_virtualbase_timerEvent(VirtualQPdfBookmarkModel* self, QTimerEvent* event) {
+
+	self->QPdfBookmarkModel::timerEvent(event);
 }
 
-bool QPdfBookmarkModel_override_virtual_resetInternalData(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfBookmarkModel_virtualbase_childEvent(VirtualQPdfBookmarkModel* self, QChildEvent* event) {
 
-	self_cast->handle__resetInternalData = slot;
-	return true;
+	self->QPdfBookmarkModel::childEvent(event);
 }
 
-void QPdfBookmarkModel_virtualbase_resetInternalData(void* self) {
-	static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::resetInternalData();
+void QPdfBookmarkModel_virtualbase_customEvent(VirtualQPdfBookmarkModel* self, QEvent* event) {
+
+	self->QPdfBookmarkModel::customEvent(event);
 }
 
-bool QPdfBookmarkModel_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfBookmarkModel_virtualbase_connectNotify(VirtualQPdfBookmarkModel* self, QMetaMethod* signal) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QPdfBookmarkModel::connectNotify(*signal);
 }
 
-bool QPdfBookmarkModel_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::event(event);
+void QPdfBookmarkModel_virtualbase_disconnectNotify(VirtualQPdfBookmarkModel* self, QMetaMethod* signal) {
+
+	self->QPdfBookmarkModel::disconnectNotify(*signal);
 }
 
-bool QPdfBookmarkModel_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
+QModelIndex* QPdfBookmarkModel_protectedbase_createIndex(const VirtualQPdfBookmarkModel* self, int row, int column) {
+	return new QModelIndex(self->createIndex(static_cast<int>(row), static_cast<int>(column)));
 }
 
-bool QPdfBookmarkModel_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::eventFilter(watched, event);
-}
-
-bool QPdfBookmarkModel_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
-}
-
-void QPdfBookmarkModel_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::timerEvent(event);
-}
-
-bool QPdfBookmarkModel_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QPdfBookmarkModel_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::childEvent(event);
-}
-
-bool QPdfBookmarkModel_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QPdfBookmarkModel_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::customEvent(event);
-}
-
-bool QPdfBookmarkModel_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QPdfBookmarkModel_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::connectNotify(*signal);
-}
-
-bool QPdfBookmarkModel_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QPdfBookmarkModel_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQPdfBookmarkModel*>(self)->QPdfBookmarkModel::disconnectNotify(*signal);
-}
-
-QModelIndex* QPdfBookmarkModel_protectedbase_createIndex(bool* _dynamic_cast_ok, const void* self, int row, int column) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return new QModelIndex(self_cast->createIndex(static_cast<int>(row), static_cast<int>(column)));
-}
-
-void QPdfBookmarkModel_protectedbase_encodeData(bool* _dynamic_cast_ok, const void* self, struct seaqt_array /* of QModelIndex* */  indexes, QDataStream* stream) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
+void QPdfBookmarkModel_protectedbase_encodeData(const VirtualQPdfBookmarkModel* self, struct seaqt_array /* of QModelIndex* */  indexes, QDataStream* stream) {
 		QModelIndexList indexes_QList;
 		indexes_QList.reserve(indexes.len);
 		QModelIndex** indexes_arr = static_cast<QModelIndex**>(indexes.data);
 		for(size_t i = 0; i < indexes.len; ++i) {
 			indexes_QList.push_back(*(indexes_arr[i]));
 		}
-	self_cast->encodeData(indexes_QList, *stream);
+	self->encodeData(indexes_QList, *stream);
 }
 
-bool QPdfBookmarkModel_protectedbase_decodeData(bool* _dynamic_cast_ok, void* self, int row, int column, QModelIndex* parent, QDataStream* stream) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->decodeData(static_cast<int>(row), static_cast<int>(column), *parent, *stream);
+bool QPdfBookmarkModel_protectedbase_decodeData(VirtualQPdfBookmarkModel* self, int row, int column, QModelIndex* parent, QDataStream* stream) {
+	return self->decodeData(static_cast<int>(row), static_cast<int>(column), *parent, *stream);
 }
 
-void QPdfBookmarkModel_protectedbase_beginInsertRows(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->beginInsertRows(*parent, static_cast<int>(first), static_cast<int>(last));
+void QPdfBookmarkModel_protectedbase_beginInsertRows(VirtualQPdfBookmarkModel* self, QModelIndex* parent, int first, int last) {
+	self->beginInsertRows(*parent, static_cast<int>(first), static_cast<int>(last));
 }
 
-void QPdfBookmarkModel_protectedbase_endInsertRows(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endInsertRows();
+void QPdfBookmarkModel_protectedbase_endInsertRows(VirtualQPdfBookmarkModel* self) {
+	self->endInsertRows();
 }
 
-void QPdfBookmarkModel_protectedbase_beginRemoveRows(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->beginRemoveRows(*parent, static_cast<int>(first), static_cast<int>(last));
+void QPdfBookmarkModel_protectedbase_beginRemoveRows(VirtualQPdfBookmarkModel* self, QModelIndex* parent, int first, int last) {
+	self->beginRemoveRows(*parent, static_cast<int>(first), static_cast<int>(last));
 }
 
-void QPdfBookmarkModel_protectedbase_endRemoveRows(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endRemoveRows();
+void QPdfBookmarkModel_protectedbase_endRemoveRows(VirtualQPdfBookmarkModel* self) {
+	self->endRemoveRows();
 }
 
-bool QPdfBookmarkModel_protectedbase_beginMoveRows(bool* _dynamic_cast_ok, void* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationRow) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->beginMoveRows(*sourceParent, static_cast<int>(sourceFirst), static_cast<int>(sourceLast), *destinationParent, static_cast<int>(destinationRow));
+bool QPdfBookmarkModel_protectedbase_beginMoveRows(VirtualQPdfBookmarkModel* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationRow) {
+	return self->beginMoveRows(*sourceParent, static_cast<int>(sourceFirst), static_cast<int>(sourceLast), *destinationParent, static_cast<int>(destinationRow));
 }
 
-void QPdfBookmarkModel_protectedbase_endMoveRows(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endMoveRows();
+void QPdfBookmarkModel_protectedbase_endMoveRows(VirtualQPdfBookmarkModel* self) {
+	self->endMoveRows();
 }
 
-void QPdfBookmarkModel_protectedbase_beginInsertColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->beginInsertColumns(*parent, static_cast<int>(first), static_cast<int>(last));
+void QPdfBookmarkModel_protectedbase_beginInsertColumns(VirtualQPdfBookmarkModel* self, QModelIndex* parent, int first, int last) {
+	self->beginInsertColumns(*parent, static_cast<int>(first), static_cast<int>(last));
 }
 
-void QPdfBookmarkModel_protectedbase_endInsertColumns(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endInsertColumns();
+void QPdfBookmarkModel_protectedbase_endInsertColumns(VirtualQPdfBookmarkModel* self) {
+	self->endInsertColumns();
 }
 
-void QPdfBookmarkModel_protectedbase_beginRemoveColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->beginRemoveColumns(*parent, static_cast<int>(first), static_cast<int>(last));
+void QPdfBookmarkModel_protectedbase_beginRemoveColumns(VirtualQPdfBookmarkModel* self, QModelIndex* parent, int first, int last) {
+	self->beginRemoveColumns(*parent, static_cast<int>(first), static_cast<int>(last));
 }
 
-void QPdfBookmarkModel_protectedbase_endRemoveColumns(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endRemoveColumns();
+void QPdfBookmarkModel_protectedbase_endRemoveColumns(VirtualQPdfBookmarkModel* self) {
+	self->endRemoveColumns();
 }
 
-bool QPdfBookmarkModel_protectedbase_beginMoveColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationColumn) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->beginMoveColumns(*sourceParent, static_cast<int>(sourceFirst), static_cast<int>(sourceLast), *destinationParent, static_cast<int>(destinationColumn));
+bool QPdfBookmarkModel_protectedbase_beginMoveColumns(VirtualQPdfBookmarkModel* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationColumn) {
+	return self->beginMoveColumns(*sourceParent, static_cast<int>(sourceFirst), static_cast<int>(sourceLast), *destinationParent, static_cast<int>(destinationColumn));
 }
 
-void QPdfBookmarkModel_protectedbase_endMoveColumns(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endMoveColumns();
+void QPdfBookmarkModel_protectedbase_endMoveColumns(VirtualQPdfBookmarkModel* self) {
+	self->endMoveColumns();
 }
 
-void QPdfBookmarkModel_protectedbase_beginResetModel(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->beginResetModel();
+void QPdfBookmarkModel_protectedbase_beginResetModel(VirtualQPdfBookmarkModel* self) {
+	self->beginResetModel();
 }
 
-void QPdfBookmarkModel_protectedbase_endResetModel(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endResetModel();
+void QPdfBookmarkModel_protectedbase_endResetModel(VirtualQPdfBookmarkModel* self) {
+	self->endResetModel();
 }
 
-void QPdfBookmarkModel_protectedbase_changePersistentIndex(bool* _dynamic_cast_ok, void* self, QModelIndex* from, QModelIndex* to) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->changePersistentIndex(*from, *to);
+void QPdfBookmarkModel_protectedbase_changePersistentIndex(VirtualQPdfBookmarkModel* self, QModelIndex* from, QModelIndex* to) {
+	self->changePersistentIndex(*from, *to);
 }
 
-void QPdfBookmarkModel_protectedbase_changePersistentIndexList(bool* _dynamic_cast_ok, void* self, struct seaqt_array /* of QModelIndex* */  from, struct seaqt_array /* of QModelIndex* */  to) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
+void QPdfBookmarkModel_protectedbase_changePersistentIndexList(VirtualQPdfBookmarkModel* self, struct seaqt_array /* of QModelIndex* */  from, struct seaqt_array /* of QModelIndex* */  to) {
 		QModelIndexList from_QList;
 		from_QList.reserve(from.len);
 		QModelIndex** from_arr = static_cast<QModelIndex**>(from.data);
@@ -2112,18 +1330,11 @@ void QPdfBookmarkModel_protectedbase_changePersistentIndexList(bool* _dynamic_ca
 		for(size_t i = 0; i < to.len; ++i) {
 			to_QList.push_back(*(to_arr[i]));
 		}
-	self_cast->changePersistentIndexList(from_QList, to_QList);
+	self->changePersistentIndexList(from_QList, to_QList);
 }
 
-struct seaqt_array /* of QModelIndex* */  QPdfBookmarkModel_protectedbase_persistentIndexList(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return (struct seaqt_array){};
-	}
-
-	*_dynamic_cast_ok = true;
-	QModelIndexList _ret = self_cast->persistentIndexList();
+struct seaqt_array /* of QModelIndex* */  QPdfBookmarkModel_protectedbase_persistentIndexList(const VirtualQPdfBookmarkModel* self) {
+	QModelIndexList _ret = self->persistentIndexList();
 	// Convert QList<> from C++ memory to manually-managed C memory
 	QModelIndex** _arr = static_cast<QModelIndex**>(malloc(sizeof(QModelIndex*) * _ret.length()));
 	for (size_t i = 0, e = _ret.length(); i < e; ++i) {
@@ -2135,48 +1346,20 @@ struct seaqt_array /* of QModelIndex* */  QPdfBookmarkModel_protectedbase_persis
 	return _out;
 }
 
-QObject* QPdfBookmarkModel_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
+QObject* QPdfBookmarkModel_protectedbase_sender(const VirtualQPdfBookmarkModel* self) {
+	return self->sender();
 }
 
-int QPdfBookmarkModel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
+int QPdfBookmarkModel_protectedbase_senderSignalIndex(const VirtualQPdfBookmarkModel* self) {
+	return self->senderSignalIndex();
 }
 
-int QPdfBookmarkModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
+int QPdfBookmarkModel_protectedbase_receivers(const VirtualQPdfBookmarkModel* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QPdfBookmarkModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQPdfBookmarkModel* self_cast = dynamic_cast<VirtualQPdfBookmarkModel*>( (QPdfBookmarkModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QPdfBookmarkModel_protectedbase_isSignalConnected(const VirtualQPdfBookmarkModel* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QPdfBookmarkModel_delete(QPdfBookmarkModel* self) {

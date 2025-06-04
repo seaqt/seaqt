@@ -16,75 +16,67 @@
 #include <qqmlexpression.h>
 #include "gen_qqmlexpression.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void miqt_exec_callback_QQmlExpression_valueChanged(intptr_t);
-QMetaObject* miqt_exec_callback_QQmlExpression_metaObject(const QQmlExpression*, intptr_t);
-void* miqt_exec_callback_QQmlExpression_metacast(QQmlExpression*, intptr_t, const char*);
-int miqt_exec_callback_QQmlExpression_metacall(QQmlExpression*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QQmlExpression_event(QQmlExpression*, intptr_t, QEvent*);
-bool miqt_exec_callback_QQmlExpression_eventFilter(QQmlExpression*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QQmlExpression_timerEvent(QQmlExpression*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QQmlExpression_childEvent(QQmlExpression*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QQmlExpression_customEvent(QQmlExpression*, intptr_t, QEvent*);
-void miqt_exec_callback_QQmlExpression_connectNotify(QQmlExpression*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QQmlExpression_disconnectNotify(QQmlExpression*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQQmlExpression final : public QQmlExpression {
+	const QQmlExpression_VTable* vtbl;
 public:
+	friend void* QQmlExpression_vdata(VirtualQQmlExpression* self);
+	friend VirtualQQmlExpression* vdata_QQmlExpression(void* vdata);
 
-	VirtualQQmlExpression(): QQmlExpression() {}
-	VirtualQQmlExpression(QQmlContext* param1, QObject* param2, const QString& param3): QQmlExpression(param1, param2, param3) {}
-	VirtualQQmlExpression(const QQmlScriptString& param1): QQmlExpression(param1) {}
-	VirtualQQmlExpression(QQmlContext* param1, QObject* param2, const QString& param3, QObject* param4): QQmlExpression(param1, param2, param3, param4) {}
-	VirtualQQmlExpression(const QQmlScriptString& param1, QQmlContext* param2): QQmlExpression(param1, param2) {}
-	VirtualQQmlExpression(const QQmlScriptString& param1, QQmlContext* param2, QObject* param3): QQmlExpression(param1, param2, param3) {}
-	VirtualQQmlExpression(const QQmlScriptString& param1, QQmlContext* param2, QObject* param3, QObject* param4): QQmlExpression(param1, param2, param3, param4) {}
+	VirtualQQmlExpression(const QQmlExpression_VTable* vtbl): QQmlExpression(), vtbl(vtbl) {}
+	VirtualQQmlExpression(const QQmlExpression_VTable* vtbl, QQmlContext* param1, QObject* param2, const QString& param3): QQmlExpression(param1, param2, param3), vtbl(vtbl) {}
+	VirtualQQmlExpression(const QQmlExpression_VTable* vtbl, const QQmlScriptString& param1): QQmlExpression(param1), vtbl(vtbl) {}
+	VirtualQQmlExpression(const QQmlExpression_VTable* vtbl, QQmlContext* param1, QObject* param2, const QString& param3, QObject* param4): QQmlExpression(param1, param2, param3, param4), vtbl(vtbl) {}
+	VirtualQQmlExpression(const QQmlExpression_VTable* vtbl, const QQmlScriptString& param1, QQmlContext* param2): QQmlExpression(param1, param2), vtbl(vtbl) {}
+	VirtualQQmlExpression(const QQmlExpression_VTable* vtbl, const QQmlScriptString& param1, QQmlContext* param2, QObject* param3): QQmlExpression(param1, param2, param3), vtbl(vtbl) {}
+	VirtualQQmlExpression(const QQmlExpression_VTable* vtbl, const QQmlScriptString& param1, QQmlContext* param2, QObject* param3, QObject* param4): QQmlExpression(param1, param2, param3, param4), vtbl(vtbl) {}
 
-	virtual ~VirtualQQmlExpression() override = default;
+	virtual ~VirtualQQmlExpression() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QQmlExpression::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QQmlExpression_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QQmlExpression_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QQmlExpression_virtualbase_metaObject(const VirtualQQmlExpression* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QQmlExpression::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QQmlExpression_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QQmlExpression_virtualbase_metacast(void* self, const char* param1);
+	friend void* QQmlExpression_virtualbase_metacast(VirtualQQmlExpression* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QQmlExpression::qt_metacall(param1, param2, param3);
 		}
 
@@ -92,102 +84,75 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QQmlExpression_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QQmlExpression_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QQmlExpression_virtualbase_metacall(VirtualQQmlExpression* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QQmlExpression::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QQmlExpression_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QQmlExpression_virtualbase_event(void* self, QEvent* event);
+	friend bool QQmlExpression_virtualbase_event(VirtualQQmlExpression* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QQmlExpression::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QQmlExpression_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QQmlExpression_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QQmlExpression_virtualbase_eventFilter(VirtualQQmlExpression* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QQmlExpression::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QQmlExpression_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QQmlExpression_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QQmlExpression_virtualbase_timerEvent(VirtualQQmlExpression* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QQmlExpression::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QQmlExpression_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QQmlExpression_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QQmlExpression_virtualbase_childEvent(VirtualQQmlExpression* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QQmlExpression::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QQmlExpression_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QQmlExpression_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QQmlExpression_virtualbase_customEvent(VirtualQQmlExpression* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QQmlExpression::connectNotify(signal);
 			return;
 		}
@@ -195,18 +160,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QQmlExpression_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QQmlExpression_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QQmlExpression_virtualbase_connectNotify(VirtualQQmlExpression* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QQmlExpression::disconnectNotify(signal);
 			return;
 		}
@@ -214,47 +174,53 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QQmlExpression_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QQmlExpression_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QQmlExpression_virtualbase_disconnectNotify(VirtualQQmlExpression* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QQmlExpression_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QQmlExpression_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QQmlExpression_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QQmlExpression_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QQmlExpression_protectedbase_sender(const VirtualQQmlExpression* self);
+	friend int QQmlExpression_protectedbase_senderSignalIndex(const VirtualQQmlExpression* self);
+	friend int QQmlExpression_protectedbase_receivers(const VirtualQQmlExpression* self, const char* signal);
+	friend bool QQmlExpression_protectedbase_isSignalConnected(const VirtualQQmlExpression* self, QMetaMethod* signal);
 };
 
-QQmlExpression* QQmlExpression_new() {
-	return new (std::nothrow) VirtualQQmlExpression();
+VirtualQQmlExpression* QQmlExpression_new(const QQmlExpression_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlExpression>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlExpression(vtbl) : nullptr;
 }
 
-QQmlExpression* QQmlExpression_new2(QQmlContext* param1, QObject* param2, struct seaqt_string param3) {
+VirtualQQmlExpression* QQmlExpression_new2(const QQmlExpression_VTable* vtbl, size_t vdata, QQmlContext* param1, QObject* param2, struct seaqt_string param3) {
 	QString param3_QString = QString::fromUtf8(param3.data, param3.len);
-	return new (std::nothrow) VirtualQQmlExpression(param1, param2, param3_QString);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlExpression>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlExpression(vtbl, param1, param2, param3_QString) : nullptr;
 }
 
-QQmlExpression* QQmlExpression_new3(QQmlScriptString* param1) {
-	return new (std::nothrow) VirtualQQmlExpression(*param1);
+VirtualQQmlExpression* QQmlExpression_new3(const QQmlExpression_VTable* vtbl, size_t vdata, QQmlScriptString* param1) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlExpression>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlExpression(vtbl, *param1) : nullptr;
 }
 
-QQmlExpression* QQmlExpression_new4(QQmlContext* param1, QObject* param2, struct seaqt_string param3, QObject* param4) {
+VirtualQQmlExpression* QQmlExpression_new4(const QQmlExpression_VTable* vtbl, size_t vdata, QQmlContext* param1, QObject* param2, struct seaqt_string param3, QObject* param4) {
 	QString param3_QString = QString::fromUtf8(param3.data, param3.len);
-	return new (std::nothrow) VirtualQQmlExpression(param1, param2, param3_QString, param4);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlExpression>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlExpression(vtbl, param1, param2, param3_QString, param4) : nullptr;
 }
 
-QQmlExpression* QQmlExpression_new5(QQmlScriptString* param1, QQmlContext* param2) {
-	return new (std::nothrow) VirtualQQmlExpression(*param1, param2);
+VirtualQQmlExpression* QQmlExpression_new5(const QQmlExpression_VTable* vtbl, size_t vdata, QQmlScriptString* param1, QQmlContext* param2) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlExpression>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlExpression(vtbl, *param1, param2) : nullptr;
 }
 
-QQmlExpression* QQmlExpression_new6(QQmlScriptString* param1, QQmlContext* param2, QObject* param3) {
-	return new (std::nothrow) VirtualQQmlExpression(*param1, param2, param3);
+VirtualQQmlExpression* QQmlExpression_new6(const QQmlExpression_VTable* vtbl, size_t vdata, QQmlScriptString* param1, QQmlContext* param2, QObject* param3) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlExpression>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlExpression(vtbl, *param1, param2, param3) : nullptr;
 }
 
-QQmlExpression* QQmlExpression_new7(QQmlScriptString* param1, QQmlContext* param2, QObject* param3, QObject* param4) {
-	return new (std::nothrow) VirtualQQmlExpression(*param1, param2, param3, param4);
+VirtualQQmlExpression* QQmlExpression_new7(const QQmlExpression_VTable* vtbl, size_t vdata, QQmlScriptString* param1, QQmlContext* param2, QObject* param3, QObject* param4) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlExpression>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlExpression(vtbl, *param1, param2, param3, param4) : nullptr;
 }
 
 void QQmlExpression_virtbase(QQmlExpression* src, QObject** outptr_QObject) {
@@ -402,188 +368,73 @@ QVariant* QQmlExpression_evaluateWithValueIsUndefined(QQmlExpression* self, bool
 }
 
 const QMetaObject* QQmlExpression_staticMetaObject() { return &QQmlExpression::staticMetaObject; }
-bool QQmlExpression_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQQmlExpression* self_cast = dynamic_cast<VirtualQQmlExpression*>( (QQmlExpression*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QQmlExpression_vdata(VirtualQQmlExpression* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQQmlExpression>()); }
+VirtualQQmlExpression* vdata_QQmlExpression(void* vdata) { return reinterpret_cast<VirtualQQmlExpression*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQQmlExpression>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QQmlExpression_virtualbase_metaObject(const VirtualQQmlExpression* self) {
+
+	return (QMetaObject*) self->QQmlExpression::metaObject();
 }
 
-QMetaObject* QQmlExpression_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQQmlExpression*>(self)->QQmlExpression::metaObject();
+void* QQmlExpression_virtualbase_metacast(VirtualQQmlExpression* self, const char* param1) {
+
+	return self->QQmlExpression::qt_metacast(param1);
 }
 
-bool QQmlExpression_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQQmlExpression* self_cast = dynamic_cast<VirtualQQmlExpression*>( (QQmlExpression*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QQmlExpression_virtualbase_metacall(VirtualQQmlExpression* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QQmlExpression::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QQmlExpression_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQQmlExpression*>(self)->QQmlExpression::qt_metacast(param1);
+bool QQmlExpression_virtualbase_event(VirtualQQmlExpression* self, QEvent* event) {
+
+	return self->QQmlExpression::event(event);
 }
 
-bool QQmlExpression_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQQmlExpression* self_cast = dynamic_cast<VirtualQQmlExpression*>( (QQmlExpression*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QQmlExpression_virtualbase_eventFilter(VirtualQQmlExpression* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QQmlExpression::eventFilter(watched, event);
 }
 
-int QQmlExpression_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQQmlExpression*>(self)->QQmlExpression::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+void QQmlExpression_virtualbase_timerEvent(VirtualQQmlExpression* self, QTimerEvent* event) {
+
+	self->QQmlExpression::timerEvent(event);
 }
 
-bool QQmlExpression_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQQmlExpression* self_cast = dynamic_cast<VirtualQQmlExpression*>( (QQmlExpression*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QQmlExpression_virtualbase_childEvent(VirtualQQmlExpression* self, QChildEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QQmlExpression::childEvent(event);
 }
 
-bool QQmlExpression_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQQmlExpression*>(self)->QQmlExpression::event(event);
+void QQmlExpression_virtualbase_customEvent(VirtualQQmlExpression* self, QEvent* event) {
+
+	self->QQmlExpression::customEvent(event);
 }
 
-bool QQmlExpression_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQQmlExpression* self_cast = dynamic_cast<VirtualQQmlExpression*>( (QQmlExpression*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QQmlExpression_virtualbase_connectNotify(VirtualQQmlExpression* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QQmlExpression::connectNotify(*signal);
 }
 
-bool QQmlExpression_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQQmlExpression*>(self)->QQmlExpression::eventFilter(watched, event);
+void QQmlExpression_virtualbase_disconnectNotify(VirtualQQmlExpression* self, QMetaMethod* signal) {
+
+	self->QQmlExpression::disconnectNotify(*signal);
 }
 
-bool QQmlExpression_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQQmlExpression* self_cast = dynamic_cast<VirtualQQmlExpression*>( (QQmlExpression*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+QObject* QQmlExpression_protectedbase_sender(const VirtualQQmlExpression* self) {
+	return self->sender();
 }
 
-void QQmlExpression_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQQmlExpression*>(self)->QQmlExpression::timerEvent(event);
+int QQmlExpression_protectedbase_senderSignalIndex(const VirtualQQmlExpression* self) {
+	return self->senderSignalIndex();
 }
 
-bool QQmlExpression_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQQmlExpression* self_cast = dynamic_cast<VirtualQQmlExpression*>( (QQmlExpression*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QQmlExpression_protectedbase_receivers(const VirtualQQmlExpression* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QQmlExpression_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQQmlExpression*>(self)->QQmlExpression::childEvent(event);
-}
-
-bool QQmlExpression_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQQmlExpression* self_cast = dynamic_cast<VirtualQQmlExpression*>( (QQmlExpression*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QQmlExpression_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQQmlExpression*>(self)->QQmlExpression::customEvent(event);
-}
-
-bool QQmlExpression_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQQmlExpression* self_cast = dynamic_cast<VirtualQQmlExpression*>( (QQmlExpression*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QQmlExpression_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQQmlExpression*>(self)->QQmlExpression::connectNotify(*signal);
-}
-
-bool QQmlExpression_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQQmlExpression* self_cast = dynamic_cast<VirtualQQmlExpression*>( (QQmlExpression*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QQmlExpression_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQQmlExpression*>(self)->QQmlExpression::disconnectNotify(*signal);
-}
-
-QObject* QQmlExpression_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQQmlExpression* self_cast = dynamic_cast<VirtualQQmlExpression*>( (QQmlExpression*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QQmlExpression_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQQmlExpression* self_cast = dynamic_cast<VirtualQQmlExpression*>( (QQmlExpression*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QQmlExpression_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQQmlExpression* self_cast = dynamic_cast<VirtualQQmlExpression*>( (QQmlExpression*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QQmlExpression_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQQmlExpression* self_cast = dynamic_cast<VirtualQQmlExpression*>( (QQmlExpression*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QQmlExpression_protectedbase_isSignalConnected(const VirtualQQmlExpression* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QQmlExpression_delete(QQmlExpression* self) {

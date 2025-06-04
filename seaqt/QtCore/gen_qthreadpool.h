@@ -36,8 +36,27 @@ typedef struct QThreadPool QThreadPool;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QThreadPool* QThreadPool_new();
-QThreadPool* QThreadPool_new2(QObject* parent);
+typedef struct VirtualQThreadPool VirtualQThreadPool;
+typedef struct QThreadPool_VTable{
+	void (*destructor)(VirtualQThreadPool* self);
+	QMetaObject* (*metaObject)(const VirtualQThreadPool* self);
+	void* (*metacast)(VirtualQThreadPool* self, const char* param1);
+	int (*metacall)(VirtualQThreadPool* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQThreadPool* self, QEvent* event);
+	bool (*eventFilter)(VirtualQThreadPool* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQThreadPool* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQThreadPool* self, QChildEvent* event);
+	void (*customEvent)(VirtualQThreadPool* self, QEvent* event);
+	void (*connectNotify)(VirtualQThreadPool* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQThreadPool* self, QMetaMethod* signal);
+}QThreadPool_VTable;
+
+void* QThreadPool_vdata(VirtualQThreadPool* self);
+VirtualQThreadPool* vdata_QThreadPool(void* vdata);
+
+VirtualQThreadPool* QThreadPool_new(const QThreadPool_VTable* vtbl, size_t vdata);
+VirtualQThreadPool* QThreadPool_new2(const QThreadPool_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QThreadPool_virtbase(QThreadPool* src, QObject** outptr_QObject);
 QMetaObject* QThreadPool_metaObject(const QThreadPool* self);
 void* QThreadPool_metacast(QThreadPool* self, const char* param1);
@@ -67,31 +86,21 @@ struct seaqt_string QThreadPool_tr3(const char* s, const char* c, int n);
 void QThreadPool_start2(QThreadPool* self, QRunnable* runnable, int priority);
 bool QThreadPool_waitForDoneWithMsecs(QThreadPool* self, int msecs);
 
-bool QThreadPool_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QThreadPool_virtualbase_metaObject(const void* self);
-bool QThreadPool_override_virtual_metacast(void* self, intptr_t slot);
-void* QThreadPool_virtualbase_metacast(void* self, const char* param1);
-bool QThreadPool_override_virtual_metacall(void* self, intptr_t slot);
-int QThreadPool_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QThreadPool_override_virtual_event(void* self, intptr_t slot);
-bool QThreadPool_virtualbase_event(void* self, QEvent* event);
-bool QThreadPool_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QThreadPool_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QThreadPool_override_virtual_timerEvent(void* self, intptr_t slot);
-void QThreadPool_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QThreadPool_override_virtual_childEvent(void* self, intptr_t slot);
-void QThreadPool_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QThreadPool_override_virtual_customEvent(void* self, intptr_t slot);
-void QThreadPool_virtualbase_customEvent(void* self, QEvent* event);
-bool QThreadPool_override_virtual_connectNotify(void* self, intptr_t slot);
-void QThreadPool_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QThreadPool_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QThreadPool_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QThreadPool_virtualbase_metaObject(const VirtualQThreadPool* self);
+void* QThreadPool_virtualbase_metacast(VirtualQThreadPool* self, const char* param1);
+int QThreadPool_virtualbase_metacall(VirtualQThreadPool* self, int param1, int param2, void** param3);
+bool QThreadPool_virtualbase_event(VirtualQThreadPool* self, QEvent* event);
+bool QThreadPool_virtualbase_eventFilter(VirtualQThreadPool* self, QObject* watched, QEvent* event);
+void QThreadPool_virtualbase_timerEvent(VirtualQThreadPool* self, QTimerEvent* event);
+void QThreadPool_virtualbase_childEvent(VirtualQThreadPool* self, QChildEvent* event);
+void QThreadPool_virtualbase_customEvent(VirtualQThreadPool* self, QEvent* event);
+void QThreadPool_virtualbase_connectNotify(VirtualQThreadPool* self, QMetaMethod* signal);
+void QThreadPool_virtualbase_disconnectNotify(VirtualQThreadPool* self, QMetaMethod* signal);
 
-QObject* QThreadPool_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QThreadPool_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QThreadPool_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QThreadPool_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QThreadPool_protectedbase_sender(const VirtualQThreadPool* self);
+int QThreadPool_protectedbase_senderSignalIndex(const VirtualQThreadPool* self);
+int QThreadPool_protectedbase_receivers(const VirtualQThreadPool* self, const char* signal);
+bool QThreadPool_protectedbase_isSignalConnected(const VirtualQThreadPool* self, QMetaMethod* signal);
 
 const QMetaObject* QThreadPool_staticMetaObject();
 void QThreadPool_delete(QThreadPool* self);

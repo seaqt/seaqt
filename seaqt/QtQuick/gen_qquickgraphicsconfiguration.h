@@ -22,6 +22,7 @@ typedef struct QQuickGraphicsConfiguration QQuickGraphicsConfiguration;
 
 QQuickGraphicsConfiguration* QQuickGraphicsConfiguration_new();
 QQuickGraphicsConfiguration* QQuickGraphicsConfiguration_new2(QQuickGraphicsConfiguration* other);
+
 void QQuickGraphicsConfiguration_operatorAssign(QQuickGraphicsConfiguration* self, QQuickGraphicsConfiguration* other);
 void QQuickGraphicsConfiguration_setDepthBufferFor2D(QQuickGraphicsConfiguration* self, bool enable);
 bool QQuickGraphicsConfiguration_isDepthBufferEnabledFor2D(const QQuickGraphicsConfiguration* self);

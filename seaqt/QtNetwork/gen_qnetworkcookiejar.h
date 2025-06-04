@@ -36,8 +36,33 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QUrl QUrl;
 #endif
 
-QNetworkCookieJar* QNetworkCookieJar_new();
-QNetworkCookieJar* QNetworkCookieJar_new2(QObject* parent);
+typedef struct VirtualQNetworkCookieJar VirtualQNetworkCookieJar;
+typedef struct QNetworkCookieJar_VTable{
+	void (*destructor)(VirtualQNetworkCookieJar* self);
+	QMetaObject* (*metaObject)(const VirtualQNetworkCookieJar* self);
+	void* (*metacast)(VirtualQNetworkCookieJar* self, const char* param1);
+	int (*metacall)(VirtualQNetworkCookieJar* self, int param1, int param2, void** param3);
+	struct seaqt_array /* of QNetworkCookie* */  (*cookiesForUrl)(const VirtualQNetworkCookieJar* self, QUrl* url);
+	bool (*setCookiesFromUrl)(VirtualQNetworkCookieJar* self, struct seaqt_array /* of QNetworkCookie* */  cookieList, QUrl* url);
+	bool (*insertCookie)(VirtualQNetworkCookieJar* self, QNetworkCookie* cookie);
+	bool (*updateCookie)(VirtualQNetworkCookieJar* self, QNetworkCookie* cookie);
+	bool (*deleteCookie)(VirtualQNetworkCookieJar* self, QNetworkCookie* cookie);
+	bool (*validateCookie)(const VirtualQNetworkCookieJar* self, QNetworkCookie* cookie, QUrl* url);
+	bool (*event)(VirtualQNetworkCookieJar* self, QEvent* event);
+	bool (*eventFilter)(VirtualQNetworkCookieJar* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQNetworkCookieJar* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQNetworkCookieJar* self, QChildEvent* event);
+	void (*customEvent)(VirtualQNetworkCookieJar* self, QEvent* event);
+	void (*connectNotify)(VirtualQNetworkCookieJar* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQNetworkCookieJar* self, QMetaMethod* signal);
+}QNetworkCookieJar_VTable;
+
+void* QNetworkCookieJar_vdata(VirtualQNetworkCookieJar* self);
+VirtualQNetworkCookieJar* vdata_QNetworkCookieJar(void* vdata);
+
+VirtualQNetworkCookieJar* QNetworkCookieJar_new(const QNetworkCookieJar_VTable* vtbl, size_t vdata);
+VirtualQNetworkCookieJar* QNetworkCookieJar_new2(const QNetworkCookieJar_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QNetworkCookieJar_virtbase(QNetworkCookieJar* src, QObject** outptr_QObject);
 QMetaObject* QNetworkCookieJar_metaObject(const QNetworkCookieJar* self);
 void* QNetworkCookieJar_metacast(QNetworkCookieJar* self, const char* param1);
@@ -52,45 +77,29 @@ bool QNetworkCookieJar_validateCookie(const QNetworkCookieJar* self, QNetworkCoo
 struct seaqt_string QNetworkCookieJar_tr2(const char* s, const char* c);
 struct seaqt_string QNetworkCookieJar_tr3(const char* s, const char* c, int n);
 
-bool QNetworkCookieJar_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QNetworkCookieJar_virtualbase_metaObject(const void* self);
-bool QNetworkCookieJar_override_virtual_metacast(void* self, intptr_t slot);
-void* QNetworkCookieJar_virtualbase_metacast(void* self, const char* param1);
-bool QNetworkCookieJar_override_virtual_metacall(void* self, intptr_t slot);
-int QNetworkCookieJar_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QNetworkCookieJar_override_virtual_cookiesForUrl(void* self, intptr_t slot);
-struct seaqt_array /* of QNetworkCookie* */  QNetworkCookieJar_virtualbase_cookiesForUrl(const void* self, QUrl* url);
-bool QNetworkCookieJar_override_virtual_setCookiesFromUrl(void* self, intptr_t slot);
-bool QNetworkCookieJar_virtualbase_setCookiesFromUrl(void* self, struct seaqt_array /* of QNetworkCookie* */  cookieList, QUrl* url);
-bool QNetworkCookieJar_override_virtual_insertCookie(void* self, intptr_t slot);
-bool QNetworkCookieJar_virtualbase_insertCookie(void* self, QNetworkCookie* cookie);
-bool QNetworkCookieJar_override_virtual_updateCookie(void* self, intptr_t slot);
-bool QNetworkCookieJar_virtualbase_updateCookie(void* self, QNetworkCookie* cookie);
-bool QNetworkCookieJar_override_virtual_deleteCookie(void* self, intptr_t slot);
-bool QNetworkCookieJar_virtualbase_deleteCookie(void* self, QNetworkCookie* cookie);
-bool QNetworkCookieJar_override_virtual_validateCookie(void* self, intptr_t slot);
-bool QNetworkCookieJar_virtualbase_validateCookie(const void* self, QNetworkCookie* cookie, QUrl* url);
-bool QNetworkCookieJar_override_virtual_event(void* self, intptr_t slot);
-bool QNetworkCookieJar_virtualbase_event(void* self, QEvent* event);
-bool QNetworkCookieJar_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QNetworkCookieJar_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QNetworkCookieJar_override_virtual_timerEvent(void* self, intptr_t slot);
-void QNetworkCookieJar_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QNetworkCookieJar_override_virtual_childEvent(void* self, intptr_t slot);
-void QNetworkCookieJar_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QNetworkCookieJar_override_virtual_customEvent(void* self, intptr_t slot);
-void QNetworkCookieJar_virtualbase_customEvent(void* self, QEvent* event);
-bool QNetworkCookieJar_override_virtual_connectNotify(void* self, intptr_t slot);
-void QNetworkCookieJar_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QNetworkCookieJar_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QNetworkCookieJar_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QNetworkCookieJar_virtualbase_metaObject(const VirtualQNetworkCookieJar* self);
+void* QNetworkCookieJar_virtualbase_metacast(VirtualQNetworkCookieJar* self, const char* param1);
+int QNetworkCookieJar_virtualbase_metacall(VirtualQNetworkCookieJar* self, int param1, int param2, void** param3);
+struct seaqt_array /* of QNetworkCookie* */  QNetworkCookieJar_virtualbase_cookiesForUrl(const VirtualQNetworkCookieJar* self, QUrl* url);
+bool QNetworkCookieJar_virtualbase_setCookiesFromUrl(VirtualQNetworkCookieJar* self, struct seaqt_array /* of QNetworkCookie* */  cookieList, QUrl* url);
+bool QNetworkCookieJar_virtualbase_insertCookie(VirtualQNetworkCookieJar* self, QNetworkCookie* cookie);
+bool QNetworkCookieJar_virtualbase_updateCookie(VirtualQNetworkCookieJar* self, QNetworkCookie* cookie);
+bool QNetworkCookieJar_virtualbase_deleteCookie(VirtualQNetworkCookieJar* self, QNetworkCookie* cookie);
+bool QNetworkCookieJar_virtualbase_validateCookie(const VirtualQNetworkCookieJar* self, QNetworkCookie* cookie, QUrl* url);
+bool QNetworkCookieJar_virtualbase_event(VirtualQNetworkCookieJar* self, QEvent* event);
+bool QNetworkCookieJar_virtualbase_eventFilter(VirtualQNetworkCookieJar* self, QObject* watched, QEvent* event);
+void QNetworkCookieJar_virtualbase_timerEvent(VirtualQNetworkCookieJar* self, QTimerEvent* event);
+void QNetworkCookieJar_virtualbase_childEvent(VirtualQNetworkCookieJar* self, QChildEvent* event);
+void QNetworkCookieJar_virtualbase_customEvent(VirtualQNetworkCookieJar* self, QEvent* event);
+void QNetworkCookieJar_virtualbase_connectNotify(VirtualQNetworkCookieJar* self, QMetaMethod* signal);
+void QNetworkCookieJar_virtualbase_disconnectNotify(VirtualQNetworkCookieJar* self, QMetaMethod* signal);
 
-struct seaqt_array /* of QNetworkCookie* */  QNetworkCookieJar_protectedbase_allCookies(bool* _dynamic_cast_ok, const void* self);
-void QNetworkCookieJar_protectedbase_setAllCookies(bool* _dynamic_cast_ok, void* self, struct seaqt_array /* of QNetworkCookie* */  cookieList);
-QObject* QNetworkCookieJar_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QNetworkCookieJar_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QNetworkCookieJar_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QNetworkCookieJar_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+struct seaqt_array /* of QNetworkCookie* */  QNetworkCookieJar_protectedbase_allCookies(const VirtualQNetworkCookieJar* self);
+void QNetworkCookieJar_protectedbase_setAllCookies(VirtualQNetworkCookieJar* self, struct seaqt_array /* of QNetworkCookie* */  cookieList);
+QObject* QNetworkCookieJar_protectedbase_sender(const VirtualQNetworkCookieJar* self);
+int QNetworkCookieJar_protectedbase_senderSignalIndex(const VirtualQNetworkCookieJar* self);
+int QNetworkCookieJar_protectedbase_receivers(const VirtualQNetworkCookieJar* self, const char* signal);
+bool QNetworkCookieJar_protectedbase_isSignalConnected(const VirtualQNetworkCookieJar* self, QMetaMethod* signal);
 
 const QMetaObject* QNetworkCookieJar_staticMetaObject();
 void QNetworkCookieJar_delete(QNetworkCookieJar* self);

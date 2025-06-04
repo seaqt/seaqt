@@ -40,8 +40,28 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QVector3D QVector3D;
 #endif
 
-QGraphicsTransform* QGraphicsTransform_new();
-QGraphicsTransform* QGraphicsTransform_new2(QObject* parent);
+typedef struct VirtualQGraphicsTransform VirtualQGraphicsTransform;
+typedef struct QGraphicsTransform_VTable{
+	void (*destructor)(VirtualQGraphicsTransform* self);
+	QMetaObject* (*metaObject)(const VirtualQGraphicsTransform* self);
+	void* (*metacast)(VirtualQGraphicsTransform* self, const char* param1);
+	int (*metacall)(VirtualQGraphicsTransform* self, int param1, int param2, void** param3);
+	void (*applyTo)(const VirtualQGraphicsTransform* self, QMatrix4x4* matrix);
+	bool (*event)(VirtualQGraphicsTransform* self, QEvent* event);
+	bool (*eventFilter)(VirtualQGraphicsTransform* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQGraphicsTransform* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQGraphicsTransform* self, QChildEvent* event);
+	void (*customEvent)(VirtualQGraphicsTransform* self, QEvent* event);
+	void (*connectNotify)(VirtualQGraphicsTransform* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQGraphicsTransform* self, QMetaMethod* signal);
+}QGraphicsTransform_VTable;
+
+void* QGraphicsTransform_vdata(VirtualQGraphicsTransform* self);
+VirtualQGraphicsTransform* vdata_QGraphicsTransform(void* vdata);
+
+VirtualQGraphicsTransform* QGraphicsTransform_new(const QGraphicsTransform_VTable* vtbl, size_t vdata);
+VirtualQGraphicsTransform* QGraphicsTransform_new2(const QGraphicsTransform_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QGraphicsTransform_virtbase(QGraphicsTransform* src, QObject** outptr_QObject);
 QMetaObject* QGraphicsTransform_metaObject(const QGraphicsTransform* self);
 void* QGraphicsTransform_metacast(QGraphicsTransform* self, const char* param1);
@@ -51,40 +71,49 @@ void QGraphicsTransform_applyTo(const QGraphicsTransform* self, QMatrix4x4* matr
 struct seaqt_string QGraphicsTransform_tr2(const char* s, const char* c);
 struct seaqt_string QGraphicsTransform_tr3(const char* s, const char* c, int n);
 
-bool QGraphicsTransform_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QGraphicsTransform_virtualbase_metaObject(const void* self);
-bool QGraphicsTransform_override_virtual_metacast(void* self, intptr_t slot);
-void* QGraphicsTransform_virtualbase_metacast(void* self, const char* param1);
-bool QGraphicsTransform_override_virtual_metacall(void* self, intptr_t slot);
-int QGraphicsTransform_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QGraphicsTransform_override_virtual_applyTo(void* self, intptr_t slot);
-void QGraphicsTransform_virtualbase_applyTo(const void* self, QMatrix4x4* matrix);
-bool QGraphicsTransform_override_virtual_event(void* self, intptr_t slot);
-bool QGraphicsTransform_virtualbase_event(void* self, QEvent* event);
-bool QGraphicsTransform_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QGraphicsTransform_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QGraphicsTransform_override_virtual_timerEvent(void* self, intptr_t slot);
-void QGraphicsTransform_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QGraphicsTransform_override_virtual_childEvent(void* self, intptr_t slot);
-void QGraphicsTransform_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QGraphicsTransform_override_virtual_customEvent(void* self, intptr_t slot);
-void QGraphicsTransform_virtualbase_customEvent(void* self, QEvent* event);
-bool QGraphicsTransform_override_virtual_connectNotify(void* self, intptr_t slot);
-void QGraphicsTransform_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QGraphicsTransform_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QGraphicsTransform_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QGraphicsTransform_virtualbase_metaObject(const VirtualQGraphicsTransform* self);
+void* QGraphicsTransform_virtualbase_metacast(VirtualQGraphicsTransform* self, const char* param1);
+int QGraphicsTransform_virtualbase_metacall(VirtualQGraphicsTransform* self, int param1, int param2, void** param3);
+void QGraphicsTransform_virtualbase_applyTo(const VirtualQGraphicsTransform* self, QMatrix4x4* matrix);
+bool QGraphicsTransform_virtualbase_event(VirtualQGraphicsTransform* self, QEvent* event);
+bool QGraphicsTransform_virtualbase_eventFilter(VirtualQGraphicsTransform* self, QObject* watched, QEvent* event);
+void QGraphicsTransform_virtualbase_timerEvent(VirtualQGraphicsTransform* self, QTimerEvent* event);
+void QGraphicsTransform_virtualbase_childEvent(VirtualQGraphicsTransform* self, QChildEvent* event);
+void QGraphicsTransform_virtualbase_customEvent(VirtualQGraphicsTransform* self, QEvent* event);
+void QGraphicsTransform_virtualbase_connectNotify(VirtualQGraphicsTransform* self, QMetaMethod* signal);
+void QGraphicsTransform_virtualbase_disconnectNotify(VirtualQGraphicsTransform* self, QMetaMethod* signal);
 
-void QGraphicsTransform_protectedbase_update(bool* _dynamic_cast_ok, void* self);
-QObject* QGraphicsTransform_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QGraphicsTransform_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QGraphicsTransform_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QGraphicsTransform_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+void QGraphicsTransform_protectedbase_update(VirtualQGraphicsTransform* self);
+QObject* QGraphicsTransform_protectedbase_sender(const VirtualQGraphicsTransform* self);
+int QGraphicsTransform_protectedbase_senderSignalIndex(const VirtualQGraphicsTransform* self);
+int QGraphicsTransform_protectedbase_receivers(const VirtualQGraphicsTransform* self, const char* signal);
+bool QGraphicsTransform_protectedbase_isSignalConnected(const VirtualQGraphicsTransform* self, QMetaMethod* signal);
 
 const QMetaObject* QGraphicsTransform_staticMetaObject();
 void QGraphicsTransform_delete(QGraphicsTransform* self);
 
-QGraphicsScale* QGraphicsScale_new();
-QGraphicsScale* QGraphicsScale_new2(QObject* parent);
+typedef struct VirtualQGraphicsScale VirtualQGraphicsScale;
+typedef struct QGraphicsScale_VTable{
+	void (*destructor)(VirtualQGraphicsScale* self);
+	QMetaObject* (*metaObject)(const VirtualQGraphicsScale* self);
+	void* (*metacast)(VirtualQGraphicsScale* self, const char* param1);
+	int (*metacall)(VirtualQGraphicsScale* self, int param1, int param2, void** param3);
+	void (*applyTo)(const VirtualQGraphicsScale* self, QMatrix4x4* matrix);
+	bool (*event)(VirtualQGraphicsScale* self, QEvent* event);
+	bool (*eventFilter)(VirtualQGraphicsScale* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQGraphicsScale* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQGraphicsScale* self, QChildEvent* event);
+	void (*customEvent)(VirtualQGraphicsScale* self, QEvent* event);
+	void (*connectNotify)(VirtualQGraphicsScale* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQGraphicsScale* self, QMetaMethod* signal);
+}QGraphicsScale_VTable;
+
+void* QGraphicsScale_vdata(VirtualQGraphicsScale* self);
+VirtualQGraphicsScale* vdata_QGraphicsScale(void* vdata);
+
+VirtualQGraphicsScale* QGraphicsScale_new(const QGraphicsScale_VTable* vtbl, size_t vdata);
+VirtualQGraphicsScale* QGraphicsScale_new2(const QGraphicsScale_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QGraphicsScale_virtbase(QGraphicsScale* src, QGraphicsTransform** outptr_QGraphicsTransform);
 QMetaObject* QGraphicsScale_metaObject(const QGraphicsScale* self);
 void* QGraphicsScale_metacast(QGraphicsScale* self, const char* param1);
@@ -112,40 +141,49 @@ void QGraphicsScale_connect_scaleChanged(QGraphicsScale* self, intptr_t slot);
 struct seaqt_string QGraphicsScale_tr2(const char* s, const char* c);
 struct seaqt_string QGraphicsScale_tr3(const char* s, const char* c, int n);
 
-bool QGraphicsScale_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QGraphicsScale_virtualbase_metaObject(const void* self);
-bool QGraphicsScale_override_virtual_metacast(void* self, intptr_t slot);
-void* QGraphicsScale_virtualbase_metacast(void* self, const char* param1);
-bool QGraphicsScale_override_virtual_metacall(void* self, intptr_t slot);
-int QGraphicsScale_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QGraphicsScale_override_virtual_applyTo(void* self, intptr_t slot);
-void QGraphicsScale_virtualbase_applyTo(const void* self, QMatrix4x4* matrix);
-bool QGraphicsScale_override_virtual_event(void* self, intptr_t slot);
-bool QGraphicsScale_virtualbase_event(void* self, QEvent* event);
-bool QGraphicsScale_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QGraphicsScale_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QGraphicsScale_override_virtual_timerEvent(void* self, intptr_t slot);
-void QGraphicsScale_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QGraphicsScale_override_virtual_childEvent(void* self, intptr_t slot);
-void QGraphicsScale_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QGraphicsScale_override_virtual_customEvent(void* self, intptr_t slot);
-void QGraphicsScale_virtualbase_customEvent(void* self, QEvent* event);
-bool QGraphicsScale_override_virtual_connectNotify(void* self, intptr_t slot);
-void QGraphicsScale_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QGraphicsScale_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QGraphicsScale_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QGraphicsScale_virtualbase_metaObject(const VirtualQGraphicsScale* self);
+void* QGraphicsScale_virtualbase_metacast(VirtualQGraphicsScale* self, const char* param1);
+int QGraphicsScale_virtualbase_metacall(VirtualQGraphicsScale* self, int param1, int param2, void** param3);
+void QGraphicsScale_virtualbase_applyTo(const VirtualQGraphicsScale* self, QMatrix4x4* matrix);
+bool QGraphicsScale_virtualbase_event(VirtualQGraphicsScale* self, QEvent* event);
+bool QGraphicsScale_virtualbase_eventFilter(VirtualQGraphicsScale* self, QObject* watched, QEvent* event);
+void QGraphicsScale_virtualbase_timerEvent(VirtualQGraphicsScale* self, QTimerEvent* event);
+void QGraphicsScale_virtualbase_childEvent(VirtualQGraphicsScale* self, QChildEvent* event);
+void QGraphicsScale_virtualbase_customEvent(VirtualQGraphicsScale* self, QEvent* event);
+void QGraphicsScale_virtualbase_connectNotify(VirtualQGraphicsScale* self, QMetaMethod* signal);
+void QGraphicsScale_virtualbase_disconnectNotify(VirtualQGraphicsScale* self, QMetaMethod* signal);
 
-void QGraphicsScale_protectedbase_update(bool* _dynamic_cast_ok, void* self);
-QObject* QGraphicsScale_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QGraphicsScale_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QGraphicsScale_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QGraphicsScale_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+void QGraphicsScale_protectedbase_update(VirtualQGraphicsScale* self);
+QObject* QGraphicsScale_protectedbase_sender(const VirtualQGraphicsScale* self);
+int QGraphicsScale_protectedbase_senderSignalIndex(const VirtualQGraphicsScale* self);
+int QGraphicsScale_protectedbase_receivers(const VirtualQGraphicsScale* self, const char* signal);
+bool QGraphicsScale_protectedbase_isSignalConnected(const VirtualQGraphicsScale* self, QMetaMethod* signal);
 
 const QMetaObject* QGraphicsScale_staticMetaObject();
 void QGraphicsScale_delete(QGraphicsScale* self);
 
-QGraphicsRotation* QGraphicsRotation_new();
-QGraphicsRotation* QGraphicsRotation_new2(QObject* parent);
+typedef struct VirtualQGraphicsRotation VirtualQGraphicsRotation;
+typedef struct QGraphicsRotation_VTable{
+	void (*destructor)(VirtualQGraphicsRotation* self);
+	QMetaObject* (*metaObject)(const VirtualQGraphicsRotation* self);
+	void* (*metacast)(VirtualQGraphicsRotation* self, const char* param1);
+	int (*metacall)(VirtualQGraphicsRotation* self, int param1, int param2, void** param3);
+	void (*applyTo)(const VirtualQGraphicsRotation* self, QMatrix4x4* matrix);
+	bool (*event)(VirtualQGraphicsRotation* self, QEvent* event);
+	bool (*eventFilter)(VirtualQGraphicsRotation* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQGraphicsRotation* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQGraphicsRotation* self, QChildEvent* event);
+	void (*customEvent)(VirtualQGraphicsRotation* self, QEvent* event);
+	void (*connectNotify)(VirtualQGraphicsRotation* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQGraphicsRotation* self, QMetaMethod* signal);
+}QGraphicsRotation_VTable;
+
+void* QGraphicsRotation_vdata(VirtualQGraphicsRotation* self);
+VirtualQGraphicsRotation* vdata_QGraphicsRotation(void* vdata);
+
+VirtualQGraphicsRotation* QGraphicsRotation_new(const QGraphicsRotation_VTable* vtbl, size_t vdata);
+VirtualQGraphicsRotation* QGraphicsRotation_new2(const QGraphicsRotation_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QGraphicsRotation_virtbase(QGraphicsRotation* src, QGraphicsTransform** outptr_QGraphicsTransform);
 QMetaObject* QGraphicsRotation_metaObject(const QGraphicsRotation* self);
 void* QGraphicsRotation_metacast(QGraphicsRotation* self, const char* param1);
@@ -168,34 +206,23 @@ void QGraphicsRotation_connect_axisChanged(QGraphicsRotation* self, intptr_t slo
 struct seaqt_string QGraphicsRotation_tr2(const char* s, const char* c);
 struct seaqt_string QGraphicsRotation_tr3(const char* s, const char* c, int n);
 
-bool QGraphicsRotation_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QGraphicsRotation_virtualbase_metaObject(const void* self);
-bool QGraphicsRotation_override_virtual_metacast(void* self, intptr_t slot);
-void* QGraphicsRotation_virtualbase_metacast(void* self, const char* param1);
-bool QGraphicsRotation_override_virtual_metacall(void* self, intptr_t slot);
-int QGraphicsRotation_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QGraphicsRotation_override_virtual_applyTo(void* self, intptr_t slot);
-void QGraphicsRotation_virtualbase_applyTo(const void* self, QMatrix4x4* matrix);
-bool QGraphicsRotation_override_virtual_event(void* self, intptr_t slot);
-bool QGraphicsRotation_virtualbase_event(void* self, QEvent* event);
-bool QGraphicsRotation_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QGraphicsRotation_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QGraphicsRotation_override_virtual_timerEvent(void* self, intptr_t slot);
-void QGraphicsRotation_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QGraphicsRotation_override_virtual_childEvent(void* self, intptr_t slot);
-void QGraphicsRotation_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QGraphicsRotation_override_virtual_customEvent(void* self, intptr_t slot);
-void QGraphicsRotation_virtualbase_customEvent(void* self, QEvent* event);
-bool QGraphicsRotation_override_virtual_connectNotify(void* self, intptr_t slot);
-void QGraphicsRotation_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QGraphicsRotation_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QGraphicsRotation_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QGraphicsRotation_virtualbase_metaObject(const VirtualQGraphicsRotation* self);
+void* QGraphicsRotation_virtualbase_metacast(VirtualQGraphicsRotation* self, const char* param1);
+int QGraphicsRotation_virtualbase_metacall(VirtualQGraphicsRotation* self, int param1, int param2, void** param3);
+void QGraphicsRotation_virtualbase_applyTo(const VirtualQGraphicsRotation* self, QMatrix4x4* matrix);
+bool QGraphicsRotation_virtualbase_event(VirtualQGraphicsRotation* self, QEvent* event);
+bool QGraphicsRotation_virtualbase_eventFilter(VirtualQGraphicsRotation* self, QObject* watched, QEvent* event);
+void QGraphicsRotation_virtualbase_timerEvent(VirtualQGraphicsRotation* self, QTimerEvent* event);
+void QGraphicsRotation_virtualbase_childEvent(VirtualQGraphicsRotation* self, QChildEvent* event);
+void QGraphicsRotation_virtualbase_customEvent(VirtualQGraphicsRotation* self, QEvent* event);
+void QGraphicsRotation_virtualbase_connectNotify(VirtualQGraphicsRotation* self, QMetaMethod* signal);
+void QGraphicsRotation_virtualbase_disconnectNotify(VirtualQGraphicsRotation* self, QMetaMethod* signal);
 
-void QGraphicsRotation_protectedbase_update(bool* _dynamic_cast_ok, void* self);
-QObject* QGraphicsRotation_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QGraphicsRotation_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QGraphicsRotation_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QGraphicsRotation_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+void QGraphicsRotation_protectedbase_update(VirtualQGraphicsRotation* self);
+QObject* QGraphicsRotation_protectedbase_sender(const VirtualQGraphicsRotation* self);
+int QGraphicsRotation_protectedbase_senderSignalIndex(const VirtualQGraphicsRotation* self);
+int QGraphicsRotation_protectedbase_receivers(const VirtualQGraphicsRotation* self, const char* signal);
+bool QGraphicsRotation_protectedbase_isSignalConnected(const VirtualQGraphicsRotation* self, QMetaMethod* signal);
 
 const QMetaObject* QGraphicsRotation_staticMetaObject();
 void QGraphicsRotation_delete(QGraphicsRotation* self);

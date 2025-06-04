@@ -60,6 +60,7 @@ const QMetaObject* QAccessible_staticMetaObject();
 void QAccessible_delete(QAccessible* self);
 
 QAccessible__State* QAccessible__State_new();
+
 void QAccessible__State_delete(QAccessible__State* self);
 
 void QAccessible__ActivationObserver_accessibilityActiveChanged(QAccessible__ActivationObserver* self, bool active);

@@ -37,6 +37,7 @@ QPageSize* QPageSize_new6(QSize* pointSize, struct seaqt_string name);
 QPageSize* QPageSize_new7(QSize* pointSize, struct seaqt_string name, int matchPolicy);
 QPageSize* QPageSize_new8(QSizeF* size, int units, struct seaqt_string name);
 QPageSize* QPageSize_new9(QSizeF* size, int units, struct seaqt_string name, int matchPolicy);
+
 void QPageSize_operatorAssign(QPageSize* self, QPageSize* other);
 void QPageSize_swap(QPageSize* self, QPageSize* other);
 bool QPageSize_isEquivalentTo(const QPageSize* self, QPageSize* other);

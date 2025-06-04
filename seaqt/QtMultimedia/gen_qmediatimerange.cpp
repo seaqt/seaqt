@@ -4,6 +4,17 @@
 #include <qmediatimerange.h>
 #include "gen_qmediatimerange.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -136,15 +147,15 @@ void QMediaTimeRange_delete(QMediaTimeRange* self) {
 }
 
 QMediaTimeRange__Interval* QMediaTimeRange__Interval_new() {
-	return new (std::nothrow) QMediaTimeRange::Interval();
+	return new (std::nothrow) QMediaTimeRange__Interval();
 }
 
 QMediaTimeRange__Interval* QMediaTimeRange__Interval_new2(long long start, long long end) {
-	return new (std::nothrow) QMediaTimeRange::Interval(static_cast<qint64>(start), static_cast<qint64>(end));
+	return new (std::nothrow) QMediaTimeRange__Interval(static_cast<qint64>(start), static_cast<qint64>(end));
 }
 
 QMediaTimeRange__Interval* QMediaTimeRange__Interval_new3(QMediaTimeRange__Interval* param1) {
-	return new (std::nothrow) QMediaTimeRange::Interval(*param1);
+	return new (std::nothrow) QMediaTimeRange__Interval(*param1);
 }
 
 long long QMediaTimeRange__Interval_start(const QMediaTimeRange__Interval* self) {

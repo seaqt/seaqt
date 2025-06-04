@@ -40,8 +40,27 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QUrl QUrl;
 #endif
 
-QAudioDecoder* QAudioDecoder_new();
-QAudioDecoder* QAudioDecoder_new2(QObject* parent);
+typedef struct VirtualQAudioDecoder VirtualQAudioDecoder;
+typedef struct QAudioDecoder_VTable{
+	void (*destructor)(VirtualQAudioDecoder* self);
+	QMetaObject* (*metaObject)(const VirtualQAudioDecoder* self);
+	void* (*metacast)(VirtualQAudioDecoder* self, const char* param1);
+	int (*metacall)(VirtualQAudioDecoder* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQAudioDecoder* self, QEvent* event);
+	bool (*eventFilter)(VirtualQAudioDecoder* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQAudioDecoder* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQAudioDecoder* self, QChildEvent* event);
+	void (*customEvent)(VirtualQAudioDecoder* self, QEvent* event);
+	void (*connectNotify)(VirtualQAudioDecoder* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQAudioDecoder* self, QMetaMethod* signal);
+}QAudioDecoder_VTable;
+
+void* QAudioDecoder_vdata(VirtualQAudioDecoder* self);
+VirtualQAudioDecoder* vdata_QAudioDecoder(void* vdata);
+
+VirtualQAudioDecoder* QAudioDecoder_new(const QAudioDecoder_VTable* vtbl, size_t vdata);
+VirtualQAudioDecoder* QAudioDecoder_new2(const QAudioDecoder_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QAudioDecoder_virtbase(QAudioDecoder* src, QObject** outptr_QObject);
 QMetaObject* QAudioDecoder_metaObject(const QAudioDecoder* self);
 void* QAudioDecoder_metacast(QAudioDecoder* self, const char* param1);
@@ -84,31 +103,21 @@ void QAudioDecoder_connect_durationChanged(QAudioDecoder* self, intptr_t slot);
 struct seaqt_string QAudioDecoder_tr2(const char* s, const char* c);
 struct seaqt_string QAudioDecoder_tr3(const char* s, const char* c, int n);
 
-bool QAudioDecoder_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QAudioDecoder_virtualbase_metaObject(const void* self);
-bool QAudioDecoder_override_virtual_metacast(void* self, intptr_t slot);
-void* QAudioDecoder_virtualbase_metacast(void* self, const char* param1);
-bool QAudioDecoder_override_virtual_metacall(void* self, intptr_t slot);
-int QAudioDecoder_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QAudioDecoder_override_virtual_event(void* self, intptr_t slot);
-bool QAudioDecoder_virtualbase_event(void* self, QEvent* event);
-bool QAudioDecoder_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QAudioDecoder_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QAudioDecoder_override_virtual_timerEvent(void* self, intptr_t slot);
-void QAudioDecoder_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QAudioDecoder_override_virtual_childEvent(void* self, intptr_t slot);
-void QAudioDecoder_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QAudioDecoder_override_virtual_customEvent(void* self, intptr_t slot);
-void QAudioDecoder_virtualbase_customEvent(void* self, QEvent* event);
-bool QAudioDecoder_override_virtual_connectNotify(void* self, intptr_t slot);
-void QAudioDecoder_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QAudioDecoder_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QAudioDecoder_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QAudioDecoder_virtualbase_metaObject(const VirtualQAudioDecoder* self);
+void* QAudioDecoder_virtualbase_metacast(VirtualQAudioDecoder* self, const char* param1);
+int QAudioDecoder_virtualbase_metacall(VirtualQAudioDecoder* self, int param1, int param2, void** param3);
+bool QAudioDecoder_virtualbase_event(VirtualQAudioDecoder* self, QEvent* event);
+bool QAudioDecoder_virtualbase_eventFilter(VirtualQAudioDecoder* self, QObject* watched, QEvent* event);
+void QAudioDecoder_virtualbase_timerEvent(VirtualQAudioDecoder* self, QTimerEvent* event);
+void QAudioDecoder_virtualbase_childEvent(VirtualQAudioDecoder* self, QChildEvent* event);
+void QAudioDecoder_virtualbase_customEvent(VirtualQAudioDecoder* self, QEvent* event);
+void QAudioDecoder_virtualbase_connectNotify(VirtualQAudioDecoder* self, QMetaMethod* signal);
+void QAudioDecoder_virtualbase_disconnectNotify(VirtualQAudioDecoder* self, QMetaMethod* signal);
 
-QObject* QAudioDecoder_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QAudioDecoder_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QAudioDecoder_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QAudioDecoder_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QAudioDecoder_protectedbase_sender(const VirtualQAudioDecoder* self);
+int QAudioDecoder_protectedbase_senderSignalIndex(const VirtualQAudioDecoder* self);
+int QAudioDecoder_protectedbase_receivers(const VirtualQAudioDecoder* self, const char* signal);
+bool QAudioDecoder_protectedbase_isSignalConnected(const VirtualQAudioDecoder* self, QMetaMethod* signal);
 
 const QMetaObject* QAudioDecoder_staticMetaObject();
 void QAudioDecoder_delete(QAudioDecoder* self);

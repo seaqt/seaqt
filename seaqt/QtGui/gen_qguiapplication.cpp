@@ -24,6 +24,17 @@
 #include <qguiapplication.h>
 #include "gen_qguiapplication.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -42,66 +53,46 @@ void miqt_exec_callback_QGuiApplication_saveStateRequest(intptr_t, QSessionManag
 void miqt_exec_callback_QGuiApplication_applicationDisplayNameChanged(intptr_t);
 void miqt_exec_callback_QGuiApplication_paletteChanged(intptr_t, QPalette*);
 void miqt_exec_callback_QGuiApplication_fontChanged(intptr_t, QFont*);
-QMetaObject* miqt_exec_callback_QGuiApplication_metaObject(const QGuiApplication*, intptr_t);
-void* miqt_exec_callback_QGuiApplication_metacast(QGuiApplication*, intptr_t, const char*);
-int miqt_exec_callback_QGuiApplication_metacall(QGuiApplication*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QGuiApplication_notify(QGuiApplication*, intptr_t, QObject*, QEvent*);
-bool miqt_exec_callback_QGuiApplication_event(QGuiApplication*, intptr_t, QEvent*);
-bool miqt_exec_callback_QGuiApplication_eventFilter(QGuiApplication*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QGuiApplication_timerEvent(QGuiApplication*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QGuiApplication_childEvent(QGuiApplication*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QGuiApplication_customEvent(QGuiApplication*, intptr_t, QEvent*);
-void miqt_exec_callback_QGuiApplication_connectNotify(QGuiApplication*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QGuiApplication_disconnectNotify(QGuiApplication*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQGuiApplication final : public QGuiApplication {
+	const QGuiApplication_VTable* vtbl;
 public:
+	friend void* QGuiApplication_vdata(VirtualQGuiApplication* self);
+	friend VirtualQGuiApplication* vdata_QGuiApplication(void* vdata);
 
-	VirtualQGuiApplication(int& argc, char** argv): QGuiApplication(argc, argv) {}
-	VirtualQGuiApplication(int& argc, char** argv, int param3): QGuiApplication(argc, argv, param3) {}
+	VirtualQGuiApplication(const QGuiApplication_VTable* vtbl, int& argc, char** argv): QGuiApplication(argc, argv), vtbl(vtbl) {}
+	VirtualQGuiApplication(const QGuiApplication_VTable* vtbl, int& argc, char** argv, int param3): QGuiApplication(argc, argv, param3), vtbl(vtbl) {}
 
-	virtual ~VirtualQGuiApplication() override = default;
+	virtual ~VirtualQGuiApplication() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QGuiApplication::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QGuiApplication_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QGuiApplication_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QGuiApplication_virtualbase_metaObject(const VirtualQGuiApplication* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QGuiApplication::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QGuiApplication_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QGuiApplication_virtualbase_metacast(void* self, const char* param1);
+	friend void* QGuiApplication_virtualbase_metacast(VirtualQGuiApplication* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QGuiApplication::qt_metacall(param1, param2, param3);
 		}
 
@@ -109,119 +100,88 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QGuiApplication_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QGuiApplication_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QGuiApplication_virtualbase_metacall(VirtualQGuiApplication* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__notify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool notify(QObject* param1, QEvent* param2) override {
-		if (handle__notify == 0) {
+		if (vtbl->notify == 0) {
 			return QGuiApplication::notify(param1, param2);
 		}
 
 		QObject* sigval1 = param1;
 		QEvent* sigval2 = param2;
-		bool callback_return_value = miqt_exec_callback_QGuiApplication_notify(this, handle__notify, sigval1, sigval2);
+		bool callback_return_value = vtbl->notify(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QGuiApplication_virtualbase_notify(void* self, QObject* param1, QEvent* param2);
+	friend bool QGuiApplication_virtualbase_notify(VirtualQGuiApplication* self, QObject* param1, QEvent* param2);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* param1) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QGuiApplication::event(param1);
 		}
 
 		QEvent* sigval1 = param1;
-		bool callback_return_value = miqt_exec_callback_QGuiApplication_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QGuiApplication_virtualbase_event(void* self, QEvent* param1);
+	friend bool QGuiApplication_virtualbase_event(VirtualQGuiApplication* self, QEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QGuiApplication::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QGuiApplication_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QGuiApplication_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QGuiApplication_virtualbase_eventFilter(VirtualQGuiApplication* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QGuiApplication::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QGuiApplication_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QGuiApplication_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QGuiApplication_virtualbase_timerEvent(VirtualQGuiApplication* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QGuiApplication::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QGuiApplication_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QGuiApplication_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QGuiApplication_virtualbase_childEvent(VirtualQGuiApplication* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QGuiApplication::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QGuiApplication_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QGuiApplication_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QGuiApplication_virtualbase_customEvent(VirtualQGuiApplication* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QGuiApplication::connectNotify(signal);
 			return;
 		}
@@ -229,18 +189,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGuiApplication_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QGuiApplication_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QGuiApplication_virtualbase_connectNotify(VirtualQGuiApplication* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QGuiApplication::disconnectNotify(signal);
 			return;
 		}
@@ -248,26 +203,27 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGuiApplication_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QGuiApplication_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QGuiApplication_virtualbase_disconnectNotify(VirtualQGuiApplication* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void* QGuiApplication_protectedbase_resolveInterface(bool* _dynamic_cast_ok, const void* self, const char* name, int revision);
-	friend QObject* QGuiApplication_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QGuiApplication_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QGuiApplication_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QGuiApplication_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void* QGuiApplication_protectedbase_resolveInterface(const VirtualQGuiApplication* self, const char* name, int revision);
+	friend QObject* QGuiApplication_protectedbase_sender(const VirtualQGuiApplication* self);
+	friend int QGuiApplication_protectedbase_senderSignalIndex(const VirtualQGuiApplication* self);
+	friend int QGuiApplication_protectedbase_receivers(const VirtualQGuiApplication* self, const char* signal);
+	friend bool QGuiApplication_protectedbase_isSignalConnected(const VirtualQGuiApplication* self, QMetaMethod* signal);
 };
 
-QGuiApplication* QGuiApplication_new(int* argc, char** argv) {
-	return new (std::nothrow) VirtualQGuiApplication(static_cast<int&>(*argc), argv);
+VirtualQGuiApplication* QGuiApplication_new(const QGuiApplication_VTable* vtbl, size_t vdata, int* argc, char** argv) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGuiApplication>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGuiApplication(vtbl, static_cast<int&>(*argc), argv) : nullptr;
 }
 
-QGuiApplication* QGuiApplication_new2(int* argc, char** argv, int param3) {
-	return new (std::nothrow) VirtualQGuiApplication(static_cast<int&>(*argc), argv, static_cast<int>(param3));
+VirtualQGuiApplication* QGuiApplication_new2(const QGuiApplication_VTable* vtbl, size_t vdata, int* argc, char** argv, int param3) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGuiApplication>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGuiApplication(vtbl, static_cast<int&>(*argc), argv, static_cast<int>(param3)) : nullptr;
 }
 
 void QGuiApplication_virtbase(QGuiApplication* src, QCoreApplication** outptr_QCoreApplication) {
@@ -748,213 +704,82 @@ struct seaqt_string QGuiApplication_tr3(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QGuiApplication_staticMetaObject() { return &QGuiApplication::staticMetaObject; }
-bool QGuiApplication_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGuiApplication_vdata(VirtualQGuiApplication* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGuiApplication>()); }
+VirtualQGuiApplication* vdata_QGuiApplication(void* vdata) { return reinterpret_cast<VirtualQGuiApplication*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGuiApplication>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QGuiApplication_virtualbase_metaObject(const VirtualQGuiApplication* self) {
+
+	return (QMetaObject*) self->QGuiApplication::metaObject();
 }
 
-QMetaObject* QGuiApplication_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQGuiApplication*>(self)->QGuiApplication::metaObject();
+void* QGuiApplication_virtualbase_metacast(VirtualQGuiApplication* self, const char* param1) {
+
+	return self->QGuiApplication::qt_metacast(param1);
 }
 
-bool QGuiApplication_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QGuiApplication_virtualbase_metacall(VirtualQGuiApplication* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QGuiApplication::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QGuiApplication_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQGuiApplication*>(self)->QGuiApplication::qt_metacast(param1);
+bool QGuiApplication_virtualbase_notify(VirtualQGuiApplication* self, QObject* param1, QEvent* param2) {
+
+	return self->QGuiApplication::notify(param1, param2);
 }
 
-bool QGuiApplication_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QGuiApplication_virtualbase_event(VirtualQGuiApplication* self, QEvent* param1) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QGuiApplication::event(param1);
 }
 
-int QGuiApplication_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQGuiApplication*>(self)->QGuiApplication::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+bool QGuiApplication_virtualbase_eventFilter(VirtualQGuiApplication* self, QObject* watched, QEvent* event) {
+
+	return self->QGuiApplication::eventFilter(watched, event);
 }
 
-bool QGuiApplication_override_virtual_notify(void* self, intptr_t slot) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGuiApplication_virtualbase_timerEvent(VirtualQGuiApplication* self, QTimerEvent* event) {
 
-	self_cast->handle__notify = slot;
-	return true;
+	self->QGuiApplication::timerEvent(event);
 }
 
-bool QGuiApplication_virtualbase_notify(void* self, QObject* param1, QEvent* param2) {
-	return static_cast<VirtualQGuiApplication*>(self)->QGuiApplication::notify(param1, param2);
+void QGuiApplication_virtualbase_childEvent(VirtualQGuiApplication* self, QChildEvent* event) {
+
+	self->QGuiApplication::childEvent(event);
 }
 
-bool QGuiApplication_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGuiApplication_virtualbase_customEvent(VirtualQGuiApplication* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QGuiApplication::customEvent(event);
 }
 
-bool QGuiApplication_virtualbase_event(void* self, QEvent* param1) {
-	return static_cast<VirtualQGuiApplication*>(self)->QGuiApplication::event(param1);
+void QGuiApplication_virtualbase_connectNotify(VirtualQGuiApplication* self, QMetaMethod* signal) {
+
+	self->QGuiApplication::connectNotify(*signal);
 }
 
-bool QGuiApplication_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGuiApplication_virtualbase_disconnectNotify(VirtualQGuiApplication* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QGuiApplication::disconnectNotify(*signal);
 }
 
-bool QGuiApplication_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQGuiApplication*>(self)->QGuiApplication::eventFilter(watched, event);
+void* QGuiApplication_protectedbase_resolveInterface(const VirtualQGuiApplication* self, const char* name, int revision) {
+	return self->resolveInterface(name, static_cast<int>(revision));
 }
 
-bool QGuiApplication_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+QObject* QGuiApplication_protectedbase_sender(const VirtualQGuiApplication* self) {
+	return self->sender();
 }
 
-void QGuiApplication_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQGuiApplication*>(self)->QGuiApplication::timerEvent(event);
+int QGuiApplication_protectedbase_senderSignalIndex(const VirtualQGuiApplication* self) {
+	return self->senderSignalIndex();
 }
 
-bool QGuiApplication_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QGuiApplication_protectedbase_receivers(const VirtualQGuiApplication* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QGuiApplication_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQGuiApplication*>(self)->QGuiApplication::childEvent(event);
-}
-
-bool QGuiApplication_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QGuiApplication_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQGuiApplication*>(self)->QGuiApplication::customEvent(event);
-}
-
-bool QGuiApplication_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QGuiApplication_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGuiApplication*>(self)->QGuiApplication::connectNotify(*signal);
-}
-
-bool QGuiApplication_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QGuiApplication_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGuiApplication*>(self)->QGuiApplication::disconnectNotify(*signal);
-}
-
-void* QGuiApplication_protectedbase_resolveInterface(bool* _dynamic_cast_ok, const void* self, const char* name, int revision) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->resolveInterface(name, static_cast<int>(revision));
-}
-
-QObject* QGuiApplication_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QGuiApplication_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QGuiApplication_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QGuiApplication_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQGuiApplication* self_cast = dynamic_cast<VirtualQGuiApplication*>( (QGuiApplication*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QGuiApplication_protectedbase_isSignalConnected(const VirtualQGuiApplication* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QGuiApplication_delete(QGuiApplication* self) {

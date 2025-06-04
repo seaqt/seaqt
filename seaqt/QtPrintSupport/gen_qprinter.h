@@ -44,10 +44,31 @@ typedef struct QPrinterInfo QPrinterInfo;
 typedef struct QRectF QRectF;
 #endif
 
-QPrinter* QPrinter_new();
-QPrinter* QPrinter_new2(QPrinterInfo* printer);
-QPrinter* QPrinter_new3(int mode);
-QPrinter* QPrinter_new4(QPrinterInfo* printer, int mode);
+typedef struct VirtualQPrinter VirtualQPrinter;
+typedef struct QPrinter_VTable{
+	void (*destructor)(VirtualQPrinter* self);
+	int (*devType)(const VirtualQPrinter* self);
+	bool (*newPage)(VirtualQPrinter* self);
+	QPaintEngine* (*paintEngine)(const VirtualQPrinter* self);
+	int (*metric)(const VirtualQPrinter* self, int param1);
+	bool (*setPageLayout)(VirtualQPrinter* self, QPageLayout* pageLayout);
+	bool (*setPageSize)(VirtualQPrinter* self, QPageSize* pageSize);
+	bool (*setPageOrientation)(VirtualQPrinter* self, int orientation);
+	bool (*setPageMargins)(VirtualQPrinter* self, QMarginsF* margins, int units);
+	void (*setPageRanges)(VirtualQPrinter* self, QPageRanges* ranges);
+	void (*initPainter)(const VirtualQPrinter* self, QPainter* painter);
+	QPaintDevice* (*redirected)(const VirtualQPrinter* self, QPoint* offset);
+	QPainter* (*sharedPainter)(const VirtualQPrinter* self);
+}QPrinter_VTable;
+
+void* QPrinter_vdata(VirtualQPrinter* self);
+VirtualQPrinter* vdata_QPrinter(void* vdata);
+
+VirtualQPrinter* QPrinter_new(const QPrinter_VTable* vtbl, size_t vdata);
+VirtualQPrinter* QPrinter_new2(const QPrinter_VTable* vtbl, size_t vdata, QPrinterInfo* printer);
+VirtualQPrinter* QPrinter_new3(const QPrinter_VTable* vtbl, size_t vdata, int mode);
+VirtualQPrinter* QPrinter_new4(const QPrinter_VTable* vtbl, size_t vdata, QPrinterInfo* printer, int mode);
+
 void QPrinter_virtbase(QPrinter* src, QPagedPaintDevice** outptr_QPagedPaintDevice);
 int QPrinter_devType(const QPrinter* self);
 void QPrinter_setOutputFormat(QPrinter* self, int format);
@@ -101,32 +122,20 @@ void QPrinter_setPrintRange(QPrinter* self, int range);
 int QPrinter_printRange(const QPrinter* self);
 int QPrinter_metric(const QPrinter* self, int param1);
 
-bool QPrinter_override_virtual_devType(void* self, intptr_t slot);
-int QPrinter_virtualbase_devType(const void* self);
-bool QPrinter_override_virtual_newPage(void* self, intptr_t slot);
-bool QPrinter_virtualbase_newPage(void* self);
-bool QPrinter_override_virtual_paintEngine(void* self, intptr_t slot);
-QPaintEngine* QPrinter_virtualbase_paintEngine(const void* self);
-bool QPrinter_override_virtual_metric(void* self, intptr_t slot);
-int QPrinter_virtualbase_metric(const void* self, int param1);
-bool QPrinter_override_virtual_setPageLayout(void* self, intptr_t slot);
-bool QPrinter_virtualbase_setPageLayout(void* self, QPageLayout* pageLayout);
-bool QPrinter_override_virtual_setPageSize(void* self, intptr_t slot);
-bool QPrinter_virtualbase_setPageSize(void* self, QPageSize* pageSize);
-bool QPrinter_override_virtual_setPageOrientation(void* self, intptr_t slot);
-bool QPrinter_virtualbase_setPageOrientation(void* self, int orientation);
-bool QPrinter_override_virtual_setPageMargins(void* self, intptr_t slot);
-bool QPrinter_virtualbase_setPageMargins(void* self, QMarginsF* margins, int units);
-bool QPrinter_override_virtual_setPageRanges(void* self, intptr_t slot);
-void QPrinter_virtualbase_setPageRanges(void* self, QPageRanges* ranges);
-bool QPrinter_override_virtual_initPainter(void* self, intptr_t slot);
-void QPrinter_virtualbase_initPainter(const void* self, QPainter* painter);
-bool QPrinter_override_virtual_redirected(void* self, intptr_t slot);
-QPaintDevice* QPrinter_virtualbase_redirected(const void* self, QPoint* offset);
-bool QPrinter_override_virtual_sharedPainter(void* self, intptr_t slot);
-QPainter* QPrinter_virtualbase_sharedPainter(const void* self);
+int QPrinter_virtualbase_devType(const VirtualQPrinter* self);
+bool QPrinter_virtualbase_newPage(VirtualQPrinter* self);
+QPaintEngine* QPrinter_virtualbase_paintEngine(const VirtualQPrinter* self);
+int QPrinter_virtualbase_metric(const VirtualQPrinter* self, int param1);
+bool QPrinter_virtualbase_setPageLayout(VirtualQPrinter* self, QPageLayout* pageLayout);
+bool QPrinter_virtualbase_setPageSize(VirtualQPrinter* self, QPageSize* pageSize);
+bool QPrinter_virtualbase_setPageOrientation(VirtualQPrinter* self, int orientation);
+bool QPrinter_virtualbase_setPageMargins(VirtualQPrinter* self, QMarginsF* margins, int units);
+void QPrinter_virtualbase_setPageRanges(VirtualQPrinter* self, QPageRanges* ranges);
+void QPrinter_virtualbase_initPainter(const VirtualQPrinter* self, QPainter* painter);
+QPaintDevice* QPrinter_virtualbase_redirected(const VirtualQPrinter* self, QPoint* offset);
+QPainter* QPrinter_virtualbase_sharedPainter(const VirtualQPrinter* self);
 
-void QPrinter_protectedbase_setEngines(bool* _dynamic_cast_ok, void* self, QPrintEngine* printEngine, QPaintEngine* paintEngine);
+void QPrinter_protectedbase_setEngines(VirtualQPrinter* self, QPrintEngine* printEngine, QPaintEngine* paintEngine);
 
 void QPrinter_delete(QPrinter* self);
 

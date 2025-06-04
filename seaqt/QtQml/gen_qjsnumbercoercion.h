@@ -21,6 +21,7 @@ typedef struct QJSNumberCoercion QJSNumberCoercion;
 #endif
 
 QJSNumberCoercion* QJSNumberCoercion_new(QJSNumberCoercion* param1);
+
 bool QJSNumberCoercion_isInteger(double d);
 int QJSNumberCoercion_toInteger(double d);
 bool QJSNumberCoercion_equals(double lhs, double rhs);

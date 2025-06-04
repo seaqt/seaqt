@@ -38,6 +38,7 @@ QJsonDocument* QJsonDocument_new();
 QJsonDocument* QJsonDocument_new2(QJsonObject* object);
 QJsonDocument* QJsonDocument_new3(QJsonArray* array);
 QJsonDocument* QJsonDocument_new4(QJsonDocument* other);
+
 void QJsonDocument_operatorAssign(QJsonDocument* self, QJsonDocument* other);
 void QJsonDocument_swap(QJsonDocument* self, QJsonDocument* other);
 QJsonDocument* QJsonDocument_fromVariant(QVariant* variant);

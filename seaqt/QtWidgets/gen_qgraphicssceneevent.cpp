@@ -16,75 +16,63 @@
 #include <qgraphicssceneevent.h>
 #include "gen_qgraphicssceneevent.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void miqt_exec_callback_QGraphicsSceneEvent_setAccepted(QGraphicsSceneEvent*, intptr_t, bool);
-QEvent* miqt_exec_callback_QGraphicsSceneEvent_clone(const QGraphicsSceneEvent*, intptr_t);
-void miqt_exec_callback_QGraphicsSceneMouseEvent_setAccepted(QGraphicsSceneMouseEvent*, intptr_t, bool);
-QEvent* miqt_exec_callback_QGraphicsSceneMouseEvent_clone(const QGraphicsSceneMouseEvent*, intptr_t);
-void miqt_exec_callback_QGraphicsSceneWheelEvent_setAccepted(QGraphicsSceneWheelEvent*, intptr_t, bool);
-QEvent* miqt_exec_callback_QGraphicsSceneWheelEvent_clone(const QGraphicsSceneWheelEvent*, intptr_t);
-void miqt_exec_callback_QGraphicsSceneContextMenuEvent_setAccepted(QGraphicsSceneContextMenuEvent*, intptr_t, bool);
-QEvent* miqt_exec_callback_QGraphicsSceneContextMenuEvent_clone(const QGraphicsSceneContextMenuEvent*, intptr_t);
-void miqt_exec_callback_QGraphicsSceneHoverEvent_setAccepted(QGraphicsSceneHoverEvent*, intptr_t, bool);
-QEvent* miqt_exec_callback_QGraphicsSceneHoverEvent_clone(const QGraphicsSceneHoverEvent*, intptr_t);
-void miqt_exec_callback_QGraphicsSceneHelpEvent_setAccepted(QGraphicsSceneHelpEvent*, intptr_t, bool);
-QEvent* miqt_exec_callback_QGraphicsSceneHelpEvent_clone(const QGraphicsSceneHelpEvent*, intptr_t);
-void miqt_exec_callback_QGraphicsSceneDragDropEvent_setAccepted(QGraphicsSceneDragDropEvent*, intptr_t, bool);
-QEvent* miqt_exec_callback_QGraphicsSceneDragDropEvent_clone(const QGraphicsSceneDragDropEvent*, intptr_t);
-void miqt_exec_callback_QGraphicsSceneResizeEvent_setAccepted(QGraphicsSceneResizeEvent*, intptr_t, bool);
-QEvent* miqt_exec_callback_QGraphicsSceneResizeEvent_clone(const QGraphicsSceneResizeEvent*, intptr_t);
-void miqt_exec_callback_QGraphicsSceneMoveEvent_setAccepted(QGraphicsSceneMoveEvent*, intptr_t, bool);
-QEvent* miqt_exec_callback_QGraphicsSceneMoveEvent_clone(const QGraphicsSceneMoveEvent*, intptr_t);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQGraphicsSceneEvent final : public QGraphicsSceneEvent {
+	const QGraphicsSceneEvent_VTable* vtbl;
 public:
+	friend void* QGraphicsSceneEvent_vdata(VirtualQGraphicsSceneEvent* self);
+	friend VirtualQGraphicsSceneEvent* vdata_QGraphicsSceneEvent(void* vdata);
 
-	VirtualQGraphicsSceneEvent(QEvent::Type type): QGraphicsSceneEvent(type) {}
+	VirtualQGraphicsSceneEvent(const QGraphicsSceneEvent_VTable* vtbl, QEvent::Type type): QGraphicsSceneEvent(type), vtbl(vtbl) {}
 
-	virtual ~VirtualQGraphicsSceneEvent() override = default;
+	virtual ~VirtualQGraphicsSceneEvent() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setAccepted = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setAccepted(bool accepted) override {
-		if (handle__setAccepted == 0) {
+		if (vtbl->setAccepted == 0) {
 			QGraphicsSceneEvent::setAccepted(accepted);
 			return;
 		}
 
 		bool sigval1 = accepted;
-		miqt_exec_callback_QGraphicsSceneEvent_setAccepted(this, handle__setAccepted, sigval1);
-
+		vtbl->setAccepted(this, sigval1);
 	}
 
-	friend void QGraphicsSceneEvent_virtualbase_setAccepted(void* self, bool accepted);
+	friend void QGraphicsSceneEvent_virtualbase_setAccepted(VirtualQGraphicsSceneEvent* self, bool accepted);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clone = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QEvent* clone() const override {
-		if (handle__clone == 0) {
+		if (vtbl->clone == 0) {
 			return QGraphicsSceneEvent::clone();
 		}
 
-		QEvent* callback_return_value = miqt_exec_callback_QGraphicsSceneEvent_clone(this, handle__clone);
+		QEvent* callback_return_value = vtbl->clone(this);
 		return callback_return_value;
 	}
 
-	friend QEvent* QGraphicsSceneEvent_virtualbase_clone(const void* self);
+	friend QEvent* QGraphicsSceneEvent_virtualbase_clone(const VirtualQGraphicsSceneEvent* self);
 
 };
 
-QGraphicsSceneEvent* QGraphicsSceneEvent_new(int type) {
-	return new (std::nothrow) VirtualQGraphicsSceneEvent(static_cast<QEvent::Type>(type));
+VirtualQGraphicsSceneEvent* QGraphicsSceneEvent_new(const QGraphicsSceneEvent_VTable* vtbl, size_t vdata, int type) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsSceneEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsSceneEvent(vtbl, static_cast<QEvent::Type>(type)) : nullptr;
 }
 
 void QGraphicsSceneEvent_virtbase(QGraphicsSceneEvent* src, QEvent** outptr_QEvent) {
@@ -108,32 +96,17 @@ void QGraphicsSceneEvent_setTimestamp(QGraphicsSceneEvent* self, unsigned long l
 	self->setTimestamp(static_cast<quint64>(ts));
 }
 
-bool QGraphicsSceneEvent_override_virtual_setAccepted(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneEvent*>( (QGraphicsSceneEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGraphicsSceneEvent_vdata(VirtualQGraphicsSceneEvent* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGraphicsSceneEvent>()); }
+VirtualQGraphicsSceneEvent* vdata_QGraphicsSceneEvent(void* vdata) { return reinterpret_cast<VirtualQGraphicsSceneEvent*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGraphicsSceneEvent>()); }
 
-	self_cast->handle__setAccepted = slot;
-	return true;
+void QGraphicsSceneEvent_virtualbase_setAccepted(VirtualQGraphicsSceneEvent* self, bool accepted) {
+
+	self->QGraphicsSceneEvent::setAccepted(accepted);
 }
 
-void QGraphicsSceneEvent_virtualbase_setAccepted(void* self, bool accepted) {
-	static_cast<VirtualQGraphicsSceneEvent*>(self)->QGraphicsSceneEvent::setAccepted(accepted);
-}
+QEvent* QGraphicsSceneEvent_virtualbase_clone(const VirtualQGraphicsSceneEvent* self) {
 
-bool QGraphicsSceneEvent_override_virtual_clone(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneEvent*>( (QGraphicsSceneEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__clone = slot;
-	return true;
-}
-
-QEvent* QGraphicsSceneEvent_virtualbase_clone(const void* self) {
-	return static_cast<const VirtualQGraphicsSceneEvent*>(self)->QGraphicsSceneEvent::clone();
+	return self->QGraphicsSceneEvent::clone();
 }
 
 void QGraphicsSceneEvent_delete(QGraphicsSceneEvent* self) {
@@ -141,53 +114,49 @@ void QGraphicsSceneEvent_delete(QGraphicsSceneEvent* self) {
 }
 
 class VirtualQGraphicsSceneMouseEvent final : public QGraphicsSceneMouseEvent {
+	const QGraphicsSceneMouseEvent_VTable* vtbl;
 public:
+	friend void* QGraphicsSceneMouseEvent_vdata(VirtualQGraphicsSceneMouseEvent* self);
+	friend VirtualQGraphicsSceneMouseEvent* vdata_QGraphicsSceneMouseEvent(void* vdata);
 
-	VirtualQGraphicsSceneMouseEvent(): QGraphicsSceneMouseEvent() {}
-	VirtualQGraphicsSceneMouseEvent(QEvent::Type type): QGraphicsSceneMouseEvent(type) {}
+	VirtualQGraphicsSceneMouseEvent(const QGraphicsSceneMouseEvent_VTable* vtbl): QGraphicsSceneMouseEvent(), vtbl(vtbl) {}
+	VirtualQGraphicsSceneMouseEvent(const QGraphicsSceneMouseEvent_VTable* vtbl, QEvent::Type type): QGraphicsSceneMouseEvent(type), vtbl(vtbl) {}
 
-	virtual ~VirtualQGraphicsSceneMouseEvent() override = default;
+	virtual ~VirtualQGraphicsSceneMouseEvent() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setAccepted = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setAccepted(bool accepted) override {
-		if (handle__setAccepted == 0) {
+		if (vtbl->setAccepted == 0) {
 			QGraphicsSceneMouseEvent::setAccepted(accepted);
 			return;
 		}
 
 		bool sigval1 = accepted;
-		miqt_exec_callback_QGraphicsSceneMouseEvent_setAccepted(this, handle__setAccepted, sigval1);
-
+		vtbl->setAccepted(this, sigval1);
 	}
 
-	friend void QGraphicsSceneMouseEvent_virtualbase_setAccepted(void* self, bool accepted);
+	friend void QGraphicsSceneMouseEvent_virtualbase_setAccepted(VirtualQGraphicsSceneMouseEvent* self, bool accepted);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clone = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QEvent* clone() const override {
-		if (handle__clone == 0) {
+		if (vtbl->clone == 0) {
 			return QGraphicsSceneMouseEvent::clone();
 		}
 
-		QEvent* callback_return_value = miqt_exec_callback_QGraphicsSceneMouseEvent_clone(this, handle__clone);
+		QEvent* callback_return_value = vtbl->clone(this);
 		return callback_return_value;
 	}
 
-	friend QEvent* QGraphicsSceneMouseEvent_virtualbase_clone(const void* self);
+	friend QEvent* QGraphicsSceneMouseEvent_virtualbase_clone(const VirtualQGraphicsSceneMouseEvent* self);
 
 };
 
-QGraphicsSceneMouseEvent* QGraphicsSceneMouseEvent_new() {
-	return new (std::nothrow) VirtualQGraphicsSceneMouseEvent();
+VirtualQGraphicsSceneMouseEvent* QGraphicsSceneMouseEvent_new(const QGraphicsSceneMouseEvent_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsSceneMouseEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsSceneMouseEvent(vtbl) : nullptr;
 }
 
-QGraphicsSceneMouseEvent* QGraphicsSceneMouseEvent_new2(int type) {
-	return new (std::nothrow) VirtualQGraphicsSceneMouseEvent(static_cast<QEvent::Type>(type));
+VirtualQGraphicsSceneMouseEvent* QGraphicsSceneMouseEvent_new2(const QGraphicsSceneMouseEvent_VTable* vtbl, size_t vdata, int type) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsSceneMouseEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsSceneMouseEvent(vtbl, static_cast<QEvent::Type>(type)) : nullptr;
 }
 
 void QGraphicsSceneMouseEvent_virtbase(QGraphicsSceneMouseEvent* src, QGraphicsSceneEvent** outptr_QGraphicsSceneEvent) {
@@ -311,32 +280,17 @@ void QGraphicsSceneMouseEvent_setFlags(QGraphicsSceneMouseEvent* self, int flags
 	self->setFlags(static_cast<Qt::MouseEventFlags>(flags));
 }
 
-bool QGraphicsSceneMouseEvent_override_virtual_setAccepted(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneMouseEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneMouseEvent*>( (QGraphicsSceneMouseEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGraphicsSceneMouseEvent_vdata(VirtualQGraphicsSceneMouseEvent* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGraphicsSceneMouseEvent>()); }
+VirtualQGraphicsSceneMouseEvent* vdata_QGraphicsSceneMouseEvent(void* vdata) { return reinterpret_cast<VirtualQGraphicsSceneMouseEvent*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGraphicsSceneMouseEvent>()); }
 
-	self_cast->handle__setAccepted = slot;
-	return true;
+void QGraphicsSceneMouseEvent_virtualbase_setAccepted(VirtualQGraphicsSceneMouseEvent* self, bool accepted) {
+
+	self->QGraphicsSceneMouseEvent::setAccepted(accepted);
 }
 
-void QGraphicsSceneMouseEvent_virtualbase_setAccepted(void* self, bool accepted) {
-	static_cast<VirtualQGraphicsSceneMouseEvent*>(self)->QGraphicsSceneMouseEvent::setAccepted(accepted);
-}
+QEvent* QGraphicsSceneMouseEvent_virtualbase_clone(const VirtualQGraphicsSceneMouseEvent* self) {
 
-bool QGraphicsSceneMouseEvent_override_virtual_clone(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneMouseEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneMouseEvent*>( (QGraphicsSceneMouseEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__clone = slot;
-	return true;
-}
-
-QEvent* QGraphicsSceneMouseEvent_virtualbase_clone(const void* self) {
-	return static_cast<const VirtualQGraphicsSceneMouseEvent*>(self)->QGraphicsSceneMouseEvent::clone();
+	return self->QGraphicsSceneMouseEvent::clone();
 }
 
 void QGraphicsSceneMouseEvent_delete(QGraphicsSceneMouseEvent* self) {
@@ -344,53 +298,49 @@ void QGraphicsSceneMouseEvent_delete(QGraphicsSceneMouseEvent* self) {
 }
 
 class VirtualQGraphicsSceneWheelEvent final : public QGraphicsSceneWheelEvent {
+	const QGraphicsSceneWheelEvent_VTable* vtbl;
 public:
+	friend void* QGraphicsSceneWheelEvent_vdata(VirtualQGraphicsSceneWheelEvent* self);
+	friend VirtualQGraphicsSceneWheelEvent* vdata_QGraphicsSceneWheelEvent(void* vdata);
 
-	VirtualQGraphicsSceneWheelEvent(): QGraphicsSceneWheelEvent() {}
-	VirtualQGraphicsSceneWheelEvent(QEvent::Type type): QGraphicsSceneWheelEvent(type) {}
+	VirtualQGraphicsSceneWheelEvent(const QGraphicsSceneWheelEvent_VTable* vtbl): QGraphicsSceneWheelEvent(), vtbl(vtbl) {}
+	VirtualQGraphicsSceneWheelEvent(const QGraphicsSceneWheelEvent_VTable* vtbl, QEvent::Type type): QGraphicsSceneWheelEvent(type), vtbl(vtbl) {}
 
-	virtual ~VirtualQGraphicsSceneWheelEvent() override = default;
+	virtual ~VirtualQGraphicsSceneWheelEvent() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setAccepted = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setAccepted(bool accepted) override {
-		if (handle__setAccepted == 0) {
+		if (vtbl->setAccepted == 0) {
 			QGraphicsSceneWheelEvent::setAccepted(accepted);
 			return;
 		}
 
 		bool sigval1 = accepted;
-		miqt_exec_callback_QGraphicsSceneWheelEvent_setAccepted(this, handle__setAccepted, sigval1);
-
+		vtbl->setAccepted(this, sigval1);
 	}
 
-	friend void QGraphicsSceneWheelEvent_virtualbase_setAccepted(void* self, bool accepted);
+	friend void QGraphicsSceneWheelEvent_virtualbase_setAccepted(VirtualQGraphicsSceneWheelEvent* self, bool accepted);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clone = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QEvent* clone() const override {
-		if (handle__clone == 0) {
+		if (vtbl->clone == 0) {
 			return QGraphicsSceneWheelEvent::clone();
 		}
 
-		QEvent* callback_return_value = miqt_exec_callback_QGraphicsSceneWheelEvent_clone(this, handle__clone);
+		QEvent* callback_return_value = vtbl->clone(this);
 		return callback_return_value;
 	}
 
-	friend QEvent* QGraphicsSceneWheelEvent_virtualbase_clone(const void* self);
+	friend QEvent* QGraphicsSceneWheelEvent_virtualbase_clone(const VirtualQGraphicsSceneWheelEvent* self);
 
 };
 
-QGraphicsSceneWheelEvent* QGraphicsSceneWheelEvent_new() {
-	return new (std::nothrow) VirtualQGraphicsSceneWheelEvent();
+VirtualQGraphicsSceneWheelEvent* QGraphicsSceneWheelEvent_new(const QGraphicsSceneWheelEvent_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsSceneWheelEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsSceneWheelEvent(vtbl) : nullptr;
 }
 
-QGraphicsSceneWheelEvent* QGraphicsSceneWheelEvent_new2(int type) {
-	return new (std::nothrow) VirtualQGraphicsSceneWheelEvent(static_cast<QEvent::Type>(type));
+VirtualQGraphicsSceneWheelEvent* QGraphicsSceneWheelEvent_new2(const QGraphicsSceneWheelEvent_VTable* vtbl, size_t vdata, int type) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsSceneWheelEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsSceneWheelEvent(vtbl, static_cast<QEvent::Type>(type)) : nullptr;
 }
 
 void QGraphicsSceneWheelEvent_virtbase(QGraphicsSceneWheelEvent* src, QGraphicsSceneEvent** outptr_QGraphicsSceneEvent) {
@@ -481,32 +431,17 @@ void QGraphicsSceneWheelEvent_setInverted(QGraphicsSceneWheelEvent* self, bool i
 	self->setInverted(inverted);
 }
 
-bool QGraphicsSceneWheelEvent_override_virtual_setAccepted(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneWheelEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneWheelEvent*>( (QGraphicsSceneWheelEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGraphicsSceneWheelEvent_vdata(VirtualQGraphicsSceneWheelEvent* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGraphicsSceneWheelEvent>()); }
+VirtualQGraphicsSceneWheelEvent* vdata_QGraphicsSceneWheelEvent(void* vdata) { return reinterpret_cast<VirtualQGraphicsSceneWheelEvent*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGraphicsSceneWheelEvent>()); }
 
-	self_cast->handle__setAccepted = slot;
-	return true;
+void QGraphicsSceneWheelEvent_virtualbase_setAccepted(VirtualQGraphicsSceneWheelEvent* self, bool accepted) {
+
+	self->QGraphicsSceneWheelEvent::setAccepted(accepted);
 }
 
-void QGraphicsSceneWheelEvent_virtualbase_setAccepted(void* self, bool accepted) {
-	static_cast<VirtualQGraphicsSceneWheelEvent*>(self)->QGraphicsSceneWheelEvent::setAccepted(accepted);
-}
+QEvent* QGraphicsSceneWheelEvent_virtualbase_clone(const VirtualQGraphicsSceneWheelEvent* self) {
 
-bool QGraphicsSceneWheelEvent_override_virtual_clone(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneWheelEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneWheelEvent*>( (QGraphicsSceneWheelEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__clone = slot;
-	return true;
-}
-
-QEvent* QGraphicsSceneWheelEvent_virtualbase_clone(const void* self) {
-	return static_cast<const VirtualQGraphicsSceneWheelEvent*>(self)->QGraphicsSceneWheelEvent::clone();
+	return self->QGraphicsSceneWheelEvent::clone();
 }
 
 void QGraphicsSceneWheelEvent_delete(QGraphicsSceneWheelEvent* self) {
@@ -514,53 +449,49 @@ void QGraphicsSceneWheelEvent_delete(QGraphicsSceneWheelEvent* self) {
 }
 
 class VirtualQGraphicsSceneContextMenuEvent final : public QGraphicsSceneContextMenuEvent {
+	const QGraphicsSceneContextMenuEvent_VTable* vtbl;
 public:
+	friend void* QGraphicsSceneContextMenuEvent_vdata(VirtualQGraphicsSceneContextMenuEvent* self);
+	friend VirtualQGraphicsSceneContextMenuEvent* vdata_QGraphicsSceneContextMenuEvent(void* vdata);
 
-	VirtualQGraphicsSceneContextMenuEvent(): QGraphicsSceneContextMenuEvent() {}
-	VirtualQGraphicsSceneContextMenuEvent(QEvent::Type type): QGraphicsSceneContextMenuEvent(type) {}
+	VirtualQGraphicsSceneContextMenuEvent(const QGraphicsSceneContextMenuEvent_VTable* vtbl): QGraphicsSceneContextMenuEvent(), vtbl(vtbl) {}
+	VirtualQGraphicsSceneContextMenuEvent(const QGraphicsSceneContextMenuEvent_VTable* vtbl, QEvent::Type type): QGraphicsSceneContextMenuEvent(type), vtbl(vtbl) {}
 
-	virtual ~VirtualQGraphicsSceneContextMenuEvent() override = default;
+	virtual ~VirtualQGraphicsSceneContextMenuEvent() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setAccepted = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setAccepted(bool accepted) override {
-		if (handle__setAccepted == 0) {
+		if (vtbl->setAccepted == 0) {
 			QGraphicsSceneContextMenuEvent::setAccepted(accepted);
 			return;
 		}
 
 		bool sigval1 = accepted;
-		miqt_exec_callback_QGraphicsSceneContextMenuEvent_setAccepted(this, handle__setAccepted, sigval1);
-
+		vtbl->setAccepted(this, sigval1);
 	}
 
-	friend void QGraphicsSceneContextMenuEvent_virtualbase_setAccepted(void* self, bool accepted);
+	friend void QGraphicsSceneContextMenuEvent_virtualbase_setAccepted(VirtualQGraphicsSceneContextMenuEvent* self, bool accepted);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clone = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QEvent* clone() const override {
-		if (handle__clone == 0) {
+		if (vtbl->clone == 0) {
 			return QGraphicsSceneContextMenuEvent::clone();
 		}
 
-		QEvent* callback_return_value = miqt_exec_callback_QGraphicsSceneContextMenuEvent_clone(this, handle__clone);
+		QEvent* callback_return_value = vtbl->clone(this);
 		return callback_return_value;
 	}
 
-	friend QEvent* QGraphicsSceneContextMenuEvent_virtualbase_clone(const void* self);
+	friend QEvent* QGraphicsSceneContextMenuEvent_virtualbase_clone(const VirtualQGraphicsSceneContextMenuEvent* self);
 
 };
 
-QGraphicsSceneContextMenuEvent* QGraphicsSceneContextMenuEvent_new() {
-	return new (std::nothrow) VirtualQGraphicsSceneContextMenuEvent();
+VirtualQGraphicsSceneContextMenuEvent* QGraphicsSceneContextMenuEvent_new(const QGraphicsSceneContextMenuEvent_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsSceneContextMenuEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsSceneContextMenuEvent(vtbl) : nullptr;
 }
 
-QGraphicsSceneContextMenuEvent* QGraphicsSceneContextMenuEvent_new2(int type) {
-	return new (std::nothrow) VirtualQGraphicsSceneContextMenuEvent(static_cast<QEvent::Type>(type));
+VirtualQGraphicsSceneContextMenuEvent* QGraphicsSceneContextMenuEvent_new2(const QGraphicsSceneContextMenuEvent_VTable* vtbl, size_t vdata, int type) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsSceneContextMenuEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsSceneContextMenuEvent(vtbl, static_cast<QEvent::Type>(type)) : nullptr;
 }
 
 void QGraphicsSceneContextMenuEvent_virtbase(QGraphicsSceneContextMenuEvent* src, QGraphicsSceneEvent** outptr_QGraphicsSceneEvent) {
@@ -609,32 +540,17 @@ void QGraphicsSceneContextMenuEvent_setReason(QGraphicsSceneContextMenuEvent* se
 	self->setReason(static_cast<QGraphicsSceneContextMenuEvent::Reason>(reason));
 }
 
-bool QGraphicsSceneContextMenuEvent_override_virtual_setAccepted(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneContextMenuEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneContextMenuEvent*>( (QGraphicsSceneContextMenuEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGraphicsSceneContextMenuEvent_vdata(VirtualQGraphicsSceneContextMenuEvent* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGraphicsSceneContextMenuEvent>()); }
+VirtualQGraphicsSceneContextMenuEvent* vdata_QGraphicsSceneContextMenuEvent(void* vdata) { return reinterpret_cast<VirtualQGraphicsSceneContextMenuEvent*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGraphicsSceneContextMenuEvent>()); }
 
-	self_cast->handle__setAccepted = slot;
-	return true;
+void QGraphicsSceneContextMenuEvent_virtualbase_setAccepted(VirtualQGraphicsSceneContextMenuEvent* self, bool accepted) {
+
+	self->QGraphicsSceneContextMenuEvent::setAccepted(accepted);
 }
 
-void QGraphicsSceneContextMenuEvent_virtualbase_setAccepted(void* self, bool accepted) {
-	static_cast<VirtualQGraphicsSceneContextMenuEvent*>(self)->QGraphicsSceneContextMenuEvent::setAccepted(accepted);
-}
+QEvent* QGraphicsSceneContextMenuEvent_virtualbase_clone(const VirtualQGraphicsSceneContextMenuEvent* self) {
 
-bool QGraphicsSceneContextMenuEvent_override_virtual_clone(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneContextMenuEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneContextMenuEvent*>( (QGraphicsSceneContextMenuEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__clone = slot;
-	return true;
-}
-
-QEvent* QGraphicsSceneContextMenuEvent_virtualbase_clone(const void* self) {
-	return static_cast<const VirtualQGraphicsSceneContextMenuEvent*>(self)->QGraphicsSceneContextMenuEvent::clone();
+	return self->QGraphicsSceneContextMenuEvent::clone();
 }
 
 void QGraphicsSceneContextMenuEvent_delete(QGraphicsSceneContextMenuEvent* self) {
@@ -642,53 +558,49 @@ void QGraphicsSceneContextMenuEvent_delete(QGraphicsSceneContextMenuEvent* self)
 }
 
 class VirtualQGraphicsSceneHoverEvent final : public QGraphicsSceneHoverEvent {
+	const QGraphicsSceneHoverEvent_VTable* vtbl;
 public:
+	friend void* QGraphicsSceneHoverEvent_vdata(VirtualQGraphicsSceneHoverEvent* self);
+	friend VirtualQGraphicsSceneHoverEvent* vdata_QGraphicsSceneHoverEvent(void* vdata);
 
-	VirtualQGraphicsSceneHoverEvent(): QGraphicsSceneHoverEvent() {}
-	VirtualQGraphicsSceneHoverEvent(QEvent::Type type): QGraphicsSceneHoverEvent(type) {}
+	VirtualQGraphicsSceneHoverEvent(const QGraphicsSceneHoverEvent_VTable* vtbl): QGraphicsSceneHoverEvent(), vtbl(vtbl) {}
+	VirtualQGraphicsSceneHoverEvent(const QGraphicsSceneHoverEvent_VTable* vtbl, QEvent::Type type): QGraphicsSceneHoverEvent(type), vtbl(vtbl) {}
 
-	virtual ~VirtualQGraphicsSceneHoverEvent() override = default;
+	virtual ~VirtualQGraphicsSceneHoverEvent() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setAccepted = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setAccepted(bool accepted) override {
-		if (handle__setAccepted == 0) {
+		if (vtbl->setAccepted == 0) {
 			QGraphicsSceneHoverEvent::setAccepted(accepted);
 			return;
 		}
 
 		bool sigval1 = accepted;
-		miqt_exec_callback_QGraphicsSceneHoverEvent_setAccepted(this, handle__setAccepted, sigval1);
-
+		vtbl->setAccepted(this, sigval1);
 	}
 
-	friend void QGraphicsSceneHoverEvent_virtualbase_setAccepted(void* self, bool accepted);
+	friend void QGraphicsSceneHoverEvent_virtualbase_setAccepted(VirtualQGraphicsSceneHoverEvent* self, bool accepted);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clone = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QEvent* clone() const override {
-		if (handle__clone == 0) {
+		if (vtbl->clone == 0) {
 			return QGraphicsSceneHoverEvent::clone();
 		}
 
-		QEvent* callback_return_value = miqt_exec_callback_QGraphicsSceneHoverEvent_clone(this, handle__clone);
+		QEvent* callback_return_value = vtbl->clone(this);
 		return callback_return_value;
 	}
 
-	friend QEvent* QGraphicsSceneHoverEvent_virtualbase_clone(const void* self);
+	friend QEvent* QGraphicsSceneHoverEvent_virtualbase_clone(const VirtualQGraphicsSceneHoverEvent* self);
 
 };
 
-QGraphicsSceneHoverEvent* QGraphicsSceneHoverEvent_new() {
-	return new (std::nothrow) VirtualQGraphicsSceneHoverEvent();
+VirtualQGraphicsSceneHoverEvent* QGraphicsSceneHoverEvent_new(const QGraphicsSceneHoverEvent_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsSceneHoverEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsSceneHoverEvent(vtbl) : nullptr;
 }
 
-QGraphicsSceneHoverEvent* QGraphicsSceneHoverEvent_new2(int type) {
-	return new (std::nothrow) VirtualQGraphicsSceneHoverEvent(static_cast<QEvent::Type>(type));
+VirtualQGraphicsSceneHoverEvent* QGraphicsSceneHoverEvent_new2(const QGraphicsSceneHoverEvent_VTable* vtbl, size_t vdata, int type) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsSceneHoverEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsSceneHoverEvent(vtbl, static_cast<QEvent::Type>(type)) : nullptr;
 }
 
 void QGraphicsSceneHoverEvent_virtbase(QGraphicsSceneHoverEvent* src, QGraphicsSceneEvent** outptr_QGraphicsSceneEvent) {
@@ -752,32 +664,17 @@ void QGraphicsSceneHoverEvent_setModifiers(QGraphicsSceneHoverEvent* self, int m
 	self->setModifiers(static_cast<Qt::KeyboardModifiers>(modifiers));
 }
 
-bool QGraphicsSceneHoverEvent_override_virtual_setAccepted(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneHoverEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneHoverEvent*>( (QGraphicsSceneHoverEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGraphicsSceneHoverEvent_vdata(VirtualQGraphicsSceneHoverEvent* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGraphicsSceneHoverEvent>()); }
+VirtualQGraphicsSceneHoverEvent* vdata_QGraphicsSceneHoverEvent(void* vdata) { return reinterpret_cast<VirtualQGraphicsSceneHoverEvent*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGraphicsSceneHoverEvent>()); }
 
-	self_cast->handle__setAccepted = slot;
-	return true;
+void QGraphicsSceneHoverEvent_virtualbase_setAccepted(VirtualQGraphicsSceneHoverEvent* self, bool accepted) {
+
+	self->QGraphicsSceneHoverEvent::setAccepted(accepted);
 }
 
-void QGraphicsSceneHoverEvent_virtualbase_setAccepted(void* self, bool accepted) {
-	static_cast<VirtualQGraphicsSceneHoverEvent*>(self)->QGraphicsSceneHoverEvent::setAccepted(accepted);
-}
+QEvent* QGraphicsSceneHoverEvent_virtualbase_clone(const VirtualQGraphicsSceneHoverEvent* self) {
 
-bool QGraphicsSceneHoverEvent_override_virtual_clone(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneHoverEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneHoverEvent*>( (QGraphicsSceneHoverEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__clone = slot;
-	return true;
-}
-
-QEvent* QGraphicsSceneHoverEvent_virtualbase_clone(const void* self) {
-	return static_cast<const VirtualQGraphicsSceneHoverEvent*>(self)->QGraphicsSceneHoverEvent::clone();
+	return self->QGraphicsSceneHoverEvent::clone();
 }
 
 void QGraphicsSceneHoverEvent_delete(QGraphicsSceneHoverEvent* self) {
@@ -785,53 +682,49 @@ void QGraphicsSceneHoverEvent_delete(QGraphicsSceneHoverEvent* self) {
 }
 
 class VirtualQGraphicsSceneHelpEvent final : public QGraphicsSceneHelpEvent {
+	const QGraphicsSceneHelpEvent_VTable* vtbl;
 public:
+	friend void* QGraphicsSceneHelpEvent_vdata(VirtualQGraphicsSceneHelpEvent* self);
+	friend VirtualQGraphicsSceneHelpEvent* vdata_QGraphicsSceneHelpEvent(void* vdata);
 
-	VirtualQGraphicsSceneHelpEvent(): QGraphicsSceneHelpEvent() {}
-	VirtualQGraphicsSceneHelpEvent(QEvent::Type type): QGraphicsSceneHelpEvent(type) {}
+	VirtualQGraphicsSceneHelpEvent(const QGraphicsSceneHelpEvent_VTable* vtbl): QGraphicsSceneHelpEvent(), vtbl(vtbl) {}
+	VirtualQGraphicsSceneHelpEvent(const QGraphicsSceneHelpEvent_VTable* vtbl, QEvent::Type type): QGraphicsSceneHelpEvent(type), vtbl(vtbl) {}
 
-	virtual ~VirtualQGraphicsSceneHelpEvent() override = default;
+	virtual ~VirtualQGraphicsSceneHelpEvent() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setAccepted = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setAccepted(bool accepted) override {
-		if (handle__setAccepted == 0) {
+		if (vtbl->setAccepted == 0) {
 			QGraphicsSceneHelpEvent::setAccepted(accepted);
 			return;
 		}
 
 		bool sigval1 = accepted;
-		miqt_exec_callback_QGraphicsSceneHelpEvent_setAccepted(this, handle__setAccepted, sigval1);
-
+		vtbl->setAccepted(this, sigval1);
 	}
 
-	friend void QGraphicsSceneHelpEvent_virtualbase_setAccepted(void* self, bool accepted);
+	friend void QGraphicsSceneHelpEvent_virtualbase_setAccepted(VirtualQGraphicsSceneHelpEvent* self, bool accepted);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clone = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QEvent* clone() const override {
-		if (handle__clone == 0) {
+		if (vtbl->clone == 0) {
 			return QGraphicsSceneHelpEvent::clone();
 		}
 
-		QEvent* callback_return_value = miqt_exec_callback_QGraphicsSceneHelpEvent_clone(this, handle__clone);
+		QEvent* callback_return_value = vtbl->clone(this);
 		return callback_return_value;
 	}
 
-	friend QEvent* QGraphicsSceneHelpEvent_virtualbase_clone(const void* self);
+	friend QEvent* QGraphicsSceneHelpEvent_virtualbase_clone(const VirtualQGraphicsSceneHelpEvent* self);
 
 };
 
-QGraphicsSceneHelpEvent* QGraphicsSceneHelpEvent_new() {
-	return new (std::nothrow) VirtualQGraphicsSceneHelpEvent();
+VirtualQGraphicsSceneHelpEvent* QGraphicsSceneHelpEvent_new(const QGraphicsSceneHelpEvent_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsSceneHelpEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsSceneHelpEvent(vtbl) : nullptr;
 }
 
-QGraphicsSceneHelpEvent* QGraphicsSceneHelpEvent_new2(int type) {
-	return new (std::nothrow) VirtualQGraphicsSceneHelpEvent(static_cast<QEvent::Type>(type));
+VirtualQGraphicsSceneHelpEvent* QGraphicsSceneHelpEvent_new2(const QGraphicsSceneHelpEvent_VTable* vtbl, size_t vdata, int type) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsSceneHelpEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsSceneHelpEvent(vtbl, static_cast<QEvent::Type>(type)) : nullptr;
 }
 
 void QGraphicsSceneHelpEvent_virtbase(QGraphicsSceneHelpEvent* src, QGraphicsSceneEvent** outptr_QGraphicsSceneEvent) {
@@ -854,32 +747,17 @@ void QGraphicsSceneHelpEvent_setScreenPos(QGraphicsSceneHelpEvent* self, QPoint*
 	self->setScreenPos(*pos);
 }
 
-bool QGraphicsSceneHelpEvent_override_virtual_setAccepted(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneHelpEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneHelpEvent*>( (QGraphicsSceneHelpEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGraphicsSceneHelpEvent_vdata(VirtualQGraphicsSceneHelpEvent* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGraphicsSceneHelpEvent>()); }
+VirtualQGraphicsSceneHelpEvent* vdata_QGraphicsSceneHelpEvent(void* vdata) { return reinterpret_cast<VirtualQGraphicsSceneHelpEvent*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGraphicsSceneHelpEvent>()); }
 
-	self_cast->handle__setAccepted = slot;
-	return true;
+void QGraphicsSceneHelpEvent_virtualbase_setAccepted(VirtualQGraphicsSceneHelpEvent* self, bool accepted) {
+
+	self->QGraphicsSceneHelpEvent::setAccepted(accepted);
 }
 
-void QGraphicsSceneHelpEvent_virtualbase_setAccepted(void* self, bool accepted) {
-	static_cast<VirtualQGraphicsSceneHelpEvent*>(self)->QGraphicsSceneHelpEvent::setAccepted(accepted);
-}
+QEvent* QGraphicsSceneHelpEvent_virtualbase_clone(const VirtualQGraphicsSceneHelpEvent* self) {
 
-bool QGraphicsSceneHelpEvent_override_virtual_clone(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneHelpEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneHelpEvent*>( (QGraphicsSceneHelpEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__clone = slot;
-	return true;
-}
-
-QEvent* QGraphicsSceneHelpEvent_virtualbase_clone(const void* self) {
-	return static_cast<const VirtualQGraphicsSceneHelpEvent*>(self)->QGraphicsSceneHelpEvent::clone();
+	return self->QGraphicsSceneHelpEvent::clone();
 }
 
 void QGraphicsSceneHelpEvent_delete(QGraphicsSceneHelpEvent* self) {
@@ -887,53 +765,49 @@ void QGraphicsSceneHelpEvent_delete(QGraphicsSceneHelpEvent* self) {
 }
 
 class VirtualQGraphicsSceneDragDropEvent final : public QGraphicsSceneDragDropEvent {
+	const QGraphicsSceneDragDropEvent_VTable* vtbl;
 public:
+	friend void* QGraphicsSceneDragDropEvent_vdata(VirtualQGraphicsSceneDragDropEvent* self);
+	friend VirtualQGraphicsSceneDragDropEvent* vdata_QGraphicsSceneDragDropEvent(void* vdata);
 
-	VirtualQGraphicsSceneDragDropEvent(): QGraphicsSceneDragDropEvent() {}
-	VirtualQGraphicsSceneDragDropEvent(QEvent::Type type): QGraphicsSceneDragDropEvent(type) {}
+	VirtualQGraphicsSceneDragDropEvent(const QGraphicsSceneDragDropEvent_VTable* vtbl): QGraphicsSceneDragDropEvent(), vtbl(vtbl) {}
+	VirtualQGraphicsSceneDragDropEvent(const QGraphicsSceneDragDropEvent_VTable* vtbl, QEvent::Type type): QGraphicsSceneDragDropEvent(type), vtbl(vtbl) {}
 
-	virtual ~VirtualQGraphicsSceneDragDropEvent() override = default;
+	virtual ~VirtualQGraphicsSceneDragDropEvent() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setAccepted = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setAccepted(bool accepted) override {
-		if (handle__setAccepted == 0) {
+		if (vtbl->setAccepted == 0) {
 			QGraphicsSceneDragDropEvent::setAccepted(accepted);
 			return;
 		}
 
 		bool sigval1 = accepted;
-		miqt_exec_callback_QGraphicsSceneDragDropEvent_setAccepted(this, handle__setAccepted, sigval1);
-
+		vtbl->setAccepted(this, sigval1);
 	}
 
-	friend void QGraphicsSceneDragDropEvent_virtualbase_setAccepted(void* self, bool accepted);
+	friend void QGraphicsSceneDragDropEvent_virtualbase_setAccepted(VirtualQGraphicsSceneDragDropEvent* self, bool accepted);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clone = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QEvent* clone() const override {
-		if (handle__clone == 0) {
+		if (vtbl->clone == 0) {
 			return QGraphicsSceneDragDropEvent::clone();
 		}
 
-		QEvent* callback_return_value = miqt_exec_callback_QGraphicsSceneDragDropEvent_clone(this, handle__clone);
+		QEvent* callback_return_value = vtbl->clone(this);
 		return callback_return_value;
 	}
 
-	friend QEvent* QGraphicsSceneDragDropEvent_virtualbase_clone(const void* self);
+	friend QEvent* QGraphicsSceneDragDropEvent_virtualbase_clone(const VirtualQGraphicsSceneDragDropEvent* self);
 
 };
 
-QGraphicsSceneDragDropEvent* QGraphicsSceneDragDropEvent_new() {
-	return new (std::nothrow) VirtualQGraphicsSceneDragDropEvent();
+VirtualQGraphicsSceneDragDropEvent* QGraphicsSceneDragDropEvent_new(const QGraphicsSceneDragDropEvent_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsSceneDragDropEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsSceneDragDropEvent(vtbl) : nullptr;
 }
 
-QGraphicsSceneDragDropEvent* QGraphicsSceneDragDropEvent_new2(int type) {
-	return new (std::nothrow) VirtualQGraphicsSceneDragDropEvent(static_cast<QEvent::Type>(type));
+VirtualQGraphicsSceneDragDropEvent* QGraphicsSceneDragDropEvent_new2(const QGraphicsSceneDragDropEvent_VTable* vtbl, size_t vdata, int type) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsSceneDragDropEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsSceneDragDropEvent(vtbl, static_cast<QEvent::Type>(type)) : nullptr;
 }
 
 void QGraphicsSceneDragDropEvent_virtbase(QGraphicsSceneDragDropEvent* src, QGraphicsSceneEvent** outptr_QGraphicsSceneEvent) {
@@ -1029,32 +903,17 @@ void QGraphicsSceneDragDropEvent_setMimeData(QGraphicsSceneDragDropEvent* self, 
 	self->setMimeData(data);
 }
 
-bool QGraphicsSceneDragDropEvent_override_virtual_setAccepted(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneDragDropEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneDragDropEvent*>( (QGraphicsSceneDragDropEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGraphicsSceneDragDropEvent_vdata(VirtualQGraphicsSceneDragDropEvent* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGraphicsSceneDragDropEvent>()); }
+VirtualQGraphicsSceneDragDropEvent* vdata_QGraphicsSceneDragDropEvent(void* vdata) { return reinterpret_cast<VirtualQGraphicsSceneDragDropEvent*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGraphicsSceneDragDropEvent>()); }
 
-	self_cast->handle__setAccepted = slot;
-	return true;
+void QGraphicsSceneDragDropEvent_virtualbase_setAccepted(VirtualQGraphicsSceneDragDropEvent* self, bool accepted) {
+
+	self->QGraphicsSceneDragDropEvent::setAccepted(accepted);
 }
 
-void QGraphicsSceneDragDropEvent_virtualbase_setAccepted(void* self, bool accepted) {
-	static_cast<VirtualQGraphicsSceneDragDropEvent*>(self)->QGraphicsSceneDragDropEvent::setAccepted(accepted);
-}
+QEvent* QGraphicsSceneDragDropEvent_virtualbase_clone(const VirtualQGraphicsSceneDragDropEvent* self) {
 
-bool QGraphicsSceneDragDropEvent_override_virtual_clone(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneDragDropEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneDragDropEvent*>( (QGraphicsSceneDragDropEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__clone = slot;
-	return true;
-}
-
-QEvent* QGraphicsSceneDragDropEvent_virtualbase_clone(const void* self) {
-	return static_cast<const VirtualQGraphicsSceneDragDropEvent*>(self)->QGraphicsSceneDragDropEvent::clone();
+	return self->QGraphicsSceneDragDropEvent::clone();
 }
 
 void QGraphicsSceneDragDropEvent_delete(QGraphicsSceneDragDropEvent* self) {
@@ -1062,48 +921,43 @@ void QGraphicsSceneDragDropEvent_delete(QGraphicsSceneDragDropEvent* self) {
 }
 
 class VirtualQGraphicsSceneResizeEvent final : public QGraphicsSceneResizeEvent {
+	const QGraphicsSceneResizeEvent_VTable* vtbl;
 public:
+	friend void* QGraphicsSceneResizeEvent_vdata(VirtualQGraphicsSceneResizeEvent* self);
+	friend VirtualQGraphicsSceneResizeEvent* vdata_QGraphicsSceneResizeEvent(void* vdata);
 
-	VirtualQGraphicsSceneResizeEvent(): QGraphicsSceneResizeEvent() {}
+	VirtualQGraphicsSceneResizeEvent(const QGraphicsSceneResizeEvent_VTable* vtbl): QGraphicsSceneResizeEvent(), vtbl(vtbl) {}
 
-	virtual ~VirtualQGraphicsSceneResizeEvent() override = default;
+	virtual ~VirtualQGraphicsSceneResizeEvent() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setAccepted = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setAccepted(bool accepted) override {
-		if (handle__setAccepted == 0) {
+		if (vtbl->setAccepted == 0) {
 			QGraphicsSceneResizeEvent::setAccepted(accepted);
 			return;
 		}
 
 		bool sigval1 = accepted;
-		miqt_exec_callback_QGraphicsSceneResizeEvent_setAccepted(this, handle__setAccepted, sigval1);
-
+		vtbl->setAccepted(this, sigval1);
 	}
 
-	friend void QGraphicsSceneResizeEvent_virtualbase_setAccepted(void* self, bool accepted);
+	friend void QGraphicsSceneResizeEvent_virtualbase_setAccepted(VirtualQGraphicsSceneResizeEvent* self, bool accepted);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clone = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QEvent* clone() const override {
-		if (handle__clone == 0) {
+		if (vtbl->clone == 0) {
 			return QGraphicsSceneResizeEvent::clone();
 		}
 
-		QEvent* callback_return_value = miqt_exec_callback_QGraphicsSceneResizeEvent_clone(this, handle__clone);
+		QEvent* callback_return_value = vtbl->clone(this);
 		return callback_return_value;
 	}
 
-	friend QEvent* QGraphicsSceneResizeEvent_virtualbase_clone(const void* self);
+	friend QEvent* QGraphicsSceneResizeEvent_virtualbase_clone(const VirtualQGraphicsSceneResizeEvent* self);
 
 };
 
-QGraphicsSceneResizeEvent* QGraphicsSceneResizeEvent_new() {
-	return new (std::nothrow) VirtualQGraphicsSceneResizeEvent();
+VirtualQGraphicsSceneResizeEvent* QGraphicsSceneResizeEvent_new(const QGraphicsSceneResizeEvent_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsSceneResizeEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsSceneResizeEvent(vtbl) : nullptr;
 }
 
 void QGraphicsSceneResizeEvent_virtbase(QGraphicsSceneResizeEvent* src, QGraphicsSceneEvent** outptr_QGraphicsSceneEvent) {
@@ -1126,32 +980,17 @@ void QGraphicsSceneResizeEvent_setNewSize(QGraphicsSceneResizeEvent* self, QSize
 	self->setNewSize(*size);
 }
 
-bool QGraphicsSceneResizeEvent_override_virtual_setAccepted(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneResizeEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneResizeEvent*>( (QGraphicsSceneResizeEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGraphicsSceneResizeEvent_vdata(VirtualQGraphicsSceneResizeEvent* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGraphicsSceneResizeEvent>()); }
+VirtualQGraphicsSceneResizeEvent* vdata_QGraphicsSceneResizeEvent(void* vdata) { return reinterpret_cast<VirtualQGraphicsSceneResizeEvent*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGraphicsSceneResizeEvent>()); }
 
-	self_cast->handle__setAccepted = slot;
-	return true;
+void QGraphicsSceneResizeEvent_virtualbase_setAccepted(VirtualQGraphicsSceneResizeEvent* self, bool accepted) {
+
+	self->QGraphicsSceneResizeEvent::setAccepted(accepted);
 }
 
-void QGraphicsSceneResizeEvent_virtualbase_setAccepted(void* self, bool accepted) {
-	static_cast<VirtualQGraphicsSceneResizeEvent*>(self)->QGraphicsSceneResizeEvent::setAccepted(accepted);
-}
+QEvent* QGraphicsSceneResizeEvent_virtualbase_clone(const VirtualQGraphicsSceneResizeEvent* self) {
 
-bool QGraphicsSceneResizeEvent_override_virtual_clone(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneResizeEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneResizeEvent*>( (QGraphicsSceneResizeEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__clone = slot;
-	return true;
-}
-
-QEvent* QGraphicsSceneResizeEvent_virtualbase_clone(const void* self) {
-	return static_cast<const VirtualQGraphicsSceneResizeEvent*>(self)->QGraphicsSceneResizeEvent::clone();
+	return self->QGraphicsSceneResizeEvent::clone();
 }
 
 void QGraphicsSceneResizeEvent_delete(QGraphicsSceneResizeEvent* self) {
@@ -1159,48 +998,43 @@ void QGraphicsSceneResizeEvent_delete(QGraphicsSceneResizeEvent* self) {
 }
 
 class VirtualQGraphicsSceneMoveEvent final : public QGraphicsSceneMoveEvent {
+	const QGraphicsSceneMoveEvent_VTable* vtbl;
 public:
+	friend void* QGraphicsSceneMoveEvent_vdata(VirtualQGraphicsSceneMoveEvent* self);
+	friend VirtualQGraphicsSceneMoveEvent* vdata_QGraphicsSceneMoveEvent(void* vdata);
 
-	VirtualQGraphicsSceneMoveEvent(): QGraphicsSceneMoveEvent() {}
+	VirtualQGraphicsSceneMoveEvent(const QGraphicsSceneMoveEvent_VTable* vtbl): QGraphicsSceneMoveEvent(), vtbl(vtbl) {}
 
-	virtual ~VirtualQGraphicsSceneMoveEvent() override = default;
+	virtual ~VirtualQGraphicsSceneMoveEvent() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setAccepted = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setAccepted(bool accepted) override {
-		if (handle__setAccepted == 0) {
+		if (vtbl->setAccepted == 0) {
 			QGraphicsSceneMoveEvent::setAccepted(accepted);
 			return;
 		}
 
 		bool sigval1 = accepted;
-		miqt_exec_callback_QGraphicsSceneMoveEvent_setAccepted(this, handle__setAccepted, sigval1);
-
+		vtbl->setAccepted(this, sigval1);
 	}
 
-	friend void QGraphicsSceneMoveEvent_virtualbase_setAccepted(void* self, bool accepted);
+	friend void QGraphicsSceneMoveEvent_virtualbase_setAccepted(VirtualQGraphicsSceneMoveEvent* self, bool accepted);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clone = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QEvent* clone() const override {
-		if (handle__clone == 0) {
+		if (vtbl->clone == 0) {
 			return QGraphicsSceneMoveEvent::clone();
 		}
 
-		QEvent* callback_return_value = miqt_exec_callback_QGraphicsSceneMoveEvent_clone(this, handle__clone);
+		QEvent* callback_return_value = vtbl->clone(this);
 		return callback_return_value;
 	}
 
-	friend QEvent* QGraphicsSceneMoveEvent_virtualbase_clone(const void* self);
+	friend QEvent* QGraphicsSceneMoveEvent_virtualbase_clone(const VirtualQGraphicsSceneMoveEvent* self);
 
 };
 
-QGraphicsSceneMoveEvent* QGraphicsSceneMoveEvent_new() {
-	return new (std::nothrow) VirtualQGraphicsSceneMoveEvent();
+VirtualQGraphicsSceneMoveEvent* QGraphicsSceneMoveEvent_new(const QGraphicsSceneMoveEvent_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsSceneMoveEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsSceneMoveEvent(vtbl) : nullptr;
 }
 
 void QGraphicsSceneMoveEvent_virtbase(QGraphicsSceneMoveEvent* src, QGraphicsSceneEvent** outptr_QGraphicsSceneEvent) {
@@ -1223,32 +1057,17 @@ void QGraphicsSceneMoveEvent_setNewPos(QGraphicsSceneMoveEvent* self, QPointF* p
 	self->setNewPos(*pos);
 }
 
-bool QGraphicsSceneMoveEvent_override_virtual_setAccepted(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneMoveEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneMoveEvent*>( (QGraphicsSceneMoveEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGraphicsSceneMoveEvent_vdata(VirtualQGraphicsSceneMoveEvent* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGraphicsSceneMoveEvent>()); }
+VirtualQGraphicsSceneMoveEvent* vdata_QGraphicsSceneMoveEvent(void* vdata) { return reinterpret_cast<VirtualQGraphicsSceneMoveEvent*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGraphicsSceneMoveEvent>()); }
 
-	self_cast->handle__setAccepted = slot;
-	return true;
+void QGraphicsSceneMoveEvent_virtualbase_setAccepted(VirtualQGraphicsSceneMoveEvent* self, bool accepted) {
+
+	self->QGraphicsSceneMoveEvent::setAccepted(accepted);
 }
 
-void QGraphicsSceneMoveEvent_virtualbase_setAccepted(void* self, bool accepted) {
-	static_cast<VirtualQGraphicsSceneMoveEvent*>(self)->QGraphicsSceneMoveEvent::setAccepted(accepted);
-}
+QEvent* QGraphicsSceneMoveEvent_virtualbase_clone(const VirtualQGraphicsSceneMoveEvent* self) {
 
-bool QGraphicsSceneMoveEvent_override_virtual_clone(void* self, intptr_t slot) {
-	VirtualQGraphicsSceneMoveEvent* self_cast = dynamic_cast<VirtualQGraphicsSceneMoveEvent*>( (QGraphicsSceneMoveEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__clone = slot;
-	return true;
-}
-
-QEvent* QGraphicsSceneMoveEvent_virtualbase_clone(const void* self) {
-	return static_cast<const VirtualQGraphicsSceneMoveEvent*>(self)->QGraphicsSceneMoveEvent::clone();
+	return self->QGraphicsSceneMoveEvent::clone();
 }
 
 void QGraphicsSceneMoveEvent_delete(QGraphicsSceneMoveEvent* self) {

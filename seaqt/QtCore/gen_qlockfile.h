@@ -21,6 +21,7 @@ typedef struct QLockFile QLockFile;
 #endif
 
 QLockFile* QLockFile_new(struct seaqt_string fileName);
+
 struct seaqt_string QLockFile_fileName(const QLockFile* self);
 bool QLockFile_lock(QLockFile* self);
 bool QLockFile_tryLock(QLockFile* self);

@@ -14,74 +14,66 @@
 #include <qaudiosink.h>
 #include "gen_qaudiosink.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void miqt_exec_callback_QAudioSink_stateChanged(intptr_t, int);
-QMetaObject* miqt_exec_callback_QAudioSink_metaObject(const QAudioSink*, intptr_t);
-void* miqt_exec_callback_QAudioSink_metacast(QAudioSink*, intptr_t, const char*);
-int miqt_exec_callback_QAudioSink_metacall(QAudioSink*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QAudioSink_event(QAudioSink*, intptr_t, QEvent*);
-bool miqt_exec_callback_QAudioSink_eventFilter(QAudioSink*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QAudioSink_timerEvent(QAudioSink*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QAudioSink_childEvent(QAudioSink*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QAudioSink_customEvent(QAudioSink*, intptr_t, QEvent*);
-void miqt_exec_callback_QAudioSink_connectNotify(QAudioSink*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QAudioSink_disconnectNotify(QAudioSink*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQAudioSink final : public QAudioSink {
+	const QAudioSink_VTable* vtbl;
 public:
+	friend void* QAudioSink_vdata(VirtualQAudioSink* self);
+	friend VirtualQAudioSink* vdata_QAudioSink(void* vdata);
 
-	VirtualQAudioSink(): QAudioSink() {}
-	VirtualQAudioSink(const QAudioDevice& audioDeviceInfo): QAudioSink(audioDeviceInfo) {}
-	VirtualQAudioSink(const QAudioFormat& format): QAudioSink(format) {}
-	VirtualQAudioSink(const QAudioFormat& format, QObject* parent): QAudioSink(format, parent) {}
-	VirtualQAudioSink(const QAudioDevice& audioDeviceInfo, const QAudioFormat& format): QAudioSink(audioDeviceInfo, format) {}
-	VirtualQAudioSink(const QAudioDevice& audioDeviceInfo, const QAudioFormat& format, QObject* parent): QAudioSink(audioDeviceInfo, format, parent) {}
+	VirtualQAudioSink(const QAudioSink_VTable* vtbl): QAudioSink(), vtbl(vtbl) {}
+	VirtualQAudioSink(const QAudioSink_VTable* vtbl, const QAudioDevice& audioDeviceInfo): QAudioSink(audioDeviceInfo), vtbl(vtbl) {}
+	VirtualQAudioSink(const QAudioSink_VTable* vtbl, const QAudioFormat& format): QAudioSink(format), vtbl(vtbl) {}
+	VirtualQAudioSink(const QAudioSink_VTable* vtbl, const QAudioFormat& format, QObject* parent): QAudioSink(format, parent), vtbl(vtbl) {}
+	VirtualQAudioSink(const QAudioSink_VTable* vtbl, const QAudioDevice& audioDeviceInfo, const QAudioFormat& format): QAudioSink(audioDeviceInfo, format), vtbl(vtbl) {}
+	VirtualQAudioSink(const QAudioSink_VTable* vtbl, const QAudioDevice& audioDeviceInfo, const QAudioFormat& format, QObject* parent): QAudioSink(audioDeviceInfo, format, parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQAudioSink() override = default;
+	virtual ~VirtualQAudioSink() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QAudioSink::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QAudioSink_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QAudioSink_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QAudioSink_virtualbase_metaObject(const VirtualQAudioSink* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QAudioSink::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QAudioSink_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QAudioSink_virtualbase_metacast(void* self, const char* param1);
+	friend void* QAudioSink_virtualbase_metacast(VirtualQAudioSink* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QAudioSink::qt_metacall(param1, param2, param3);
 		}
 
@@ -89,102 +81,75 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QAudioSink_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QAudioSink_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QAudioSink_virtualbase_metacall(VirtualQAudioSink* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QAudioSink::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QAudioSink_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QAudioSink_virtualbase_event(void* self, QEvent* event);
+	friend bool QAudioSink_virtualbase_event(VirtualQAudioSink* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QAudioSink::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QAudioSink_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QAudioSink_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QAudioSink_virtualbase_eventFilter(VirtualQAudioSink* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QAudioSink::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QAudioSink_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QAudioSink_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QAudioSink_virtualbase_timerEvent(VirtualQAudioSink* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QAudioSink::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QAudioSink_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QAudioSink_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QAudioSink_virtualbase_childEvent(VirtualQAudioSink* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QAudioSink::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QAudioSink_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QAudioSink_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QAudioSink_virtualbase_customEvent(VirtualQAudioSink* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QAudioSink::connectNotify(signal);
 			return;
 		}
@@ -192,18 +157,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QAudioSink_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QAudioSink_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QAudioSink_virtualbase_connectNotify(VirtualQAudioSink* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QAudioSink::disconnectNotify(signal);
 			return;
 		}
@@ -211,41 +171,46 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QAudioSink_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QAudioSink_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QAudioSink_virtualbase_disconnectNotify(VirtualQAudioSink* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QAudioSink_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QAudioSink_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QAudioSink_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QAudioSink_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QAudioSink_protectedbase_sender(const VirtualQAudioSink* self);
+	friend int QAudioSink_protectedbase_senderSignalIndex(const VirtualQAudioSink* self);
+	friend int QAudioSink_protectedbase_receivers(const VirtualQAudioSink* self, const char* signal);
+	friend bool QAudioSink_protectedbase_isSignalConnected(const VirtualQAudioSink* self, QMetaMethod* signal);
 };
 
-QAudioSink* QAudioSink_new() {
-	return new (std::nothrow) VirtualQAudioSink();
+VirtualQAudioSink* QAudioSink_new(const QAudioSink_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQAudioSink>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQAudioSink(vtbl) : nullptr;
 }
 
-QAudioSink* QAudioSink_new2(QAudioDevice* audioDeviceInfo) {
-	return new (std::nothrow) VirtualQAudioSink(*audioDeviceInfo);
+VirtualQAudioSink* QAudioSink_new2(const QAudioSink_VTable* vtbl, size_t vdata, QAudioDevice* audioDeviceInfo) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQAudioSink>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQAudioSink(vtbl, *audioDeviceInfo) : nullptr;
 }
 
-QAudioSink* QAudioSink_new3(QAudioFormat* format) {
-	return new (std::nothrow) VirtualQAudioSink(*format);
+VirtualQAudioSink* QAudioSink_new3(const QAudioSink_VTable* vtbl, size_t vdata, QAudioFormat* format) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQAudioSink>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQAudioSink(vtbl, *format) : nullptr;
 }
 
-QAudioSink* QAudioSink_new4(QAudioFormat* format, QObject* parent) {
-	return new (std::nothrow) VirtualQAudioSink(*format, parent);
+VirtualQAudioSink* QAudioSink_new4(const QAudioSink_VTable* vtbl, size_t vdata, QAudioFormat* format, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQAudioSink>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQAudioSink(vtbl, *format, parent) : nullptr;
 }
 
-QAudioSink* QAudioSink_new5(QAudioDevice* audioDeviceInfo, QAudioFormat* format) {
-	return new (std::nothrow) VirtualQAudioSink(*audioDeviceInfo, *format);
+VirtualQAudioSink* QAudioSink_new5(const QAudioSink_VTable* vtbl, size_t vdata, QAudioDevice* audioDeviceInfo, QAudioFormat* format) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQAudioSink>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQAudioSink(vtbl, *audioDeviceInfo, *format) : nullptr;
 }
 
-QAudioSink* QAudioSink_new6(QAudioDevice* audioDeviceInfo, QAudioFormat* format, QObject* parent) {
-	return new (std::nothrow) VirtualQAudioSink(*audioDeviceInfo, *format, parent);
+VirtualQAudioSink* QAudioSink_new6(const QAudioSink_VTable* vtbl, size_t vdata, QAudioDevice* audioDeviceInfo, QAudioFormat* format, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQAudioSink>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQAudioSink(vtbl, *audioDeviceInfo, *format, parent) : nullptr;
 }
 
 void QAudioSink_virtbase(QAudioSink* src, QObject** outptr_QObject) {
@@ -385,188 +350,73 @@ struct seaqt_string QAudioSink_tr3(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QAudioSink_staticMetaObject() { return &QAudioSink::staticMetaObject; }
-bool QAudioSink_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQAudioSink* self_cast = dynamic_cast<VirtualQAudioSink*>( (QAudioSink*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QAudioSink_vdata(VirtualQAudioSink* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQAudioSink>()); }
+VirtualQAudioSink* vdata_QAudioSink(void* vdata) { return reinterpret_cast<VirtualQAudioSink*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQAudioSink>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QAudioSink_virtualbase_metaObject(const VirtualQAudioSink* self) {
+
+	return (QMetaObject*) self->QAudioSink::metaObject();
 }
 
-QMetaObject* QAudioSink_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQAudioSink*>(self)->QAudioSink::metaObject();
+void* QAudioSink_virtualbase_metacast(VirtualQAudioSink* self, const char* param1) {
+
+	return self->QAudioSink::qt_metacast(param1);
 }
 
-bool QAudioSink_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQAudioSink* self_cast = dynamic_cast<VirtualQAudioSink*>( (QAudioSink*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QAudioSink_virtualbase_metacall(VirtualQAudioSink* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QAudioSink::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QAudioSink_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQAudioSink*>(self)->QAudioSink::qt_metacast(param1);
+bool QAudioSink_virtualbase_event(VirtualQAudioSink* self, QEvent* event) {
+
+	return self->QAudioSink::event(event);
 }
 
-bool QAudioSink_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQAudioSink* self_cast = dynamic_cast<VirtualQAudioSink*>( (QAudioSink*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QAudioSink_virtualbase_eventFilter(VirtualQAudioSink* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QAudioSink::eventFilter(watched, event);
 }
 
-int QAudioSink_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQAudioSink*>(self)->QAudioSink::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+void QAudioSink_virtualbase_timerEvent(VirtualQAudioSink* self, QTimerEvent* event) {
+
+	self->QAudioSink::timerEvent(event);
 }
 
-bool QAudioSink_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQAudioSink* self_cast = dynamic_cast<VirtualQAudioSink*>( (QAudioSink*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QAudioSink_virtualbase_childEvent(VirtualQAudioSink* self, QChildEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QAudioSink::childEvent(event);
 }
 
-bool QAudioSink_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQAudioSink*>(self)->QAudioSink::event(event);
+void QAudioSink_virtualbase_customEvent(VirtualQAudioSink* self, QEvent* event) {
+
+	self->QAudioSink::customEvent(event);
 }
 
-bool QAudioSink_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQAudioSink* self_cast = dynamic_cast<VirtualQAudioSink*>( (QAudioSink*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QAudioSink_virtualbase_connectNotify(VirtualQAudioSink* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QAudioSink::connectNotify(*signal);
 }
 
-bool QAudioSink_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQAudioSink*>(self)->QAudioSink::eventFilter(watched, event);
+void QAudioSink_virtualbase_disconnectNotify(VirtualQAudioSink* self, QMetaMethod* signal) {
+
+	self->QAudioSink::disconnectNotify(*signal);
 }
 
-bool QAudioSink_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQAudioSink* self_cast = dynamic_cast<VirtualQAudioSink*>( (QAudioSink*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+QObject* QAudioSink_protectedbase_sender(const VirtualQAudioSink* self) {
+	return self->sender();
 }
 
-void QAudioSink_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQAudioSink*>(self)->QAudioSink::timerEvent(event);
+int QAudioSink_protectedbase_senderSignalIndex(const VirtualQAudioSink* self) {
+	return self->senderSignalIndex();
 }
 
-bool QAudioSink_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQAudioSink* self_cast = dynamic_cast<VirtualQAudioSink*>( (QAudioSink*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QAudioSink_protectedbase_receivers(const VirtualQAudioSink* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QAudioSink_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQAudioSink*>(self)->QAudioSink::childEvent(event);
-}
-
-bool QAudioSink_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQAudioSink* self_cast = dynamic_cast<VirtualQAudioSink*>( (QAudioSink*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QAudioSink_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQAudioSink*>(self)->QAudioSink::customEvent(event);
-}
-
-bool QAudioSink_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQAudioSink* self_cast = dynamic_cast<VirtualQAudioSink*>( (QAudioSink*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QAudioSink_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQAudioSink*>(self)->QAudioSink::connectNotify(*signal);
-}
-
-bool QAudioSink_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQAudioSink* self_cast = dynamic_cast<VirtualQAudioSink*>( (QAudioSink*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QAudioSink_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQAudioSink*>(self)->QAudioSink::disconnectNotify(*signal);
-}
-
-QObject* QAudioSink_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQAudioSink* self_cast = dynamic_cast<VirtualQAudioSink*>( (QAudioSink*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QAudioSink_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQAudioSink* self_cast = dynamic_cast<VirtualQAudioSink*>( (QAudioSink*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QAudioSink_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQAudioSink* self_cast = dynamic_cast<VirtualQAudioSink*>( (QAudioSink*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QAudioSink_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQAudioSink* self_cast = dynamic_cast<VirtualQAudioSink*>( (QAudioSink*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QAudioSink_protectedbase_isSignalConnected(const VirtualQAudioSink* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QAudioSink_delete(QAudioSink* self) {

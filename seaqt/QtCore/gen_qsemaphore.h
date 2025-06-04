@@ -24,6 +24,7 @@ typedef struct QSemaphoreReleaser QSemaphoreReleaser;
 
 QSemaphore* QSemaphore_new();
 QSemaphore* QSemaphore_new2(int n);
+
 void QSemaphore_acquire(QSemaphore* self);
 bool QSemaphore_tryAcquire(QSemaphore* self);
 bool QSemaphore_tryAcquire2(QSemaphore* self, int n, int timeout);
@@ -41,6 +42,7 @@ QSemaphoreReleaser* QSemaphoreReleaser_new2(QSemaphore* sem);
 QSemaphoreReleaser* QSemaphoreReleaser_new3(QSemaphore* sem);
 QSemaphoreReleaser* QSemaphoreReleaser_new4(QSemaphore* sem, int n);
 QSemaphoreReleaser* QSemaphoreReleaser_new5(QSemaphore* sem, int n);
+
 void QSemaphoreReleaser_swap(QSemaphoreReleaser* self, QSemaphoreReleaser* other);
 QSemaphore* QSemaphoreReleaser_semaphore(const QSemaphoreReleaser* self);
 QSemaphore* QSemaphoreReleaser_cancel(QSemaphoreReleaser* self);

@@ -25,6 +25,7 @@ typedef struct QWebEngineFileSystemAccessRequest QWebEngineFileSystemAccessReque
 #endif
 
 QWebEngineFileSystemAccessRequest* QWebEngineFileSystemAccessRequest_new(QWebEngineFileSystemAccessRequest* other);
+
 void QWebEngineFileSystemAccessRequest_operatorAssign(QWebEngineFileSystemAccessRequest* self, QWebEngineFileSystemAccessRequest* other);
 void QWebEngineFileSystemAccessRequest_swap(QWebEngineFileSystemAccessRequest* self, QWebEngineFileSystemAccessRequest* other);
 void QWebEngineFileSystemAccessRequest_accept(QWebEngineFileSystemAccessRequest* self);

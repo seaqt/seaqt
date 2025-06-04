@@ -36,6 +36,7 @@ QQmlListReference* QQmlListReference_new5(QObject* o, const char* property);
 QQmlListReference* QQmlListReference_new6(QQmlListReference* param1);
 QQmlListReference* QQmlListReference_new7(QVariant* variant, QQmlEngine* engine);
 QQmlListReference* QQmlListReference_new8(QObject* o, const char* property, QQmlEngine* engine);
+
 void QQmlListReference_operatorAssign(QQmlListReference* self, QQmlListReference* param1);
 bool QQmlListReference_isValid(const QQmlListReference* self);
 QObject* QQmlListReference_object(const QQmlListReference* self);

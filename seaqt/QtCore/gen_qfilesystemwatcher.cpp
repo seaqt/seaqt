@@ -12,73 +12,65 @@
 #include <qfilesystemwatcher.h>
 #include "gen_qfilesystemwatcher.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void miqt_exec_callback_QFileSystemWatcher_fileChanged(intptr_t, struct seaqt_string);
 void miqt_exec_callback_QFileSystemWatcher_directoryChanged(intptr_t, struct seaqt_string);
-QMetaObject* miqt_exec_callback_QFileSystemWatcher_metaObject(const QFileSystemWatcher*, intptr_t);
-void* miqt_exec_callback_QFileSystemWatcher_metacast(QFileSystemWatcher*, intptr_t, const char*);
-int miqt_exec_callback_QFileSystemWatcher_metacall(QFileSystemWatcher*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QFileSystemWatcher_event(QFileSystemWatcher*, intptr_t, QEvent*);
-bool miqt_exec_callback_QFileSystemWatcher_eventFilter(QFileSystemWatcher*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QFileSystemWatcher_timerEvent(QFileSystemWatcher*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QFileSystemWatcher_childEvent(QFileSystemWatcher*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QFileSystemWatcher_customEvent(QFileSystemWatcher*, intptr_t, QEvent*);
-void miqt_exec_callback_QFileSystemWatcher_connectNotify(QFileSystemWatcher*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QFileSystemWatcher_disconnectNotify(QFileSystemWatcher*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQFileSystemWatcher final : public QFileSystemWatcher {
+	const QFileSystemWatcher_VTable* vtbl;
 public:
+	friend void* QFileSystemWatcher_vdata(VirtualQFileSystemWatcher* self);
+	friend VirtualQFileSystemWatcher* vdata_QFileSystemWatcher(void* vdata);
 
-	VirtualQFileSystemWatcher(): QFileSystemWatcher() {}
-	VirtualQFileSystemWatcher(const QStringList& paths): QFileSystemWatcher(paths) {}
-	VirtualQFileSystemWatcher(QObject* parent): QFileSystemWatcher(parent) {}
-	VirtualQFileSystemWatcher(const QStringList& paths, QObject* parent): QFileSystemWatcher(paths, parent) {}
+	VirtualQFileSystemWatcher(const QFileSystemWatcher_VTable* vtbl): QFileSystemWatcher(), vtbl(vtbl) {}
+	VirtualQFileSystemWatcher(const QFileSystemWatcher_VTable* vtbl, const QStringList& paths): QFileSystemWatcher(paths), vtbl(vtbl) {}
+	VirtualQFileSystemWatcher(const QFileSystemWatcher_VTable* vtbl, QObject* parent): QFileSystemWatcher(parent), vtbl(vtbl) {}
+	VirtualQFileSystemWatcher(const QFileSystemWatcher_VTable* vtbl, const QStringList& paths, QObject* parent): QFileSystemWatcher(paths, parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQFileSystemWatcher() override = default;
+	virtual ~VirtualQFileSystemWatcher() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QFileSystemWatcher::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QFileSystemWatcher_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QFileSystemWatcher_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QFileSystemWatcher_virtualbase_metaObject(const VirtualQFileSystemWatcher* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QFileSystemWatcher::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QFileSystemWatcher_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QFileSystemWatcher_virtualbase_metacast(void* self, const char* param1);
+	friend void* QFileSystemWatcher_virtualbase_metacast(VirtualQFileSystemWatcher* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QFileSystemWatcher::qt_metacall(param1, param2, param3);
 		}
 
@@ -86,102 +78,75 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QFileSystemWatcher_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QFileSystemWatcher_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QFileSystemWatcher_virtualbase_metacall(VirtualQFileSystemWatcher* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QFileSystemWatcher::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QFileSystemWatcher_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QFileSystemWatcher_virtualbase_event(void* self, QEvent* event);
+	friend bool QFileSystemWatcher_virtualbase_event(VirtualQFileSystemWatcher* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QFileSystemWatcher::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QFileSystemWatcher_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QFileSystemWatcher_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QFileSystemWatcher_virtualbase_eventFilter(VirtualQFileSystemWatcher* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QFileSystemWatcher::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QFileSystemWatcher_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QFileSystemWatcher_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QFileSystemWatcher_virtualbase_timerEvent(VirtualQFileSystemWatcher* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QFileSystemWatcher::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QFileSystemWatcher_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QFileSystemWatcher_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QFileSystemWatcher_virtualbase_childEvent(VirtualQFileSystemWatcher* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QFileSystemWatcher::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QFileSystemWatcher_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QFileSystemWatcher_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QFileSystemWatcher_virtualbase_customEvent(VirtualQFileSystemWatcher* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QFileSystemWatcher::connectNotify(signal);
 			return;
 		}
@@ -189,18 +154,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QFileSystemWatcher_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QFileSystemWatcher_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QFileSystemWatcher_virtualbase_connectNotify(VirtualQFileSystemWatcher* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QFileSystemWatcher::disconnectNotify(signal);
 			return;
 		}
@@ -208,24 +168,24 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QFileSystemWatcher_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QFileSystemWatcher_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QFileSystemWatcher_virtualbase_disconnectNotify(VirtualQFileSystemWatcher* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QFileSystemWatcher_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QFileSystemWatcher_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QFileSystemWatcher_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QFileSystemWatcher_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QFileSystemWatcher_protectedbase_sender(const VirtualQFileSystemWatcher* self);
+	friend int QFileSystemWatcher_protectedbase_senderSignalIndex(const VirtualQFileSystemWatcher* self);
+	friend int QFileSystemWatcher_protectedbase_receivers(const VirtualQFileSystemWatcher* self, const char* signal);
+	friend bool QFileSystemWatcher_protectedbase_isSignalConnected(const VirtualQFileSystemWatcher* self, QMetaMethod* signal);
 };
 
-QFileSystemWatcher* QFileSystemWatcher_new() {
-	return new (std::nothrow) VirtualQFileSystemWatcher();
+VirtualQFileSystemWatcher* QFileSystemWatcher_new(const QFileSystemWatcher_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQFileSystemWatcher>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQFileSystemWatcher(vtbl) : nullptr;
 }
 
-QFileSystemWatcher* QFileSystemWatcher_new2(struct seaqt_array /* of struct seaqt_string */  paths) {
+VirtualQFileSystemWatcher* QFileSystemWatcher_new2(const QFileSystemWatcher_VTable* vtbl, size_t vdata, struct seaqt_array /* of struct seaqt_string */  paths) {
 	QStringList paths_QList;
 	paths_QList.reserve(paths.len);
 	struct seaqt_string* paths_arr = static_cast<struct seaqt_string*>(paths.data);
@@ -233,14 +193,16 @@ QFileSystemWatcher* QFileSystemWatcher_new2(struct seaqt_array /* of struct seaq
 		QString paths_arr_i_QString = QString::fromUtf8(paths_arr[i].data, paths_arr[i].len);
 		paths_QList.push_back(paths_arr_i_QString);
 	}
-	return new (std::nothrow) VirtualQFileSystemWatcher(paths_QList);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQFileSystemWatcher>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQFileSystemWatcher(vtbl, paths_QList) : nullptr;
 }
 
-QFileSystemWatcher* QFileSystemWatcher_new3(QObject* parent) {
-	return new (std::nothrow) VirtualQFileSystemWatcher(parent);
+VirtualQFileSystemWatcher* QFileSystemWatcher_new3(const QFileSystemWatcher_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQFileSystemWatcher>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQFileSystemWatcher(vtbl, parent) : nullptr;
 }
 
-QFileSystemWatcher* QFileSystemWatcher_new4(struct seaqt_array /* of struct seaqt_string */  paths, QObject* parent) {
+VirtualQFileSystemWatcher* QFileSystemWatcher_new4(const QFileSystemWatcher_VTable* vtbl, size_t vdata, struct seaqt_array /* of struct seaqt_string */  paths, QObject* parent) {
 	QStringList paths_QList;
 	paths_QList.reserve(paths.len);
 	struct seaqt_string* paths_arr = static_cast<struct seaqt_string*>(paths.data);
@@ -248,7 +210,8 @@ QFileSystemWatcher* QFileSystemWatcher_new4(struct seaqt_array /* of struct seaq
 		QString paths_arr_i_QString = QString::fromUtf8(paths_arr[i].data, paths_arr[i].len);
 		paths_QList.push_back(paths_arr_i_QString);
 	}
-	return new (std::nothrow) VirtualQFileSystemWatcher(paths_QList, parent);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQFileSystemWatcher>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQFileSystemWatcher(vtbl, paths_QList, parent) : nullptr;
 }
 
 void QFileSystemWatcher_virtbase(QFileSystemWatcher* src, QObject** outptr_QObject) {
@@ -405,216 +368,73 @@ struct seaqt_string QFileSystemWatcher_tr3(const char* s, const char* c, int n) 
 }
 
 const QMetaObject* QFileSystemWatcher_staticMetaObject() { return &QFileSystemWatcher::staticMetaObject; }
-bool QFileSystemWatcher_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQFileSystemWatcher* self_cast = dynamic_cast<VirtualQFileSystemWatcher*>( (QFileSystemWatcher*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QFileSystemWatcher_vdata(VirtualQFileSystemWatcher* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQFileSystemWatcher>()); }
+VirtualQFileSystemWatcher* vdata_QFileSystemWatcher(void* vdata) { return reinterpret_cast<VirtualQFileSystemWatcher*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQFileSystemWatcher>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QFileSystemWatcher_virtualbase_metaObject(const VirtualQFileSystemWatcher* self) {
+
+	return (QMetaObject*) self->QFileSystemWatcher::metaObject();
 }
 
-QMetaObject* QFileSystemWatcher_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQFileSystemWatcher*>(self)->QFileSystemWatcher::metaObject();
+void* QFileSystemWatcher_virtualbase_metacast(VirtualQFileSystemWatcher* self, const char* param1) {
+
+	return self->QFileSystemWatcher::qt_metacast(param1);
 }
 
-bool QFileSystemWatcher_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQFileSystemWatcher* self_cast = dynamic_cast<VirtualQFileSystemWatcher*>( (QFileSystemWatcher*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QFileSystemWatcher_virtualbase_metacall(VirtualQFileSystemWatcher* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QFileSystemWatcher::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QFileSystemWatcher_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQFileSystemWatcher*>(self)->QFileSystemWatcher::qt_metacast(param1);
+bool QFileSystemWatcher_virtualbase_event(VirtualQFileSystemWatcher* self, QEvent* event) {
+
+	return self->QFileSystemWatcher::event(event);
 }
 
-bool QFileSystemWatcher_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQFileSystemWatcher* self_cast = dynamic_cast<VirtualQFileSystemWatcher*>( (QFileSystemWatcher*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QFileSystemWatcher_virtualbase_eventFilter(VirtualQFileSystemWatcher* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QFileSystemWatcher::eventFilter(watched, event);
 }
 
-int QFileSystemWatcher_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQFileSystemWatcher*>(self)->QFileSystemWatcher::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+void QFileSystemWatcher_virtualbase_timerEvent(VirtualQFileSystemWatcher* self, QTimerEvent* event) {
+
+	self->QFileSystemWatcher::timerEvent(event);
 }
 
-bool QFileSystemWatcher_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQFileSystemWatcher* self_cast = dynamic_cast<VirtualQFileSystemWatcher*>( (QFileSystemWatcher*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileSystemWatcher_virtualbase_childEvent(VirtualQFileSystemWatcher* self, QChildEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QFileSystemWatcher::childEvent(event);
 }
 
-bool QFileSystemWatcher_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQFileSystemWatcher*>(self)->QFileSystemWatcher::event(event);
+void QFileSystemWatcher_virtualbase_customEvent(VirtualQFileSystemWatcher* self, QEvent* event) {
+
+	self->QFileSystemWatcher::customEvent(event);
 }
 
-bool QFileSystemWatcher_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQFileSystemWatcher* self_cast = dynamic_cast<VirtualQFileSystemWatcher*>( (QFileSystemWatcher*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileSystemWatcher_virtualbase_connectNotify(VirtualQFileSystemWatcher* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QFileSystemWatcher::connectNotify(*signal);
 }
 
-bool QFileSystemWatcher_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQFileSystemWatcher*>(self)->QFileSystemWatcher::eventFilter(watched, event);
+void QFileSystemWatcher_virtualbase_disconnectNotify(VirtualQFileSystemWatcher* self, QMetaMethod* signal) {
+
+	self->QFileSystemWatcher::disconnectNotify(*signal);
 }
 
-bool QFileSystemWatcher_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQFileSystemWatcher* self_cast = dynamic_cast<VirtualQFileSystemWatcher*>( (QFileSystemWatcher*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+QObject* QFileSystemWatcher_protectedbase_sender(const VirtualQFileSystemWatcher* self) {
+	return self->sender();
 }
 
-void QFileSystemWatcher_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQFileSystemWatcher*>(self)->QFileSystemWatcher::timerEvent(event);
+int QFileSystemWatcher_protectedbase_senderSignalIndex(const VirtualQFileSystemWatcher* self) {
+	return self->senderSignalIndex();
 }
 
-bool QFileSystemWatcher_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQFileSystemWatcher* self_cast = dynamic_cast<VirtualQFileSystemWatcher*>( (QFileSystemWatcher*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QFileSystemWatcher_protectedbase_receivers(const VirtualQFileSystemWatcher* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QFileSystemWatcher_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQFileSystemWatcher*>(self)->QFileSystemWatcher::childEvent(event);
-}
-
-bool QFileSystemWatcher_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQFileSystemWatcher* self_cast = dynamic_cast<VirtualQFileSystemWatcher*>( (QFileSystemWatcher*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QFileSystemWatcher_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQFileSystemWatcher*>(self)->QFileSystemWatcher::customEvent(event);
-}
-
-bool QFileSystemWatcher_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQFileSystemWatcher* self_cast = dynamic_cast<VirtualQFileSystemWatcher*>( (QFileSystemWatcher*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QFileSystemWatcher_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQFileSystemWatcher*>(self)->QFileSystemWatcher::connectNotify(*signal);
-}
-
-bool QFileSystemWatcher_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQFileSystemWatcher* self_cast = dynamic_cast<VirtualQFileSystemWatcher*>( (QFileSystemWatcher*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QFileSystemWatcher_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQFileSystemWatcher*>(self)->QFileSystemWatcher::disconnectNotify(*signal);
-}
-
-QObject* QFileSystemWatcher_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQFileSystemWatcher* self_cast = dynamic_cast<VirtualQFileSystemWatcher*>( (QFileSystemWatcher*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QFileSystemWatcher_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQFileSystemWatcher* self_cast = dynamic_cast<VirtualQFileSystemWatcher*>( (QFileSystemWatcher*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QFileSystemWatcher_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQFileSystemWatcher* self_cast = dynamic_cast<VirtualQFileSystemWatcher*>( (QFileSystemWatcher*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QFileSystemWatcher_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQFileSystemWatcher* self_cast = dynamic_cast<VirtualQFileSystemWatcher*>( (QFileSystemWatcher*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
-}
-
-void QFileSystemWatcher_connect_fileChanged(QFileSystemWatcher* self, intptr_t slot) {
-	QFileSystemWatcher::connect(self, &QFileSystemWatcher::fileChanged, self, [=](const QString& path) {
-		const QString path_ret = path;
-		// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-		QByteArray path_b = path_ret.toUtf8();
-		struct seaqt_string path_ms;
-		path_ms.len = path_b.length();
-		path_ms.data = static_cast<char*>(malloc(path_ms.len));
-		memcpy(path_ms.data, path_b.data(), path_ms.len);
-		struct seaqt_string sigval1 = path_ms;
-		miqt_exec_callback_QFileSystemWatcher_fileChanged(slot, sigval1);
-	});
-}
-
-void QFileSystemWatcher_connect_directoryChanged(QFileSystemWatcher* self, intptr_t slot) {
-	QFileSystemWatcher::connect(self, &QFileSystemWatcher::directoryChanged, self, [=](const QString& path) {
-		const QString path_ret = path;
-		// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-		QByteArray path_b = path_ret.toUtf8();
-		struct seaqt_string path_ms;
-		path_ms.len = path_b.length();
-		path_ms.data = static_cast<char*>(malloc(path_ms.len));
-		memcpy(path_ms.data, path_b.data(), path_ms.len);
-		struct seaqt_string sigval1 = path_ms;
-		miqt_exec_callback_QFileSystemWatcher_directoryChanged(slot, sigval1);
-	});
+bool QFileSystemWatcher_protectedbase_isSignalConnected(const VirtualQFileSystemWatcher* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QFileSystemWatcher_delete(QFileSystemWatcher* self) {

@@ -30,6 +30,7 @@ QByteArrayMatcher* QByteArrayMatcher_new3(QByteArrayView* pattern);
 QByteArrayMatcher* QByteArrayMatcher_new4(const char* pattern);
 QByteArrayMatcher* QByteArrayMatcher_new5(QByteArrayMatcher* other);
 QByteArrayMatcher* QByteArrayMatcher_new6(const char* pattern, ptrdiff_t length);
+
 void QByteArrayMatcher_operatorAssign(QByteArrayMatcher* self, QByteArrayMatcher* other);
 void QByteArrayMatcher_setPattern(QByteArrayMatcher* self, struct seaqt_string pattern);
 ptrdiff_t QByteArrayMatcher_indexIn(const QByteArrayMatcher* self, const char* str, ptrdiff_t len);

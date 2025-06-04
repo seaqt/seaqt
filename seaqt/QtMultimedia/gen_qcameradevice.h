@@ -28,6 +28,7 @@ typedef struct QSize QSize;
 
 QCameraFormat* QCameraFormat_new();
 QCameraFormat* QCameraFormat_new2(QCameraFormat* other);
+
 void QCameraFormat_operatorAssign(QCameraFormat* self, QCameraFormat* other);
 int QCameraFormat_pixelFormat(const QCameraFormat* self);
 QSize* QCameraFormat_resolution(const QCameraFormat* self);
@@ -42,6 +43,7 @@ void QCameraFormat_delete(QCameraFormat* self);
 
 QCameraDevice* QCameraDevice_new();
 QCameraDevice* QCameraDevice_new2(QCameraDevice* other);
+
 void QCameraDevice_operatorAssign(QCameraDevice* self, QCameraDevice* other);
 bool QCameraDevice_operatorEqual(const QCameraDevice* self, QCameraDevice* other);
 bool QCameraDevice_operatorNotEqual(const QCameraDevice* self, QCameraDevice* other);

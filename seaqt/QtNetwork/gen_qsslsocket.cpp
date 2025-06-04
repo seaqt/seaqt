@@ -26,6 +26,17 @@
 #include <qsslsocket.h>
 #include "gen_qsslsocket.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -40,93 +51,46 @@ void miqt_exec_callback_QSslSocket_newSessionTicketReceived(intptr_t);
 void miqt_exec_callback_QSslSocket_alertSent(intptr_t, int, int, struct seaqt_string);
 void miqt_exec_callback_QSslSocket_alertReceived(intptr_t, int, int, struct seaqt_string);
 void miqt_exec_callback_QSslSocket_handshakeInterruptedOnError(intptr_t, QSslError*);
-QMetaObject* miqt_exec_callback_QSslSocket_metaObject(const QSslSocket*, intptr_t);
-void* miqt_exec_callback_QSslSocket_metacast(QSslSocket*, intptr_t, const char*);
-int miqt_exec_callback_QSslSocket_metacall(QSslSocket*, intptr_t, int, int, void**);
-void miqt_exec_callback_QSslSocket_resume(QSslSocket*, intptr_t);
-bool miqt_exec_callback_QSslSocket_setSocketDescriptor(QSslSocket*, intptr_t, intptr_t, int, int);
-void miqt_exec_callback_QSslSocket_connectToHost(QSslSocket*, intptr_t, struct seaqt_string, unsigned short, int, int);
-void miqt_exec_callback_QSslSocket_disconnectFromHost(QSslSocket*, intptr_t);
-void miqt_exec_callback_QSslSocket_setSocketOption(QSslSocket*, intptr_t, int, QVariant*);
-QVariant* miqt_exec_callback_QSslSocket_socketOption(QSslSocket*, intptr_t, int);
-long long miqt_exec_callback_QSslSocket_bytesAvailable(const QSslSocket*, intptr_t);
-long long miqt_exec_callback_QSslSocket_bytesToWrite(const QSslSocket*, intptr_t);
-bool miqt_exec_callback_QSslSocket_canReadLine(const QSslSocket*, intptr_t);
-void miqt_exec_callback_QSslSocket_close(QSslSocket*, intptr_t);
-bool miqt_exec_callback_QSslSocket_atEnd(const QSslSocket*, intptr_t);
-void miqt_exec_callback_QSslSocket_setReadBufferSize(QSslSocket*, intptr_t, long long);
-bool miqt_exec_callback_QSslSocket_waitForConnected(QSslSocket*, intptr_t, int);
-bool miqt_exec_callback_QSslSocket_waitForReadyRead(QSslSocket*, intptr_t, int);
-bool miqt_exec_callback_QSslSocket_waitForBytesWritten(QSslSocket*, intptr_t, int);
-bool miqt_exec_callback_QSslSocket_waitForDisconnected(QSslSocket*, intptr_t, int);
-long long miqt_exec_callback_QSslSocket_readData(QSslSocket*, intptr_t, char*, long long);
-long long miqt_exec_callback_QSslSocket_skipData(QSslSocket*, intptr_t, long long);
-long long miqt_exec_callback_QSslSocket_writeData(QSslSocket*, intptr_t, const char*, long long);
-bool miqt_exec_callback_QSslSocket_bind(QSslSocket*, intptr_t, QHostAddress*, unsigned short, int);
-intptr_t miqt_exec_callback_QSslSocket_socketDescriptor(const QSslSocket*, intptr_t);
-bool miqt_exec_callback_QSslSocket_isSequential(const QSslSocket*, intptr_t);
-long long miqt_exec_callback_QSslSocket_readLineData(QSslSocket*, intptr_t, char*, long long);
-bool miqt_exec_callback_QSslSocket_open(QSslSocket*, intptr_t, int);
-long long miqt_exec_callback_QSslSocket_pos(const QSslSocket*, intptr_t);
-long long miqt_exec_callback_QSslSocket_size(const QSslSocket*, intptr_t);
-bool miqt_exec_callback_QSslSocket_seek(QSslSocket*, intptr_t, long long);
-bool miqt_exec_callback_QSslSocket_reset(QSslSocket*, intptr_t);
-bool miqt_exec_callback_QSslSocket_event(QSslSocket*, intptr_t, QEvent*);
-bool miqt_exec_callback_QSslSocket_eventFilter(QSslSocket*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QSslSocket_timerEvent(QSslSocket*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QSslSocket_childEvent(QSslSocket*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QSslSocket_customEvent(QSslSocket*, intptr_t, QEvent*);
-void miqt_exec_callback_QSslSocket_connectNotify(QSslSocket*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QSslSocket_disconnectNotify(QSslSocket*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQSslSocket final : public QSslSocket {
+	const QSslSocket_VTable* vtbl;
 public:
+	friend void* QSslSocket_vdata(VirtualQSslSocket* self);
+	friend VirtualQSslSocket* vdata_QSslSocket(void* vdata);
 
-	VirtualQSslSocket(): QSslSocket() {}
-	VirtualQSslSocket(QObject* parent): QSslSocket(parent) {}
+	VirtualQSslSocket(const QSslSocket_VTable* vtbl): QSslSocket(), vtbl(vtbl) {}
+	VirtualQSslSocket(const QSslSocket_VTable* vtbl, QObject* parent): QSslSocket(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQSslSocket() override = default;
+	virtual ~VirtualQSslSocket() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QSslSocket::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QSslSocket_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QSslSocket_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QSslSocket_virtualbase_metaObject(const VirtualQSslSocket* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QSslSocket::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QSslSocket_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QSslSocket_virtualbase_metacast(void* self, const char* param1);
+	friend void* QSslSocket_virtualbase_metacast(VirtualQSslSocket* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QSslSocket::qt_metacall(param1, param2, param3);
 		}
 
@@ -134,34 +98,25 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QSslSocket_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QSslSocket_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QSslSocket_virtualbase_metacall(VirtualQSslSocket* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__resume = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void resume() override {
-		if (handle__resume == 0) {
+		if (vtbl->resume == 0) {
 			QSslSocket::resume();
 			return;
 		}
 
-		miqt_exec_callback_QSslSocket_resume(this, handle__resume);
-
+		vtbl->resume(this);
 	}
 
-	friend void QSslSocket_virtualbase_resume(void* self);
+	friend void QSslSocket_virtualbase_resume(VirtualQSslSocket* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setSocketDescriptor = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool setSocketDescriptor(qintptr socketDescriptor, QAbstractSocket::SocketState state, QIODeviceBase::OpenMode openMode) override {
-		if (handle__setSocketDescriptor == 0) {
+		if (vtbl->setSocketDescriptor == 0) {
 			return QSslSocket::setSocketDescriptor(socketDescriptor, state, openMode);
 		}
 
@@ -171,18 +126,14 @@ public:
 		int sigval2 = static_cast<int>(state_ret);
 		QIODeviceBase::OpenMode openMode_ret = openMode;
 		int sigval3 = static_cast<int>(openMode_ret);
-		bool callback_return_value = miqt_exec_callback_QSslSocket_setSocketDescriptor(this, handle__setSocketDescriptor, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->setSocketDescriptor(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QSslSocket_virtualbase_setSocketDescriptor(void* self, intptr_t socketDescriptor, int state, int openMode);
+	friend bool QSslSocket_virtualbase_setSocketDescriptor(VirtualQSslSocket* self, intptr_t socketDescriptor, int state, int openMode);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectToHost = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectToHost(const QString& hostName, quint16 port, QIODeviceBase::OpenMode openMode, QAbstractSocket::NetworkLayerProtocol protocol) override {
-		if (handle__connectToHost == 0) {
+		if (vtbl->connectToHost == 0) {
 			QSslSocket::connectToHost(hostName, port, openMode, protocol);
 			return;
 		}
@@ -201,34 +152,24 @@ public:
 		int sigval3 = static_cast<int>(openMode_ret);
 		QAbstractSocket::NetworkLayerProtocol protocol_ret = protocol;
 		int sigval4 = static_cast<int>(protocol_ret);
-		miqt_exec_callback_QSslSocket_connectToHost(this, handle__connectToHost, sigval1, sigval2, sigval3, sigval4);
-
+		vtbl->connectToHost(this, sigval1, sigval2, sigval3, sigval4);
 	}
 
-	friend void QSslSocket_virtualbase_connectToHost(void* self, struct seaqt_string hostName, unsigned short port, int openMode, int protocol);
+	friend void QSslSocket_virtualbase_connectToHost(VirtualQSslSocket* self, struct seaqt_string hostName, unsigned short port, int openMode, int protocol);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectFromHost = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectFromHost() override {
-		if (handle__disconnectFromHost == 0) {
+		if (vtbl->disconnectFromHost == 0) {
 			QSslSocket::disconnectFromHost();
 			return;
 		}
 
-		miqt_exec_callback_QSslSocket_disconnectFromHost(this, handle__disconnectFromHost);
-
+		vtbl->disconnectFromHost(this);
 	}
 
-	friend void QSslSocket_virtualbase_disconnectFromHost(void* self);
+	friend void QSslSocket_virtualbase_disconnectFromHost(VirtualQSslSocket* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setSocketOption = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setSocketOption(QAbstractSocket::SocketOption option, const QVariant& value) override {
-		if (handle__setSocketOption == 0) {
+		if (vtbl->setSocketOption == 0) {
 			QSslSocket::setSocketOption(option, value);
 			return;
 		}
@@ -238,246 +179,183 @@ public:
 		const QVariant& value_ret = value;
 		// Cast returned reference into pointer
 		QVariant* sigval2 = const_cast<QVariant*>(&value_ret);
-		miqt_exec_callback_QSslSocket_setSocketOption(this, handle__setSocketOption, sigval1, sigval2);
-
+		vtbl->setSocketOption(this, sigval1, sigval2);
 	}
 
-	friend void QSslSocket_virtualbase_setSocketOption(void* self, int option, QVariant* value);
+	friend void QSslSocket_virtualbase_setSocketOption(VirtualQSslSocket* self, int option, QVariant* value);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__socketOption = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant socketOption(QAbstractSocket::SocketOption option) override {
-		if (handle__socketOption == 0) {
+		if (vtbl->socketOption == 0) {
 			return QSslSocket::socketOption(option);
 		}
 
 		QAbstractSocket::SocketOption option_ret = option;
 		int sigval1 = static_cast<int>(option_ret);
-		QVariant* callback_return_value = miqt_exec_callback_QSslSocket_socketOption(this, handle__socketOption, sigval1);
+		QVariant* callback_return_value = vtbl->socketOption(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QSslSocket_virtualbase_socketOption(void* self, int option);
+	friend QVariant* QSslSocket_virtualbase_socketOption(VirtualQSslSocket* self, int option);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__bytesAvailable = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 bytesAvailable() const override {
-		if (handle__bytesAvailable == 0) {
+		if (vtbl->bytesAvailable == 0) {
 			return QSslSocket::bytesAvailable();
 		}
 
-		long long callback_return_value = miqt_exec_callback_QSslSocket_bytesAvailable(this, handle__bytesAvailable);
+		long long callback_return_value = vtbl->bytesAvailable(this);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QSslSocket_virtualbase_bytesAvailable(const void* self);
+	friend long long QSslSocket_virtualbase_bytesAvailable(const VirtualQSslSocket* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__bytesToWrite = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 bytesToWrite() const override {
-		if (handle__bytesToWrite == 0) {
+		if (vtbl->bytesToWrite == 0) {
 			return QSslSocket::bytesToWrite();
 		}
 
-		long long callback_return_value = miqt_exec_callback_QSslSocket_bytesToWrite(this, handle__bytesToWrite);
+		long long callback_return_value = vtbl->bytesToWrite(this);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QSslSocket_virtualbase_bytesToWrite(const void* self);
+	friend long long QSslSocket_virtualbase_bytesToWrite(const VirtualQSslSocket* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__canReadLine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool canReadLine() const override {
-		if (handle__canReadLine == 0) {
+		if (vtbl->canReadLine == 0) {
 			return QSslSocket::canReadLine();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QSslSocket_canReadLine(this, handle__canReadLine);
+		bool callback_return_value = vtbl->canReadLine(this);
 		return callback_return_value;
 	}
 
-	friend bool QSslSocket_virtualbase_canReadLine(const void* self);
+	friend bool QSslSocket_virtualbase_canReadLine(const VirtualQSslSocket* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__close = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void close() override {
-		if (handle__close == 0) {
+		if (vtbl->close == 0) {
 			QSslSocket::close();
 			return;
 		}
 
-		miqt_exec_callback_QSslSocket_close(this, handle__close);
-
+		vtbl->close(this);
 	}
 
-	friend void QSslSocket_virtualbase_close(void* self);
+	friend void QSslSocket_virtualbase_close(VirtualQSslSocket* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__atEnd = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool atEnd() const override {
-		if (handle__atEnd == 0) {
+		if (vtbl->atEnd == 0) {
 			return QSslSocket::atEnd();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QSslSocket_atEnd(this, handle__atEnd);
+		bool callback_return_value = vtbl->atEnd(this);
 		return callback_return_value;
 	}
 
-	friend bool QSslSocket_virtualbase_atEnd(const void* self);
+	friend bool QSslSocket_virtualbase_atEnd(const VirtualQSslSocket* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setReadBufferSize = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setReadBufferSize(qint64 size) override {
-		if (handle__setReadBufferSize == 0) {
+		if (vtbl->setReadBufferSize == 0) {
 			QSslSocket::setReadBufferSize(size);
 			return;
 		}
 
 		qint64 size_ret = size;
 		long long sigval1 = static_cast<long long>(size_ret);
-		miqt_exec_callback_QSslSocket_setReadBufferSize(this, handle__setReadBufferSize, sigval1);
-
+		vtbl->setReadBufferSize(this, sigval1);
 	}
 
-	friend void QSslSocket_virtualbase_setReadBufferSize(void* self, long long size);
+	friend void QSslSocket_virtualbase_setReadBufferSize(VirtualQSslSocket* self, long long size);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__waitForConnected = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool waitForConnected(int msecs) override {
-		if (handle__waitForConnected == 0) {
+		if (vtbl->waitForConnected == 0) {
 			return QSslSocket::waitForConnected(msecs);
 		}
 
 		int sigval1 = msecs;
-		bool callback_return_value = miqt_exec_callback_QSslSocket_waitForConnected(this, handle__waitForConnected, sigval1);
+		bool callback_return_value = vtbl->waitForConnected(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSslSocket_virtualbase_waitForConnected(void* self, int msecs);
+	friend bool QSslSocket_virtualbase_waitForConnected(VirtualQSslSocket* self, int msecs);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__waitForReadyRead = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool waitForReadyRead(int msecs) override {
-		if (handle__waitForReadyRead == 0) {
+		if (vtbl->waitForReadyRead == 0) {
 			return QSslSocket::waitForReadyRead(msecs);
 		}
 
 		int sigval1 = msecs;
-		bool callback_return_value = miqt_exec_callback_QSslSocket_waitForReadyRead(this, handle__waitForReadyRead, sigval1);
+		bool callback_return_value = vtbl->waitForReadyRead(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSslSocket_virtualbase_waitForReadyRead(void* self, int msecs);
+	friend bool QSslSocket_virtualbase_waitForReadyRead(VirtualQSslSocket* self, int msecs);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__waitForBytesWritten = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool waitForBytesWritten(int msecs) override {
-		if (handle__waitForBytesWritten == 0) {
+		if (vtbl->waitForBytesWritten == 0) {
 			return QSslSocket::waitForBytesWritten(msecs);
 		}
 
 		int sigval1 = msecs;
-		bool callback_return_value = miqt_exec_callback_QSslSocket_waitForBytesWritten(this, handle__waitForBytesWritten, sigval1);
+		bool callback_return_value = vtbl->waitForBytesWritten(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSslSocket_virtualbase_waitForBytesWritten(void* self, int msecs);
+	friend bool QSslSocket_virtualbase_waitForBytesWritten(VirtualQSslSocket* self, int msecs);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__waitForDisconnected = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool waitForDisconnected(int msecs) override {
-		if (handle__waitForDisconnected == 0) {
+		if (vtbl->waitForDisconnected == 0) {
 			return QSslSocket::waitForDisconnected(msecs);
 		}
 
 		int sigval1 = msecs;
-		bool callback_return_value = miqt_exec_callback_QSslSocket_waitForDisconnected(this, handle__waitForDisconnected, sigval1);
+		bool callback_return_value = vtbl->waitForDisconnected(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSslSocket_virtualbase_waitForDisconnected(void* self, int msecs);
+	friend bool QSslSocket_virtualbase_waitForDisconnected(VirtualQSslSocket* self, int msecs);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__readData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 readData(char* data, qint64 maxlen) override {
-		if (handle__readData == 0) {
+		if (vtbl->readData == 0) {
 			return QSslSocket::readData(data, maxlen);
 		}
 
 		char* sigval1 = data;
 		qint64 maxlen_ret = maxlen;
 		long long sigval2 = static_cast<long long>(maxlen_ret);
-		long long callback_return_value = miqt_exec_callback_QSslSocket_readData(this, handle__readData, sigval1, sigval2);
+		long long callback_return_value = vtbl->readData(this, sigval1, sigval2);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QSslSocket_virtualbase_readData(void* self, char* data, long long maxlen);
+	friend long long QSslSocket_virtualbase_readData(VirtualQSslSocket* self, char* data, long long maxlen);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__skipData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 skipData(qint64 maxSize) override {
-		if (handle__skipData == 0) {
+		if (vtbl->skipData == 0) {
 			return QSslSocket::skipData(maxSize);
 		}
 
 		qint64 maxSize_ret = maxSize;
 		long long sigval1 = static_cast<long long>(maxSize_ret);
-		long long callback_return_value = miqt_exec_callback_QSslSocket_skipData(this, handle__skipData, sigval1);
+		long long callback_return_value = vtbl->skipData(this, sigval1);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QSslSocket_virtualbase_skipData(void* self, long long maxSize);
+	friend long long QSslSocket_virtualbase_skipData(VirtualQSslSocket* self, long long maxSize);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__writeData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 writeData(const char* data, qint64 len) override {
-		if (handle__writeData == 0) {
+		if (vtbl->writeData == 0) {
 			return QSslSocket::writeData(data, len);
 		}
 
 		const char* sigval1 = (const char*) data;
 		qint64 len_ret = len;
 		long long sigval2 = static_cast<long long>(len_ret);
-		long long callback_return_value = miqt_exec_callback_QSslSocket_writeData(this, handle__writeData, sigval1, sigval2);
+		long long callback_return_value = vtbl->writeData(this, sigval1, sigval2);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QSslSocket_virtualbase_writeData(void* self, const char* data, long long len);
+	friend long long QSslSocket_virtualbase_writeData(VirtualQSslSocket* self, const char* data, long long len);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__bind = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool bind(const QHostAddress& address, quint16 port, QAbstractSocket::BindMode mode) override {
-		if (handle__bind == 0) {
+		if (vtbl->bind == 0) {
 			return QSslSocket::bind(address, port, mode);
 		}
 
@@ -488,229 +366,170 @@ public:
 		unsigned short sigval2 = static_cast<unsigned short>(port_ret);
 		QAbstractSocket::BindMode mode_ret = mode;
 		int sigval3 = static_cast<int>(mode_ret);
-		bool callback_return_value = miqt_exec_callback_QSslSocket_bind(this, handle__bind, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->bind(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QSslSocket_virtualbase_bind(void* self, QHostAddress* address, unsigned short port, int mode);
+	friend bool QSslSocket_virtualbase_bind(VirtualQSslSocket* self, QHostAddress* address, unsigned short port, int mode);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__socketDescriptor = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qintptr socketDescriptor() const override {
-		if (handle__socketDescriptor == 0) {
+		if (vtbl->socketDescriptor == 0) {
 			return QSslSocket::socketDescriptor();
 		}
 
-		intptr_t callback_return_value = miqt_exec_callback_QSslSocket_socketDescriptor(this, handle__socketDescriptor);
+		intptr_t callback_return_value = vtbl->socketDescriptor(this);
 		return (qintptr)(callback_return_value);
 	}
 
-	friend intptr_t QSslSocket_virtualbase_socketDescriptor(const void* self);
+	friend intptr_t QSslSocket_virtualbase_socketDescriptor(const VirtualQSslSocket* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isSequential = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isSequential() const override {
-		if (handle__isSequential == 0) {
+		if (vtbl->isSequential == 0) {
 			return QSslSocket::isSequential();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QSslSocket_isSequential(this, handle__isSequential);
+		bool callback_return_value = vtbl->isSequential(this);
 		return callback_return_value;
 	}
 
-	friend bool QSslSocket_virtualbase_isSequential(const void* self);
+	friend bool QSslSocket_virtualbase_isSequential(const VirtualQSslSocket* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__readLineData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 readLineData(char* data, qint64 maxlen) override {
-		if (handle__readLineData == 0) {
+		if (vtbl->readLineData == 0) {
 			return QSslSocket::readLineData(data, maxlen);
 		}
 
 		char* sigval1 = data;
 		qint64 maxlen_ret = maxlen;
 		long long sigval2 = static_cast<long long>(maxlen_ret);
-		long long callback_return_value = miqt_exec_callback_QSslSocket_readLineData(this, handle__readLineData, sigval1, sigval2);
+		long long callback_return_value = vtbl->readLineData(this, sigval1, sigval2);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QSslSocket_virtualbase_readLineData(void* self, char* data, long long maxlen);
+	friend long long QSslSocket_virtualbase_readLineData(VirtualQSslSocket* self, char* data, long long maxlen);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__open = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool open(QIODeviceBase::OpenMode mode) override {
-		if (handle__open == 0) {
+		if (vtbl->open == 0) {
 			return QSslSocket::open(mode);
 		}
 
 		QIODeviceBase::OpenMode mode_ret = mode;
 		int sigval1 = static_cast<int>(mode_ret);
-		bool callback_return_value = miqt_exec_callback_QSslSocket_open(this, handle__open, sigval1);
+		bool callback_return_value = vtbl->open(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSslSocket_virtualbase_open(void* self, int mode);
+	friend bool QSslSocket_virtualbase_open(VirtualQSslSocket* self, int mode);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__pos = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 pos() const override {
-		if (handle__pos == 0) {
+		if (vtbl->pos == 0) {
 			return QSslSocket::pos();
 		}
 
-		long long callback_return_value = miqt_exec_callback_QSslSocket_pos(this, handle__pos);
+		long long callback_return_value = vtbl->pos(this);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QSslSocket_virtualbase_pos(const void* self);
+	friend long long QSslSocket_virtualbase_pos(const VirtualQSslSocket* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__size = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 size() const override {
-		if (handle__size == 0) {
+		if (vtbl->size == 0) {
 			return QSslSocket::size();
 		}
 
-		long long callback_return_value = miqt_exec_callback_QSslSocket_size(this, handle__size);
+		long long callback_return_value = vtbl->size(this);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QSslSocket_virtualbase_size(const void* self);
+	friend long long QSslSocket_virtualbase_size(const VirtualQSslSocket* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__seek = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool seek(qint64 pos) override {
-		if (handle__seek == 0) {
+		if (vtbl->seek == 0) {
 			return QSslSocket::seek(pos);
 		}
 
 		qint64 pos_ret = pos;
 		long long sigval1 = static_cast<long long>(pos_ret);
-		bool callback_return_value = miqt_exec_callback_QSslSocket_seek(this, handle__seek, sigval1);
+		bool callback_return_value = vtbl->seek(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSslSocket_virtualbase_seek(void* self, long long pos);
+	friend bool QSslSocket_virtualbase_seek(VirtualQSslSocket* self, long long pos);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__reset = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool reset() override {
-		if (handle__reset == 0) {
+		if (vtbl->reset == 0) {
 			return QSslSocket::reset();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QSslSocket_reset(this, handle__reset);
+		bool callback_return_value = vtbl->reset(this);
 		return callback_return_value;
 	}
 
-	friend bool QSslSocket_virtualbase_reset(void* self);
+	friend bool QSslSocket_virtualbase_reset(VirtualQSslSocket* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QSslSocket::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QSslSocket_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSslSocket_virtualbase_event(void* self, QEvent* event);
+	friend bool QSslSocket_virtualbase_event(VirtualQSslSocket* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QSslSocket::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QSslSocket_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QSslSocket_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QSslSocket_virtualbase_eventFilter(VirtualQSslSocket* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QSslSocket::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QSslSocket_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QSslSocket_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QSslSocket_virtualbase_timerEvent(VirtualQSslSocket* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QSslSocket::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QSslSocket_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QSslSocket_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QSslSocket_virtualbase_childEvent(VirtualQSslSocket* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QSslSocket::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QSslSocket_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QSslSocket_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QSslSocket_virtualbase_customEvent(VirtualQSslSocket* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QSslSocket::connectNotify(signal);
 			return;
 		}
@@ -718,18 +537,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSslSocket_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QSslSocket_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QSslSocket_virtualbase_connectNotify(VirtualQSslSocket* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QSslSocket::disconnectNotify(signal);
 			return;
 		}
@@ -737,34 +551,35 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSslSocket_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QSslSocket_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QSslSocket_virtualbase_disconnectNotify(VirtualQSslSocket* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QSslSocket_protectedbase_setSocketState(bool* _dynamic_cast_ok, void* self, int state);
-	friend void QSslSocket_protectedbase_setSocketError(bool* _dynamic_cast_ok, void* self, int socketError);
-	friend void QSslSocket_protectedbase_setLocalPort(bool* _dynamic_cast_ok, void* self, unsigned short port);
-	friend void QSslSocket_protectedbase_setLocalAddress(bool* _dynamic_cast_ok, void* self, QHostAddress* address);
-	friend void QSslSocket_protectedbase_setPeerPort(bool* _dynamic_cast_ok, void* self, unsigned short port);
-	friend void QSslSocket_protectedbase_setPeerAddress(bool* _dynamic_cast_ok, void* self, QHostAddress* address);
-	friend void QSslSocket_protectedbase_setPeerName(bool* _dynamic_cast_ok, void* self, struct seaqt_string name);
-	friend void QSslSocket_protectedbase_setOpenMode(bool* _dynamic_cast_ok, void* self, int openMode);
-	friend void QSslSocket_protectedbase_setErrorString(bool* _dynamic_cast_ok, void* self, struct seaqt_string errorString);
-	friend QObject* QSslSocket_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QSslSocket_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QSslSocket_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QSslSocket_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QSslSocket_protectedbase_setSocketState(VirtualQSslSocket* self, int state);
+	friend void QSslSocket_protectedbase_setSocketError(VirtualQSslSocket* self, int socketError);
+	friend void QSslSocket_protectedbase_setLocalPort(VirtualQSslSocket* self, unsigned short port);
+	friend void QSslSocket_protectedbase_setLocalAddress(VirtualQSslSocket* self, QHostAddress* address);
+	friend void QSslSocket_protectedbase_setPeerPort(VirtualQSslSocket* self, unsigned short port);
+	friend void QSslSocket_protectedbase_setPeerAddress(VirtualQSslSocket* self, QHostAddress* address);
+	friend void QSslSocket_protectedbase_setPeerName(VirtualQSslSocket* self, struct seaqt_string name);
+	friend void QSslSocket_protectedbase_setOpenMode(VirtualQSslSocket* self, int openMode);
+	friend void QSslSocket_protectedbase_setErrorString(VirtualQSslSocket* self, struct seaqt_string errorString);
+	friend QObject* QSslSocket_protectedbase_sender(const VirtualQSslSocket* self);
+	friend int QSslSocket_protectedbase_senderSignalIndex(const VirtualQSslSocket* self);
+	friend int QSslSocket_protectedbase_receivers(const VirtualQSslSocket* self, const char* signal);
+	friend bool QSslSocket_protectedbase_isSignalConnected(const VirtualQSslSocket* self, QMetaMethod* signal);
 };
 
-QSslSocket* QSslSocket_new() {
-	return new (std::nothrow) VirtualQSslSocket();
+VirtualQSslSocket* QSslSocket_new(const QSslSocket_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSslSocket>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSslSocket(vtbl) : nullptr;
 }
 
-QSslSocket* QSslSocket_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQSslSocket(parent);
+VirtualQSslSocket* QSslSocket_new2(const QSslSocket_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSslSocket>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSslSocket(vtbl, parent) : nullptr;
 }
 
 void QSslSocket_virtbase(QSslSocket* src, QTcpSocket** outptr_QTcpSocket) {
@@ -1479,691 +1294,261 @@ bool QSslSocket_isFeatureSupported2(int feat, struct seaqt_string backendName) {
 }
 
 const QMetaObject* QSslSocket_staticMetaObject() { return &QSslSocket::staticMetaObject; }
-bool QSslSocket_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QSslSocket_vdata(VirtualQSslSocket* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQSslSocket>()); }
+VirtualQSslSocket* vdata_QSslSocket(void* vdata) { return reinterpret_cast<VirtualQSslSocket*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQSslSocket>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QSslSocket_virtualbase_metaObject(const VirtualQSslSocket* self) {
+
+	return (QMetaObject*) self->QSslSocket::metaObject();
 }
 
-QMetaObject* QSslSocket_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQSslSocket*>(self)->QSslSocket::metaObject();
+void* QSslSocket_virtualbase_metacast(VirtualQSslSocket* self, const char* param1) {
+
+	return self->QSslSocket::qt_metacast(param1);
 }
 
-bool QSslSocket_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QSslSocket_virtualbase_metacall(VirtualQSslSocket* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QSslSocket::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QSslSocket_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQSslSocket*>(self)->QSslSocket::qt_metacast(param1);
+void QSslSocket_virtualbase_resume(VirtualQSslSocket* self) {
+
+	self->QSslSocket::resume();
 }
 
-bool QSslSocket_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSslSocket_virtualbase_setSocketDescriptor(VirtualQSslSocket* self, intptr_t socketDescriptor, int state, int openMode) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QSslSocket::setSocketDescriptor((qintptr)(socketDescriptor), static_cast<VirtualQSslSocket::SocketState>(state), static_cast<VirtualQSslSocket::OpenMode>(openMode));
 }
 
-int QSslSocket_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQSslSocket*>(self)->QSslSocket::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
-}
-
-bool QSslSocket_override_virtual_resume(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__resume = slot;
-	return true;
-}
-
-void QSslSocket_virtualbase_resume(void* self) {
-	static_cast<VirtualQSslSocket*>(self)->QSslSocket::resume();
-}
-
-bool QSslSocket_override_virtual_setSocketDescriptor(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setSocketDescriptor = slot;
-	return true;
-}
-
-bool QSslSocket_virtualbase_setSocketDescriptor(void* self, intptr_t socketDescriptor, int state, int openMode) {
-	return static_cast<VirtualQSslSocket*>(self)->QSslSocket::setSocketDescriptor((qintptr)(socketDescriptor), static_cast<VirtualQSslSocket::SocketState>(state), static_cast<VirtualQSslSocket::OpenMode>(openMode));
-}
-
-bool QSslSocket_override_virtual_connectToHost(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectToHost = slot;
-	return true;
-}
-
-void QSslSocket_virtualbase_connectToHost(void* self, struct seaqt_string hostName, unsigned short port, int openMode, int protocol) {
+void QSslSocket_virtualbase_connectToHost(VirtualQSslSocket* self, struct seaqt_string hostName, unsigned short port, int openMode, int protocol) {
 	QString hostName_QString = QString::fromUtf8(hostName.data, hostName.len);
-	static_cast<VirtualQSslSocket*>(self)->QSslSocket::connectToHost(hostName_QString, static_cast<quint16>(port), static_cast<VirtualQSslSocket::OpenMode>(openMode), static_cast<VirtualQSslSocket::NetworkLayerProtocol>(protocol));
+
+	self->QSslSocket::connectToHost(hostName_QString, static_cast<quint16>(port), static_cast<VirtualQSslSocket::OpenMode>(openMode), static_cast<VirtualQSslSocket::NetworkLayerProtocol>(protocol));
 }
 
-bool QSslSocket_override_virtual_disconnectFromHost(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSslSocket_virtualbase_disconnectFromHost(VirtualQSslSocket* self) {
 
-	self_cast->handle__disconnectFromHost = slot;
-	return true;
+	self->QSslSocket::disconnectFromHost();
 }
 
-void QSslSocket_virtualbase_disconnectFromHost(void* self) {
-	static_cast<VirtualQSslSocket*>(self)->QSslSocket::disconnectFromHost();
+void QSslSocket_virtualbase_setSocketOption(VirtualQSslSocket* self, int option, QVariant* value) {
+
+	self->QSslSocket::setSocketOption(static_cast<VirtualQSslSocket::SocketOption>(option), *value);
 }
 
-bool QSslSocket_override_virtual_setSocketOption(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QVariant* QSslSocket_virtualbase_socketOption(VirtualQSslSocket* self, int option) {
 
-	self_cast->handle__setSocketOption = slot;
-	return true;
+	return new QVariant(self->QSslSocket::socketOption(static_cast<VirtualQSslSocket::SocketOption>(option)));
 }
 
-void QSslSocket_virtualbase_setSocketOption(void* self, int option, QVariant* value) {
-	static_cast<VirtualQSslSocket*>(self)->QSslSocket::setSocketOption(static_cast<VirtualQSslSocket::SocketOption>(option), *value);
-}
+long long QSslSocket_virtualbase_bytesAvailable(const VirtualQSslSocket* self) {
 
-bool QSslSocket_override_virtual_socketOption(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__socketOption = slot;
-	return true;
-}
-
-QVariant* QSslSocket_virtualbase_socketOption(void* self, int option) {
-	return new QVariant(static_cast<VirtualQSslSocket*>(self)->QSslSocket::socketOption(static_cast<VirtualQSslSocket::SocketOption>(option)));
-}
-
-bool QSslSocket_override_virtual_bytesAvailable(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__bytesAvailable = slot;
-	return true;
-}
-
-long long QSslSocket_virtualbase_bytesAvailable(const void* self) {
-	qint64 _ret = static_cast<const VirtualQSslSocket*>(self)->QSslSocket::bytesAvailable();
+	qint64 _ret = self->QSslSocket::bytesAvailable();
 	return static_cast<long long>(_ret);
 }
 
-bool QSslSocket_override_virtual_bytesToWrite(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+long long QSslSocket_virtualbase_bytesToWrite(const VirtualQSslSocket* self) {
 
-	self_cast->handle__bytesToWrite = slot;
-	return true;
-}
-
-long long QSslSocket_virtualbase_bytesToWrite(const void* self) {
-	qint64 _ret = static_cast<const VirtualQSslSocket*>(self)->QSslSocket::bytesToWrite();
+	qint64 _ret = self->QSslSocket::bytesToWrite();
 	return static_cast<long long>(_ret);
 }
 
-bool QSslSocket_override_virtual_canReadLine(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSslSocket_virtualbase_canReadLine(const VirtualQSslSocket* self) {
 
-	self_cast->handle__canReadLine = slot;
-	return true;
+	return self->QSslSocket::canReadLine();
 }
 
-bool QSslSocket_virtualbase_canReadLine(const void* self) {
-	return static_cast<const VirtualQSslSocket*>(self)->QSslSocket::canReadLine();
+void QSslSocket_virtualbase_close(VirtualQSslSocket* self) {
+
+	self->QSslSocket::close();
 }
 
-bool QSslSocket_override_virtual_close(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSslSocket_virtualbase_atEnd(const VirtualQSslSocket* self) {
 
-	self_cast->handle__close = slot;
-	return true;
+	return self->QSslSocket::atEnd();
 }
 
-void QSslSocket_virtualbase_close(void* self) {
-	static_cast<VirtualQSslSocket*>(self)->QSslSocket::close();
+void QSslSocket_virtualbase_setReadBufferSize(VirtualQSslSocket* self, long long size) {
+
+	self->QSslSocket::setReadBufferSize(static_cast<qint64>(size));
 }
 
-bool QSslSocket_override_virtual_atEnd(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSslSocket_virtualbase_waitForConnected(VirtualQSslSocket* self, int msecs) {
 
-	self_cast->handle__atEnd = slot;
-	return true;
+	return self->QSslSocket::waitForConnected(static_cast<int>(msecs));
 }
 
-bool QSslSocket_virtualbase_atEnd(const void* self) {
-	return static_cast<const VirtualQSslSocket*>(self)->QSslSocket::atEnd();
+bool QSslSocket_virtualbase_waitForReadyRead(VirtualQSslSocket* self, int msecs) {
+
+	return self->QSslSocket::waitForReadyRead(static_cast<int>(msecs));
 }
 
-bool QSslSocket_override_virtual_setReadBufferSize(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSslSocket_virtualbase_waitForBytesWritten(VirtualQSslSocket* self, int msecs) {
 
-	self_cast->handle__setReadBufferSize = slot;
-	return true;
+	return self->QSslSocket::waitForBytesWritten(static_cast<int>(msecs));
 }
 
-void QSslSocket_virtualbase_setReadBufferSize(void* self, long long size) {
-	static_cast<VirtualQSslSocket*>(self)->QSslSocket::setReadBufferSize(static_cast<qint64>(size));
+bool QSslSocket_virtualbase_waitForDisconnected(VirtualQSslSocket* self, int msecs) {
+
+	return self->QSslSocket::waitForDisconnected(static_cast<int>(msecs));
 }
 
-bool QSslSocket_override_virtual_waitForConnected(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+long long QSslSocket_virtualbase_readData(VirtualQSslSocket* self, char* data, long long maxlen) {
 
-	self_cast->handle__waitForConnected = slot;
-	return true;
-}
-
-bool QSslSocket_virtualbase_waitForConnected(void* self, int msecs) {
-	return static_cast<VirtualQSslSocket*>(self)->QSslSocket::waitForConnected(static_cast<int>(msecs));
-}
-
-bool QSslSocket_override_virtual_waitForReadyRead(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__waitForReadyRead = slot;
-	return true;
-}
-
-bool QSslSocket_virtualbase_waitForReadyRead(void* self, int msecs) {
-	return static_cast<VirtualQSslSocket*>(self)->QSslSocket::waitForReadyRead(static_cast<int>(msecs));
-}
-
-bool QSslSocket_override_virtual_waitForBytesWritten(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__waitForBytesWritten = slot;
-	return true;
-}
-
-bool QSslSocket_virtualbase_waitForBytesWritten(void* self, int msecs) {
-	return static_cast<VirtualQSslSocket*>(self)->QSslSocket::waitForBytesWritten(static_cast<int>(msecs));
-}
-
-bool QSslSocket_override_virtual_waitForDisconnected(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__waitForDisconnected = slot;
-	return true;
-}
-
-bool QSslSocket_virtualbase_waitForDisconnected(void* self, int msecs) {
-	return static_cast<VirtualQSslSocket*>(self)->QSslSocket::waitForDisconnected(static_cast<int>(msecs));
-}
-
-bool QSslSocket_override_virtual_readData(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__readData = slot;
-	return true;
-}
-
-long long QSslSocket_virtualbase_readData(void* self, char* data, long long maxlen) {
-	qint64 _ret = static_cast<VirtualQSslSocket*>(self)->QSslSocket::readData(data, static_cast<qint64>(maxlen));
+	qint64 _ret = self->QSslSocket::readData(data, static_cast<qint64>(maxlen));
 	return static_cast<long long>(_ret);
 }
 
-bool QSslSocket_override_virtual_skipData(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+long long QSslSocket_virtualbase_skipData(VirtualQSslSocket* self, long long maxSize) {
 
-	self_cast->handle__skipData = slot;
-	return true;
-}
-
-long long QSslSocket_virtualbase_skipData(void* self, long long maxSize) {
-	qint64 _ret = static_cast<VirtualQSslSocket*>(self)->QSslSocket::skipData(static_cast<qint64>(maxSize));
+	qint64 _ret = self->QSslSocket::skipData(static_cast<qint64>(maxSize));
 	return static_cast<long long>(_ret);
 }
 
-bool QSslSocket_override_virtual_writeData(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+long long QSslSocket_virtualbase_writeData(VirtualQSslSocket* self, const char* data, long long len) {
 
-	self_cast->handle__writeData = slot;
-	return true;
-}
-
-long long QSslSocket_virtualbase_writeData(void* self, const char* data, long long len) {
-	qint64 _ret = static_cast<VirtualQSslSocket*>(self)->QSslSocket::writeData(data, static_cast<qint64>(len));
+	qint64 _ret = self->QSslSocket::writeData(data, static_cast<qint64>(len));
 	return static_cast<long long>(_ret);
 }
 
-bool QSslSocket_override_virtual_bind(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSslSocket_virtualbase_bind(VirtualQSslSocket* self, QHostAddress* address, unsigned short port, int mode) {
 
-	self_cast->handle__bind = slot;
-	return true;
+	return self->QSslSocket::bind(*address, static_cast<quint16>(port), static_cast<VirtualQSslSocket::BindMode>(mode));
 }
 
-bool QSslSocket_virtualbase_bind(void* self, QHostAddress* address, unsigned short port, int mode) {
-	return static_cast<VirtualQSslSocket*>(self)->QSslSocket::bind(*address, static_cast<quint16>(port), static_cast<VirtualQSslSocket::BindMode>(mode));
-}
+intptr_t QSslSocket_virtualbase_socketDescriptor(const VirtualQSslSocket* self) {
 
-bool QSslSocket_override_virtual_socketDescriptor(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__socketDescriptor = slot;
-	return true;
-}
-
-intptr_t QSslSocket_virtualbase_socketDescriptor(const void* self) {
-	qintptr _ret = static_cast<const VirtualQSslSocket*>(self)->QSslSocket::socketDescriptor();
+	qintptr _ret = self->QSslSocket::socketDescriptor();
 	return (intptr_t)(_ret);
 }
 
-bool QSslSocket_override_virtual_isSequential(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSslSocket_virtualbase_isSequential(const VirtualQSslSocket* self) {
 
-	self_cast->handle__isSequential = slot;
-	return true;
+	return self->QSslSocket::isSequential();
 }
 
-bool QSslSocket_virtualbase_isSequential(const void* self) {
-	return static_cast<const VirtualQSslSocket*>(self)->QSslSocket::isSequential();
-}
+long long QSslSocket_virtualbase_readLineData(VirtualQSslSocket* self, char* data, long long maxlen) {
 
-bool QSslSocket_override_virtual_readLineData(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__readLineData = slot;
-	return true;
-}
-
-long long QSslSocket_virtualbase_readLineData(void* self, char* data, long long maxlen) {
-	qint64 _ret = static_cast<VirtualQSslSocket*>(self)->QSslSocket::readLineData(data, static_cast<qint64>(maxlen));
+	qint64 _ret = self->QSslSocket::readLineData(data, static_cast<qint64>(maxlen));
 	return static_cast<long long>(_ret);
 }
 
-bool QSslSocket_override_virtual_open(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSslSocket_virtualbase_open(VirtualQSslSocket* self, int mode) {
 
-	self_cast->handle__open = slot;
-	return true;
+	return self->QSslSocket::open(static_cast<VirtualQSslSocket::OpenMode>(mode));
 }
 
-bool QSslSocket_virtualbase_open(void* self, int mode) {
-	return static_cast<VirtualQSslSocket*>(self)->QSslSocket::open(static_cast<VirtualQSslSocket::OpenMode>(mode));
-}
+long long QSslSocket_virtualbase_pos(const VirtualQSslSocket* self) {
 
-bool QSslSocket_override_virtual_pos(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__pos = slot;
-	return true;
-}
-
-long long QSslSocket_virtualbase_pos(const void* self) {
-	qint64 _ret = static_cast<const VirtualQSslSocket*>(self)->QSslSocket::pos();
+	qint64 _ret = self->QSslSocket::pos();
 	return static_cast<long long>(_ret);
 }
 
-bool QSslSocket_override_virtual_size(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+long long QSslSocket_virtualbase_size(const VirtualQSslSocket* self) {
 
-	self_cast->handle__size = slot;
-	return true;
-}
-
-long long QSslSocket_virtualbase_size(const void* self) {
-	qint64 _ret = static_cast<const VirtualQSslSocket*>(self)->QSslSocket::size();
+	qint64 _ret = self->QSslSocket::size();
 	return static_cast<long long>(_ret);
 }
 
-bool QSslSocket_override_virtual_seek(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSslSocket_virtualbase_seek(VirtualQSslSocket* self, long long pos) {
 
-	self_cast->handle__seek = slot;
-	return true;
+	return self->QSslSocket::seek(static_cast<qint64>(pos));
 }
 
-bool QSslSocket_virtualbase_seek(void* self, long long pos) {
-	return static_cast<VirtualQSslSocket*>(self)->QSslSocket::seek(static_cast<qint64>(pos));
+bool QSslSocket_virtualbase_reset(VirtualQSslSocket* self) {
+
+	return self->QSslSocket::reset();
 }
 
-bool QSslSocket_override_virtual_reset(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSslSocket_virtualbase_event(VirtualQSslSocket* self, QEvent* event) {
 
-	self_cast->handle__reset = slot;
-	return true;
+	return self->QSslSocket::event(event);
 }
 
-bool QSslSocket_virtualbase_reset(void* self) {
-	return static_cast<VirtualQSslSocket*>(self)->QSslSocket::reset();
+bool QSslSocket_virtualbase_eventFilter(VirtualQSslSocket* self, QObject* watched, QEvent* event) {
+
+	return self->QSslSocket::eventFilter(watched, event);
 }
 
-bool QSslSocket_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSslSocket_virtualbase_timerEvent(VirtualQSslSocket* self, QTimerEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QSslSocket::timerEvent(event);
 }
 
-bool QSslSocket_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQSslSocket*>(self)->QSslSocket::event(event);
+void QSslSocket_virtualbase_childEvent(VirtualQSslSocket* self, QChildEvent* event) {
+
+	self->QSslSocket::childEvent(event);
 }
 
-bool QSslSocket_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSslSocket_virtualbase_customEvent(VirtualQSslSocket* self, QEvent* event) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QSslSocket::customEvent(event);
 }
 
-bool QSslSocket_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQSslSocket*>(self)->QSslSocket::eventFilter(watched, event);
+void QSslSocket_virtualbase_connectNotify(VirtualQSslSocket* self, QMetaMethod* signal) {
+
+	self->QSslSocket::connectNotify(*signal);
 }
 
-bool QSslSocket_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSslSocket_virtualbase_disconnectNotify(VirtualQSslSocket* self, QMetaMethod* signal) {
 
-	self_cast->handle__timerEvent = slot;
-	return true;
+	self->QSslSocket::disconnectNotify(*signal);
 }
 
-void QSslSocket_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQSslSocket*>(self)->QSslSocket::timerEvent(event);
+void QSslSocket_protectedbase_setSocketState(VirtualQSslSocket* self, int state) {
+	self->setSocketState(static_cast<VirtualQSslSocket::SocketState>(state));
 }
 
-bool QSslSocket_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+void QSslSocket_protectedbase_setSocketError(VirtualQSslSocket* self, int socketError) {
+	self->setSocketError(static_cast<VirtualQSslSocket::SocketError>(socketError));
 }
 
-void QSslSocket_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQSslSocket*>(self)->QSslSocket::childEvent(event);
+void QSslSocket_protectedbase_setLocalPort(VirtualQSslSocket* self, unsigned short port) {
+	self->setLocalPort(static_cast<quint16>(port));
 }
 
-bool QSslSocket_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
+void QSslSocket_protectedbase_setLocalAddress(VirtualQSslSocket* self, QHostAddress* address) {
+	self->setLocalAddress(*address);
 }
 
-void QSslSocket_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQSslSocket*>(self)->QSslSocket::customEvent(event);
+void QSslSocket_protectedbase_setPeerPort(VirtualQSslSocket* self, unsigned short port) {
+	self->setPeerPort(static_cast<quint16>(port));
 }
 
-bool QSslSocket_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
+void QSslSocket_protectedbase_setPeerAddress(VirtualQSslSocket* self, QHostAddress* address) {
+	self->setPeerAddress(*address);
 }
 
-void QSslSocket_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSslSocket*>(self)->QSslSocket::connectNotify(*signal);
-}
-
-bool QSslSocket_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QSslSocket_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSslSocket*>(self)->QSslSocket::disconnectNotify(*signal);
-}
-
-void QSslSocket_protectedbase_setSocketState(bool* _dynamic_cast_ok, void* self, int state) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setSocketState(static_cast<VirtualQSslSocket::SocketState>(state));
-}
-
-void QSslSocket_protectedbase_setSocketError(bool* _dynamic_cast_ok, void* self, int socketError) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setSocketError(static_cast<VirtualQSslSocket::SocketError>(socketError));
-}
-
-void QSslSocket_protectedbase_setLocalPort(bool* _dynamic_cast_ok, void* self, unsigned short port) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setLocalPort(static_cast<quint16>(port));
-}
-
-void QSslSocket_protectedbase_setLocalAddress(bool* _dynamic_cast_ok, void* self, QHostAddress* address) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setLocalAddress(*address);
-}
-
-void QSslSocket_protectedbase_setPeerPort(bool* _dynamic_cast_ok, void* self, unsigned short port) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setPeerPort(static_cast<quint16>(port));
-}
-
-void QSslSocket_protectedbase_setPeerAddress(bool* _dynamic_cast_ok, void* self, QHostAddress* address) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setPeerAddress(*address);
-}
-
-void QSslSocket_protectedbase_setPeerName(bool* _dynamic_cast_ok, void* self, struct seaqt_string name) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
+void QSslSocket_protectedbase_setPeerName(VirtualQSslSocket* self, struct seaqt_string name) {
 		QString name_QString = QString::fromUtf8(name.data, name.len);
-	self_cast->setPeerName(name_QString);
+	self->setPeerName(name_QString);
 }
 
-void QSslSocket_protectedbase_setOpenMode(bool* _dynamic_cast_ok, void* self, int openMode) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setOpenMode(static_cast<VirtualQSslSocket::OpenMode>(openMode));
+void QSslSocket_protectedbase_setOpenMode(VirtualQSslSocket* self, int openMode) {
+	self->setOpenMode(static_cast<VirtualQSslSocket::OpenMode>(openMode));
 }
 
-void QSslSocket_protectedbase_setErrorString(bool* _dynamic_cast_ok, void* self, struct seaqt_string errorString) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
+void QSslSocket_protectedbase_setErrorString(VirtualQSslSocket* self, struct seaqt_string errorString) {
 		QString errorString_QString = QString::fromUtf8(errorString.data, errorString.len);
-	self_cast->setErrorString(errorString_QString);
+	self->setErrorString(errorString_QString);
 }
 
-QObject* QSslSocket_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
+QObject* QSslSocket_protectedbase_sender(const VirtualQSslSocket* self) {
+	return self->sender();
 }
 
-int QSslSocket_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
+int QSslSocket_protectedbase_senderSignalIndex(const VirtualQSslSocket* self) {
+	return self->senderSignalIndex();
 }
 
-int QSslSocket_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
+int QSslSocket_protectedbase_receivers(const VirtualQSslSocket* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QSslSocket_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQSslSocket* self_cast = dynamic_cast<VirtualQSslSocket*>( (QSslSocket*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QSslSocket_protectedbase_isSignalConnected(const VirtualQSslSocket* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QSslSocket_delete(QSslSocket* self) {

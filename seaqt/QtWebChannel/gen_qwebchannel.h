@@ -34,8 +34,27 @@ typedef struct QWebChannel QWebChannel;
 typedef struct QWebChannelAbstractTransport QWebChannelAbstractTransport;
 #endif
 
-QWebChannel* QWebChannel_new();
-QWebChannel* QWebChannel_new2(QObject* parent);
+typedef struct VirtualQWebChannel VirtualQWebChannel;
+typedef struct QWebChannel_VTable{
+	void (*destructor)(VirtualQWebChannel* self);
+	QMetaObject* (*metaObject)(const VirtualQWebChannel* self);
+	void* (*metacast)(VirtualQWebChannel* self, const char* param1);
+	int (*metacall)(VirtualQWebChannel* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQWebChannel* self, QEvent* event);
+	bool (*eventFilter)(VirtualQWebChannel* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQWebChannel* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQWebChannel* self, QChildEvent* event);
+	void (*customEvent)(VirtualQWebChannel* self, QEvent* event);
+	void (*connectNotify)(VirtualQWebChannel* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQWebChannel* self, QMetaMethod* signal);
+}QWebChannel_VTable;
+
+void* QWebChannel_vdata(VirtualQWebChannel* self);
+VirtualQWebChannel* vdata_QWebChannel(void* vdata);
+
+VirtualQWebChannel* QWebChannel_new(const QWebChannel_VTable* vtbl, size_t vdata);
+VirtualQWebChannel* QWebChannel_new2(const QWebChannel_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QWebChannel_virtbase(QWebChannel* src, QObject** outptr_QObject);
 QMetaObject* QWebChannel_metaObject(const QWebChannel* self);
 void* QWebChannel_metacast(QWebChannel* self, const char* param1);
@@ -56,31 +75,21 @@ void QWebChannel_disconnectFrom(QWebChannel* self, QWebChannelAbstractTransport*
 struct seaqt_string QWebChannel_tr2(const char* s, const char* c);
 struct seaqt_string QWebChannel_tr3(const char* s, const char* c, int n);
 
-bool QWebChannel_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QWebChannel_virtualbase_metaObject(const void* self);
-bool QWebChannel_override_virtual_metacast(void* self, intptr_t slot);
-void* QWebChannel_virtualbase_metacast(void* self, const char* param1);
-bool QWebChannel_override_virtual_metacall(void* self, intptr_t slot);
-int QWebChannel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QWebChannel_override_virtual_event(void* self, intptr_t slot);
-bool QWebChannel_virtualbase_event(void* self, QEvent* event);
-bool QWebChannel_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QWebChannel_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QWebChannel_override_virtual_timerEvent(void* self, intptr_t slot);
-void QWebChannel_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QWebChannel_override_virtual_childEvent(void* self, intptr_t slot);
-void QWebChannel_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QWebChannel_override_virtual_customEvent(void* self, intptr_t slot);
-void QWebChannel_virtualbase_customEvent(void* self, QEvent* event);
-bool QWebChannel_override_virtual_connectNotify(void* self, intptr_t slot);
-void QWebChannel_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QWebChannel_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QWebChannel_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QWebChannel_virtualbase_metaObject(const VirtualQWebChannel* self);
+void* QWebChannel_virtualbase_metacast(VirtualQWebChannel* self, const char* param1);
+int QWebChannel_virtualbase_metacall(VirtualQWebChannel* self, int param1, int param2, void** param3);
+bool QWebChannel_virtualbase_event(VirtualQWebChannel* self, QEvent* event);
+bool QWebChannel_virtualbase_eventFilter(VirtualQWebChannel* self, QObject* watched, QEvent* event);
+void QWebChannel_virtualbase_timerEvent(VirtualQWebChannel* self, QTimerEvent* event);
+void QWebChannel_virtualbase_childEvent(VirtualQWebChannel* self, QChildEvent* event);
+void QWebChannel_virtualbase_customEvent(VirtualQWebChannel* self, QEvent* event);
+void QWebChannel_virtualbase_connectNotify(VirtualQWebChannel* self, QMetaMethod* signal);
+void QWebChannel_virtualbase_disconnectNotify(VirtualQWebChannel* self, QMetaMethod* signal);
 
-QObject* QWebChannel_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QWebChannel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QWebChannel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QWebChannel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QWebChannel_protectedbase_sender(const VirtualQWebChannel* self);
+int QWebChannel_protectedbase_senderSignalIndex(const VirtualQWebChannel* self);
+int QWebChannel_protectedbase_receivers(const VirtualQWebChannel* self, const char* signal);
+bool QWebChannel_protectedbase_isSignalConnected(const VirtualQWebChannel* self, QMetaMethod* signal);
 
 const QMetaObject* QWebChannel_staticMetaObject();
 void QWebChannel_delete(QWebChannel* self);
