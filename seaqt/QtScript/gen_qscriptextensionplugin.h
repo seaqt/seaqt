@@ -40,8 +40,29 @@ typedef struct QScriptValue QScriptValue;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QScriptExtensionPlugin* QScriptExtensionPlugin_new();
-QScriptExtensionPlugin* QScriptExtensionPlugin_new2(QObject* parent);
+typedef struct VirtualQScriptExtensionPlugin VirtualQScriptExtensionPlugin;
+typedef struct QScriptExtensionPlugin_VTable{
+	void (*destructor)(VirtualQScriptExtensionPlugin* self);
+	QMetaObject* (*metaObject)(const VirtualQScriptExtensionPlugin* self);
+	void* (*metacast)(VirtualQScriptExtensionPlugin* self, const char* param1);
+	int (*metacall)(VirtualQScriptExtensionPlugin* self, int param1, int param2, void** param3);
+	struct seaqt_array /* of struct seaqt_string */  (*keys)(const VirtualQScriptExtensionPlugin* self);
+	void (*initialize)(VirtualQScriptExtensionPlugin* self, struct seaqt_string key, QScriptEngine* engine);
+	bool (*event)(VirtualQScriptExtensionPlugin* self, QEvent* event);
+	bool (*eventFilter)(VirtualQScriptExtensionPlugin* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQScriptExtensionPlugin* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQScriptExtensionPlugin* self, QChildEvent* event);
+	void (*customEvent)(VirtualQScriptExtensionPlugin* self, QEvent* event);
+	void (*connectNotify)(VirtualQScriptExtensionPlugin* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQScriptExtensionPlugin* self, QMetaMethod* signal);
+}QScriptExtensionPlugin_VTable;
+
+void* QScriptExtensionPlugin_vdata(VirtualQScriptExtensionPlugin* self);
+VirtualQScriptExtensionPlugin* vdata_QScriptExtensionPlugin(void* vdata);
+
+VirtualQScriptExtensionPlugin* QScriptExtensionPlugin_new(const QScriptExtensionPlugin_VTable* vtbl, size_t vdata);
+VirtualQScriptExtensionPlugin* QScriptExtensionPlugin_new2(const QScriptExtensionPlugin_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QScriptExtensionPlugin_virtbase(QScriptExtensionPlugin* src, QObject** outptr_QObject, QScriptExtensionInterface** outptr_QScriptExtensionInterface);
 QMetaObject* QScriptExtensionPlugin_metaObject(const QScriptExtensionPlugin* self);
 void* QScriptExtensionPlugin_metacast(QScriptExtensionPlugin* self, const char* param1);
@@ -56,35 +77,23 @@ struct seaqt_string QScriptExtensionPlugin_tr3(const char* s, const char* c, int
 struct seaqt_string QScriptExtensionPlugin_trUtf82(const char* s, const char* c);
 struct seaqt_string QScriptExtensionPlugin_trUtf83(const char* s, const char* c, int n);
 
-bool QScriptExtensionPlugin_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QScriptExtensionPlugin_virtualbase_metaObject(const void* self);
-bool QScriptExtensionPlugin_override_virtual_metacast(void* self, intptr_t slot);
-void* QScriptExtensionPlugin_virtualbase_metacast(void* self, const char* param1);
-bool QScriptExtensionPlugin_override_virtual_metacall(void* self, intptr_t slot);
-int QScriptExtensionPlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QScriptExtensionPlugin_override_virtual_keys(void* self, intptr_t slot);
-struct seaqt_array /* of struct seaqt_string */  QScriptExtensionPlugin_virtualbase_keys(const void* self);
-bool QScriptExtensionPlugin_override_virtual_initialize(void* self, intptr_t slot);
-void QScriptExtensionPlugin_virtualbase_initialize(void* self, struct seaqt_string key, QScriptEngine* engine);
-bool QScriptExtensionPlugin_override_virtual_event(void* self, intptr_t slot);
-bool QScriptExtensionPlugin_virtualbase_event(void* self, QEvent* event);
-bool QScriptExtensionPlugin_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QScriptExtensionPlugin_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QScriptExtensionPlugin_override_virtual_timerEvent(void* self, intptr_t slot);
-void QScriptExtensionPlugin_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QScriptExtensionPlugin_override_virtual_childEvent(void* self, intptr_t slot);
-void QScriptExtensionPlugin_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QScriptExtensionPlugin_override_virtual_customEvent(void* self, intptr_t slot);
-void QScriptExtensionPlugin_virtualbase_customEvent(void* self, QEvent* event);
-bool QScriptExtensionPlugin_override_virtual_connectNotify(void* self, intptr_t slot);
-void QScriptExtensionPlugin_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QScriptExtensionPlugin_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QScriptExtensionPlugin_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QScriptExtensionPlugin_virtualbase_metaObject(const VirtualQScriptExtensionPlugin* self);
+void* QScriptExtensionPlugin_virtualbase_metacast(VirtualQScriptExtensionPlugin* self, const char* param1);
+int QScriptExtensionPlugin_virtualbase_metacall(VirtualQScriptExtensionPlugin* self, int param1, int param2, void** param3);
+struct seaqt_array /* of struct seaqt_string */  QScriptExtensionPlugin_virtualbase_keys(const VirtualQScriptExtensionPlugin* self);
+void QScriptExtensionPlugin_virtualbase_initialize(VirtualQScriptExtensionPlugin* self, struct seaqt_string key, QScriptEngine* engine);
+bool QScriptExtensionPlugin_virtualbase_event(VirtualQScriptExtensionPlugin* self, QEvent* event);
+bool QScriptExtensionPlugin_virtualbase_eventFilter(VirtualQScriptExtensionPlugin* self, QObject* watched, QEvent* event);
+void QScriptExtensionPlugin_virtualbase_timerEvent(VirtualQScriptExtensionPlugin* self, QTimerEvent* event);
+void QScriptExtensionPlugin_virtualbase_childEvent(VirtualQScriptExtensionPlugin* self, QChildEvent* event);
+void QScriptExtensionPlugin_virtualbase_customEvent(VirtualQScriptExtensionPlugin* self, QEvent* event);
+void QScriptExtensionPlugin_virtualbase_connectNotify(VirtualQScriptExtensionPlugin* self, QMetaMethod* signal);
+void QScriptExtensionPlugin_virtualbase_disconnectNotify(VirtualQScriptExtensionPlugin* self, QMetaMethod* signal);
 
-QObject* QScriptExtensionPlugin_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QScriptExtensionPlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QScriptExtensionPlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QScriptExtensionPlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QScriptExtensionPlugin_protectedbase_sender(const VirtualQScriptExtensionPlugin* self);
+int QScriptExtensionPlugin_protectedbase_senderSignalIndex(const VirtualQScriptExtensionPlugin* self);
+int QScriptExtensionPlugin_protectedbase_receivers(const VirtualQScriptExtensionPlugin* self, const char* signal);
+bool QScriptExtensionPlugin_protectedbase_isSignalConnected(const VirtualQScriptExtensionPlugin* self, QMetaMethod* signal);
 
 const QMetaObject* QScriptExtensionPlugin_staticMetaObject();
 void QScriptExtensionPlugin_delete(QScriptExtensionPlugin* self);

@@ -36,10 +36,29 @@ typedef struct QStaticPlugin QStaticPlugin;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QPluginLoader* QPluginLoader_new();
-QPluginLoader* QPluginLoader_new2(struct seaqt_string fileName);
-QPluginLoader* QPluginLoader_new3(QObject* parent);
-QPluginLoader* QPluginLoader_new4(struct seaqt_string fileName, QObject* parent);
+typedef struct VirtualQPluginLoader VirtualQPluginLoader;
+typedef struct QPluginLoader_VTable{
+	void (*destructor)(VirtualQPluginLoader* self);
+	QMetaObject* (*metaObject)(const VirtualQPluginLoader* self);
+	void* (*metacast)(VirtualQPluginLoader* self, const char* param1);
+	int (*metacall)(VirtualQPluginLoader* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQPluginLoader* self, QEvent* event);
+	bool (*eventFilter)(VirtualQPluginLoader* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQPluginLoader* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQPluginLoader* self, QChildEvent* event);
+	void (*customEvent)(VirtualQPluginLoader* self, QEvent* event);
+	void (*connectNotify)(VirtualQPluginLoader* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQPluginLoader* self, QMetaMethod* signal);
+}QPluginLoader_VTable;
+
+void* QPluginLoader_vdata(VirtualQPluginLoader* self);
+VirtualQPluginLoader* vdata_QPluginLoader(void* vdata);
+
+VirtualQPluginLoader* QPluginLoader_new(const QPluginLoader_VTable* vtbl, size_t vdata);
+VirtualQPluginLoader* QPluginLoader_new2(const QPluginLoader_VTable* vtbl, size_t vdata, struct seaqt_string fileName);
+VirtualQPluginLoader* QPluginLoader_new3(const QPluginLoader_VTable* vtbl, size_t vdata, QObject* parent);
+VirtualQPluginLoader* QPluginLoader_new4(const QPluginLoader_VTable* vtbl, size_t vdata, struct seaqt_string fileName, QObject* parent);
+
 void QPluginLoader_virtbase(QPluginLoader* src, QObject** outptr_QObject);
 QMetaObject* QPluginLoader_metaObject(const QPluginLoader* self);
 void* QPluginLoader_metacast(QPluginLoader* self, const char* param1);
@@ -63,31 +82,21 @@ struct seaqt_string QPluginLoader_tr3(const char* s, const char* c, int n);
 struct seaqt_string QPluginLoader_trUtf82(const char* s, const char* c);
 struct seaqt_string QPluginLoader_trUtf83(const char* s, const char* c, int n);
 
-bool QPluginLoader_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QPluginLoader_virtualbase_metaObject(const void* self);
-bool QPluginLoader_override_virtual_metacast(void* self, intptr_t slot);
-void* QPluginLoader_virtualbase_metacast(void* self, const char* param1);
-bool QPluginLoader_override_virtual_metacall(void* self, intptr_t slot);
-int QPluginLoader_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QPluginLoader_override_virtual_event(void* self, intptr_t slot);
-bool QPluginLoader_virtualbase_event(void* self, QEvent* event);
-bool QPluginLoader_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QPluginLoader_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QPluginLoader_override_virtual_timerEvent(void* self, intptr_t slot);
-void QPluginLoader_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QPluginLoader_override_virtual_childEvent(void* self, intptr_t slot);
-void QPluginLoader_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QPluginLoader_override_virtual_customEvent(void* self, intptr_t slot);
-void QPluginLoader_virtualbase_customEvent(void* self, QEvent* event);
-bool QPluginLoader_override_virtual_connectNotify(void* self, intptr_t slot);
-void QPluginLoader_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QPluginLoader_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QPluginLoader_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QPluginLoader_virtualbase_metaObject(const VirtualQPluginLoader* self);
+void* QPluginLoader_virtualbase_metacast(VirtualQPluginLoader* self, const char* param1);
+int QPluginLoader_virtualbase_metacall(VirtualQPluginLoader* self, int param1, int param2, void** param3);
+bool QPluginLoader_virtualbase_event(VirtualQPluginLoader* self, QEvent* event);
+bool QPluginLoader_virtualbase_eventFilter(VirtualQPluginLoader* self, QObject* watched, QEvent* event);
+void QPluginLoader_virtualbase_timerEvent(VirtualQPluginLoader* self, QTimerEvent* event);
+void QPluginLoader_virtualbase_childEvent(VirtualQPluginLoader* self, QChildEvent* event);
+void QPluginLoader_virtualbase_customEvent(VirtualQPluginLoader* self, QEvent* event);
+void QPluginLoader_virtualbase_connectNotify(VirtualQPluginLoader* self, QMetaMethod* signal);
+void QPluginLoader_virtualbase_disconnectNotify(VirtualQPluginLoader* self, QMetaMethod* signal);
 
-QObject* QPluginLoader_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QPluginLoader_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QPluginLoader_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QPluginLoader_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QPluginLoader_protectedbase_sender(const VirtualQPluginLoader* self);
+int QPluginLoader_protectedbase_senderSignalIndex(const VirtualQPluginLoader* self);
+int QPluginLoader_protectedbase_receivers(const VirtualQPluginLoader* self, const char* signal);
+bool QPluginLoader_protectedbase_isSignalConnected(const VirtualQPluginLoader* self, QMetaMethod* signal);
 
 const QMetaObject* QPluginLoader_staticMetaObject();
 void QPluginLoader_delete(QPluginLoader* self);

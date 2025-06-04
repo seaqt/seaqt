@@ -14,71 +14,63 @@
 #include <qaudioprobe.h>
 #include "gen_qaudioprobe.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void miqt_exec_callback_QAudioProbe_audioBufferProbed(intptr_t, QAudioBuffer*);
 void miqt_exec_callback_QAudioProbe_flush(intptr_t);
-QMetaObject* miqt_exec_callback_QAudioProbe_metaObject(const QAudioProbe*, intptr_t);
-void* miqt_exec_callback_QAudioProbe_metacast(QAudioProbe*, intptr_t, const char*);
-int miqt_exec_callback_QAudioProbe_metacall(QAudioProbe*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QAudioProbe_event(QAudioProbe*, intptr_t, QEvent*);
-bool miqt_exec_callback_QAudioProbe_eventFilter(QAudioProbe*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QAudioProbe_timerEvent(QAudioProbe*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QAudioProbe_childEvent(QAudioProbe*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QAudioProbe_customEvent(QAudioProbe*, intptr_t, QEvent*);
-void miqt_exec_callback_QAudioProbe_connectNotify(QAudioProbe*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QAudioProbe_disconnectNotify(QAudioProbe*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQAudioProbe final : public QAudioProbe {
+	const QAudioProbe_VTable* vtbl;
 public:
+	friend void* QAudioProbe_vdata(VirtualQAudioProbe* self);
+	friend VirtualQAudioProbe* vdata_QAudioProbe(void* vdata);
 
-	VirtualQAudioProbe(): QAudioProbe() {}
-	VirtualQAudioProbe(QObject* parent): QAudioProbe(parent) {}
+	VirtualQAudioProbe(const QAudioProbe_VTable* vtbl): QAudioProbe(), vtbl(vtbl) {}
+	VirtualQAudioProbe(const QAudioProbe_VTable* vtbl, QObject* parent): QAudioProbe(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQAudioProbe() override = default;
+	virtual ~VirtualQAudioProbe() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QAudioProbe::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QAudioProbe_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QAudioProbe_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QAudioProbe_virtualbase_metaObject(const VirtualQAudioProbe* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QAudioProbe::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QAudioProbe_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QAudioProbe_virtualbase_metacast(void* self, const char* param1);
+	friend void* QAudioProbe_virtualbase_metacast(VirtualQAudioProbe* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QAudioProbe::qt_metacall(param1, param2, param3);
 		}
 
@@ -86,102 +78,75 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QAudioProbe_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QAudioProbe_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QAudioProbe_virtualbase_metacall(VirtualQAudioProbe* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QAudioProbe::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QAudioProbe_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QAudioProbe_virtualbase_event(void* self, QEvent* event);
+	friend bool QAudioProbe_virtualbase_event(VirtualQAudioProbe* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QAudioProbe::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QAudioProbe_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QAudioProbe_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QAudioProbe_virtualbase_eventFilter(VirtualQAudioProbe* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QAudioProbe::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QAudioProbe_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QAudioProbe_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QAudioProbe_virtualbase_timerEvent(VirtualQAudioProbe* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QAudioProbe::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QAudioProbe_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QAudioProbe_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QAudioProbe_virtualbase_childEvent(VirtualQAudioProbe* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QAudioProbe::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QAudioProbe_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QAudioProbe_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QAudioProbe_virtualbase_customEvent(VirtualQAudioProbe* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QAudioProbe::connectNotify(signal);
 			return;
 		}
@@ -189,18 +154,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QAudioProbe_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QAudioProbe_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QAudioProbe_virtualbase_connectNotify(VirtualQAudioProbe* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QAudioProbe::disconnectNotify(signal);
 			return;
 		}
@@ -208,25 +168,26 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QAudioProbe_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QAudioProbe_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QAudioProbe_virtualbase_disconnectNotify(VirtualQAudioProbe* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QAudioProbe_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QAudioProbe_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QAudioProbe_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QAudioProbe_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QAudioProbe_protectedbase_sender(const VirtualQAudioProbe* self);
+	friend int QAudioProbe_protectedbase_senderSignalIndex(const VirtualQAudioProbe* self);
+	friend int QAudioProbe_protectedbase_receivers(const VirtualQAudioProbe* self, const char* signal);
+	friend bool QAudioProbe_protectedbase_isSignalConnected(const VirtualQAudioProbe* self, QMetaMethod* signal);
 };
 
-QAudioProbe* QAudioProbe_new() {
-	return new (std::nothrow) VirtualQAudioProbe();
+VirtualQAudioProbe* QAudioProbe_new(const QAudioProbe_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQAudioProbe>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQAudioProbe(vtbl) : nullptr;
 }
 
-QAudioProbe* QAudioProbe_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQAudioProbe(parent);
+VirtualQAudioProbe* QAudioProbe_new2(const QAudioProbe_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQAudioProbe>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQAudioProbe(vtbl, parent) : nullptr;
 }
 
 void QAudioProbe_virtbase(QAudioProbe* src, QObject** outptr_QObject) {
@@ -347,188 +308,73 @@ struct seaqt_string QAudioProbe_trUtf83(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QAudioProbe_staticMetaObject() { return &QAudioProbe::staticMetaObject; }
-bool QAudioProbe_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQAudioProbe* self_cast = dynamic_cast<VirtualQAudioProbe*>( (QAudioProbe*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QAudioProbe_vdata(VirtualQAudioProbe* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQAudioProbe>()); }
+VirtualQAudioProbe* vdata_QAudioProbe(void* vdata) { return reinterpret_cast<VirtualQAudioProbe*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQAudioProbe>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QAudioProbe_virtualbase_metaObject(const VirtualQAudioProbe* self) {
+
+	return (QMetaObject*) self->QAudioProbe::metaObject();
 }
 
-QMetaObject* QAudioProbe_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQAudioProbe*>(self)->QAudioProbe::metaObject();
+void* QAudioProbe_virtualbase_metacast(VirtualQAudioProbe* self, const char* param1) {
+
+	return self->QAudioProbe::qt_metacast(param1);
 }
 
-bool QAudioProbe_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQAudioProbe* self_cast = dynamic_cast<VirtualQAudioProbe*>( (QAudioProbe*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QAudioProbe_virtualbase_metacall(VirtualQAudioProbe* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QAudioProbe::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QAudioProbe_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQAudioProbe*>(self)->QAudioProbe::qt_metacast(param1);
+bool QAudioProbe_virtualbase_event(VirtualQAudioProbe* self, QEvent* event) {
+
+	return self->QAudioProbe::event(event);
 }
 
-bool QAudioProbe_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQAudioProbe* self_cast = dynamic_cast<VirtualQAudioProbe*>( (QAudioProbe*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QAudioProbe_virtualbase_eventFilter(VirtualQAudioProbe* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QAudioProbe::eventFilter(watched, event);
 }
 
-int QAudioProbe_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQAudioProbe*>(self)->QAudioProbe::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+void QAudioProbe_virtualbase_timerEvent(VirtualQAudioProbe* self, QTimerEvent* event) {
+
+	self->QAudioProbe::timerEvent(event);
 }
 
-bool QAudioProbe_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQAudioProbe* self_cast = dynamic_cast<VirtualQAudioProbe*>( (QAudioProbe*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QAudioProbe_virtualbase_childEvent(VirtualQAudioProbe* self, QChildEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QAudioProbe::childEvent(event);
 }
 
-bool QAudioProbe_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQAudioProbe*>(self)->QAudioProbe::event(event);
+void QAudioProbe_virtualbase_customEvent(VirtualQAudioProbe* self, QEvent* event) {
+
+	self->QAudioProbe::customEvent(event);
 }
 
-bool QAudioProbe_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQAudioProbe* self_cast = dynamic_cast<VirtualQAudioProbe*>( (QAudioProbe*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QAudioProbe_virtualbase_connectNotify(VirtualQAudioProbe* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QAudioProbe::connectNotify(*signal);
 }
 
-bool QAudioProbe_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQAudioProbe*>(self)->QAudioProbe::eventFilter(watched, event);
+void QAudioProbe_virtualbase_disconnectNotify(VirtualQAudioProbe* self, QMetaMethod* signal) {
+
+	self->QAudioProbe::disconnectNotify(*signal);
 }
 
-bool QAudioProbe_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQAudioProbe* self_cast = dynamic_cast<VirtualQAudioProbe*>( (QAudioProbe*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+QObject* QAudioProbe_protectedbase_sender(const VirtualQAudioProbe* self) {
+	return self->sender();
 }
 
-void QAudioProbe_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQAudioProbe*>(self)->QAudioProbe::timerEvent(event);
+int QAudioProbe_protectedbase_senderSignalIndex(const VirtualQAudioProbe* self) {
+	return self->senderSignalIndex();
 }
 
-bool QAudioProbe_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQAudioProbe* self_cast = dynamic_cast<VirtualQAudioProbe*>( (QAudioProbe*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QAudioProbe_protectedbase_receivers(const VirtualQAudioProbe* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QAudioProbe_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQAudioProbe*>(self)->QAudioProbe::childEvent(event);
-}
-
-bool QAudioProbe_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQAudioProbe* self_cast = dynamic_cast<VirtualQAudioProbe*>( (QAudioProbe*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QAudioProbe_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQAudioProbe*>(self)->QAudioProbe::customEvent(event);
-}
-
-bool QAudioProbe_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQAudioProbe* self_cast = dynamic_cast<VirtualQAudioProbe*>( (QAudioProbe*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QAudioProbe_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQAudioProbe*>(self)->QAudioProbe::connectNotify(*signal);
-}
-
-bool QAudioProbe_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQAudioProbe* self_cast = dynamic_cast<VirtualQAudioProbe*>( (QAudioProbe*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QAudioProbe_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQAudioProbe*>(self)->QAudioProbe::disconnectNotify(*signal);
-}
-
-QObject* QAudioProbe_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQAudioProbe* self_cast = dynamic_cast<VirtualQAudioProbe*>( (QAudioProbe*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QAudioProbe_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQAudioProbe* self_cast = dynamic_cast<VirtualQAudioProbe*>( (QAudioProbe*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QAudioProbe_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQAudioProbe* self_cast = dynamic_cast<VirtualQAudioProbe*>( (QAudioProbe*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QAudioProbe_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQAudioProbe* self_cast = dynamic_cast<VirtualQAudioProbe*>( (QAudioProbe*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QAudioProbe_protectedbase_isSignalConnected(const VirtualQAudioProbe* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QAudioProbe_delete(QAudioProbe* self) {

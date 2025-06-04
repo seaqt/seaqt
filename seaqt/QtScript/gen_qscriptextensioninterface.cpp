@@ -8,29 +8,37 @@
 #include <qscriptextensioninterface.h>
 #include "gen_qscriptextensioninterface.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void miqt_exec_callback_QScriptExtensionInterface_initialize(QScriptExtensionInterface*, intptr_t, struct seaqt_string, QScriptEngine*);
-struct seaqt_array /* of struct seaqt_string */  miqt_exec_callback_QScriptExtensionInterface_keys(const QScriptExtensionInterface*, intptr_t);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQScriptExtensionInterface final : public QScriptExtensionInterface {
+	const QScriptExtensionInterface_VTable* vtbl;
 public:
+	friend void* QScriptExtensionInterface_vdata(VirtualQScriptExtensionInterface* self);
+	friend VirtualQScriptExtensionInterface* vdata_QScriptExtensionInterface(void* vdata);
 
-	VirtualQScriptExtensionInterface(const QScriptExtensionInterface& param1): QScriptExtensionInterface(param1) {}
+	VirtualQScriptExtensionInterface(const QScriptExtensionInterface_VTable* vtbl, const QScriptExtensionInterface& param1): QScriptExtensionInterface(param1), vtbl(vtbl) {}
 
-	virtual ~VirtualQScriptExtensionInterface() override = default;
+	virtual ~VirtualQScriptExtensionInterface() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__initialize = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void initialize(const QString& key, QScriptEngine* engine) override {
-		if (handle__initialize == 0) {
+		if (vtbl->initialize == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -43,20 +51,15 @@ public:
 		memcpy(key_ms.data, key_b.data(), key_ms.len);
 		struct seaqt_string sigval1 = key_ms;
 		QScriptEngine* sigval2 = engine;
-		miqt_exec_callback_QScriptExtensionInterface_initialize(this, handle__initialize, sigval1, sigval2);
-
+		vtbl->initialize(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keys = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QStringList keys() const override {
-		if (handle__keys == 0) {
+		if (vtbl->keys == 0) {
 			return QStringList(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_array /* of struct seaqt_string */  callback_return_value = miqt_exec_callback_QScriptExtensionInterface_keys(this, handle__keys);
+		struct seaqt_array /* of struct seaqt_string */  callback_return_value = vtbl->keys(this);
 		QStringList callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		struct seaqt_string* callback_return_value_arr = static_cast<struct seaqt_string*>(callback_return_value.data);
@@ -69,8 +72,9 @@ public:
 
 };
 
-QScriptExtensionInterface* QScriptExtensionInterface_new(QScriptExtensionInterface* param1) {
-	return new (std::nothrow) VirtualQScriptExtensionInterface(*param1);
+VirtualQScriptExtensionInterface* QScriptExtensionInterface_new(const QScriptExtensionInterface_VTable* vtbl, size_t vdata, QScriptExtensionInterface* param1) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQScriptExtensionInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQScriptExtensionInterface(vtbl, *param1) : nullptr;
 }
 
 void QScriptExtensionInterface_virtbase(QScriptExtensionInterface* src, QFactoryInterface** outptr_QFactoryInterface) {
@@ -86,25 +90,8 @@ void QScriptExtensionInterface_operatorAssign(QScriptExtensionInterface* self, Q
 	self->operator=(*param1);
 }
 
-bool QScriptExtensionInterface_override_virtual_initialize(void* self, intptr_t slot) {
-	VirtualQScriptExtensionInterface* self_cast = dynamic_cast<VirtualQScriptExtensionInterface*>( (QScriptExtensionInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__initialize = slot;
-	return true;
-}
-
-bool QScriptExtensionInterface_override_virtual_keys(void* self, intptr_t slot) {
-	VirtualQScriptExtensionInterface* self_cast = dynamic_cast<VirtualQScriptExtensionInterface*>( (QScriptExtensionInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__keys = slot;
-	return true;
-}
+void* QScriptExtensionInterface_vdata(VirtualQScriptExtensionInterface* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQScriptExtensionInterface>()); }
+VirtualQScriptExtensionInterface* vdata_QScriptExtensionInterface(void* vdata) { return reinterpret_cast<VirtualQScriptExtensionInterface*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQScriptExtensionInterface>()); }
 
 void QScriptExtensionInterface_delete(QScriptExtensionInterface* self) {
 	delete self;

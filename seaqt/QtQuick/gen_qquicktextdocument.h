@@ -36,7 +36,26 @@ typedef struct QTextDocument QTextDocument;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QQuickTextDocument* QQuickTextDocument_new(QQuickItem* parent);
+typedef struct VirtualQQuickTextDocument VirtualQQuickTextDocument;
+typedef struct QQuickTextDocument_VTable{
+	void (*destructor)(VirtualQQuickTextDocument* self);
+	QMetaObject* (*metaObject)(const VirtualQQuickTextDocument* self);
+	void* (*metacast)(VirtualQQuickTextDocument* self, const char* param1);
+	int (*metacall)(VirtualQQuickTextDocument* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQQuickTextDocument* self, QEvent* event);
+	bool (*eventFilter)(VirtualQQuickTextDocument* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQQuickTextDocument* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQQuickTextDocument* self, QChildEvent* event);
+	void (*customEvent)(VirtualQQuickTextDocument* self, QEvent* event);
+	void (*connectNotify)(VirtualQQuickTextDocument* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQQuickTextDocument* self, QMetaMethod* signal);
+}QQuickTextDocument_VTable;
+
+void* QQuickTextDocument_vdata(VirtualQQuickTextDocument* self);
+VirtualQQuickTextDocument* vdata_QQuickTextDocument(void* vdata);
+
+VirtualQQuickTextDocument* QQuickTextDocument_new(const QQuickTextDocument_VTable* vtbl, size_t vdata, QQuickItem* parent);
+
 void QQuickTextDocument_virtbase(QQuickTextDocument* src, QObject** outptr_QObject);
 QMetaObject* QQuickTextDocument_metaObject(const QQuickTextDocument* self);
 void* QQuickTextDocument_metacast(QQuickTextDocument* self, const char* param1);
@@ -49,31 +68,21 @@ struct seaqt_string QQuickTextDocument_tr3(const char* s, const char* c, int n);
 struct seaqt_string QQuickTextDocument_trUtf82(const char* s, const char* c);
 struct seaqt_string QQuickTextDocument_trUtf83(const char* s, const char* c, int n);
 
-bool QQuickTextDocument_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QQuickTextDocument_virtualbase_metaObject(const void* self);
-bool QQuickTextDocument_override_virtual_metacast(void* self, intptr_t slot);
-void* QQuickTextDocument_virtualbase_metacast(void* self, const char* param1);
-bool QQuickTextDocument_override_virtual_metacall(void* self, intptr_t slot);
-int QQuickTextDocument_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QQuickTextDocument_override_virtual_event(void* self, intptr_t slot);
-bool QQuickTextDocument_virtualbase_event(void* self, QEvent* event);
-bool QQuickTextDocument_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QQuickTextDocument_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QQuickTextDocument_override_virtual_timerEvent(void* self, intptr_t slot);
-void QQuickTextDocument_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QQuickTextDocument_override_virtual_childEvent(void* self, intptr_t slot);
-void QQuickTextDocument_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QQuickTextDocument_override_virtual_customEvent(void* self, intptr_t slot);
-void QQuickTextDocument_virtualbase_customEvent(void* self, QEvent* event);
-bool QQuickTextDocument_override_virtual_connectNotify(void* self, intptr_t slot);
-void QQuickTextDocument_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QQuickTextDocument_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QQuickTextDocument_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QQuickTextDocument_virtualbase_metaObject(const VirtualQQuickTextDocument* self);
+void* QQuickTextDocument_virtualbase_metacast(VirtualQQuickTextDocument* self, const char* param1);
+int QQuickTextDocument_virtualbase_metacall(VirtualQQuickTextDocument* self, int param1, int param2, void** param3);
+bool QQuickTextDocument_virtualbase_event(VirtualQQuickTextDocument* self, QEvent* event);
+bool QQuickTextDocument_virtualbase_eventFilter(VirtualQQuickTextDocument* self, QObject* watched, QEvent* event);
+void QQuickTextDocument_virtualbase_timerEvent(VirtualQQuickTextDocument* self, QTimerEvent* event);
+void QQuickTextDocument_virtualbase_childEvent(VirtualQQuickTextDocument* self, QChildEvent* event);
+void QQuickTextDocument_virtualbase_customEvent(VirtualQQuickTextDocument* self, QEvent* event);
+void QQuickTextDocument_virtualbase_connectNotify(VirtualQQuickTextDocument* self, QMetaMethod* signal);
+void QQuickTextDocument_virtualbase_disconnectNotify(VirtualQQuickTextDocument* self, QMetaMethod* signal);
 
-QObject* QQuickTextDocument_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QQuickTextDocument_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QQuickTextDocument_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QQuickTextDocument_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QQuickTextDocument_protectedbase_sender(const VirtualQQuickTextDocument* self);
+int QQuickTextDocument_protectedbase_senderSignalIndex(const VirtualQQuickTextDocument* self);
+int QQuickTextDocument_protectedbase_receivers(const VirtualQQuickTextDocument* self, const char* signal);
+bool QQuickTextDocument_protectedbase_isSignalConnected(const VirtualQQuickTextDocument* self, QMetaMethod* signal);
 
 const QMetaObject* QQuickTextDocument_staticMetaObject();
 void QQuickTextDocument_delete(QQuickTextDocument* self);

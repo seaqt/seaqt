@@ -11,69 +11,61 @@
 #include <qsound.h>
 #include "gen_qsound.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QSound_metaObject(const QSound*, intptr_t);
-void* miqt_exec_callback_QSound_metacast(QSound*, intptr_t, const char*);
-int miqt_exec_callback_QSound_metacall(QSound*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QSound_event(QSound*, intptr_t, QEvent*);
-bool miqt_exec_callback_QSound_eventFilter(QSound*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QSound_timerEvent(QSound*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QSound_childEvent(QSound*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QSound_customEvent(QSound*, intptr_t, QEvent*);
-void miqt_exec_callback_QSound_connectNotify(QSound*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QSound_disconnectNotify(QSound*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQSound final : public QSound {
+	const QSound_VTable* vtbl;
 public:
+	friend void* QSound_vdata(VirtualQSound* self);
+	friend VirtualQSound* vdata_QSound(void* vdata);
 
-	VirtualQSound(const QString& filename): QSound(filename) {}
-	VirtualQSound(const QString& filename, QObject* parent): QSound(filename, parent) {}
+	VirtualQSound(const QSound_VTable* vtbl, const QString& filename): QSound(filename), vtbl(vtbl) {}
+	VirtualQSound(const QSound_VTable* vtbl, const QString& filename, QObject* parent): QSound(filename, parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQSound() override = default;
+	virtual ~VirtualQSound() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QSound::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QSound_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QSound_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QSound_virtualbase_metaObject(const VirtualQSound* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QSound::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QSound_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QSound_virtualbase_metacast(void* self, const char* param1);
+	friend void* QSound_virtualbase_metacast(VirtualQSound* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QSound::qt_metacall(param1, param2, param3);
 		}
 
@@ -81,102 +73,75 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QSound_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QSound_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QSound_virtualbase_metacall(VirtualQSound* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QSound::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QSound_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSound_virtualbase_event(void* self, QEvent* event);
+	friend bool QSound_virtualbase_event(VirtualQSound* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QSound::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QSound_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QSound_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QSound_virtualbase_eventFilter(VirtualQSound* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QSound::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QSound_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QSound_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QSound_virtualbase_timerEvent(VirtualQSound* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QSound::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QSound_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QSound_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QSound_virtualbase_childEvent(VirtualQSound* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QSound::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QSound_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QSound_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QSound_virtualbase_customEvent(VirtualQSound* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QSound::connectNotify(signal);
 			return;
 		}
@@ -184,18 +149,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSound_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QSound_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QSound_virtualbase_connectNotify(VirtualQSound* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QSound::disconnectNotify(signal);
 			return;
 		}
@@ -203,27 +163,28 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSound_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QSound_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QSound_virtualbase_disconnectNotify(VirtualQSound* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QSound_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QSound_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QSound_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QSound_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QSound_protectedbase_sender(const VirtualQSound* self);
+	friend int QSound_protectedbase_senderSignalIndex(const VirtualQSound* self);
+	friend int QSound_protectedbase_receivers(const VirtualQSound* self, const char* signal);
+	friend bool QSound_protectedbase_isSignalConnected(const VirtualQSound* self, QMetaMethod* signal);
 };
 
-QSound* QSound_new(struct seaqt_string filename) {
+VirtualQSound* QSound_new(const QSound_VTable* vtbl, size_t vdata, struct seaqt_string filename) {
 	QString filename_QString = QString::fromUtf8(filename.data, filename.len);
-	return new (std::nothrow) VirtualQSound(filename_QString);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSound>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSound(vtbl, filename_QString) : nullptr;
 }
 
-QSound* QSound_new2(struct seaqt_string filename, QObject* parent) {
+VirtualQSound* QSound_new2(const QSound_VTable* vtbl, size_t vdata, struct seaqt_string filename, QObject* parent) {
 	QString filename_QString = QString::fromUtf8(filename.data, filename.len);
-	return new (std::nothrow) VirtualQSound(filename_QString, parent);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSound>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSound(vtbl, filename_QString, parent) : nullptr;
 }
 
 void QSound_virtbase(QSound* src, QObject** outptr_QObject) {
@@ -349,188 +310,73 @@ struct seaqt_string QSound_trUtf83(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QSound_staticMetaObject() { return &QSound::staticMetaObject; }
-bool QSound_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQSound* self_cast = dynamic_cast<VirtualQSound*>( (QSound*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QSound_vdata(VirtualQSound* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQSound>()); }
+VirtualQSound* vdata_QSound(void* vdata) { return reinterpret_cast<VirtualQSound*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQSound>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QSound_virtualbase_metaObject(const VirtualQSound* self) {
+
+	return (QMetaObject*) self->QSound::metaObject();
 }
 
-QMetaObject* QSound_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQSound*>(self)->QSound::metaObject();
+void* QSound_virtualbase_metacast(VirtualQSound* self, const char* param1) {
+
+	return self->QSound::qt_metacast(param1);
 }
 
-bool QSound_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQSound* self_cast = dynamic_cast<VirtualQSound*>( (QSound*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QSound_virtualbase_metacall(VirtualQSound* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QSound::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QSound_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQSound*>(self)->QSound::qt_metacast(param1);
+bool QSound_virtualbase_event(VirtualQSound* self, QEvent* event) {
+
+	return self->QSound::event(event);
 }
 
-bool QSound_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQSound* self_cast = dynamic_cast<VirtualQSound*>( (QSound*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSound_virtualbase_eventFilter(VirtualQSound* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QSound::eventFilter(watched, event);
 }
 
-int QSound_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQSound*>(self)->QSound::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+void QSound_virtualbase_timerEvent(VirtualQSound* self, QTimerEvent* event) {
+
+	self->QSound::timerEvent(event);
 }
 
-bool QSound_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQSound* self_cast = dynamic_cast<VirtualQSound*>( (QSound*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSound_virtualbase_childEvent(VirtualQSound* self, QChildEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QSound::childEvent(event);
 }
 
-bool QSound_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQSound*>(self)->QSound::event(event);
+void QSound_virtualbase_customEvent(VirtualQSound* self, QEvent* event) {
+
+	self->QSound::customEvent(event);
 }
 
-bool QSound_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQSound* self_cast = dynamic_cast<VirtualQSound*>( (QSound*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSound_virtualbase_connectNotify(VirtualQSound* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QSound::connectNotify(*signal);
 }
 
-bool QSound_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQSound*>(self)->QSound::eventFilter(watched, event);
+void QSound_virtualbase_disconnectNotify(VirtualQSound* self, QMetaMethod* signal) {
+
+	self->QSound::disconnectNotify(*signal);
 }
 
-bool QSound_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQSound* self_cast = dynamic_cast<VirtualQSound*>( (QSound*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+QObject* QSound_protectedbase_sender(const VirtualQSound* self) {
+	return self->sender();
 }
 
-void QSound_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQSound*>(self)->QSound::timerEvent(event);
+int QSound_protectedbase_senderSignalIndex(const VirtualQSound* self) {
+	return self->senderSignalIndex();
 }
 
-bool QSound_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQSound* self_cast = dynamic_cast<VirtualQSound*>( (QSound*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QSound_protectedbase_receivers(const VirtualQSound* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QSound_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQSound*>(self)->QSound::childEvent(event);
-}
-
-bool QSound_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQSound* self_cast = dynamic_cast<VirtualQSound*>( (QSound*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QSound_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQSound*>(self)->QSound::customEvent(event);
-}
-
-bool QSound_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQSound* self_cast = dynamic_cast<VirtualQSound*>( (QSound*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QSound_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSound*>(self)->QSound::connectNotify(*signal);
-}
-
-bool QSound_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQSound* self_cast = dynamic_cast<VirtualQSound*>( (QSound*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QSound_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSound*>(self)->QSound::disconnectNotify(*signal);
-}
-
-QObject* QSound_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSound* self_cast = dynamic_cast<VirtualQSound*>( (QSound*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QSound_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSound* self_cast = dynamic_cast<VirtualQSound*>( (QSound*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QSound_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQSound* self_cast = dynamic_cast<VirtualQSound*>( (QSound*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QSound_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQSound* self_cast = dynamic_cast<VirtualQSound*>( (QSound*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QSound_protectedbase_isSignalConnected(const VirtualQSound* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QSound_delete(QSound* self) {

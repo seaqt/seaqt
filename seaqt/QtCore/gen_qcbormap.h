@@ -42,6 +42,7 @@ typedef struct QVariant QVariant;
 
 QCborMap* QCborMap_new();
 QCborMap* QCborMap_new2(QCborMap* other);
+
 void QCborMap_operatorAssign(QCborMap* self, QCborMap* other);
 void QCborMap_swap(QCborMap* self, QCborMap* other);
 QCborValue* QCborMap_toCborValue(const QCborMap* self);
@@ -108,6 +109,7 @@ void QCborMap_delete(QCborMap* self);
 
 QCborMap__Iterator* QCborMap__Iterator_new();
 QCborMap__Iterator* QCborMap__Iterator_new2(QCborMap__Iterator* param1);
+
 void QCborMap__Iterator_operatorAssign(QCborMap__Iterator* self, QCborMap__Iterator* other);
 struct seaqt_map /* tuple of QCborValueRef* and QCborValueRef* */  QCborMap__Iterator_operatorMultiply(const QCborMap__Iterator* self);
 QCborValueRef* QCborMap__Iterator_operatorMinusGreater(const QCborMap__Iterator* self);
@@ -139,6 +141,7 @@ void QCborMap__Iterator_delete(QCborMap__Iterator* self);
 
 QCborMap__ConstIterator* QCborMap__ConstIterator_new();
 QCborMap__ConstIterator* QCborMap__ConstIterator_new2(QCborMap__ConstIterator* param1);
+
 void QCborMap__ConstIterator_operatorAssign(QCborMap__ConstIterator* self, QCborMap__ConstIterator* other);
 struct seaqt_map /* tuple of QCborValueRef* and QCborValueRef* */  QCborMap__ConstIterator_operatorMultiply(const QCborMap__ConstIterator* self);
 QCborValueRef* QCborMap__ConstIterator_operatorMinusGreater(const QCborMap__ConstIterator* self);

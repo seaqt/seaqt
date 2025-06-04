@@ -34,6 +34,7 @@ QPen* QPen_new5(QPen* pen);
 QPen* QPen_new6(QBrush* brush, double width, int s);
 QPen* QPen_new7(QBrush* brush, double width, int s, int c);
 QPen* QPen_new8(QBrush* brush, double width, int s, int c, int j);
+
 void QPen_operatorAssign(QPen* self, QPen* pen);
 void QPen_swap(QPen* self, QPen* other);
 int QPen_style(const QPen* self);

@@ -19,6 +19,17 @@
 #include <qpdfdocument.h>
 #include "gen_qpdfdocument.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -27,65 +38,46 @@ void miqt_exec_callback_QPdfDocument_passwordChanged(intptr_t);
 void miqt_exec_callback_QPdfDocument_passwordRequired(intptr_t);
 void miqt_exec_callback_QPdfDocument_statusChanged(intptr_t, int);
 void miqt_exec_callback_QPdfDocument_pageCountChanged(intptr_t, int);
-QMetaObject* miqt_exec_callback_QPdfDocument_metaObject(const QPdfDocument*, intptr_t);
-void* miqt_exec_callback_QPdfDocument_metacast(QPdfDocument*, intptr_t, const char*);
-int miqt_exec_callback_QPdfDocument_metacall(QPdfDocument*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QPdfDocument_event(QPdfDocument*, intptr_t, QEvent*);
-bool miqt_exec_callback_QPdfDocument_eventFilter(QPdfDocument*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QPdfDocument_timerEvent(QPdfDocument*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QPdfDocument_childEvent(QPdfDocument*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QPdfDocument_customEvent(QPdfDocument*, intptr_t, QEvent*);
-void miqt_exec_callback_QPdfDocument_connectNotify(QPdfDocument*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QPdfDocument_disconnectNotify(QPdfDocument*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQPdfDocument final : public QPdfDocument {
+	const QPdfDocument_VTable* vtbl;
 public:
+	friend void* QPdfDocument_vdata(VirtualQPdfDocument* self);
+	friend VirtualQPdfDocument* vdata_QPdfDocument(void* vdata);
 
-	VirtualQPdfDocument(): QPdfDocument() {}
-	VirtualQPdfDocument(QObject* parent): QPdfDocument(parent) {}
+	VirtualQPdfDocument(const QPdfDocument_VTable* vtbl): QPdfDocument(), vtbl(vtbl) {}
+	VirtualQPdfDocument(const QPdfDocument_VTable* vtbl, QObject* parent): QPdfDocument(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQPdfDocument() override = default;
+	virtual ~VirtualQPdfDocument() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QPdfDocument::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QPdfDocument_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QPdfDocument_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QPdfDocument_virtualbase_metaObject(const VirtualQPdfDocument* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QPdfDocument::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QPdfDocument_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QPdfDocument_virtualbase_metacast(void* self, const char* param1);
+	friend void* QPdfDocument_virtualbase_metacast(VirtualQPdfDocument* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QPdfDocument::qt_metacall(param1, param2, param3);
 		}
 
@@ -93,102 +85,75 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QPdfDocument_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QPdfDocument_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QPdfDocument_virtualbase_metacall(VirtualQPdfDocument* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QPdfDocument::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QPdfDocument_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QPdfDocument_virtualbase_event(void* self, QEvent* event);
+	friend bool QPdfDocument_virtualbase_event(VirtualQPdfDocument* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QPdfDocument::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QPdfDocument_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QPdfDocument_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QPdfDocument_virtualbase_eventFilter(VirtualQPdfDocument* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QPdfDocument::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QPdfDocument_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QPdfDocument_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QPdfDocument_virtualbase_timerEvent(VirtualQPdfDocument* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QPdfDocument::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QPdfDocument_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QPdfDocument_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QPdfDocument_virtualbase_childEvent(VirtualQPdfDocument* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QPdfDocument::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QPdfDocument_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QPdfDocument_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QPdfDocument_virtualbase_customEvent(VirtualQPdfDocument* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QPdfDocument::connectNotify(signal);
 			return;
 		}
@@ -196,18 +161,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QPdfDocument_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QPdfDocument_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QPdfDocument_virtualbase_connectNotify(VirtualQPdfDocument* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QPdfDocument::disconnectNotify(signal);
 			return;
 		}
@@ -215,25 +175,26 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QPdfDocument_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QPdfDocument_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QPdfDocument_virtualbase_disconnectNotify(VirtualQPdfDocument* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QPdfDocument_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QPdfDocument_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QPdfDocument_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QPdfDocument_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QPdfDocument_protectedbase_sender(const VirtualQPdfDocument* self);
+	friend int QPdfDocument_protectedbase_senderSignalIndex(const VirtualQPdfDocument* self);
+	friend int QPdfDocument_protectedbase_receivers(const VirtualQPdfDocument* self, const char* signal);
+	friend bool QPdfDocument_protectedbase_isSignalConnected(const VirtualQPdfDocument* self, QMetaMethod* signal);
 };
 
-QPdfDocument* QPdfDocument_new() {
-	return new (std::nothrow) VirtualQPdfDocument();
+VirtualQPdfDocument* QPdfDocument_new(const QPdfDocument_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQPdfDocument>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQPdfDocument(vtbl) : nullptr;
 }
 
-QPdfDocument* QPdfDocument_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQPdfDocument(parent);
+VirtualQPdfDocument* QPdfDocument_new2(const QPdfDocument_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQPdfDocument>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQPdfDocument(vtbl, parent) : nullptr;
 }
 
 void QPdfDocument_virtbase(QPdfDocument* src, QObject** outptr_QObject) {
@@ -434,188 +395,73 @@ QImage* QPdfDocument_render2(QPdfDocument* self, int page, QSize* imageSize, QPd
 }
 
 const QMetaObject* QPdfDocument_staticMetaObject() { return &QPdfDocument::staticMetaObject; }
-bool QPdfDocument_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QPdfDocument_vdata(VirtualQPdfDocument* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQPdfDocument>()); }
+VirtualQPdfDocument* vdata_QPdfDocument(void* vdata) { return reinterpret_cast<VirtualQPdfDocument*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQPdfDocument>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QPdfDocument_virtualbase_metaObject(const VirtualQPdfDocument* self) {
+
+	return (QMetaObject*) self->QPdfDocument::metaObject();
 }
 
-QMetaObject* QPdfDocument_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQPdfDocument*>(self)->QPdfDocument::metaObject();
+void* QPdfDocument_virtualbase_metacast(VirtualQPdfDocument* self, const char* param1) {
+
+	return self->QPdfDocument::qt_metacast(param1);
 }
 
-bool QPdfDocument_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QPdfDocument_virtualbase_metacall(VirtualQPdfDocument* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QPdfDocument::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QPdfDocument_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQPdfDocument*>(self)->QPdfDocument::qt_metacast(param1);
+bool QPdfDocument_virtualbase_event(VirtualQPdfDocument* self, QEvent* event) {
+
+	return self->QPdfDocument::event(event);
 }
 
-bool QPdfDocument_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QPdfDocument_virtualbase_eventFilter(VirtualQPdfDocument* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QPdfDocument::eventFilter(watched, event);
 }
 
-int QPdfDocument_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQPdfDocument*>(self)->QPdfDocument::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+void QPdfDocument_virtualbase_timerEvent(VirtualQPdfDocument* self, QTimerEvent* event) {
+
+	self->QPdfDocument::timerEvent(event);
 }
 
-bool QPdfDocument_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfDocument_virtualbase_childEvent(VirtualQPdfDocument* self, QChildEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QPdfDocument::childEvent(event);
 }
 
-bool QPdfDocument_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQPdfDocument*>(self)->QPdfDocument::event(event);
+void QPdfDocument_virtualbase_customEvent(VirtualQPdfDocument* self, QEvent* event) {
+
+	self->QPdfDocument::customEvent(event);
 }
 
-bool QPdfDocument_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfDocument_virtualbase_connectNotify(VirtualQPdfDocument* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QPdfDocument::connectNotify(*signal);
 }
 
-bool QPdfDocument_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQPdfDocument*>(self)->QPdfDocument::eventFilter(watched, event);
+void QPdfDocument_virtualbase_disconnectNotify(VirtualQPdfDocument* self, QMetaMethod* signal) {
+
+	self->QPdfDocument::disconnectNotify(*signal);
 }
 
-bool QPdfDocument_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+QObject* QPdfDocument_protectedbase_sender(const VirtualQPdfDocument* self) {
+	return self->sender();
 }
 
-void QPdfDocument_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQPdfDocument*>(self)->QPdfDocument::timerEvent(event);
+int QPdfDocument_protectedbase_senderSignalIndex(const VirtualQPdfDocument* self) {
+	return self->senderSignalIndex();
 }
 
-bool QPdfDocument_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QPdfDocument_protectedbase_receivers(const VirtualQPdfDocument* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QPdfDocument_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQPdfDocument*>(self)->QPdfDocument::childEvent(event);
-}
-
-bool QPdfDocument_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QPdfDocument_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQPdfDocument*>(self)->QPdfDocument::customEvent(event);
-}
-
-bool QPdfDocument_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QPdfDocument_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQPdfDocument*>(self)->QPdfDocument::connectNotify(*signal);
-}
-
-bool QPdfDocument_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QPdfDocument_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQPdfDocument*>(self)->QPdfDocument::disconnectNotify(*signal);
-}
-
-QObject* QPdfDocument_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QPdfDocument_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QPdfDocument_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QPdfDocument_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QPdfDocument_protectedbase_isSignalConnected(const VirtualQPdfDocument* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QPdfDocument_delete(QPdfDocument* self) {

@@ -25,6 +25,7 @@ QVersionNumber* QVersionNumber_new2(struct seaqt_array /* of int */  seg);
 QVersionNumber* QVersionNumber_new3(int maj);
 QVersionNumber* QVersionNumber_new4(int maj, int min);
 QVersionNumber* QVersionNumber_new5(int maj, int min, int mic);
+
 bool QVersionNumber_isNull(const QVersionNumber* self);
 bool QVersionNumber_isNormalized(const QVersionNumber* self);
 int QVersionNumber_majorVersion(const QVersionNumber* self);

@@ -26,6 +26,7 @@ QByteArrayMatcher* QByteArrayMatcher_new();
 QByteArrayMatcher* QByteArrayMatcher_new2(struct seaqt_string pattern);
 QByteArrayMatcher* QByteArrayMatcher_new3(const char* pattern, int length);
 QByteArrayMatcher* QByteArrayMatcher_new4(QByteArrayMatcher* other);
+
 void QByteArrayMatcher_operatorAssign(QByteArrayMatcher* self, QByteArrayMatcher* other);
 void QByteArrayMatcher_setPattern(QByteArrayMatcher* self, struct seaqt_string pattern);
 int QByteArrayMatcher_indexIn(const QByteArrayMatcher* self, struct seaqt_string ba);

@@ -37,6 +37,7 @@ QTimeZone* QTimeZone_new4(struct seaqt_string zoneId, int offsetSeconds, struct 
 QTimeZone* QTimeZone_new5(QTimeZone* other);
 QTimeZone* QTimeZone_new6(struct seaqt_string zoneId, int offsetSeconds, struct seaqt_string name, struct seaqt_string abbreviation, int country);
 QTimeZone* QTimeZone_new7(struct seaqt_string zoneId, int offsetSeconds, struct seaqt_string name, struct seaqt_string abbreviation, int country, struct seaqt_string comment);
+
 void QTimeZone_operatorAssign(QTimeZone* self, QTimeZone* other);
 void QTimeZone_swap(QTimeZone* self, QTimeZone* other);
 bool QTimeZone_isValid(const QTimeZone* self);
@@ -76,6 +77,7 @@ struct seaqt_string QTimeZone_displayName5(const QTimeZone* self, int timeType, 
 void QTimeZone_delete(QTimeZone* self);
 
 QTimeZone__OffsetData* QTimeZone__OffsetData_new(QTimeZone__OffsetData* param1);
+
 void QTimeZone__OffsetData_operatorAssign(QTimeZone__OffsetData* self, QTimeZone__OffsetData* param1);
 
 void QTimeZone__OffsetData_delete(QTimeZone__OffsetData* self);

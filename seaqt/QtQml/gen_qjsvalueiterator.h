@@ -23,6 +23,7 @@ typedef struct QJSValueIterator QJSValueIterator;
 #endif
 
 QJSValueIterator* QJSValueIterator_new(QJSValue* value);
+
 bool QJSValueIterator_hasNext(const QJSValueIterator* self);
 bool QJSValueIterator_next(QJSValueIterator* self);
 struct seaqt_string QJSValueIterator_name(const QJSValueIterator* self);

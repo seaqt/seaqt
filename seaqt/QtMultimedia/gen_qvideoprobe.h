@@ -38,8 +38,27 @@ typedef struct QVideoFrame QVideoFrame;
 typedef struct QVideoProbe QVideoProbe;
 #endif
 
-QVideoProbe* QVideoProbe_new();
-QVideoProbe* QVideoProbe_new2(QObject* parent);
+typedef struct VirtualQVideoProbe VirtualQVideoProbe;
+typedef struct QVideoProbe_VTable{
+	void (*destructor)(VirtualQVideoProbe* self);
+	QMetaObject* (*metaObject)(const VirtualQVideoProbe* self);
+	void* (*metacast)(VirtualQVideoProbe* self, const char* param1);
+	int (*metacall)(VirtualQVideoProbe* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQVideoProbe* self, QEvent* event);
+	bool (*eventFilter)(VirtualQVideoProbe* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQVideoProbe* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQVideoProbe* self, QChildEvent* event);
+	void (*customEvent)(VirtualQVideoProbe* self, QEvent* event);
+	void (*connectNotify)(VirtualQVideoProbe* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQVideoProbe* self, QMetaMethod* signal);
+}QVideoProbe_VTable;
+
+void* QVideoProbe_vdata(VirtualQVideoProbe* self);
+VirtualQVideoProbe* vdata_QVideoProbe(void* vdata);
+
+VirtualQVideoProbe* QVideoProbe_new(const QVideoProbe_VTable* vtbl, size_t vdata);
+VirtualQVideoProbe* QVideoProbe_new2(const QVideoProbe_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QVideoProbe_virtbase(QVideoProbe* src, QObject** outptr_QObject);
 QMetaObject* QVideoProbe_metaObject(const QVideoProbe* self);
 void* QVideoProbe_metacast(QVideoProbe* self, const char* param1);
@@ -58,31 +77,21 @@ struct seaqt_string QVideoProbe_tr3(const char* s, const char* c, int n);
 struct seaqt_string QVideoProbe_trUtf82(const char* s, const char* c);
 struct seaqt_string QVideoProbe_trUtf83(const char* s, const char* c, int n);
 
-bool QVideoProbe_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QVideoProbe_virtualbase_metaObject(const void* self);
-bool QVideoProbe_override_virtual_metacast(void* self, intptr_t slot);
-void* QVideoProbe_virtualbase_metacast(void* self, const char* param1);
-bool QVideoProbe_override_virtual_metacall(void* self, intptr_t slot);
-int QVideoProbe_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QVideoProbe_override_virtual_event(void* self, intptr_t slot);
-bool QVideoProbe_virtualbase_event(void* self, QEvent* event);
-bool QVideoProbe_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QVideoProbe_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QVideoProbe_override_virtual_timerEvent(void* self, intptr_t slot);
-void QVideoProbe_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QVideoProbe_override_virtual_childEvent(void* self, intptr_t slot);
-void QVideoProbe_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QVideoProbe_override_virtual_customEvent(void* self, intptr_t slot);
-void QVideoProbe_virtualbase_customEvent(void* self, QEvent* event);
-bool QVideoProbe_override_virtual_connectNotify(void* self, intptr_t slot);
-void QVideoProbe_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QVideoProbe_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QVideoProbe_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QVideoProbe_virtualbase_metaObject(const VirtualQVideoProbe* self);
+void* QVideoProbe_virtualbase_metacast(VirtualQVideoProbe* self, const char* param1);
+int QVideoProbe_virtualbase_metacall(VirtualQVideoProbe* self, int param1, int param2, void** param3);
+bool QVideoProbe_virtualbase_event(VirtualQVideoProbe* self, QEvent* event);
+bool QVideoProbe_virtualbase_eventFilter(VirtualQVideoProbe* self, QObject* watched, QEvent* event);
+void QVideoProbe_virtualbase_timerEvent(VirtualQVideoProbe* self, QTimerEvent* event);
+void QVideoProbe_virtualbase_childEvent(VirtualQVideoProbe* self, QChildEvent* event);
+void QVideoProbe_virtualbase_customEvent(VirtualQVideoProbe* self, QEvent* event);
+void QVideoProbe_virtualbase_connectNotify(VirtualQVideoProbe* self, QMetaMethod* signal);
+void QVideoProbe_virtualbase_disconnectNotify(VirtualQVideoProbe* self, QMetaMethod* signal);
 
-QObject* QVideoProbe_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QVideoProbe_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QVideoProbe_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QVideoProbe_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QVideoProbe_protectedbase_sender(const VirtualQVideoProbe* self);
+int QVideoProbe_protectedbase_senderSignalIndex(const VirtualQVideoProbe* self);
+int QVideoProbe_protectedbase_receivers(const VirtualQVideoProbe* self, const char* signal);
+bool QVideoProbe_protectedbase_isSignalConnected(const VirtualQVideoProbe* self, QMetaMethod* signal);
 
 const QMetaObject* QVideoProbe_staticMetaObject();
 void QVideoProbe_delete(QVideoProbe* self);

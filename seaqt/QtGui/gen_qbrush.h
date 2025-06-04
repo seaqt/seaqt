@@ -64,6 +64,7 @@ QBrush* QBrush_new9(QBrush* brush);
 QBrush* QBrush_new10(QGradient* gradient);
 QBrush* QBrush_new11(QColor* color, int bs);
 QBrush* QBrush_new12(int color, int bs);
+
 void QBrush_operatorAssign(QBrush* self, QBrush* brush);
 void QBrush_swap(QBrush* self, QBrush* other);
 QVariant* QBrush_ToQVariant(const QBrush* self);
@@ -89,6 +90,7 @@ bool QBrush_isDetached(const QBrush* self);
 void QBrush_delete(QBrush* self);
 
 QBrushData* QBrushData_new(QBrushData* param1);
+
 void QBrushData_operatorAssign(QBrushData* self, QBrushData* param1);
 
 void QBrushData_delete(QBrushData* self);
@@ -96,6 +98,7 @@ void QBrushData_delete(QBrushData* self);
 QGradient* QGradient_new();
 QGradient* QGradient_new2(int param1);
 QGradient* QGradient_new3(QGradient* param1);
+
 int QGradient_type(const QGradient* self);
 void QGradient_setSpread(QGradient* self, int spread);
 int QGradient_spread(const QGradient* self);
@@ -116,6 +119,7 @@ QLinearGradient* QLinearGradient_new();
 QLinearGradient* QLinearGradient_new2(QPointF* start, QPointF* finalStop);
 QLinearGradient* QLinearGradient_new3(double xStart, double yStart, double xFinalStop, double yFinalStop);
 QLinearGradient* QLinearGradient_new4(QLinearGradient* param1);
+
 void QLinearGradient_virtbase(QLinearGradient* src, QGradient** outptr_QGradient);
 QPointF* QLinearGradient_start(const QLinearGradient* self);
 void QLinearGradient_setStart(QLinearGradient* self, QPointF* start);
@@ -134,6 +138,7 @@ QRadialGradient* QRadialGradient_new5(double cx, double cy, double radius);
 QRadialGradient* QRadialGradient_new6(QPointF* center, double centerRadius, QPointF* focalPoint, double focalRadius);
 QRadialGradient* QRadialGradient_new7(double cx, double cy, double centerRadius, double fx, double fy, double focalRadius);
 QRadialGradient* QRadialGradient_new8(QRadialGradient* param1);
+
 void QRadialGradient_virtbase(QRadialGradient* src, QGradient** outptr_QGradient);
 QPointF* QRadialGradient_center(const QRadialGradient* self);
 void QRadialGradient_setCenter(QRadialGradient* self, QPointF* center);
@@ -154,6 +159,7 @@ QConicalGradient* QConicalGradient_new();
 QConicalGradient* QConicalGradient_new2(QPointF* center, double startAngle);
 QConicalGradient* QConicalGradient_new3(double cx, double cy, double startAngle);
 QConicalGradient* QConicalGradient_new4(QConicalGradient* param1);
+
 void QConicalGradient_virtbase(QConicalGradient* src, QGradient** outptr_QGradient);
 QPointF* QConicalGradient_center(const QConicalGradient* self);
 void QConicalGradient_setCenter(QConicalGradient* self, QPointF* center);
@@ -164,6 +170,7 @@ void QConicalGradient_setAngle(QConicalGradient* self, double angle);
 void QConicalGradient_delete(QConicalGradient* self);
 
 QGradient__QGradientData* QGradient__QGradientData_new(QGradient__QGradientData* param1);
+
 void QGradient__QGradientData_operatorAssign(QGradient__QGradientData* self, QGradient__QGradientData* param1);
 
 void QGradient__QGradientData_delete(QGradient__QGradientData* self);

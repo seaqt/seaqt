@@ -40,8 +40,27 @@ typedef struct QSize QSize;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QPdfPageRenderer* QPdfPageRenderer_new();
-QPdfPageRenderer* QPdfPageRenderer_new2(QObject* parent);
+typedef struct VirtualQPdfPageRenderer VirtualQPdfPageRenderer;
+typedef struct QPdfPageRenderer_VTable{
+	void (*destructor)(VirtualQPdfPageRenderer* self);
+	QMetaObject* (*metaObject)(const VirtualQPdfPageRenderer* self);
+	void* (*metacast)(VirtualQPdfPageRenderer* self, const char* param1);
+	int (*metacall)(VirtualQPdfPageRenderer* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQPdfPageRenderer* self, QEvent* event);
+	bool (*eventFilter)(VirtualQPdfPageRenderer* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQPdfPageRenderer* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQPdfPageRenderer* self, QChildEvent* event);
+	void (*customEvent)(VirtualQPdfPageRenderer* self, QEvent* event);
+	void (*connectNotify)(VirtualQPdfPageRenderer* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQPdfPageRenderer* self, QMetaMethod* signal);
+}QPdfPageRenderer_VTable;
+
+void* QPdfPageRenderer_vdata(VirtualQPdfPageRenderer* self);
+VirtualQPdfPageRenderer* vdata_QPdfPageRenderer(void* vdata);
+
+VirtualQPdfPageRenderer* QPdfPageRenderer_new(const QPdfPageRenderer_VTable* vtbl, size_t vdata);
+VirtualQPdfPageRenderer* QPdfPageRenderer_new2(const QPdfPageRenderer_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QPdfPageRenderer_virtbase(QPdfPageRenderer* src, QObject** outptr_QObject);
 QMetaObject* QPdfPageRenderer_metaObject(const QPdfPageRenderer* self);
 void* QPdfPageRenderer_metacast(QPdfPageRenderer* self, const char* param1);
@@ -65,31 +84,21 @@ struct seaqt_string QPdfPageRenderer_trUtf82(const char* s, const char* c);
 struct seaqt_string QPdfPageRenderer_trUtf83(const char* s, const char* c, int n);
 unsigned long long QPdfPageRenderer_requestPage2(QPdfPageRenderer* self, int pageNumber, QSize* imageSize, QPdfDocumentRenderOptions* options);
 
-bool QPdfPageRenderer_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QPdfPageRenderer_virtualbase_metaObject(const void* self);
-bool QPdfPageRenderer_override_virtual_metacast(void* self, intptr_t slot);
-void* QPdfPageRenderer_virtualbase_metacast(void* self, const char* param1);
-bool QPdfPageRenderer_override_virtual_metacall(void* self, intptr_t slot);
-int QPdfPageRenderer_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QPdfPageRenderer_override_virtual_event(void* self, intptr_t slot);
-bool QPdfPageRenderer_virtualbase_event(void* self, QEvent* event);
-bool QPdfPageRenderer_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QPdfPageRenderer_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QPdfPageRenderer_override_virtual_timerEvent(void* self, intptr_t slot);
-void QPdfPageRenderer_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QPdfPageRenderer_override_virtual_childEvent(void* self, intptr_t slot);
-void QPdfPageRenderer_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QPdfPageRenderer_override_virtual_customEvent(void* self, intptr_t slot);
-void QPdfPageRenderer_virtualbase_customEvent(void* self, QEvent* event);
-bool QPdfPageRenderer_override_virtual_connectNotify(void* self, intptr_t slot);
-void QPdfPageRenderer_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QPdfPageRenderer_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QPdfPageRenderer_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QPdfPageRenderer_virtualbase_metaObject(const VirtualQPdfPageRenderer* self);
+void* QPdfPageRenderer_virtualbase_metacast(VirtualQPdfPageRenderer* self, const char* param1);
+int QPdfPageRenderer_virtualbase_metacall(VirtualQPdfPageRenderer* self, int param1, int param2, void** param3);
+bool QPdfPageRenderer_virtualbase_event(VirtualQPdfPageRenderer* self, QEvent* event);
+bool QPdfPageRenderer_virtualbase_eventFilter(VirtualQPdfPageRenderer* self, QObject* watched, QEvent* event);
+void QPdfPageRenderer_virtualbase_timerEvent(VirtualQPdfPageRenderer* self, QTimerEvent* event);
+void QPdfPageRenderer_virtualbase_childEvent(VirtualQPdfPageRenderer* self, QChildEvent* event);
+void QPdfPageRenderer_virtualbase_customEvent(VirtualQPdfPageRenderer* self, QEvent* event);
+void QPdfPageRenderer_virtualbase_connectNotify(VirtualQPdfPageRenderer* self, QMetaMethod* signal);
+void QPdfPageRenderer_virtualbase_disconnectNotify(VirtualQPdfPageRenderer* self, QMetaMethod* signal);
 
-QObject* QPdfPageRenderer_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QPdfPageRenderer_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QPdfPageRenderer_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QPdfPageRenderer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QPdfPageRenderer_protectedbase_sender(const VirtualQPdfPageRenderer* self);
+int QPdfPageRenderer_protectedbase_senderSignalIndex(const VirtualQPdfPageRenderer* self);
+int QPdfPageRenderer_protectedbase_receivers(const VirtualQPdfPageRenderer* self, const char* signal);
+bool QPdfPageRenderer_protectedbase_isSignalConnected(const VirtualQPdfPageRenderer* self, QMetaMethod* signal);
 
 const QMetaObject* QPdfPageRenderer_staticMetaObject();
 void QPdfPageRenderer_delete(QPdfPageRenderer* self);

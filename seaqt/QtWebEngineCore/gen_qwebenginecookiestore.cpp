@@ -11,6 +11,17 @@
 #include <qwebenginecookiestore.h>
 #include "gen_qwebenginecookiestore.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -163,7 +174,7 @@ void QWebEngineCookieStore_delete(QWebEngineCookieStore* self) {
 }
 
 QWebEngineCookieStore__FilterRequest* QWebEngineCookieStore__FilterRequest_new(QWebEngineCookieStore__FilterRequest* param1) {
-	return new (std::nothrow) QWebEngineCookieStore::FilterRequest(*param1);
+	return new (std::nothrow) QWebEngineCookieStore__FilterRequest(*param1);
 }
 
 void QWebEngineCookieStore__FilterRequest_operatorAssign(QWebEngineCookieStore__FilterRequest* self, QWebEngineCookieStore__FilterRequest* param1) {

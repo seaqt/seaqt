@@ -11,6 +11,17 @@
 #include <qabstractstate.h>
 #include "gen_qabstractstate.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -128,18 +139,6 @@ struct seaqt_string QAbstractState_trUtf83(const char* s, const char* c, int n) 
 }
 
 const QMetaObject* QAbstractState_staticMetaObject() { return &QAbstractState::staticMetaObject; }
-void QAbstractState_connect_entered(QAbstractState* self, intptr_t slot) {
-	QAbstractState::connect(self, &QAbstractState::entered, self, [=]() {
-		miqt_exec_callback_QAbstractState_entered(slot);
-	});
-}
-
-void QAbstractState_connect_exited(QAbstractState* self, intptr_t slot) {
-	QAbstractState::connect(self, &QAbstractState::exited, self, [=]() {
-		miqt_exec_callback_QAbstractState_exited(slot);
-	});
-}
-
 void QAbstractState_delete(QAbstractState* self) {
 	delete self;
 }

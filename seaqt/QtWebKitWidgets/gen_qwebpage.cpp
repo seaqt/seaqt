@@ -42,6 +42,17 @@
 #include <qwebpage.h>
 #include "gen_qwebpage.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -77,77 +88,46 @@ void miqt_exec_callback_QWebPage_featurePermissionRequestCanceled(intptr_t, QWeb
 void miqt_exec_callback_QWebPage_fullScreenRequested(intptr_t, QWebFullScreenRequest*);
 void miqt_exec_callback_QWebPage_consoleMessageReceived(intptr_t, int, int, struct seaqt_string, int, struct seaqt_string);
 void miqt_exec_callback_QWebPage_recentlyAudibleChanged(intptr_t, bool);
-QMetaObject* miqt_exec_callback_QWebPage_metaObject(const QWebPage*, intptr_t);
-void* miqt_exec_callback_QWebPage_metacast(QWebPage*, intptr_t, const char*);
-int miqt_exec_callback_QWebPage_metacall(QWebPage*, intptr_t, int, int, void**);
-void miqt_exec_callback_QWebPage_triggerAction(QWebPage*, intptr_t, int, bool);
-bool miqt_exec_callback_QWebPage_event(QWebPage*, intptr_t, QEvent*);
-bool miqt_exec_callback_QWebPage_extension(QWebPage*, intptr_t, int, QWebPage__ExtensionOption*, QWebPage__ExtensionReturn*);
-bool miqt_exec_callback_QWebPage_supportsExtension(const QWebPage*, intptr_t, int);
-bool miqt_exec_callback_QWebPage_shouldInterruptJavaScript(QWebPage*, intptr_t);
-QWebPage* miqt_exec_callback_QWebPage_createWindow(QWebPage*, intptr_t, int);
-QObject* miqt_exec_callback_QWebPage_createPlugin(QWebPage*, intptr_t, struct seaqt_string, QUrl*, struct seaqt_array /* of struct seaqt_string */ , struct seaqt_array /* of struct seaqt_string */ );
-bool miqt_exec_callback_QWebPage_acceptNavigationRequest(QWebPage*, intptr_t, QWebFrame*, QNetworkRequest*, int);
-struct seaqt_string miqt_exec_callback_QWebPage_chooseFile(QWebPage*, intptr_t, QWebFrame*, struct seaqt_string);
-void miqt_exec_callback_QWebPage_javaScriptAlert(QWebPage*, intptr_t, QWebFrame*, struct seaqt_string);
-bool miqt_exec_callback_QWebPage_javaScriptConfirm(QWebPage*, intptr_t, QWebFrame*, struct seaqt_string);
-void miqt_exec_callback_QWebPage_javaScriptConsoleMessage(QWebPage*, intptr_t, struct seaqt_string, int, struct seaqt_string);
-struct seaqt_string miqt_exec_callback_QWebPage_userAgentForUrl(const QWebPage*, intptr_t, QUrl*);
-bool miqt_exec_callback_QWebPage_eventFilter(QWebPage*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QWebPage_timerEvent(QWebPage*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QWebPage_childEvent(QWebPage*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QWebPage_customEvent(QWebPage*, intptr_t, QEvent*);
-void miqt_exec_callback_QWebPage_connectNotify(QWebPage*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QWebPage_disconnectNotify(QWebPage*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQWebPage final : public QWebPage {
+	const QWebPage_VTable* vtbl;
 public:
+	friend void* QWebPage_vdata(VirtualQWebPage* self);
+	friend VirtualQWebPage* vdata_QWebPage(void* vdata);
 
-	VirtualQWebPage(): QWebPage() {}
-	VirtualQWebPage(QObject* parent): QWebPage(parent) {}
+	VirtualQWebPage(const QWebPage_VTable* vtbl): QWebPage(), vtbl(vtbl) {}
+	VirtualQWebPage(const QWebPage_VTable* vtbl, QObject* parent): QWebPage(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQWebPage() override = default;
+	virtual ~VirtualQWebPage() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QWebPage::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QWebPage_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QWebPage_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QWebPage_virtualbase_metaObject(const VirtualQWebPage* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QWebPage::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QWebPage_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QWebPage_virtualbase_metacast(void* self, const char* param1);
+	friend void* QWebPage_virtualbase_metacast(VirtualQWebPage* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QWebPage::qt_metacall(param1, param2, param3);
 		}
 
@@ -155,18 +135,14 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QWebPage_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QWebPage_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QWebPage_virtualbase_metacall(VirtualQWebPage* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__triggerAction = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void triggerAction(QWebPage::WebAction action, bool checked) override {
-		if (handle__triggerAction == 0) {
+		if (vtbl->triggerAction == 0) {
 			QWebPage::triggerAction(action, checked);
 			return;
 		}
@@ -174,34 +150,25 @@ public:
 		QWebPage::WebAction action_ret = action;
 		int sigval1 = static_cast<int>(action_ret);
 		bool sigval2 = checked;
-		miqt_exec_callback_QWebPage_triggerAction(this, handle__triggerAction, sigval1, sigval2);
-
+		vtbl->triggerAction(this, sigval1, sigval2);
 	}
 
-	friend void QWebPage_virtualbase_triggerAction(void* self, int action, bool checked);
+	friend void QWebPage_virtualbase_triggerAction(VirtualQWebPage* self, int action, bool checked);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* param1) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QWebPage::event(param1);
 		}
 
 		QEvent* sigval1 = param1;
-		bool callback_return_value = miqt_exec_callback_QWebPage_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QWebPage_virtualbase_event(void* self, QEvent* param1);
+	friend bool QWebPage_virtualbase_event(VirtualQWebPage* self, QEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__extension = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool extension(QWebPage::Extension extension, const QWebPage::ExtensionOption* option, QWebPage::ExtensionReturn* output) override {
-		if (handle__extension == 0) {
+		if (vtbl->extension == 0) {
 			return QWebPage::extension(extension, option, output);
 		}
 
@@ -209,67 +176,51 @@ public:
 		int sigval1 = static_cast<int>(extension_ret);
 		QWebPage__ExtensionOption* sigval2 = (QWebPage__ExtensionOption*) option;
 		QWebPage__ExtensionReturn* sigval3 = output;
-		bool callback_return_value = miqt_exec_callback_QWebPage_extension(this, handle__extension, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->extension(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QWebPage_virtualbase_extension(void* self, int extension, QWebPage__ExtensionOption* option, QWebPage__ExtensionReturn* output);
+	friend bool QWebPage_virtualbase_extension(VirtualQWebPage* self, int extension, QWebPage__ExtensionOption* option, QWebPage__ExtensionReturn* output);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__supportsExtension = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool supportsExtension(QWebPage::Extension extension) const override {
-		if (handle__supportsExtension == 0) {
+		if (vtbl->supportsExtension == 0) {
 			return QWebPage::supportsExtension(extension);
 		}
 
 		QWebPage::Extension extension_ret = extension;
 		int sigval1 = static_cast<int>(extension_ret);
-		bool callback_return_value = miqt_exec_callback_QWebPage_supportsExtension(this, handle__supportsExtension, sigval1);
+		bool callback_return_value = vtbl->supportsExtension(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QWebPage_virtualbase_supportsExtension(const void* self, int extension);
+	friend bool QWebPage_virtualbase_supportsExtension(const VirtualQWebPage* self, int extension);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__shouldInterruptJavaScript = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool shouldInterruptJavaScript() override {
-		if (handle__shouldInterruptJavaScript == 0) {
+		if (vtbl->shouldInterruptJavaScript == 0) {
 			return QWebPage::shouldInterruptJavaScript();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QWebPage_shouldInterruptJavaScript(this, handle__shouldInterruptJavaScript);
+		bool callback_return_value = vtbl->shouldInterruptJavaScript(this);
 		return callback_return_value;
 	}
 
-	friend bool QWebPage_virtualbase_shouldInterruptJavaScript(void* self);
+	friend bool QWebPage_virtualbase_shouldInterruptJavaScript(VirtualQWebPage* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__createWindow = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QWebPage* createWindow(QWebPage::WebWindowType type) override {
-		if (handle__createWindow == 0) {
+		if (vtbl->createWindow == 0) {
 			return QWebPage::createWindow(type);
 		}
 
 		QWebPage::WebWindowType type_ret = type;
 		int sigval1 = static_cast<int>(type_ret);
-		QWebPage* callback_return_value = miqt_exec_callback_QWebPage_createWindow(this, handle__createWindow, sigval1);
+		QWebPage* callback_return_value = vtbl->createWindow(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QWebPage* QWebPage_virtualbase_createWindow(void* self, int type);
+	friend QWebPage* QWebPage_virtualbase_createWindow(VirtualQWebPage* self, int type);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__createPlugin = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QObject* createPlugin(const QString& classid, const QUrl& url, const QStringList& paramNames, const QStringList& paramValues) override {
-		if (handle__createPlugin == 0) {
+		if (vtbl->createPlugin == 0) {
 			return QWebPage::createPlugin(classid, url, paramNames, paramValues);
 		}
 
@@ -318,18 +269,14 @@ public:
 		paramValues_out.len = paramValues_ret.length();
 		paramValues_out.data = static_cast<void*>(paramValues_arr);
 		struct seaqt_array /* of struct seaqt_string */  sigval4 = paramValues_out;
-		QObject* callback_return_value = miqt_exec_callback_QWebPage_createPlugin(this, handle__createPlugin, sigval1, sigval2, sigval3, sigval4);
+		QObject* callback_return_value = vtbl->createPlugin(this, sigval1, sigval2, sigval3, sigval4);
 		return callback_return_value;
 	}
 
-	friend QObject* QWebPage_virtualbase_createPlugin(void* self, struct seaqt_string classid, QUrl* url, struct seaqt_array /* of struct seaqt_string */  paramNames, struct seaqt_array /* of struct seaqt_string */  paramValues);
+	friend QObject* QWebPage_virtualbase_createPlugin(VirtualQWebPage* self, struct seaqt_string classid, QUrl* url, struct seaqt_array /* of struct seaqt_string */  paramNames, struct seaqt_array /* of struct seaqt_string */  paramValues);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__acceptNavigationRequest = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool acceptNavigationRequest(QWebFrame* frame, const QNetworkRequest& request, QWebPage::NavigationType type) override {
-		if (handle__acceptNavigationRequest == 0) {
+		if (vtbl->acceptNavigationRequest == 0) {
 			return QWebPage::acceptNavigationRequest(frame, request, type);
 		}
 
@@ -339,18 +286,14 @@ public:
 		QNetworkRequest* sigval2 = const_cast<QNetworkRequest*>(&request_ret);
 		QWebPage::NavigationType type_ret = type;
 		int sigval3 = static_cast<int>(type_ret);
-		bool callback_return_value = miqt_exec_callback_QWebPage_acceptNavigationRequest(this, handle__acceptNavigationRequest, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->acceptNavigationRequest(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QWebPage_virtualbase_acceptNavigationRequest(void* self, QWebFrame* frame, QNetworkRequest* request, int type);
+	friend bool QWebPage_virtualbase_acceptNavigationRequest(VirtualQWebPage* self, QWebFrame* frame, QNetworkRequest* request, int type);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__chooseFile = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString chooseFile(QWebFrame* originatingFrame, const QString& oldFile) override {
-		if (handle__chooseFile == 0) {
+		if (vtbl->chooseFile == 0) {
 			return QWebPage::chooseFile(originatingFrame, oldFile);
 		}
 
@@ -363,19 +306,15 @@ public:
 		oldFile_ms.data = static_cast<char*>(malloc(oldFile_ms.len));
 		memcpy(oldFile_ms.data, oldFile_b.data(), oldFile_ms.len);
 		struct seaqt_string sigval2 = oldFile_ms;
-		struct seaqt_string callback_return_value = miqt_exec_callback_QWebPage_chooseFile(this, handle__chooseFile, sigval1, sigval2);
+		struct seaqt_string callback_return_value = vtbl->chooseFile(this, sigval1, sigval2);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	friend struct seaqt_string QWebPage_virtualbase_chooseFile(void* self, QWebFrame* originatingFrame, struct seaqt_string oldFile);
+	friend struct seaqt_string QWebPage_virtualbase_chooseFile(VirtualQWebPage* self, QWebFrame* originatingFrame, struct seaqt_string oldFile);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__javaScriptAlert = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void javaScriptAlert(QWebFrame* originatingFrame, const QString& msg) override {
-		if (handle__javaScriptAlert == 0) {
+		if (vtbl->javaScriptAlert == 0) {
 			QWebPage::javaScriptAlert(originatingFrame, msg);
 			return;
 		}
@@ -389,18 +328,13 @@ public:
 		msg_ms.data = static_cast<char*>(malloc(msg_ms.len));
 		memcpy(msg_ms.data, msg_b.data(), msg_ms.len);
 		struct seaqt_string sigval2 = msg_ms;
-		miqt_exec_callback_QWebPage_javaScriptAlert(this, handle__javaScriptAlert, sigval1, sigval2);
-
+		vtbl->javaScriptAlert(this, sigval1, sigval2);
 	}
 
-	friend void QWebPage_virtualbase_javaScriptAlert(void* self, QWebFrame* originatingFrame, struct seaqt_string msg);
+	friend void QWebPage_virtualbase_javaScriptAlert(VirtualQWebPage* self, QWebFrame* originatingFrame, struct seaqt_string msg);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__javaScriptConfirm = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool javaScriptConfirm(QWebFrame* originatingFrame, const QString& msg) override {
-		if (handle__javaScriptConfirm == 0) {
+		if (vtbl->javaScriptConfirm == 0) {
 			return QWebPage::javaScriptConfirm(originatingFrame, msg);
 		}
 
@@ -413,18 +347,14 @@ public:
 		msg_ms.data = static_cast<char*>(malloc(msg_ms.len));
 		memcpy(msg_ms.data, msg_b.data(), msg_ms.len);
 		struct seaqt_string sigval2 = msg_ms;
-		bool callback_return_value = miqt_exec_callback_QWebPage_javaScriptConfirm(this, handle__javaScriptConfirm, sigval1, sigval2);
+		bool callback_return_value = vtbl->javaScriptConfirm(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QWebPage_virtualbase_javaScriptConfirm(void* self, QWebFrame* originatingFrame, struct seaqt_string msg);
+	friend bool QWebPage_virtualbase_javaScriptConfirm(VirtualQWebPage* self, QWebFrame* originatingFrame, struct seaqt_string msg);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__javaScriptConsoleMessage = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void javaScriptConsoleMessage(const QString& message, int lineNumber, const QString& sourceID) override {
-		if (handle__javaScriptConsoleMessage == 0) {
+		if (vtbl->javaScriptConsoleMessage == 0) {
 			QWebPage::javaScriptConsoleMessage(message, lineNumber, sourceID);
 			return;
 		}
@@ -446,105 +376,77 @@ public:
 		sourceID_ms.data = static_cast<char*>(malloc(sourceID_ms.len));
 		memcpy(sourceID_ms.data, sourceID_b.data(), sourceID_ms.len);
 		struct seaqt_string sigval3 = sourceID_ms;
-		miqt_exec_callback_QWebPage_javaScriptConsoleMessage(this, handle__javaScriptConsoleMessage, sigval1, sigval2, sigval3);
-
+		vtbl->javaScriptConsoleMessage(this, sigval1, sigval2, sigval3);
 	}
 
-	friend void QWebPage_virtualbase_javaScriptConsoleMessage(void* self, struct seaqt_string message, int lineNumber, struct seaqt_string sourceID);
+	friend void QWebPage_virtualbase_javaScriptConsoleMessage(VirtualQWebPage* self, struct seaqt_string message, int lineNumber, struct seaqt_string sourceID);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__userAgentForUrl = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString userAgentForUrl(const QUrl& url) const override {
-		if (handle__userAgentForUrl == 0) {
+		if (vtbl->userAgentForUrl == 0) {
 			return QWebPage::userAgentForUrl(url);
 		}
 
 		const QUrl& url_ret = url;
 		// Cast returned reference into pointer
 		QUrl* sigval1 = const_cast<QUrl*>(&url_ret);
-		struct seaqt_string callback_return_value = miqt_exec_callback_QWebPage_userAgentForUrl(this, handle__userAgentForUrl, sigval1);
+		struct seaqt_string callback_return_value = vtbl->userAgentForUrl(this, sigval1);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	friend struct seaqt_string QWebPage_virtualbase_userAgentForUrl(const void* self, QUrl* url);
+	friend struct seaqt_string QWebPage_virtualbase_userAgentForUrl(const VirtualQWebPage* self, QUrl* url);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QWebPage::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QWebPage_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QWebPage_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QWebPage_virtualbase_eventFilter(VirtualQWebPage* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QWebPage::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QWebPage_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QWebPage_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QWebPage_virtualbase_timerEvent(VirtualQWebPage* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QWebPage::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QWebPage_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QWebPage_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QWebPage_virtualbase_childEvent(VirtualQWebPage* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QWebPage::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QWebPage_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QWebPage_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QWebPage_virtualbase_customEvent(VirtualQWebPage* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QWebPage::connectNotify(signal);
 			return;
 		}
@@ -552,18 +454,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QWebPage_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QWebPage_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QWebPage_virtualbase_connectNotify(VirtualQWebPage* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QWebPage::disconnectNotify(signal);
 			return;
 		}
@@ -571,25 +468,26 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QWebPage_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QWebPage_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QWebPage_virtualbase_disconnectNotify(VirtualQWebPage* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QWebPage_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QWebPage_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QWebPage_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QWebPage_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QWebPage_protectedbase_sender(const VirtualQWebPage* self);
+	friend int QWebPage_protectedbase_senderSignalIndex(const VirtualQWebPage* self);
+	friend int QWebPage_protectedbase_receivers(const VirtualQWebPage* self, const char* signal);
+	friend bool QWebPage_protectedbase_isSignalConnected(const VirtualQWebPage* self, QMetaMethod* signal);
 };
 
-QWebPage* QWebPage_new() {
-	return new (std::nothrow) VirtualQWebPage();
+VirtualQWebPage* QWebPage_new(const QWebPage_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWebPage>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWebPage(vtbl) : nullptr;
 }
 
-QWebPage* QWebPage_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQWebPage(parent);
+VirtualQWebPage* QWebPage_new2(const QWebPage_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWebPage>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWebPage(vtbl, parent) : nullptr;
 }
 
 void QWebPage_virtbase(QWebPage* src, QObject** outptr_QObject) {
@@ -1356,143 +1254,55 @@ bool QWebPage_findText2(QWebPage* self, struct seaqt_string subString, int optio
 }
 
 const QMetaObject* QWebPage_staticMetaObject() { return &QWebPage::staticMetaObject; }
-bool QWebPage_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QWebPage_vdata(VirtualQWebPage* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQWebPage>()); }
+VirtualQWebPage* vdata_QWebPage(void* vdata) { return reinterpret_cast<VirtualQWebPage*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQWebPage>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QWebPage_virtualbase_metaObject(const VirtualQWebPage* self) {
+
+	return (QMetaObject*) self->QWebPage::metaObject();
 }
 
-QMetaObject* QWebPage_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQWebPage*>(self)->QWebPage::metaObject();
+void* QWebPage_virtualbase_metacast(VirtualQWebPage* self, const char* param1) {
+
+	return self->QWebPage::qt_metacast(param1);
 }
 
-bool QWebPage_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QWebPage_virtualbase_metacall(VirtualQWebPage* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QWebPage::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QWebPage_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQWebPage*>(self)->QWebPage::qt_metacast(param1);
+void QWebPage_virtualbase_triggerAction(VirtualQWebPage* self, int action, bool checked) {
+
+	self->QWebPage::triggerAction(static_cast<VirtualQWebPage::WebAction>(action), checked);
 }
 
-bool QWebPage_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QWebPage_virtualbase_event(VirtualQWebPage* self, QEvent* param1) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QWebPage::event(param1);
 }
 
-int QWebPage_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQWebPage*>(self)->QWebPage::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+bool QWebPage_virtualbase_extension(VirtualQWebPage* self, int extension, QWebPage__ExtensionOption* option, QWebPage__ExtensionReturn* output) {
+
+	return self->QWebPage::extension(static_cast<VirtualQWebPage::Extension>(extension), option, output);
 }
 
-bool QWebPage_override_virtual_triggerAction(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QWebPage_virtualbase_supportsExtension(const VirtualQWebPage* self, int extension) {
 
-	self_cast->handle__triggerAction = slot;
-	return true;
+	return self->QWebPage::supportsExtension(static_cast<VirtualQWebPage::Extension>(extension));
 }
 
-void QWebPage_virtualbase_triggerAction(void* self, int action, bool checked) {
-	static_cast<VirtualQWebPage*>(self)->QWebPage::triggerAction(static_cast<VirtualQWebPage::WebAction>(action), checked);
+bool QWebPage_virtualbase_shouldInterruptJavaScript(VirtualQWebPage* self) {
+
+	return self->QWebPage::shouldInterruptJavaScript();
 }
 
-bool QWebPage_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QWebPage* QWebPage_virtualbase_createWindow(VirtualQWebPage* self, int type) {
 
-	self_cast->handle__event = slot;
-	return true;
+	return self->QWebPage::createWindow(static_cast<VirtualQWebPage::WebWindowType>(type));
 }
 
-bool QWebPage_virtualbase_event(void* self, QEvent* param1) {
-	return static_cast<VirtualQWebPage*>(self)->QWebPage::event(param1);
-}
-
-bool QWebPage_override_virtual_extension(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__extension = slot;
-	return true;
-}
-
-bool QWebPage_virtualbase_extension(void* self, int extension, QWebPage__ExtensionOption* option, QWebPage__ExtensionReturn* output) {
-	return static_cast<VirtualQWebPage*>(self)->QWebPage::extension(static_cast<VirtualQWebPage::Extension>(extension), option, output);
-}
-
-bool QWebPage_override_virtual_supportsExtension(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__supportsExtension = slot;
-	return true;
-}
-
-bool QWebPage_virtualbase_supportsExtension(const void* self, int extension) {
-	return static_cast<const VirtualQWebPage*>(self)->QWebPage::supportsExtension(static_cast<VirtualQWebPage::Extension>(extension));
-}
-
-bool QWebPage_override_virtual_shouldInterruptJavaScript(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__shouldInterruptJavaScript = slot;
-	return true;
-}
-
-bool QWebPage_virtualbase_shouldInterruptJavaScript(void* self) {
-	return static_cast<VirtualQWebPage*>(self)->QWebPage::shouldInterruptJavaScript();
-}
-
-bool QWebPage_override_virtual_createWindow(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__createWindow = slot;
-	return true;
-}
-
-QWebPage* QWebPage_virtualbase_createWindow(void* self, int type) {
-	return static_cast<VirtualQWebPage*>(self)->QWebPage::createWindow(static_cast<VirtualQWebPage::WebWindowType>(type));
-}
-
-bool QWebPage_override_virtual_createPlugin(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__createPlugin = slot;
-	return true;
-}
-
-QObject* QWebPage_virtualbase_createPlugin(void* self, struct seaqt_string classid, QUrl* url, struct seaqt_array /* of struct seaqt_string */  paramNames, struct seaqt_array /* of struct seaqt_string */  paramValues) {
+QObject* QWebPage_virtualbase_createPlugin(VirtualQWebPage* self, struct seaqt_string classid, QUrl* url, struct seaqt_array /* of struct seaqt_string */  paramNames, struct seaqt_array /* of struct seaqt_string */  paramValues) {
 	QString classid_QString = QString::fromUtf8(classid.data, classid.len);
 	QStringList paramNames_QList;
 	paramNames_QList.reserve(paramNames.len);
@@ -1508,36 +1318,19 @@ QObject* QWebPage_virtualbase_createPlugin(void* self, struct seaqt_string class
 		QString paramValues_arr_i_QString = QString::fromUtf8(paramValues_arr[i].data, paramValues_arr[i].len);
 		paramValues_QList.push_back(paramValues_arr_i_QString);
 	}
-	return static_cast<VirtualQWebPage*>(self)->QWebPage::createPlugin(classid_QString, *url, paramNames_QList, paramValues_QList);
+
+	return self->QWebPage::createPlugin(classid_QString, *url, paramNames_QList, paramValues_QList);
 }
 
-bool QWebPage_override_virtual_acceptNavigationRequest(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QWebPage_virtualbase_acceptNavigationRequest(VirtualQWebPage* self, QWebFrame* frame, QNetworkRequest* request, int type) {
 
-	self_cast->handle__acceptNavigationRequest = slot;
-	return true;
+	return self->QWebPage::acceptNavigationRequest(frame, *request, static_cast<VirtualQWebPage::NavigationType>(type));
 }
 
-bool QWebPage_virtualbase_acceptNavigationRequest(void* self, QWebFrame* frame, QNetworkRequest* request, int type) {
-	return static_cast<VirtualQWebPage*>(self)->QWebPage::acceptNavigationRequest(frame, *request, static_cast<VirtualQWebPage::NavigationType>(type));
-}
-
-bool QWebPage_override_virtual_chooseFile(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__chooseFile = slot;
-	return true;
-}
-
-struct seaqt_string QWebPage_virtualbase_chooseFile(void* self, QWebFrame* originatingFrame, struct seaqt_string oldFile) {
+struct seaqt_string QWebPage_virtualbase_chooseFile(VirtualQWebPage* self, QWebFrame* originatingFrame, struct seaqt_string oldFile) {
 	QString oldFile_QString = QString::fromUtf8(oldFile.data, oldFile.len);
-	QString _ret = static_cast<VirtualQWebPage*>(self)->QWebPage::chooseFile(originatingFrame, oldFile_QString);
+
+	QString _ret = self->QWebPage::chooseFile(originatingFrame, oldFile_QString);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
 	QByteArray _b = _ret.toUtf8();
 	struct seaqt_string _ms;
@@ -1547,64 +1340,28 @@ struct seaqt_string QWebPage_virtualbase_chooseFile(void* self, QWebFrame* origi
 	return _ms;
 }
 
-bool QWebPage_override_virtual_javaScriptAlert(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__javaScriptAlert = slot;
-	return true;
-}
-
-void QWebPage_virtualbase_javaScriptAlert(void* self, QWebFrame* originatingFrame, struct seaqt_string msg) {
+void QWebPage_virtualbase_javaScriptAlert(VirtualQWebPage* self, QWebFrame* originatingFrame, struct seaqt_string msg) {
 	QString msg_QString = QString::fromUtf8(msg.data, msg.len);
-	static_cast<VirtualQWebPage*>(self)->QWebPage::javaScriptAlert(originatingFrame, msg_QString);
+
+	self->QWebPage::javaScriptAlert(originatingFrame, msg_QString);
 }
 
-bool QWebPage_override_virtual_javaScriptConfirm(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__javaScriptConfirm = slot;
-	return true;
-}
-
-bool QWebPage_virtualbase_javaScriptConfirm(void* self, QWebFrame* originatingFrame, struct seaqt_string msg) {
+bool QWebPage_virtualbase_javaScriptConfirm(VirtualQWebPage* self, QWebFrame* originatingFrame, struct seaqt_string msg) {
 	QString msg_QString = QString::fromUtf8(msg.data, msg.len);
-	return static_cast<VirtualQWebPage*>(self)->QWebPage::javaScriptConfirm(originatingFrame, msg_QString);
+
+	return self->QWebPage::javaScriptConfirm(originatingFrame, msg_QString);
 }
 
-bool QWebPage_override_virtual_javaScriptConsoleMessage(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__javaScriptConsoleMessage = slot;
-	return true;
-}
-
-void QWebPage_virtualbase_javaScriptConsoleMessage(void* self, struct seaqt_string message, int lineNumber, struct seaqt_string sourceID) {
+void QWebPage_virtualbase_javaScriptConsoleMessage(VirtualQWebPage* self, struct seaqt_string message, int lineNumber, struct seaqt_string sourceID) {
 	QString message_QString = QString::fromUtf8(message.data, message.len);
 	QString sourceID_QString = QString::fromUtf8(sourceID.data, sourceID.len);
-	static_cast<VirtualQWebPage*>(self)->QWebPage::javaScriptConsoleMessage(message_QString, static_cast<int>(lineNumber), sourceID_QString);
+
+	self->QWebPage::javaScriptConsoleMessage(message_QString, static_cast<int>(lineNumber), sourceID_QString);
 }
 
-bool QWebPage_override_virtual_userAgentForUrl(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+struct seaqt_string QWebPage_virtualbase_userAgentForUrl(const VirtualQWebPage* self, QUrl* url) {
 
-	self_cast->handle__userAgentForUrl = slot;
-	return true;
-}
-
-struct seaqt_string QWebPage_virtualbase_userAgentForUrl(const void* self, QUrl* url) {
-	QString _ret = static_cast<const VirtualQWebPage*>(self)->QWebPage::userAgentForUrl(*url);
+	QString _ret = self->QWebPage::userAgentForUrl(*url);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
 	QByteArray _b = _ret.toUtf8();
 	struct seaqt_string _ms;
@@ -1614,132 +1371,50 @@ struct seaqt_string QWebPage_virtualbase_userAgentForUrl(const void* self, QUrl*
 	return _ms;
 }
 
-bool QWebPage_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QWebPage_virtualbase_eventFilter(VirtualQWebPage* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	return self->QWebPage::eventFilter(watched, event);
 }
 
-bool QWebPage_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQWebPage*>(self)->QWebPage::eventFilter(watched, event);
+void QWebPage_virtualbase_timerEvent(VirtualQWebPage* self, QTimerEvent* event) {
+
+	self->QWebPage::timerEvent(event);
 }
 
-bool QWebPage_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebPage_virtualbase_childEvent(VirtualQWebPage* self, QChildEvent* event) {
 
-	self_cast->handle__timerEvent = slot;
-	return true;
+	self->QWebPage::childEvent(event);
 }
 
-void QWebPage_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQWebPage*>(self)->QWebPage::timerEvent(event);
+void QWebPage_virtualbase_customEvent(VirtualQWebPage* self, QEvent* event) {
+
+	self->QWebPage::customEvent(event);
 }
 
-bool QWebPage_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebPage_virtualbase_connectNotify(VirtualQWebPage* self, QMetaMethod* signal) {
 
-	self_cast->handle__childEvent = slot;
-	return true;
+	self->QWebPage::connectNotify(*signal);
 }
 
-void QWebPage_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQWebPage*>(self)->QWebPage::childEvent(event);
+void QWebPage_virtualbase_disconnectNotify(VirtualQWebPage* self, QMetaMethod* signal) {
+
+	self->QWebPage::disconnectNotify(*signal);
 }
 
-bool QWebPage_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
+QObject* QWebPage_protectedbase_sender(const VirtualQWebPage* self) {
+	return self->sender();
 }
 
-void QWebPage_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQWebPage*>(self)->QWebPage::customEvent(event);
+int QWebPage_protectedbase_senderSignalIndex(const VirtualQWebPage* self) {
+	return self->senderSignalIndex();
 }
 
-bool QWebPage_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
+int QWebPage_protectedbase_receivers(const VirtualQWebPage* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QWebPage_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQWebPage*>(self)->QWebPage::connectNotify(*signal);
-}
-
-bool QWebPage_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QWebPage_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQWebPage*>(self)->QWebPage::disconnectNotify(*signal);
-}
-
-QObject* QWebPage_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QWebPage_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QWebPage_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QWebPage_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQWebPage* self_cast = dynamic_cast<VirtualQWebPage*>( (QWebPage*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QWebPage_protectedbase_isSignalConnected(const VirtualQWebPage* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QWebPage_delete(QWebPage* self) {
@@ -1747,11 +1422,11 @@ void QWebPage_delete(QWebPage* self) {
 }
 
 QWebPage__ViewportAttributes* QWebPage__ViewportAttributes_new() {
-	return new (std::nothrow) QWebPage::ViewportAttributes();
+	return new (std::nothrow) QWebPage__ViewportAttributes();
 }
 
 QWebPage__ViewportAttributes* QWebPage__ViewportAttributes_new2(QWebPage__ViewportAttributes* other) {
-	return new (std::nothrow) QWebPage::ViewportAttributes(*other);
+	return new (std::nothrow) QWebPage__ViewportAttributes(*other);
 }
 
 void QWebPage__ViewportAttributes_operatorAssign(QWebPage__ViewportAttributes* self, QWebPage__ViewportAttributes* other) {
@@ -1795,7 +1470,7 @@ void QWebPage__ViewportAttributes_delete(QWebPage__ViewportAttributes* self) {
 }
 
 QWebPage__ExtensionOption* QWebPage__ExtensionOption_new(QWebPage__ExtensionOption* param1) {
-	return new (std::nothrow) QWebPage::ExtensionOption(*param1);
+	return new (std::nothrow) QWebPage__ExtensionOption(*param1);
 }
 
 void QWebPage__ExtensionOption_delete(QWebPage__ExtensionOption* self) {
@@ -1803,11 +1478,11 @@ void QWebPage__ExtensionOption_delete(QWebPage__ExtensionOption* self) {
 }
 
 QWebPage__ExtensionReturn* QWebPage__ExtensionReturn_new(QWebPage__ExtensionReturn* param1) {
-	return new (std::nothrow) QWebPage::ExtensionReturn(*param1);
+	return new (std::nothrow) QWebPage__ExtensionReturn(*param1);
 }
 
 QWebPage__ExtensionReturn* QWebPage__ExtensionReturn_new2() {
-	return new (std::nothrow) QWebPage::ExtensionReturn();
+	return new (std::nothrow) QWebPage__ExtensionReturn();
 }
 
 void QWebPage__ExtensionReturn_delete(QWebPage__ExtensionReturn* self) {
@@ -1831,7 +1506,7 @@ void QWebPage__ChooseMultipleFilesExtensionReturn_delete(QWebPage__ChooseMultipl
 }
 
 QWebPage__ErrorPageExtensionOption* QWebPage__ErrorPageExtensionOption_new(QWebPage__ErrorPageExtensionOption* param1) {
-	return new (std::nothrow) QWebPage::ErrorPageExtensionOption(*param1);
+	return new (std::nothrow) QWebPage__ErrorPageExtensionOption(*param1);
 }
 
 void QWebPage__ErrorPageExtensionOption_virtbase(QWebPage__ErrorPageExtensionOption* src, QWebPage::ExtensionOption** outptr_QWebPage__ExtensionOption) {
@@ -1847,11 +1522,11 @@ void QWebPage__ErrorPageExtensionOption_delete(QWebPage__ErrorPageExtensionOptio
 }
 
 QWebPage__ErrorPageExtensionReturn* QWebPage__ErrorPageExtensionReturn_new() {
-	return new (std::nothrow) QWebPage::ErrorPageExtensionReturn();
+	return new (std::nothrow) QWebPage__ErrorPageExtensionReturn();
 }
 
 QWebPage__ErrorPageExtensionReturn* QWebPage__ErrorPageExtensionReturn_new2(QWebPage__ErrorPageExtensionReturn* param1) {
-	return new (std::nothrow) QWebPage::ErrorPageExtensionReturn(*param1);
+	return new (std::nothrow) QWebPage__ErrorPageExtensionReturn(*param1);
 }
 
 void QWebPage__ErrorPageExtensionReturn_virtbase(QWebPage__ErrorPageExtensionReturn* src, QWebPage::ExtensionReturn** outptr_QWebPage__ExtensionReturn) {

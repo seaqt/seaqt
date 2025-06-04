@@ -26,6 +26,7 @@ QUuid* QUuid_new3(struct seaqt_string param1);
 QUuid* QUuid_new4(const char* param1);
 QUuid* QUuid_new5(struct seaqt_string param1);
 QUuid* QUuid_new6(QUuid* param1);
+
 struct seaqt_string QUuid_toString(const QUuid* self);
 struct seaqt_string QUuid_toStringWithMode(const QUuid* self, int mode);
 struct seaqt_string QUuid_toByteArray(const QUuid* self);

@@ -30,7 +30,18 @@ typedef struct QSGSimpleTextureNode QSGSimpleTextureNode;
 typedef struct QSGTexture QSGTexture;
 #endif
 
-QSGSimpleTextureNode* QSGSimpleTextureNode_new();
+typedef struct VirtualQSGSimpleTextureNode VirtualQSGSimpleTextureNode;
+typedef struct QSGSimpleTextureNode_VTable{
+	void (*destructor)(VirtualQSGSimpleTextureNode* self);
+	bool (*isSubtreeBlocked)(const VirtualQSGSimpleTextureNode* self);
+	void (*preprocess)(VirtualQSGSimpleTextureNode* self);
+}QSGSimpleTextureNode_VTable;
+
+void* QSGSimpleTextureNode_vdata(VirtualQSGSimpleTextureNode* self);
+VirtualQSGSimpleTextureNode* vdata_QSGSimpleTextureNode(void* vdata);
+
+VirtualQSGSimpleTextureNode* QSGSimpleTextureNode_new(const QSGSimpleTextureNode_VTable* vtbl, size_t vdata);
+
 void QSGSimpleTextureNode_virtbase(QSGSimpleTextureNode* src, QSGGeometryNode** outptr_QSGGeometryNode);
 void QSGSimpleTextureNode_setRect(QSGSimpleTextureNode* self, QRectF* rect);
 void QSGSimpleTextureNode_setRect2(QSGSimpleTextureNode* self, double x, double y, double w, double h);
@@ -47,10 +58,8 @@ int QSGSimpleTextureNode_textureCoordinatesTransform(const QSGSimpleTextureNode*
 void QSGSimpleTextureNode_setOwnsTexture(QSGSimpleTextureNode* self, bool owns);
 bool QSGSimpleTextureNode_ownsTexture(const QSGSimpleTextureNode* self);
 
-bool QSGSimpleTextureNode_override_virtual_isSubtreeBlocked(void* self, intptr_t slot);
-bool QSGSimpleTextureNode_virtualbase_isSubtreeBlocked(const void* self);
-bool QSGSimpleTextureNode_override_virtual_preprocess(void* self, intptr_t slot);
-void QSGSimpleTextureNode_virtualbase_preprocess(void* self);
+bool QSGSimpleTextureNode_virtualbase_isSubtreeBlocked(const VirtualQSGSimpleTextureNode* self);
+void QSGSimpleTextureNode_virtualbase_preprocess(VirtualQSGSimpleTextureNode* self);
 
 void QSGSimpleTextureNode_delete(QSGSimpleTextureNode* self);
 

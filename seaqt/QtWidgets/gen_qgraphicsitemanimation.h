@@ -42,8 +42,29 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QTransform QTransform;
 #endif
 
-QGraphicsItemAnimation* QGraphicsItemAnimation_new();
-QGraphicsItemAnimation* QGraphicsItemAnimation_new2(QObject* parent);
+typedef struct VirtualQGraphicsItemAnimation VirtualQGraphicsItemAnimation;
+typedef struct QGraphicsItemAnimation_VTable{
+	void (*destructor)(VirtualQGraphicsItemAnimation* self);
+	QMetaObject* (*metaObject)(const VirtualQGraphicsItemAnimation* self);
+	void* (*metacast)(VirtualQGraphicsItemAnimation* self, const char* param1);
+	int (*metacall)(VirtualQGraphicsItemAnimation* self, int param1, int param2, void** param3);
+	void (*beforeAnimationStep)(VirtualQGraphicsItemAnimation* self, double step);
+	void (*afterAnimationStep)(VirtualQGraphicsItemAnimation* self, double step);
+	bool (*event)(VirtualQGraphicsItemAnimation* self, QEvent* event);
+	bool (*eventFilter)(VirtualQGraphicsItemAnimation* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQGraphicsItemAnimation* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQGraphicsItemAnimation* self, QChildEvent* event);
+	void (*customEvent)(VirtualQGraphicsItemAnimation* self, QEvent* event);
+	void (*connectNotify)(VirtualQGraphicsItemAnimation* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQGraphicsItemAnimation* self, QMetaMethod* signal);
+}QGraphicsItemAnimation_VTable;
+
+void* QGraphicsItemAnimation_vdata(VirtualQGraphicsItemAnimation* self);
+VirtualQGraphicsItemAnimation* vdata_QGraphicsItemAnimation(void* vdata);
+
+VirtualQGraphicsItemAnimation* QGraphicsItemAnimation_new(const QGraphicsItemAnimation_VTable* vtbl, size_t vdata);
+VirtualQGraphicsItemAnimation* QGraphicsItemAnimation_new2(const QGraphicsItemAnimation_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QGraphicsItemAnimation_virtbase(QGraphicsItemAnimation* src, QObject** outptr_QObject);
 QMetaObject* QGraphicsItemAnimation_metaObject(const QGraphicsItemAnimation* self);
 void* QGraphicsItemAnimation_metacast(QGraphicsItemAnimation* self, const char* param1);
@@ -84,35 +105,23 @@ struct seaqt_string QGraphicsItemAnimation_tr3(const char* s, const char* c, int
 struct seaqt_string QGraphicsItemAnimation_trUtf82(const char* s, const char* c);
 struct seaqt_string QGraphicsItemAnimation_trUtf83(const char* s, const char* c, int n);
 
-bool QGraphicsItemAnimation_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QGraphicsItemAnimation_virtualbase_metaObject(const void* self);
-bool QGraphicsItemAnimation_override_virtual_metacast(void* self, intptr_t slot);
-void* QGraphicsItemAnimation_virtualbase_metacast(void* self, const char* param1);
-bool QGraphicsItemAnimation_override_virtual_metacall(void* self, intptr_t slot);
-int QGraphicsItemAnimation_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QGraphicsItemAnimation_override_virtual_beforeAnimationStep(void* self, intptr_t slot);
-void QGraphicsItemAnimation_virtualbase_beforeAnimationStep(void* self, double step);
-bool QGraphicsItemAnimation_override_virtual_afterAnimationStep(void* self, intptr_t slot);
-void QGraphicsItemAnimation_virtualbase_afterAnimationStep(void* self, double step);
-bool QGraphicsItemAnimation_override_virtual_event(void* self, intptr_t slot);
-bool QGraphicsItemAnimation_virtualbase_event(void* self, QEvent* event);
-bool QGraphicsItemAnimation_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QGraphicsItemAnimation_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QGraphicsItemAnimation_override_virtual_timerEvent(void* self, intptr_t slot);
-void QGraphicsItemAnimation_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QGraphicsItemAnimation_override_virtual_childEvent(void* self, intptr_t slot);
-void QGraphicsItemAnimation_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QGraphicsItemAnimation_override_virtual_customEvent(void* self, intptr_t slot);
-void QGraphicsItemAnimation_virtualbase_customEvent(void* self, QEvent* event);
-bool QGraphicsItemAnimation_override_virtual_connectNotify(void* self, intptr_t slot);
-void QGraphicsItemAnimation_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QGraphicsItemAnimation_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QGraphicsItemAnimation_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QGraphicsItemAnimation_virtualbase_metaObject(const VirtualQGraphicsItemAnimation* self);
+void* QGraphicsItemAnimation_virtualbase_metacast(VirtualQGraphicsItemAnimation* self, const char* param1);
+int QGraphicsItemAnimation_virtualbase_metacall(VirtualQGraphicsItemAnimation* self, int param1, int param2, void** param3);
+void QGraphicsItemAnimation_virtualbase_beforeAnimationStep(VirtualQGraphicsItemAnimation* self, double step);
+void QGraphicsItemAnimation_virtualbase_afterAnimationStep(VirtualQGraphicsItemAnimation* self, double step);
+bool QGraphicsItemAnimation_virtualbase_event(VirtualQGraphicsItemAnimation* self, QEvent* event);
+bool QGraphicsItemAnimation_virtualbase_eventFilter(VirtualQGraphicsItemAnimation* self, QObject* watched, QEvent* event);
+void QGraphicsItemAnimation_virtualbase_timerEvent(VirtualQGraphicsItemAnimation* self, QTimerEvent* event);
+void QGraphicsItemAnimation_virtualbase_childEvent(VirtualQGraphicsItemAnimation* self, QChildEvent* event);
+void QGraphicsItemAnimation_virtualbase_customEvent(VirtualQGraphicsItemAnimation* self, QEvent* event);
+void QGraphicsItemAnimation_virtualbase_connectNotify(VirtualQGraphicsItemAnimation* self, QMetaMethod* signal);
+void QGraphicsItemAnimation_virtualbase_disconnectNotify(VirtualQGraphicsItemAnimation* self, QMetaMethod* signal);
 
-QObject* QGraphicsItemAnimation_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QGraphicsItemAnimation_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QGraphicsItemAnimation_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QGraphicsItemAnimation_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QGraphicsItemAnimation_protectedbase_sender(const VirtualQGraphicsItemAnimation* self);
+int QGraphicsItemAnimation_protectedbase_senderSignalIndex(const VirtualQGraphicsItemAnimation* self);
+int QGraphicsItemAnimation_protectedbase_receivers(const VirtualQGraphicsItemAnimation* self, const char* signal);
+bool QGraphicsItemAnimation_protectedbase_isSignalConnected(const VirtualQGraphicsItemAnimation* self, QMetaMethod* signal);
 
 const QMetaObject* QGraphicsItemAnimation_staticMetaObject();
 void QGraphicsItemAnimation_delete(QGraphicsItemAnimation* self);

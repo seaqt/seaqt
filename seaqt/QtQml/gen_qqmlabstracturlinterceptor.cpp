@@ -3,28 +3,37 @@
 #include <qqmlabstracturlinterceptor.h>
 #include "gen_qqmlabstracturlinterceptor.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QUrl* miqt_exec_callback_QQmlAbstractUrlInterceptor_intercept(QQmlAbstractUrlInterceptor*, intptr_t, QUrl*, int);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQQmlAbstractUrlInterceptor final : public QQmlAbstractUrlInterceptor {
+	const QQmlAbstractUrlInterceptor_VTable* vtbl;
 public:
+	friend void* QQmlAbstractUrlInterceptor_vdata(VirtualQQmlAbstractUrlInterceptor* self);
+	friend VirtualQQmlAbstractUrlInterceptor* vdata_QQmlAbstractUrlInterceptor(void* vdata);
 
-	VirtualQQmlAbstractUrlInterceptor(): QQmlAbstractUrlInterceptor() {}
+	VirtualQQmlAbstractUrlInterceptor(const QQmlAbstractUrlInterceptor_VTable* vtbl): QQmlAbstractUrlInterceptor(), vtbl(vtbl) {}
 
-	virtual ~VirtualQQmlAbstractUrlInterceptor() override = default;
+	virtual ~VirtualQQmlAbstractUrlInterceptor() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__intercept = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QUrl intercept(const QUrl& path, QQmlAbstractUrlInterceptor::DataType type) override {
-		if (handle__intercept == 0) {
+		if (vtbl->intercept == 0) {
 			return QUrl(); // Pure virtual, there is no base we can call
 		}
 
@@ -33,14 +42,15 @@ public:
 		QUrl* sigval1 = const_cast<QUrl*>(&path_ret);
 		QQmlAbstractUrlInterceptor::DataType type_ret = type;
 		int sigval2 = static_cast<int>(type_ret);
-		QUrl* callback_return_value = miqt_exec_callback_QQmlAbstractUrlInterceptor_intercept(this, handle__intercept, sigval1, sigval2);
+		QUrl* callback_return_value = vtbl->intercept(this, sigval1, sigval2);
 		return *callback_return_value;
 	}
 
 };
 
-QQmlAbstractUrlInterceptor* QQmlAbstractUrlInterceptor_new() {
-	return new (std::nothrow) VirtualQQmlAbstractUrlInterceptor();
+VirtualQQmlAbstractUrlInterceptor* QQmlAbstractUrlInterceptor_new(const QQmlAbstractUrlInterceptor_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlAbstractUrlInterceptor>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlAbstractUrlInterceptor(vtbl) : nullptr;
 }
 
 QUrl* QQmlAbstractUrlInterceptor_intercept(QQmlAbstractUrlInterceptor* self, QUrl* path, int type) {
@@ -51,15 +61,8 @@ void QQmlAbstractUrlInterceptor_operatorAssign(QQmlAbstractUrlInterceptor* self,
 	self->operator=(*param1);
 }
 
-bool QQmlAbstractUrlInterceptor_override_virtual_intercept(void* self, intptr_t slot) {
-	VirtualQQmlAbstractUrlInterceptor* self_cast = dynamic_cast<VirtualQQmlAbstractUrlInterceptor*>( (QQmlAbstractUrlInterceptor*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__intercept = slot;
-	return true;
-}
+void* QQmlAbstractUrlInterceptor_vdata(VirtualQQmlAbstractUrlInterceptor* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQQmlAbstractUrlInterceptor>()); }
+VirtualQQmlAbstractUrlInterceptor* vdata_QQmlAbstractUrlInterceptor(void* vdata) { return reinterpret_cast<VirtualQQmlAbstractUrlInterceptor*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQQmlAbstractUrlInterceptor>()); }
 
 void QQmlAbstractUrlInterceptor_delete(QQmlAbstractUrlInterceptor* self) {
 	delete self;

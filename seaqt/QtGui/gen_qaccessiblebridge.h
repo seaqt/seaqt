@@ -44,8 +44,28 @@ void QAccessibleBridge_operatorAssign(QAccessibleBridge* self, QAccessibleBridge
 
 void QAccessibleBridge_delete(QAccessibleBridge* self);
 
-QAccessibleBridgePlugin* QAccessibleBridgePlugin_new();
-QAccessibleBridgePlugin* QAccessibleBridgePlugin_new2(QObject* parent);
+typedef struct VirtualQAccessibleBridgePlugin VirtualQAccessibleBridgePlugin;
+typedef struct QAccessibleBridgePlugin_VTable{
+	void (*destructor)(VirtualQAccessibleBridgePlugin* self);
+	QMetaObject* (*metaObject)(const VirtualQAccessibleBridgePlugin* self);
+	void* (*metacast)(VirtualQAccessibleBridgePlugin* self, const char* param1);
+	int (*metacall)(VirtualQAccessibleBridgePlugin* self, int param1, int param2, void** param3);
+	QAccessibleBridge* (*create)(VirtualQAccessibleBridgePlugin* self, struct seaqt_string key);
+	bool (*event)(VirtualQAccessibleBridgePlugin* self, QEvent* event);
+	bool (*eventFilter)(VirtualQAccessibleBridgePlugin* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQAccessibleBridgePlugin* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQAccessibleBridgePlugin* self, QChildEvent* event);
+	void (*customEvent)(VirtualQAccessibleBridgePlugin* self, QEvent* event);
+	void (*connectNotify)(VirtualQAccessibleBridgePlugin* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQAccessibleBridgePlugin* self, QMetaMethod* signal);
+}QAccessibleBridgePlugin_VTable;
+
+void* QAccessibleBridgePlugin_vdata(VirtualQAccessibleBridgePlugin* self);
+VirtualQAccessibleBridgePlugin* vdata_QAccessibleBridgePlugin(void* vdata);
+
+VirtualQAccessibleBridgePlugin* QAccessibleBridgePlugin_new(const QAccessibleBridgePlugin_VTable* vtbl, size_t vdata);
+VirtualQAccessibleBridgePlugin* QAccessibleBridgePlugin_new2(const QAccessibleBridgePlugin_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QAccessibleBridgePlugin_virtbase(QAccessibleBridgePlugin* src, QObject** outptr_QObject);
 QMetaObject* QAccessibleBridgePlugin_metaObject(const QAccessibleBridgePlugin* self);
 void* QAccessibleBridgePlugin_metacast(QAccessibleBridgePlugin* self, const char* param1);
@@ -58,33 +78,22 @@ struct seaqt_string QAccessibleBridgePlugin_tr3(const char* s, const char* c, in
 struct seaqt_string QAccessibleBridgePlugin_trUtf82(const char* s, const char* c);
 struct seaqt_string QAccessibleBridgePlugin_trUtf83(const char* s, const char* c, int n);
 
-bool QAccessibleBridgePlugin_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QAccessibleBridgePlugin_virtualbase_metaObject(const void* self);
-bool QAccessibleBridgePlugin_override_virtual_metacast(void* self, intptr_t slot);
-void* QAccessibleBridgePlugin_virtualbase_metacast(void* self, const char* param1);
-bool QAccessibleBridgePlugin_override_virtual_metacall(void* self, intptr_t slot);
-int QAccessibleBridgePlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QAccessibleBridgePlugin_override_virtual_create(void* self, intptr_t slot);
-QAccessibleBridge* QAccessibleBridgePlugin_virtualbase_create(void* self, struct seaqt_string key);
-bool QAccessibleBridgePlugin_override_virtual_event(void* self, intptr_t slot);
-bool QAccessibleBridgePlugin_virtualbase_event(void* self, QEvent* event);
-bool QAccessibleBridgePlugin_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QAccessibleBridgePlugin_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QAccessibleBridgePlugin_override_virtual_timerEvent(void* self, intptr_t slot);
-void QAccessibleBridgePlugin_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QAccessibleBridgePlugin_override_virtual_childEvent(void* self, intptr_t slot);
-void QAccessibleBridgePlugin_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QAccessibleBridgePlugin_override_virtual_customEvent(void* self, intptr_t slot);
-void QAccessibleBridgePlugin_virtualbase_customEvent(void* self, QEvent* event);
-bool QAccessibleBridgePlugin_override_virtual_connectNotify(void* self, intptr_t slot);
-void QAccessibleBridgePlugin_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QAccessibleBridgePlugin_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QAccessibleBridgePlugin_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QAccessibleBridgePlugin_virtualbase_metaObject(const VirtualQAccessibleBridgePlugin* self);
+void* QAccessibleBridgePlugin_virtualbase_metacast(VirtualQAccessibleBridgePlugin* self, const char* param1);
+int QAccessibleBridgePlugin_virtualbase_metacall(VirtualQAccessibleBridgePlugin* self, int param1, int param2, void** param3);
+QAccessibleBridge* QAccessibleBridgePlugin_virtualbase_create(VirtualQAccessibleBridgePlugin* self, struct seaqt_string key);
+bool QAccessibleBridgePlugin_virtualbase_event(VirtualQAccessibleBridgePlugin* self, QEvent* event);
+bool QAccessibleBridgePlugin_virtualbase_eventFilter(VirtualQAccessibleBridgePlugin* self, QObject* watched, QEvent* event);
+void QAccessibleBridgePlugin_virtualbase_timerEvent(VirtualQAccessibleBridgePlugin* self, QTimerEvent* event);
+void QAccessibleBridgePlugin_virtualbase_childEvent(VirtualQAccessibleBridgePlugin* self, QChildEvent* event);
+void QAccessibleBridgePlugin_virtualbase_customEvent(VirtualQAccessibleBridgePlugin* self, QEvent* event);
+void QAccessibleBridgePlugin_virtualbase_connectNotify(VirtualQAccessibleBridgePlugin* self, QMetaMethod* signal);
+void QAccessibleBridgePlugin_virtualbase_disconnectNotify(VirtualQAccessibleBridgePlugin* self, QMetaMethod* signal);
 
-QObject* QAccessibleBridgePlugin_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QAccessibleBridgePlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QAccessibleBridgePlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QAccessibleBridgePlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QAccessibleBridgePlugin_protectedbase_sender(const VirtualQAccessibleBridgePlugin* self);
+int QAccessibleBridgePlugin_protectedbase_senderSignalIndex(const VirtualQAccessibleBridgePlugin* self);
+int QAccessibleBridgePlugin_protectedbase_receivers(const VirtualQAccessibleBridgePlugin* self, const char* signal);
+bool QAccessibleBridgePlugin_protectedbase_isSignalConnected(const VirtualQAccessibleBridgePlugin* self, QMetaMethod* signal);
 
 const QMetaObject* QAccessibleBridgePlugin_staticMetaObject();
 void QAccessibleBridgePlugin_delete(QAccessibleBridgePlugin* self);

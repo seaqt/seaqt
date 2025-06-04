@@ -5,42 +5,49 @@
 #include <qqmlextensioninterface.h>
 #include "gen_qqmlextensioninterface.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void miqt_exec_callback_QQmlTypesExtensionInterface_registerTypes(QQmlTypesExtensionInterface*, intptr_t, const char*);
-void miqt_exec_callback_QQmlExtensionInterface_initializeEngine(QQmlExtensionInterface*, intptr_t, QQmlEngine*, const char*);
-void miqt_exec_callback_QQmlExtensionInterface_registerTypes(QQmlExtensionInterface*, intptr_t, const char*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQQmlTypesExtensionInterface final : public QQmlTypesExtensionInterface {
+	const QQmlTypesExtensionInterface_VTable* vtbl;
 public:
+	friend void* QQmlTypesExtensionInterface_vdata(VirtualQQmlTypesExtensionInterface* self);
+	friend VirtualQQmlTypesExtensionInterface* vdata_QQmlTypesExtensionInterface(void* vdata);
 
-	VirtualQQmlTypesExtensionInterface(const QQmlTypesExtensionInterface& param1): QQmlTypesExtensionInterface(param1) {}
+	VirtualQQmlTypesExtensionInterface(const QQmlTypesExtensionInterface_VTable* vtbl, const QQmlTypesExtensionInterface& param1): QQmlTypesExtensionInterface(param1), vtbl(vtbl) {}
 
-	virtual ~VirtualQQmlTypesExtensionInterface() override = default;
+	virtual ~VirtualQQmlTypesExtensionInterface() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__registerTypes = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void registerTypes(const char* uri) override {
-		if (handle__registerTypes == 0) {
+		if (vtbl->registerTypes == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		const char* sigval1 = (const char*) uri;
-		miqt_exec_callback_QQmlTypesExtensionInterface_registerTypes(this, handle__registerTypes, sigval1);
-
+		vtbl->registerTypes(this, sigval1);
 	}
 
 };
 
-QQmlTypesExtensionInterface* QQmlTypesExtensionInterface_new(QQmlTypesExtensionInterface* param1) {
-	return new (std::nothrow) VirtualQQmlTypesExtensionInterface(*param1);
+VirtualQQmlTypesExtensionInterface* QQmlTypesExtensionInterface_new(const QQmlTypesExtensionInterface_VTable* vtbl, size_t vdata, QQmlTypesExtensionInterface* param1) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlTypesExtensionInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlTypesExtensionInterface(vtbl, *param1) : nullptr;
 }
 
 void QQmlTypesExtensionInterface_registerTypes(QQmlTypesExtensionInterface* self, const char* uri) {
@@ -51,60 +58,47 @@ void QQmlTypesExtensionInterface_operatorAssign(QQmlTypesExtensionInterface* sel
 	self->operator=(*param1);
 }
 
-bool QQmlTypesExtensionInterface_override_virtual_registerTypes(void* self, intptr_t slot) {
-	VirtualQQmlTypesExtensionInterface* self_cast = dynamic_cast<VirtualQQmlTypesExtensionInterface*>( (QQmlTypesExtensionInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__registerTypes = slot;
-	return true;
-}
+void* QQmlTypesExtensionInterface_vdata(VirtualQQmlTypesExtensionInterface* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQQmlTypesExtensionInterface>()); }
+VirtualQQmlTypesExtensionInterface* vdata_QQmlTypesExtensionInterface(void* vdata) { return reinterpret_cast<VirtualQQmlTypesExtensionInterface*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQQmlTypesExtensionInterface>()); }
 
 void QQmlTypesExtensionInterface_delete(QQmlTypesExtensionInterface* self) {
 	delete self;
 }
 
 class VirtualQQmlExtensionInterface final : public QQmlExtensionInterface {
+	const QQmlExtensionInterface_VTable* vtbl;
 public:
+	friend void* QQmlExtensionInterface_vdata(VirtualQQmlExtensionInterface* self);
+	friend VirtualQQmlExtensionInterface* vdata_QQmlExtensionInterface(void* vdata);
 
-	VirtualQQmlExtensionInterface(const QQmlExtensionInterface& param1): QQmlExtensionInterface(param1) {}
+	VirtualQQmlExtensionInterface(const QQmlExtensionInterface_VTable* vtbl, const QQmlExtensionInterface& param1): QQmlExtensionInterface(param1), vtbl(vtbl) {}
 
-	virtual ~VirtualQQmlExtensionInterface() override = default;
+	virtual ~VirtualQQmlExtensionInterface() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__initializeEngine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void initializeEngine(QQmlEngine* engine, const char* uri) override {
-		if (handle__initializeEngine == 0) {
+		if (vtbl->initializeEngine == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		QQmlEngine* sigval1 = engine;
 		const char* sigval2 = (const char*) uri;
-		miqt_exec_callback_QQmlExtensionInterface_initializeEngine(this, handle__initializeEngine, sigval1, sigval2);
-
+		vtbl->initializeEngine(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__registerTypes = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void registerTypes(const char* uri) override {
-		if (handle__registerTypes == 0) {
+		if (vtbl->registerTypes == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		const char* sigval1 = (const char*) uri;
-		miqt_exec_callback_QQmlExtensionInterface_registerTypes(this, handle__registerTypes, sigval1);
-
+		vtbl->registerTypes(this, sigval1);
 	}
 
 };
 
-QQmlExtensionInterface* QQmlExtensionInterface_new(QQmlExtensionInterface* param1) {
-	return new (std::nothrow) VirtualQQmlExtensionInterface(*param1);
+VirtualQQmlExtensionInterface* QQmlExtensionInterface_new(const QQmlExtensionInterface_VTable* vtbl, size_t vdata, QQmlExtensionInterface* param1) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlExtensionInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlExtensionInterface(vtbl, *param1) : nullptr;
 }
 
 void QQmlExtensionInterface_virtbase(QQmlExtensionInterface* src, QQmlTypesExtensionInterface** outptr_QQmlTypesExtensionInterface) {
@@ -119,25 +113,8 @@ void QQmlExtensionInterface_operatorAssign(QQmlExtensionInterface* self, QQmlExt
 	self->operator=(*param1);
 }
 
-bool QQmlExtensionInterface_override_virtual_initializeEngine(void* self, intptr_t slot) {
-	VirtualQQmlExtensionInterface* self_cast = dynamic_cast<VirtualQQmlExtensionInterface*>( (QQmlExtensionInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__initializeEngine = slot;
-	return true;
-}
-
-bool QQmlExtensionInterface_override_virtual_registerTypes(void* self, intptr_t slot) {
-	VirtualQQmlExtensionInterface* self_cast = dynamic_cast<VirtualQQmlExtensionInterface*>( (QQmlExtensionInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__registerTypes = slot;
-	return true;
-}
+void* QQmlExtensionInterface_vdata(VirtualQQmlExtensionInterface* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQQmlExtensionInterface>()); }
+VirtualQQmlExtensionInterface* vdata_QQmlExtensionInterface(void* vdata) { return reinterpret_cast<VirtualQQmlExtensionInterface*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQQmlExtensionInterface>()); }
 
 void QQmlExtensionInterface_delete(QQmlExtensionInterface* self) {
 	delete self;

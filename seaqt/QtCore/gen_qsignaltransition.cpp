@@ -14,75 +14,65 @@
 #include <qsignaltransition.h>
 #include "gen_qsignaltransition.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void miqt_exec_callback_QSignalTransition_senderObjectChanged(intptr_t);
 void miqt_exec_callback_QSignalTransition_signalChanged(intptr_t);
-QMetaObject* miqt_exec_callback_QSignalTransition_metaObject(const QSignalTransition*, intptr_t);
-void* miqt_exec_callback_QSignalTransition_metacast(QSignalTransition*, intptr_t, const char*);
-int miqt_exec_callback_QSignalTransition_metacall(QSignalTransition*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QSignalTransition_eventTest(QSignalTransition*, intptr_t, QEvent*);
-void miqt_exec_callback_QSignalTransition_onTransition(QSignalTransition*, intptr_t, QEvent*);
-bool miqt_exec_callback_QSignalTransition_event(QSignalTransition*, intptr_t, QEvent*);
-bool miqt_exec_callback_QSignalTransition_eventFilter(QSignalTransition*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QSignalTransition_timerEvent(QSignalTransition*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QSignalTransition_childEvent(QSignalTransition*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QSignalTransition_customEvent(QSignalTransition*, intptr_t, QEvent*);
-void miqt_exec_callback_QSignalTransition_connectNotify(QSignalTransition*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QSignalTransition_disconnectNotify(QSignalTransition*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQSignalTransition final : public QSignalTransition {
+	const QSignalTransition_VTable* vtbl;
 public:
+	friend void* QSignalTransition_vdata(VirtualQSignalTransition* self);
+	friend VirtualQSignalTransition* vdata_QSignalTransition(void* vdata);
 
-	VirtualQSignalTransition(): QSignalTransition() {}
-	VirtualQSignalTransition(const QObject* sender, const char* signal): QSignalTransition(sender, signal) {}
-	VirtualQSignalTransition(QState* sourceState): QSignalTransition(sourceState) {}
-	VirtualQSignalTransition(const QObject* sender, const char* signal, QState* sourceState): QSignalTransition(sender, signal, sourceState) {}
+	VirtualQSignalTransition(const QSignalTransition_VTable* vtbl): QSignalTransition(), vtbl(vtbl) {}
+	VirtualQSignalTransition(const QSignalTransition_VTable* vtbl, const QObject* sender, const char* signal): QSignalTransition(sender, signal), vtbl(vtbl) {}
+	VirtualQSignalTransition(const QSignalTransition_VTable* vtbl, QState* sourceState): QSignalTransition(sourceState), vtbl(vtbl) {}
+	VirtualQSignalTransition(const QSignalTransition_VTable* vtbl, const QObject* sender, const char* signal, QState* sourceState): QSignalTransition(sender, signal, sourceState), vtbl(vtbl) {}
 
-	virtual ~VirtualQSignalTransition() override = default;
+	virtual ~VirtualQSignalTransition() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QSignalTransition::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QSignalTransition_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QSignalTransition_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QSignalTransition_virtualbase_metaObject(const VirtualQSignalTransition* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QSignalTransition::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QSignalTransition_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QSignalTransition_virtualbase_metacast(void* self, const char* param1);
+	friend void* QSignalTransition_virtualbase_metacast(VirtualQSignalTransition* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QSignalTransition::qt_metacall(param1, param2, param3);
 		}
 
@@ -90,135 +80,99 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QSignalTransition_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QSignalTransition_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QSignalTransition_virtualbase_metacall(VirtualQSignalTransition* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventTest = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventTest(QEvent* event) override {
-		if (handle__eventTest == 0) {
+		if (vtbl->eventTest == 0) {
 			return QSignalTransition::eventTest(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QSignalTransition_eventTest(this, handle__eventTest, sigval1);
+		bool callback_return_value = vtbl->eventTest(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSignalTransition_virtualbase_eventTest(void* self, QEvent* event);
+	friend bool QSignalTransition_virtualbase_eventTest(VirtualQSignalTransition* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__onTransition = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void onTransition(QEvent* event) override {
-		if (handle__onTransition == 0) {
+		if (vtbl->onTransition == 0) {
 			QSignalTransition::onTransition(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QSignalTransition_onTransition(this, handle__onTransition, sigval1);
-
+		vtbl->onTransition(this, sigval1);
 	}
 
-	friend void QSignalTransition_virtualbase_onTransition(void* self, QEvent* event);
+	friend void QSignalTransition_virtualbase_onTransition(VirtualQSignalTransition* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* e) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QSignalTransition::event(e);
 		}
 
 		QEvent* sigval1 = e;
-		bool callback_return_value = miqt_exec_callback_QSignalTransition_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSignalTransition_virtualbase_event(void* self, QEvent* e);
+	friend bool QSignalTransition_virtualbase_event(VirtualQSignalTransition* self, QEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QSignalTransition::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QSignalTransition_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QSignalTransition_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QSignalTransition_virtualbase_eventFilter(VirtualQSignalTransition* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QSignalTransition::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QSignalTransition_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QSignalTransition_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QSignalTransition_virtualbase_timerEvent(VirtualQSignalTransition* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QSignalTransition::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QSignalTransition_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QSignalTransition_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QSignalTransition_virtualbase_childEvent(VirtualQSignalTransition* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QSignalTransition::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QSignalTransition_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QSignalTransition_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QSignalTransition_virtualbase_customEvent(VirtualQSignalTransition* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QSignalTransition::connectNotify(signal);
 			return;
 		}
@@ -226,18 +180,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSignalTransition_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QSignalTransition_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QSignalTransition_virtualbase_connectNotify(VirtualQSignalTransition* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QSignalTransition::disconnectNotify(signal);
 			return;
 		}
@@ -245,33 +194,36 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSignalTransition_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QSignalTransition_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QSignalTransition_virtualbase_disconnectNotify(VirtualQSignalTransition* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QSignalTransition_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QSignalTransition_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QSignalTransition_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QSignalTransition_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QSignalTransition_protectedbase_sender(const VirtualQSignalTransition* self);
+	friend int QSignalTransition_protectedbase_senderSignalIndex(const VirtualQSignalTransition* self);
+	friend int QSignalTransition_protectedbase_receivers(const VirtualQSignalTransition* self, const char* signal);
+	friend bool QSignalTransition_protectedbase_isSignalConnected(const VirtualQSignalTransition* self, QMetaMethod* signal);
 };
 
-QSignalTransition* QSignalTransition_new() {
-	return new (std::nothrow) VirtualQSignalTransition();
+VirtualQSignalTransition* QSignalTransition_new(const QSignalTransition_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSignalTransition>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSignalTransition(vtbl) : nullptr;
 }
 
-QSignalTransition* QSignalTransition_new2(QObject* sender, const char* signal) {
-	return new (std::nothrow) VirtualQSignalTransition(sender, signal);
+VirtualQSignalTransition* QSignalTransition_new2(const QSignalTransition_VTable* vtbl, size_t vdata, QObject* sender, const char* signal) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSignalTransition>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSignalTransition(vtbl, sender, signal) : nullptr;
 }
 
-QSignalTransition* QSignalTransition_new3(QState* sourceState) {
-	return new (std::nothrow) VirtualQSignalTransition(sourceState);
+VirtualQSignalTransition* QSignalTransition_new3(const QSignalTransition_VTable* vtbl, size_t vdata, QState* sourceState) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSignalTransition>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSignalTransition(vtbl, sourceState) : nullptr;
 }
 
-QSignalTransition* QSignalTransition_new4(QObject* sender, const char* signal, QState* sourceState) {
-	return new (std::nothrow) VirtualQSignalTransition(sender, signal, sourceState);
+VirtualQSignalTransition* QSignalTransition_new4(const QSignalTransition_VTable* vtbl, size_t vdata, QObject* sender, const char* signal, QState* sourceState) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSignalTransition>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSignalTransition(vtbl, sender, signal, sourceState) : nullptr;
 }
 
 void QSignalTransition_virtbase(QSignalTransition* src, QAbstractTransition** outptr_QAbstractTransition) {
@@ -379,228 +331,83 @@ struct seaqt_string QSignalTransition_trUtf83(const char* s, const char* c, int 
 }
 
 const QMetaObject* QSignalTransition_staticMetaObject() { return &QSignalTransition::staticMetaObject; }
-bool QSignalTransition_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QSignalTransition_vdata(VirtualQSignalTransition* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQSignalTransition>()); }
+VirtualQSignalTransition* vdata_QSignalTransition(void* vdata) { return reinterpret_cast<VirtualQSignalTransition*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQSignalTransition>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QSignalTransition_virtualbase_metaObject(const VirtualQSignalTransition* self) {
+
+	return (QMetaObject*) self->QSignalTransition::metaObject();
 }
 
-QMetaObject* QSignalTransition_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQSignalTransition*>(self)->QSignalTransition::metaObject();
+void* QSignalTransition_virtualbase_metacast(VirtualQSignalTransition* self, const char* param1) {
+
+	return self->QSignalTransition::qt_metacast(param1);
 }
 
-bool QSignalTransition_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QSignalTransition_virtualbase_metacall(VirtualQSignalTransition* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QSignalTransition::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QSignalTransition_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQSignalTransition*>(self)->QSignalTransition::qt_metacast(param1);
+bool QSignalTransition_virtualbase_eventTest(VirtualQSignalTransition* self, QEvent* event) {
+
+	return self->QSignalTransition::eventTest(event);
 }
 
-bool QSignalTransition_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSignalTransition_virtualbase_onTransition(VirtualQSignalTransition* self, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	self->QSignalTransition::onTransition(event);
 }
 
-int QSignalTransition_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQSignalTransition*>(self)->QSignalTransition::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+bool QSignalTransition_virtualbase_event(VirtualQSignalTransition* self, QEvent* e) {
+
+	return self->QSignalTransition::event(e);
 }
 
-bool QSignalTransition_override_virtual_eventTest(void* self, intptr_t slot) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSignalTransition_virtualbase_eventFilter(VirtualQSignalTransition* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__eventTest = slot;
-	return true;
+	return self->QSignalTransition::eventFilter(watched, event);
 }
 
-bool QSignalTransition_virtualbase_eventTest(void* self, QEvent* event) {
-	return static_cast<VirtualQSignalTransition*>(self)->QSignalTransition::eventTest(event);
+void QSignalTransition_virtualbase_timerEvent(VirtualQSignalTransition* self, QTimerEvent* event) {
+
+	self->QSignalTransition::timerEvent(event);
 }
 
-bool QSignalTransition_override_virtual_onTransition(void* self, intptr_t slot) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSignalTransition_virtualbase_childEvent(VirtualQSignalTransition* self, QChildEvent* event) {
 
-	self_cast->handle__onTransition = slot;
-	return true;
+	self->QSignalTransition::childEvent(event);
 }
 
-void QSignalTransition_virtualbase_onTransition(void* self, QEvent* event) {
-	static_cast<VirtualQSignalTransition*>(self)->QSignalTransition::onTransition(event);
+void QSignalTransition_virtualbase_customEvent(VirtualQSignalTransition* self, QEvent* event) {
+
+	self->QSignalTransition::customEvent(event);
 }
 
-bool QSignalTransition_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSignalTransition_virtualbase_connectNotify(VirtualQSignalTransition* self, QMetaMethod* signal) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QSignalTransition::connectNotify(*signal);
 }
 
-bool QSignalTransition_virtualbase_event(void* self, QEvent* e) {
-	return static_cast<VirtualQSignalTransition*>(self)->QSignalTransition::event(e);
+void QSignalTransition_virtualbase_disconnectNotify(VirtualQSignalTransition* self, QMetaMethod* signal) {
+
+	self->QSignalTransition::disconnectNotify(*signal);
 }
 
-bool QSignalTransition_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
+QObject* QSignalTransition_protectedbase_sender(const VirtualQSignalTransition* self) {
+	return self->sender();
 }
 
-bool QSignalTransition_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQSignalTransition*>(self)->QSignalTransition::eventFilter(watched, event);
+int QSignalTransition_protectedbase_senderSignalIndex(const VirtualQSignalTransition* self) {
+	return self->senderSignalIndex();
 }
 
-bool QSignalTransition_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+int QSignalTransition_protectedbase_receivers(const VirtualQSignalTransition* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QSignalTransition_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQSignalTransition*>(self)->QSignalTransition::timerEvent(event);
-}
-
-bool QSignalTransition_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QSignalTransition_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQSignalTransition*>(self)->QSignalTransition::childEvent(event);
-}
-
-bool QSignalTransition_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QSignalTransition_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQSignalTransition*>(self)->QSignalTransition::customEvent(event);
-}
-
-bool QSignalTransition_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QSignalTransition_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSignalTransition*>(self)->QSignalTransition::connectNotify(*signal);
-}
-
-bool QSignalTransition_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QSignalTransition_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSignalTransition*>(self)->QSignalTransition::disconnectNotify(*signal);
-}
-
-QObject* QSignalTransition_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QSignalTransition_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QSignalTransition_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QSignalTransition_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
-}
-
-void QSignalTransition_connect_senderObjectChanged(QSignalTransition* self, intptr_t slot) {
-	QSignalTransition::connect(self, &QSignalTransition::senderObjectChanged, self, [=]() {
-		miqt_exec_callback_QSignalTransition_senderObjectChanged(slot);
-	});
-}
-
-void QSignalTransition_connect_signalChanged(QSignalTransition* self, intptr_t slot) {
-	QSignalTransition::connect(self, &QSignalTransition::signalChanged, self, [=]() {
-		miqt_exec_callback_QSignalTransition_signalChanged(slot);
-	});
+bool QSignalTransition_protectedbase_isSignalConnected(const VirtualQSignalTransition* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QSignalTransition_delete(QSignalTransition* self) {

@@ -48,12 +48,31 @@ typedef struct QVariant QVariant;
 typedef struct QWidget QWidget;
 #endif
 
-QAction* QAction_new();
-QAction* QAction_new2(struct seaqt_string text);
-QAction* QAction_new3(QIcon* icon, struct seaqt_string text);
-QAction* QAction_new4(QObject* parent);
-QAction* QAction_new5(struct seaqt_string text, QObject* parent);
-QAction* QAction_new6(QIcon* icon, struct seaqt_string text, QObject* parent);
+typedef struct VirtualQAction VirtualQAction;
+typedef struct QAction_VTable{
+	void (*destructor)(VirtualQAction* self);
+	QMetaObject* (*metaObject)(const VirtualQAction* self);
+	void* (*metacast)(VirtualQAction* self, const char* param1);
+	int (*metacall)(VirtualQAction* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQAction* self, QEvent* param1);
+	bool (*eventFilter)(VirtualQAction* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQAction* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQAction* self, QChildEvent* event);
+	void (*customEvent)(VirtualQAction* self, QEvent* event);
+	void (*connectNotify)(VirtualQAction* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQAction* self, QMetaMethod* signal);
+}QAction_VTable;
+
+void* QAction_vdata(VirtualQAction* self);
+VirtualQAction* vdata_QAction(void* vdata);
+
+VirtualQAction* QAction_new(const QAction_VTable* vtbl, size_t vdata);
+VirtualQAction* QAction_new2(const QAction_VTable* vtbl, size_t vdata, struct seaqt_string text);
+VirtualQAction* QAction_new3(const QAction_VTable* vtbl, size_t vdata, QIcon* icon, struct seaqt_string text);
+VirtualQAction* QAction_new4(const QAction_VTable* vtbl, size_t vdata, QObject* parent);
+VirtualQAction* QAction_new5(const QAction_VTable* vtbl, size_t vdata, struct seaqt_string text, QObject* parent);
+VirtualQAction* QAction_new6(const QAction_VTable* vtbl, size_t vdata, QIcon* icon, struct seaqt_string text, QObject* parent);
+
 void QAction_virtbase(QAction* src, QObject** outptr_QObject);
 QMetaObject* QAction_metaObject(const QAction* self);
 void* QAction_metacast(QAction* self, const char* param1);
@@ -133,31 +152,21 @@ bool QAction_showStatusTextWithWidget(QAction* self, QWidget* widget);
 void QAction_triggeredWithChecked(QAction* self, bool checked);
 void QAction_connect_triggeredWithChecked(QAction* self, intptr_t slot);
 
-bool QAction_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QAction_virtualbase_metaObject(const void* self);
-bool QAction_override_virtual_metacast(void* self, intptr_t slot);
-void* QAction_virtualbase_metacast(void* self, const char* param1);
-bool QAction_override_virtual_metacall(void* self, intptr_t slot);
-int QAction_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QAction_override_virtual_event(void* self, intptr_t slot);
-bool QAction_virtualbase_event(void* self, QEvent* param1);
-bool QAction_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QAction_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QAction_override_virtual_timerEvent(void* self, intptr_t slot);
-void QAction_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QAction_override_virtual_childEvent(void* self, intptr_t slot);
-void QAction_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QAction_override_virtual_customEvent(void* self, intptr_t slot);
-void QAction_virtualbase_customEvent(void* self, QEvent* event);
-bool QAction_override_virtual_connectNotify(void* self, intptr_t slot);
-void QAction_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QAction_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QAction_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QAction_virtualbase_metaObject(const VirtualQAction* self);
+void* QAction_virtualbase_metacast(VirtualQAction* self, const char* param1);
+int QAction_virtualbase_metacall(VirtualQAction* self, int param1, int param2, void** param3);
+bool QAction_virtualbase_event(VirtualQAction* self, QEvent* param1);
+bool QAction_virtualbase_eventFilter(VirtualQAction* self, QObject* watched, QEvent* event);
+void QAction_virtualbase_timerEvent(VirtualQAction* self, QTimerEvent* event);
+void QAction_virtualbase_childEvent(VirtualQAction* self, QChildEvent* event);
+void QAction_virtualbase_customEvent(VirtualQAction* self, QEvent* event);
+void QAction_virtualbase_connectNotify(VirtualQAction* self, QMetaMethod* signal);
+void QAction_virtualbase_disconnectNotify(VirtualQAction* self, QMetaMethod* signal);
 
-QObject* QAction_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QAction_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QAction_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QAction_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QAction_protectedbase_sender(const VirtualQAction* self);
+int QAction_protectedbase_senderSignalIndex(const VirtualQAction* self);
+int QAction_protectedbase_receivers(const VirtualQAction* self, const char* signal);
+bool QAction_protectedbase_isSignalConnected(const VirtualQAction* self, QMetaMethod* signal);
 
 const QMetaObject* QAction_staticMetaObject();
 void QAction_delete(QAction* self);

@@ -34,6 +34,7 @@ QHostAddress* QHostAddress_new5(QIPv6Address* ip6Addr);
 QHostAddress* QHostAddress_new6(struct seaqt_string address);
 QHostAddress* QHostAddress_new7(QHostAddress* copy);
 QHostAddress* QHostAddress_new8(int address);
+
 void QHostAddress_operatorAssign(QHostAddress* self, QHostAddress* other);
 void QHostAddress_operatorAssignWithAddress(QHostAddress* self, struct seaqt_string address);
 void QHostAddress_operatorAssign2(QHostAddress* self, int address);

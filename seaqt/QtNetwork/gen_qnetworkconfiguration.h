@@ -22,6 +22,7 @@ typedef struct QNetworkConfiguration QNetworkConfiguration;
 
 QNetworkConfiguration* QNetworkConfiguration_new();
 QNetworkConfiguration* QNetworkConfiguration_new2(QNetworkConfiguration* other);
+
 void QNetworkConfiguration_operatorAssign(QNetworkConfiguration* self, QNetworkConfiguration* other);
 void QNetworkConfiguration_swap(QNetworkConfiguration* self, QNetworkConfiguration* other);
 bool QNetworkConfiguration_operatorEqual(const QNetworkConfiguration* self, QNetworkConfiguration* other);

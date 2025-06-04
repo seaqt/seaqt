@@ -48,6 +48,7 @@ QMatrix4x4* QMatrix4x4_new5(const float* values, int cols, int rows);
 QMatrix4x4* QMatrix4x4_new6(QTransform* transform);
 QMatrix4x4* QMatrix4x4_new7(QMatrix* matrix);
 QMatrix4x4* QMatrix4x4_new8(QMatrix4x4* param1);
+
 QVector4D* QMatrix4x4_column(const QMatrix4x4* self, int index);
 void QMatrix4x4_setColumn(QMatrix4x4* self, int index, QVector4D* value);
 QVector4D* QMatrix4x4_row(const QMatrix4x4* self, int index);

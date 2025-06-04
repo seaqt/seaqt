@@ -14,82 +14,74 @@
 #include <qsettings.h>
 #include "gen_qsettings.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QSettings_metaObject(const QSettings*, intptr_t);
-void* miqt_exec_callback_QSettings_metacast(QSettings*, intptr_t, const char*);
-int miqt_exec_callback_QSettings_metacall(QSettings*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QSettings_event(QSettings*, intptr_t, QEvent*);
-bool miqt_exec_callback_QSettings_eventFilter(QSettings*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QSettings_timerEvent(QSettings*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QSettings_childEvent(QSettings*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QSettings_customEvent(QSettings*, intptr_t, QEvent*);
-void miqt_exec_callback_QSettings_connectNotify(QSettings*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QSettings_disconnectNotify(QSettings*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQSettings final : public QSettings {
+	const QSettings_VTable* vtbl;
 public:
+	friend void* QSettings_vdata(VirtualQSettings* self);
+	friend VirtualQSettings* vdata_QSettings(void* vdata);
 
-	VirtualQSettings(const QString& organization): QSettings(organization) {}
-	VirtualQSettings(QSettings::Scope scope, const QString& organization): QSettings(scope, organization) {}
-	VirtualQSettings(QSettings::Format format, QSettings::Scope scope, const QString& organization): QSettings(format, scope, organization) {}
-	VirtualQSettings(const QString& fileName, QSettings::Format format): QSettings(fileName, format) {}
-	VirtualQSettings(): QSettings() {}
-	VirtualQSettings(QSettings::Scope scope): QSettings(scope) {}
-	VirtualQSettings(const QString& organization, const QString& application): QSettings(organization, application) {}
-	VirtualQSettings(const QString& organization, const QString& application, QObject* parent): QSettings(organization, application, parent) {}
-	VirtualQSettings(QSettings::Scope scope, const QString& organization, const QString& application): QSettings(scope, organization, application) {}
-	VirtualQSettings(QSettings::Scope scope, const QString& organization, const QString& application, QObject* parent): QSettings(scope, organization, application, parent) {}
-	VirtualQSettings(QSettings::Format format, QSettings::Scope scope, const QString& organization, const QString& application): QSettings(format, scope, organization, application) {}
-	VirtualQSettings(QSettings::Format format, QSettings::Scope scope, const QString& organization, const QString& application, QObject* parent): QSettings(format, scope, organization, application, parent) {}
-	VirtualQSettings(const QString& fileName, QSettings::Format format, QObject* parent): QSettings(fileName, format, parent) {}
-	VirtualQSettings(QObject* parent): QSettings(parent) {}
-	VirtualQSettings(QSettings::Scope scope, QObject* parent): QSettings(scope, parent) {}
+	VirtualQSettings(const QSettings_VTable* vtbl, const QString& organization): QSettings(organization), vtbl(vtbl) {}
+	VirtualQSettings(const QSettings_VTable* vtbl, QSettings::Scope scope, const QString& organization): QSettings(scope, organization), vtbl(vtbl) {}
+	VirtualQSettings(const QSettings_VTable* vtbl, QSettings::Format format, QSettings::Scope scope, const QString& organization): QSettings(format, scope, organization), vtbl(vtbl) {}
+	VirtualQSettings(const QSettings_VTable* vtbl, const QString& fileName, QSettings::Format format): QSettings(fileName, format), vtbl(vtbl) {}
+	VirtualQSettings(const QSettings_VTable* vtbl): QSettings(), vtbl(vtbl) {}
+	VirtualQSettings(const QSettings_VTable* vtbl, QSettings::Scope scope): QSettings(scope), vtbl(vtbl) {}
+	VirtualQSettings(const QSettings_VTable* vtbl, const QString& organization, const QString& application): QSettings(organization, application), vtbl(vtbl) {}
+	VirtualQSettings(const QSettings_VTable* vtbl, const QString& organization, const QString& application, QObject* parent): QSettings(organization, application, parent), vtbl(vtbl) {}
+	VirtualQSettings(const QSettings_VTable* vtbl, QSettings::Scope scope, const QString& organization, const QString& application): QSettings(scope, organization, application), vtbl(vtbl) {}
+	VirtualQSettings(const QSettings_VTable* vtbl, QSettings::Scope scope, const QString& organization, const QString& application, QObject* parent): QSettings(scope, organization, application, parent), vtbl(vtbl) {}
+	VirtualQSettings(const QSettings_VTable* vtbl, QSettings::Format format, QSettings::Scope scope, const QString& organization, const QString& application): QSettings(format, scope, organization, application), vtbl(vtbl) {}
+	VirtualQSettings(const QSettings_VTable* vtbl, QSettings::Format format, QSettings::Scope scope, const QString& organization, const QString& application, QObject* parent): QSettings(format, scope, organization, application, parent), vtbl(vtbl) {}
+	VirtualQSettings(const QSettings_VTable* vtbl, const QString& fileName, QSettings::Format format, QObject* parent): QSettings(fileName, format, parent), vtbl(vtbl) {}
+	VirtualQSettings(const QSettings_VTable* vtbl, QObject* parent): QSettings(parent), vtbl(vtbl) {}
+	VirtualQSettings(const QSettings_VTable* vtbl, QSettings::Scope scope, QObject* parent): QSettings(scope, parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQSettings() override = default;
+	virtual ~VirtualQSettings() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QSettings::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QSettings_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QSettings_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QSettings_virtualbase_metaObject(const VirtualQSettings* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QSettings::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QSettings_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QSettings_virtualbase_metacast(void* self, const char* param1);
+	friend void* QSettings_virtualbase_metacast(VirtualQSettings* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QSettings::qt_metacall(param1, param2, param3);
 		}
 
@@ -97,102 +89,75 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QSettings_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QSettings_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QSettings_virtualbase_metacall(VirtualQSettings* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QSettings::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QSettings_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSettings_virtualbase_event(void* self, QEvent* event);
+	friend bool QSettings_virtualbase_event(VirtualQSettings* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QSettings::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QSettings_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QSettings_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QSettings_virtualbase_eventFilter(VirtualQSettings* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QSettings::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QSettings_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QSettings_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QSettings_virtualbase_timerEvent(VirtualQSettings* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QSettings::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QSettings_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QSettings_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QSettings_virtualbase_childEvent(VirtualQSettings* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QSettings::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QSettings_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QSettings_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QSettings_virtualbase_customEvent(VirtualQSettings* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QSettings::connectNotify(signal);
 			return;
 		}
@@ -200,18 +165,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSettings_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QSettings_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QSettings_virtualbase_connectNotify(VirtualQSettings* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QSettings::disconnectNotify(signal);
 			return;
 		}
@@ -219,94 +179,108 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSettings_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QSettings_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QSettings_virtualbase_disconnectNotify(VirtualQSettings* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QSettings_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QSettings_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QSettings_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QSettings_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QSettings_protectedbase_sender(const VirtualQSettings* self);
+	friend int QSettings_protectedbase_senderSignalIndex(const VirtualQSettings* self);
+	friend int QSettings_protectedbase_receivers(const VirtualQSettings* self, const char* signal);
+	friend bool QSettings_protectedbase_isSignalConnected(const VirtualQSettings* self, QMetaMethod* signal);
 };
 
-QSettings* QSettings_new(struct seaqt_string organization) {
+VirtualQSettings* QSettings_new(const QSettings_VTable* vtbl, size_t vdata, struct seaqt_string organization) {
 	QString organization_QString = QString::fromUtf8(organization.data, organization.len);
-	return new (std::nothrow) VirtualQSettings(organization_QString);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSettings>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSettings(vtbl, organization_QString) : nullptr;
 }
 
-QSettings* QSettings_new2(int scope, struct seaqt_string organization) {
+VirtualQSettings* QSettings_new2(const QSettings_VTable* vtbl, size_t vdata, int scope, struct seaqt_string organization) {
 	QString organization_QString = QString::fromUtf8(organization.data, organization.len);
-	return new (std::nothrow) VirtualQSettings(static_cast<QSettings::Scope>(scope), organization_QString);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSettings>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSettings(vtbl, static_cast<QSettings::Scope>(scope), organization_QString) : nullptr;
 }
 
-QSettings* QSettings_new3(int format, int scope, struct seaqt_string organization) {
+VirtualQSettings* QSettings_new3(const QSettings_VTable* vtbl, size_t vdata, int format, int scope, struct seaqt_string organization) {
 	QString organization_QString = QString::fromUtf8(organization.data, organization.len);
-	return new (std::nothrow) VirtualQSettings(static_cast<QSettings::Format>(format), static_cast<QSettings::Scope>(scope), organization_QString);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSettings>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSettings(vtbl, static_cast<QSettings::Format>(format), static_cast<QSettings::Scope>(scope), organization_QString) : nullptr;
 }
 
-QSettings* QSettings_new4(struct seaqt_string fileName, int format) {
+VirtualQSettings* QSettings_new4(const QSettings_VTable* vtbl, size_t vdata, struct seaqt_string fileName, int format) {
 	QString fileName_QString = QString::fromUtf8(fileName.data, fileName.len);
-	return new (std::nothrow) VirtualQSettings(fileName_QString, static_cast<QSettings::Format>(format));
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSettings>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSettings(vtbl, fileName_QString, static_cast<QSettings::Format>(format)) : nullptr;
 }
 
-QSettings* QSettings_new5() {
-	return new (std::nothrow) VirtualQSettings();
+VirtualQSettings* QSettings_new5(const QSettings_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSettings>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSettings(vtbl) : nullptr;
 }
 
-QSettings* QSettings_new6(int scope) {
-	return new (std::nothrow) VirtualQSettings(static_cast<QSettings::Scope>(scope));
+VirtualQSettings* QSettings_new6(const QSettings_VTable* vtbl, size_t vdata, int scope) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSettings>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSettings(vtbl, static_cast<QSettings::Scope>(scope)) : nullptr;
 }
 
-QSettings* QSettings_new7(struct seaqt_string organization, struct seaqt_string application) {
+VirtualQSettings* QSettings_new7(const QSettings_VTable* vtbl, size_t vdata, struct seaqt_string organization, struct seaqt_string application) {
 	QString organization_QString = QString::fromUtf8(organization.data, organization.len);
 	QString application_QString = QString::fromUtf8(application.data, application.len);
-	return new (std::nothrow) VirtualQSettings(organization_QString, application_QString);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSettings>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSettings(vtbl, organization_QString, application_QString) : nullptr;
 }
 
-QSettings* QSettings_new8(struct seaqt_string organization, struct seaqt_string application, QObject* parent) {
+VirtualQSettings* QSettings_new8(const QSettings_VTable* vtbl, size_t vdata, struct seaqt_string organization, struct seaqt_string application, QObject* parent) {
 	QString organization_QString = QString::fromUtf8(organization.data, organization.len);
 	QString application_QString = QString::fromUtf8(application.data, application.len);
-	return new (std::nothrow) VirtualQSettings(organization_QString, application_QString, parent);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSettings>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSettings(vtbl, organization_QString, application_QString, parent) : nullptr;
 }
 
-QSettings* QSettings_new9(int scope, struct seaqt_string organization, struct seaqt_string application) {
+VirtualQSettings* QSettings_new9(const QSettings_VTable* vtbl, size_t vdata, int scope, struct seaqt_string organization, struct seaqt_string application) {
 	QString organization_QString = QString::fromUtf8(organization.data, organization.len);
 	QString application_QString = QString::fromUtf8(application.data, application.len);
-	return new (std::nothrow) VirtualQSettings(static_cast<QSettings::Scope>(scope), organization_QString, application_QString);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSettings>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSettings(vtbl, static_cast<QSettings::Scope>(scope), organization_QString, application_QString) : nullptr;
 }
 
-QSettings* QSettings_new10(int scope, struct seaqt_string organization, struct seaqt_string application, QObject* parent) {
+VirtualQSettings* QSettings_new10(const QSettings_VTable* vtbl, size_t vdata, int scope, struct seaqt_string organization, struct seaqt_string application, QObject* parent) {
 	QString organization_QString = QString::fromUtf8(organization.data, organization.len);
 	QString application_QString = QString::fromUtf8(application.data, application.len);
-	return new (std::nothrow) VirtualQSettings(static_cast<QSettings::Scope>(scope), organization_QString, application_QString, parent);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSettings>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSettings(vtbl, static_cast<QSettings::Scope>(scope), organization_QString, application_QString, parent) : nullptr;
 }
 
-QSettings* QSettings_new11(int format, int scope, struct seaqt_string organization, struct seaqt_string application) {
+VirtualQSettings* QSettings_new11(const QSettings_VTable* vtbl, size_t vdata, int format, int scope, struct seaqt_string organization, struct seaqt_string application) {
 	QString organization_QString = QString::fromUtf8(organization.data, organization.len);
 	QString application_QString = QString::fromUtf8(application.data, application.len);
-	return new (std::nothrow) VirtualQSettings(static_cast<QSettings::Format>(format), static_cast<QSettings::Scope>(scope), organization_QString, application_QString);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSettings>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSettings(vtbl, static_cast<QSettings::Format>(format), static_cast<QSettings::Scope>(scope), organization_QString, application_QString) : nullptr;
 }
 
-QSettings* QSettings_new12(int format, int scope, struct seaqt_string organization, struct seaqt_string application, QObject* parent) {
+VirtualQSettings* QSettings_new12(const QSettings_VTable* vtbl, size_t vdata, int format, int scope, struct seaqt_string organization, struct seaqt_string application, QObject* parent) {
 	QString organization_QString = QString::fromUtf8(organization.data, organization.len);
 	QString application_QString = QString::fromUtf8(application.data, application.len);
-	return new (std::nothrow) VirtualQSettings(static_cast<QSettings::Format>(format), static_cast<QSettings::Scope>(scope), organization_QString, application_QString, parent);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSettings>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSettings(vtbl, static_cast<QSettings::Format>(format), static_cast<QSettings::Scope>(scope), organization_QString, application_QString, parent) : nullptr;
 }
 
-QSettings* QSettings_new13(struct seaqt_string fileName, int format, QObject* parent) {
+VirtualQSettings* QSettings_new13(const QSettings_VTable* vtbl, size_t vdata, struct seaqt_string fileName, int format, QObject* parent) {
 	QString fileName_QString = QString::fromUtf8(fileName.data, fileName.len);
-	return new (std::nothrow) VirtualQSettings(fileName_QString, static_cast<QSettings::Format>(format), parent);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSettings>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSettings(vtbl, fileName_QString, static_cast<QSettings::Format>(format), parent) : nullptr;
 }
 
-QSettings* QSettings_new14(QObject* parent) {
-	return new (std::nothrow) VirtualQSettings(parent);
+VirtualQSettings* QSettings_new14(const QSettings_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSettings>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSettings(vtbl, parent) : nullptr;
 }
 
-QSettings* QSettings_new15(int scope, QObject* parent) {
-	return new (std::nothrow) VirtualQSettings(static_cast<QSettings::Scope>(scope), parent);
+VirtualQSettings* QSettings_new15(const QSettings_VTable* vtbl, size_t vdata, int scope, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSettings>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSettings(vtbl, static_cast<QSettings::Scope>(scope), parent) : nullptr;
 }
 
 void QSettings_virtbase(QSettings* src, QObject** outptr_QObject) {
@@ -632,188 +606,73 @@ QVariant* QSettings_value2(const QSettings* self, struct seaqt_string key, QVari
 }
 
 const QMetaObject* QSettings_staticMetaObject() { return &QSettings::staticMetaObject; }
-bool QSettings_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQSettings* self_cast = dynamic_cast<VirtualQSettings*>( (QSettings*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QSettings_vdata(VirtualQSettings* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQSettings>()); }
+VirtualQSettings* vdata_QSettings(void* vdata) { return reinterpret_cast<VirtualQSettings*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQSettings>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QSettings_virtualbase_metaObject(const VirtualQSettings* self) {
+
+	return (QMetaObject*) self->QSettings::metaObject();
 }
 
-QMetaObject* QSettings_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQSettings*>(self)->QSettings::metaObject();
+void* QSettings_virtualbase_metacast(VirtualQSettings* self, const char* param1) {
+
+	return self->QSettings::qt_metacast(param1);
 }
 
-bool QSettings_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQSettings* self_cast = dynamic_cast<VirtualQSettings*>( (QSettings*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QSettings_virtualbase_metacall(VirtualQSettings* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QSettings::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QSettings_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQSettings*>(self)->QSettings::qt_metacast(param1);
+bool QSettings_virtualbase_event(VirtualQSettings* self, QEvent* event) {
+
+	return self->QSettings::event(event);
 }
 
-bool QSettings_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQSettings* self_cast = dynamic_cast<VirtualQSettings*>( (QSettings*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSettings_virtualbase_eventFilter(VirtualQSettings* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QSettings::eventFilter(watched, event);
 }
 
-int QSettings_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQSettings*>(self)->QSettings::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+void QSettings_virtualbase_timerEvent(VirtualQSettings* self, QTimerEvent* event) {
+
+	self->QSettings::timerEvent(event);
 }
 
-bool QSettings_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQSettings* self_cast = dynamic_cast<VirtualQSettings*>( (QSettings*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSettings_virtualbase_childEvent(VirtualQSettings* self, QChildEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QSettings::childEvent(event);
 }
 
-bool QSettings_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQSettings*>(self)->QSettings::event(event);
+void QSettings_virtualbase_customEvent(VirtualQSettings* self, QEvent* event) {
+
+	self->QSettings::customEvent(event);
 }
 
-bool QSettings_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQSettings* self_cast = dynamic_cast<VirtualQSettings*>( (QSettings*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSettings_virtualbase_connectNotify(VirtualQSettings* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QSettings::connectNotify(*signal);
 }
 
-bool QSettings_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQSettings*>(self)->QSettings::eventFilter(watched, event);
+void QSettings_virtualbase_disconnectNotify(VirtualQSettings* self, QMetaMethod* signal) {
+
+	self->QSettings::disconnectNotify(*signal);
 }
 
-bool QSettings_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQSettings* self_cast = dynamic_cast<VirtualQSettings*>( (QSettings*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+QObject* QSettings_protectedbase_sender(const VirtualQSettings* self) {
+	return self->sender();
 }
 
-void QSettings_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQSettings*>(self)->QSettings::timerEvent(event);
+int QSettings_protectedbase_senderSignalIndex(const VirtualQSettings* self) {
+	return self->senderSignalIndex();
 }
 
-bool QSettings_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQSettings* self_cast = dynamic_cast<VirtualQSettings*>( (QSettings*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QSettings_protectedbase_receivers(const VirtualQSettings* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QSettings_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQSettings*>(self)->QSettings::childEvent(event);
-}
-
-bool QSettings_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQSettings* self_cast = dynamic_cast<VirtualQSettings*>( (QSettings*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QSettings_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQSettings*>(self)->QSettings::customEvent(event);
-}
-
-bool QSettings_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQSettings* self_cast = dynamic_cast<VirtualQSettings*>( (QSettings*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QSettings_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSettings*>(self)->QSettings::connectNotify(*signal);
-}
-
-bool QSettings_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQSettings* self_cast = dynamic_cast<VirtualQSettings*>( (QSettings*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QSettings_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSettings*>(self)->QSettings::disconnectNotify(*signal);
-}
-
-QObject* QSettings_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSettings* self_cast = dynamic_cast<VirtualQSettings*>( (QSettings*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QSettings_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSettings* self_cast = dynamic_cast<VirtualQSettings*>( (QSettings*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QSettings_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQSettings* self_cast = dynamic_cast<VirtualQSettings*>( (QSettings*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QSettings_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQSettings* self_cast = dynamic_cast<VirtualQSettings*>( (QSettings*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QSettings_protectedbase_isSignalConnected(const VirtualQSettings* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QSettings_delete(QSettings* self) {

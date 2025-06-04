@@ -120,8 +120,39 @@ typedef struct QWebSettings QWebSettings;
 typedef struct QWidget QWidget;
 #endif
 
-QWebPage* QWebPage_new();
-QWebPage* QWebPage_new2(QObject* parent);
+typedef struct VirtualQWebPage VirtualQWebPage;
+typedef struct QWebPage_VTable{
+	void (*destructor)(VirtualQWebPage* self);
+	QMetaObject* (*metaObject)(const VirtualQWebPage* self);
+	void* (*metacast)(VirtualQWebPage* self, const char* param1);
+	int (*metacall)(VirtualQWebPage* self, int param1, int param2, void** param3);
+	void (*triggerAction)(VirtualQWebPage* self, int action, bool checked);
+	bool (*event)(VirtualQWebPage* self, QEvent* param1);
+	bool (*extension)(VirtualQWebPage* self, int extension, QWebPage__ExtensionOption* option, QWebPage__ExtensionReturn* output);
+	bool (*supportsExtension)(const VirtualQWebPage* self, int extension);
+	bool (*shouldInterruptJavaScript)(VirtualQWebPage* self);
+	QWebPage* (*createWindow)(VirtualQWebPage* self, int type);
+	QObject* (*createPlugin)(VirtualQWebPage* self, struct seaqt_string classid, QUrl* url, struct seaqt_array /* of struct seaqt_string */  paramNames, struct seaqt_array /* of struct seaqt_string */  paramValues);
+	bool (*acceptNavigationRequest)(VirtualQWebPage* self, QWebFrame* frame, QNetworkRequest* request, int type);
+	struct seaqt_string (*chooseFile)(VirtualQWebPage* self, QWebFrame* originatingFrame, struct seaqt_string oldFile);
+	void (*javaScriptAlert)(VirtualQWebPage* self, QWebFrame* originatingFrame, struct seaqt_string msg);
+	bool (*javaScriptConfirm)(VirtualQWebPage* self, QWebFrame* originatingFrame, struct seaqt_string msg);
+	void (*javaScriptConsoleMessage)(VirtualQWebPage* self, struct seaqt_string message, int lineNumber, struct seaqt_string sourceID);
+	struct seaqt_string (*userAgentForUrl)(const VirtualQWebPage* self, QUrl* url);
+	bool (*eventFilter)(VirtualQWebPage* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQWebPage* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQWebPage* self, QChildEvent* event);
+	void (*customEvent)(VirtualQWebPage* self, QEvent* event);
+	void (*connectNotify)(VirtualQWebPage* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQWebPage* self, QMetaMethod* signal);
+}QWebPage_VTable;
+
+void* QWebPage_vdata(VirtualQWebPage* self);
+VirtualQWebPage* vdata_QWebPage(void* vdata);
+
+VirtualQWebPage* QWebPage_new(const QWebPage_VTable* vtbl, size_t vdata);
+VirtualQWebPage* QWebPage_new2(const QWebPage_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QWebPage_virtbase(QWebPage* src, QObject** outptr_QObject);
 QMetaObject* QWebPage_metaObject(const QWebPage* self);
 void* QWebPage_metacast(QWebPage* self, const char* param1);
@@ -258,61 +289,40 @@ struct seaqt_string QWebPage_trUtf82(const char* s, const char* c);
 struct seaqt_string QWebPage_trUtf83(const char* s, const char* c, int n);
 bool QWebPage_findText2(QWebPage* self, struct seaqt_string subString, int options);
 
-bool QWebPage_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QWebPage_virtualbase_metaObject(const void* self);
-bool QWebPage_override_virtual_metacast(void* self, intptr_t slot);
-void* QWebPage_virtualbase_metacast(void* self, const char* param1);
-bool QWebPage_override_virtual_metacall(void* self, intptr_t slot);
-int QWebPage_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QWebPage_override_virtual_triggerAction(void* self, intptr_t slot);
-void QWebPage_virtualbase_triggerAction(void* self, int action, bool checked);
-bool QWebPage_override_virtual_event(void* self, intptr_t slot);
-bool QWebPage_virtualbase_event(void* self, QEvent* param1);
-bool QWebPage_override_virtual_extension(void* self, intptr_t slot);
-bool QWebPage_virtualbase_extension(void* self, int extension, QWebPage__ExtensionOption* option, QWebPage__ExtensionReturn* output);
-bool QWebPage_override_virtual_supportsExtension(void* self, intptr_t slot);
-bool QWebPage_virtualbase_supportsExtension(const void* self, int extension);
-bool QWebPage_override_virtual_shouldInterruptJavaScript(void* self, intptr_t slot);
-bool QWebPage_virtualbase_shouldInterruptJavaScript(void* self);
-bool QWebPage_override_virtual_createWindow(void* self, intptr_t slot);
-QWebPage* QWebPage_virtualbase_createWindow(void* self, int type);
-bool QWebPage_override_virtual_createPlugin(void* self, intptr_t slot);
-QObject* QWebPage_virtualbase_createPlugin(void* self, struct seaqt_string classid, QUrl* url, struct seaqt_array /* of struct seaqt_string */  paramNames, struct seaqt_array /* of struct seaqt_string */  paramValues);
-bool QWebPage_override_virtual_acceptNavigationRequest(void* self, intptr_t slot);
-bool QWebPage_virtualbase_acceptNavigationRequest(void* self, QWebFrame* frame, QNetworkRequest* request, int type);
-bool QWebPage_override_virtual_chooseFile(void* self, intptr_t slot);
-struct seaqt_string QWebPage_virtualbase_chooseFile(void* self, QWebFrame* originatingFrame, struct seaqt_string oldFile);
-bool QWebPage_override_virtual_javaScriptAlert(void* self, intptr_t slot);
-void QWebPage_virtualbase_javaScriptAlert(void* self, QWebFrame* originatingFrame, struct seaqt_string msg);
-bool QWebPage_override_virtual_javaScriptConfirm(void* self, intptr_t slot);
-bool QWebPage_virtualbase_javaScriptConfirm(void* self, QWebFrame* originatingFrame, struct seaqt_string msg);
-bool QWebPage_override_virtual_javaScriptConsoleMessage(void* self, intptr_t slot);
-void QWebPage_virtualbase_javaScriptConsoleMessage(void* self, struct seaqt_string message, int lineNumber, struct seaqt_string sourceID);
-bool QWebPage_override_virtual_userAgentForUrl(void* self, intptr_t slot);
-struct seaqt_string QWebPage_virtualbase_userAgentForUrl(const void* self, QUrl* url);
-bool QWebPage_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QWebPage_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QWebPage_override_virtual_timerEvent(void* self, intptr_t slot);
-void QWebPage_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QWebPage_override_virtual_childEvent(void* self, intptr_t slot);
-void QWebPage_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QWebPage_override_virtual_customEvent(void* self, intptr_t slot);
-void QWebPage_virtualbase_customEvent(void* self, QEvent* event);
-bool QWebPage_override_virtual_connectNotify(void* self, intptr_t slot);
-void QWebPage_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QWebPage_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QWebPage_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QWebPage_virtualbase_metaObject(const VirtualQWebPage* self);
+void* QWebPage_virtualbase_metacast(VirtualQWebPage* self, const char* param1);
+int QWebPage_virtualbase_metacall(VirtualQWebPage* self, int param1, int param2, void** param3);
+void QWebPage_virtualbase_triggerAction(VirtualQWebPage* self, int action, bool checked);
+bool QWebPage_virtualbase_event(VirtualQWebPage* self, QEvent* param1);
+bool QWebPage_virtualbase_extension(VirtualQWebPage* self, int extension, QWebPage__ExtensionOption* option, QWebPage__ExtensionReturn* output);
+bool QWebPage_virtualbase_supportsExtension(const VirtualQWebPage* self, int extension);
+bool QWebPage_virtualbase_shouldInterruptJavaScript(VirtualQWebPage* self);
+QWebPage* QWebPage_virtualbase_createWindow(VirtualQWebPage* self, int type);
+QObject* QWebPage_virtualbase_createPlugin(VirtualQWebPage* self, struct seaqt_string classid, QUrl* url, struct seaqt_array /* of struct seaqt_string */  paramNames, struct seaqt_array /* of struct seaqt_string */  paramValues);
+bool QWebPage_virtualbase_acceptNavigationRequest(VirtualQWebPage* self, QWebFrame* frame, QNetworkRequest* request, int type);
+struct seaqt_string QWebPage_virtualbase_chooseFile(VirtualQWebPage* self, QWebFrame* originatingFrame, struct seaqt_string oldFile);
+void QWebPage_virtualbase_javaScriptAlert(VirtualQWebPage* self, QWebFrame* originatingFrame, struct seaqt_string msg);
+bool QWebPage_virtualbase_javaScriptConfirm(VirtualQWebPage* self, QWebFrame* originatingFrame, struct seaqt_string msg);
+void QWebPage_virtualbase_javaScriptConsoleMessage(VirtualQWebPage* self, struct seaqt_string message, int lineNumber, struct seaqt_string sourceID);
+struct seaqt_string QWebPage_virtualbase_userAgentForUrl(const VirtualQWebPage* self, QUrl* url);
+bool QWebPage_virtualbase_eventFilter(VirtualQWebPage* self, QObject* watched, QEvent* event);
+void QWebPage_virtualbase_timerEvent(VirtualQWebPage* self, QTimerEvent* event);
+void QWebPage_virtualbase_childEvent(VirtualQWebPage* self, QChildEvent* event);
+void QWebPage_virtualbase_customEvent(VirtualQWebPage* self, QEvent* event);
+void QWebPage_virtualbase_connectNotify(VirtualQWebPage* self, QMetaMethod* signal);
+void QWebPage_virtualbase_disconnectNotify(VirtualQWebPage* self, QMetaMethod* signal);
 
-QObject* QWebPage_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QWebPage_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QWebPage_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QWebPage_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QWebPage_protectedbase_sender(const VirtualQWebPage* self);
+int QWebPage_protectedbase_senderSignalIndex(const VirtualQWebPage* self);
+int QWebPage_protectedbase_receivers(const VirtualQWebPage* self, const char* signal);
+bool QWebPage_protectedbase_isSignalConnected(const VirtualQWebPage* self, QMetaMethod* signal);
 
 const QMetaObject* QWebPage_staticMetaObject();
 void QWebPage_delete(QWebPage* self);
 
 QWebPage__ViewportAttributes* QWebPage__ViewportAttributes_new();
 QWebPage__ViewportAttributes* QWebPage__ViewportAttributes_new2(QWebPage__ViewportAttributes* other);
+
 void QWebPage__ViewportAttributes_operatorAssign(QWebPage__ViewportAttributes* self, QWebPage__ViewportAttributes* other);
 double QWebPage__ViewportAttributes_initialScaleFactor(const QWebPage__ViewportAttributes* self);
 double QWebPage__ViewportAttributes_minimumScaleFactor(const QWebPage__ViewportAttributes* self);
@@ -325,10 +335,12 @@ QSizeF* QWebPage__ViewportAttributes_size(const QWebPage__ViewportAttributes* se
 void QWebPage__ViewportAttributes_delete(QWebPage__ViewportAttributes* self);
 
 QWebPage__ExtensionOption* QWebPage__ExtensionOption_new(QWebPage__ExtensionOption* param1);
+
 void QWebPage__ExtensionOption_delete(QWebPage__ExtensionOption* self);
 
 QWebPage__ExtensionReturn* QWebPage__ExtensionReturn_new(QWebPage__ExtensionReturn* param1);
 QWebPage__ExtensionReturn* QWebPage__ExtensionReturn_new2();
+
 void QWebPage__ExtensionReturn_delete(QWebPage__ExtensionReturn* self);
 
 void QWebPage__ChooseMultipleFilesExtensionOption_virtbase(QWebPage__ChooseMultipleFilesExtensionOption* src, QWebPage__ExtensionOption** outptr_QWebPage__ExtensionOption);
@@ -338,6 +350,7 @@ void QWebPage__ChooseMultipleFilesExtensionReturn_virtbase(QWebPage__ChooseMulti
 void QWebPage__ChooseMultipleFilesExtensionReturn_delete(QWebPage__ChooseMultipleFilesExtensionReturn* self);
 
 QWebPage__ErrorPageExtensionOption* QWebPage__ErrorPageExtensionOption_new(QWebPage__ErrorPageExtensionOption* param1);
+
 void QWebPage__ErrorPageExtensionOption_virtbase(QWebPage__ErrorPageExtensionOption* src, QWebPage__ExtensionOption** outptr_QWebPage__ExtensionOption);
 void QWebPage__ErrorPageExtensionOption_operatorAssign(QWebPage__ErrorPageExtensionOption* self, QWebPage__ErrorPageExtensionOption* param1);
 
@@ -345,6 +358,7 @@ void QWebPage__ErrorPageExtensionOption_delete(QWebPage__ErrorPageExtensionOptio
 
 QWebPage__ErrorPageExtensionReturn* QWebPage__ErrorPageExtensionReturn_new();
 QWebPage__ErrorPageExtensionReturn* QWebPage__ErrorPageExtensionReturn_new2(QWebPage__ErrorPageExtensionReturn* param1);
+
 void QWebPage__ErrorPageExtensionReturn_virtbase(QWebPage__ErrorPageExtensionReturn* src, QWebPage__ExtensionReturn** outptr_QWebPage__ExtensionReturn);
 void QWebPage__ErrorPageExtensionReturn_operatorAssign(QWebPage__ErrorPageExtensionReturn* self, QWebPage__ErrorPageExtensionReturn* param1);
 

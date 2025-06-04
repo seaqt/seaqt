@@ -15,77 +15,63 @@
 #include <qpropertyanimation.h>
 #include "gen_qpropertyanimation.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QPropertyAnimation_metaObject(const QPropertyAnimation*, intptr_t);
-void* miqt_exec_callback_QPropertyAnimation_metacast(QPropertyAnimation*, intptr_t, const char*);
-int miqt_exec_callback_QPropertyAnimation_metacall(QPropertyAnimation*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QPropertyAnimation_event(QPropertyAnimation*, intptr_t, QEvent*);
-void miqt_exec_callback_QPropertyAnimation_updateCurrentValue(QPropertyAnimation*, intptr_t, QVariant*);
-void miqt_exec_callback_QPropertyAnimation_updateState(QPropertyAnimation*, intptr_t, int, int);
-int miqt_exec_callback_QPropertyAnimation_duration(const QPropertyAnimation*, intptr_t);
-void miqt_exec_callback_QPropertyAnimation_updateCurrentTime(QPropertyAnimation*, intptr_t, int);
-QVariant* miqt_exec_callback_QPropertyAnimation_interpolated(const QPropertyAnimation*, intptr_t, QVariant*, QVariant*, double);
-void miqt_exec_callback_QPropertyAnimation_updateDirection(QPropertyAnimation*, intptr_t, int);
-bool miqt_exec_callback_QPropertyAnimation_eventFilter(QPropertyAnimation*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QPropertyAnimation_timerEvent(QPropertyAnimation*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QPropertyAnimation_childEvent(QPropertyAnimation*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QPropertyAnimation_customEvent(QPropertyAnimation*, intptr_t, QEvent*);
-void miqt_exec_callback_QPropertyAnimation_connectNotify(QPropertyAnimation*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QPropertyAnimation_disconnectNotify(QPropertyAnimation*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQPropertyAnimation final : public QPropertyAnimation {
+	const QPropertyAnimation_VTable* vtbl;
 public:
+	friend void* QPropertyAnimation_vdata(VirtualQPropertyAnimation* self);
+	friend VirtualQPropertyAnimation* vdata_QPropertyAnimation(void* vdata);
 
-	VirtualQPropertyAnimation(): QPropertyAnimation() {}
-	VirtualQPropertyAnimation(QObject* target, const QByteArray& propertyName): QPropertyAnimation(target, propertyName) {}
-	VirtualQPropertyAnimation(QObject* parent): QPropertyAnimation(parent) {}
-	VirtualQPropertyAnimation(QObject* target, const QByteArray& propertyName, QObject* parent): QPropertyAnimation(target, propertyName, parent) {}
+	VirtualQPropertyAnimation(const QPropertyAnimation_VTable* vtbl): QPropertyAnimation(), vtbl(vtbl) {}
+	VirtualQPropertyAnimation(const QPropertyAnimation_VTable* vtbl, QObject* target, const QByteArray& propertyName): QPropertyAnimation(target, propertyName), vtbl(vtbl) {}
+	VirtualQPropertyAnimation(const QPropertyAnimation_VTable* vtbl, QObject* parent): QPropertyAnimation(parent), vtbl(vtbl) {}
+	VirtualQPropertyAnimation(const QPropertyAnimation_VTable* vtbl, QObject* target, const QByteArray& propertyName, QObject* parent): QPropertyAnimation(target, propertyName, parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQPropertyAnimation() override = default;
+	virtual ~VirtualQPropertyAnimation() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QPropertyAnimation::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QPropertyAnimation_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QPropertyAnimation_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QPropertyAnimation_virtualbase_metaObject(const VirtualQPropertyAnimation* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QPropertyAnimation::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QPropertyAnimation_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QPropertyAnimation_virtualbase_metacast(void* self, const char* param1);
+	friend void* QPropertyAnimation_virtualbase_metacast(VirtualQPropertyAnimation* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QPropertyAnimation::qt_metacall(param1, param2, param3);
 		}
 
@@ -93,34 +79,26 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QPropertyAnimation_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QPropertyAnimation_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QPropertyAnimation_virtualbase_metacall(VirtualQPropertyAnimation* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QPropertyAnimation::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QPropertyAnimation_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QPropertyAnimation_virtualbase_event(void* self, QEvent* event);
+	friend bool QPropertyAnimation_virtualbase_event(VirtualQPropertyAnimation* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__updateCurrentValue = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void updateCurrentValue(const QVariant& value) override {
-		if (handle__updateCurrentValue == 0) {
+		if (vtbl->updateCurrentValue == 0) {
 			QPropertyAnimation::updateCurrentValue(value);
 			return;
 		}
@@ -128,18 +106,13 @@ public:
 		const QVariant& value_ret = value;
 		// Cast returned reference into pointer
 		QVariant* sigval1 = const_cast<QVariant*>(&value_ret);
-		miqt_exec_callback_QPropertyAnimation_updateCurrentValue(this, handle__updateCurrentValue, sigval1);
-
+		vtbl->updateCurrentValue(this, sigval1);
 	}
 
-	friend void QPropertyAnimation_virtualbase_updateCurrentValue(void* self, QVariant* value);
+	friend void QPropertyAnimation_virtualbase_updateCurrentValue(VirtualQPropertyAnimation* self, QVariant* value);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__updateState = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void updateState(QAbstractAnimation::State newState, QAbstractAnimation::State oldState) override {
-		if (handle__updateState == 0) {
+		if (vtbl->updateState == 0) {
 			QPropertyAnimation::updateState(newState, oldState);
 			return;
 		}
@@ -148,50 +121,36 @@ public:
 		int sigval1 = static_cast<int>(newState_ret);
 		QAbstractAnimation::State oldState_ret = oldState;
 		int sigval2 = static_cast<int>(oldState_ret);
-		miqt_exec_callback_QPropertyAnimation_updateState(this, handle__updateState, sigval1, sigval2);
-
+		vtbl->updateState(this, sigval1, sigval2);
 	}
 
-	friend void QPropertyAnimation_virtualbase_updateState(void* self, int newState, int oldState);
+	friend void QPropertyAnimation_virtualbase_updateState(VirtualQPropertyAnimation* self, int newState, int oldState);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__duration = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int duration() const override {
-		if (handle__duration == 0) {
+		if (vtbl->duration == 0) {
 			return QPropertyAnimation::duration();
 		}
 
-		int callback_return_value = miqt_exec_callback_QPropertyAnimation_duration(this, handle__duration);
+		int callback_return_value = vtbl->duration(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QPropertyAnimation_virtualbase_duration(const void* self);
+	friend int QPropertyAnimation_virtualbase_duration(const VirtualQPropertyAnimation* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__updateCurrentTime = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void updateCurrentTime(int param1) override {
-		if (handle__updateCurrentTime == 0) {
+		if (vtbl->updateCurrentTime == 0) {
 			QPropertyAnimation::updateCurrentTime(param1);
 			return;
 		}
 
 		int sigval1 = param1;
-		miqt_exec_callback_QPropertyAnimation_updateCurrentTime(this, handle__updateCurrentTime, sigval1);
-
+		vtbl->updateCurrentTime(this, sigval1);
 	}
 
-	friend void QPropertyAnimation_virtualbase_updateCurrentTime(void* self, int param1);
+	friend void QPropertyAnimation_virtualbase_updateCurrentTime(VirtualQPropertyAnimation* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__interpolated = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant interpolated(const QVariant& from, const QVariant& to, qreal progress) const override {
-		if (handle__interpolated == 0) {
+		if (vtbl->interpolated == 0) {
 			return QPropertyAnimation::interpolated(from, to, progress);
 		}
 
@@ -203,104 +162,76 @@ public:
 		QVariant* sigval2 = const_cast<QVariant*>(&to_ret);
 		qreal progress_ret = progress;
 		double sigval3 = static_cast<double>(progress_ret);
-		QVariant* callback_return_value = miqt_exec_callback_QPropertyAnimation_interpolated(this, handle__interpolated, sigval1, sigval2, sigval3);
+		QVariant* callback_return_value = vtbl->interpolated(this, sigval1, sigval2, sigval3);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QPropertyAnimation_virtualbase_interpolated(const void* self, QVariant* from, QVariant* to, double progress);
+	friend QVariant* QPropertyAnimation_virtualbase_interpolated(const VirtualQPropertyAnimation* self, QVariant* from, QVariant* to, double progress);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__updateDirection = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void updateDirection(QAbstractAnimation::Direction direction) override {
-		if (handle__updateDirection == 0) {
+		if (vtbl->updateDirection == 0) {
 			QPropertyAnimation::updateDirection(direction);
 			return;
 		}
 
 		QAbstractAnimation::Direction direction_ret = direction;
 		int sigval1 = static_cast<int>(direction_ret);
-		miqt_exec_callback_QPropertyAnimation_updateDirection(this, handle__updateDirection, sigval1);
-
+		vtbl->updateDirection(this, sigval1);
 	}
 
-	friend void QPropertyAnimation_virtualbase_updateDirection(void* self, int direction);
+	friend void QPropertyAnimation_virtualbase_updateDirection(VirtualQPropertyAnimation* self, int direction);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QPropertyAnimation::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QPropertyAnimation_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QPropertyAnimation_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QPropertyAnimation_virtualbase_eventFilter(VirtualQPropertyAnimation* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QPropertyAnimation::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QPropertyAnimation_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QPropertyAnimation_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QPropertyAnimation_virtualbase_timerEvent(VirtualQPropertyAnimation* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QPropertyAnimation::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QPropertyAnimation_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QPropertyAnimation_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QPropertyAnimation_virtualbase_childEvent(VirtualQPropertyAnimation* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QPropertyAnimation::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QPropertyAnimation_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QPropertyAnimation_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QPropertyAnimation_virtualbase_customEvent(VirtualQPropertyAnimation* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QPropertyAnimation::connectNotify(signal);
 			return;
 		}
@@ -308,18 +239,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QPropertyAnimation_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QPropertyAnimation_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QPropertyAnimation_virtualbase_connectNotify(VirtualQPropertyAnimation* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QPropertyAnimation::disconnectNotify(signal);
 			return;
 		}
@@ -327,35 +253,38 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QPropertyAnimation_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QPropertyAnimation_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QPropertyAnimation_virtualbase_disconnectNotify(VirtualQPropertyAnimation* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QPropertyAnimation_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QPropertyAnimation_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QPropertyAnimation_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QPropertyAnimation_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QPropertyAnimation_protectedbase_sender(const VirtualQPropertyAnimation* self);
+	friend int QPropertyAnimation_protectedbase_senderSignalIndex(const VirtualQPropertyAnimation* self);
+	friend int QPropertyAnimation_protectedbase_receivers(const VirtualQPropertyAnimation* self, const char* signal);
+	friend bool QPropertyAnimation_protectedbase_isSignalConnected(const VirtualQPropertyAnimation* self, QMetaMethod* signal);
 };
 
-QPropertyAnimation* QPropertyAnimation_new() {
-	return new (std::nothrow) VirtualQPropertyAnimation();
+VirtualQPropertyAnimation* QPropertyAnimation_new(const QPropertyAnimation_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQPropertyAnimation>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQPropertyAnimation(vtbl) : nullptr;
 }
 
-QPropertyAnimation* QPropertyAnimation_new2(QObject* target, struct seaqt_string propertyName) {
+VirtualQPropertyAnimation* QPropertyAnimation_new2(const QPropertyAnimation_VTable* vtbl, size_t vdata, QObject* target, struct seaqt_string propertyName) {
 	QByteArray propertyName_QByteArray(propertyName.data, propertyName.len);
-	return new (std::nothrow) VirtualQPropertyAnimation(target, propertyName_QByteArray);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQPropertyAnimation>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQPropertyAnimation(vtbl, target, propertyName_QByteArray) : nullptr;
 }
 
-QPropertyAnimation* QPropertyAnimation_new3(QObject* parent) {
-	return new (std::nothrow) VirtualQPropertyAnimation(parent);
+VirtualQPropertyAnimation* QPropertyAnimation_new3(const QPropertyAnimation_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQPropertyAnimation>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQPropertyAnimation(vtbl, parent) : nullptr;
 }
 
-QPropertyAnimation* QPropertyAnimation_new4(QObject* target, struct seaqt_string propertyName, QObject* parent) {
+VirtualQPropertyAnimation* QPropertyAnimation_new4(const QPropertyAnimation_VTable* vtbl, size_t vdata, QObject* target, struct seaqt_string propertyName, QObject* parent) {
 	QByteArray propertyName_QByteArray(propertyName.data, propertyName.len);
-	return new (std::nothrow) VirtualQPropertyAnimation(target, propertyName_QByteArray, parent);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQPropertyAnimation>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQPropertyAnimation(vtbl, target, propertyName_QByteArray, parent) : nullptr;
 }
 
 void QPropertyAnimation_virtbase(QPropertyAnimation* src, QVariantAnimation** outptr_QVariantAnimation) {
@@ -463,272 +392,103 @@ struct seaqt_string QPropertyAnimation_trUtf83(const char* s, const char* c, int
 }
 
 const QMetaObject* QPropertyAnimation_staticMetaObject() { return &QPropertyAnimation::staticMetaObject; }
-bool QPropertyAnimation_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QPropertyAnimation_vdata(VirtualQPropertyAnimation* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQPropertyAnimation>()); }
+VirtualQPropertyAnimation* vdata_QPropertyAnimation(void* vdata) { return reinterpret_cast<VirtualQPropertyAnimation*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQPropertyAnimation>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QPropertyAnimation_virtualbase_metaObject(const VirtualQPropertyAnimation* self) {
+
+	return (QMetaObject*) self->QPropertyAnimation::metaObject();
 }
 
-QMetaObject* QPropertyAnimation_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQPropertyAnimation*>(self)->QPropertyAnimation::metaObject();
+void* QPropertyAnimation_virtualbase_metacast(VirtualQPropertyAnimation* self, const char* param1) {
+
+	return self->QPropertyAnimation::qt_metacast(param1);
 }
 
-bool QPropertyAnimation_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QPropertyAnimation_virtualbase_metacall(VirtualQPropertyAnimation* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QPropertyAnimation::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QPropertyAnimation_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQPropertyAnimation*>(self)->QPropertyAnimation::qt_metacast(param1);
+bool QPropertyAnimation_virtualbase_event(VirtualQPropertyAnimation* self, QEvent* event) {
+
+	return self->QPropertyAnimation::event(event);
 }
 
-bool QPropertyAnimation_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPropertyAnimation_virtualbase_updateCurrentValue(VirtualQPropertyAnimation* self, QVariant* value) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	self->QPropertyAnimation::updateCurrentValue(*value);
 }
 
-int QPropertyAnimation_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQPropertyAnimation*>(self)->QPropertyAnimation::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+void QPropertyAnimation_virtualbase_updateState(VirtualQPropertyAnimation* self, int newState, int oldState) {
+
+	self->QPropertyAnimation::updateState(static_cast<VirtualQPropertyAnimation::State>(newState), static_cast<VirtualQPropertyAnimation::State>(oldState));
 }
 
-bool QPropertyAnimation_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QPropertyAnimation_virtualbase_duration(const VirtualQPropertyAnimation* self) {
 
-	self_cast->handle__event = slot;
-	return true;
+	return self->QPropertyAnimation::duration();
 }
 
-bool QPropertyAnimation_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQPropertyAnimation*>(self)->QPropertyAnimation::event(event);
+void QPropertyAnimation_virtualbase_updateCurrentTime(VirtualQPropertyAnimation* self, int param1) {
+
+	self->QPropertyAnimation::updateCurrentTime(static_cast<int>(param1));
 }
 
-bool QPropertyAnimation_override_virtual_updateCurrentValue(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QVariant* QPropertyAnimation_virtualbase_interpolated(const VirtualQPropertyAnimation* self, QVariant* from, QVariant* to, double progress) {
 
-	self_cast->handle__updateCurrentValue = slot;
-	return true;
+	return new QVariant(self->QPropertyAnimation::interpolated(*from, *to, static_cast<qreal>(progress)));
 }
 
-void QPropertyAnimation_virtualbase_updateCurrentValue(void* self, QVariant* value) {
-	static_cast<VirtualQPropertyAnimation*>(self)->QPropertyAnimation::updateCurrentValue(*value);
+void QPropertyAnimation_virtualbase_updateDirection(VirtualQPropertyAnimation* self, int direction) {
+
+	self->QPropertyAnimation::updateDirection(static_cast<VirtualQPropertyAnimation::Direction>(direction));
 }
 
-bool QPropertyAnimation_override_virtual_updateState(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QPropertyAnimation_virtualbase_eventFilter(VirtualQPropertyAnimation* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__updateState = slot;
-	return true;
+	return self->QPropertyAnimation::eventFilter(watched, event);
 }
 
-void QPropertyAnimation_virtualbase_updateState(void* self, int newState, int oldState) {
-	static_cast<VirtualQPropertyAnimation*>(self)->QPropertyAnimation::updateState(static_cast<VirtualQPropertyAnimation::State>(newState), static_cast<VirtualQPropertyAnimation::State>(oldState));
+void QPropertyAnimation_virtualbase_timerEvent(VirtualQPropertyAnimation* self, QTimerEvent* event) {
+
+	self->QPropertyAnimation::timerEvent(event);
 }
 
-bool QPropertyAnimation_override_virtual_duration(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPropertyAnimation_virtualbase_childEvent(VirtualQPropertyAnimation* self, QChildEvent* event) {
 
-	self_cast->handle__duration = slot;
-	return true;
+	self->QPropertyAnimation::childEvent(event);
 }
 
-int QPropertyAnimation_virtualbase_duration(const void* self) {
-	return static_cast<const VirtualQPropertyAnimation*>(self)->QPropertyAnimation::duration();
+void QPropertyAnimation_virtualbase_customEvent(VirtualQPropertyAnimation* self, QEvent* event) {
+
+	self->QPropertyAnimation::customEvent(event);
 }
 
-bool QPropertyAnimation_override_virtual_updateCurrentTime(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPropertyAnimation_virtualbase_connectNotify(VirtualQPropertyAnimation* self, QMetaMethod* signal) {
 
-	self_cast->handle__updateCurrentTime = slot;
-	return true;
+	self->QPropertyAnimation::connectNotify(*signal);
 }
 
-void QPropertyAnimation_virtualbase_updateCurrentTime(void* self, int param1) {
-	static_cast<VirtualQPropertyAnimation*>(self)->QPropertyAnimation::updateCurrentTime(static_cast<int>(param1));
+void QPropertyAnimation_virtualbase_disconnectNotify(VirtualQPropertyAnimation* self, QMetaMethod* signal) {
+
+	self->QPropertyAnimation::disconnectNotify(*signal);
 }
 
-bool QPropertyAnimation_override_virtual_interpolated(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__interpolated = slot;
-	return true;
+QObject* QPropertyAnimation_protectedbase_sender(const VirtualQPropertyAnimation* self) {
+	return self->sender();
 }
 
-QVariant* QPropertyAnimation_virtualbase_interpolated(const void* self, QVariant* from, QVariant* to, double progress) {
-	return new QVariant(static_cast<const VirtualQPropertyAnimation*>(self)->QPropertyAnimation::interpolated(*from, *to, static_cast<qreal>(progress)));
+int QPropertyAnimation_protectedbase_senderSignalIndex(const VirtualQPropertyAnimation* self) {
+	return self->senderSignalIndex();
 }
 
-bool QPropertyAnimation_override_virtual_updateDirection(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__updateDirection = slot;
-	return true;
+int QPropertyAnimation_protectedbase_receivers(const VirtualQPropertyAnimation* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QPropertyAnimation_virtualbase_updateDirection(void* self, int direction) {
-	static_cast<VirtualQPropertyAnimation*>(self)->QPropertyAnimation::updateDirection(static_cast<VirtualQPropertyAnimation::Direction>(direction));
-}
-
-bool QPropertyAnimation_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
-}
-
-bool QPropertyAnimation_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQPropertyAnimation*>(self)->QPropertyAnimation::eventFilter(watched, event);
-}
-
-bool QPropertyAnimation_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
-}
-
-void QPropertyAnimation_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQPropertyAnimation*>(self)->QPropertyAnimation::timerEvent(event);
-}
-
-bool QPropertyAnimation_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QPropertyAnimation_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQPropertyAnimation*>(self)->QPropertyAnimation::childEvent(event);
-}
-
-bool QPropertyAnimation_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QPropertyAnimation_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQPropertyAnimation*>(self)->QPropertyAnimation::customEvent(event);
-}
-
-bool QPropertyAnimation_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QPropertyAnimation_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQPropertyAnimation*>(self)->QPropertyAnimation::connectNotify(*signal);
-}
-
-bool QPropertyAnimation_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QPropertyAnimation_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQPropertyAnimation*>(self)->QPropertyAnimation::disconnectNotify(*signal);
-}
-
-QObject* QPropertyAnimation_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QPropertyAnimation_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QPropertyAnimation_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QPropertyAnimation_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQPropertyAnimation* self_cast = dynamic_cast<VirtualQPropertyAnimation*>( (QPropertyAnimation*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QPropertyAnimation_protectedbase_isSignalConnected(const VirtualQPropertyAnimation* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QPropertyAnimation_delete(QPropertyAnimation* self) {

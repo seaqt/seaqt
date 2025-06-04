@@ -25,6 +25,7 @@ QRegExp* QRegExp_new2(struct seaqt_string pattern);
 QRegExp* QRegExp_new3(QRegExp* rx);
 QRegExp* QRegExp_new4(struct seaqt_string pattern, int cs);
 QRegExp* QRegExp_new5(struct seaqt_string pattern, int cs, int syntax);
+
 void QRegExp_operatorAssign(QRegExp* self, QRegExp* rx);
 void QRegExp_swap(QRegExp* self, QRegExp* other);
 bool QRegExp_operatorEqual(const QRegExp* self, QRegExp* rx);

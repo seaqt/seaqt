@@ -14,6 +14,17 @@
 #include <qnetworksession.h>
 #include "gen_qnetworksession.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -25,65 +36,46 @@ void miqt_exec_callback_QNetworkSession_errorWithQNetworkSessionSessionError(int
 void miqt_exec_callback_QNetworkSession_preferredConfigurationChanged(intptr_t, QNetworkConfiguration*, bool);
 void miqt_exec_callback_QNetworkSession_newConfigurationActivated(intptr_t);
 void miqt_exec_callback_QNetworkSession_usagePoliciesChanged(intptr_t, int);
-QMetaObject* miqt_exec_callback_QNetworkSession_metaObject(const QNetworkSession*, intptr_t);
-void* miqt_exec_callback_QNetworkSession_metacast(QNetworkSession*, intptr_t, const char*);
-int miqt_exec_callback_QNetworkSession_metacall(QNetworkSession*, intptr_t, int, int, void**);
-void miqt_exec_callback_QNetworkSession_connectNotify(QNetworkSession*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QNetworkSession_disconnectNotify(QNetworkSession*, intptr_t, QMetaMethod*);
-bool miqt_exec_callback_QNetworkSession_event(QNetworkSession*, intptr_t, QEvent*);
-bool miqt_exec_callback_QNetworkSession_eventFilter(QNetworkSession*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QNetworkSession_timerEvent(QNetworkSession*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QNetworkSession_childEvent(QNetworkSession*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QNetworkSession_customEvent(QNetworkSession*, intptr_t, QEvent*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQNetworkSession final : public QNetworkSession {
+	const QNetworkSession_VTable* vtbl;
 public:
+	friend void* QNetworkSession_vdata(VirtualQNetworkSession* self);
+	friend VirtualQNetworkSession* vdata_QNetworkSession(void* vdata);
 
-	VirtualQNetworkSession(const QNetworkConfiguration& connConfig): QNetworkSession(connConfig) {}
-	VirtualQNetworkSession(const QNetworkConfiguration& connConfig, QObject* parent): QNetworkSession(connConfig, parent) {}
+	VirtualQNetworkSession(const QNetworkSession_VTable* vtbl, const QNetworkConfiguration& connConfig): QNetworkSession(connConfig), vtbl(vtbl) {}
+	VirtualQNetworkSession(const QNetworkSession_VTable* vtbl, const QNetworkConfiguration& connConfig, QObject* parent): QNetworkSession(connConfig, parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQNetworkSession() override = default;
+	virtual ~VirtualQNetworkSession() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QNetworkSession::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QNetworkSession_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QNetworkSession_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QNetworkSession_virtualbase_metaObject(const VirtualQNetworkSession* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QNetworkSession::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QNetworkSession_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QNetworkSession_virtualbase_metacast(void* self, const char* param1);
+	friend void* QNetworkSession_virtualbase_metacast(VirtualQNetworkSession* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QNetworkSession::qt_metacall(param1, param2, param3);
 		}
 
@@ -91,18 +83,14 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QNetworkSession_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QNetworkSession_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QNetworkSession_virtualbase_metacall(VirtualQNetworkSession* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QNetworkSession::connectNotify(signal);
 			return;
 		}
@@ -110,18 +98,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QNetworkSession_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QNetworkSession_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QNetworkSession_virtualbase_connectNotify(VirtualQNetworkSession* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QNetworkSession::disconnectNotify(signal);
 			return;
 		}
@@ -129,109 +112,87 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QNetworkSession_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QNetworkSession_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QNetworkSession_virtualbase_disconnectNotify(VirtualQNetworkSession* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QNetworkSession::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QNetworkSession_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QNetworkSession_virtualbase_event(void* self, QEvent* event);
+	friend bool QNetworkSession_virtualbase_event(VirtualQNetworkSession* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QNetworkSession::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QNetworkSession_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QNetworkSession_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QNetworkSession_virtualbase_eventFilter(VirtualQNetworkSession* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QNetworkSession::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QNetworkSession_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QNetworkSession_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QNetworkSession_virtualbase_timerEvent(VirtualQNetworkSession* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QNetworkSession::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QNetworkSession_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QNetworkSession_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QNetworkSession_virtualbase_childEvent(VirtualQNetworkSession* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QNetworkSession::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QNetworkSession_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QNetworkSession_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QNetworkSession_virtualbase_customEvent(VirtualQNetworkSession* self, QEvent* event);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QNetworkSession_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QNetworkSession_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QNetworkSession_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QNetworkSession_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QNetworkSession_protectedbase_sender(const VirtualQNetworkSession* self);
+	friend int QNetworkSession_protectedbase_senderSignalIndex(const VirtualQNetworkSession* self);
+	friend int QNetworkSession_protectedbase_receivers(const VirtualQNetworkSession* self, const char* signal);
+	friend bool QNetworkSession_protectedbase_isSignalConnected(const VirtualQNetworkSession* self, QMetaMethod* signal);
 };
 
-QNetworkSession* QNetworkSession_new(QNetworkConfiguration* connConfig) {
-	return new (std::nothrow) VirtualQNetworkSession(*connConfig);
+VirtualQNetworkSession* QNetworkSession_new(const QNetworkSession_VTable* vtbl, size_t vdata, QNetworkConfiguration* connConfig) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQNetworkSession>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQNetworkSession(vtbl, *connConfig) : nullptr;
 }
 
-QNetworkSession* QNetworkSession_new2(QNetworkConfiguration* connConfig, QObject* parent) {
-	return new (std::nothrow) VirtualQNetworkSession(*connConfig, parent);
+VirtualQNetworkSession* QNetworkSession_new2(const QNetworkSession_VTable* vtbl, size_t vdata, QNetworkConfiguration* connConfig, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQNetworkSession>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQNetworkSession(vtbl, *connConfig, parent) : nullptr;
 }
 
 void QNetworkSession_virtbase(QNetworkSession* src, QObject** outptr_QObject) {
@@ -496,188 +457,73 @@ bool QNetworkSession_waitForOpenedWithMsecs(QNetworkSession* self, int msecs) {
 }
 
 const QMetaObject* QNetworkSession_staticMetaObject() { return &QNetworkSession::staticMetaObject; }
-bool QNetworkSession_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQNetworkSession* self_cast = dynamic_cast<VirtualQNetworkSession*>( (QNetworkSession*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QNetworkSession_vdata(VirtualQNetworkSession* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQNetworkSession>()); }
+VirtualQNetworkSession* vdata_QNetworkSession(void* vdata) { return reinterpret_cast<VirtualQNetworkSession*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQNetworkSession>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QNetworkSession_virtualbase_metaObject(const VirtualQNetworkSession* self) {
+
+	return (QMetaObject*) self->QNetworkSession::metaObject();
 }
 
-QMetaObject* QNetworkSession_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQNetworkSession*>(self)->QNetworkSession::metaObject();
+void* QNetworkSession_virtualbase_metacast(VirtualQNetworkSession* self, const char* param1) {
+
+	return self->QNetworkSession::qt_metacast(param1);
 }
 
-bool QNetworkSession_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQNetworkSession* self_cast = dynamic_cast<VirtualQNetworkSession*>( (QNetworkSession*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QNetworkSession_virtualbase_metacall(VirtualQNetworkSession* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QNetworkSession::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QNetworkSession_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQNetworkSession*>(self)->QNetworkSession::qt_metacast(param1);
+void QNetworkSession_virtualbase_connectNotify(VirtualQNetworkSession* self, QMetaMethod* signal) {
+
+	self->QNetworkSession::connectNotify(*signal);
 }
 
-bool QNetworkSession_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQNetworkSession* self_cast = dynamic_cast<VirtualQNetworkSession*>( (QNetworkSession*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QNetworkSession_virtualbase_disconnectNotify(VirtualQNetworkSession* self, QMetaMethod* signal) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	self->QNetworkSession::disconnectNotify(*signal);
 }
 
-int QNetworkSession_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQNetworkSession*>(self)->QNetworkSession::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+bool QNetworkSession_virtualbase_event(VirtualQNetworkSession* self, QEvent* event) {
+
+	return self->QNetworkSession::event(event);
 }
 
-bool QNetworkSession_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQNetworkSession* self_cast = dynamic_cast<VirtualQNetworkSession*>( (QNetworkSession*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QNetworkSession_virtualbase_eventFilter(VirtualQNetworkSession* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__connectNotify = slot;
-	return true;
+	return self->QNetworkSession::eventFilter(watched, event);
 }
 
-void QNetworkSession_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQNetworkSession*>(self)->QNetworkSession::connectNotify(*signal);
+void QNetworkSession_virtualbase_timerEvent(VirtualQNetworkSession* self, QTimerEvent* event) {
+
+	self->QNetworkSession::timerEvent(event);
 }
 
-bool QNetworkSession_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQNetworkSession* self_cast = dynamic_cast<VirtualQNetworkSession*>( (QNetworkSession*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QNetworkSession_virtualbase_childEvent(VirtualQNetworkSession* self, QChildEvent* event) {
 
-	self_cast->handle__disconnectNotify = slot;
-	return true;
+	self->QNetworkSession::childEvent(event);
 }
 
-void QNetworkSession_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQNetworkSession*>(self)->QNetworkSession::disconnectNotify(*signal);
+void QNetworkSession_virtualbase_customEvent(VirtualQNetworkSession* self, QEvent* event) {
+
+	self->QNetworkSession::customEvent(event);
 }
 
-bool QNetworkSession_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQNetworkSession* self_cast = dynamic_cast<VirtualQNetworkSession*>( (QNetworkSession*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__event = slot;
-	return true;
+QObject* QNetworkSession_protectedbase_sender(const VirtualQNetworkSession* self) {
+	return self->sender();
 }
 
-bool QNetworkSession_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQNetworkSession*>(self)->QNetworkSession::event(event);
+int QNetworkSession_protectedbase_senderSignalIndex(const VirtualQNetworkSession* self) {
+	return self->senderSignalIndex();
 }
 
-bool QNetworkSession_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQNetworkSession* self_cast = dynamic_cast<VirtualQNetworkSession*>( (QNetworkSession*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
+int QNetworkSession_protectedbase_receivers(const VirtualQNetworkSession* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QNetworkSession_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQNetworkSession*>(self)->QNetworkSession::eventFilter(watched, event);
-}
-
-bool QNetworkSession_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQNetworkSession* self_cast = dynamic_cast<VirtualQNetworkSession*>( (QNetworkSession*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
-}
-
-void QNetworkSession_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQNetworkSession*>(self)->QNetworkSession::timerEvent(event);
-}
-
-bool QNetworkSession_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQNetworkSession* self_cast = dynamic_cast<VirtualQNetworkSession*>( (QNetworkSession*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QNetworkSession_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQNetworkSession*>(self)->QNetworkSession::childEvent(event);
-}
-
-bool QNetworkSession_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQNetworkSession* self_cast = dynamic_cast<VirtualQNetworkSession*>( (QNetworkSession*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QNetworkSession_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQNetworkSession*>(self)->QNetworkSession::customEvent(event);
-}
-
-QObject* QNetworkSession_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQNetworkSession* self_cast = dynamic_cast<VirtualQNetworkSession*>( (QNetworkSession*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QNetworkSession_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQNetworkSession* self_cast = dynamic_cast<VirtualQNetworkSession*>( (QNetworkSession*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QNetworkSession_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQNetworkSession* self_cast = dynamic_cast<VirtualQNetworkSession*>( (QNetworkSession*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QNetworkSession_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQNetworkSession* self_cast = dynamic_cast<VirtualQNetworkSession*>( (QNetworkSession*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QNetworkSession_protectedbase_isSignalConnected(const VirtualQNetworkSession* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QNetworkSession_delete(QNetworkSession* self) {

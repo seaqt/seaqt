@@ -12,6 +12,17 @@
 #include <qwebelement.h>
 #include "gen_qwebelement.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -563,11 +574,11 @@ void QWebElementCollection_delete(QWebElementCollection* self) {
 }
 
 QWebElementCollection__const_iterator* QWebElementCollection__const_iterator_new(QWebElementCollection* collection_, int index) {
-	return new (std::nothrow) QWebElementCollection::const_iterator(collection_, static_cast<int>(index));
+	return new (std::nothrow) QWebElementCollection__const_iterator(collection_, static_cast<int>(index));
 }
 
 QWebElementCollection__const_iterator* QWebElementCollection__const_iterator_new2(QWebElementCollection__const_iterator* o) {
-	return new (std::nothrow) QWebElementCollection::const_iterator(*o);
+	return new (std::nothrow) QWebElementCollection__const_iterator(*o);
 }
 
 QWebElement* QWebElementCollection__const_iterator_operatorMultiply(const QWebElementCollection__const_iterator* self) {
@@ -647,11 +658,11 @@ void QWebElementCollection__const_iterator_delete(QWebElementCollection__const_i
 }
 
 QWebElementCollection__iterator* QWebElementCollection__iterator_new(QWebElementCollection* collection_, int index) {
-	return new (std::nothrow) QWebElementCollection::iterator(collection_, static_cast<int>(index));
+	return new (std::nothrow) QWebElementCollection__iterator(collection_, static_cast<int>(index));
 }
 
 QWebElementCollection__iterator* QWebElementCollection__iterator_new2(QWebElementCollection__iterator* o) {
-	return new (std::nothrow) QWebElementCollection::iterator(*o);
+	return new (std::nothrow) QWebElementCollection__iterator(*o);
 }
 
 QWebElement* QWebElementCollection__iterator_operatorMultiply(const QWebElementCollection__iterator* self) {

@@ -7,63 +7,68 @@
 #include <qsgsimplerectnode.h>
 #include "gen_qsgsimplerectnode.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-bool miqt_exec_callback_QSGSimpleRectNode_isSubtreeBlocked(const QSGSimpleRectNode*, intptr_t);
-void miqt_exec_callback_QSGSimpleRectNode_preprocess(QSGSimpleRectNode*, intptr_t);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQSGSimpleRectNode final : public QSGSimpleRectNode {
+	const QSGSimpleRectNode_VTable* vtbl;
 public:
+	friend void* QSGSimpleRectNode_vdata(VirtualQSGSimpleRectNode* self);
+	friend VirtualQSGSimpleRectNode* vdata_QSGSimpleRectNode(void* vdata);
 
-	VirtualQSGSimpleRectNode(const QRectF& rect, const QColor& color): QSGSimpleRectNode(rect, color) {}
-	VirtualQSGSimpleRectNode(): QSGSimpleRectNode() {}
+	VirtualQSGSimpleRectNode(const QSGSimpleRectNode_VTable* vtbl, const QRectF& rect, const QColor& color): QSGSimpleRectNode(rect, color), vtbl(vtbl) {}
+	VirtualQSGSimpleRectNode(const QSGSimpleRectNode_VTable* vtbl): QSGSimpleRectNode(), vtbl(vtbl) {}
 
-	virtual ~VirtualQSGSimpleRectNode() override = default;
+	virtual ~VirtualQSGSimpleRectNode() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isSubtreeBlocked = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isSubtreeBlocked() const override {
-		if (handle__isSubtreeBlocked == 0) {
+		if (vtbl->isSubtreeBlocked == 0) {
 			return QSGSimpleRectNode::isSubtreeBlocked();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QSGSimpleRectNode_isSubtreeBlocked(this, handle__isSubtreeBlocked);
+		bool callback_return_value = vtbl->isSubtreeBlocked(this);
 		return callback_return_value;
 	}
 
-	friend bool QSGSimpleRectNode_virtualbase_isSubtreeBlocked(const void* self);
+	friend bool QSGSimpleRectNode_virtualbase_isSubtreeBlocked(const VirtualQSGSimpleRectNode* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__preprocess = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void preprocess() override {
-		if (handle__preprocess == 0) {
+		if (vtbl->preprocess == 0) {
 			QSGSimpleRectNode::preprocess();
 			return;
 		}
 
-		miqt_exec_callback_QSGSimpleRectNode_preprocess(this, handle__preprocess);
-
+		vtbl->preprocess(this);
 	}
 
-	friend void QSGSimpleRectNode_virtualbase_preprocess(void* self);
+	friend void QSGSimpleRectNode_virtualbase_preprocess(VirtualQSGSimpleRectNode* self);
 
 };
 
-QSGSimpleRectNode* QSGSimpleRectNode_new(QRectF* rect, QColor* color) {
-	return new (std::nothrow) VirtualQSGSimpleRectNode(*rect, *color);
+VirtualQSGSimpleRectNode* QSGSimpleRectNode_new(const QSGSimpleRectNode_VTable* vtbl, size_t vdata, QRectF* rect, QColor* color) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSGSimpleRectNode>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSGSimpleRectNode(vtbl, *rect, *color) : nullptr;
 }
 
-QSGSimpleRectNode* QSGSimpleRectNode_new2() {
-	return new (std::nothrow) VirtualQSGSimpleRectNode();
+VirtualQSGSimpleRectNode* QSGSimpleRectNode_new2(const QSGSimpleRectNode_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSGSimpleRectNode>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSGSimpleRectNode(vtbl) : nullptr;
 }
 
 void QSGSimpleRectNode_virtbase(QSGSimpleRectNode* src, QSGGeometryNode** outptr_QSGGeometryNode) {
@@ -90,32 +95,17 @@ QColor* QSGSimpleRectNode_color(const QSGSimpleRectNode* self) {
 	return new QColor(self->color());
 }
 
-bool QSGSimpleRectNode_override_virtual_isSubtreeBlocked(void* self, intptr_t slot) {
-	VirtualQSGSimpleRectNode* self_cast = dynamic_cast<VirtualQSGSimpleRectNode*>( (QSGSimpleRectNode*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QSGSimpleRectNode_vdata(VirtualQSGSimpleRectNode* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQSGSimpleRectNode>()); }
+VirtualQSGSimpleRectNode* vdata_QSGSimpleRectNode(void* vdata) { return reinterpret_cast<VirtualQSGSimpleRectNode*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQSGSimpleRectNode>()); }
 
-	self_cast->handle__isSubtreeBlocked = slot;
-	return true;
+bool QSGSimpleRectNode_virtualbase_isSubtreeBlocked(const VirtualQSGSimpleRectNode* self) {
+
+	return self->QSGSimpleRectNode::isSubtreeBlocked();
 }
 
-bool QSGSimpleRectNode_virtualbase_isSubtreeBlocked(const void* self) {
-	return static_cast<const VirtualQSGSimpleRectNode*>(self)->QSGSimpleRectNode::isSubtreeBlocked();
-}
+void QSGSimpleRectNode_virtualbase_preprocess(VirtualQSGSimpleRectNode* self) {
 
-bool QSGSimpleRectNode_override_virtual_preprocess(void* self, intptr_t slot) {
-	VirtualQSGSimpleRectNode* self_cast = dynamic_cast<VirtualQSGSimpleRectNode*>( (QSGSimpleRectNode*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__preprocess = slot;
-	return true;
-}
-
-void QSGSimpleRectNode_virtualbase_preprocess(void* self) {
-	static_cast<VirtualQSGSimpleRectNode*>(self)->QSGSimpleRectNode::preprocess();
+	self->QSGSimpleRectNode::preprocess();
 }
 
 void QSGSimpleRectNode_delete(QSGSimpleRectNode* self) {

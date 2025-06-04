@@ -38,8 +38,27 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QVariant QVariant;
 #endif
 
-QNetworkSession* QNetworkSession_new(QNetworkConfiguration* connConfig);
-QNetworkSession* QNetworkSession_new2(QNetworkConfiguration* connConfig, QObject* parent);
+typedef struct VirtualQNetworkSession VirtualQNetworkSession;
+typedef struct QNetworkSession_VTable{
+	void (*destructor)(VirtualQNetworkSession* self);
+	QMetaObject* (*metaObject)(const VirtualQNetworkSession* self);
+	void* (*metacast)(VirtualQNetworkSession* self, const char* param1);
+	int (*metacall)(VirtualQNetworkSession* self, int param1, int param2, void** param3);
+	void (*connectNotify)(VirtualQNetworkSession* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQNetworkSession* self, QMetaMethod* signal);
+	bool (*event)(VirtualQNetworkSession* self, QEvent* event);
+	bool (*eventFilter)(VirtualQNetworkSession* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQNetworkSession* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQNetworkSession* self, QChildEvent* event);
+	void (*customEvent)(VirtualQNetworkSession* self, QEvent* event);
+}QNetworkSession_VTable;
+
+void* QNetworkSession_vdata(VirtualQNetworkSession* self);
+VirtualQNetworkSession* vdata_QNetworkSession(void* vdata);
+
+VirtualQNetworkSession* QNetworkSession_new(const QNetworkSession_VTable* vtbl, size_t vdata, QNetworkConfiguration* connConfig);
+VirtualQNetworkSession* QNetworkSession_new2(const QNetworkSession_VTable* vtbl, size_t vdata, QNetworkConfiguration* connConfig, QObject* parent);
+
 void QNetworkSession_virtbase(QNetworkSession* src, QObject** outptr_QObject);
 QMetaObject* QNetworkSession_metaObject(const QNetworkSession* self);
 void* QNetworkSession_metacast(QNetworkSession* self, const char* param1);
@@ -88,31 +107,21 @@ struct seaqt_string QNetworkSession_trUtf82(const char* s, const char* c);
 struct seaqt_string QNetworkSession_trUtf83(const char* s, const char* c, int n);
 bool QNetworkSession_waitForOpenedWithMsecs(QNetworkSession* self, int msecs);
 
-bool QNetworkSession_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QNetworkSession_virtualbase_metaObject(const void* self);
-bool QNetworkSession_override_virtual_metacast(void* self, intptr_t slot);
-void* QNetworkSession_virtualbase_metacast(void* self, const char* param1);
-bool QNetworkSession_override_virtual_metacall(void* self, intptr_t slot);
-int QNetworkSession_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QNetworkSession_override_virtual_connectNotify(void* self, intptr_t slot);
-void QNetworkSession_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QNetworkSession_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QNetworkSession_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
-bool QNetworkSession_override_virtual_event(void* self, intptr_t slot);
-bool QNetworkSession_virtualbase_event(void* self, QEvent* event);
-bool QNetworkSession_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QNetworkSession_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QNetworkSession_override_virtual_timerEvent(void* self, intptr_t slot);
-void QNetworkSession_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QNetworkSession_override_virtual_childEvent(void* self, intptr_t slot);
-void QNetworkSession_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QNetworkSession_override_virtual_customEvent(void* self, intptr_t slot);
-void QNetworkSession_virtualbase_customEvent(void* self, QEvent* event);
+QMetaObject* QNetworkSession_virtualbase_metaObject(const VirtualQNetworkSession* self);
+void* QNetworkSession_virtualbase_metacast(VirtualQNetworkSession* self, const char* param1);
+int QNetworkSession_virtualbase_metacall(VirtualQNetworkSession* self, int param1, int param2, void** param3);
+void QNetworkSession_virtualbase_connectNotify(VirtualQNetworkSession* self, QMetaMethod* signal);
+void QNetworkSession_virtualbase_disconnectNotify(VirtualQNetworkSession* self, QMetaMethod* signal);
+bool QNetworkSession_virtualbase_event(VirtualQNetworkSession* self, QEvent* event);
+bool QNetworkSession_virtualbase_eventFilter(VirtualQNetworkSession* self, QObject* watched, QEvent* event);
+void QNetworkSession_virtualbase_timerEvent(VirtualQNetworkSession* self, QTimerEvent* event);
+void QNetworkSession_virtualbase_childEvent(VirtualQNetworkSession* self, QChildEvent* event);
+void QNetworkSession_virtualbase_customEvent(VirtualQNetworkSession* self, QEvent* event);
 
-QObject* QNetworkSession_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QNetworkSession_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QNetworkSession_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QNetworkSession_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QNetworkSession_protectedbase_sender(const VirtualQNetworkSession* self);
+int QNetworkSession_protectedbase_senderSignalIndex(const VirtualQNetworkSession* self);
+int QNetworkSession_protectedbase_receivers(const VirtualQNetworkSession* self, const char* signal);
+bool QNetworkSession_protectedbase_isSignalConnected(const VirtualQNetworkSession* self, QMetaMethod* signal);
 
 const QMetaObject* QNetworkSession_staticMetaObject();
 void QNetworkSession_delete(QNetworkSession* self);

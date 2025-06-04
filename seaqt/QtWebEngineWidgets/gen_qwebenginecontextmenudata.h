@@ -28,6 +28,7 @@ typedef struct QWebEngineContextMenuData QWebEngineContextMenuData;
 
 QWebEngineContextMenuData* QWebEngineContextMenuData_new();
 QWebEngineContextMenuData* QWebEngineContextMenuData_new2(QWebEngineContextMenuData* other);
+
 void QWebEngineContextMenuData_operatorAssign(QWebEngineContextMenuData* self, QWebEngineContextMenuData* other);
 bool QWebEngineContextMenuData_isValid(const QWebEngineContextMenuData* self);
 QPoint* QWebEngineContextMenuData_position(const QWebEngineContextMenuData* self);

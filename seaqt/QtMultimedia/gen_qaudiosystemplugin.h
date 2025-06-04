@@ -48,8 +48,31 @@ void QAudioSystemFactoryInterface_operatorAssign(QAudioSystemFactoryInterface* s
 
 void QAudioSystemFactoryInterface_delete(QAudioSystemFactoryInterface* self);
 
-QAudioSystemPlugin* QAudioSystemPlugin_new();
-QAudioSystemPlugin* QAudioSystemPlugin_new2(QObject* parent);
+typedef struct VirtualQAudioSystemPlugin VirtualQAudioSystemPlugin;
+typedef struct QAudioSystemPlugin_VTable{
+	void (*destructor)(VirtualQAudioSystemPlugin* self);
+	QMetaObject* (*metaObject)(const VirtualQAudioSystemPlugin* self);
+	void* (*metacast)(VirtualQAudioSystemPlugin* self, const char* param1);
+	int (*metacall)(VirtualQAudioSystemPlugin* self, int param1, int param2, void** param3);
+	struct seaqt_array /* of struct seaqt_string */  (*availableDevices)(const VirtualQAudioSystemPlugin* self, int param1);
+	QAbstractAudioInput* (*createInput)(VirtualQAudioSystemPlugin* self, struct seaqt_string device);
+	QAbstractAudioOutput* (*createOutput)(VirtualQAudioSystemPlugin* self, struct seaqt_string device);
+	QAbstractAudioDeviceInfo* (*createDeviceInfo)(VirtualQAudioSystemPlugin* self, struct seaqt_string device, int mode);
+	bool (*event)(VirtualQAudioSystemPlugin* self, QEvent* event);
+	bool (*eventFilter)(VirtualQAudioSystemPlugin* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQAudioSystemPlugin* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQAudioSystemPlugin* self, QChildEvent* event);
+	void (*customEvent)(VirtualQAudioSystemPlugin* self, QEvent* event);
+	void (*connectNotify)(VirtualQAudioSystemPlugin* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQAudioSystemPlugin* self, QMetaMethod* signal);
+}QAudioSystemPlugin_VTable;
+
+void* QAudioSystemPlugin_vdata(VirtualQAudioSystemPlugin* self);
+VirtualQAudioSystemPlugin* vdata_QAudioSystemPlugin(void* vdata);
+
+VirtualQAudioSystemPlugin* QAudioSystemPlugin_new(const QAudioSystemPlugin_VTable* vtbl, size_t vdata);
+VirtualQAudioSystemPlugin* QAudioSystemPlugin_new2(const QAudioSystemPlugin_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QAudioSystemPlugin_virtbase(QAudioSystemPlugin* src, QObject** outptr_QObject, QAudioSystemFactoryInterface** outptr_QAudioSystemFactoryInterface);
 QMetaObject* QAudioSystemPlugin_metaObject(const QAudioSystemPlugin* self);
 void* QAudioSystemPlugin_metacast(QAudioSystemPlugin* self, const char* param1);
@@ -65,39 +88,25 @@ struct seaqt_string QAudioSystemPlugin_tr3(const char* s, const char* c, int n);
 struct seaqt_string QAudioSystemPlugin_trUtf82(const char* s, const char* c);
 struct seaqt_string QAudioSystemPlugin_trUtf83(const char* s, const char* c, int n);
 
-bool QAudioSystemPlugin_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QAudioSystemPlugin_virtualbase_metaObject(const void* self);
-bool QAudioSystemPlugin_override_virtual_metacast(void* self, intptr_t slot);
-void* QAudioSystemPlugin_virtualbase_metacast(void* self, const char* param1);
-bool QAudioSystemPlugin_override_virtual_metacall(void* self, intptr_t slot);
-int QAudioSystemPlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QAudioSystemPlugin_override_virtual_availableDevices(void* self, intptr_t slot);
-struct seaqt_array /* of struct seaqt_string */  QAudioSystemPlugin_virtualbase_availableDevices(const void* self, int param1);
-bool QAudioSystemPlugin_override_virtual_createInput(void* self, intptr_t slot);
-QAbstractAudioInput* QAudioSystemPlugin_virtualbase_createInput(void* self, struct seaqt_string device);
-bool QAudioSystemPlugin_override_virtual_createOutput(void* self, intptr_t slot);
-QAbstractAudioOutput* QAudioSystemPlugin_virtualbase_createOutput(void* self, struct seaqt_string device);
-bool QAudioSystemPlugin_override_virtual_createDeviceInfo(void* self, intptr_t slot);
-QAbstractAudioDeviceInfo* QAudioSystemPlugin_virtualbase_createDeviceInfo(void* self, struct seaqt_string device, int mode);
-bool QAudioSystemPlugin_override_virtual_event(void* self, intptr_t slot);
-bool QAudioSystemPlugin_virtualbase_event(void* self, QEvent* event);
-bool QAudioSystemPlugin_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QAudioSystemPlugin_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QAudioSystemPlugin_override_virtual_timerEvent(void* self, intptr_t slot);
-void QAudioSystemPlugin_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QAudioSystemPlugin_override_virtual_childEvent(void* self, intptr_t slot);
-void QAudioSystemPlugin_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QAudioSystemPlugin_override_virtual_customEvent(void* self, intptr_t slot);
-void QAudioSystemPlugin_virtualbase_customEvent(void* self, QEvent* event);
-bool QAudioSystemPlugin_override_virtual_connectNotify(void* self, intptr_t slot);
-void QAudioSystemPlugin_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QAudioSystemPlugin_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QAudioSystemPlugin_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QAudioSystemPlugin_virtualbase_metaObject(const VirtualQAudioSystemPlugin* self);
+void* QAudioSystemPlugin_virtualbase_metacast(VirtualQAudioSystemPlugin* self, const char* param1);
+int QAudioSystemPlugin_virtualbase_metacall(VirtualQAudioSystemPlugin* self, int param1, int param2, void** param3);
+struct seaqt_array /* of struct seaqt_string */  QAudioSystemPlugin_virtualbase_availableDevices(const VirtualQAudioSystemPlugin* self, int param1);
+QAbstractAudioInput* QAudioSystemPlugin_virtualbase_createInput(VirtualQAudioSystemPlugin* self, struct seaqt_string device);
+QAbstractAudioOutput* QAudioSystemPlugin_virtualbase_createOutput(VirtualQAudioSystemPlugin* self, struct seaqt_string device);
+QAbstractAudioDeviceInfo* QAudioSystemPlugin_virtualbase_createDeviceInfo(VirtualQAudioSystemPlugin* self, struct seaqt_string device, int mode);
+bool QAudioSystemPlugin_virtualbase_event(VirtualQAudioSystemPlugin* self, QEvent* event);
+bool QAudioSystemPlugin_virtualbase_eventFilter(VirtualQAudioSystemPlugin* self, QObject* watched, QEvent* event);
+void QAudioSystemPlugin_virtualbase_timerEvent(VirtualQAudioSystemPlugin* self, QTimerEvent* event);
+void QAudioSystemPlugin_virtualbase_childEvent(VirtualQAudioSystemPlugin* self, QChildEvent* event);
+void QAudioSystemPlugin_virtualbase_customEvent(VirtualQAudioSystemPlugin* self, QEvent* event);
+void QAudioSystemPlugin_virtualbase_connectNotify(VirtualQAudioSystemPlugin* self, QMetaMethod* signal);
+void QAudioSystemPlugin_virtualbase_disconnectNotify(VirtualQAudioSystemPlugin* self, QMetaMethod* signal);
 
-QObject* QAudioSystemPlugin_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QAudioSystemPlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QAudioSystemPlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QAudioSystemPlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QAudioSystemPlugin_protectedbase_sender(const VirtualQAudioSystemPlugin* self);
+int QAudioSystemPlugin_protectedbase_senderSignalIndex(const VirtualQAudioSystemPlugin* self);
+int QAudioSystemPlugin_protectedbase_receivers(const VirtualQAudioSystemPlugin* self, const char* signal);
+bool QAudioSystemPlugin_protectedbase_isSignalConnected(const VirtualQAudioSystemPlugin* self, QMetaMethod* signal);
 
 const QMetaObject* QAudioSystemPlugin_staticMetaObject();
 void QAudioSystemPlugin_delete(QAudioSystemPlugin* self);
