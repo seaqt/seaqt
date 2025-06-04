@@ -88,6 +88,7 @@ public:
 		for(size_t i = 0; i < callback_return_value.len; ++i) {
 			callback_return_value_QList.push_back(static_cast<QVideoFrame::PixelFormat>(callback_return_value_arr[i]));
 		}
+		free(callback_return_value.data);
 		return callback_return_value_QList;
 	}
 
@@ -114,7 +115,9 @@ public:
 		// Cast returned reference into pointer
 		QVideoSurfaceFormat* sigval1 = const_cast<QVideoSurfaceFormat*>(&format_ret);
 		QVideoSurfaceFormat* callback_return_value = vtbl->nearestFormat(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVideoSurfaceFormat* QAbstractVideoSurface_virtualbase_nearestFormat(const VirtualQAbstractVideoSurface* self, QVideoSurfaceFormat* format);

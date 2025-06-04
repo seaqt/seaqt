@@ -154,7 +154,9 @@ public:
 		qreal progress_ret = progress;
 		double sigval3 = static_cast<double>(progress_ret);
 		QVariant* callback_return_value = vtbl->interpolated(this, sigval1, sigval2, sigval3);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QPropertyAnimation_virtualbase_interpolated(const VirtualQPropertyAnimation* self, QVariant* from, QVariant* to, double progress);
