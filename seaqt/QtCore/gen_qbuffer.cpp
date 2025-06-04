@@ -24,15 +24,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQBuffer final : public QBuffer {
 	const QBuffer_VTable* vtbl;
 public:

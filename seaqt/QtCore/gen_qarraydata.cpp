@@ -13,15 +13,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 ptrdiff_t QArrayData_allocatedCapacity(QArrayData* self) {
 	qsizetype _ret = self->allocatedCapacity();
 	return static_cast<ptrdiff_t>(_ret);

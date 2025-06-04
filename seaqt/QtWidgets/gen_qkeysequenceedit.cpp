@@ -49,17 +49,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QKeySequenceEdit_editingFinished(intptr_t);
-void miqt_exec_callback_QKeySequenceEdit_keySequenceChanged(intptr_t, QKeySequence*);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQKeySequenceEdit final : public QKeySequenceEdit {
 	const QKeySequenceEdit_VTable* vtbl;
 public:
@@ -767,23 +756,33 @@ void QKeySequenceEdit_editingFinished(QKeySequenceEdit* self) {
 	self->editingFinished();
 }
 
-void QKeySequenceEdit_connect_editingFinished(QKeySequenceEdit* self, intptr_t slot) {
-	QKeySequenceEdit::connect(self, static_cast<void (QKeySequenceEdit::*)()>(&QKeySequenceEdit::editingFinished), self, [=]() {
-		miqt_exec_callback_QKeySequenceEdit_editingFinished(slot);
-	});
+void QKeySequenceEdit_connect_editingFinished(QKeySequenceEdit* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QKeySequenceEdit::connect(self, static_cast<void (QKeySequenceEdit::*)()>(&QKeySequenceEdit::editingFinished), self, local_caller{slot, callback, release});
 }
 
 void QKeySequenceEdit_keySequenceChanged(QKeySequenceEdit* self, QKeySequence* keySequence) {
 	self->keySequenceChanged(*keySequence);
 }
 
-void QKeySequenceEdit_connect_keySequenceChanged(QKeySequenceEdit* self, intptr_t slot) {
-	QKeySequenceEdit::connect(self, static_cast<void (QKeySequenceEdit::*)(const QKeySequence&)>(&QKeySequenceEdit::keySequenceChanged), self, [=](const QKeySequence& keySequence) {
-		const QKeySequence& keySequence_ret = keySequence;
-		// Cast returned reference into pointer
-		QKeySequence* sigval1 = const_cast<QKeySequence*>(&keySequence_ret);
-		miqt_exec_callback_QKeySequenceEdit_keySequenceChanged(slot, sigval1);
-	});
+void QKeySequenceEdit_connect_keySequenceChanged(QKeySequenceEdit* self, intptr_t slot, void (*callback)(intptr_t, QKeySequence*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QKeySequence*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QKeySequence*);
+		void operator()(const QKeySequence& keySequence) {
+			const QKeySequence& keySequence_ret = keySequence;
+			// Cast returned reference into pointer
+			QKeySequence* sigval1 = const_cast<QKeySequence*>(&keySequence_ret);
+			callback(slot, sigval1);
+		}
+	};
+	QKeySequenceEdit::connect(self, static_cast<void (QKeySequenceEdit::*)(const QKeySequence&)>(&QKeySequenceEdit::keySequenceChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QKeySequenceEdit_tr2(const char* s, const char* c) {

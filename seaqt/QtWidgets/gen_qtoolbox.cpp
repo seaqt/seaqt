@@ -51,16 +51,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QToolBox_currentChanged(intptr_t, int);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQToolBox final : public QToolBox {
 	const QToolBox_VTable* vtbl;
 public:
@@ -879,11 +869,16 @@ void QToolBox_currentChanged(QToolBox* self, int index) {
 	self->currentChanged(static_cast<int>(index));
 }
 
-void QToolBox_connect_currentChanged(QToolBox* self, intptr_t slot) {
-	QToolBox::connect(self, static_cast<void (QToolBox::*)(int)>(&QToolBox::currentChanged), self, [=](int index) {
-		int sigval1 = index;
-		miqt_exec_callback_QToolBox_currentChanged(slot, sigval1);
-	});
+void QToolBox_connect_currentChanged(QToolBox* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(int index) {
+			int sigval1 = index;
+			callback(slot, sigval1);
+		}
+	};
+	QToolBox::connect(self, static_cast<void (QToolBox::*)(int)>(&QToolBox::currentChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QToolBox_tr2(const char* s, const char* c) {

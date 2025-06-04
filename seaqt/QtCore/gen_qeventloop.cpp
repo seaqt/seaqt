@@ -23,15 +23,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQEventLoop final : public QEventLoop {
 	const QEventLoop_VTable* vtbl;
 public:

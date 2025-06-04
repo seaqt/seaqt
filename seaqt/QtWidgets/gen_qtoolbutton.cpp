@@ -52,16 +52,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QToolButton_triggered(intptr_t, QAction*);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQToolButton final : public QToolButton {
 	const QToolButton_VTable* vtbl;
 public:
@@ -848,11 +838,16 @@ void QToolButton_triggered(QToolButton* self, QAction* param1) {
 	self->triggered(param1);
 }
 
-void QToolButton_connect_triggered(QToolButton* self, intptr_t slot) {
-	QToolButton::connect(self, static_cast<void (QToolButton::*)(QAction*)>(&QToolButton::triggered), self, [=](QAction* param1) {
-		QAction* sigval1 = param1;
-		miqt_exec_callback_QToolButton_triggered(slot, sigval1);
-	});
+void QToolButton_connect_triggered(QToolButton* self, intptr_t slot, void (*callback)(intptr_t, QAction*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QAction*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QAction*);
+		void operator()(QAction* param1) {
+			QAction* sigval1 = param1;
+			callback(slot, sigval1);
+		}
+	};
+	QToolButton::connect(self, static_cast<void (QToolButton::*)(QAction*)>(&QToolButton::triggered), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QToolButton_tr2(const char* s, const char* c) {

@@ -13,15 +13,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQQmlPropertyValueSource final : public QQmlPropertyValueSource {
 	const QQmlPropertyValueSource_VTable* vtbl;
 public:

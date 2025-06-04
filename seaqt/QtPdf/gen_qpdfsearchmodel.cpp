@@ -35,17 +35,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QPdfSearchModel_documentChanged(intptr_t);
-void miqt_exec_callback_QPdfSearchModel_searchStringChanged(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQPdfSearchModel final : public QPdfSearchModel {
 	const QPdfSearchModel_VTable* vtbl;
 public:
@@ -881,20 +870,30 @@ void QPdfSearchModel_documentChanged(QPdfSearchModel* self) {
 	self->documentChanged();
 }
 
-void QPdfSearchModel_connect_documentChanged(QPdfSearchModel* self, intptr_t slot) {
-	QPdfSearchModel::connect(self, static_cast<void (QPdfSearchModel::*)()>(&QPdfSearchModel::documentChanged), self, [=]() {
-		miqt_exec_callback_QPdfSearchModel_documentChanged(slot);
-	});
+void QPdfSearchModel_connect_documentChanged(QPdfSearchModel* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QPdfSearchModel::connect(self, static_cast<void (QPdfSearchModel::*)()>(&QPdfSearchModel::documentChanged), self, local_caller{slot, callback, release});
 }
 
 void QPdfSearchModel_searchStringChanged(QPdfSearchModel* self) {
 	self->searchStringChanged();
 }
 
-void QPdfSearchModel_connect_searchStringChanged(QPdfSearchModel* self, intptr_t slot) {
-	QPdfSearchModel::connect(self, static_cast<void (QPdfSearchModel::*)()>(&QPdfSearchModel::searchStringChanged), self, [=]() {
-		miqt_exec_callback_QPdfSearchModel_searchStringChanged(slot);
-	});
+void QPdfSearchModel_connect_searchStringChanged(QPdfSearchModel* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QPdfSearchModel::connect(self, static_cast<void (QPdfSearchModel::*)()>(&QPdfSearchModel::searchStringChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QPdfSearchModel_tr2(const char* s, const char* c) {

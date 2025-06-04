@@ -33,16 +33,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QPdfBookmarkModel_documentChanged(intptr_t, QPdfDocument*);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQPdfBookmarkModel final : public QPdfBookmarkModel {
 	const QPdfBookmarkModel_VTable* vtbl;
 public:
@@ -898,11 +888,16 @@ void QPdfBookmarkModel_documentChanged(QPdfBookmarkModel* self, QPdfDocument* do
 	self->documentChanged(document);
 }
 
-void QPdfBookmarkModel_connect_documentChanged(QPdfBookmarkModel* self, intptr_t slot) {
-	QPdfBookmarkModel::connect(self, static_cast<void (QPdfBookmarkModel::*)(QPdfDocument*)>(&QPdfBookmarkModel::documentChanged), self, [=](QPdfDocument* document) {
-		QPdfDocument* sigval1 = document;
-		miqt_exec_callback_QPdfBookmarkModel_documentChanged(slot, sigval1);
-	});
+void QPdfBookmarkModel_connect_documentChanged(QPdfBookmarkModel* self, intptr_t slot, void (*callback)(intptr_t, QPdfDocument*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QPdfDocument*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QPdfDocument*);
+		void operator()(QPdfDocument* document) {
+			QPdfDocument* sigval1 = document;
+			callback(slot, sigval1);
+		}
+	};
+	QPdfBookmarkModel::connect(self, static_cast<void (QPdfBookmarkModel::*)(QPdfDocument*)>(&QPdfBookmarkModel::documentChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QPdfBookmarkModel_tr2(const char* s, const char* c) {

@@ -24,16 +24,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QAudioSink_stateChanged(intptr_t, int);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQAudioSink final : public QAudioSink {
 	const QAudioSink_VTable* vtbl;
 public:
@@ -319,12 +309,17 @@ void QAudioSink_stateChanged(QAudioSink* self, int state) {
 	self->stateChanged(static_cast<QAudio::State>(state));
 }
 
-void QAudioSink_connect_stateChanged(QAudioSink* self, intptr_t slot) {
-	QAudioSink::connect(self, static_cast<void (QAudioSink::*)(QAudio::State)>(&QAudioSink::stateChanged), self, [=](QAudio::State state) {
-		QAudio::State state_ret = state;
-		int sigval1 = static_cast<int>(state_ret);
-		miqt_exec_callback_QAudioSink_stateChanged(slot, sigval1);
-	});
+void QAudioSink_connect_stateChanged(QAudioSink* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(QAudio::State state) {
+			QAudio::State state_ret = state;
+			int sigval1 = static_cast<int>(state_ret);
+			callback(slot, sigval1);
+		}
+	};
+	QAudioSink::connect(self, static_cast<void (QAudioSink::*)(QAudio::State)>(&QAudioSink::stateChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QAudioSink_tr2(const char* s, const char* c) {

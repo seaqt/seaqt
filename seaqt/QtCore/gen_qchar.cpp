@@ -16,15 +16,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QLatin1Char* QLatin1Char_new(char c) {
 	return new (std::nothrow) QLatin1Char(static_cast<char>(c));
 }

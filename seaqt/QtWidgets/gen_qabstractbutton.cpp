@@ -51,20 +51,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QAbstractButton_pressed(intptr_t);
-void miqt_exec_callback_QAbstractButton_released(intptr_t);
-void miqt_exec_callback_QAbstractButton_clicked(intptr_t);
-void miqt_exec_callback_QAbstractButton_toggled(intptr_t, bool);
-void miqt_exec_callback_QAbstractButton_clickedWithChecked(intptr_t, bool);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQAbstractButton final : public QAbstractButton {
 	const QAbstractButton_VTable* vtbl;
 public:
@@ -885,41 +871,61 @@ void QAbstractButton_pressed(QAbstractButton* self) {
 	self->pressed();
 }
 
-void QAbstractButton_connect_pressed(QAbstractButton* self, intptr_t slot) {
-	QAbstractButton::connect(self, static_cast<void (QAbstractButton::*)()>(&QAbstractButton::pressed), self, [=]() {
-		miqt_exec_callback_QAbstractButton_pressed(slot);
-	});
+void QAbstractButton_connect_pressed(QAbstractButton* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QAbstractButton::connect(self, static_cast<void (QAbstractButton::*)()>(&QAbstractButton::pressed), self, local_caller{slot, callback, release});
 }
 
 void QAbstractButton_released(QAbstractButton* self) {
 	self->released();
 }
 
-void QAbstractButton_connect_released(QAbstractButton* self, intptr_t slot) {
-	QAbstractButton::connect(self, static_cast<void (QAbstractButton::*)()>(&QAbstractButton::released), self, [=]() {
-		miqt_exec_callback_QAbstractButton_released(slot);
-	});
+void QAbstractButton_connect_released(QAbstractButton* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QAbstractButton::connect(self, static_cast<void (QAbstractButton::*)()>(&QAbstractButton::released), self, local_caller{slot, callback, release});
 }
 
 void QAbstractButton_clicked(QAbstractButton* self) {
 	self->clicked();
 }
 
-void QAbstractButton_connect_clicked(QAbstractButton* self, intptr_t slot) {
-	QAbstractButton::connect(self, static_cast<void (QAbstractButton::*)(bool)>(&QAbstractButton::clicked), self, [=]() {
-		miqt_exec_callback_QAbstractButton_clicked(slot);
-	});
+void QAbstractButton_connect_clicked(QAbstractButton* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QAbstractButton::connect(self, static_cast<void (QAbstractButton::*)(bool)>(&QAbstractButton::clicked), self, local_caller{slot, callback, release});
 }
 
 void QAbstractButton_toggled(QAbstractButton* self, bool checked) {
 	self->toggled(checked);
 }
 
-void QAbstractButton_connect_toggled(QAbstractButton* self, intptr_t slot) {
-	QAbstractButton::connect(self, static_cast<void (QAbstractButton::*)(bool)>(&QAbstractButton::toggled), self, [=](bool checked) {
-		bool sigval1 = checked;
-		miqt_exec_callback_QAbstractButton_toggled(slot, sigval1);
-	});
+void QAbstractButton_connect_toggled(QAbstractButton* self, intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, bool);
+		void operator()(bool checked) {
+			bool sigval1 = checked;
+			callback(slot, sigval1);
+		}
+	};
+	QAbstractButton::connect(self, static_cast<void (QAbstractButton::*)(bool)>(&QAbstractButton::toggled), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QAbstractButton_tr2(const char* s, const char* c) {
@@ -948,11 +954,16 @@ void QAbstractButton_clickedWithChecked(QAbstractButton* self, bool checked) {
 	self->clicked(checked);
 }
 
-void QAbstractButton_connect_clickedWithChecked(QAbstractButton* self, intptr_t slot) {
-	QAbstractButton::connect(self, static_cast<void (QAbstractButton::*)(bool)>(&QAbstractButton::clicked), self, [=](bool checked) {
-		bool sigval1 = checked;
-		miqt_exec_callback_QAbstractButton_clickedWithChecked(slot, sigval1);
-	});
+void QAbstractButton_connect_clickedWithChecked(QAbstractButton* self, intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, bool);
+		void operator()(bool checked) {
+			bool sigval1 = checked;
+			callback(slot, sigval1);
+		}
+	};
+	QAbstractButton::connect(self, static_cast<void (QAbstractButton::*)(bool)>(&QAbstractButton::clicked), self, local_caller{slot, callback, release});
 }
 
 const QMetaObject* QAbstractButton_staticMetaObject() { return &QAbstractButton::staticMetaObject; }
