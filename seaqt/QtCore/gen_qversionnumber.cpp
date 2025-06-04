@@ -125,6 +125,10 @@ QVersionNumber* QVersionNumber_fromString(struct seaqt_string string) {
 	return new QVersionNumber(QVersionNumber::fromString(string_QString));
 }
 
+void QVersionNumber_operatorAssign(QVersionNumber* self, QVersionNumber* param1) {
+	self->operator=(*param1);
+}
+
 QVersionNumber* QVersionNumber_fromString2(struct seaqt_string string, ptrdiff_t* suffixIndex) {
 	QAnyStringView string_QString = QAnyStringView(string.data, string.len);
 	return new QVersionNumber(QVersionNumber::fromString(string_QString, (qsizetype*)(suffixIndex)));

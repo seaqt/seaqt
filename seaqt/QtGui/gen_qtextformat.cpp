@@ -71,6 +71,10 @@ QVariant* QTextLength_ToQVariant(const QTextLength* self) {
 	return new QVariant(self->operator QVariant());
 }
 
+void QTextLength_operatorAssign(QTextLength* self, QTextLength* param1) {
+	self->operator=(*param1);
+}
+
 void QTextLength_delete(QTextLength* self) {
 	delete self;
 }

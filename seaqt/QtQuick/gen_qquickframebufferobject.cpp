@@ -1006,3 +1006,7 @@ void QQuickFramebufferObject_delete(QQuickFramebufferObject* self) {
 	delete self;
 }
 
+void QQuickFramebufferObject__Renderer_operatorAssign(QQuickFramebufferObject__Renderer* self, QQuickFramebufferObject__Renderer* param1) {
+	self->operator=(*param1);
+}
+

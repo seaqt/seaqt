@@ -297,6 +297,10 @@ int QMetaObject_metacall(QObject* param1, int param2, int param3, void** param4)
 	return QMetaObject::metacall(param1, static_cast<QMetaObject::Call>(param2), static_cast<int>(param3), param4);
 }
 
+void QMetaObject_operatorAssign(QMetaObject* self, QMetaObject* param1) {
+	self->operator=(*param1);
+}
+
 struct seaqt_string QMetaObject_tr2(const QMetaObject* self, const char* s, const char* c, int n) {
 	QString _ret = self->tr(s, c, static_cast<int>(n));
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
