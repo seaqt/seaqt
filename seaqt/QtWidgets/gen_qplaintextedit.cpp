@@ -135,7 +135,9 @@ public:
 		// Cast returned reference into pointer
 		QUrl* sigval2 = const_cast<QUrl*>(&name_ret);
 		QVariant* callback_return_value = vtbl->loadResource(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QPlainTextEdit_virtualbase_loadResource(VirtualQPlainTextEdit* self, int type, QUrl* name);
@@ -148,7 +150,9 @@ public:
 		Qt::InputMethodQuery property_ret = property;
 		int sigval1 = static_cast<int>(property_ret);
 		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QPlainTextEdit_virtualbase_inputMethodQuery(const VirtualQPlainTextEdit* self, int property);
@@ -485,7 +489,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->minimumSizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QPlainTextEdit_virtualbase_minimumSizeHint(const VirtualQPlainTextEdit* self);
@@ -496,7 +502,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->sizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QPlainTextEdit_virtualbase_sizeHint(const VirtualQPlainTextEdit* self);
@@ -544,7 +552,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->viewportSizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QPlainTextEdit_virtualbase_viewportSizeHint(const VirtualQPlainTextEdit* self);
@@ -1883,7 +1893,9 @@ public:
 		}
 
 		QSizeF* callback_return_value = vtbl->documentSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSizeF* QPlainTextDocumentLayout_virtualbase_documentSize(const VirtualQPlainTextDocumentLayout* self);
@@ -1895,7 +1907,9 @@ public:
 
 		QTextFrame* sigval1 = param1;
 		QRectF* callback_return_value = vtbl->frameBoundingRect(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRectF* QPlainTextDocumentLayout_virtualbase_frameBoundingRect(const VirtualQPlainTextDocumentLayout* self, QTextFrame* param1);
@@ -1909,7 +1923,9 @@ public:
 		// Cast returned reference into pointer
 		QTextBlock* sigval1 = const_cast<QTextBlock*>(&block_ret);
 		QRectF* callback_return_value = vtbl->blockBoundingRect(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRectF* QPlainTextDocumentLayout_virtualbase_blockBoundingRect(const VirtualQPlainTextDocumentLayout* self, QTextBlock* block);

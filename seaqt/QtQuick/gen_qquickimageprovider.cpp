@@ -95,7 +95,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->textureSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	virtual int textureByteCount() const override {
@@ -113,7 +115,9 @@ public:
 		}
 
 		QImage* callback_return_value = vtbl->image(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QImage* QQuickTextureFactory_virtualbase_image(const VirtualQQuickTextureFactory* self);
@@ -432,6 +436,7 @@ public:
 
 		struct seaqt_string callback_return_value = vtbl->errorString(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -813,7 +818,9 @@ public:
 		// Cast returned reference into pointer
 		QSize* sigval3 = const_cast<QSize*>(&requestedSize_ret);
 		QImage* callback_return_value = vtbl->requestImage(this, sigval1, sigval2, sigval3);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QImage* QQuickImageProvider_virtualbase_requestImage(VirtualQQuickImageProvider* self, struct seaqt_string id, QSize* size, QSize* requestedSize);
@@ -836,7 +843,9 @@ public:
 		// Cast returned reference into pointer
 		QSize* sigval3 = const_cast<QSize*>(&requestedSize_ret);
 		QPixmap* callback_return_value = vtbl->requestPixmap(this, sigval1, sigval2, sigval3);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QPixmap* QQuickImageProvider_virtualbase_requestPixmap(VirtualQQuickImageProvider* self, struct seaqt_string id, QSize* size, QSize* requestedSize);
@@ -1257,7 +1266,9 @@ public:
 		// Cast returned reference into pointer
 		QSize* sigval3 = const_cast<QSize*>(&requestedSize_ret);
 		QImage* callback_return_value = vtbl->requestImage(this, sigval1, sigval2, sigval3);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QImage* QQuickAsyncImageProvider_virtualbase_requestImage(VirtualQQuickAsyncImageProvider* self, struct seaqt_string id, QSize* size, QSize* requestedSize);
@@ -1280,7 +1291,9 @@ public:
 		// Cast returned reference into pointer
 		QSize* sigval3 = const_cast<QSize*>(&requestedSize_ret);
 		QPixmap* callback_return_value = vtbl->requestPixmap(this, sigval1, sigval2, sigval3);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QPixmap* QQuickAsyncImageProvider_virtualbase_requestPixmap(VirtualQQuickAsyncImageProvider* self, struct seaqt_string id, QSize* size, QSize* requestedSize);

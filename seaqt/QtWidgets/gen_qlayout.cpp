@@ -117,7 +117,9 @@ public:
 		}
 
 		QRect* callback_return_value = vtbl->geometry(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRect* QLayout_virtualbase_geometry(const VirtualQLayout* self);
@@ -148,7 +150,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->minimumSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QLayout_virtualbase_minimumSize(const VirtualQLayout* self);
@@ -159,7 +163,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->maximumSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QLayout_virtualbase_maximumSize(const VirtualQLayout* self);
@@ -374,7 +380,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->sizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	virtual bool hasHeightForWidth() const override {

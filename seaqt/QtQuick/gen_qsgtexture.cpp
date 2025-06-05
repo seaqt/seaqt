@@ -88,7 +88,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->textureSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	virtual bool hasAlphaChannel() const override {
@@ -115,7 +117,9 @@ public:
 		}
 
 		QRectF* callback_return_value = vtbl->normalizedTextureSubRect(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRectF* QSGTexture_virtualbase_normalizedTextureSubRect(const VirtualQSGTexture* self);
@@ -517,7 +521,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->textureSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	virtual bool hasAlphaChannel() const override {
@@ -544,7 +550,9 @@ public:
 		}
 
 		QRectF* callback_return_value = vtbl->normalizedTextureSubRect(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRectF* QSGDynamicTexture_virtualbase_normalizedTextureSubRect(const VirtualQSGDynamicTexture* self);
