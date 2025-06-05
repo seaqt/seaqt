@@ -176,6 +176,7 @@ void QItemSelectionModel_delete(QItemSelectionModel* self);
 
 QItemSelection* QItemSelection_new();
 QItemSelection* QItemSelection_new2(QModelIndex* topLeft, QModelIndex* bottomRight);
+QItemSelection* QItemSelection_new3(QItemSelection* param1);
 
 void QItemSelection_select(QItemSelection* self, QModelIndex* topLeft, QModelIndex* bottomRight);
 bool QItemSelection_contains(const QItemSelection* self, QModelIndex* index);

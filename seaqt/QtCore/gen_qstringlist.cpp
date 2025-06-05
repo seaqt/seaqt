@@ -38,6 +38,17 @@ QStringList* QStringList_new3(struct seaqt_array /* of struct seaqt_string */  l
 	return new (std::nothrow) QStringList(l_QList);
 }
 
+QStringList* QStringList_new4(struct seaqt_array /* of struct seaqt_string */  param1) {
+	QStringList param1_QList;
+	param1_QList.reserve(param1.len);
+	struct seaqt_string* param1_arr = static_cast<struct seaqt_string*>(param1.data);
+	for(size_t i = 0; i < param1.len; ++i) {
+		QString param1_arr_i_QString = QString::fromUtf8(param1_arr[i].data, param1_arr[i].len);
+		param1_QList.push_back(param1_arr_i_QString);
+	}
+	return new (std::nothrow) QStringList(param1_QList);
+}
+
 void QStringList_operatorAssign(QStringList* self, struct seaqt_array /* of struct seaqt_string */  other) {
 	QList<QString> other_QList;
 	other_QList.reserve(other.len);

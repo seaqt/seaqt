@@ -270,6 +270,14 @@ struct seaqt_array /* of struct seaqt_string */  QCommandLineParser_unknownOptio
 	return _out;
 }
 
+void QCommandLineParser_showVersion(QCommandLineParser* self) {
+	self->showVersion();
+}
+
+void QCommandLineParser_showHelp(QCommandLineParser* self) {
+	self->showHelp();
+}
+
 struct seaqt_string QCommandLineParser_helpText(const QCommandLineParser* self) {
 	QString _ret = self->helpText();
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
@@ -330,6 +338,10 @@ void QCommandLineParser_addPositionalArgument2(QCommandLineParser* self, struct 
 	QString description_QString = QString::fromUtf8(description.data, description.len);
 	QString syntax_QString = QString::fromUtf8(syntax.data, syntax.len);
 	self->addPositionalArgument(name_QString, description_QString, syntax_QString);
+}
+
+void QCommandLineParser_showHelpWithExitCode(QCommandLineParser* self, int exitCode) {
+	self->showHelp(static_cast<int>(exitCode));
 }
 
 void QCommandLineParser_delete(QCommandLineParser* self) {

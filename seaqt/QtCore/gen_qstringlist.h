@@ -27,6 +27,7 @@ typedef struct QStringList QStringList;
 QStringList* QStringList_new();
 QStringList* QStringList_new2(struct seaqt_string i);
 QStringList* QStringList_new3(struct seaqt_array /* of struct seaqt_string */  l);
+QStringList* QStringList_new4(struct seaqt_array /* of struct seaqt_string */  param1);
 
 void QStringList_operatorAssign(QStringList* self, struct seaqt_array /* of struct seaqt_string */  other);
 bool QStringList_contains(const QStringList* self, struct seaqt_string str);
