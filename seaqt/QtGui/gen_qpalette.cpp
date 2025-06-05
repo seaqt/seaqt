@@ -1,5 +1,6 @@
 #include <QBrush>
 #include <QColor>
+#include <QMetaObject>
 #include <QPalette>
 #include <QVariant>
 #include <qpalette.h>
@@ -276,6 +277,7 @@ void QPalette_resolveWithMask(QPalette* self, unsigned int mask) {
 	self->resolve(static_cast<uint>(mask));
 }
 
+const QMetaObject* QPalette_staticMetaObject() { return &QPalette::staticMetaObject; }
 void QPalette_delete(QPalette* self) {
 	delete self;
 }

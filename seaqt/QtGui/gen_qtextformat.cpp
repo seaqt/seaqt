@@ -3,6 +3,7 @@
 #include <QFont>
 #include <QList>
 #include <QMap>
+#include <QMetaObject>
 #include <QPen>
 #include <QString>
 #include <QByteArray>
@@ -327,6 +328,7 @@ void QTextFormat_clearForeground(QTextFormat* self) {
 	self->clearForeground();
 }
 
+const QMetaObject* QTextFormat_staticMetaObject() { return &QTextFormat::staticMetaObject; }
 void QTextFormat_delete(QTextFormat* self) {
 	delete self;
 }

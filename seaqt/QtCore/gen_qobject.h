@@ -59,6 +59,7 @@ QObject* QObject_new();
 QObject* QObject_new2(QObject* parent);
 QMetaObject* QObject_metaObject(const QObject* self);
 void* QObject_metacast(QObject* self, const char* param1);
+int QObject_metacall(QObject* self, int param1, int param2, void** param3);
 struct seaqt_string QObject_tr(const char* s);
 struct seaqt_string QObject_trUtf8(const char* s);
 bool QObject_event(QObject* self, QEvent* event);
@@ -111,6 +112,12 @@ QMetaObject__Connection* QObject_connect4(const QObject* self, QObject* sender, 
 void QObject_destroyedWithQObject(QObject* self, QObject* param1);
 void QObject_connect_destroyedWithQObject(QObject* self, intptr_t slot);
 
+bool QObject_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QObject_virtualbase_metaObject(const void* self);
+bool QObject_override_virtual_metacast(void* self, intptr_t slot);
+void* QObject_virtualbase_metacast(void* self, const char* param1);
+bool QObject_override_virtual_metacall(void* self, intptr_t slot);
+int QObject_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QObject_override_virtual_event(void* self, intptr_t slot);
 bool QObject_virtualbase_event(void* self, QEvent* event);
 bool QObject_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -133,6 +140,7 @@ bool QObject_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void*
 
 void QObject_connect_objectNameChanged(QObject* self, intptr_t slot);
 
+const QMetaObject* QObject_staticMetaObject();
 void QObject_delete(QObject* self);
 
 QObjectUserData* QObjectUserData_new();

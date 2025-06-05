@@ -98,6 +98,7 @@ QMainWindow* QMainWindow_new3(QWidget* parent, int flags);
 void QMainWindow_virtbase(QMainWindow* src, QWidget** outptr_QWidget);
 QMetaObject* QMainWindow_metaObject(const QMainWindow* self);
 void* QMainWindow_metacast(QMainWindow* self, const char* param1);
+int QMainWindow_metacall(QMainWindow* self, int param1, int param2, void** param3);
 struct seaqt_string QMainWindow_tr(const char* s);
 struct seaqt_string QMainWindow_trUtf8(const char* s);
 QSize* QMainWindow_iconSize(const QMainWindow* self);
@@ -168,6 +169,12 @@ void QMainWindow_addToolBarBreakWithArea(QMainWindow* self, int area);
 struct seaqt_string QMainWindow_saveStateWithVersion(const QMainWindow* self, int version);
 bool QMainWindow_restoreState2(QMainWindow* self, struct seaqt_string state, int version);
 
+bool QMainWindow_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QMainWindow_virtualbase_metaObject(const void* self);
+bool QMainWindow_override_virtual_metacast(void* self, intptr_t slot);
+void* QMainWindow_virtualbase_metacast(void* self, const char* param1);
+bool QMainWindow_override_virtual_metacall(void* self, intptr_t slot);
+int QMainWindow_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QMainWindow_override_virtual_createPopupMenu(void* self, intptr_t slot);
 QMenu* QMainWindow_virtualbase_createPopupMenu(void* self);
 bool QMainWindow_override_virtual_contextMenuEvent(void* self, intptr_t slot);
@@ -275,6 +282,7 @@ int QMainWindow_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const vo
 int QMainWindow_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QMainWindow_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QMainWindow_staticMetaObject();
 void QMainWindow_delete(QMainWindow* self);
 
 #ifdef __cplusplus

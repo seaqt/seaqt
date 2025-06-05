@@ -15,10 +15,12 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
+class QMetaObject;
 class QPoint;
 class QUrl;
 class QWebEngineContextMenuData;
 #else
+typedef struct QMetaObject QMetaObject;
 typedef struct QPoint QPoint;
 typedef struct QUrl QUrl;
 typedef struct QWebEngineContextMenuData QWebEngineContextMenuData;
@@ -40,6 +42,7 @@ struct seaqt_array /* of struct seaqt_string */  QWebEngineContextMenuData_spell
 int QWebEngineContextMenuData_mediaFlags(const QWebEngineContextMenuData* self);
 int QWebEngineContextMenuData_editFlags(const QWebEngineContextMenuData* self);
 
+const QMetaObject* QWebEngineContextMenuData_staticMetaObject();
 void QWebEngineContextMenuData_delete(QWebEngineContextMenuData* self);
 
 #ifdef __cplusplus

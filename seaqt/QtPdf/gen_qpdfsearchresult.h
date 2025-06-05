@@ -15,10 +15,12 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
+class QMetaObject;
 class QPdfDestination;
 class QPdfSearchResult;
 class QRectF;
 #else
+typedef struct QMetaObject QMetaObject;
 typedef struct QPdfDestination QPdfDestination;
 typedef struct QPdfSearchResult QPdfSearchResult;
 typedef struct QRectF QRectF;
@@ -31,6 +33,7 @@ struct seaqt_string QPdfSearchResult_contextBefore(const QPdfSearchResult* self)
 struct seaqt_string QPdfSearchResult_contextAfter(const QPdfSearchResult* self);
 struct seaqt_array /* of QRectF* */  QPdfSearchResult_rectangles(const QPdfSearchResult* self);
 
+const QMetaObject* QPdfSearchResult_staticMetaObject();
 void QPdfSearchResult_delete(QPdfSearchResult* self);
 
 #ifdef __cplusplus

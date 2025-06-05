@@ -29,6 +29,7 @@ typedef struct QObject QObject;
 void QCameraImageProcessing_virtbase(QCameraImageProcessing* src, QObject** outptr_QObject);
 QMetaObject* QCameraImageProcessing_metaObject(const QCameraImageProcessing* self);
 void* QCameraImageProcessing_metacast(QCameraImageProcessing* self, const char* param1);
+int QCameraImageProcessing_metacall(QCameraImageProcessing* self, int param1, int param2, void** param3);
 struct seaqt_string QCameraImageProcessing_tr(const char* s);
 struct seaqt_string QCameraImageProcessing_trUtf8(const char* s);
 bool QCameraImageProcessing_isAvailable(const QCameraImageProcessing* self);
@@ -55,6 +56,7 @@ struct seaqt_string QCameraImageProcessing_tr3(const char* s, const char* c, int
 struct seaqt_string QCameraImageProcessing_trUtf82(const char* s, const char* c);
 struct seaqt_string QCameraImageProcessing_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QCameraImageProcessing_staticMetaObject();
 
 #ifdef __cplusplus
 } /* extern C */

@@ -90,6 +90,7 @@ QGraphicsProxyWidget* QGraphicsProxyWidget_new3(QGraphicsItem* parent, int wFlag
 void QGraphicsProxyWidget_virtbase(QGraphicsProxyWidget* src, QGraphicsWidget** outptr_QGraphicsWidget);
 QMetaObject* QGraphicsProxyWidget_metaObject(const QGraphicsProxyWidget* self);
 void* QGraphicsProxyWidget_metacast(QGraphicsProxyWidget* self, const char* param1);
+int QGraphicsProxyWidget_metacall(QGraphicsProxyWidget* self, int param1, int param2, void** param3);
 struct seaqt_string QGraphicsProxyWidget_tr(const char* s);
 struct seaqt_string QGraphicsProxyWidget_trUtf8(const char* s);
 void QGraphicsProxyWidget_setWidget(QGraphicsProxyWidget* self, QWidget* widget);
@@ -133,6 +134,12 @@ struct seaqt_string QGraphicsProxyWidget_tr3(const char* s, const char* c, int n
 struct seaqt_string QGraphicsProxyWidget_trUtf82(const char* s, const char* c);
 struct seaqt_string QGraphicsProxyWidget_trUtf83(const char* s, const char* c, int n);
 
+bool QGraphicsProxyWidget_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QGraphicsProxyWidget_virtualbase_metaObject(const void* self);
+bool QGraphicsProxyWidget_override_virtual_metacast(void* self, intptr_t slot);
+void* QGraphicsProxyWidget_virtualbase_metacast(void* self, const char* param1);
+bool QGraphicsProxyWidget_override_virtual_metacall(void* self, intptr_t slot);
+int QGraphicsProxyWidget_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QGraphicsProxyWidget_override_virtual_setGeometry(void* self, intptr_t slot);
 void QGraphicsProxyWidget_virtualbase_setGeometry(void* self, QRectF* rect);
 bool QGraphicsProxyWidget_override_virtual_paint(void* self, intptr_t slot);
@@ -272,6 +279,7 @@ void QGraphicsProxyWidget_protectedbase_prepareGeometryChange(bool* _dynamic_cas
 void QGraphicsProxyWidget_protectedbase_setGraphicsItem(bool* _dynamic_cast_ok, void* self, QGraphicsItem* item);
 void QGraphicsProxyWidget_protectedbase_setOwnedByLayout(bool* _dynamic_cast_ok, void* self, bool ownedByLayout);
 
+const QMetaObject* QGraphicsProxyWidget_staticMetaObject();
 void QGraphicsProxyWidget_delete(QGraphicsProxyWidget* self);
 
 #ifdef __cplusplus

@@ -49,6 +49,7 @@ QLayout* QLayout_new2();
 void QLayout_virtbase(QLayout* src, QObject** outptr_QObject, QLayoutItem** outptr_QLayoutItem);
 QMetaObject* QLayout_metaObject(const QLayout* self);
 void* QLayout_metacast(QLayout* self, const char* param1);
+int QLayout_metacall(QLayout* self, int param1, int param2, void** param3);
 struct seaqt_string QLayout_tr(const char* s);
 struct seaqt_string QLayout_trUtf8(const char* s);
 int QLayout_margin(const QLayout* self);
@@ -102,6 +103,12 @@ struct seaqt_string QLayout_trUtf82(const char* s, const char* c);
 struct seaqt_string QLayout_trUtf83(const char* s, const char* c, int n);
 QLayoutItem* QLayout_replaceWidget2(QLayout* self, QWidget* from, QWidget* to, int options);
 
+bool QLayout_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QLayout_virtualbase_metaObject(const void* self);
+bool QLayout_override_virtual_metacast(void* self, intptr_t slot);
+void* QLayout_virtualbase_metacast(void* self, const char* param1);
+bool QLayout_override_virtual_metacall(void* self, intptr_t slot);
+int QLayout_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QLayout_override_virtual_invalidate(void* self, intptr_t slot);
 void QLayout_virtualbase_invalidate(void* self);
 bool QLayout_override_virtual_geometry(void* self, intptr_t slot);
@@ -167,6 +174,7 @@ int QLayout_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* 
 int QLayout_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QLayout_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QLayout_staticMetaObject();
 void QLayout_delete(QLayout* self);
 
 #ifdef __cplusplus

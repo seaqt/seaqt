@@ -6,6 +6,7 @@
 #include <QImage>
 #include <QList>
 #include <QMatrix>
+#include <QMetaObject>
 #include <QPaintDevice>
 #include <QPaintEngine>
 #include <QPainter>
@@ -798,6 +799,7 @@ struct seaqt_string QImage_textWithKey(const QImage* self, struct seaqt_string k
 	return _ms;
 }
 
+const QMetaObject* QImage_staticMetaObject() { return &QImage::staticMetaObject; }
 bool QImage_override_virtual_devType(void* self, intptr_t slot) {
 	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
 	if (self_cast == nullptr) {

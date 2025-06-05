@@ -2,6 +2,7 @@
 #include <QCborError>
 #include <QCborStreamReader>
 #include <QIODevice>
+#include <QMetaObject>
 #include <qcborstreamreader.h>
 #include "gen_qcborstreamreader.h"
 
@@ -245,6 +246,7 @@ bool QCborStreamReader_nextWithMaxRecursion(QCborStreamReader* self, int maxRecu
 	return self->next(static_cast<int>(maxRecursion));
 }
 
+const QMetaObject* QCborStreamReader_staticMetaObject() { return &QCborStreamReader::staticMetaObject; }
 void QCborStreamReader_delete(QCborStreamReader* self) {
 	delete self;
 }

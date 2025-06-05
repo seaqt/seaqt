@@ -8,6 +8,7 @@
 #include <QCborValueRef>
 #include <QDateTime>
 #include <QJsonValue>
+#include <QMetaObject>
 #include <QRegularExpression>
 #include <QString>
 #include <QByteArray>
@@ -496,6 +497,7 @@ struct seaqt_string QCborValue_toDiagnosticNotationWithOpts(const QCborValue* se
 	return _ms;
 }
 
+const QMetaObject* QCborValue_staticMetaObject() { return &QCborValue::staticMetaObject; }
 void QCborValue_delete(QCborValue* self) {
 	delete self;
 }

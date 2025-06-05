@@ -25,6 +25,7 @@ class QImage;
 class QLine;
 class QLineF;
 class QMatrix;
+class QMetaObject;
 class QPaintDevice;
 class QPaintEngine;
 class QPainter;
@@ -57,6 +58,7 @@ typedef struct QImage QImage;
 typedef struct QLine QLine;
 typedef struct QLineF QLineF;
 typedef struct QMatrix QMatrix;
+typedef struct QMetaObject QMetaObject;
 typedef struct QPaintDevice QPaintDevice;
 typedef struct QPaintEngine QPaintEngine;
 typedef struct QPainter QPainter;
@@ -324,6 +326,7 @@ void QPainter_setRenderHints2(QPainter* self, int hints, bool on);
 void QPainter_setRedirected2(QPaintDevice* device, QPaintDevice* replacement, QPoint* offset);
 QPaintDevice* QPainter_redirected2(QPaintDevice* device, QPoint* offset);
 
+const QMetaObject* QPainter_staticMetaObject();
 void QPainter_delete(QPainter* self);
 
 QPainter__PixmapFragment* QPainter__PixmapFragment_create(QPointF* pos, QRectF* sourceRect);

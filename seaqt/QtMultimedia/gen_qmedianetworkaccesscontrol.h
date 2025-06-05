@@ -33,6 +33,7 @@ typedef struct QObject QObject;
 void QMediaNetworkAccessControl_virtbase(QMediaNetworkAccessControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QMediaNetworkAccessControl_metaObject(const QMediaNetworkAccessControl* self);
 void* QMediaNetworkAccessControl_metacast(QMediaNetworkAccessControl* self, const char* param1);
+int QMediaNetworkAccessControl_metacall(QMediaNetworkAccessControl* self, int param1, int param2, void** param3);
 struct seaqt_string QMediaNetworkAccessControl_tr(const char* s);
 struct seaqt_string QMediaNetworkAccessControl_trUtf8(const char* s);
 void QMediaNetworkAccessControl_setConfigurations(QMediaNetworkAccessControl* self, struct seaqt_array /* of QNetworkConfiguration* */  configuration);
@@ -44,6 +45,7 @@ struct seaqt_string QMediaNetworkAccessControl_tr3(const char* s, const char* c,
 struct seaqt_string QMediaNetworkAccessControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QMediaNetworkAccessControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QMediaNetworkAccessControl_staticMetaObject();
 void QMediaNetworkAccessControl_delete(QMediaNetworkAccessControl* self);
 
 #ifdef __cplusplus

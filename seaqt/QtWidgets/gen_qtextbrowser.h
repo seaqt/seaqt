@@ -103,6 +103,7 @@ QTextBrowser* QTextBrowser_new2();
 void QTextBrowser_virtbase(QTextBrowser* src, QTextEdit** outptr_QTextEdit);
 QMetaObject* QTextBrowser_metaObject(const QTextBrowser* self);
 void* QTextBrowser_metacast(QTextBrowser* self, const char* param1);
+int QTextBrowser_metacall(QTextBrowser* self, int param1, int param2, void** param3);
 struct seaqt_string QTextBrowser_tr(const char* s);
 struct seaqt_string QTextBrowser_trUtf8(const char* s);
 QUrl* QTextBrowser_source(const QTextBrowser* self);
@@ -154,6 +155,12 @@ struct seaqt_string QTextBrowser_tr3(const char* s, const char* c, int n);
 struct seaqt_string QTextBrowser_trUtf82(const char* s, const char* c);
 struct seaqt_string QTextBrowser_trUtf83(const char* s, const char* c, int n);
 
+bool QTextBrowser_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QTextBrowser_virtualbase_metaObject(const void* self);
+bool QTextBrowser_override_virtual_metacast(void* self, intptr_t slot);
+void* QTextBrowser_virtualbase_metacast(void* self, const char* param1);
+bool QTextBrowser_override_virtual_metacall(void* self, intptr_t slot);
+int QTextBrowser_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QTextBrowser_override_virtual_loadResource(void* self, intptr_t slot);
 QVariant* QTextBrowser_virtualbase_loadResource(void* self, int type, QUrl* name);
 bool QTextBrowser_override_virtual_setSource(void* self, intptr_t slot);
@@ -294,6 +301,7 @@ int QTextBrowser_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const v
 int QTextBrowser_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QTextBrowser_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QTextBrowser_staticMetaObject();
 void QTextBrowser_delete(QTextBrowser* self);
 
 #ifdef __cplusplus

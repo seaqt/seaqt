@@ -24,6 +24,7 @@ class QCborValue;
 class QCborValueRef;
 class QDateTime;
 class QJsonValue;
+class QMetaObject;
 class QRegularExpression;
 class QUrl;
 class QUuid;
@@ -38,6 +39,7 @@ typedef struct QCborValue QCborValue;
 typedef struct QCborValueRef QCborValueRef;
 typedef struct QDateTime QDateTime;
 typedef struct QJsonValue QJsonValue;
+typedef struct QMetaObject QMetaObject;
 typedef struct QRegularExpression QRegularExpression;
 typedef struct QUrl QUrl;
 typedef struct QUuid QUuid;
@@ -147,6 +149,7 @@ struct seaqt_string QCborValue_toCborWithOpt(QCborValue* self, int opt);
 void QCborValue_toCbor2(QCborValue* self, QCborStreamWriter* writer, int opt);
 struct seaqt_string QCborValue_toDiagnosticNotationWithOpts(const QCborValue* self, int opts);
 
+const QMetaObject* QCborValue_staticMetaObject();
 void QCborValue_delete(QCborValue* self);
 
 QCborValueRef* QCborValueRef_new(QCborValueRef* param1);

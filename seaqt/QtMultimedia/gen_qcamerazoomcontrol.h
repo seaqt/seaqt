@@ -31,6 +31,7 @@ typedef struct QObject QObject;
 void QCameraZoomControl_virtbase(QCameraZoomControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QCameraZoomControl_metaObject(const QCameraZoomControl* self);
 void* QCameraZoomControl_metacast(QCameraZoomControl* self, const char* param1);
+int QCameraZoomControl_metacall(QCameraZoomControl* self, int param1, int param2, void** param3);
 struct seaqt_string QCameraZoomControl_tr(const char* s);
 struct seaqt_string QCameraZoomControl_trUtf8(const char* s);
 double QCameraZoomControl_maximumOpticalZoom(const QCameraZoomControl* self);
@@ -57,6 +58,7 @@ struct seaqt_string QCameraZoomControl_tr3(const char* s, const char* c, int n);
 struct seaqt_string QCameraZoomControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QCameraZoomControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QCameraZoomControl_staticMetaObject();
 void QCameraZoomControl_delete(QCameraZoomControl* self);
 
 #ifdef __cplusplus
