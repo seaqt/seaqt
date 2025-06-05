@@ -32,8 +32,27 @@ typedef struct QSound QSound;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QSound* QSound_new(struct seaqt_string filename);
-QSound* QSound_new2(struct seaqt_string filename, QObject* parent);
+typedef struct VirtualQSound VirtualQSound;
+typedef struct QSound_VTable{
+	void (*destructor)(VirtualQSound* self);
+	QMetaObject* (*metaObject)(const VirtualQSound* self);
+	void* (*metacast)(VirtualQSound* self, const char* param1);
+	int (*metacall)(VirtualQSound* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQSound* self, QEvent* event);
+	bool (*eventFilter)(VirtualQSound* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQSound* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQSound* self, QChildEvent* event);
+	void (*customEvent)(VirtualQSound* self, QEvent* event);
+	void (*connectNotify)(VirtualQSound* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQSound* self, QMetaMethod* signal);
+}QSound_VTable;
+
+void* QSound_vdata(VirtualQSound* self);
+VirtualQSound* vdata_QSound(void* vdata);
+
+VirtualQSound* QSound_new(const QSound_VTable* vtbl, size_t vdata, struct seaqt_string filename);
+VirtualQSound* QSound_new2(const QSound_VTable* vtbl, size_t vdata, struct seaqt_string filename, QObject* parent);
+
 void QSound_virtbase(QSound* src, QObject** outptr_QObject);
 QMetaObject* QSound_metaObject(const QSound* self);
 void* QSound_metacast(QSound* self, const char* param1);
@@ -53,31 +72,21 @@ struct seaqt_string QSound_tr3(const char* s, const char* c, int n);
 struct seaqt_string QSound_trUtf82(const char* s, const char* c);
 struct seaqt_string QSound_trUtf83(const char* s, const char* c, int n);
 
-bool QSound_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QSound_virtualbase_metaObject(const void* self);
-bool QSound_override_virtual_metacast(void* self, intptr_t slot);
-void* QSound_virtualbase_metacast(void* self, const char* param1);
-bool QSound_override_virtual_metacall(void* self, intptr_t slot);
-int QSound_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QSound_override_virtual_event(void* self, intptr_t slot);
-bool QSound_virtualbase_event(void* self, QEvent* event);
-bool QSound_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QSound_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QSound_override_virtual_timerEvent(void* self, intptr_t slot);
-void QSound_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QSound_override_virtual_childEvent(void* self, intptr_t slot);
-void QSound_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QSound_override_virtual_customEvent(void* self, intptr_t slot);
-void QSound_virtualbase_customEvent(void* self, QEvent* event);
-bool QSound_override_virtual_connectNotify(void* self, intptr_t slot);
-void QSound_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QSound_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QSound_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QSound_virtualbase_metaObject(const VirtualQSound* self);
+void* QSound_virtualbase_metacast(VirtualQSound* self, const char* param1);
+int QSound_virtualbase_metacall(VirtualQSound* self, int param1, int param2, void** param3);
+bool QSound_virtualbase_event(VirtualQSound* self, QEvent* event);
+bool QSound_virtualbase_eventFilter(VirtualQSound* self, QObject* watched, QEvent* event);
+void QSound_virtualbase_timerEvent(VirtualQSound* self, QTimerEvent* event);
+void QSound_virtualbase_childEvent(VirtualQSound* self, QChildEvent* event);
+void QSound_virtualbase_customEvent(VirtualQSound* self, QEvent* event);
+void QSound_virtualbase_connectNotify(VirtualQSound* self, QMetaMethod* signal);
+void QSound_virtualbase_disconnectNotify(VirtualQSound* self, QMetaMethod* signal);
 
-QObject* QSound_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QSound_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QSound_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QSound_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QSound_protectedbase_sender(const VirtualQSound* self);
+int QSound_protectedbase_senderSignalIndex(const VirtualQSound* self);
+int QSound_protectedbase_receivers(const VirtualQSound* self, const char* signal);
+bool QSound_protectedbase_isSignalConnected(const VirtualQSound* self, QMetaMethod* signal);
 
 const QMetaObject* QSound_staticMetaObject();
 void QSound_delete(QSound* self);

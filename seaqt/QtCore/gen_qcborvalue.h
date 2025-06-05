@@ -72,6 +72,7 @@ QCborValue* QCborValue_new19(QUuid* uuid);
 QCborValue* QCborValue_new20(QCborValue* other);
 QCborValue* QCborValue_new21(uint64_t tag, QCborValue* taggedValue);
 QCborValue* QCborValue_new22(int t_, QCborValue* tv);
+
 void QCborValue_operatorAssign(QCborValue* self, QCborValue* other);
 void QCborValue_swap(QCborValue* self, QCborValue* other);
 int QCborValue_type(const QCborValue* self);
@@ -153,6 +154,7 @@ const QMetaObject* QCborValue_staticMetaObject();
 void QCborValue_delete(QCborValue* self);
 
 QCborValueRef* QCborValueRef_new(QCborValueRef* param1);
+
 QCborValue* QCborValueRef_ToQCborValue(const QCborValueRef* self);
 void QCborValueRef_operatorAssign(QCborValueRef* self, QCborValue* other);
 void QCborValueRef_operatorAssignWithOther(QCborValueRef* self, QCborValueRef* other);

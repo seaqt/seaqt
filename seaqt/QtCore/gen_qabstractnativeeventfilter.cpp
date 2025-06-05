@@ -3,28 +3,38 @@
 #include <qabstractnativeeventfilter.h>
 #include "gen_qabstractnativeeventfilter.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-bool miqt_exec_callback_QAbstractNativeEventFilter_nativeEventFilter(QAbstractNativeEventFilter*, intptr_t, struct seaqt_string, void*, long*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQAbstractNativeEventFilter final : public QAbstractNativeEventFilter {
+	const QAbstractNativeEventFilter_VTable* vtbl;
 public:
+	friend void* QAbstractNativeEventFilter_vdata(VirtualQAbstractNativeEventFilter* self);
+	friend VirtualQAbstractNativeEventFilter* vdata_QAbstractNativeEventFilter(void* vdata);
 
-	VirtualQAbstractNativeEventFilter(): QAbstractNativeEventFilter() {}
+	VirtualQAbstractNativeEventFilter(const QAbstractNativeEventFilter_VTable* vtbl): QAbstractNativeEventFilter(), vtbl(vtbl) {}
 
-	virtual ~VirtualQAbstractNativeEventFilter() override = default;
+	virtual ~VirtualQAbstractNativeEventFilter() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__nativeEventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual bool nativeEventFilter(const QByteArray& eventType, void* message, long* result) override {
-		if (handle__nativeEventFilter == 0) {
+		if (vtbl->nativeEventFilter == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
@@ -36,14 +46,15 @@ public:
 		struct seaqt_string sigval1 = eventType_ms;
 		void* sigval2 = message;
 		long* sigval3 = result;
-		bool callback_return_value = miqt_exec_callback_QAbstractNativeEventFilter_nativeEventFilter(this, handle__nativeEventFilter, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->nativeEventFilter(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
 };
 
-QAbstractNativeEventFilter* QAbstractNativeEventFilter_new() {
-	return new (std::nothrow) VirtualQAbstractNativeEventFilter();
+VirtualQAbstractNativeEventFilter* QAbstractNativeEventFilter_new(const QAbstractNativeEventFilter_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQAbstractNativeEventFilter>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQAbstractNativeEventFilter(vtbl) : nullptr;
 }
 
 bool QAbstractNativeEventFilter_nativeEventFilter(QAbstractNativeEventFilter* self, struct seaqt_string eventType, void* message, long* result) {
@@ -51,15 +62,8 @@ bool QAbstractNativeEventFilter_nativeEventFilter(QAbstractNativeEventFilter* se
 	return self->nativeEventFilter(eventType_QByteArray, message, static_cast<long*>(result));
 }
 
-bool QAbstractNativeEventFilter_override_virtual_nativeEventFilter(void* self, intptr_t slot) {
-	VirtualQAbstractNativeEventFilter* self_cast = dynamic_cast<VirtualQAbstractNativeEventFilter*>( (QAbstractNativeEventFilter*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__nativeEventFilter = slot;
-	return true;
-}
+void* QAbstractNativeEventFilter_vdata(VirtualQAbstractNativeEventFilter* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQAbstractNativeEventFilter>()); }
+VirtualQAbstractNativeEventFilter* vdata_QAbstractNativeEventFilter(void* vdata) { return reinterpret_cast<VirtualQAbstractNativeEventFilter*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQAbstractNativeEventFilter>()); }
 
 void QAbstractNativeEventFilter_delete(QAbstractNativeEventFilter* self) {
 	delete self;

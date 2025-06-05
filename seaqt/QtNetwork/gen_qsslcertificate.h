@@ -36,6 +36,7 @@ QSslCertificate* QSslCertificate_new3(QSslCertificate* other);
 QSslCertificate* QSslCertificate_new4(QIODevice* device, int format);
 QSslCertificate* QSslCertificate_new5(struct seaqt_string data);
 QSslCertificate* QSslCertificate_new6(struct seaqt_string data, int format);
+
 void QSslCertificate_operatorAssign(QSslCertificate* self, QSslCertificate* other);
 void QSslCertificate_swap(QSslCertificate* self, QSslCertificate* other);
 bool QSslCertificate_operatorEqual(const QSslCertificate* self, QSslCertificate* other);

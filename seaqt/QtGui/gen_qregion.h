@@ -35,6 +35,7 @@ QRegion* QRegion_new4(QRegion* region);
 QRegion* QRegion_new5(QBitmap* bitmap);
 QRegion* QRegion_new6(int x, int y, int w, int h, int t);
 QRegion* QRegion_new7(QRect* r, int t);
+
 void QRegion_operatorAssign(QRegion* self, QRegion* param1);
 void QRegion_swap(QRegion* self, QRegion* other);
 bool QRegion_isEmpty(const QRegion* self);

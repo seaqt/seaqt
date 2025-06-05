@@ -33,6 +33,7 @@ QKeySequence* QKeySequence_new6(struct seaqt_string key, int format);
 QKeySequence* QKeySequence_new7(int k1, int k2);
 QKeySequence* QKeySequence_new8(int k1, int k2, int k3);
 QKeySequence* QKeySequence_new9(int k1, int k2, int k3, int k4);
+
 int QKeySequence_count(const QKeySequence* self);
 bool QKeySequence_isEmpty(const QKeySequence* self);
 struct seaqt_string QKeySequence_toString(const QKeySequence* self);

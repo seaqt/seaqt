@@ -28,6 +28,7 @@ typedef struct QRectF QRectF;
 
 QPdfSearchResult* QPdfSearchResult_new();
 QPdfSearchResult* QPdfSearchResult_new2(QPdfSearchResult* param1);
+
 void QPdfSearchResult_virtbase(QPdfSearchResult* src, QPdfDestination** outptr_QPdfDestination);
 struct seaqt_string QPdfSearchResult_contextBefore(const QPdfSearchResult* self);
 struct seaqt_string QPdfSearchResult_contextAfter(const QPdfSearchResult* self);

@@ -46,6 +46,17 @@
 #include <qtextbrowser.h>
 #include "gen_qtextbrowser.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -57,119 +68,47 @@ void miqt_exec_callback_QTextBrowser_sourceChanged(intptr_t, QUrl*);
 void miqt_exec_callback_QTextBrowser_highlighted(intptr_t, QUrl*);
 void miqt_exec_callback_QTextBrowser_highlightedWithQString(intptr_t, struct seaqt_string);
 void miqt_exec_callback_QTextBrowser_anchorClicked(intptr_t, QUrl*);
-QMetaObject* miqt_exec_callback_QTextBrowser_metaObject(const QTextBrowser*, intptr_t);
-void* miqt_exec_callback_QTextBrowser_metacast(QTextBrowser*, intptr_t, const char*);
-int miqt_exec_callback_QTextBrowser_metacall(QTextBrowser*, intptr_t, int, int, void**);
-QVariant* miqt_exec_callback_QTextBrowser_loadResource(QTextBrowser*, intptr_t, int, QUrl*);
-void miqt_exec_callback_QTextBrowser_setSource(QTextBrowser*, intptr_t, QUrl*);
-void miqt_exec_callback_QTextBrowser_backward(QTextBrowser*, intptr_t);
-void miqt_exec_callback_QTextBrowser_forward(QTextBrowser*, intptr_t);
-void miqt_exec_callback_QTextBrowser_home(QTextBrowser*, intptr_t);
-void miqt_exec_callback_QTextBrowser_reload(QTextBrowser*, intptr_t);
-bool miqt_exec_callback_QTextBrowser_event(QTextBrowser*, intptr_t, QEvent*);
-void miqt_exec_callback_QTextBrowser_keyPressEvent(QTextBrowser*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QTextBrowser_mouseMoveEvent(QTextBrowser*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QTextBrowser_mousePressEvent(QTextBrowser*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QTextBrowser_mouseReleaseEvent(QTextBrowser*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QTextBrowser_focusOutEvent(QTextBrowser*, intptr_t, QFocusEvent*);
-bool miqt_exec_callback_QTextBrowser_focusNextPrevChild(QTextBrowser*, intptr_t, bool);
-void miqt_exec_callback_QTextBrowser_paintEvent(QTextBrowser*, intptr_t, QPaintEvent*);
-QVariant* miqt_exec_callback_QTextBrowser_inputMethodQuery(const QTextBrowser*, intptr_t, int);
-void miqt_exec_callback_QTextBrowser_timerEvent(QTextBrowser*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QTextBrowser_keyReleaseEvent(QTextBrowser*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QTextBrowser_resizeEvent(QTextBrowser*, intptr_t, QResizeEvent*);
-void miqt_exec_callback_QTextBrowser_mouseDoubleClickEvent(QTextBrowser*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QTextBrowser_contextMenuEvent(QTextBrowser*, intptr_t, QContextMenuEvent*);
-void miqt_exec_callback_QTextBrowser_dragEnterEvent(QTextBrowser*, intptr_t, QDragEnterEvent*);
-void miqt_exec_callback_QTextBrowser_dragLeaveEvent(QTextBrowser*, intptr_t, QDragLeaveEvent*);
-void miqt_exec_callback_QTextBrowser_dragMoveEvent(QTextBrowser*, intptr_t, QDragMoveEvent*);
-void miqt_exec_callback_QTextBrowser_dropEvent(QTextBrowser*, intptr_t, QDropEvent*);
-void miqt_exec_callback_QTextBrowser_focusInEvent(QTextBrowser*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QTextBrowser_showEvent(QTextBrowser*, intptr_t, QShowEvent*);
-void miqt_exec_callback_QTextBrowser_changeEvent(QTextBrowser*, intptr_t, QEvent*);
-void miqt_exec_callback_QTextBrowser_wheelEvent(QTextBrowser*, intptr_t, QWheelEvent*);
-QMimeData* miqt_exec_callback_QTextBrowser_createMimeDataFromSelection(const QTextBrowser*, intptr_t);
-bool miqt_exec_callback_QTextBrowser_canInsertFromMimeData(const QTextBrowser*, intptr_t, QMimeData*);
-void miqt_exec_callback_QTextBrowser_insertFromMimeData(QTextBrowser*, intptr_t, QMimeData*);
-void miqt_exec_callback_QTextBrowser_inputMethodEvent(QTextBrowser*, intptr_t, QInputMethodEvent*);
-void miqt_exec_callback_QTextBrowser_scrollContentsBy(QTextBrowser*, intptr_t, int, int);
-void miqt_exec_callback_QTextBrowser_doSetTextCursor(QTextBrowser*, intptr_t, QTextCursor*);
-QSize* miqt_exec_callback_QTextBrowser_minimumSizeHint(const QTextBrowser*, intptr_t);
-QSize* miqt_exec_callback_QTextBrowser_sizeHint(const QTextBrowser*, intptr_t);
-void miqt_exec_callback_QTextBrowser_setupViewport(QTextBrowser*, intptr_t, QWidget*);
-bool miqt_exec_callback_QTextBrowser_eventFilter(QTextBrowser*, intptr_t, QObject*, QEvent*);
-bool miqt_exec_callback_QTextBrowser_viewportEvent(QTextBrowser*, intptr_t, QEvent*);
-QSize* miqt_exec_callback_QTextBrowser_viewportSizeHint(const QTextBrowser*, intptr_t);
-int miqt_exec_callback_QTextBrowser_devType(const QTextBrowser*, intptr_t);
-void miqt_exec_callback_QTextBrowser_setVisible(QTextBrowser*, intptr_t, bool);
-int miqt_exec_callback_QTextBrowser_heightForWidth(const QTextBrowser*, intptr_t, int);
-bool miqt_exec_callback_QTextBrowser_hasHeightForWidth(const QTextBrowser*, intptr_t);
-QPaintEngine* miqt_exec_callback_QTextBrowser_paintEngine(const QTextBrowser*, intptr_t);
-void miqt_exec_callback_QTextBrowser_enterEvent(QTextBrowser*, intptr_t, QEvent*);
-void miqt_exec_callback_QTextBrowser_leaveEvent(QTextBrowser*, intptr_t, QEvent*);
-void miqt_exec_callback_QTextBrowser_moveEvent(QTextBrowser*, intptr_t, QMoveEvent*);
-void miqt_exec_callback_QTextBrowser_closeEvent(QTextBrowser*, intptr_t, QCloseEvent*);
-void miqt_exec_callback_QTextBrowser_tabletEvent(QTextBrowser*, intptr_t, QTabletEvent*);
-void miqt_exec_callback_QTextBrowser_actionEvent(QTextBrowser*, intptr_t, QActionEvent*);
-void miqt_exec_callback_QTextBrowser_hideEvent(QTextBrowser*, intptr_t, QHideEvent*);
-bool miqt_exec_callback_QTextBrowser_nativeEvent(QTextBrowser*, intptr_t, struct seaqt_string, void*, long*);
-int miqt_exec_callback_QTextBrowser_metric(const QTextBrowser*, intptr_t, int);
-void miqt_exec_callback_QTextBrowser_initPainter(const QTextBrowser*, intptr_t, QPainter*);
-QPaintDevice* miqt_exec_callback_QTextBrowser_redirected(const QTextBrowser*, intptr_t, QPoint*);
-QPainter* miqt_exec_callback_QTextBrowser_sharedPainter(const QTextBrowser*, intptr_t);
-void miqt_exec_callback_QTextBrowser_childEvent(QTextBrowser*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QTextBrowser_customEvent(QTextBrowser*, intptr_t, QEvent*);
-void miqt_exec_callback_QTextBrowser_connectNotify(QTextBrowser*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QTextBrowser_disconnectNotify(QTextBrowser*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQTextBrowser final : public QTextBrowser {
+	const QTextBrowser_VTable* vtbl;
 public:
+	friend void* QTextBrowser_vdata(VirtualQTextBrowser* self);
+	friend VirtualQTextBrowser* vdata_QTextBrowser(void* vdata);
 
-	VirtualQTextBrowser(QWidget* parent): QTextBrowser(parent) {}
-	VirtualQTextBrowser(): QTextBrowser() {}
+	VirtualQTextBrowser(const QTextBrowser_VTable* vtbl, QWidget* parent): QTextBrowser(parent), vtbl(vtbl) {}
+	VirtualQTextBrowser(const QTextBrowser_VTable* vtbl): QTextBrowser(), vtbl(vtbl) {}
 
-	virtual ~VirtualQTextBrowser() override = default;
+	virtual ~VirtualQTextBrowser() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QTextBrowser::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QTextBrowser_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QTextBrowser_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QTextBrowser_virtualbase_metaObject(const VirtualQTextBrowser* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QTextBrowser::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QTextBrowser_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QTextBrowser_virtualbase_metacast(void* self, const char* param1);
+	friend void* QTextBrowser_virtualbase_metacast(VirtualQTextBrowser* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QTextBrowser::qt_metacall(param1, param2, param3);
 		}
 
@@ -177,18 +116,14 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QTextBrowser_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QTextBrowser_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QTextBrowser_virtualbase_metacall(VirtualQTextBrowser* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__loadResource = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant loadResource(int type, const QUrl& name) override {
-		if (handle__loadResource == 0) {
+		if (vtbl->loadResource == 0) {
 			return QTextBrowser::loadResource(type, name);
 		}
 
@@ -196,18 +131,14 @@ public:
 		const QUrl& name_ret = name;
 		// Cast returned reference into pointer
 		QUrl* sigval2 = const_cast<QUrl*>(&name_ret);
-		QVariant* callback_return_value = miqt_exec_callback_QTextBrowser_loadResource(this, handle__loadResource, sigval1, sigval2);
+		QVariant* callback_return_value = vtbl->loadResource(this, sigval1, sigval2);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QTextBrowser_virtualbase_loadResource(void* self, int type, QUrl* name);
+	friend QVariant* QTextBrowser_virtualbase_loadResource(VirtualQTextBrowser* self, int type, QUrl* name);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setSource = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setSource(const QUrl& name) override {
-		if (handle__setSource == 0) {
+		if (vtbl->setSource == 0) {
 			QTextBrowser::setSource(name);
 			return;
 		}
@@ -215,537 +146,382 @@ public:
 		const QUrl& name_ret = name;
 		// Cast returned reference into pointer
 		QUrl* sigval1 = const_cast<QUrl*>(&name_ret);
-		miqt_exec_callback_QTextBrowser_setSource(this, handle__setSource, sigval1);
-
+		vtbl->setSource(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_setSource(void* self, QUrl* name);
+	friend void QTextBrowser_virtualbase_setSource(VirtualQTextBrowser* self, QUrl* name);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__backward = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void backward() override {
-		if (handle__backward == 0) {
+		if (vtbl->backward == 0) {
 			QTextBrowser::backward();
 			return;
 		}
 
-		miqt_exec_callback_QTextBrowser_backward(this, handle__backward);
-
+		vtbl->backward(this);
 	}
 
-	friend void QTextBrowser_virtualbase_backward(void* self);
+	friend void QTextBrowser_virtualbase_backward(VirtualQTextBrowser* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__forward = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void forward() override {
-		if (handle__forward == 0) {
+		if (vtbl->forward == 0) {
 			QTextBrowser::forward();
 			return;
 		}
 
-		miqt_exec_callback_QTextBrowser_forward(this, handle__forward);
-
+		vtbl->forward(this);
 	}
 
-	friend void QTextBrowser_virtualbase_forward(void* self);
+	friend void QTextBrowser_virtualbase_forward(VirtualQTextBrowser* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__home = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void home() override {
-		if (handle__home == 0) {
+		if (vtbl->home == 0) {
 			QTextBrowser::home();
 			return;
 		}
 
-		miqt_exec_callback_QTextBrowser_home(this, handle__home);
-
+		vtbl->home(this);
 	}
 
-	friend void QTextBrowser_virtualbase_home(void* self);
+	friend void QTextBrowser_virtualbase_home(VirtualQTextBrowser* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__reload = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void reload() override {
-		if (handle__reload == 0) {
+		if (vtbl->reload == 0) {
 			QTextBrowser::reload();
 			return;
 		}
 
-		miqt_exec_callback_QTextBrowser_reload(this, handle__reload);
-
+		vtbl->reload(this);
 	}
 
-	friend void QTextBrowser_virtualbase_reload(void* self);
+	friend void QTextBrowser_virtualbase_reload(VirtualQTextBrowser* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* e) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QTextBrowser::event(e);
 		}
 
 		QEvent* sigval1 = e;
-		bool callback_return_value = miqt_exec_callback_QTextBrowser_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QTextBrowser_virtualbase_event(void* self, QEvent* e);
+	friend bool QTextBrowser_virtualbase_event(VirtualQTextBrowser* self, QEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyPressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyPressEvent(QKeyEvent* ev) override {
-		if (handle__keyPressEvent == 0) {
+		if (vtbl->keyPressEvent == 0) {
 			QTextBrowser::keyPressEvent(ev);
 			return;
 		}
 
 		QKeyEvent* sigval1 = ev;
-		miqt_exec_callback_QTextBrowser_keyPressEvent(this, handle__keyPressEvent, sigval1);
-
+		vtbl->keyPressEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_keyPressEvent(void* self, QKeyEvent* ev);
+	friend void QTextBrowser_virtualbase_keyPressEvent(VirtualQTextBrowser* self, QKeyEvent* ev);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseMoveEvent(QMouseEvent* ev) override {
-		if (handle__mouseMoveEvent == 0) {
+		if (vtbl->mouseMoveEvent == 0) {
 			QTextBrowser::mouseMoveEvent(ev);
 			return;
 		}
 
 		QMouseEvent* sigval1 = ev;
-		miqt_exec_callback_QTextBrowser_mouseMoveEvent(this, handle__mouseMoveEvent, sigval1);
-
+		vtbl->mouseMoveEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_mouseMoveEvent(void* self, QMouseEvent* ev);
+	friend void QTextBrowser_virtualbase_mouseMoveEvent(VirtualQTextBrowser* self, QMouseEvent* ev);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mousePressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mousePressEvent(QMouseEvent* ev) override {
-		if (handle__mousePressEvent == 0) {
+		if (vtbl->mousePressEvent == 0) {
 			QTextBrowser::mousePressEvent(ev);
 			return;
 		}
 
 		QMouseEvent* sigval1 = ev;
-		miqt_exec_callback_QTextBrowser_mousePressEvent(this, handle__mousePressEvent, sigval1);
-
+		vtbl->mousePressEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_mousePressEvent(void* self, QMouseEvent* ev);
+	friend void QTextBrowser_virtualbase_mousePressEvent(VirtualQTextBrowser* self, QMouseEvent* ev);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseReleaseEvent(QMouseEvent* ev) override {
-		if (handle__mouseReleaseEvent == 0) {
+		if (vtbl->mouseReleaseEvent == 0) {
 			QTextBrowser::mouseReleaseEvent(ev);
 			return;
 		}
 
 		QMouseEvent* sigval1 = ev;
-		miqt_exec_callback_QTextBrowser_mouseReleaseEvent(this, handle__mouseReleaseEvent, sigval1);
-
+		vtbl->mouseReleaseEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* ev);
+	friend void QTextBrowser_virtualbase_mouseReleaseEvent(VirtualQTextBrowser* self, QMouseEvent* ev);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusOutEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusOutEvent(QFocusEvent* ev) override {
-		if (handle__focusOutEvent == 0) {
+		if (vtbl->focusOutEvent == 0) {
 			QTextBrowser::focusOutEvent(ev);
 			return;
 		}
 
 		QFocusEvent* sigval1 = ev;
-		miqt_exec_callback_QTextBrowser_focusOutEvent(this, handle__focusOutEvent, sigval1);
-
+		vtbl->focusOutEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_focusOutEvent(void* self, QFocusEvent* ev);
+	friend void QTextBrowser_virtualbase_focusOutEvent(VirtualQTextBrowser* self, QFocusEvent* ev);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusNextPrevChild = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool focusNextPrevChild(bool next) override {
-		if (handle__focusNextPrevChild == 0) {
+		if (vtbl->focusNextPrevChild == 0) {
 			return QTextBrowser::focusNextPrevChild(next);
 		}
 
 		bool sigval1 = next;
-		bool callback_return_value = miqt_exec_callback_QTextBrowser_focusNextPrevChild(this, handle__focusNextPrevChild, sigval1);
+		bool callback_return_value = vtbl->focusNextPrevChild(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QTextBrowser_virtualbase_focusNextPrevChild(void* self, bool next);
+	friend bool QTextBrowser_virtualbase_focusNextPrevChild(VirtualQTextBrowser* self, bool next);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void paintEvent(QPaintEvent* e) override {
-		if (handle__paintEvent == 0) {
+		if (vtbl->paintEvent == 0) {
 			QTextBrowser::paintEvent(e);
 			return;
 		}
 
 		QPaintEvent* sigval1 = e;
-		miqt_exec_callback_QTextBrowser_paintEvent(this, handle__paintEvent, sigval1);
-
+		vtbl->paintEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_paintEvent(void* self, QPaintEvent* e);
+	friend void QTextBrowser_virtualbase_paintEvent(VirtualQTextBrowser* self, QPaintEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodQuery = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant inputMethodQuery(Qt::InputMethodQuery property) const override {
-		if (handle__inputMethodQuery == 0) {
+		if (vtbl->inputMethodQuery == 0) {
 			return QTextBrowser::inputMethodQuery(property);
 		}
 
 		Qt::InputMethodQuery property_ret = property;
 		int sigval1 = static_cast<int>(property_ret);
-		QVariant* callback_return_value = miqt_exec_callback_QTextBrowser_inputMethodQuery(this, handle__inputMethodQuery, sigval1);
+		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QTextBrowser_virtualbase_inputMethodQuery(const void* self, int property);
+	friend QVariant* QTextBrowser_virtualbase_inputMethodQuery(const VirtualQTextBrowser* self, int property);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* e) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QTextBrowser::timerEvent(e);
 			return;
 		}
 
 		QTimerEvent* sigval1 = e;
-		miqt_exec_callback_QTextBrowser_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_timerEvent(void* self, QTimerEvent* e);
+	friend void QTextBrowser_virtualbase_timerEvent(VirtualQTextBrowser* self, QTimerEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyReleaseEvent(QKeyEvent* e) override {
-		if (handle__keyReleaseEvent == 0) {
+		if (vtbl->keyReleaseEvent == 0) {
 			QTextBrowser::keyReleaseEvent(e);
 			return;
 		}
 
 		QKeyEvent* sigval1 = e;
-		miqt_exec_callback_QTextBrowser_keyReleaseEvent(this, handle__keyReleaseEvent, sigval1);
-
+		vtbl->keyReleaseEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_keyReleaseEvent(void* self, QKeyEvent* e);
+	friend void QTextBrowser_virtualbase_keyReleaseEvent(VirtualQTextBrowser* self, QKeyEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__resizeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void resizeEvent(QResizeEvent* e) override {
-		if (handle__resizeEvent == 0) {
+		if (vtbl->resizeEvent == 0) {
 			QTextBrowser::resizeEvent(e);
 			return;
 		}
 
 		QResizeEvent* sigval1 = e;
-		miqt_exec_callback_QTextBrowser_resizeEvent(this, handle__resizeEvent, sigval1);
-
+		vtbl->resizeEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_resizeEvent(void* self, QResizeEvent* e);
+	friend void QTextBrowser_virtualbase_resizeEvent(VirtualQTextBrowser* self, QResizeEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseDoubleClickEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseDoubleClickEvent(QMouseEvent* e) override {
-		if (handle__mouseDoubleClickEvent == 0) {
+		if (vtbl->mouseDoubleClickEvent == 0) {
 			QTextBrowser::mouseDoubleClickEvent(e);
 			return;
 		}
 
 		QMouseEvent* sigval1 = e;
-		miqt_exec_callback_QTextBrowser_mouseDoubleClickEvent(this, handle__mouseDoubleClickEvent, sigval1);
-
+		vtbl->mouseDoubleClickEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* e);
+	friend void QTextBrowser_virtualbase_mouseDoubleClickEvent(VirtualQTextBrowser* self, QMouseEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__contextMenuEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void contextMenuEvent(QContextMenuEvent* e) override {
-		if (handle__contextMenuEvent == 0) {
+		if (vtbl->contextMenuEvent == 0) {
 			QTextBrowser::contextMenuEvent(e);
 			return;
 		}
 
 		QContextMenuEvent* sigval1 = e;
-		miqt_exec_callback_QTextBrowser_contextMenuEvent(this, handle__contextMenuEvent, sigval1);
-
+		vtbl->contextMenuEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* e);
+	friend void QTextBrowser_virtualbase_contextMenuEvent(VirtualQTextBrowser* self, QContextMenuEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragEnterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragEnterEvent(QDragEnterEvent* e) override {
-		if (handle__dragEnterEvent == 0) {
+		if (vtbl->dragEnterEvent == 0) {
 			QTextBrowser::dragEnterEvent(e);
 			return;
 		}
 
 		QDragEnterEvent* sigval1 = e;
-		miqt_exec_callback_QTextBrowser_dragEnterEvent(this, handle__dragEnterEvent, sigval1);
-
+		vtbl->dragEnterEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* e);
+	friend void QTextBrowser_virtualbase_dragEnterEvent(VirtualQTextBrowser* self, QDragEnterEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragLeaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragLeaveEvent(QDragLeaveEvent* e) override {
-		if (handle__dragLeaveEvent == 0) {
+		if (vtbl->dragLeaveEvent == 0) {
 			QTextBrowser::dragLeaveEvent(e);
 			return;
 		}
 
 		QDragLeaveEvent* sigval1 = e;
-		miqt_exec_callback_QTextBrowser_dragLeaveEvent(this, handle__dragLeaveEvent, sigval1);
-
+		vtbl->dragLeaveEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* e);
+	friend void QTextBrowser_virtualbase_dragLeaveEvent(VirtualQTextBrowser* self, QDragLeaveEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragMoveEvent(QDragMoveEvent* e) override {
-		if (handle__dragMoveEvent == 0) {
+		if (vtbl->dragMoveEvent == 0) {
 			QTextBrowser::dragMoveEvent(e);
 			return;
 		}
 
 		QDragMoveEvent* sigval1 = e;
-		miqt_exec_callback_QTextBrowser_dragMoveEvent(this, handle__dragMoveEvent, sigval1);
-
+		vtbl->dragMoveEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* e);
+	friend void QTextBrowser_virtualbase_dragMoveEvent(VirtualQTextBrowser* self, QDragMoveEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dropEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dropEvent(QDropEvent* e) override {
-		if (handle__dropEvent == 0) {
+		if (vtbl->dropEvent == 0) {
 			QTextBrowser::dropEvent(e);
 			return;
 		}
 
 		QDropEvent* sigval1 = e;
-		miqt_exec_callback_QTextBrowser_dropEvent(this, handle__dropEvent, sigval1);
-
+		vtbl->dropEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_dropEvent(void* self, QDropEvent* e);
+	friend void QTextBrowser_virtualbase_dropEvent(VirtualQTextBrowser* self, QDropEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusInEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusInEvent(QFocusEvent* e) override {
-		if (handle__focusInEvent == 0) {
+		if (vtbl->focusInEvent == 0) {
 			QTextBrowser::focusInEvent(e);
 			return;
 		}
 
 		QFocusEvent* sigval1 = e;
-		miqt_exec_callback_QTextBrowser_focusInEvent(this, handle__focusInEvent, sigval1);
-
+		vtbl->focusInEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_focusInEvent(void* self, QFocusEvent* e);
+	friend void QTextBrowser_virtualbase_focusInEvent(VirtualQTextBrowser* self, QFocusEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__showEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void showEvent(QShowEvent* param1) override {
-		if (handle__showEvent == 0) {
+		if (vtbl->showEvent == 0) {
 			QTextBrowser::showEvent(param1);
 			return;
 		}
 
 		QShowEvent* sigval1 = param1;
-		miqt_exec_callback_QTextBrowser_showEvent(this, handle__showEvent, sigval1);
-
+		vtbl->showEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_showEvent(void* self, QShowEvent* param1);
+	friend void QTextBrowser_virtualbase_showEvent(VirtualQTextBrowser* self, QShowEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__changeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void changeEvent(QEvent* e) override {
-		if (handle__changeEvent == 0) {
+		if (vtbl->changeEvent == 0) {
 			QTextBrowser::changeEvent(e);
 			return;
 		}
 
 		QEvent* sigval1 = e;
-		miqt_exec_callback_QTextBrowser_changeEvent(this, handle__changeEvent, sigval1);
-
+		vtbl->changeEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_changeEvent(void* self, QEvent* e);
+	friend void QTextBrowser_virtualbase_changeEvent(VirtualQTextBrowser* self, QEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__wheelEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void wheelEvent(QWheelEvent* e) override {
-		if (handle__wheelEvent == 0) {
+		if (vtbl->wheelEvent == 0) {
 			QTextBrowser::wheelEvent(e);
 			return;
 		}
 
 		QWheelEvent* sigval1 = e;
-		miqt_exec_callback_QTextBrowser_wheelEvent(this, handle__wheelEvent, sigval1);
-
+		vtbl->wheelEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_wheelEvent(void* self, QWheelEvent* e);
+	friend void QTextBrowser_virtualbase_wheelEvent(VirtualQTextBrowser* self, QWheelEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__createMimeDataFromSelection = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QMimeData* createMimeDataFromSelection() const override {
-		if (handle__createMimeDataFromSelection == 0) {
+		if (vtbl->createMimeDataFromSelection == 0) {
 			return QTextBrowser::createMimeDataFromSelection();
 		}
 
-		QMimeData* callback_return_value = miqt_exec_callback_QTextBrowser_createMimeDataFromSelection(this, handle__createMimeDataFromSelection);
+		QMimeData* callback_return_value = vtbl->createMimeDataFromSelection(this);
 		return callback_return_value;
 	}
 
-	friend QMimeData* QTextBrowser_virtualbase_createMimeDataFromSelection(const void* self);
+	friend QMimeData* QTextBrowser_virtualbase_createMimeDataFromSelection(const VirtualQTextBrowser* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__canInsertFromMimeData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool canInsertFromMimeData(const QMimeData* source) const override {
-		if (handle__canInsertFromMimeData == 0) {
+		if (vtbl->canInsertFromMimeData == 0) {
 			return QTextBrowser::canInsertFromMimeData(source);
 		}
 
 		QMimeData* sigval1 = (QMimeData*) source;
-		bool callback_return_value = miqt_exec_callback_QTextBrowser_canInsertFromMimeData(this, handle__canInsertFromMimeData, sigval1);
+		bool callback_return_value = vtbl->canInsertFromMimeData(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QTextBrowser_virtualbase_canInsertFromMimeData(const void* self, QMimeData* source);
+	friend bool QTextBrowser_virtualbase_canInsertFromMimeData(const VirtualQTextBrowser* self, QMimeData* source);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__insertFromMimeData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void insertFromMimeData(const QMimeData* source) override {
-		if (handle__insertFromMimeData == 0) {
+		if (vtbl->insertFromMimeData == 0) {
 			QTextBrowser::insertFromMimeData(source);
 			return;
 		}
 
 		QMimeData* sigval1 = (QMimeData*) source;
-		miqt_exec_callback_QTextBrowser_insertFromMimeData(this, handle__insertFromMimeData, sigval1);
-
+		vtbl->insertFromMimeData(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_insertFromMimeData(void* self, QMimeData* source);
+	friend void QTextBrowser_virtualbase_insertFromMimeData(VirtualQTextBrowser* self, QMimeData* source);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void inputMethodEvent(QInputMethodEvent* param1) override {
-		if (handle__inputMethodEvent == 0) {
+		if (vtbl->inputMethodEvent == 0) {
 			QTextBrowser::inputMethodEvent(param1);
 			return;
 		}
 
 		QInputMethodEvent* sigval1 = param1;
-		miqt_exec_callback_QTextBrowser_inputMethodEvent(this, handle__inputMethodEvent, sigval1);
-
+		vtbl->inputMethodEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1);
+	friend void QTextBrowser_virtualbase_inputMethodEvent(VirtualQTextBrowser* self, QInputMethodEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__scrollContentsBy = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void scrollContentsBy(int dx, int dy) override {
-		if (handle__scrollContentsBy == 0) {
+		if (vtbl->scrollContentsBy == 0) {
 			QTextBrowser::scrollContentsBy(dx, dy);
 			return;
 		}
 
 		int sigval1 = dx;
 		int sigval2 = dy;
-		miqt_exec_callback_QTextBrowser_scrollContentsBy(this, handle__scrollContentsBy, sigval1, sigval2);
-
+		vtbl->scrollContentsBy(this, sigval1, sigval2);
 	}
 
-	friend void QTextBrowser_virtualbase_scrollContentsBy(void* self, int dx, int dy);
+	friend void QTextBrowser_virtualbase_scrollContentsBy(VirtualQTextBrowser* self, int dx, int dy);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__doSetTextCursor = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void doSetTextCursor(const QTextCursor& cursor) override {
-		if (handle__doSetTextCursor == 0) {
+		if (vtbl->doSetTextCursor == 0) {
 			QTextBrowser::doSetTextCursor(cursor);
 			return;
 		}
@@ -753,310 +529,224 @@ public:
 		const QTextCursor& cursor_ret = cursor;
 		// Cast returned reference into pointer
 		QTextCursor* sigval1 = const_cast<QTextCursor*>(&cursor_ret);
-		miqt_exec_callback_QTextBrowser_doSetTextCursor(this, handle__doSetTextCursor, sigval1);
-
+		vtbl->doSetTextCursor(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_doSetTextCursor(void* self, QTextCursor* cursor);
+	friend void QTextBrowser_virtualbase_doSetTextCursor(VirtualQTextBrowser* self, QTextCursor* cursor);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__minimumSizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize minimumSizeHint() const override {
-		if (handle__minimumSizeHint == 0) {
+		if (vtbl->minimumSizeHint == 0) {
 			return QTextBrowser::minimumSizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QTextBrowser_minimumSizeHint(this, handle__minimumSizeHint);
+		QSize* callback_return_value = vtbl->minimumSizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QTextBrowser_virtualbase_minimumSizeHint(const void* self);
+	friend QSize* QTextBrowser_virtualbase_minimumSizeHint(const VirtualQTextBrowser* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize sizeHint() const override {
-		if (handle__sizeHint == 0) {
+		if (vtbl->sizeHint == 0) {
 			return QTextBrowser::sizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QTextBrowser_sizeHint(this, handle__sizeHint);
+		QSize* callback_return_value = vtbl->sizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QTextBrowser_virtualbase_sizeHint(const void* self);
+	friend QSize* QTextBrowser_virtualbase_sizeHint(const VirtualQTextBrowser* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setupViewport = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setupViewport(QWidget* viewport) override {
-		if (handle__setupViewport == 0) {
+		if (vtbl->setupViewport == 0) {
 			QTextBrowser::setupViewport(viewport);
 			return;
 		}
 
 		QWidget* sigval1 = viewport;
-		miqt_exec_callback_QTextBrowser_setupViewport(this, handle__setupViewport, sigval1);
-
+		vtbl->setupViewport(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_setupViewport(void* self, QWidget* viewport);
+	friend void QTextBrowser_virtualbase_setupViewport(VirtualQTextBrowser* self, QWidget* viewport);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* param1, QEvent* param2) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QTextBrowser::eventFilter(param1, param2);
 		}
 
 		QObject* sigval1 = param1;
 		QEvent* sigval2 = param2;
-		bool callback_return_value = miqt_exec_callback_QTextBrowser_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QTextBrowser_virtualbase_eventFilter(void* self, QObject* param1, QEvent* param2);
+	friend bool QTextBrowser_virtualbase_eventFilter(VirtualQTextBrowser* self, QObject* param1, QEvent* param2);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__viewportEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool viewportEvent(QEvent* param1) override {
-		if (handle__viewportEvent == 0) {
+		if (vtbl->viewportEvent == 0) {
 			return QTextBrowser::viewportEvent(param1);
 		}
 
 		QEvent* sigval1 = param1;
-		bool callback_return_value = miqt_exec_callback_QTextBrowser_viewportEvent(this, handle__viewportEvent, sigval1);
+		bool callback_return_value = vtbl->viewportEvent(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QTextBrowser_virtualbase_viewportEvent(void* self, QEvent* param1);
+	friend bool QTextBrowser_virtualbase_viewportEvent(VirtualQTextBrowser* self, QEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__viewportSizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize viewportSizeHint() const override {
-		if (handle__viewportSizeHint == 0) {
+		if (vtbl->viewportSizeHint == 0) {
 			return QTextBrowser::viewportSizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QTextBrowser_viewportSizeHint(this, handle__viewportSizeHint);
+		QSize* callback_return_value = vtbl->viewportSizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QTextBrowser_virtualbase_viewportSizeHint(const void* self);
+	friend QSize* QTextBrowser_virtualbase_viewportSizeHint(const VirtualQTextBrowser* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__devType = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int devType() const override {
-		if (handle__devType == 0) {
+		if (vtbl->devType == 0) {
 			return QTextBrowser::devType();
 		}
 
-		int callback_return_value = miqt_exec_callback_QTextBrowser_devType(this, handle__devType);
+		int callback_return_value = vtbl->devType(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QTextBrowser_virtualbase_devType(const void* self);
+	friend int QTextBrowser_virtualbase_devType(const VirtualQTextBrowser* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setVisible = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setVisible(bool visible) override {
-		if (handle__setVisible == 0) {
+		if (vtbl->setVisible == 0) {
 			QTextBrowser::setVisible(visible);
 			return;
 		}
 
 		bool sigval1 = visible;
-		miqt_exec_callback_QTextBrowser_setVisible(this, handle__setVisible, sigval1);
-
+		vtbl->setVisible(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_setVisible(void* self, bool visible);
+	friend void QTextBrowser_virtualbase_setVisible(VirtualQTextBrowser* self, bool visible);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__heightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int heightForWidth(int param1) const override {
-		if (handle__heightForWidth == 0) {
+		if (vtbl->heightForWidth == 0) {
 			return QTextBrowser::heightForWidth(param1);
 		}
 
 		int sigval1 = param1;
-		int callback_return_value = miqt_exec_callback_QTextBrowser_heightForWidth(this, handle__heightForWidth, sigval1);
+		int callback_return_value = vtbl->heightForWidth(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QTextBrowser_virtualbase_heightForWidth(const void* self, int param1);
+	friend int QTextBrowser_virtualbase_heightForWidth(const VirtualQTextBrowser* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hasHeightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool hasHeightForWidth() const override {
-		if (handle__hasHeightForWidth == 0) {
+		if (vtbl->hasHeightForWidth == 0) {
 			return QTextBrowser::hasHeightForWidth();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QTextBrowser_hasHeightForWidth(this, handle__hasHeightForWidth);
+		bool callback_return_value = vtbl->hasHeightForWidth(this);
 		return callback_return_value;
 	}
 
-	friend bool QTextBrowser_virtualbase_hasHeightForWidth(const void* self);
+	friend bool QTextBrowser_virtualbase_hasHeightForWidth(const VirtualQTextBrowser* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEngine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintEngine* paintEngine() const override {
-		if (handle__paintEngine == 0) {
+		if (vtbl->paintEngine == 0) {
 			return QTextBrowser::paintEngine();
 		}
 
-		QPaintEngine* callback_return_value = miqt_exec_callback_QTextBrowser_paintEngine(this, handle__paintEngine);
+		QPaintEngine* callback_return_value = vtbl->paintEngine(this);
 		return callback_return_value;
 	}
 
-	friend QPaintEngine* QTextBrowser_virtualbase_paintEngine(const void* self);
+	friend QPaintEngine* QTextBrowser_virtualbase_paintEngine(const VirtualQTextBrowser* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__enterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void enterEvent(QEvent* event) override {
-		if (handle__enterEvent == 0) {
+		if (vtbl->enterEvent == 0) {
 			QTextBrowser::enterEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QTextBrowser_enterEvent(this, handle__enterEvent, sigval1);
-
+		vtbl->enterEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_enterEvent(void* self, QEvent* event);
+	friend void QTextBrowser_virtualbase_enterEvent(VirtualQTextBrowser* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__leaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void leaveEvent(QEvent* event) override {
-		if (handle__leaveEvent == 0) {
+		if (vtbl->leaveEvent == 0) {
 			QTextBrowser::leaveEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QTextBrowser_leaveEvent(this, handle__leaveEvent, sigval1);
-
+		vtbl->leaveEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_leaveEvent(void* self, QEvent* event);
+	friend void QTextBrowser_virtualbase_leaveEvent(VirtualQTextBrowser* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__moveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void moveEvent(QMoveEvent* event) override {
-		if (handle__moveEvent == 0) {
+		if (vtbl->moveEvent == 0) {
 			QTextBrowser::moveEvent(event);
 			return;
 		}
 
 		QMoveEvent* sigval1 = event;
-		miqt_exec_callback_QTextBrowser_moveEvent(this, handle__moveEvent, sigval1);
-
+		vtbl->moveEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_moveEvent(void* self, QMoveEvent* event);
+	friend void QTextBrowser_virtualbase_moveEvent(VirtualQTextBrowser* self, QMoveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__closeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void closeEvent(QCloseEvent* event) override {
-		if (handle__closeEvent == 0) {
+		if (vtbl->closeEvent == 0) {
 			QTextBrowser::closeEvent(event);
 			return;
 		}
 
 		QCloseEvent* sigval1 = event;
-		miqt_exec_callback_QTextBrowser_closeEvent(this, handle__closeEvent, sigval1);
-
+		vtbl->closeEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_closeEvent(void* self, QCloseEvent* event);
+	friend void QTextBrowser_virtualbase_closeEvent(VirtualQTextBrowser* self, QCloseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__tabletEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void tabletEvent(QTabletEvent* event) override {
-		if (handle__tabletEvent == 0) {
+		if (vtbl->tabletEvent == 0) {
 			QTextBrowser::tabletEvent(event);
 			return;
 		}
 
 		QTabletEvent* sigval1 = event;
-		miqt_exec_callback_QTextBrowser_tabletEvent(this, handle__tabletEvent, sigval1);
-
+		vtbl->tabletEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_tabletEvent(void* self, QTabletEvent* event);
+	friend void QTextBrowser_virtualbase_tabletEvent(VirtualQTextBrowser* self, QTabletEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__actionEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void actionEvent(QActionEvent* event) override {
-		if (handle__actionEvent == 0) {
+		if (vtbl->actionEvent == 0) {
 			QTextBrowser::actionEvent(event);
 			return;
 		}
 
 		QActionEvent* sigval1 = event;
-		miqt_exec_callback_QTextBrowser_actionEvent(this, handle__actionEvent, sigval1);
-
+		vtbl->actionEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_actionEvent(void* self, QActionEvent* event);
+	friend void QTextBrowser_virtualbase_actionEvent(VirtualQTextBrowser* self, QActionEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hideEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void hideEvent(QHideEvent* event) override {
-		if (handle__hideEvent == 0) {
+		if (vtbl->hideEvent == 0) {
 			QTextBrowser::hideEvent(event);
 			return;
 		}
 
 		QHideEvent* sigval1 = event;
-		miqt_exec_callback_QTextBrowser_hideEvent(this, handle__hideEvent, sigval1);
-
+		vtbl->hideEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_hideEvent(void* self, QHideEvent* event);
+	friend void QTextBrowser_virtualbase_hideEvent(VirtualQTextBrowser* self, QHideEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__nativeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool nativeEvent(const QByteArray& eventType, void* message, long* result) override {
-		if (handle__nativeEvent == 0) {
+		if (vtbl->nativeEvent == 0) {
 			return QTextBrowser::nativeEvent(eventType, message, result);
 		}
 
@@ -1068,117 +758,86 @@ public:
 		struct seaqt_string sigval1 = eventType_ms;
 		void* sigval2 = message;
 		long* sigval3 = result;
-		bool callback_return_value = miqt_exec_callback_QTextBrowser_nativeEvent(this, handle__nativeEvent, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->nativeEvent(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QTextBrowser_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, long* result);
+	friend bool QTextBrowser_virtualbase_nativeEvent(VirtualQTextBrowser* self, struct seaqt_string eventType, void* message, long* result);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metric = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int metric(QPaintDevice::PaintDeviceMetric param1) const override {
-		if (handle__metric == 0) {
+		if (vtbl->metric == 0) {
 			return QTextBrowser::metric(param1);
 		}
 
 		QPaintDevice::PaintDeviceMetric param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		int callback_return_value = miqt_exec_callback_QTextBrowser_metric(this, handle__metric, sigval1);
+		int callback_return_value = vtbl->metric(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QTextBrowser_virtualbase_metric(const void* self, int param1);
+	friend int QTextBrowser_virtualbase_metric(const VirtualQTextBrowser* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__initPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void initPainter(QPainter* painter) const override {
-		if (handle__initPainter == 0) {
+		if (vtbl->initPainter == 0) {
 			QTextBrowser::initPainter(painter);
 			return;
 		}
 
 		QPainter* sigval1 = painter;
-		miqt_exec_callback_QTextBrowser_initPainter(this, handle__initPainter, sigval1);
-
+		vtbl->initPainter(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_initPainter(const void* self, QPainter* painter);
+	friend void QTextBrowser_virtualbase_initPainter(const VirtualQTextBrowser* self, QPainter* painter);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__redirected = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintDevice* redirected(QPoint* offset) const override {
-		if (handle__redirected == 0) {
+		if (vtbl->redirected == 0) {
 			return QTextBrowser::redirected(offset);
 		}
 
 		QPoint* sigval1 = offset;
-		QPaintDevice* callback_return_value = miqt_exec_callback_QTextBrowser_redirected(this, handle__redirected, sigval1);
+		QPaintDevice* callback_return_value = vtbl->redirected(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QPaintDevice* QTextBrowser_virtualbase_redirected(const void* self, QPoint* offset);
+	friend QPaintDevice* QTextBrowser_virtualbase_redirected(const VirtualQTextBrowser* self, QPoint* offset);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sharedPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPainter* sharedPainter() const override {
-		if (handle__sharedPainter == 0) {
+		if (vtbl->sharedPainter == 0) {
 			return QTextBrowser::sharedPainter();
 		}
 
-		QPainter* callback_return_value = miqt_exec_callback_QTextBrowser_sharedPainter(this, handle__sharedPainter);
+		QPainter* callback_return_value = vtbl->sharedPainter(this);
 		return callback_return_value;
 	}
 
-	friend QPainter* QTextBrowser_virtualbase_sharedPainter(const void* self);
+	friend QPainter* QTextBrowser_virtualbase_sharedPainter(const VirtualQTextBrowser* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QTextBrowser::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QTextBrowser_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QTextBrowser_virtualbase_childEvent(VirtualQTextBrowser* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QTextBrowser::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QTextBrowser_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QTextBrowser_virtualbase_customEvent(VirtualQTextBrowser* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QTextBrowser::connectNotify(signal);
 			return;
 		}
@@ -1186,18 +845,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QTextBrowser_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QTextBrowser_virtualbase_connectNotify(VirtualQTextBrowser* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QTextBrowser::disconnectNotify(signal);
 			return;
 		}
@@ -1205,37 +859,38 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QTextBrowser_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QTextBrowser_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QTextBrowser_virtualbase_disconnectNotify(VirtualQTextBrowser* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QTextBrowser_protectedbase_doSetSource(bool* _dynamic_cast_ok, void* self, QUrl* name);
-	friend void QTextBrowser_protectedbase_doSetSource2(bool* _dynamic_cast_ok, void* self, QUrl* name, int type);
-	friend void QTextBrowser_protectedbase_zoomInF(bool* _dynamic_cast_ok, void* self, float range);
-	friend void QTextBrowser_protectedbase_setViewportMargins(bool* _dynamic_cast_ok, void* self, int left, int top, int right, int bottom);
-	friend QMargins* QTextBrowser_protectedbase_viewportMargins(bool* _dynamic_cast_ok, const void* self);
-	friend void QTextBrowser_protectedbase_drawFrame(bool* _dynamic_cast_ok, void* self, QPainter* param1);
-	friend void QTextBrowser_protectedbase_initStyleOption(bool* _dynamic_cast_ok, const void* self, QStyleOptionFrame* option);
-	friend void QTextBrowser_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self);
-	friend void QTextBrowser_protectedbase_create(bool* _dynamic_cast_ok, void* self);
-	friend void QTextBrowser_protectedbase_destroy(bool* _dynamic_cast_ok, void* self);
-	friend bool QTextBrowser_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self);
-	friend bool QTextBrowser_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self);
-	friend QObject* QTextBrowser_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QTextBrowser_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QTextBrowser_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QTextBrowser_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QTextBrowser_protectedbase_doSetSource(VirtualQTextBrowser* self, QUrl* name);
+	friend void QTextBrowser_protectedbase_doSetSource2(VirtualQTextBrowser* self, QUrl* name, int type);
+	friend void QTextBrowser_protectedbase_zoomInF(VirtualQTextBrowser* self, float range);
+	friend void QTextBrowser_protectedbase_setViewportMargins(VirtualQTextBrowser* self, int left, int top, int right, int bottom);
+	friend QMargins* QTextBrowser_protectedbase_viewportMargins(const VirtualQTextBrowser* self);
+	friend void QTextBrowser_protectedbase_drawFrame(VirtualQTextBrowser* self, QPainter* param1);
+	friend void QTextBrowser_protectedbase_initStyleOption(const VirtualQTextBrowser* self, QStyleOptionFrame* option);
+	friend void QTextBrowser_protectedbase_updateMicroFocus(VirtualQTextBrowser* self);
+	friend void QTextBrowser_protectedbase_create(VirtualQTextBrowser* self);
+	friend void QTextBrowser_protectedbase_destroy(VirtualQTextBrowser* self);
+	friend bool QTextBrowser_protectedbase_focusNextChild(VirtualQTextBrowser* self);
+	friend bool QTextBrowser_protectedbase_focusPreviousChild(VirtualQTextBrowser* self);
+	friend QObject* QTextBrowser_protectedbase_sender(const VirtualQTextBrowser* self);
+	friend int QTextBrowser_protectedbase_senderSignalIndex(const VirtualQTextBrowser* self);
+	friend int QTextBrowser_protectedbase_receivers(const VirtualQTextBrowser* self, const char* signal);
+	friend bool QTextBrowser_protectedbase_isSignalConnected(const VirtualQTextBrowser* self, QMetaMethod* signal);
 };
 
-QTextBrowser* QTextBrowser_new(QWidget* parent) {
-	return new (std::nothrow) VirtualQTextBrowser(parent);
+VirtualQTextBrowser* QTextBrowser_new(const QTextBrowser_VTable* vtbl, size_t vdata, QWidget* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQTextBrowser>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQTextBrowser(vtbl, parent) : nullptr;
 }
 
-QTextBrowser* QTextBrowser_new2() {
-	return new (std::nothrow) VirtualQTextBrowser();
+VirtualQTextBrowser* QTextBrowser_new2(const QTextBrowser_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQTextBrowser>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQTextBrowser(vtbl) : nullptr;
 }
 
 void QTextBrowser_virtbase(QTextBrowser* src, QTextEdit** outptr_QTextEdit) {
@@ -1530,1077 +1185,392 @@ struct seaqt_string QTextBrowser_trUtf83(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QTextBrowser_staticMetaObject() { return &QTextBrowser::staticMetaObject; }
-bool QTextBrowser_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QTextBrowser_vdata(VirtualQTextBrowser* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQTextBrowser>()); }
+VirtualQTextBrowser* vdata_QTextBrowser(void* vdata) { return reinterpret_cast<VirtualQTextBrowser*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQTextBrowser>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
-}
-
-QMetaObject* QTextBrowser_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQTextBrowser*>(self)->QTextBrowser::metaObject();
-}
+QMetaObject* QTextBrowser_virtualbase_metaObject(const VirtualQTextBrowser* self) {
 
-bool QTextBrowser_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__metacast = slot;
-	return true;
-}
-
-void* QTextBrowser_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::qt_metacast(param1);
+	return (QMetaObject*) self->QTextBrowser::metaObject();
 }
-
-bool QTextBrowser_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__metacall = slot;
-	return true;
-}
+void* QTextBrowser_virtualbase_metacast(VirtualQTextBrowser* self, const char* param1) {
 
-int QTextBrowser_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+	return self->QTextBrowser::qt_metacast(param1);
 }
 
-bool QTextBrowser_override_virtual_loadResource(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__loadResource = slot;
-	return true;
-}
+int QTextBrowser_virtualbase_metacall(VirtualQTextBrowser* self, int param1, int param2, void** param3) {
 
-QVariant* QTextBrowser_virtualbase_loadResource(void* self, int type, QUrl* name) {
-	return new QVariant(static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::loadResource(static_cast<int>(type), *name));
+	return self->QTextBrowser::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-bool QTextBrowser_override_virtual_setSource(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QVariant* QTextBrowser_virtualbase_loadResource(VirtualQTextBrowser* self, int type, QUrl* name) {
 
-	self_cast->handle__setSource = slot;
-	return true;
+	return new QVariant(self->QTextBrowser::loadResource(static_cast<int>(type), *name));
 }
 
-void QTextBrowser_virtualbase_setSource(void* self, QUrl* name) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::setSource(*name);
-}
-
-bool QTextBrowser_override_virtual_backward(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__backward = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_setSource(VirtualQTextBrowser* self, QUrl* name) {
 
-void QTextBrowser_virtualbase_backward(void* self) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::backward();
+	self->QTextBrowser::setSource(*name);
 }
 
-bool QTextBrowser_override_virtual_forward(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QTextBrowser_virtualbase_backward(VirtualQTextBrowser* self) {
 
-	self_cast->handle__forward = slot;
-	return true;
+	self->QTextBrowser::backward();
 }
 
-void QTextBrowser_virtualbase_forward(void* self) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::forward();
-}
-
-bool QTextBrowser_override_virtual_home(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__home = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_forward(VirtualQTextBrowser* self) {
 
-void QTextBrowser_virtualbase_home(void* self) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::home();
+	self->QTextBrowser::forward();
 }
-
-bool QTextBrowser_override_virtual_reload(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__reload = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_home(VirtualQTextBrowser* self) {
 
-void QTextBrowser_virtualbase_reload(void* self) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::reload();
+	self->QTextBrowser::home();
 }
-
-bool QTextBrowser_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__event = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_reload(VirtualQTextBrowser* self) {
 
-bool QTextBrowser_virtualbase_event(void* self, QEvent* e) {
-	return static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::event(e);
+	self->QTextBrowser::reload();
 }
 
-bool QTextBrowser_override_virtual_keyPressEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__keyPressEvent = slot;
-	return true;
-}
+bool QTextBrowser_virtualbase_event(VirtualQTextBrowser* self, QEvent* e) {
 
-void QTextBrowser_virtualbase_keyPressEvent(void* self, QKeyEvent* ev) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::keyPressEvent(ev);
+	return self->QTextBrowser::event(e);
 }
 
-bool QTextBrowser_override_virtual_mouseMoveEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QTextBrowser_virtualbase_keyPressEvent(VirtualQTextBrowser* self, QKeyEvent* ev) {
 
-	self_cast->handle__mouseMoveEvent = slot;
-	return true;
+	self->QTextBrowser::keyPressEvent(ev);
 }
 
-void QTextBrowser_virtualbase_mouseMoveEvent(void* self, QMouseEvent* ev) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::mouseMoveEvent(ev);
-}
-
-bool QTextBrowser_override_virtual_mousePressEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mousePressEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_mouseMoveEvent(VirtualQTextBrowser* self, QMouseEvent* ev) {
 
-void QTextBrowser_virtualbase_mousePressEvent(void* self, QMouseEvent* ev) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::mousePressEvent(ev);
+	self->QTextBrowser::mouseMoveEvent(ev);
 }
 
-bool QTextBrowser_override_virtual_mouseReleaseEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QTextBrowser_virtualbase_mousePressEvent(VirtualQTextBrowser* self, QMouseEvent* ev) {
 
-	self_cast->handle__mouseReleaseEvent = slot;
-	return true;
+	self->QTextBrowser::mousePressEvent(ev);
 }
 
-void QTextBrowser_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* ev) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::mouseReleaseEvent(ev);
-}
-
-bool QTextBrowser_override_virtual_focusOutEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__focusOutEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_mouseReleaseEvent(VirtualQTextBrowser* self, QMouseEvent* ev) {
 
-void QTextBrowser_virtualbase_focusOutEvent(void* self, QFocusEvent* ev) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::focusOutEvent(ev);
+	self->QTextBrowser::mouseReleaseEvent(ev);
 }
-
-bool QTextBrowser_override_virtual_focusNextPrevChild(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__focusNextPrevChild = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_focusOutEvent(VirtualQTextBrowser* self, QFocusEvent* ev) {
 
-bool QTextBrowser_virtualbase_focusNextPrevChild(void* self, bool next) {
-	return static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::focusNextPrevChild(next);
+	self->QTextBrowser::focusOutEvent(ev);
 }
-
-bool QTextBrowser_override_virtual_paintEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__paintEvent = slot;
-	return true;
-}
+bool QTextBrowser_virtualbase_focusNextPrevChild(VirtualQTextBrowser* self, bool next) {
 
-void QTextBrowser_virtualbase_paintEvent(void* self, QPaintEvent* e) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::paintEvent(e);
+	return self->QTextBrowser::focusNextPrevChild(next);
 }
 
-bool QTextBrowser_override_virtual_inputMethodQuery(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__inputMethodQuery = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_paintEvent(VirtualQTextBrowser* self, QPaintEvent* e) {
 
-QVariant* QTextBrowser_virtualbase_inputMethodQuery(const void* self, int property) {
-	return new QVariant(static_cast<const VirtualQTextBrowser*>(self)->QTextBrowser::inputMethodQuery(static_cast<Qt::InputMethodQuery>(property)));
+	self->QTextBrowser::paintEvent(e);
 }
 
-bool QTextBrowser_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QVariant* QTextBrowser_virtualbase_inputMethodQuery(const VirtualQTextBrowser* self, int property) {
 
-	self_cast->handle__timerEvent = slot;
-	return true;
+	return new QVariant(self->QTextBrowser::inputMethodQuery(static_cast<Qt::InputMethodQuery>(property)));
 }
 
-void QTextBrowser_virtualbase_timerEvent(void* self, QTimerEvent* e) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::timerEvent(e);
-}
-
-bool QTextBrowser_override_virtual_keyReleaseEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__keyReleaseEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_timerEvent(VirtualQTextBrowser* self, QTimerEvent* e) {
 
-void QTextBrowser_virtualbase_keyReleaseEvent(void* self, QKeyEvent* e) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::keyReleaseEvent(e);
+	self->QTextBrowser::timerEvent(e);
 }
 
-bool QTextBrowser_override_virtual_resizeEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QTextBrowser_virtualbase_keyReleaseEvent(VirtualQTextBrowser* self, QKeyEvent* e) {
 
-	self_cast->handle__resizeEvent = slot;
-	return true;
+	self->QTextBrowser::keyReleaseEvent(e);
 }
 
-void QTextBrowser_virtualbase_resizeEvent(void* self, QResizeEvent* e) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::resizeEvent(e);
-}
-
-bool QTextBrowser_override_virtual_mouseDoubleClickEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mouseDoubleClickEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_resizeEvent(VirtualQTextBrowser* self, QResizeEvent* e) {
 
-void QTextBrowser_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* e) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::mouseDoubleClickEvent(e);
+	self->QTextBrowser::resizeEvent(e);
 }
-
-bool QTextBrowser_override_virtual_contextMenuEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__contextMenuEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_mouseDoubleClickEvent(VirtualQTextBrowser* self, QMouseEvent* e) {
 
-void QTextBrowser_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* e) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::contextMenuEvent(e);
+	self->QTextBrowser::mouseDoubleClickEvent(e);
 }
-
-bool QTextBrowser_override_virtual_dragEnterEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__dragEnterEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_contextMenuEvent(VirtualQTextBrowser* self, QContextMenuEvent* e) {
 
-void QTextBrowser_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* e) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::dragEnterEvent(e);
+	self->QTextBrowser::contextMenuEvent(e);
 }
 
-bool QTextBrowser_override_virtual_dragLeaveEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__dragLeaveEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_dragEnterEvent(VirtualQTextBrowser* self, QDragEnterEvent* e) {
 
-void QTextBrowser_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* e) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::dragLeaveEvent(e);
+	self->QTextBrowser::dragEnterEvent(e);
 }
 
-bool QTextBrowser_override_virtual_dragMoveEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QTextBrowser_virtualbase_dragLeaveEvent(VirtualQTextBrowser* self, QDragLeaveEvent* e) {
 
-	self_cast->handle__dragMoveEvent = slot;
-	return true;
+	self->QTextBrowser::dragLeaveEvent(e);
 }
 
-void QTextBrowser_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* e) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::dragMoveEvent(e);
-}
-
-bool QTextBrowser_override_virtual_dropEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__dropEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_dragMoveEvent(VirtualQTextBrowser* self, QDragMoveEvent* e) {
 
-void QTextBrowser_virtualbase_dropEvent(void* self, QDropEvent* e) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::dropEvent(e);
+	self->QTextBrowser::dragMoveEvent(e);
 }
 
-bool QTextBrowser_override_virtual_focusInEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QTextBrowser_virtualbase_dropEvent(VirtualQTextBrowser* self, QDropEvent* e) {
 
-	self_cast->handle__focusInEvent = slot;
-	return true;
+	self->QTextBrowser::dropEvent(e);
 }
 
-void QTextBrowser_virtualbase_focusInEvent(void* self, QFocusEvent* e) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::focusInEvent(e);
-}
-
-bool QTextBrowser_override_virtual_showEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__showEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_focusInEvent(VirtualQTextBrowser* self, QFocusEvent* e) {
 
-void QTextBrowser_virtualbase_showEvent(void* self, QShowEvent* param1) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::showEvent(param1);
+	self->QTextBrowser::focusInEvent(e);
 }
-
-bool QTextBrowser_override_virtual_changeEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__changeEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_showEvent(VirtualQTextBrowser* self, QShowEvent* param1) {
 
-void QTextBrowser_virtualbase_changeEvent(void* self, QEvent* e) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::changeEvent(e);
+	self->QTextBrowser::showEvent(param1);
 }
-
-bool QTextBrowser_override_virtual_wheelEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__wheelEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_changeEvent(VirtualQTextBrowser* self, QEvent* e) {
 
-void QTextBrowser_virtualbase_wheelEvent(void* self, QWheelEvent* e) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::wheelEvent(e);
+	self->QTextBrowser::changeEvent(e);
 }
 
-bool QTextBrowser_override_virtual_createMimeDataFromSelection(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__createMimeDataFromSelection = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_wheelEvent(VirtualQTextBrowser* self, QWheelEvent* e) {
 
-QMimeData* QTextBrowser_virtualbase_createMimeDataFromSelection(const void* self) {
-	return static_cast<const VirtualQTextBrowser*>(self)->QTextBrowser::createMimeDataFromSelection();
+	self->QTextBrowser::wheelEvent(e);
 }
 
-bool QTextBrowser_override_virtual_canInsertFromMimeData(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QMimeData* QTextBrowser_virtualbase_createMimeDataFromSelection(const VirtualQTextBrowser* self) {
 
-	self_cast->handle__canInsertFromMimeData = slot;
-	return true;
+	return self->QTextBrowser::createMimeDataFromSelection();
 }
 
-bool QTextBrowser_virtualbase_canInsertFromMimeData(const void* self, QMimeData* source) {
-	return static_cast<const VirtualQTextBrowser*>(self)->QTextBrowser::canInsertFromMimeData(source);
-}
-
-bool QTextBrowser_override_virtual_insertFromMimeData(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__insertFromMimeData = slot;
-	return true;
-}
+bool QTextBrowser_virtualbase_canInsertFromMimeData(const VirtualQTextBrowser* self, QMimeData* source) {
 
-void QTextBrowser_virtualbase_insertFromMimeData(void* self, QMimeData* source) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::insertFromMimeData(source);
+	return self->QTextBrowser::canInsertFromMimeData(source);
 }
 
-bool QTextBrowser_override_virtual_inputMethodEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QTextBrowser_virtualbase_insertFromMimeData(VirtualQTextBrowser* self, QMimeData* source) {
 
-	self_cast->handle__inputMethodEvent = slot;
-	return true;
+	self->QTextBrowser::insertFromMimeData(source);
 }
 
-void QTextBrowser_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::inputMethodEvent(param1);
-}
-
-bool QTextBrowser_override_virtual_scrollContentsBy(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__scrollContentsBy = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_inputMethodEvent(VirtualQTextBrowser* self, QInputMethodEvent* param1) {
 
-void QTextBrowser_virtualbase_scrollContentsBy(void* self, int dx, int dy) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::scrollContentsBy(static_cast<int>(dx), static_cast<int>(dy));
+	self->QTextBrowser::inputMethodEvent(param1);
 }
-
-bool QTextBrowser_override_virtual_doSetTextCursor(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__doSetTextCursor = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_scrollContentsBy(VirtualQTextBrowser* self, int dx, int dy) {
 
-void QTextBrowser_virtualbase_doSetTextCursor(void* self, QTextCursor* cursor) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::doSetTextCursor(*cursor);
+	self->QTextBrowser::scrollContentsBy(static_cast<int>(dx), static_cast<int>(dy));
 }
-
-bool QTextBrowser_override_virtual_minimumSizeHint(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__minimumSizeHint = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_doSetTextCursor(VirtualQTextBrowser* self, QTextCursor* cursor) {
 
-QSize* QTextBrowser_virtualbase_minimumSizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQTextBrowser*>(self)->QTextBrowser::minimumSizeHint());
+	self->QTextBrowser::doSetTextCursor(*cursor);
 }
 
-bool QTextBrowser_override_virtual_sizeHint(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__sizeHint = slot;
-	return true;
-}
+QSize* QTextBrowser_virtualbase_minimumSizeHint(const VirtualQTextBrowser* self) {
 
-QSize* QTextBrowser_virtualbase_sizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQTextBrowser*>(self)->QTextBrowser::sizeHint());
+	return new QSize(self->QTextBrowser::minimumSizeHint());
 }
 
-bool QTextBrowser_override_virtual_setupViewport(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QSize* QTextBrowser_virtualbase_sizeHint(const VirtualQTextBrowser* self) {
 
-	self_cast->handle__setupViewport = slot;
-	return true;
+	return new QSize(self->QTextBrowser::sizeHint());
 }
 
-void QTextBrowser_virtualbase_setupViewport(void* self, QWidget* viewport) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::setupViewport(viewport);
-}
-
-bool QTextBrowser_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_setupViewport(VirtualQTextBrowser* self, QWidget* viewport) {
 
-bool QTextBrowser_virtualbase_eventFilter(void* self, QObject* param1, QEvent* param2) {
-	return static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::eventFilter(param1, param2);
+	self->QTextBrowser::setupViewport(viewport);
 }
 
-bool QTextBrowser_override_virtual_viewportEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QTextBrowser_virtualbase_eventFilter(VirtualQTextBrowser* self, QObject* param1, QEvent* param2) {
 
-	self_cast->handle__viewportEvent = slot;
-	return true;
+	return self->QTextBrowser::eventFilter(param1, param2);
 }
 
-bool QTextBrowser_virtualbase_viewportEvent(void* self, QEvent* param1) {
-	return static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::viewportEvent(param1);
-}
-
-bool QTextBrowser_override_virtual_viewportSizeHint(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__viewportSizeHint = slot;
-	return true;
-}
+bool QTextBrowser_virtualbase_viewportEvent(VirtualQTextBrowser* self, QEvent* param1) {
 
-QSize* QTextBrowser_virtualbase_viewportSizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQTextBrowser*>(self)->QTextBrowser::viewportSizeHint());
+	return self->QTextBrowser::viewportEvent(param1);
 }
-
-bool QTextBrowser_override_virtual_devType(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__devType = slot;
-	return true;
-}
+QSize* QTextBrowser_virtualbase_viewportSizeHint(const VirtualQTextBrowser* self) {
 
-int QTextBrowser_virtualbase_devType(const void* self) {
-	return static_cast<const VirtualQTextBrowser*>(self)->QTextBrowser::devType();
+	return new QSize(self->QTextBrowser::viewportSizeHint());
 }
-
-bool QTextBrowser_override_virtual_setVisible(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__setVisible = slot;
-	return true;
-}
+int QTextBrowser_virtualbase_devType(const VirtualQTextBrowser* self) {
 
-void QTextBrowser_virtualbase_setVisible(void* self, bool visible) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::setVisible(visible);
+	return self->QTextBrowser::devType();
 }
 
-bool QTextBrowser_override_virtual_heightForWidth(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__heightForWidth = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_setVisible(VirtualQTextBrowser* self, bool visible) {
 
-int QTextBrowser_virtualbase_heightForWidth(const void* self, int param1) {
-	return static_cast<const VirtualQTextBrowser*>(self)->QTextBrowser::heightForWidth(static_cast<int>(param1));
+	self->QTextBrowser::setVisible(visible);
 }
 
-bool QTextBrowser_override_virtual_hasHeightForWidth(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QTextBrowser_virtualbase_heightForWidth(const VirtualQTextBrowser* self, int param1) {
 
-	self_cast->handle__hasHeightForWidth = slot;
-	return true;
+	return self->QTextBrowser::heightForWidth(static_cast<int>(param1));
 }
 
-bool QTextBrowser_virtualbase_hasHeightForWidth(const void* self) {
-	return static_cast<const VirtualQTextBrowser*>(self)->QTextBrowser::hasHeightForWidth();
-}
-
-bool QTextBrowser_override_virtual_paintEngine(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__paintEngine = slot;
-	return true;
-}
+bool QTextBrowser_virtualbase_hasHeightForWidth(const VirtualQTextBrowser* self) {
 
-QPaintEngine* QTextBrowser_virtualbase_paintEngine(const void* self) {
-	return static_cast<const VirtualQTextBrowser*>(self)->QTextBrowser::paintEngine();
+	return self->QTextBrowser::hasHeightForWidth();
 }
 
-bool QTextBrowser_override_virtual_enterEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QPaintEngine* QTextBrowser_virtualbase_paintEngine(const VirtualQTextBrowser* self) {
 
-	self_cast->handle__enterEvent = slot;
-	return true;
+	return self->QTextBrowser::paintEngine();
 }
 
-void QTextBrowser_virtualbase_enterEvent(void* self, QEvent* event) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::enterEvent(event);
-}
-
-bool QTextBrowser_override_virtual_leaveEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__leaveEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_enterEvent(VirtualQTextBrowser* self, QEvent* event) {
 
-void QTextBrowser_virtualbase_leaveEvent(void* self, QEvent* event) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::leaveEvent(event);
+	self->QTextBrowser::enterEvent(event);
 }
-
-bool QTextBrowser_override_virtual_moveEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__moveEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_leaveEvent(VirtualQTextBrowser* self, QEvent* event) {
 
-void QTextBrowser_virtualbase_moveEvent(void* self, QMoveEvent* event) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::moveEvent(event);
+	self->QTextBrowser::leaveEvent(event);
 }
-
-bool QTextBrowser_override_virtual_closeEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__closeEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_moveEvent(VirtualQTextBrowser* self, QMoveEvent* event) {
 
-void QTextBrowser_virtualbase_closeEvent(void* self, QCloseEvent* event) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::closeEvent(event);
+	self->QTextBrowser::moveEvent(event);
 }
 
-bool QTextBrowser_override_virtual_tabletEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__tabletEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_closeEvent(VirtualQTextBrowser* self, QCloseEvent* event) {
 
-void QTextBrowser_virtualbase_tabletEvent(void* self, QTabletEvent* event) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::tabletEvent(event);
+	self->QTextBrowser::closeEvent(event);
 }
 
-bool QTextBrowser_override_virtual_actionEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QTextBrowser_virtualbase_tabletEvent(VirtualQTextBrowser* self, QTabletEvent* event) {
 
-	self_cast->handle__actionEvent = slot;
-	return true;
+	self->QTextBrowser::tabletEvent(event);
 }
 
-void QTextBrowser_virtualbase_actionEvent(void* self, QActionEvent* event) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::actionEvent(event);
-}
-
-bool QTextBrowser_override_virtual_hideEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__hideEvent = slot;
-	return true;
-}
+void QTextBrowser_virtualbase_actionEvent(VirtualQTextBrowser* self, QActionEvent* event) {
 
-void QTextBrowser_virtualbase_hideEvent(void* self, QHideEvent* event) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::hideEvent(event);
+	self->QTextBrowser::actionEvent(event);
 }
 
-bool QTextBrowser_override_virtual_nativeEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QTextBrowser_virtualbase_hideEvent(VirtualQTextBrowser* self, QHideEvent* event) {
 
-	self_cast->handle__nativeEvent = slot;
-	return true;
+	self->QTextBrowser::hideEvent(event);
 }
 
-bool QTextBrowser_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, long* result) {
+bool QTextBrowser_virtualbase_nativeEvent(VirtualQTextBrowser* self, struct seaqt_string eventType, void* message, long* result) {
 	QByteArray eventType_QByteArray(eventType.data, eventType.len);
-	return static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::nativeEvent(eventType_QByteArray, message, static_cast<long*>(result));
+
+	return self->QTextBrowser::nativeEvent(eventType_QByteArray, message, static_cast<long*>(result));
 }
 
-bool QTextBrowser_override_virtual_metric(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QTextBrowser_virtualbase_metric(const VirtualQTextBrowser* self, int param1) {
 
-	self_cast->handle__metric = slot;
-	return true;
+	return self->QTextBrowser::metric(static_cast<VirtualQTextBrowser::PaintDeviceMetric>(param1));
 }
 
-int QTextBrowser_virtualbase_metric(const void* self, int param1) {
-	return static_cast<const VirtualQTextBrowser*>(self)->QTextBrowser::metric(static_cast<VirtualQTextBrowser::PaintDeviceMetric>(param1));
+void QTextBrowser_virtualbase_initPainter(const VirtualQTextBrowser* self, QPainter* painter) {
+
+	self->QTextBrowser::initPainter(painter);
 }
 
-bool QTextBrowser_override_virtual_initPainter(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QPaintDevice* QTextBrowser_virtualbase_redirected(const VirtualQTextBrowser* self, QPoint* offset) {
 
-	self_cast->handle__initPainter = slot;
-	return true;
+	return self->QTextBrowser::redirected(offset);
 }
 
-void QTextBrowser_virtualbase_initPainter(const void* self, QPainter* painter) {
-	static_cast<const VirtualQTextBrowser*>(self)->QTextBrowser::initPainter(painter);
+QPainter* QTextBrowser_virtualbase_sharedPainter(const VirtualQTextBrowser* self) {
+
+	return self->QTextBrowser::sharedPainter();
 }
 
-bool QTextBrowser_override_virtual_redirected(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QTextBrowser_virtualbase_childEvent(VirtualQTextBrowser* self, QChildEvent* event) {
 
-	self_cast->handle__redirected = slot;
-	return true;
+	self->QTextBrowser::childEvent(event);
 }
 
-QPaintDevice* QTextBrowser_virtualbase_redirected(const void* self, QPoint* offset) {
-	return static_cast<const VirtualQTextBrowser*>(self)->QTextBrowser::redirected(offset);
+void QTextBrowser_virtualbase_customEvent(VirtualQTextBrowser* self, QEvent* event) {
+
+	self->QTextBrowser::customEvent(event);
 }
 
-bool QTextBrowser_override_virtual_sharedPainter(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QTextBrowser_virtualbase_connectNotify(VirtualQTextBrowser* self, QMetaMethod* signal) {
 
-	self_cast->handle__sharedPainter = slot;
-	return true;
+	self->QTextBrowser::connectNotify(*signal);
 }
 
-QPainter* QTextBrowser_virtualbase_sharedPainter(const void* self) {
-	return static_cast<const VirtualQTextBrowser*>(self)->QTextBrowser::sharedPainter();
+void QTextBrowser_virtualbase_disconnectNotify(VirtualQTextBrowser* self, QMetaMethod* signal) {
+
+	self->QTextBrowser::disconnectNotify(*signal);
 }
 
-bool QTextBrowser_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+void QTextBrowser_protectedbase_doSetSource(VirtualQTextBrowser* self, QUrl* name) {
+	self->doSetSource(*name);
 }
 
-void QTextBrowser_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::childEvent(event);
+void QTextBrowser_protectedbase_doSetSource2(VirtualQTextBrowser* self, QUrl* name, int type) {
+	self->doSetSource(*name, static_cast<QTextDocument::ResourceType>(type));
 }
 
-bool QTextBrowser_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
+void QTextBrowser_protectedbase_zoomInF(VirtualQTextBrowser* self, float range) {
+	self->zoomInF(static_cast<float>(range));
 }
 
-void QTextBrowser_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::customEvent(event);
+void QTextBrowser_protectedbase_setViewportMargins(VirtualQTextBrowser* self, int left, int top, int right, int bottom) {
+	self->setViewportMargins(static_cast<int>(left), static_cast<int>(top), static_cast<int>(right), static_cast<int>(bottom));
 }
 
-bool QTextBrowser_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
+QMargins* QTextBrowser_protectedbase_viewportMargins(const VirtualQTextBrowser* self) {
+	return new QMargins(self->viewportMargins());
 }
 
-void QTextBrowser_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::connectNotify(*signal);
+void QTextBrowser_protectedbase_drawFrame(VirtualQTextBrowser* self, QPainter* param1) {
+	self->drawFrame(param1);
 }
 
-bool QTextBrowser_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
+void QTextBrowser_protectedbase_initStyleOption(const VirtualQTextBrowser* self, QStyleOptionFrame* option) {
+	self->initStyleOption(option);
 }
 
-void QTextBrowser_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQTextBrowser*>(self)->QTextBrowser::disconnectNotify(*signal);
+void QTextBrowser_protectedbase_updateMicroFocus(VirtualQTextBrowser* self) {
+	self->updateMicroFocus();
 }
 
-void QTextBrowser_protectedbase_doSetSource(bool* _dynamic_cast_ok, void* self, QUrl* name) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->doSetSource(*name);
+void QTextBrowser_protectedbase_create(VirtualQTextBrowser* self) {
+	self->create();
 }
 
-void QTextBrowser_protectedbase_doSetSource2(bool* _dynamic_cast_ok, void* self, QUrl* name, int type) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->doSetSource(*name, static_cast<QTextDocument::ResourceType>(type));
+void QTextBrowser_protectedbase_destroy(VirtualQTextBrowser* self) {
+	self->destroy();
 }
 
-void QTextBrowser_protectedbase_zoomInF(bool* _dynamic_cast_ok, void* self, float range) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->zoomInF(static_cast<float>(range));
+bool QTextBrowser_protectedbase_focusNextChild(VirtualQTextBrowser* self) {
+	return self->focusNextChild();
 }
 
-void QTextBrowser_protectedbase_setViewportMargins(bool* _dynamic_cast_ok, void* self, int left, int top, int right, int bottom) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setViewportMargins(static_cast<int>(left), static_cast<int>(top), static_cast<int>(right), static_cast<int>(bottom));
+bool QTextBrowser_protectedbase_focusPreviousChild(VirtualQTextBrowser* self) {
+	return self->focusPreviousChild();
 }
 
-QMargins* QTextBrowser_protectedbase_viewportMargins(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return new QMargins(self_cast->viewportMargins());
+QObject* QTextBrowser_protectedbase_sender(const VirtualQTextBrowser* self) {
+	return self->sender();
 }
 
-void QTextBrowser_protectedbase_drawFrame(bool* _dynamic_cast_ok, void* self, QPainter* param1) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->drawFrame(param1);
+int QTextBrowser_protectedbase_senderSignalIndex(const VirtualQTextBrowser* self) {
+	return self->senderSignalIndex();
 }
 
-void QTextBrowser_protectedbase_initStyleOption(bool* _dynamic_cast_ok, const void* self, QStyleOptionFrame* option) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->initStyleOption(option);
+int QTextBrowser_protectedbase_receivers(const VirtualQTextBrowser* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QTextBrowser_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->updateMicroFocus();
-}
-
-void QTextBrowser_protectedbase_create(bool* _dynamic_cast_ok, void* self) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->create();
-}
-
-void QTextBrowser_protectedbase_destroy(bool* _dynamic_cast_ok, void* self) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->destroy();
-}
-
-bool QTextBrowser_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusNextChild();
-}
-
-bool QTextBrowser_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusPreviousChild();
-}
-
-QObject* QTextBrowser_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QTextBrowser_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QTextBrowser_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QTextBrowser_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQTextBrowser* self_cast = dynamic_cast<VirtualQTextBrowser*>( (QTextBrowser*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QTextBrowser_protectedbase_isSignalConnected(const VirtualQTextBrowser* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QTextBrowser_delete(QTextBrowser* self) {

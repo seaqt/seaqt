@@ -56,14 +56,38 @@ typedef struct QSize QSize;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QCamera* QCamera_new();
-QCamera* QCamera_new2(struct seaqt_string deviceName);
-QCamera* QCamera_new3(QCameraInfo* cameraInfo);
-QCamera* QCamera_new4(int position);
-QCamera* QCamera_new5(QObject* parent);
-QCamera* QCamera_new6(struct seaqt_string deviceName, QObject* parent);
-QCamera* QCamera_new7(QCameraInfo* cameraInfo, QObject* parent);
-QCamera* QCamera_new8(int position, QObject* parent);
+typedef struct VirtualQCamera VirtualQCamera;
+typedef struct QCamera_VTable{
+	void (*destructor)(VirtualQCamera* self);
+	QMetaObject* (*metaObject)(const VirtualQCamera* self);
+	void* (*metacast)(VirtualQCamera* self, const char* param1);
+	int (*metacall)(VirtualQCamera* self, int param1, int param2, void** param3);
+	int (*availability)(const VirtualQCamera* self);
+	bool (*isAvailable)(const VirtualQCamera* self);
+	QMediaService* (*service)(const VirtualQCamera* self);
+	bool (*bind)(VirtualQCamera* self, QObject* param1);
+	void (*unbind)(VirtualQCamera* self, QObject* param1);
+	bool (*event)(VirtualQCamera* self, QEvent* event);
+	bool (*eventFilter)(VirtualQCamera* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQCamera* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQCamera* self, QChildEvent* event);
+	void (*customEvent)(VirtualQCamera* self, QEvent* event);
+	void (*connectNotify)(VirtualQCamera* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQCamera* self, QMetaMethod* signal);
+}QCamera_VTable;
+
+void* QCamera_vdata(VirtualQCamera* self);
+VirtualQCamera* vdata_QCamera(void* vdata);
+
+VirtualQCamera* QCamera_new(const QCamera_VTable* vtbl, size_t vdata);
+VirtualQCamera* QCamera_new2(const QCamera_VTable* vtbl, size_t vdata, struct seaqt_string deviceName);
+VirtualQCamera* QCamera_new3(const QCamera_VTable* vtbl, size_t vdata, QCameraInfo* cameraInfo);
+VirtualQCamera* QCamera_new4(const QCamera_VTable* vtbl, size_t vdata, int position);
+VirtualQCamera* QCamera_new5(const QCamera_VTable* vtbl, size_t vdata, QObject* parent);
+VirtualQCamera* QCamera_new6(const QCamera_VTable* vtbl, size_t vdata, struct seaqt_string deviceName, QObject* parent);
+VirtualQCamera* QCamera_new7(const QCamera_VTable* vtbl, size_t vdata, QCameraInfo* cameraInfo, QObject* parent);
+VirtualQCamera* QCamera_new8(const QCamera_VTable* vtbl, size_t vdata, int position, QObject* parent);
+
 void QCamera_virtbase(QCamera* src, QMediaObject** outptr_QMediaObject);
 QMetaObject* QCamera_metaObject(const QCamera* self);
 void* QCamera_metacast(QCamera* self, const char* param1);
@@ -129,43 +153,28 @@ struct seaqt_array /* of QSize* */  QCamera_supportedViewfinderResolutionsWithSe
 struct seaqt_array /* of QCamera__FrameRateRange* */  QCamera_supportedViewfinderFrameRateRangesWithSettings(const QCamera* self, QCameraViewfinderSettings* settings);
 struct seaqt_array /* of int */  QCamera_supportedViewfinderPixelFormatsWithSettings(const QCamera* self, QCameraViewfinderSettings* settings);
 
-bool QCamera_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QCamera_virtualbase_metaObject(const void* self);
-bool QCamera_override_virtual_metacast(void* self, intptr_t slot);
-void* QCamera_virtualbase_metacast(void* self, const char* param1);
-bool QCamera_override_virtual_metacall(void* self, intptr_t slot);
-int QCamera_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QCamera_override_virtual_availability(void* self, intptr_t slot);
-int QCamera_virtualbase_availability(const void* self);
-bool QCamera_override_virtual_isAvailable(void* self, intptr_t slot);
-bool QCamera_virtualbase_isAvailable(const void* self);
-bool QCamera_override_virtual_service(void* self, intptr_t slot);
-QMediaService* QCamera_virtualbase_service(const void* self);
-bool QCamera_override_virtual_bind(void* self, intptr_t slot);
-bool QCamera_virtualbase_bind(void* self, QObject* param1);
-bool QCamera_override_virtual_unbind(void* self, intptr_t slot);
-void QCamera_virtualbase_unbind(void* self, QObject* param1);
-bool QCamera_override_virtual_event(void* self, intptr_t slot);
-bool QCamera_virtualbase_event(void* self, QEvent* event);
-bool QCamera_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QCamera_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QCamera_override_virtual_timerEvent(void* self, intptr_t slot);
-void QCamera_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QCamera_override_virtual_childEvent(void* self, intptr_t slot);
-void QCamera_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QCamera_override_virtual_customEvent(void* self, intptr_t slot);
-void QCamera_virtualbase_customEvent(void* self, QEvent* event);
-bool QCamera_override_virtual_connectNotify(void* self, intptr_t slot);
-void QCamera_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QCamera_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QCamera_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QCamera_virtualbase_metaObject(const VirtualQCamera* self);
+void* QCamera_virtualbase_metacast(VirtualQCamera* self, const char* param1);
+int QCamera_virtualbase_metacall(VirtualQCamera* self, int param1, int param2, void** param3);
+int QCamera_virtualbase_availability(const VirtualQCamera* self);
+bool QCamera_virtualbase_isAvailable(const VirtualQCamera* self);
+QMediaService* QCamera_virtualbase_service(const VirtualQCamera* self);
+bool QCamera_virtualbase_bind(VirtualQCamera* self, QObject* param1);
+void QCamera_virtualbase_unbind(VirtualQCamera* self, QObject* param1);
+bool QCamera_virtualbase_event(VirtualQCamera* self, QEvent* event);
+bool QCamera_virtualbase_eventFilter(VirtualQCamera* self, QObject* watched, QEvent* event);
+void QCamera_virtualbase_timerEvent(VirtualQCamera* self, QTimerEvent* event);
+void QCamera_virtualbase_childEvent(VirtualQCamera* self, QChildEvent* event);
+void QCamera_virtualbase_customEvent(VirtualQCamera* self, QEvent* event);
+void QCamera_virtualbase_connectNotify(VirtualQCamera* self, QMetaMethod* signal);
+void QCamera_virtualbase_disconnectNotify(VirtualQCamera* self, QMetaMethod* signal);
 
-void QCamera_protectedbase_addPropertyWatch(bool* _dynamic_cast_ok, void* self, struct seaqt_string name);
-void QCamera_protectedbase_removePropertyWatch(bool* _dynamic_cast_ok, void* self, struct seaqt_string name);
-QObject* QCamera_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QCamera_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QCamera_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QCamera_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+void QCamera_protectedbase_addPropertyWatch(VirtualQCamera* self, struct seaqt_string name);
+void QCamera_protectedbase_removePropertyWatch(VirtualQCamera* self, struct seaqt_string name);
+QObject* QCamera_protectedbase_sender(const VirtualQCamera* self);
+int QCamera_protectedbase_senderSignalIndex(const VirtualQCamera* self);
+int QCamera_protectedbase_receivers(const VirtualQCamera* self, const char* signal);
+bool QCamera_protectedbase_isSignalConnected(const VirtualQCamera* self, QMetaMethod* signal);
 
 const QMetaObject* QCamera_staticMetaObject();
 void QCamera_delete(QCamera* self);
@@ -173,6 +182,7 @@ void QCamera_delete(QCamera* self);
 QCamera__FrameRateRange* QCamera__FrameRateRange_new();
 QCamera__FrameRateRange* QCamera__FrameRateRange_new2(double minimum, double maximum);
 QCamera__FrameRateRange* QCamera__FrameRateRange_new3(QCamera__FrameRateRange* param1);
+
 void QCamera__FrameRateRange_delete(QCamera__FrameRateRange* self);
 
 #ifdef __cplusplus

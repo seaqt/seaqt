@@ -27,6 +27,7 @@ QDeadlineTimer* QDeadlineTimer_new4(QDeadlineTimer* param1);
 QDeadlineTimer* QDeadlineTimer_new5(int type_);
 QDeadlineTimer* QDeadlineTimer_new6(int param1, int type_);
 QDeadlineTimer* QDeadlineTimer_new7(long long msecs, int type);
+
 void QDeadlineTimer_swap(QDeadlineTimer* self, QDeadlineTimer* other);
 bool QDeadlineTimer_isForever(const QDeadlineTimer* self);
 bool QDeadlineTimer_hasExpired(const QDeadlineTimer* self);

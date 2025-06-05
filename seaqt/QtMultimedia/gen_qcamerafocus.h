@@ -36,6 +36,7 @@ QCameraFocusZone* QCameraFocusZone_new();
 QCameraFocusZone* QCameraFocusZone_new2(QRectF* area);
 QCameraFocusZone* QCameraFocusZone_new3(QCameraFocusZone* other);
 QCameraFocusZone* QCameraFocusZone_new4(QRectF* area, int status);
+
 void QCameraFocusZone_operatorAssign(QCameraFocusZone* self, QCameraFocusZone* other);
 bool QCameraFocusZone_operatorEqual(const QCameraFocusZone* self, QCameraFocusZone* other);
 bool QCameraFocusZone_operatorNotEqual(const QCameraFocusZone* self, QCameraFocusZone* other);

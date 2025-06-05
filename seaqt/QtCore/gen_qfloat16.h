@@ -22,6 +22,7 @@ typedef struct qfloat16 qfloat16;
 
 qfloat16* qfloat16_new();
 qfloat16* qfloat16_new2(float f);
+
 bool qfloat16_isInf(const qfloat16* self);
 bool qfloat16_isNaN(const qfloat16* self);
 bool qfloat16_isFinite(const qfloat16* self);

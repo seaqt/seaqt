@@ -39,6 +39,7 @@ QCursor* QCursor_new6(QBitmap* bitmap, QBitmap* mask, int hotX);
 QCursor* QCursor_new7(QBitmap* bitmap, QBitmap* mask, int hotX, int hotY);
 QCursor* QCursor_new8(QPixmap* pixmap, int hotX);
 QCursor* QCursor_new9(QPixmap* pixmap, int hotX, int hotY);
+
 void QCursor_operatorAssign(QCursor* self, QCursor* cursor);
 void QCursor_swap(QCursor* self, QCursor* other);
 QVariant* QCursor_ToQVariant(const QCursor* self);

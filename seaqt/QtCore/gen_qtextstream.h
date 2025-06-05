@@ -32,6 +32,7 @@ QTextStream* QTextStream_new();
 QTextStream* QTextStream_new2(QIODevice* device);
 QTextStream* QTextStream_new3(struct seaqt_string array);
 QTextStream* QTextStream_new4(struct seaqt_string array, int openMode);
+
 void QTextStream_setCodec(QTextStream* self, QTextCodec* codec);
 void QTextStream_setCodecWithCodecName(QTextStream* self, const char* codecName);
 QTextCodec* QTextStream_codec(const QTextStream* self);

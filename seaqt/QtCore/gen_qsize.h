@@ -29,6 +29,7 @@ typedef struct QSizeF QSizeF;
 QSize* QSize_new();
 QSize* QSize_new2(int w, int h);
 QSize* QSize_new3(QSize* param1);
+
 bool QSize_isNull(const QSize* self);
 bool QSize_isEmpty(const QSize* self);
 bool QSize_isValid(const QSize* self);
@@ -57,6 +58,7 @@ QSizeF* QSizeF_new();
 QSizeF* QSizeF_new2(QSize* sz);
 QSizeF* QSizeF_new3(double w, double h);
 QSizeF* QSizeF_new4(QSizeF* param1);
+
 bool QSizeF_isNull(const QSizeF* self);
 bool QSizeF_isEmpty(const QSizeF* self);
 bool QSizeF_isValid(const QSizeF* self);

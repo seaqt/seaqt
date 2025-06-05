@@ -44,10 +44,29 @@ typedef struct QUrl QUrl;
 typedef struct QVariant QVariant;
 #endif
 
-QQmlContext* QQmlContext_new(QQmlEngine* parent);
-QQmlContext* QQmlContext_new2(QQmlContext* parent);
-QQmlContext* QQmlContext_new3(QQmlEngine* parent, QObject* objParent);
-QQmlContext* QQmlContext_new4(QQmlContext* parent, QObject* objParent);
+typedef struct VirtualQQmlContext VirtualQQmlContext;
+typedef struct QQmlContext_VTable{
+	void (*destructor)(VirtualQQmlContext* self);
+	QMetaObject* (*metaObject)(const VirtualQQmlContext* self);
+	void* (*metacast)(VirtualQQmlContext* self, const char* param1);
+	int (*metacall)(VirtualQQmlContext* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQQmlContext* self, QEvent* event);
+	bool (*eventFilter)(VirtualQQmlContext* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQQmlContext* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQQmlContext* self, QChildEvent* event);
+	void (*customEvent)(VirtualQQmlContext* self, QEvent* event);
+	void (*connectNotify)(VirtualQQmlContext* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQQmlContext* self, QMetaMethod* signal);
+}QQmlContext_VTable;
+
+void* QQmlContext_vdata(VirtualQQmlContext* self);
+VirtualQQmlContext* vdata_QQmlContext(void* vdata);
+
+VirtualQQmlContext* QQmlContext_new(const QQmlContext_VTable* vtbl, size_t vdata, QQmlEngine* parent);
+VirtualQQmlContext* QQmlContext_new2(const QQmlContext_VTable* vtbl, size_t vdata, QQmlContext* parent);
+VirtualQQmlContext* QQmlContext_new3(const QQmlContext_VTable* vtbl, size_t vdata, QQmlEngine* parent, QObject* objParent);
+VirtualQQmlContext* QQmlContext_new4(const QQmlContext_VTable* vtbl, size_t vdata, QQmlContext* parent, QObject* objParent);
+
 void QQmlContext_virtbase(QQmlContext* src, QObject** outptr_QObject);
 QMetaObject* QQmlContext_metaObject(const QQmlContext* self);
 void* QQmlContext_metacast(QQmlContext* self, const char* param1);
@@ -72,36 +91,27 @@ struct seaqt_string QQmlContext_tr3(const char* s, const char* c, int n);
 struct seaqt_string QQmlContext_trUtf82(const char* s, const char* c);
 struct seaqt_string QQmlContext_trUtf83(const char* s, const char* c, int n);
 
-bool QQmlContext_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QQmlContext_virtualbase_metaObject(const void* self);
-bool QQmlContext_override_virtual_metacast(void* self, intptr_t slot);
-void* QQmlContext_virtualbase_metacast(void* self, const char* param1);
-bool QQmlContext_override_virtual_metacall(void* self, intptr_t slot);
-int QQmlContext_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QQmlContext_override_virtual_event(void* self, intptr_t slot);
-bool QQmlContext_virtualbase_event(void* self, QEvent* event);
-bool QQmlContext_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QQmlContext_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QQmlContext_override_virtual_timerEvent(void* self, intptr_t slot);
-void QQmlContext_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QQmlContext_override_virtual_childEvent(void* self, intptr_t slot);
-void QQmlContext_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QQmlContext_override_virtual_customEvent(void* self, intptr_t slot);
-void QQmlContext_virtualbase_customEvent(void* self, QEvent* event);
-bool QQmlContext_override_virtual_connectNotify(void* self, intptr_t slot);
-void QQmlContext_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QQmlContext_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QQmlContext_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QQmlContext_virtualbase_metaObject(const VirtualQQmlContext* self);
+void* QQmlContext_virtualbase_metacast(VirtualQQmlContext* self, const char* param1);
+int QQmlContext_virtualbase_metacall(VirtualQQmlContext* self, int param1, int param2, void** param3);
+bool QQmlContext_virtualbase_event(VirtualQQmlContext* self, QEvent* event);
+bool QQmlContext_virtualbase_eventFilter(VirtualQQmlContext* self, QObject* watched, QEvent* event);
+void QQmlContext_virtualbase_timerEvent(VirtualQQmlContext* self, QTimerEvent* event);
+void QQmlContext_virtualbase_childEvent(VirtualQQmlContext* self, QChildEvent* event);
+void QQmlContext_virtualbase_customEvent(VirtualQQmlContext* self, QEvent* event);
+void QQmlContext_virtualbase_connectNotify(VirtualQQmlContext* self, QMetaMethod* signal);
+void QQmlContext_virtualbase_disconnectNotify(VirtualQQmlContext* self, QMetaMethod* signal);
 
-QObject* QQmlContext_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QQmlContext_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QQmlContext_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QQmlContext_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QQmlContext_protectedbase_sender(const VirtualQQmlContext* self);
+int QQmlContext_protectedbase_senderSignalIndex(const VirtualQQmlContext* self);
+int QQmlContext_protectedbase_receivers(const VirtualQQmlContext* self, const char* signal);
+bool QQmlContext_protectedbase_isSignalConnected(const VirtualQQmlContext* self, QMetaMethod* signal);
 
 const QMetaObject* QQmlContext_staticMetaObject();
 void QQmlContext_delete(QQmlContext* self);
 
 QQmlContext__PropertyPair* QQmlContext__PropertyPair_new(QQmlContext__PropertyPair* param1);
+
 void QQmlContext__PropertyPair_operatorAssign(QQmlContext__PropertyPair* self, QQmlContext__PropertyPair* param1);
 
 void QQmlContext__PropertyPair_delete(QQmlContext__PropertyPair* self);

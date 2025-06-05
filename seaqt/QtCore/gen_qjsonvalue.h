@@ -43,6 +43,7 @@ QJsonValue* QJsonValue_new8(QJsonArray* a);
 QJsonValue* QJsonValue_new9(QJsonObject* o);
 QJsonValue* QJsonValue_new10(QJsonValue* other);
 QJsonValue* QJsonValue_new11(int param1);
+
 void QJsonValue_operatorAssign(QJsonValue* self, QJsonValue* other);
 void QJsonValue_swap(QJsonValue* self, QJsonValue* other);
 QJsonValue* QJsonValue_fromVariant(QVariant* variant);
@@ -77,6 +78,7 @@ void QJsonValue_delete(QJsonValue* self);
 QJsonValueRef* QJsonValueRef_new(QJsonValueRef* param1);
 QJsonValueRef* QJsonValueRef_new2(QJsonArray* array, int idx);
 QJsonValueRef* QJsonValueRef_new3(QJsonObject* object, int idx);
+
 QJsonValue* QJsonValueRef_ToQJsonValue(const QJsonValueRef* self);
 void QJsonValueRef_operatorAssign(QJsonValueRef* self, QJsonValue* val);
 void QJsonValueRef_operatorAssignWithVal(QJsonValueRef* self, QJsonValueRef* val);
@@ -106,6 +108,7 @@ void QJsonValueRef_delete(QJsonValueRef* self);
 
 QJsonValuePtr* QJsonValuePtr_new(QJsonValue* val);
 QJsonValuePtr* QJsonValuePtr_new2(QJsonValuePtr* param1);
+
 QJsonValue* QJsonValuePtr_operatorMultiply(QJsonValuePtr* self);
 QJsonValue* QJsonValuePtr_operatorMinusGreater(QJsonValuePtr* self);
 void QJsonValuePtr_operatorAssign(QJsonValuePtr* self, QJsonValuePtr* param1);
@@ -115,6 +118,7 @@ void QJsonValuePtr_delete(QJsonValuePtr* self);
 QJsonValueRefPtr* QJsonValueRefPtr_new(QJsonArray* array, int idx);
 QJsonValueRefPtr* QJsonValueRefPtr_new2(QJsonObject* object, int idx);
 QJsonValueRefPtr* QJsonValueRefPtr_new3(QJsonValueRefPtr* param1);
+
 QJsonValueRef* QJsonValueRefPtr_operatorMultiply(QJsonValueRefPtr* self);
 QJsonValueRef* QJsonValueRefPtr_operatorMinusGreater(QJsonValueRefPtr* self);
 void QJsonValueRefPtr_operatorAssign(QJsonValueRefPtr* self, QJsonValueRefPtr* param1);

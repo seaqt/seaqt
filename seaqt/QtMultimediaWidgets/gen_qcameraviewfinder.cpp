@@ -40,111 +40,62 @@
 #include <qcameraviewfinder.h>
 #include "gen_qcameraviewfinder.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QCameraViewfinder_metaObject(const QCameraViewfinder*, intptr_t);
-void* miqt_exec_callback_QCameraViewfinder_metacast(QCameraViewfinder*, intptr_t, const char*);
-int miqt_exec_callback_QCameraViewfinder_metacall(QCameraViewfinder*, intptr_t, int, int, void**);
-QMediaObject* miqt_exec_callback_QCameraViewfinder_mediaObject(const QCameraViewfinder*, intptr_t);
-bool miqt_exec_callback_QCameraViewfinder_setMediaObject(QCameraViewfinder*, intptr_t, QMediaObject*);
-QSize* miqt_exec_callback_QCameraViewfinder_sizeHint(const QCameraViewfinder*, intptr_t);
-bool miqt_exec_callback_QCameraViewfinder_event(QCameraViewfinder*, intptr_t, QEvent*);
-void miqt_exec_callback_QCameraViewfinder_showEvent(QCameraViewfinder*, intptr_t, QShowEvent*);
-void miqt_exec_callback_QCameraViewfinder_hideEvent(QCameraViewfinder*, intptr_t, QHideEvent*);
-void miqt_exec_callback_QCameraViewfinder_resizeEvent(QCameraViewfinder*, intptr_t, QResizeEvent*);
-void miqt_exec_callback_QCameraViewfinder_moveEvent(QCameraViewfinder*, intptr_t, QMoveEvent*);
-void miqt_exec_callback_QCameraViewfinder_paintEvent(QCameraViewfinder*, intptr_t, QPaintEvent*);
-int miqt_exec_callback_QCameraViewfinder_devType(const QCameraViewfinder*, intptr_t);
-void miqt_exec_callback_QCameraViewfinder_setVisible(QCameraViewfinder*, intptr_t, bool);
-QSize* miqt_exec_callback_QCameraViewfinder_minimumSizeHint(const QCameraViewfinder*, intptr_t);
-int miqt_exec_callback_QCameraViewfinder_heightForWidth(const QCameraViewfinder*, intptr_t, int);
-bool miqt_exec_callback_QCameraViewfinder_hasHeightForWidth(const QCameraViewfinder*, intptr_t);
-QPaintEngine* miqt_exec_callback_QCameraViewfinder_paintEngine(const QCameraViewfinder*, intptr_t);
-void miqt_exec_callback_QCameraViewfinder_mousePressEvent(QCameraViewfinder*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QCameraViewfinder_mouseReleaseEvent(QCameraViewfinder*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QCameraViewfinder_mouseDoubleClickEvent(QCameraViewfinder*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QCameraViewfinder_mouseMoveEvent(QCameraViewfinder*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QCameraViewfinder_wheelEvent(QCameraViewfinder*, intptr_t, QWheelEvent*);
-void miqt_exec_callback_QCameraViewfinder_keyPressEvent(QCameraViewfinder*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QCameraViewfinder_keyReleaseEvent(QCameraViewfinder*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QCameraViewfinder_focusInEvent(QCameraViewfinder*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QCameraViewfinder_focusOutEvent(QCameraViewfinder*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QCameraViewfinder_enterEvent(QCameraViewfinder*, intptr_t, QEvent*);
-void miqt_exec_callback_QCameraViewfinder_leaveEvent(QCameraViewfinder*, intptr_t, QEvent*);
-void miqt_exec_callback_QCameraViewfinder_closeEvent(QCameraViewfinder*, intptr_t, QCloseEvent*);
-void miqt_exec_callback_QCameraViewfinder_contextMenuEvent(QCameraViewfinder*, intptr_t, QContextMenuEvent*);
-void miqt_exec_callback_QCameraViewfinder_tabletEvent(QCameraViewfinder*, intptr_t, QTabletEvent*);
-void miqt_exec_callback_QCameraViewfinder_actionEvent(QCameraViewfinder*, intptr_t, QActionEvent*);
-void miqt_exec_callback_QCameraViewfinder_dragEnterEvent(QCameraViewfinder*, intptr_t, QDragEnterEvent*);
-void miqt_exec_callback_QCameraViewfinder_dragMoveEvent(QCameraViewfinder*, intptr_t, QDragMoveEvent*);
-void miqt_exec_callback_QCameraViewfinder_dragLeaveEvent(QCameraViewfinder*, intptr_t, QDragLeaveEvent*);
-void miqt_exec_callback_QCameraViewfinder_dropEvent(QCameraViewfinder*, intptr_t, QDropEvent*);
-bool miqt_exec_callback_QCameraViewfinder_nativeEvent(QCameraViewfinder*, intptr_t, struct seaqt_string, void*, long*);
-void miqt_exec_callback_QCameraViewfinder_changeEvent(QCameraViewfinder*, intptr_t, QEvent*);
-int miqt_exec_callback_QCameraViewfinder_metric(const QCameraViewfinder*, intptr_t, int);
-void miqt_exec_callback_QCameraViewfinder_initPainter(const QCameraViewfinder*, intptr_t, QPainter*);
-QPaintDevice* miqt_exec_callback_QCameraViewfinder_redirected(const QCameraViewfinder*, intptr_t, QPoint*);
-QPainter* miqt_exec_callback_QCameraViewfinder_sharedPainter(const QCameraViewfinder*, intptr_t);
-void miqt_exec_callback_QCameraViewfinder_inputMethodEvent(QCameraViewfinder*, intptr_t, QInputMethodEvent*);
-QVariant* miqt_exec_callback_QCameraViewfinder_inputMethodQuery(const QCameraViewfinder*, intptr_t, int);
-bool miqt_exec_callback_QCameraViewfinder_focusNextPrevChild(QCameraViewfinder*, intptr_t, bool);
-bool miqt_exec_callback_QCameraViewfinder_eventFilter(QCameraViewfinder*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QCameraViewfinder_timerEvent(QCameraViewfinder*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QCameraViewfinder_childEvent(QCameraViewfinder*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QCameraViewfinder_customEvent(QCameraViewfinder*, intptr_t, QEvent*);
-void miqt_exec_callback_QCameraViewfinder_connectNotify(QCameraViewfinder*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QCameraViewfinder_disconnectNotify(QCameraViewfinder*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQCameraViewfinder final : public QCameraViewfinder {
+	const QCameraViewfinder_VTable* vtbl;
 public:
+	friend void* QCameraViewfinder_vdata(VirtualQCameraViewfinder* self);
+	friend VirtualQCameraViewfinder* vdata_QCameraViewfinder(void* vdata);
 
-	VirtualQCameraViewfinder(QWidget* parent): QCameraViewfinder(parent) {}
-	VirtualQCameraViewfinder(): QCameraViewfinder() {}
+	VirtualQCameraViewfinder(const QCameraViewfinder_VTable* vtbl, QWidget* parent): QCameraViewfinder(parent), vtbl(vtbl) {}
+	VirtualQCameraViewfinder(const QCameraViewfinder_VTable* vtbl): QCameraViewfinder(), vtbl(vtbl) {}
 
-	virtual ~VirtualQCameraViewfinder() override = default;
+	virtual ~VirtualQCameraViewfinder() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QCameraViewfinder::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QCameraViewfinder_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QCameraViewfinder_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QCameraViewfinder_virtualbase_metaObject(const VirtualQCameraViewfinder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QCameraViewfinder::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QCameraViewfinder_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QCameraViewfinder_virtualbase_metacast(void* self, const char* param1);
+	friend void* QCameraViewfinder_virtualbase_metacast(VirtualQCameraViewfinder* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QCameraViewfinder::qt_metacall(param1, param2, param3);
 		}
 
@@ -152,581 +103,416 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QCameraViewfinder_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QCameraViewfinder_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QCameraViewfinder_virtualbase_metacall(VirtualQCameraViewfinder* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mediaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QMediaObject* mediaObject() const override {
-		if (handle__mediaObject == 0) {
+		if (vtbl->mediaObject == 0) {
 			return QCameraViewfinder::mediaObject();
 		}
 
-		QMediaObject* callback_return_value = miqt_exec_callback_QCameraViewfinder_mediaObject(this, handle__mediaObject);
+		QMediaObject* callback_return_value = vtbl->mediaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMediaObject* QCameraViewfinder_virtualbase_mediaObject(const void* self);
+	friend QMediaObject* QCameraViewfinder_virtualbase_mediaObject(const VirtualQCameraViewfinder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setMediaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool setMediaObject(QMediaObject* object) override {
-		if (handle__setMediaObject == 0) {
+		if (vtbl->setMediaObject == 0) {
 			return QCameraViewfinder::setMediaObject(object);
 		}
 
 		QMediaObject* sigval1 = object;
-		bool callback_return_value = miqt_exec_callback_QCameraViewfinder_setMediaObject(this, handle__setMediaObject, sigval1);
+		bool callback_return_value = vtbl->setMediaObject(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QCameraViewfinder_virtualbase_setMediaObject(void* self, QMediaObject* object);
+	friend bool QCameraViewfinder_virtualbase_setMediaObject(VirtualQCameraViewfinder* self, QMediaObject* object);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize sizeHint() const override {
-		if (handle__sizeHint == 0) {
+		if (vtbl->sizeHint == 0) {
 			return QCameraViewfinder::sizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QCameraViewfinder_sizeHint(this, handle__sizeHint);
+		QSize* callback_return_value = vtbl->sizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QCameraViewfinder_virtualbase_sizeHint(const void* self);
+	friend QSize* QCameraViewfinder_virtualbase_sizeHint(const VirtualQCameraViewfinder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QCameraViewfinder::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QCameraViewfinder_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QCameraViewfinder_virtualbase_event(void* self, QEvent* event);
+	friend bool QCameraViewfinder_virtualbase_event(VirtualQCameraViewfinder* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__showEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void showEvent(QShowEvent* event) override {
-		if (handle__showEvent == 0) {
+		if (vtbl->showEvent == 0) {
 			QCameraViewfinder::showEvent(event);
 			return;
 		}
 
 		QShowEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_showEvent(this, handle__showEvent, sigval1);
-
+		vtbl->showEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_showEvent(void* self, QShowEvent* event);
+	friend void QCameraViewfinder_virtualbase_showEvent(VirtualQCameraViewfinder* self, QShowEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hideEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void hideEvent(QHideEvent* event) override {
-		if (handle__hideEvent == 0) {
+		if (vtbl->hideEvent == 0) {
 			QCameraViewfinder::hideEvent(event);
 			return;
 		}
 
 		QHideEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_hideEvent(this, handle__hideEvent, sigval1);
-
+		vtbl->hideEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_hideEvent(void* self, QHideEvent* event);
+	friend void QCameraViewfinder_virtualbase_hideEvent(VirtualQCameraViewfinder* self, QHideEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__resizeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void resizeEvent(QResizeEvent* event) override {
-		if (handle__resizeEvent == 0) {
+		if (vtbl->resizeEvent == 0) {
 			QCameraViewfinder::resizeEvent(event);
 			return;
 		}
 
 		QResizeEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_resizeEvent(this, handle__resizeEvent, sigval1);
-
+		vtbl->resizeEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_resizeEvent(void* self, QResizeEvent* event);
+	friend void QCameraViewfinder_virtualbase_resizeEvent(VirtualQCameraViewfinder* self, QResizeEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__moveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void moveEvent(QMoveEvent* event) override {
-		if (handle__moveEvent == 0) {
+		if (vtbl->moveEvent == 0) {
 			QCameraViewfinder::moveEvent(event);
 			return;
 		}
 
 		QMoveEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_moveEvent(this, handle__moveEvent, sigval1);
-
+		vtbl->moveEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_moveEvent(void* self, QMoveEvent* event);
+	friend void QCameraViewfinder_virtualbase_moveEvent(VirtualQCameraViewfinder* self, QMoveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void paintEvent(QPaintEvent* event) override {
-		if (handle__paintEvent == 0) {
+		if (vtbl->paintEvent == 0) {
 			QCameraViewfinder::paintEvent(event);
 			return;
 		}
 
 		QPaintEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_paintEvent(this, handle__paintEvent, sigval1);
-
+		vtbl->paintEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_paintEvent(void* self, QPaintEvent* event);
+	friend void QCameraViewfinder_virtualbase_paintEvent(VirtualQCameraViewfinder* self, QPaintEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__devType = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int devType() const override {
-		if (handle__devType == 0) {
+		if (vtbl->devType == 0) {
 			return QCameraViewfinder::devType();
 		}
 
-		int callback_return_value = miqt_exec_callback_QCameraViewfinder_devType(this, handle__devType);
+		int callback_return_value = vtbl->devType(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QCameraViewfinder_virtualbase_devType(const void* self);
+	friend int QCameraViewfinder_virtualbase_devType(const VirtualQCameraViewfinder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setVisible = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setVisible(bool visible) override {
-		if (handle__setVisible == 0) {
+		if (vtbl->setVisible == 0) {
 			QCameraViewfinder::setVisible(visible);
 			return;
 		}
 
 		bool sigval1 = visible;
-		miqt_exec_callback_QCameraViewfinder_setVisible(this, handle__setVisible, sigval1);
-
+		vtbl->setVisible(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_setVisible(void* self, bool visible);
+	friend void QCameraViewfinder_virtualbase_setVisible(VirtualQCameraViewfinder* self, bool visible);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__minimumSizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize minimumSizeHint() const override {
-		if (handle__minimumSizeHint == 0) {
+		if (vtbl->minimumSizeHint == 0) {
 			return QCameraViewfinder::minimumSizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QCameraViewfinder_minimumSizeHint(this, handle__minimumSizeHint);
+		QSize* callback_return_value = vtbl->minimumSizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QCameraViewfinder_virtualbase_minimumSizeHint(const void* self);
+	friend QSize* QCameraViewfinder_virtualbase_minimumSizeHint(const VirtualQCameraViewfinder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__heightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int heightForWidth(int param1) const override {
-		if (handle__heightForWidth == 0) {
+		if (vtbl->heightForWidth == 0) {
 			return QCameraViewfinder::heightForWidth(param1);
 		}
 
 		int sigval1 = param1;
-		int callback_return_value = miqt_exec_callback_QCameraViewfinder_heightForWidth(this, handle__heightForWidth, sigval1);
+		int callback_return_value = vtbl->heightForWidth(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QCameraViewfinder_virtualbase_heightForWidth(const void* self, int param1);
+	friend int QCameraViewfinder_virtualbase_heightForWidth(const VirtualQCameraViewfinder* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hasHeightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool hasHeightForWidth() const override {
-		if (handle__hasHeightForWidth == 0) {
+		if (vtbl->hasHeightForWidth == 0) {
 			return QCameraViewfinder::hasHeightForWidth();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QCameraViewfinder_hasHeightForWidth(this, handle__hasHeightForWidth);
+		bool callback_return_value = vtbl->hasHeightForWidth(this);
 		return callback_return_value;
 	}
 
-	friend bool QCameraViewfinder_virtualbase_hasHeightForWidth(const void* self);
+	friend bool QCameraViewfinder_virtualbase_hasHeightForWidth(const VirtualQCameraViewfinder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEngine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintEngine* paintEngine() const override {
-		if (handle__paintEngine == 0) {
+		if (vtbl->paintEngine == 0) {
 			return QCameraViewfinder::paintEngine();
 		}
 
-		QPaintEngine* callback_return_value = miqt_exec_callback_QCameraViewfinder_paintEngine(this, handle__paintEngine);
+		QPaintEngine* callback_return_value = vtbl->paintEngine(this);
 		return callback_return_value;
 	}
 
-	friend QPaintEngine* QCameraViewfinder_virtualbase_paintEngine(const void* self);
+	friend QPaintEngine* QCameraViewfinder_virtualbase_paintEngine(const VirtualQCameraViewfinder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mousePressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mousePressEvent(QMouseEvent* event) override {
-		if (handle__mousePressEvent == 0) {
+		if (vtbl->mousePressEvent == 0) {
 			QCameraViewfinder::mousePressEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_mousePressEvent(this, handle__mousePressEvent, sigval1);
-
+		vtbl->mousePressEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_mousePressEvent(void* self, QMouseEvent* event);
+	friend void QCameraViewfinder_virtualbase_mousePressEvent(VirtualQCameraViewfinder* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseReleaseEvent(QMouseEvent* event) override {
-		if (handle__mouseReleaseEvent == 0) {
+		if (vtbl->mouseReleaseEvent == 0) {
 			QCameraViewfinder::mouseReleaseEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_mouseReleaseEvent(this, handle__mouseReleaseEvent, sigval1);
-
+		vtbl->mouseReleaseEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* event);
+	friend void QCameraViewfinder_virtualbase_mouseReleaseEvent(VirtualQCameraViewfinder* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseDoubleClickEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseDoubleClickEvent(QMouseEvent* event) override {
-		if (handle__mouseDoubleClickEvent == 0) {
+		if (vtbl->mouseDoubleClickEvent == 0) {
 			QCameraViewfinder::mouseDoubleClickEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_mouseDoubleClickEvent(this, handle__mouseDoubleClickEvent, sigval1);
-
+		vtbl->mouseDoubleClickEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* event);
+	friend void QCameraViewfinder_virtualbase_mouseDoubleClickEvent(VirtualQCameraViewfinder* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseMoveEvent(QMouseEvent* event) override {
-		if (handle__mouseMoveEvent == 0) {
+		if (vtbl->mouseMoveEvent == 0) {
 			QCameraViewfinder::mouseMoveEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_mouseMoveEvent(this, handle__mouseMoveEvent, sigval1);
-
+		vtbl->mouseMoveEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_mouseMoveEvent(void* self, QMouseEvent* event);
+	friend void QCameraViewfinder_virtualbase_mouseMoveEvent(VirtualQCameraViewfinder* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__wheelEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void wheelEvent(QWheelEvent* event) override {
-		if (handle__wheelEvent == 0) {
+		if (vtbl->wheelEvent == 0) {
 			QCameraViewfinder::wheelEvent(event);
 			return;
 		}
 
 		QWheelEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_wheelEvent(this, handle__wheelEvent, sigval1);
-
+		vtbl->wheelEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_wheelEvent(void* self, QWheelEvent* event);
+	friend void QCameraViewfinder_virtualbase_wheelEvent(VirtualQCameraViewfinder* self, QWheelEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyPressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyPressEvent(QKeyEvent* event) override {
-		if (handle__keyPressEvent == 0) {
+		if (vtbl->keyPressEvent == 0) {
 			QCameraViewfinder::keyPressEvent(event);
 			return;
 		}
 
 		QKeyEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_keyPressEvent(this, handle__keyPressEvent, sigval1);
-
+		vtbl->keyPressEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_keyPressEvent(void* self, QKeyEvent* event);
+	friend void QCameraViewfinder_virtualbase_keyPressEvent(VirtualQCameraViewfinder* self, QKeyEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyReleaseEvent(QKeyEvent* event) override {
-		if (handle__keyReleaseEvent == 0) {
+		if (vtbl->keyReleaseEvent == 0) {
 			QCameraViewfinder::keyReleaseEvent(event);
 			return;
 		}
 
 		QKeyEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_keyReleaseEvent(this, handle__keyReleaseEvent, sigval1);
-
+		vtbl->keyReleaseEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event);
+	friend void QCameraViewfinder_virtualbase_keyReleaseEvent(VirtualQCameraViewfinder* self, QKeyEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusInEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusInEvent(QFocusEvent* event) override {
-		if (handle__focusInEvent == 0) {
+		if (vtbl->focusInEvent == 0) {
 			QCameraViewfinder::focusInEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_focusInEvent(this, handle__focusInEvent, sigval1);
-
+		vtbl->focusInEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_focusInEvent(void* self, QFocusEvent* event);
+	friend void QCameraViewfinder_virtualbase_focusInEvent(VirtualQCameraViewfinder* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusOutEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusOutEvent(QFocusEvent* event) override {
-		if (handle__focusOutEvent == 0) {
+		if (vtbl->focusOutEvent == 0) {
 			QCameraViewfinder::focusOutEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_focusOutEvent(this, handle__focusOutEvent, sigval1);
-
+		vtbl->focusOutEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_focusOutEvent(void* self, QFocusEvent* event);
+	friend void QCameraViewfinder_virtualbase_focusOutEvent(VirtualQCameraViewfinder* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__enterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void enterEvent(QEvent* event) override {
-		if (handle__enterEvent == 0) {
+		if (vtbl->enterEvent == 0) {
 			QCameraViewfinder::enterEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_enterEvent(this, handle__enterEvent, sigval1);
-
+		vtbl->enterEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_enterEvent(void* self, QEvent* event);
+	friend void QCameraViewfinder_virtualbase_enterEvent(VirtualQCameraViewfinder* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__leaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void leaveEvent(QEvent* event) override {
-		if (handle__leaveEvent == 0) {
+		if (vtbl->leaveEvent == 0) {
 			QCameraViewfinder::leaveEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_leaveEvent(this, handle__leaveEvent, sigval1);
-
+		vtbl->leaveEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_leaveEvent(void* self, QEvent* event);
+	friend void QCameraViewfinder_virtualbase_leaveEvent(VirtualQCameraViewfinder* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__closeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void closeEvent(QCloseEvent* event) override {
-		if (handle__closeEvent == 0) {
+		if (vtbl->closeEvent == 0) {
 			QCameraViewfinder::closeEvent(event);
 			return;
 		}
 
 		QCloseEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_closeEvent(this, handle__closeEvent, sigval1);
-
+		vtbl->closeEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_closeEvent(void* self, QCloseEvent* event);
+	friend void QCameraViewfinder_virtualbase_closeEvent(VirtualQCameraViewfinder* self, QCloseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__contextMenuEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void contextMenuEvent(QContextMenuEvent* event) override {
-		if (handle__contextMenuEvent == 0) {
+		if (vtbl->contextMenuEvent == 0) {
 			QCameraViewfinder::contextMenuEvent(event);
 			return;
 		}
 
 		QContextMenuEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_contextMenuEvent(this, handle__contextMenuEvent, sigval1);
-
+		vtbl->contextMenuEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* event);
+	friend void QCameraViewfinder_virtualbase_contextMenuEvent(VirtualQCameraViewfinder* self, QContextMenuEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__tabletEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void tabletEvent(QTabletEvent* event) override {
-		if (handle__tabletEvent == 0) {
+		if (vtbl->tabletEvent == 0) {
 			QCameraViewfinder::tabletEvent(event);
 			return;
 		}
 
 		QTabletEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_tabletEvent(this, handle__tabletEvent, sigval1);
-
+		vtbl->tabletEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_tabletEvent(void* self, QTabletEvent* event);
+	friend void QCameraViewfinder_virtualbase_tabletEvent(VirtualQCameraViewfinder* self, QTabletEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__actionEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void actionEvent(QActionEvent* event) override {
-		if (handle__actionEvent == 0) {
+		if (vtbl->actionEvent == 0) {
 			QCameraViewfinder::actionEvent(event);
 			return;
 		}
 
 		QActionEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_actionEvent(this, handle__actionEvent, sigval1);
-
+		vtbl->actionEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_actionEvent(void* self, QActionEvent* event);
+	friend void QCameraViewfinder_virtualbase_actionEvent(VirtualQCameraViewfinder* self, QActionEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragEnterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragEnterEvent(QDragEnterEvent* event) override {
-		if (handle__dragEnterEvent == 0) {
+		if (vtbl->dragEnterEvent == 0) {
 			QCameraViewfinder::dragEnterEvent(event);
 			return;
 		}
 
 		QDragEnterEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_dragEnterEvent(this, handle__dragEnterEvent, sigval1);
-
+		vtbl->dragEnterEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* event);
+	friend void QCameraViewfinder_virtualbase_dragEnterEvent(VirtualQCameraViewfinder* self, QDragEnterEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragMoveEvent(QDragMoveEvent* event) override {
-		if (handle__dragMoveEvent == 0) {
+		if (vtbl->dragMoveEvent == 0) {
 			QCameraViewfinder::dragMoveEvent(event);
 			return;
 		}
 
 		QDragMoveEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_dragMoveEvent(this, handle__dragMoveEvent, sigval1);
-
+		vtbl->dragMoveEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* event);
+	friend void QCameraViewfinder_virtualbase_dragMoveEvent(VirtualQCameraViewfinder* self, QDragMoveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragLeaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragLeaveEvent(QDragLeaveEvent* event) override {
-		if (handle__dragLeaveEvent == 0) {
+		if (vtbl->dragLeaveEvent == 0) {
 			QCameraViewfinder::dragLeaveEvent(event);
 			return;
 		}
 
 		QDragLeaveEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_dragLeaveEvent(this, handle__dragLeaveEvent, sigval1);
-
+		vtbl->dragLeaveEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* event);
+	friend void QCameraViewfinder_virtualbase_dragLeaveEvent(VirtualQCameraViewfinder* self, QDragLeaveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dropEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dropEvent(QDropEvent* event) override {
-		if (handle__dropEvent == 0) {
+		if (vtbl->dropEvent == 0) {
 			QCameraViewfinder::dropEvent(event);
 			return;
 		}
 
 		QDropEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_dropEvent(this, handle__dropEvent, sigval1);
-
+		vtbl->dropEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_dropEvent(void* self, QDropEvent* event);
+	friend void QCameraViewfinder_virtualbase_dropEvent(VirtualQCameraViewfinder* self, QDropEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__nativeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool nativeEvent(const QByteArray& eventType, void* message, long* result) override {
-		if (handle__nativeEvent == 0) {
+		if (vtbl->nativeEvent == 0) {
 			return QCameraViewfinder::nativeEvent(eventType, message, result);
 		}
 
@@ -738,218 +524,160 @@ public:
 		struct seaqt_string sigval1 = eventType_ms;
 		void* sigval2 = message;
 		long* sigval3 = result;
-		bool callback_return_value = miqt_exec_callback_QCameraViewfinder_nativeEvent(this, handle__nativeEvent, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->nativeEvent(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QCameraViewfinder_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, long* result);
+	friend bool QCameraViewfinder_virtualbase_nativeEvent(VirtualQCameraViewfinder* self, struct seaqt_string eventType, void* message, long* result);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__changeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void changeEvent(QEvent* param1) override {
-		if (handle__changeEvent == 0) {
+		if (vtbl->changeEvent == 0) {
 			QCameraViewfinder::changeEvent(param1);
 			return;
 		}
 
 		QEvent* sigval1 = param1;
-		miqt_exec_callback_QCameraViewfinder_changeEvent(this, handle__changeEvent, sigval1);
-
+		vtbl->changeEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_changeEvent(void* self, QEvent* param1);
+	friend void QCameraViewfinder_virtualbase_changeEvent(VirtualQCameraViewfinder* self, QEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metric = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int metric(QPaintDevice::PaintDeviceMetric param1) const override {
-		if (handle__metric == 0) {
+		if (vtbl->metric == 0) {
 			return QCameraViewfinder::metric(param1);
 		}
 
 		QPaintDevice::PaintDeviceMetric param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		int callback_return_value = miqt_exec_callback_QCameraViewfinder_metric(this, handle__metric, sigval1);
+		int callback_return_value = vtbl->metric(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QCameraViewfinder_virtualbase_metric(const void* self, int param1);
+	friend int QCameraViewfinder_virtualbase_metric(const VirtualQCameraViewfinder* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__initPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void initPainter(QPainter* painter) const override {
-		if (handle__initPainter == 0) {
+		if (vtbl->initPainter == 0) {
 			QCameraViewfinder::initPainter(painter);
 			return;
 		}
 
 		QPainter* sigval1 = painter;
-		miqt_exec_callback_QCameraViewfinder_initPainter(this, handle__initPainter, sigval1);
-
+		vtbl->initPainter(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_initPainter(const void* self, QPainter* painter);
+	friend void QCameraViewfinder_virtualbase_initPainter(const VirtualQCameraViewfinder* self, QPainter* painter);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__redirected = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintDevice* redirected(QPoint* offset) const override {
-		if (handle__redirected == 0) {
+		if (vtbl->redirected == 0) {
 			return QCameraViewfinder::redirected(offset);
 		}
 
 		QPoint* sigval1 = offset;
-		QPaintDevice* callback_return_value = miqt_exec_callback_QCameraViewfinder_redirected(this, handle__redirected, sigval1);
+		QPaintDevice* callback_return_value = vtbl->redirected(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QPaintDevice* QCameraViewfinder_virtualbase_redirected(const void* self, QPoint* offset);
+	friend QPaintDevice* QCameraViewfinder_virtualbase_redirected(const VirtualQCameraViewfinder* self, QPoint* offset);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sharedPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPainter* sharedPainter() const override {
-		if (handle__sharedPainter == 0) {
+		if (vtbl->sharedPainter == 0) {
 			return QCameraViewfinder::sharedPainter();
 		}
 
-		QPainter* callback_return_value = miqt_exec_callback_QCameraViewfinder_sharedPainter(this, handle__sharedPainter);
+		QPainter* callback_return_value = vtbl->sharedPainter(this);
 		return callback_return_value;
 	}
 
-	friend QPainter* QCameraViewfinder_virtualbase_sharedPainter(const void* self);
+	friend QPainter* QCameraViewfinder_virtualbase_sharedPainter(const VirtualQCameraViewfinder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void inputMethodEvent(QInputMethodEvent* param1) override {
-		if (handle__inputMethodEvent == 0) {
+		if (vtbl->inputMethodEvent == 0) {
 			QCameraViewfinder::inputMethodEvent(param1);
 			return;
 		}
 
 		QInputMethodEvent* sigval1 = param1;
-		miqt_exec_callback_QCameraViewfinder_inputMethodEvent(this, handle__inputMethodEvent, sigval1);
-
+		vtbl->inputMethodEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1);
+	friend void QCameraViewfinder_virtualbase_inputMethodEvent(VirtualQCameraViewfinder* self, QInputMethodEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodQuery = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant inputMethodQuery(Qt::InputMethodQuery param1) const override {
-		if (handle__inputMethodQuery == 0) {
+		if (vtbl->inputMethodQuery == 0) {
 			return QCameraViewfinder::inputMethodQuery(param1);
 		}
 
 		Qt::InputMethodQuery param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		QVariant* callback_return_value = miqt_exec_callback_QCameraViewfinder_inputMethodQuery(this, handle__inputMethodQuery, sigval1);
+		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QCameraViewfinder_virtualbase_inputMethodQuery(const void* self, int param1);
+	friend QVariant* QCameraViewfinder_virtualbase_inputMethodQuery(const VirtualQCameraViewfinder* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusNextPrevChild = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool focusNextPrevChild(bool next) override {
-		if (handle__focusNextPrevChild == 0) {
+		if (vtbl->focusNextPrevChild == 0) {
 			return QCameraViewfinder::focusNextPrevChild(next);
 		}
 
 		bool sigval1 = next;
-		bool callback_return_value = miqt_exec_callback_QCameraViewfinder_focusNextPrevChild(this, handle__focusNextPrevChild, sigval1);
+		bool callback_return_value = vtbl->focusNextPrevChild(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QCameraViewfinder_virtualbase_focusNextPrevChild(void* self, bool next);
+	friend bool QCameraViewfinder_virtualbase_focusNextPrevChild(VirtualQCameraViewfinder* self, bool next);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QCameraViewfinder::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QCameraViewfinder_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QCameraViewfinder_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QCameraViewfinder_virtualbase_eventFilter(VirtualQCameraViewfinder* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QCameraViewfinder::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QCameraViewfinder_virtualbase_timerEvent(VirtualQCameraViewfinder* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QCameraViewfinder::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QCameraViewfinder_virtualbase_childEvent(VirtualQCameraViewfinder* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QCameraViewfinder::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QCameraViewfinder_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QCameraViewfinder_virtualbase_customEvent(VirtualQCameraViewfinder* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QCameraViewfinder::connectNotify(signal);
 			return;
 		}
@@ -957,18 +685,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QCameraViewfinder_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QCameraViewfinder_virtualbase_connectNotify(VirtualQCameraViewfinder* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QCameraViewfinder::disconnectNotify(signal);
 			return;
 		}
@@ -976,30 +699,31 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QCameraViewfinder_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QCameraViewfinder_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QCameraViewfinder_virtualbase_disconnectNotify(VirtualQCameraViewfinder* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QCameraViewfinder_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self);
-	friend void QCameraViewfinder_protectedbase_create(bool* _dynamic_cast_ok, void* self);
-	friend void QCameraViewfinder_protectedbase_destroy(bool* _dynamic_cast_ok, void* self);
-	friend bool QCameraViewfinder_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self);
-	friend bool QCameraViewfinder_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self);
-	friend QObject* QCameraViewfinder_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QCameraViewfinder_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QCameraViewfinder_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QCameraViewfinder_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QCameraViewfinder_protectedbase_updateMicroFocus(VirtualQCameraViewfinder* self);
+	friend void QCameraViewfinder_protectedbase_create(VirtualQCameraViewfinder* self);
+	friend void QCameraViewfinder_protectedbase_destroy(VirtualQCameraViewfinder* self);
+	friend bool QCameraViewfinder_protectedbase_focusNextChild(VirtualQCameraViewfinder* self);
+	friend bool QCameraViewfinder_protectedbase_focusPreviousChild(VirtualQCameraViewfinder* self);
+	friend QObject* QCameraViewfinder_protectedbase_sender(const VirtualQCameraViewfinder* self);
+	friend int QCameraViewfinder_protectedbase_senderSignalIndex(const VirtualQCameraViewfinder* self);
+	friend int QCameraViewfinder_protectedbase_receivers(const VirtualQCameraViewfinder* self, const char* signal);
+	friend bool QCameraViewfinder_protectedbase_isSignalConnected(const VirtualQCameraViewfinder* self, QMetaMethod* signal);
 };
 
-QCameraViewfinder* QCameraViewfinder_new(QWidget* parent) {
-	return new (std::nothrow) VirtualQCameraViewfinder(parent);
+VirtualQCameraViewfinder* QCameraViewfinder_new(const QCameraViewfinder_VTable* vtbl, size_t vdata, QWidget* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQCameraViewfinder>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQCameraViewfinder(vtbl, parent) : nullptr;
 }
 
-QCameraViewfinder* QCameraViewfinder_new2() {
-	return new (std::nothrow) VirtualQCameraViewfinder();
+VirtualQCameraViewfinder* QCameraViewfinder_new2(const QCameraViewfinder_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQCameraViewfinder>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQCameraViewfinder(vtbl) : nullptr;
 }
 
 void QCameraViewfinder_virtbase(QCameraViewfinder* src, QVideoWidget** outptr_QVideoWidget) {
@@ -1089,832 +813,304 @@ struct seaqt_string QCameraViewfinder_trUtf83(const char* s, const char* c, int 
 }
 
 const QMetaObject* QCameraViewfinder_staticMetaObject() { return &QCameraViewfinder::staticMetaObject; }
-bool QCameraViewfinder_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QCameraViewfinder_vdata(VirtualQCameraViewfinder* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQCameraViewfinder>()); }
+VirtualQCameraViewfinder* vdata_QCameraViewfinder(void* vdata) { return reinterpret_cast<VirtualQCameraViewfinder*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQCameraViewfinder>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
-}
-
-QMetaObject* QCameraViewfinder_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQCameraViewfinder*>(self)->QCameraViewfinder::metaObject();
-}
-
-bool QCameraViewfinder_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QMetaObject* QCameraViewfinder_virtualbase_metaObject(const VirtualQCameraViewfinder* self) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return (QMetaObject*) self->QCameraViewfinder::metaObject();
 }
 
-void* QCameraViewfinder_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::qt_metacast(param1);
-}
-
-bool QCameraViewfinder_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QCameraViewfinder_virtualbase_metacast(VirtualQCameraViewfinder* self, const char* param1) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QCameraViewfinder::qt_metacast(param1);
 }
-
-int QCameraViewfinder_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
-}
-
-bool QCameraViewfinder_override_virtual_mediaObject(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__mediaObject = slot;
-	return true;
-}
+int QCameraViewfinder_virtualbase_metacall(VirtualQCameraViewfinder* self, int param1, int param2, void** param3) {
 
-QMediaObject* QCameraViewfinder_virtualbase_mediaObject(const void* self) {
-	return static_cast<const VirtualQCameraViewfinder*>(self)->QCameraViewfinder::mediaObject();
+	return self->QCameraViewfinder::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
-
-bool QCameraViewfinder_override_virtual_setMediaObject(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__setMediaObject = slot;
-	return true;
-}
+QMediaObject* QCameraViewfinder_virtualbase_mediaObject(const VirtualQCameraViewfinder* self) {
 
-bool QCameraViewfinder_virtualbase_setMediaObject(void* self, QMediaObject* object) {
-	return static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::setMediaObject(object);
+	return self->QCameraViewfinder::mediaObject();
 }
 
-bool QCameraViewfinder_override_virtual_sizeHint(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__sizeHint = slot;
-	return true;
-}
+bool QCameraViewfinder_virtualbase_setMediaObject(VirtualQCameraViewfinder* self, QMediaObject* object) {
 
-QSize* QCameraViewfinder_virtualbase_sizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQCameraViewfinder*>(self)->QCameraViewfinder::sizeHint());
+	return self->QCameraViewfinder::setMediaObject(object);
 }
 
-bool QCameraViewfinder_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QSize* QCameraViewfinder_virtualbase_sizeHint(const VirtualQCameraViewfinder* self) {
 
-	self_cast->handle__event = slot;
-	return true;
+	return new QSize(self->QCameraViewfinder::sizeHint());
 }
 
-bool QCameraViewfinder_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::event(event);
-}
-
-bool QCameraViewfinder_override_virtual_showEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QCameraViewfinder_virtualbase_event(VirtualQCameraViewfinder* self, QEvent* event) {
 
-	self_cast->handle__showEvent = slot;
-	return true;
+	return self->QCameraViewfinder::event(event);
 }
-
-void QCameraViewfinder_virtualbase_showEvent(void* self, QShowEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::showEvent(event);
-}
-
-bool QCameraViewfinder_override_virtual_hideEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__hideEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_showEvent(VirtualQCameraViewfinder* self, QShowEvent* event) {
 
-void QCameraViewfinder_virtualbase_hideEvent(void* self, QHideEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::hideEvent(event);
+	self->QCameraViewfinder::showEvent(event);
 }
-
-bool QCameraViewfinder_override_virtual_resizeEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__resizeEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_hideEvent(VirtualQCameraViewfinder* self, QHideEvent* event) {
 
-void QCameraViewfinder_virtualbase_resizeEvent(void* self, QResizeEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::resizeEvent(event);
+	self->QCameraViewfinder::hideEvent(event);
 }
-
-bool QCameraViewfinder_override_virtual_moveEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__moveEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_resizeEvent(VirtualQCameraViewfinder* self, QResizeEvent* event) {
 
-void QCameraViewfinder_virtualbase_moveEvent(void* self, QMoveEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::moveEvent(event);
+	self->QCameraViewfinder::resizeEvent(event);
 }
-
-bool QCameraViewfinder_override_virtual_paintEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__paintEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_moveEvent(VirtualQCameraViewfinder* self, QMoveEvent* event) {
 
-void QCameraViewfinder_virtualbase_paintEvent(void* self, QPaintEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::paintEvent(event);
+	self->QCameraViewfinder::moveEvent(event);
 }
 
-bool QCameraViewfinder_override_virtual_devType(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__devType = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_paintEvent(VirtualQCameraViewfinder* self, QPaintEvent* event) {
 
-int QCameraViewfinder_virtualbase_devType(const void* self) {
-	return static_cast<const VirtualQCameraViewfinder*>(self)->QCameraViewfinder::devType();
+	self->QCameraViewfinder::paintEvent(event);
 }
 
-bool QCameraViewfinder_override_virtual_setVisible(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QCameraViewfinder_virtualbase_devType(const VirtualQCameraViewfinder* self) {
 
-	self_cast->handle__setVisible = slot;
-	return true;
+	return self->QCameraViewfinder::devType();
 }
 
-void QCameraViewfinder_virtualbase_setVisible(void* self, bool visible) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::setVisible(visible);
-}
-
-bool QCameraViewfinder_override_virtual_minimumSizeHint(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCameraViewfinder_virtualbase_setVisible(VirtualQCameraViewfinder* self, bool visible) {
 
-	self_cast->handle__minimumSizeHint = slot;
-	return true;
+	self->QCameraViewfinder::setVisible(visible);
 }
-
-QSize* QCameraViewfinder_virtualbase_minimumSizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQCameraViewfinder*>(self)->QCameraViewfinder::minimumSizeHint());
-}
-
-bool QCameraViewfinder_override_virtual_heightForWidth(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__heightForWidth = slot;
-	return true;
-}
+QSize* QCameraViewfinder_virtualbase_minimumSizeHint(const VirtualQCameraViewfinder* self) {
 
-int QCameraViewfinder_virtualbase_heightForWidth(const void* self, int param1) {
-	return static_cast<const VirtualQCameraViewfinder*>(self)->QCameraViewfinder::heightForWidth(static_cast<int>(param1));
+	return new QSize(self->QCameraViewfinder::minimumSizeHint());
 }
-
-bool QCameraViewfinder_override_virtual_hasHeightForWidth(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__hasHeightForWidth = slot;
-	return true;
-}
+int QCameraViewfinder_virtualbase_heightForWidth(const VirtualQCameraViewfinder* self, int param1) {
 
-bool QCameraViewfinder_virtualbase_hasHeightForWidth(const void* self) {
-	return static_cast<const VirtualQCameraViewfinder*>(self)->QCameraViewfinder::hasHeightForWidth();
+	return self->QCameraViewfinder::heightForWidth(static_cast<int>(param1));
 }
 
-bool QCameraViewfinder_override_virtual_paintEngine(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__paintEngine = slot;
-	return true;
-}
+bool QCameraViewfinder_virtualbase_hasHeightForWidth(const VirtualQCameraViewfinder* self) {
 
-QPaintEngine* QCameraViewfinder_virtualbase_paintEngine(const void* self) {
-	return static_cast<const VirtualQCameraViewfinder*>(self)->QCameraViewfinder::paintEngine();
+	return self->QCameraViewfinder::hasHeightForWidth();
 }
 
-bool QCameraViewfinder_override_virtual_mousePressEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QPaintEngine* QCameraViewfinder_virtualbase_paintEngine(const VirtualQCameraViewfinder* self) {
 
-	self_cast->handle__mousePressEvent = slot;
-	return true;
+	return self->QCameraViewfinder::paintEngine();
 }
 
-void QCameraViewfinder_virtualbase_mousePressEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::mousePressEvent(event);
-}
-
-bool QCameraViewfinder_override_virtual_mouseReleaseEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mouseReleaseEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_mousePressEvent(VirtualQCameraViewfinder* self, QMouseEvent* event) {
 
-void QCameraViewfinder_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::mouseReleaseEvent(event);
+	self->QCameraViewfinder::mousePressEvent(event);
 }
 
-bool QCameraViewfinder_override_virtual_mouseDoubleClickEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCameraViewfinder_virtualbase_mouseReleaseEvent(VirtualQCameraViewfinder* self, QMouseEvent* event) {
 
-	self_cast->handle__mouseDoubleClickEvent = slot;
-	return true;
+	self->QCameraViewfinder::mouseReleaseEvent(event);
 }
 
-void QCameraViewfinder_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::mouseDoubleClickEvent(event);
-}
-
-bool QCameraViewfinder_override_virtual_mouseMoveEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCameraViewfinder_virtualbase_mouseDoubleClickEvent(VirtualQCameraViewfinder* self, QMouseEvent* event) {
 
-	self_cast->handle__mouseMoveEvent = slot;
-	return true;
+	self->QCameraViewfinder::mouseDoubleClickEvent(event);
 }
-
-void QCameraViewfinder_virtualbase_mouseMoveEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::mouseMoveEvent(event);
-}
-
-bool QCameraViewfinder_override_virtual_wheelEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__wheelEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_mouseMoveEvent(VirtualQCameraViewfinder* self, QMouseEvent* event) {
 
-void QCameraViewfinder_virtualbase_wheelEvent(void* self, QWheelEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::wheelEvent(event);
+	self->QCameraViewfinder::mouseMoveEvent(event);
 }
-
-bool QCameraViewfinder_override_virtual_keyPressEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__keyPressEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_wheelEvent(VirtualQCameraViewfinder* self, QWheelEvent* event) {
 
-void QCameraViewfinder_virtualbase_keyPressEvent(void* self, QKeyEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::keyPressEvent(event);
+	self->QCameraViewfinder::wheelEvent(event);
 }
 
-bool QCameraViewfinder_override_virtual_keyReleaseEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__keyReleaseEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_keyPressEvent(VirtualQCameraViewfinder* self, QKeyEvent* event) {
 
-void QCameraViewfinder_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::keyReleaseEvent(event);
+	self->QCameraViewfinder::keyPressEvent(event);
 }
 
-bool QCameraViewfinder_override_virtual_focusInEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCameraViewfinder_virtualbase_keyReleaseEvent(VirtualQCameraViewfinder* self, QKeyEvent* event) {
 
-	self_cast->handle__focusInEvent = slot;
-	return true;
+	self->QCameraViewfinder::keyReleaseEvent(event);
 }
 
-void QCameraViewfinder_virtualbase_focusInEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::focusInEvent(event);
-}
-
-bool QCameraViewfinder_override_virtual_focusOutEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCameraViewfinder_virtualbase_focusInEvent(VirtualQCameraViewfinder* self, QFocusEvent* event) {
 
-	self_cast->handle__focusOutEvent = slot;
-	return true;
+	self->QCameraViewfinder::focusInEvent(event);
 }
-
-void QCameraViewfinder_virtualbase_focusOutEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::focusOutEvent(event);
-}
-
-bool QCameraViewfinder_override_virtual_enterEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__enterEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_focusOutEvent(VirtualQCameraViewfinder* self, QFocusEvent* event) {
 
-void QCameraViewfinder_virtualbase_enterEvent(void* self, QEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::enterEvent(event);
+	self->QCameraViewfinder::focusOutEvent(event);
 }
-
-bool QCameraViewfinder_override_virtual_leaveEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__leaveEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_enterEvent(VirtualQCameraViewfinder* self, QEvent* event) {
 
-void QCameraViewfinder_virtualbase_leaveEvent(void* self, QEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::leaveEvent(event);
+	self->QCameraViewfinder::enterEvent(event);
 }
-
-bool QCameraViewfinder_override_virtual_closeEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__closeEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_leaveEvent(VirtualQCameraViewfinder* self, QEvent* event) {
 
-void QCameraViewfinder_virtualbase_closeEvent(void* self, QCloseEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::closeEvent(event);
+	self->QCameraViewfinder::leaveEvent(event);
 }
-
-bool QCameraViewfinder_override_virtual_contextMenuEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__contextMenuEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_closeEvent(VirtualQCameraViewfinder* self, QCloseEvent* event) {
 
-void QCameraViewfinder_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::contextMenuEvent(event);
+	self->QCameraViewfinder::closeEvent(event);
 }
 
-bool QCameraViewfinder_override_virtual_tabletEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__tabletEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_contextMenuEvent(VirtualQCameraViewfinder* self, QContextMenuEvent* event) {
 
-void QCameraViewfinder_virtualbase_tabletEvent(void* self, QTabletEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::tabletEvent(event);
+	self->QCameraViewfinder::contextMenuEvent(event);
 }
 
-bool QCameraViewfinder_override_virtual_actionEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCameraViewfinder_virtualbase_tabletEvent(VirtualQCameraViewfinder* self, QTabletEvent* event) {
 
-	self_cast->handle__actionEvent = slot;
-	return true;
+	self->QCameraViewfinder::tabletEvent(event);
 }
 
-void QCameraViewfinder_virtualbase_actionEvent(void* self, QActionEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::actionEvent(event);
-}
-
-bool QCameraViewfinder_override_virtual_dragEnterEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCameraViewfinder_virtualbase_actionEvent(VirtualQCameraViewfinder* self, QActionEvent* event) {
 
-	self_cast->handle__dragEnterEvent = slot;
-	return true;
+	self->QCameraViewfinder::actionEvent(event);
 }
-
-void QCameraViewfinder_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::dragEnterEvent(event);
-}
-
-bool QCameraViewfinder_override_virtual_dragMoveEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__dragMoveEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_dragEnterEvent(VirtualQCameraViewfinder* self, QDragEnterEvent* event) {
 
-void QCameraViewfinder_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::dragMoveEvent(event);
+	self->QCameraViewfinder::dragEnterEvent(event);
 }
-
-bool QCameraViewfinder_override_virtual_dragLeaveEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__dragLeaveEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_dragMoveEvent(VirtualQCameraViewfinder* self, QDragMoveEvent* event) {
 
-void QCameraViewfinder_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::dragLeaveEvent(event);
+	self->QCameraViewfinder::dragMoveEvent(event);
 }
 
-bool QCameraViewfinder_override_virtual_dropEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__dropEvent = slot;
-	return true;
-}
+void QCameraViewfinder_virtualbase_dragLeaveEvent(VirtualQCameraViewfinder* self, QDragLeaveEvent* event) {
 
-void QCameraViewfinder_virtualbase_dropEvent(void* self, QDropEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::dropEvent(event);
+	self->QCameraViewfinder::dragLeaveEvent(event);
 }
 
-bool QCameraViewfinder_override_virtual_nativeEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCameraViewfinder_virtualbase_dropEvent(VirtualQCameraViewfinder* self, QDropEvent* event) {
 
-	self_cast->handle__nativeEvent = slot;
-	return true;
+	self->QCameraViewfinder::dropEvent(event);
 }
 
-bool QCameraViewfinder_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, long* result) {
+bool QCameraViewfinder_virtualbase_nativeEvent(VirtualQCameraViewfinder* self, struct seaqt_string eventType, void* message, long* result) {
 	QByteArray eventType_QByteArray(eventType.data, eventType.len);
-	return static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::nativeEvent(eventType_QByteArray, message, static_cast<long*>(result));
+
+	return self->QCameraViewfinder::nativeEvent(eventType_QByteArray, message, static_cast<long*>(result));
 }
 
-bool QCameraViewfinder_override_virtual_changeEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCameraViewfinder_virtualbase_changeEvent(VirtualQCameraViewfinder* self, QEvent* param1) {
 
-	self_cast->handle__changeEvent = slot;
-	return true;
+	self->QCameraViewfinder::changeEvent(param1);
 }
 
-void QCameraViewfinder_virtualbase_changeEvent(void* self, QEvent* param1) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::changeEvent(param1);
+int QCameraViewfinder_virtualbase_metric(const VirtualQCameraViewfinder* self, int param1) {
+
+	return self->QCameraViewfinder::metric(static_cast<VirtualQCameraViewfinder::PaintDeviceMetric>(param1));
 }
 
-bool QCameraViewfinder_override_virtual_metric(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCameraViewfinder_virtualbase_initPainter(const VirtualQCameraViewfinder* self, QPainter* painter) {
 
-	self_cast->handle__metric = slot;
-	return true;
+	self->QCameraViewfinder::initPainter(painter);
 }
 
-int QCameraViewfinder_virtualbase_metric(const void* self, int param1) {
-	return static_cast<const VirtualQCameraViewfinder*>(self)->QCameraViewfinder::metric(static_cast<VirtualQCameraViewfinder::PaintDeviceMetric>(param1));
+QPaintDevice* QCameraViewfinder_virtualbase_redirected(const VirtualQCameraViewfinder* self, QPoint* offset) {
+
+	return self->QCameraViewfinder::redirected(offset);
 }
 
-bool QCameraViewfinder_override_virtual_initPainter(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QPainter* QCameraViewfinder_virtualbase_sharedPainter(const VirtualQCameraViewfinder* self) {
 
-	self_cast->handle__initPainter = slot;
-	return true;
+	return self->QCameraViewfinder::sharedPainter();
 }
 
-void QCameraViewfinder_virtualbase_initPainter(const void* self, QPainter* painter) {
-	static_cast<const VirtualQCameraViewfinder*>(self)->QCameraViewfinder::initPainter(painter);
+void QCameraViewfinder_virtualbase_inputMethodEvent(VirtualQCameraViewfinder* self, QInputMethodEvent* param1) {
+
+	self->QCameraViewfinder::inputMethodEvent(param1);
 }
 
-bool QCameraViewfinder_override_virtual_redirected(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QVariant* QCameraViewfinder_virtualbase_inputMethodQuery(const VirtualQCameraViewfinder* self, int param1) {
 
-	self_cast->handle__redirected = slot;
-	return true;
+	return new QVariant(self->QCameraViewfinder::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
 }
 
-QPaintDevice* QCameraViewfinder_virtualbase_redirected(const void* self, QPoint* offset) {
-	return static_cast<const VirtualQCameraViewfinder*>(self)->QCameraViewfinder::redirected(offset);
+bool QCameraViewfinder_virtualbase_focusNextPrevChild(VirtualQCameraViewfinder* self, bool next) {
+
+	return self->QCameraViewfinder::focusNextPrevChild(next);
 }
 
-bool QCameraViewfinder_override_virtual_sharedPainter(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QCameraViewfinder_virtualbase_eventFilter(VirtualQCameraViewfinder* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__sharedPainter = slot;
-	return true;
+	return self->QCameraViewfinder::eventFilter(watched, event);
 }
 
-QPainter* QCameraViewfinder_virtualbase_sharedPainter(const void* self) {
-	return static_cast<const VirtualQCameraViewfinder*>(self)->QCameraViewfinder::sharedPainter();
+void QCameraViewfinder_virtualbase_timerEvent(VirtualQCameraViewfinder* self, QTimerEvent* event) {
+
+	self->QCameraViewfinder::timerEvent(event);
 }
 
-bool QCameraViewfinder_override_virtual_inputMethodEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCameraViewfinder_virtualbase_childEvent(VirtualQCameraViewfinder* self, QChildEvent* event) {
 
-	self_cast->handle__inputMethodEvent = slot;
-	return true;
+	self->QCameraViewfinder::childEvent(event);
 }
 
-void QCameraViewfinder_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::inputMethodEvent(param1);
+void QCameraViewfinder_virtualbase_customEvent(VirtualQCameraViewfinder* self, QEvent* event) {
+
+	self->QCameraViewfinder::customEvent(event);
 }
 
-bool QCameraViewfinder_override_virtual_inputMethodQuery(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCameraViewfinder_virtualbase_connectNotify(VirtualQCameraViewfinder* self, QMetaMethod* signal) {
 
-	self_cast->handle__inputMethodQuery = slot;
-	return true;
+	self->QCameraViewfinder::connectNotify(*signal);
 }
 
-QVariant* QCameraViewfinder_virtualbase_inputMethodQuery(const void* self, int param1) {
-	return new QVariant(static_cast<const VirtualQCameraViewfinder*>(self)->QCameraViewfinder::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
+void QCameraViewfinder_virtualbase_disconnectNotify(VirtualQCameraViewfinder* self, QMetaMethod* signal) {
+
+	self->QCameraViewfinder::disconnectNotify(*signal);
 }
 
-bool QCameraViewfinder_override_virtual_focusNextPrevChild(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__focusNextPrevChild = slot;
-	return true;
+void QCameraViewfinder_protectedbase_updateMicroFocus(VirtualQCameraViewfinder* self) {
+	self->updateMicroFocus();
 }
 
-bool QCameraViewfinder_virtualbase_focusNextPrevChild(void* self, bool next) {
-	return static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::focusNextPrevChild(next);
+void QCameraViewfinder_protectedbase_create(VirtualQCameraViewfinder* self) {
+	self->create();
 }
 
-bool QCameraViewfinder_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
+void QCameraViewfinder_protectedbase_destroy(VirtualQCameraViewfinder* self) {
+	self->destroy();
 }
 
-bool QCameraViewfinder_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::eventFilter(watched, event);
+bool QCameraViewfinder_protectedbase_focusNextChild(VirtualQCameraViewfinder* self) {
+	return self->focusNextChild();
 }
 
-bool QCameraViewfinder_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+bool QCameraViewfinder_protectedbase_focusPreviousChild(VirtualQCameraViewfinder* self) {
+	return self->focusPreviousChild();
 }
 
-void QCameraViewfinder_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::timerEvent(event);
+QObject* QCameraViewfinder_protectedbase_sender(const VirtualQCameraViewfinder* self) {
+	return self->sender();
 }
 
-bool QCameraViewfinder_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QCameraViewfinder_protectedbase_senderSignalIndex(const VirtualQCameraViewfinder* self) {
+	return self->senderSignalIndex();
 }
 
-void QCameraViewfinder_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::childEvent(event);
+int QCameraViewfinder_protectedbase_receivers(const VirtualQCameraViewfinder* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QCameraViewfinder_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QCameraViewfinder_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::customEvent(event);
-}
-
-bool QCameraViewfinder_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QCameraViewfinder_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::connectNotify(*signal);
-}
-
-bool QCameraViewfinder_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QCameraViewfinder_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQCameraViewfinder*>(self)->QCameraViewfinder::disconnectNotify(*signal);
-}
-
-void QCameraViewfinder_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->updateMicroFocus();
-}
-
-void QCameraViewfinder_protectedbase_create(bool* _dynamic_cast_ok, void* self) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->create();
-}
-
-void QCameraViewfinder_protectedbase_destroy(bool* _dynamic_cast_ok, void* self) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->destroy();
-}
-
-bool QCameraViewfinder_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusNextChild();
-}
-
-bool QCameraViewfinder_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusPreviousChild();
-}
-
-QObject* QCameraViewfinder_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QCameraViewfinder_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QCameraViewfinder_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QCameraViewfinder_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQCameraViewfinder* self_cast = dynamic_cast<VirtualQCameraViewfinder*>( (QCameraViewfinder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QCameraViewfinder_protectedbase_isSignalConnected(const VirtualQCameraViewfinder* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QCameraViewfinder_delete(QCameraViewfinder* self) {

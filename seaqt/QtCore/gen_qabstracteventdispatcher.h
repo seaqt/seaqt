@@ -77,6 +77,7 @@ const QMetaObject* QAbstractEventDispatcher_staticMetaObject();
 void QAbstractEventDispatcher_delete(QAbstractEventDispatcher* self);
 
 QAbstractEventDispatcher__TimerInfo* QAbstractEventDispatcher__TimerInfo_new(int id, int i, int t);
+
 void QAbstractEventDispatcher__TimerInfo_delete(QAbstractEventDispatcher__TimerInfo* self);
 
 #ifdef __cplusplus

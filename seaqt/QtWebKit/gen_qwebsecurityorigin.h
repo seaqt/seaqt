@@ -26,6 +26,7 @@ typedef struct QWebSecurityOrigin QWebSecurityOrigin;
 
 QWebSecurityOrigin* QWebSecurityOrigin_new(QUrl* url);
 QWebSecurityOrigin* QWebSecurityOrigin_new2(QWebSecurityOrigin* other);
+
 struct seaqt_array /* of QWebSecurityOrigin* */  QWebSecurityOrigin_allOrigins();
 void QWebSecurityOrigin_addLocalScheme(struct seaqt_string scheme);
 void QWebSecurityOrigin_removeLocalScheme(struct seaqt_string scheme);

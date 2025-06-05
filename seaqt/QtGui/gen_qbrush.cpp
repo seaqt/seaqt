@@ -18,6 +18,17 @@
 #include <qbrush.h>
 #include "gen_qbrush.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -463,7 +474,7 @@ void QConicalGradient_delete(QConicalGradient* self) {
 }
 
 QGradient__QGradientData* QGradient__QGradientData_new(QGradient__QGradientData* param1) {
-	return new (std::nothrow) QGradient::QGradientData(*param1);
+	return new (std::nothrow) QGradient__QGradientData(*param1);
 }
 
 void QGradient__QGradientData_operatorAssign(QGradient__QGradientData* self, QGradient__QGradientData* param1) {

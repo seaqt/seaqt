@@ -58,8 +58,32 @@ typedef struct QWebPluginFactory__MimeType QWebPluginFactory__MimeType;
 typedef struct QWebPluginFactory__Plugin QWebPluginFactory__Plugin;
 #endif
 
-QWebPluginFactory* QWebPluginFactory_new();
-QWebPluginFactory* QWebPluginFactory_new2(QObject* parent);
+typedef struct VirtualQWebPluginFactory VirtualQWebPluginFactory;
+typedef struct QWebPluginFactory_VTable{
+	void (*destructor)(VirtualQWebPluginFactory* self);
+	QMetaObject* (*metaObject)(const VirtualQWebPluginFactory* self);
+	void* (*metacast)(VirtualQWebPluginFactory* self, const char* param1);
+	int (*metacall)(VirtualQWebPluginFactory* self, int param1, int param2, void** param3);
+	struct seaqt_array /* of QWebPluginFactory__Plugin* */  (*plugins)(const VirtualQWebPluginFactory* self);
+	void (*refreshPlugins)(VirtualQWebPluginFactory* self);
+	QObject* (*create)(const VirtualQWebPluginFactory* self, struct seaqt_string mimeType, QUrl* param2, struct seaqt_array /* of struct seaqt_string */  argumentNames, struct seaqt_array /* of struct seaqt_string */  argumentValues);
+	bool (*extension)(VirtualQWebPluginFactory* self, int extension, QWebPluginFactory__ExtensionOption* option, QWebPluginFactory__ExtensionReturn* output);
+	bool (*supportsExtension)(const VirtualQWebPluginFactory* self, int extension);
+	bool (*event)(VirtualQWebPluginFactory* self, QEvent* event);
+	bool (*eventFilter)(VirtualQWebPluginFactory* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQWebPluginFactory* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQWebPluginFactory* self, QChildEvent* event);
+	void (*customEvent)(VirtualQWebPluginFactory* self, QEvent* event);
+	void (*connectNotify)(VirtualQWebPluginFactory* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQWebPluginFactory* self, QMetaMethod* signal);
+}QWebPluginFactory_VTable;
+
+void* QWebPluginFactory_vdata(VirtualQWebPluginFactory* self);
+VirtualQWebPluginFactory* vdata_QWebPluginFactory(void* vdata);
+
+VirtualQWebPluginFactory* QWebPluginFactory_new(const QWebPluginFactory_VTable* vtbl, size_t vdata);
+VirtualQWebPluginFactory* QWebPluginFactory_new2(const QWebPluginFactory_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QWebPluginFactory_virtbase(QWebPluginFactory* src, QObject** outptr_QObject);
 QMetaObject* QWebPluginFactory_metaObject(const QWebPluginFactory* self);
 void* QWebPluginFactory_metacast(QWebPluginFactory* self, const char* param1);
@@ -76,46 +100,32 @@ struct seaqt_string QWebPluginFactory_tr3(const char* s, const char* c, int n);
 struct seaqt_string QWebPluginFactory_trUtf82(const char* s, const char* c);
 struct seaqt_string QWebPluginFactory_trUtf83(const char* s, const char* c, int n);
 
-bool QWebPluginFactory_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QWebPluginFactory_virtualbase_metaObject(const void* self);
-bool QWebPluginFactory_override_virtual_metacast(void* self, intptr_t slot);
-void* QWebPluginFactory_virtualbase_metacast(void* self, const char* param1);
-bool QWebPluginFactory_override_virtual_metacall(void* self, intptr_t slot);
-int QWebPluginFactory_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QWebPluginFactory_override_virtual_plugins(void* self, intptr_t slot);
-struct seaqt_array /* of QWebPluginFactory__Plugin* */  QWebPluginFactory_virtualbase_plugins(const void* self);
-bool QWebPluginFactory_override_virtual_refreshPlugins(void* self, intptr_t slot);
-void QWebPluginFactory_virtualbase_refreshPlugins(void* self);
-bool QWebPluginFactory_override_virtual_create(void* self, intptr_t slot);
-QObject* QWebPluginFactory_virtualbase_create(const void* self, struct seaqt_string mimeType, QUrl* param2, struct seaqt_array /* of struct seaqt_string */  argumentNames, struct seaqt_array /* of struct seaqt_string */  argumentValues);
-bool QWebPluginFactory_override_virtual_extension(void* self, intptr_t slot);
-bool QWebPluginFactory_virtualbase_extension(void* self, int extension, QWebPluginFactory__ExtensionOption* option, QWebPluginFactory__ExtensionReturn* output);
-bool QWebPluginFactory_override_virtual_supportsExtension(void* self, intptr_t slot);
-bool QWebPluginFactory_virtualbase_supportsExtension(const void* self, int extension);
-bool QWebPluginFactory_override_virtual_event(void* self, intptr_t slot);
-bool QWebPluginFactory_virtualbase_event(void* self, QEvent* event);
-bool QWebPluginFactory_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QWebPluginFactory_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QWebPluginFactory_override_virtual_timerEvent(void* self, intptr_t slot);
-void QWebPluginFactory_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QWebPluginFactory_override_virtual_childEvent(void* self, intptr_t slot);
-void QWebPluginFactory_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QWebPluginFactory_override_virtual_customEvent(void* self, intptr_t slot);
-void QWebPluginFactory_virtualbase_customEvent(void* self, QEvent* event);
-bool QWebPluginFactory_override_virtual_connectNotify(void* self, intptr_t slot);
-void QWebPluginFactory_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QWebPluginFactory_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QWebPluginFactory_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QWebPluginFactory_virtualbase_metaObject(const VirtualQWebPluginFactory* self);
+void* QWebPluginFactory_virtualbase_metacast(VirtualQWebPluginFactory* self, const char* param1);
+int QWebPluginFactory_virtualbase_metacall(VirtualQWebPluginFactory* self, int param1, int param2, void** param3);
+struct seaqt_array /* of QWebPluginFactory__Plugin* */  QWebPluginFactory_virtualbase_plugins(const VirtualQWebPluginFactory* self);
+void QWebPluginFactory_virtualbase_refreshPlugins(VirtualQWebPluginFactory* self);
+QObject* QWebPluginFactory_virtualbase_create(const VirtualQWebPluginFactory* self, struct seaqt_string mimeType, QUrl* param2, struct seaqt_array /* of struct seaqt_string */  argumentNames, struct seaqt_array /* of struct seaqt_string */  argumentValues);
+bool QWebPluginFactory_virtualbase_extension(VirtualQWebPluginFactory* self, int extension, QWebPluginFactory__ExtensionOption* option, QWebPluginFactory__ExtensionReturn* output);
+bool QWebPluginFactory_virtualbase_supportsExtension(const VirtualQWebPluginFactory* self, int extension);
+bool QWebPluginFactory_virtualbase_event(VirtualQWebPluginFactory* self, QEvent* event);
+bool QWebPluginFactory_virtualbase_eventFilter(VirtualQWebPluginFactory* self, QObject* watched, QEvent* event);
+void QWebPluginFactory_virtualbase_timerEvent(VirtualQWebPluginFactory* self, QTimerEvent* event);
+void QWebPluginFactory_virtualbase_childEvent(VirtualQWebPluginFactory* self, QChildEvent* event);
+void QWebPluginFactory_virtualbase_customEvent(VirtualQWebPluginFactory* self, QEvent* event);
+void QWebPluginFactory_virtualbase_connectNotify(VirtualQWebPluginFactory* self, QMetaMethod* signal);
+void QWebPluginFactory_virtualbase_disconnectNotify(VirtualQWebPluginFactory* self, QMetaMethod* signal);
 
-QObject* QWebPluginFactory_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QWebPluginFactory_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QWebPluginFactory_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QWebPluginFactory_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QWebPluginFactory_protectedbase_sender(const VirtualQWebPluginFactory* self);
+int QWebPluginFactory_protectedbase_senderSignalIndex(const VirtualQWebPluginFactory* self);
+int QWebPluginFactory_protectedbase_receivers(const VirtualQWebPluginFactory* self, const char* signal);
+bool QWebPluginFactory_protectedbase_isSignalConnected(const VirtualQWebPluginFactory* self, QMetaMethod* signal);
 
 const QMetaObject* QWebPluginFactory_staticMetaObject();
 void QWebPluginFactory_delete(QWebPluginFactory* self);
 
 QWebPluginFactory__MimeType* QWebPluginFactory__MimeType_new(QWebPluginFactory__MimeType* param1);
+
 bool QWebPluginFactory__MimeType_operatorEqual(const QWebPluginFactory__MimeType* self, QWebPluginFactory__MimeType* other);
 bool QWebPluginFactory__MimeType_operatorNotEqual(const QWebPluginFactory__MimeType* self, QWebPluginFactory__MimeType* other);
 void QWebPluginFactory__MimeType_operatorAssign(QWebPluginFactory__MimeType* self, QWebPluginFactory__MimeType* param1);
@@ -123,6 +133,7 @@ void QWebPluginFactory__MimeType_operatorAssign(QWebPluginFactory__MimeType* sel
 void QWebPluginFactory__MimeType_delete(QWebPluginFactory__MimeType* self);
 
 QWebPluginFactory__Plugin* QWebPluginFactory__Plugin_new(QWebPluginFactory__Plugin* param1);
+
 void QWebPluginFactory__Plugin_operatorAssign(QWebPluginFactory__Plugin* self, QWebPluginFactory__Plugin* param1);
 
 void QWebPluginFactory__Plugin_delete(QWebPluginFactory__Plugin* self);

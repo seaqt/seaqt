@@ -137,6 +137,7 @@ QVariant* QVariant_new42(QJsonDocument* jsonDocument);
 QVariant* QVariant_new43(QModelIndex* modelIndex);
 QVariant* QVariant_new44(QPersistentModelIndex* modelIndex);
 QVariant* QVariant_new45(struct seaqt_array /* of QVariant* */  list);
+
 void QVariant_operatorAssign(QVariant* self, QVariant* other);
 void QVariant_swap(QVariant* self, QVariant* other);
 int QVariant_type(const QVariant* self);
@@ -213,11 +214,13 @@ void QVariant_delete(QVariant* self);
 
 QVariantComparisonHelper* QVariantComparisonHelper_new(QVariant* var);
 QVariantComparisonHelper* QVariantComparisonHelper_new2(QVariantComparisonHelper* param1);
+
 void QVariantComparisonHelper_delete(QVariantComparisonHelper* self);
 
 void QVariant__Handler_delete(QVariant__Handler* self);
 
 QSequentialIterable__const_iterator* QSequentialIterable__const_iterator_new(QSequentialIterable__const_iterator* other);
+
 void QSequentialIterable__const_iterator_operatorAssign(QSequentialIterable__const_iterator* self, QSequentialIterable__const_iterator* other);
 QVariant* QSequentialIterable__const_iterator_operatorMultiply(const QSequentialIterable__const_iterator* self);
 bool QSequentialIterable__const_iterator_operatorEqual(const QSequentialIterable__const_iterator* self, QSequentialIterable__const_iterator* o);
@@ -234,6 +237,7 @@ QSequentialIterable__const_iterator* QSequentialIterable__const_iterator_operato
 void QSequentialIterable__const_iterator_delete(QSequentialIterable__const_iterator* self);
 
 QAssociativeIterable__const_iterator* QAssociativeIterable__const_iterator_new(QAssociativeIterable__const_iterator* other);
+
 void QAssociativeIterable__const_iterator_operatorAssign(QAssociativeIterable__const_iterator* self, QAssociativeIterable__const_iterator* other);
 QVariant* QAssociativeIterable__const_iterator_key(const QAssociativeIterable__const_iterator* self);
 QVariant* QAssociativeIterable__const_iterator_value(const QAssociativeIterable__const_iterator* self);

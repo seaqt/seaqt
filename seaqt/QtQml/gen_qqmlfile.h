@@ -29,6 +29,7 @@ typedef struct QUrl QUrl;
 QQmlFile* QQmlFile_new();
 QQmlFile* QQmlFile_new2(QQmlEngine* param1, QUrl* param2);
 QQmlFile* QQmlFile_new3(QQmlEngine* param1, struct seaqt_string param2);
+
 bool QQmlFile_isNull(const QQmlFile* self);
 bool QQmlFile_isReady(const QQmlFile* self);
 bool QQmlFile_isError(const QQmlFile* self);

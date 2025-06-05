@@ -23,6 +23,7 @@ typedef struct QOperatingSystemVersion QOperatingSystemVersion;
 QOperatingSystemVersion* QOperatingSystemVersion_new(int osType, int vmajor);
 QOperatingSystemVersion* QOperatingSystemVersion_new2(int osType, int vmajor, int vminor);
 QOperatingSystemVersion* QOperatingSystemVersion_new3(int osType, int vmajor, int vminor, int vmicro);
+
 QOperatingSystemVersion* QOperatingSystemVersion_current();
 int QOperatingSystemVersion_currentType();
 int QOperatingSystemVersion_majorVersion(const QOperatingSystemVersion* self);

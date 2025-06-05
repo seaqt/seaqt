@@ -36,11 +36,30 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QWidget QWidget;
 #endif
 
-QShortcut* QShortcut_new(QWidget* parent);
-QShortcut* QShortcut_new2(QKeySequence* key, QWidget* parent);
-QShortcut* QShortcut_new3(QKeySequence* key, QWidget* parent, const char* member);
-QShortcut* QShortcut_new4(QKeySequence* key, QWidget* parent, const char* member, const char* ambiguousMember);
-QShortcut* QShortcut_new5(QKeySequence* key, QWidget* parent, const char* member, const char* ambiguousMember, int shortcutContext);
+typedef struct VirtualQShortcut VirtualQShortcut;
+typedef struct QShortcut_VTable{
+	void (*destructor)(VirtualQShortcut* self);
+	QMetaObject* (*metaObject)(const VirtualQShortcut* self);
+	void* (*metacast)(VirtualQShortcut* self, const char* param1);
+	int (*metacall)(VirtualQShortcut* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQShortcut* self, QEvent* e);
+	bool (*eventFilter)(VirtualQShortcut* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQShortcut* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQShortcut* self, QChildEvent* event);
+	void (*customEvent)(VirtualQShortcut* self, QEvent* event);
+	void (*connectNotify)(VirtualQShortcut* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQShortcut* self, QMetaMethod* signal);
+}QShortcut_VTable;
+
+void* QShortcut_vdata(VirtualQShortcut* self);
+VirtualQShortcut* vdata_QShortcut(void* vdata);
+
+VirtualQShortcut* QShortcut_new(const QShortcut_VTable* vtbl, size_t vdata, QWidget* parent);
+VirtualQShortcut* QShortcut_new2(const QShortcut_VTable* vtbl, size_t vdata, QKeySequence* key, QWidget* parent);
+VirtualQShortcut* QShortcut_new3(const QShortcut_VTable* vtbl, size_t vdata, QKeySequence* key, QWidget* parent, const char* member);
+VirtualQShortcut* QShortcut_new4(const QShortcut_VTable* vtbl, size_t vdata, QKeySequence* key, QWidget* parent, const char* member, const char* ambiguousMember);
+VirtualQShortcut* QShortcut_new5(const QShortcut_VTable* vtbl, size_t vdata, QKeySequence* key, QWidget* parent, const char* member, const char* ambiguousMember, int shortcutContext);
+
 void QShortcut_virtbase(QShortcut* src, QObject** outptr_QObject);
 QMetaObject* QShortcut_metaObject(const QShortcut* self);
 void* QShortcut_metacast(QShortcut* self, const char* param1);
@@ -69,31 +88,21 @@ struct seaqt_string QShortcut_tr3(const char* s, const char* c, int n);
 struct seaqt_string QShortcut_trUtf82(const char* s, const char* c);
 struct seaqt_string QShortcut_trUtf83(const char* s, const char* c, int n);
 
-bool QShortcut_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QShortcut_virtualbase_metaObject(const void* self);
-bool QShortcut_override_virtual_metacast(void* self, intptr_t slot);
-void* QShortcut_virtualbase_metacast(void* self, const char* param1);
-bool QShortcut_override_virtual_metacall(void* self, intptr_t slot);
-int QShortcut_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QShortcut_override_virtual_event(void* self, intptr_t slot);
-bool QShortcut_virtualbase_event(void* self, QEvent* e);
-bool QShortcut_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QShortcut_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QShortcut_override_virtual_timerEvent(void* self, intptr_t slot);
-void QShortcut_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QShortcut_override_virtual_childEvent(void* self, intptr_t slot);
-void QShortcut_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QShortcut_override_virtual_customEvent(void* self, intptr_t slot);
-void QShortcut_virtualbase_customEvent(void* self, QEvent* event);
-bool QShortcut_override_virtual_connectNotify(void* self, intptr_t slot);
-void QShortcut_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QShortcut_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QShortcut_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QShortcut_virtualbase_metaObject(const VirtualQShortcut* self);
+void* QShortcut_virtualbase_metacast(VirtualQShortcut* self, const char* param1);
+int QShortcut_virtualbase_metacall(VirtualQShortcut* self, int param1, int param2, void** param3);
+bool QShortcut_virtualbase_event(VirtualQShortcut* self, QEvent* e);
+bool QShortcut_virtualbase_eventFilter(VirtualQShortcut* self, QObject* watched, QEvent* event);
+void QShortcut_virtualbase_timerEvent(VirtualQShortcut* self, QTimerEvent* event);
+void QShortcut_virtualbase_childEvent(VirtualQShortcut* self, QChildEvent* event);
+void QShortcut_virtualbase_customEvent(VirtualQShortcut* self, QEvent* event);
+void QShortcut_virtualbase_connectNotify(VirtualQShortcut* self, QMetaMethod* signal);
+void QShortcut_virtualbase_disconnectNotify(VirtualQShortcut* self, QMetaMethod* signal);
 
-QObject* QShortcut_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QShortcut_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QShortcut_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QShortcut_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QShortcut_protectedbase_sender(const VirtualQShortcut* self);
+int QShortcut_protectedbase_senderSignalIndex(const VirtualQShortcut* self);
+int QShortcut_protectedbase_receivers(const VirtualQShortcut* self, const char* signal);
+bool QShortcut_protectedbase_isSignalConnected(const VirtualQShortcut* self, QMetaMethod* signal);
 
 const QMetaObject* QShortcut_staticMetaObject();
 void QShortcut_delete(QShortcut* self);

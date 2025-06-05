@@ -38,8 +38,29 @@ typedef struct QObject QObject;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QAudioRecorder* QAudioRecorder_new();
-QAudioRecorder* QAudioRecorder_new2(QObject* parent);
+typedef struct VirtualQAudioRecorder VirtualQAudioRecorder;
+typedef struct QAudioRecorder_VTable{
+	void (*destructor)(VirtualQAudioRecorder* self);
+	QMetaObject* (*metaObject)(const VirtualQAudioRecorder* self);
+	void* (*metacast)(VirtualQAudioRecorder* self, const char* param1);
+	int (*metacall)(VirtualQAudioRecorder* self, int param1, int param2, void** param3);
+	QMediaObject* (*mediaObject)(const VirtualQAudioRecorder* self);
+	bool (*setMediaObject)(VirtualQAudioRecorder* self, QMediaObject* object);
+	bool (*event)(VirtualQAudioRecorder* self, QEvent* event);
+	bool (*eventFilter)(VirtualQAudioRecorder* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQAudioRecorder* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQAudioRecorder* self, QChildEvent* event);
+	void (*customEvent)(VirtualQAudioRecorder* self, QEvent* event);
+	void (*connectNotify)(VirtualQAudioRecorder* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQAudioRecorder* self, QMetaMethod* signal);
+}QAudioRecorder_VTable;
+
+void* QAudioRecorder_vdata(VirtualQAudioRecorder* self);
+VirtualQAudioRecorder* vdata_QAudioRecorder(void* vdata);
+
+VirtualQAudioRecorder* QAudioRecorder_new(const QAudioRecorder_VTable* vtbl, size_t vdata);
+VirtualQAudioRecorder* QAudioRecorder_new2(const QAudioRecorder_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QAudioRecorder_virtbase(QAudioRecorder* src, QMediaRecorder** outptr_QMediaRecorder);
 QMetaObject* QAudioRecorder_metaObject(const QAudioRecorder* self);
 void* QAudioRecorder_metacast(QAudioRecorder* self, const char* param1);
@@ -60,35 +81,23 @@ struct seaqt_string QAudioRecorder_tr3(const char* s, const char* c, int n);
 struct seaqt_string QAudioRecorder_trUtf82(const char* s, const char* c);
 struct seaqt_string QAudioRecorder_trUtf83(const char* s, const char* c, int n);
 
-bool QAudioRecorder_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QAudioRecorder_virtualbase_metaObject(const void* self);
-bool QAudioRecorder_override_virtual_metacast(void* self, intptr_t slot);
-void* QAudioRecorder_virtualbase_metacast(void* self, const char* param1);
-bool QAudioRecorder_override_virtual_metacall(void* self, intptr_t slot);
-int QAudioRecorder_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QAudioRecorder_override_virtual_mediaObject(void* self, intptr_t slot);
-QMediaObject* QAudioRecorder_virtualbase_mediaObject(const void* self);
-bool QAudioRecorder_override_virtual_setMediaObject(void* self, intptr_t slot);
-bool QAudioRecorder_virtualbase_setMediaObject(void* self, QMediaObject* object);
-bool QAudioRecorder_override_virtual_event(void* self, intptr_t slot);
-bool QAudioRecorder_virtualbase_event(void* self, QEvent* event);
-bool QAudioRecorder_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QAudioRecorder_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QAudioRecorder_override_virtual_timerEvent(void* self, intptr_t slot);
-void QAudioRecorder_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QAudioRecorder_override_virtual_childEvent(void* self, intptr_t slot);
-void QAudioRecorder_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QAudioRecorder_override_virtual_customEvent(void* self, intptr_t slot);
-void QAudioRecorder_virtualbase_customEvent(void* self, QEvent* event);
-bool QAudioRecorder_override_virtual_connectNotify(void* self, intptr_t slot);
-void QAudioRecorder_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QAudioRecorder_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QAudioRecorder_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QAudioRecorder_virtualbase_metaObject(const VirtualQAudioRecorder* self);
+void* QAudioRecorder_virtualbase_metacast(VirtualQAudioRecorder* self, const char* param1);
+int QAudioRecorder_virtualbase_metacall(VirtualQAudioRecorder* self, int param1, int param2, void** param3);
+QMediaObject* QAudioRecorder_virtualbase_mediaObject(const VirtualQAudioRecorder* self);
+bool QAudioRecorder_virtualbase_setMediaObject(VirtualQAudioRecorder* self, QMediaObject* object);
+bool QAudioRecorder_virtualbase_event(VirtualQAudioRecorder* self, QEvent* event);
+bool QAudioRecorder_virtualbase_eventFilter(VirtualQAudioRecorder* self, QObject* watched, QEvent* event);
+void QAudioRecorder_virtualbase_timerEvent(VirtualQAudioRecorder* self, QTimerEvent* event);
+void QAudioRecorder_virtualbase_childEvent(VirtualQAudioRecorder* self, QChildEvent* event);
+void QAudioRecorder_virtualbase_customEvent(VirtualQAudioRecorder* self, QEvent* event);
+void QAudioRecorder_virtualbase_connectNotify(VirtualQAudioRecorder* self, QMetaMethod* signal);
+void QAudioRecorder_virtualbase_disconnectNotify(VirtualQAudioRecorder* self, QMetaMethod* signal);
 
-QObject* QAudioRecorder_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QAudioRecorder_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QAudioRecorder_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QAudioRecorder_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QAudioRecorder_protectedbase_sender(const VirtualQAudioRecorder* self);
+int QAudioRecorder_protectedbase_senderSignalIndex(const VirtualQAudioRecorder* self);
+int QAudioRecorder_protectedbase_receivers(const VirtualQAudioRecorder* self, const char* signal);
+bool QAudioRecorder_protectedbase_isSignalConnected(const VirtualQAudioRecorder* self, QMetaMethod* signal);
 
 const QMetaObject* QAudioRecorder_staticMetaObject();
 void QAudioRecorder_delete(QAudioRecorder* self);

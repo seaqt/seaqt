@@ -32,6 +32,7 @@ QMediaResource* QMediaResource_new3(QNetworkRequest* request);
 QMediaResource* QMediaResource_new4(QMediaResource* other);
 QMediaResource* QMediaResource_new5(QUrl* url, struct seaqt_string mimeType);
 QMediaResource* QMediaResource_new6(QNetworkRequest* request, struct seaqt_string mimeType);
+
 void QMediaResource_operatorAssign(QMediaResource* self, QMediaResource* other);
 bool QMediaResource_isNull(const QMediaResource* self);
 bool QMediaResource_operatorEqual(const QMediaResource* self, QMediaResource* other);

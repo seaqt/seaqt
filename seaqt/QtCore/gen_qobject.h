@@ -55,8 +55,27 @@ QMetaObject* QObjectData_dynamicMetaObject(const QObjectData* self);
 
 void QObjectData_delete(QObjectData* self);
 
-QObject* QObject_new();
-QObject* QObject_new2(QObject* parent);
+typedef struct VirtualQObject VirtualQObject;
+typedef struct QObject_VTable{
+	void (*destructor)(VirtualQObject* self);
+	QMetaObject* (*metaObject)(const VirtualQObject* self);
+	void* (*metacast)(VirtualQObject* self, const char* param1);
+	int (*metacall)(VirtualQObject* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQObject* self, QEvent* event);
+	bool (*eventFilter)(VirtualQObject* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQObject* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQObject* self, QChildEvent* event);
+	void (*customEvent)(VirtualQObject* self, QEvent* event);
+	void (*connectNotify)(VirtualQObject* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQObject* self, QMetaMethod* signal);
+}QObject_VTable;
+
+void* QObject_vdata(VirtualQObject* self);
+VirtualQObject* vdata_QObject(void* vdata);
+
+VirtualQObject* QObject_new(const QObject_VTable* vtbl, size_t vdata);
+VirtualQObject* QObject_new2(const QObject_VTable* vtbl, size_t vdata, QObject* parent);
+
 QMetaObject* QObject_metaObject(const QObject* self);
 void* QObject_metacast(QObject* self, const char* param1);
 int QObject_metacall(QObject* self, int param1, int param2, void** param3);
@@ -112,42 +131,32 @@ QMetaObject__Connection* QObject_connect4(const QObject* self, QObject* sender, 
 void QObject_destroyedWithQObject(QObject* self, QObject* param1);
 void QObject_connect_destroyedWithQObject(QObject* self, intptr_t slot);
 
-bool QObject_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QObject_virtualbase_metaObject(const void* self);
-bool QObject_override_virtual_metacast(void* self, intptr_t slot);
-void* QObject_virtualbase_metacast(void* self, const char* param1);
-bool QObject_override_virtual_metacall(void* self, intptr_t slot);
-int QObject_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QObject_override_virtual_event(void* self, intptr_t slot);
-bool QObject_virtualbase_event(void* self, QEvent* event);
-bool QObject_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QObject_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QObject_override_virtual_timerEvent(void* self, intptr_t slot);
-void QObject_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QObject_override_virtual_childEvent(void* self, intptr_t slot);
-void QObject_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QObject_override_virtual_customEvent(void* self, intptr_t slot);
-void QObject_virtualbase_customEvent(void* self, QEvent* event);
-bool QObject_override_virtual_connectNotify(void* self, intptr_t slot);
-void QObject_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QObject_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QObject_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QObject_virtualbase_metaObject(const VirtualQObject* self);
+void* QObject_virtualbase_metacast(VirtualQObject* self, const char* param1);
+int QObject_virtualbase_metacall(VirtualQObject* self, int param1, int param2, void** param3);
+bool QObject_virtualbase_event(VirtualQObject* self, QEvent* event);
+bool QObject_virtualbase_eventFilter(VirtualQObject* self, QObject* watched, QEvent* event);
+void QObject_virtualbase_timerEvent(VirtualQObject* self, QTimerEvent* event);
+void QObject_virtualbase_childEvent(VirtualQObject* self, QChildEvent* event);
+void QObject_virtualbase_customEvent(VirtualQObject* self, QEvent* event);
+void QObject_virtualbase_connectNotify(VirtualQObject* self, QMetaMethod* signal);
+void QObject_virtualbase_disconnectNotify(VirtualQObject* self, QMetaMethod* signal);
 
-QObject* QObject_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QObject_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QObject_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QObject_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
-
-void QObject_connect_objectNameChanged(QObject* self, intptr_t slot);
+QObject* QObject_protectedbase_sender(const VirtualQObject* self);
+int QObject_protectedbase_senderSignalIndex(const VirtualQObject* self);
+int QObject_protectedbase_receivers(const VirtualQObject* self, const char* signal);
+bool QObject_protectedbase_isSignalConnected(const VirtualQObject* self, QMetaMethod* signal);
 
 const QMetaObject* QObject_staticMetaObject();
 void QObject_delete(QObject* self);
 
 QObjectUserData* QObjectUserData_new();
+
 void QObjectUserData_delete(QObjectUserData* self);
 
 QSignalBlocker* QSignalBlocker_new(QObject* o);
 QSignalBlocker* QSignalBlocker_new2(QObject* o);
+
 void QSignalBlocker_reblock(QSignalBlocker* self);
 void QSignalBlocker_unblock(QSignalBlocker* self);
 
