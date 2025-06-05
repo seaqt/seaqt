@@ -51,6 +51,17 @@
 #include <qwebengineview.h>
 #include "gen_qwebengineview.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -67,110 +78,51 @@ void miqt_exec_callback_QWebEngineView_renderProcessTerminated(intptr_t, int, in
 void miqt_exec_callback_QWebEngineView_pdfPrintingFinished(intptr_t, struct seaqt_string, bool);
 void miqt_exec_callback_QWebEngineView_printRequested(intptr_t);
 void miqt_exec_callback_QWebEngineView_printFinished(intptr_t, bool);
-QMetaObject* miqt_exec_callback_QWebEngineView_metaObject(const QWebEngineView*, intptr_t);
-void* miqt_exec_callback_QWebEngineView_metacast(QWebEngineView*, intptr_t, const char*);
-int miqt_exec_callback_QWebEngineView_metacall(QWebEngineView*, intptr_t, int, int, void**);
-QSize* miqt_exec_callback_QWebEngineView_sizeHint(const QWebEngineView*, intptr_t);
-QWebEngineView* miqt_exec_callback_QWebEngineView_createWindow(QWebEngineView*, intptr_t, int);
-void miqt_exec_callback_QWebEngineView_contextMenuEvent(QWebEngineView*, intptr_t, QContextMenuEvent*);
-bool miqt_exec_callback_QWebEngineView_event(QWebEngineView*, intptr_t, QEvent*);
-void miqt_exec_callback_QWebEngineView_showEvent(QWebEngineView*, intptr_t, QShowEvent*);
-void miqt_exec_callback_QWebEngineView_hideEvent(QWebEngineView*, intptr_t, QHideEvent*);
-void miqt_exec_callback_QWebEngineView_closeEvent(QWebEngineView*, intptr_t, QCloseEvent*);
-void miqt_exec_callback_QWebEngineView_dragEnterEvent(QWebEngineView*, intptr_t, QDragEnterEvent*);
-void miqt_exec_callback_QWebEngineView_dragLeaveEvent(QWebEngineView*, intptr_t, QDragLeaveEvent*);
-void miqt_exec_callback_QWebEngineView_dragMoveEvent(QWebEngineView*, intptr_t, QDragMoveEvent*);
-void miqt_exec_callback_QWebEngineView_dropEvent(QWebEngineView*, intptr_t, QDropEvent*);
-int miqt_exec_callback_QWebEngineView_devType(const QWebEngineView*, intptr_t);
-void miqt_exec_callback_QWebEngineView_setVisible(QWebEngineView*, intptr_t, bool);
-QSize* miqt_exec_callback_QWebEngineView_minimumSizeHint(const QWebEngineView*, intptr_t);
-int miqt_exec_callback_QWebEngineView_heightForWidth(const QWebEngineView*, intptr_t, int);
-bool miqt_exec_callback_QWebEngineView_hasHeightForWidth(const QWebEngineView*, intptr_t);
-QPaintEngine* miqt_exec_callback_QWebEngineView_paintEngine(const QWebEngineView*, intptr_t);
-void miqt_exec_callback_QWebEngineView_mousePressEvent(QWebEngineView*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QWebEngineView_mouseReleaseEvent(QWebEngineView*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QWebEngineView_mouseDoubleClickEvent(QWebEngineView*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QWebEngineView_mouseMoveEvent(QWebEngineView*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QWebEngineView_wheelEvent(QWebEngineView*, intptr_t, QWheelEvent*);
-void miqt_exec_callback_QWebEngineView_keyPressEvent(QWebEngineView*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QWebEngineView_keyReleaseEvent(QWebEngineView*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QWebEngineView_focusInEvent(QWebEngineView*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QWebEngineView_focusOutEvent(QWebEngineView*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QWebEngineView_enterEvent(QWebEngineView*, intptr_t, QEnterEvent*);
-void miqt_exec_callback_QWebEngineView_leaveEvent(QWebEngineView*, intptr_t, QEvent*);
-void miqt_exec_callback_QWebEngineView_paintEvent(QWebEngineView*, intptr_t, QPaintEvent*);
-void miqt_exec_callback_QWebEngineView_moveEvent(QWebEngineView*, intptr_t, QMoveEvent*);
-void miqt_exec_callback_QWebEngineView_resizeEvent(QWebEngineView*, intptr_t, QResizeEvent*);
-void miqt_exec_callback_QWebEngineView_tabletEvent(QWebEngineView*, intptr_t, QTabletEvent*);
-void miqt_exec_callback_QWebEngineView_actionEvent(QWebEngineView*, intptr_t, QActionEvent*);
-bool miqt_exec_callback_QWebEngineView_nativeEvent(QWebEngineView*, intptr_t, struct seaqt_string, void*, intptr_t*);
-void miqt_exec_callback_QWebEngineView_changeEvent(QWebEngineView*, intptr_t, QEvent*);
-int miqt_exec_callback_QWebEngineView_metric(const QWebEngineView*, intptr_t, int);
-void miqt_exec_callback_QWebEngineView_initPainter(const QWebEngineView*, intptr_t, QPainter*);
-QPaintDevice* miqt_exec_callback_QWebEngineView_redirected(const QWebEngineView*, intptr_t, QPoint*);
-QPainter* miqt_exec_callback_QWebEngineView_sharedPainter(const QWebEngineView*, intptr_t);
-void miqt_exec_callback_QWebEngineView_inputMethodEvent(QWebEngineView*, intptr_t, QInputMethodEvent*);
-QVariant* miqt_exec_callback_QWebEngineView_inputMethodQuery(const QWebEngineView*, intptr_t, int);
-bool miqt_exec_callback_QWebEngineView_focusNextPrevChild(QWebEngineView*, intptr_t, bool);
-bool miqt_exec_callback_QWebEngineView_eventFilter(QWebEngineView*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QWebEngineView_timerEvent(QWebEngineView*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QWebEngineView_childEvent(QWebEngineView*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QWebEngineView_customEvent(QWebEngineView*, intptr_t, QEvent*);
-void miqt_exec_callback_QWebEngineView_connectNotify(QWebEngineView*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QWebEngineView_disconnectNotify(QWebEngineView*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQWebEngineView final : public QWebEngineView {
+	const QWebEngineView_VTable* vtbl;
 public:
+	friend void* QWebEngineView_vdata(VirtualQWebEngineView* self);
+	friend VirtualQWebEngineView* vdata_QWebEngineView(void* vdata);
 
-	VirtualQWebEngineView(QWidget* parent): QWebEngineView(parent) {}
-	VirtualQWebEngineView(): QWebEngineView() {}
-	VirtualQWebEngineView(QWebEngineProfile* profile): QWebEngineView(profile) {}
-	VirtualQWebEngineView(QWebEnginePage* page): QWebEngineView(page) {}
-	VirtualQWebEngineView(QWebEngineProfile* profile, QWidget* parent): QWebEngineView(profile, parent) {}
-	VirtualQWebEngineView(QWebEnginePage* page, QWidget* parent): QWebEngineView(page, parent) {}
+	VirtualQWebEngineView(const QWebEngineView_VTable* vtbl, QWidget* parent): QWebEngineView(parent), vtbl(vtbl) {}
+	VirtualQWebEngineView(const QWebEngineView_VTable* vtbl): QWebEngineView(), vtbl(vtbl) {}
+	VirtualQWebEngineView(const QWebEngineView_VTable* vtbl, QWebEngineProfile* profile): QWebEngineView(profile), vtbl(vtbl) {}
+	VirtualQWebEngineView(const QWebEngineView_VTable* vtbl, QWebEnginePage* page): QWebEngineView(page), vtbl(vtbl) {}
+	VirtualQWebEngineView(const QWebEngineView_VTable* vtbl, QWebEngineProfile* profile, QWidget* parent): QWebEngineView(profile, parent), vtbl(vtbl) {}
+	VirtualQWebEngineView(const QWebEngineView_VTable* vtbl, QWebEnginePage* page, QWidget* parent): QWebEngineView(page, parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQWebEngineView() override = default;
+	virtual ~VirtualQWebEngineView() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QWebEngineView::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QWebEngineView_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QWebEngineView_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QWebEngineView_virtualbase_metaObject(const VirtualQWebEngineView* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QWebEngineView::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QWebEngineView_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QWebEngineView_virtualbase_metacast(void* self, const char* param1);
+	friend void* QWebEngineView_virtualbase_metacast(VirtualQWebEngineView* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QWebEngineView::qt_metacall(param1, param2, param3);
 		}
 
@@ -178,567 +130,406 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QWebEngineView_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QWebEngineView_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QWebEngineView_virtualbase_metacall(VirtualQWebEngineView* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize sizeHint() const override {
-		if (handle__sizeHint == 0) {
+		if (vtbl->sizeHint == 0) {
 			return QWebEngineView::sizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QWebEngineView_sizeHint(this, handle__sizeHint);
+		QSize* callback_return_value = vtbl->sizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QWebEngineView_virtualbase_sizeHint(const void* self);
+	friend QSize* QWebEngineView_virtualbase_sizeHint(const VirtualQWebEngineView* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__createWindow = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QWebEngineView* createWindow(QWebEnginePage::WebWindowType type) override {
-		if (handle__createWindow == 0) {
+		if (vtbl->createWindow == 0) {
 			return QWebEngineView::createWindow(type);
 		}
 
 		QWebEnginePage::WebWindowType type_ret = type;
 		int sigval1 = static_cast<int>(type_ret);
-		QWebEngineView* callback_return_value = miqt_exec_callback_QWebEngineView_createWindow(this, handle__createWindow, sigval1);
+		QWebEngineView* callback_return_value = vtbl->createWindow(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QWebEngineView* QWebEngineView_virtualbase_createWindow(void* self, int type);
+	friend QWebEngineView* QWebEngineView_virtualbase_createWindow(VirtualQWebEngineView* self, int type);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__contextMenuEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void contextMenuEvent(QContextMenuEvent* param1) override {
-		if (handle__contextMenuEvent == 0) {
+		if (vtbl->contextMenuEvent == 0) {
 			QWebEngineView::contextMenuEvent(param1);
 			return;
 		}
 
 		QContextMenuEvent* sigval1 = param1;
-		miqt_exec_callback_QWebEngineView_contextMenuEvent(this, handle__contextMenuEvent, sigval1);
-
+		vtbl->contextMenuEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* param1);
+	friend void QWebEngineView_virtualbase_contextMenuEvent(VirtualQWebEngineView* self, QContextMenuEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* param1) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QWebEngineView::event(param1);
 		}
 
 		QEvent* sigval1 = param1;
-		bool callback_return_value = miqt_exec_callback_QWebEngineView_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QWebEngineView_virtualbase_event(void* self, QEvent* param1);
+	friend bool QWebEngineView_virtualbase_event(VirtualQWebEngineView* self, QEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__showEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void showEvent(QShowEvent* param1) override {
-		if (handle__showEvent == 0) {
+		if (vtbl->showEvent == 0) {
 			QWebEngineView::showEvent(param1);
 			return;
 		}
 
 		QShowEvent* sigval1 = param1;
-		miqt_exec_callback_QWebEngineView_showEvent(this, handle__showEvent, sigval1);
-
+		vtbl->showEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_showEvent(void* self, QShowEvent* param1);
+	friend void QWebEngineView_virtualbase_showEvent(VirtualQWebEngineView* self, QShowEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hideEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void hideEvent(QHideEvent* param1) override {
-		if (handle__hideEvent == 0) {
+		if (vtbl->hideEvent == 0) {
 			QWebEngineView::hideEvent(param1);
 			return;
 		}
 
 		QHideEvent* sigval1 = param1;
-		miqt_exec_callback_QWebEngineView_hideEvent(this, handle__hideEvent, sigval1);
-
+		vtbl->hideEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_hideEvent(void* self, QHideEvent* param1);
+	friend void QWebEngineView_virtualbase_hideEvent(VirtualQWebEngineView* self, QHideEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__closeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void closeEvent(QCloseEvent* param1) override {
-		if (handle__closeEvent == 0) {
+		if (vtbl->closeEvent == 0) {
 			QWebEngineView::closeEvent(param1);
 			return;
 		}
 
 		QCloseEvent* sigval1 = param1;
-		miqt_exec_callback_QWebEngineView_closeEvent(this, handle__closeEvent, sigval1);
-
+		vtbl->closeEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_closeEvent(void* self, QCloseEvent* param1);
+	friend void QWebEngineView_virtualbase_closeEvent(VirtualQWebEngineView* self, QCloseEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragEnterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragEnterEvent(QDragEnterEvent* e) override {
-		if (handle__dragEnterEvent == 0) {
+		if (vtbl->dragEnterEvent == 0) {
 			QWebEngineView::dragEnterEvent(e);
 			return;
 		}
 
 		QDragEnterEvent* sigval1 = e;
-		miqt_exec_callback_QWebEngineView_dragEnterEvent(this, handle__dragEnterEvent, sigval1);
-
+		vtbl->dragEnterEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* e);
+	friend void QWebEngineView_virtualbase_dragEnterEvent(VirtualQWebEngineView* self, QDragEnterEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragLeaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragLeaveEvent(QDragLeaveEvent* e) override {
-		if (handle__dragLeaveEvent == 0) {
+		if (vtbl->dragLeaveEvent == 0) {
 			QWebEngineView::dragLeaveEvent(e);
 			return;
 		}
 
 		QDragLeaveEvent* sigval1 = e;
-		miqt_exec_callback_QWebEngineView_dragLeaveEvent(this, handle__dragLeaveEvent, sigval1);
-
+		vtbl->dragLeaveEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* e);
+	friend void QWebEngineView_virtualbase_dragLeaveEvent(VirtualQWebEngineView* self, QDragLeaveEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragMoveEvent(QDragMoveEvent* e) override {
-		if (handle__dragMoveEvent == 0) {
+		if (vtbl->dragMoveEvent == 0) {
 			QWebEngineView::dragMoveEvent(e);
 			return;
 		}
 
 		QDragMoveEvent* sigval1 = e;
-		miqt_exec_callback_QWebEngineView_dragMoveEvent(this, handle__dragMoveEvent, sigval1);
-
+		vtbl->dragMoveEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* e);
+	friend void QWebEngineView_virtualbase_dragMoveEvent(VirtualQWebEngineView* self, QDragMoveEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dropEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dropEvent(QDropEvent* e) override {
-		if (handle__dropEvent == 0) {
+		if (vtbl->dropEvent == 0) {
 			QWebEngineView::dropEvent(e);
 			return;
 		}
 
 		QDropEvent* sigval1 = e;
-		miqt_exec_callback_QWebEngineView_dropEvent(this, handle__dropEvent, sigval1);
-
+		vtbl->dropEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_dropEvent(void* self, QDropEvent* e);
+	friend void QWebEngineView_virtualbase_dropEvent(VirtualQWebEngineView* self, QDropEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__devType = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int devType() const override {
-		if (handle__devType == 0) {
+		if (vtbl->devType == 0) {
 			return QWebEngineView::devType();
 		}
 
-		int callback_return_value = miqt_exec_callback_QWebEngineView_devType(this, handle__devType);
+		int callback_return_value = vtbl->devType(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QWebEngineView_virtualbase_devType(const void* self);
+	friend int QWebEngineView_virtualbase_devType(const VirtualQWebEngineView* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setVisible = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setVisible(bool visible) override {
-		if (handle__setVisible == 0) {
+		if (vtbl->setVisible == 0) {
 			QWebEngineView::setVisible(visible);
 			return;
 		}
 
 		bool sigval1 = visible;
-		miqt_exec_callback_QWebEngineView_setVisible(this, handle__setVisible, sigval1);
-
+		vtbl->setVisible(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_setVisible(void* self, bool visible);
+	friend void QWebEngineView_virtualbase_setVisible(VirtualQWebEngineView* self, bool visible);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__minimumSizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize minimumSizeHint() const override {
-		if (handle__minimumSizeHint == 0) {
+		if (vtbl->minimumSizeHint == 0) {
 			return QWebEngineView::minimumSizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QWebEngineView_minimumSizeHint(this, handle__minimumSizeHint);
+		QSize* callback_return_value = vtbl->minimumSizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QWebEngineView_virtualbase_minimumSizeHint(const void* self);
+	friend QSize* QWebEngineView_virtualbase_minimumSizeHint(const VirtualQWebEngineView* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__heightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int heightForWidth(int param1) const override {
-		if (handle__heightForWidth == 0) {
+		if (vtbl->heightForWidth == 0) {
 			return QWebEngineView::heightForWidth(param1);
 		}
 
 		int sigval1 = param1;
-		int callback_return_value = miqt_exec_callback_QWebEngineView_heightForWidth(this, handle__heightForWidth, sigval1);
+		int callback_return_value = vtbl->heightForWidth(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QWebEngineView_virtualbase_heightForWidth(const void* self, int param1);
+	friend int QWebEngineView_virtualbase_heightForWidth(const VirtualQWebEngineView* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hasHeightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool hasHeightForWidth() const override {
-		if (handle__hasHeightForWidth == 0) {
+		if (vtbl->hasHeightForWidth == 0) {
 			return QWebEngineView::hasHeightForWidth();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QWebEngineView_hasHeightForWidth(this, handle__hasHeightForWidth);
+		bool callback_return_value = vtbl->hasHeightForWidth(this);
 		return callback_return_value;
 	}
 
-	friend bool QWebEngineView_virtualbase_hasHeightForWidth(const void* self);
+	friend bool QWebEngineView_virtualbase_hasHeightForWidth(const VirtualQWebEngineView* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEngine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintEngine* paintEngine() const override {
-		if (handle__paintEngine == 0) {
+		if (vtbl->paintEngine == 0) {
 			return QWebEngineView::paintEngine();
 		}
 
-		QPaintEngine* callback_return_value = miqt_exec_callback_QWebEngineView_paintEngine(this, handle__paintEngine);
+		QPaintEngine* callback_return_value = vtbl->paintEngine(this);
 		return callback_return_value;
 	}
 
-	friend QPaintEngine* QWebEngineView_virtualbase_paintEngine(const void* self);
+	friend QPaintEngine* QWebEngineView_virtualbase_paintEngine(const VirtualQWebEngineView* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mousePressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mousePressEvent(QMouseEvent* event) override {
-		if (handle__mousePressEvent == 0) {
+		if (vtbl->mousePressEvent == 0) {
 			QWebEngineView::mousePressEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_mousePressEvent(this, handle__mousePressEvent, sigval1);
-
+		vtbl->mousePressEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_mousePressEvent(void* self, QMouseEvent* event);
+	friend void QWebEngineView_virtualbase_mousePressEvent(VirtualQWebEngineView* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseReleaseEvent(QMouseEvent* event) override {
-		if (handle__mouseReleaseEvent == 0) {
+		if (vtbl->mouseReleaseEvent == 0) {
 			QWebEngineView::mouseReleaseEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_mouseReleaseEvent(this, handle__mouseReleaseEvent, sigval1);
-
+		vtbl->mouseReleaseEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* event);
+	friend void QWebEngineView_virtualbase_mouseReleaseEvent(VirtualQWebEngineView* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseDoubleClickEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseDoubleClickEvent(QMouseEvent* event) override {
-		if (handle__mouseDoubleClickEvent == 0) {
+		if (vtbl->mouseDoubleClickEvent == 0) {
 			QWebEngineView::mouseDoubleClickEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_mouseDoubleClickEvent(this, handle__mouseDoubleClickEvent, sigval1);
-
+		vtbl->mouseDoubleClickEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* event);
+	friend void QWebEngineView_virtualbase_mouseDoubleClickEvent(VirtualQWebEngineView* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseMoveEvent(QMouseEvent* event) override {
-		if (handle__mouseMoveEvent == 0) {
+		if (vtbl->mouseMoveEvent == 0) {
 			QWebEngineView::mouseMoveEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_mouseMoveEvent(this, handle__mouseMoveEvent, sigval1);
-
+		vtbl->mouseMoveEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_mouseMoveEvent(void* self, QMouseEvent* event);
+	friend void QWebEngineView_virtualbase_mouseMoveEvent(VirtualQWebEngineView* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__wheelEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void wheelEvent(QWheelEvent* event) override {
-		if (handle__wheelEvent == 0) {
+		if (vtbl->wheelEvent == 0) {
 			QWebEngineView::wheelEvent(event);
 			return;
 		}
 
 		QWheelEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_wheelEvent(this, handle__wheelEvent, sigval1);
-
+		vtbl->wheelEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_wheelEvent(void* self, QWheelEvent* event);
+	friend void QWebEngineView_virtualbase_wheelEvent(VirtualQWebEngineView* self, QWheelEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyPressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyPressEvent(QKeyEvent* event) override {
-		if (handle__keyPressEvent == 0) {
+		if (vtbl->keyPressEvent == 0) {
 			QWebEngineView::keyPressEvent(event);
 			return;
 		}
 
 		QKeyEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_keyPressEvent(this, handle__keyPressEvent, sigval1);
-
+		vtbl->keyPressEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_keyPressEvent(void* self, QKeyEvent* event);
+	friend void QWebEngineView_virtualbase_keyPressEvent(VirtualQWebEngineView* self, QKeyEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyReleaseEvent(QKeyEvent* event) override {
-		if (handle__keyReleaseEvent == 0) {
+		if (vtbl->keyReleaseEvent == 0) {
 			QWebEngineView::keyReleaseEvent(event);
 			return;
 		}
 
 		QKeyEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_keyReleaseEvent(this, handle__keyReleaseEvent, sigval1);
-
+		vtbl->keyReleaseEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event);
+	friend void QWebEngineView_virtualbase_keyReleaseEvent(VirtualQWebEngineView* self, QKeyEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusInEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusInEvent(QFocusEvent* event) override {
-		if (handle__focusInEvent == 0) {
+		if (vtbl->focusInEvent == 0) {
 			QWebEngineView::focusInEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_focusInEvent(this, handle__focusInEvent, sigval1);
-
+		vtbl->focusInEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_focusInEvent(void* self, QFocusEvent* event);
+	friend void QWebEngineView_virtualbase_focusInEvent(VirtualQWebEngineView* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusOutEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusOutEvent(QFocusEvent* event) override {
-		if (handle__focusOutEvent == 0) {
+		if (vtbl->focusOutEvent == 0) {
 			QWebEngineView::focusOutEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_focusOutEvent(this, handle__focusOutEvent, sigval1);
-
+		vtbl->focusOutEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_focusOutEvent(void* self, QFocusEvent* event);
+	friend void QWebEngineView_virtualbase_focusOutEvent(VirtualQWebEngineView* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__enterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void enterEvent(QEnterEvent* event) override {
-		if (handle__enterEvent == 0) {
+		if (vtbl->enterEvent == 0) {
 			QWebEngineView::enterEvent(event);
 			return;
 		}
 
 		QEnterEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_enterEvent(this, handle__enterEvent, sigval1);
-
+		vtbl->enterEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_enterEvent(void* self, QEnterEvent* event);
+	friend void QWebEngineView_virtualbase_enterEvent(VirtualQWebEngineView* self, QEnterEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__leaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void leaveEvent(QEvent* event) override {
-		if (handle__leaveEvent == 0) {
+		if (vtbl->leaveEvent == 0) {
 			QWebEngineView::leaveEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_leaveEvent(this, handle__leaveEvent, sigval1);
-
+		vtbl->leaveEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_leaveEvent(void* self, QEvent* event);
+	friend void QWebEngineView_virtualbase_leaveEvent(VirtualQWebEngineView* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void paintEvent(QPaintEvent* event) override {
-		if (handle__paintEvent == 0) {
+		if (vtbl->paintEvent == 0) {
 			QWebEngineView::paintEvent(event);
 			return;
 		}
 
 		QPaintEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_paintEvent(this, handle__paintEvent, sigval1);
-
+		vtbl->paintEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_paintEvent(void* self, QPaintEvent* event);
+	friend void QWebEngineView_virtualbase_paintEvent(VirtualQWebEngineView* self, QPaintEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__moveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void moveEvent(QMoveEvent* event) override {
-		if (handle__moveEvent == 0) {
+		if (vtbl->moveEvent == 0) {
 			QWebEngineView::moveEvent(event);
 			return;
 		}
 
 		QMoveEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_moveEvent(this, handle__moveEvent, sigval1);
-
+		vtbl->moveEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_moveEvent(void* self, QMoveEvent* event);
+	friend void QWebEngineView_virtualbase_moveEvent(VirtualQWebEngineView* self, QMoveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__resizeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void resizeEvent(QResizeEvent* event) override {
-		if (handle__resizeEvent == 0) {
+		if (vtbl->resizeEvent == 0) {
 			QWebEngineView::resizeEvent(event);
 			return;
 		}
 
 		QResizeEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_resizeEvent(this, handle__resizeEvent, sigval1);
-
+		vtbl->resizeEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_resizeEvent(void* self, QResizeEvent* event);
+	friend void QWebEngineView_virtualbase_resizeEvent(VirtualQWebEngineView* self, QResizeEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__tabletEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void tabletEvent(QTabletEvent* event) override {
-		if (handle__tabletEvent == 0) {
+		if (vtbl->tabletEvent == 0) {
 			QWebEngineView::tabletEvent(event);
 			return;
 		}
 
 		QTabletEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_tabletEvent(this, handle__tabletEvent, sigval1);
-
+		vtbl->tabletEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_tabletEvent(void* self, QTabletEvent* event);
+	friend void QWebEngineView_virtualbase_tabletEvent(VirtualQWebEngineView* self, QTabletEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__actionEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void actionEvent(QActionEvent* event) override {
-		if (handle__actionEvent == 0) {
+		if (vtbl->actionEvent == 0) {
 			QWebEngineView::actionEvent(event);
 			return;
 		}
 
 		QActionEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_actionEvent(this, handle__actionEvent, sigval1);
-
+		vtbl->actionEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_actionEvent(void* self, QActionEvent* event);
+	friend void QWebEngineView_virtualbase_actionEvent(VirtualQWebEngineView* self, QActionEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__nativeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool nativeEvent(const QByteArray& eventType, void* message, qintptr* result) override {
-		if (handle__nativeEvent == 0) {
+		if (vtbl->nativeEvent == 0) {
 			return QWebEngineView::nativeEvent(eventType, message, result);
 		}
 
@@ -751,218 +542,160 @@ public:
 		void* sigval2 = message;
 		qintptr* result_ret = result;
 		intptr_t* sigval3 = (intptr_t*)(result_ret);
-		bool callback_return_value = miqt_exec_callback_QWebEngineView_nativeEvent(this, handle__nativeEvent, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->nativeEvent(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QWebEngineView_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, intptr_t* result);
+	friend bool QWebEngineView_virtualbase_nativeEvent(VirtualQWebEngineView* self, struct seaqt_string eventType, void* message, intptr_t* result);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__changeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void changeEvent(QEvent* param1) override {
-		if (handle__changeEvent == 0) {
+		if (vtbl->changeEvent == 0) {
 			QWebEngineView::changeEvent(param1);
 			return;
 		}
 
 		QEvent* sigval1 = param1;
-		miqt_exec_callback_QWebEngineView_changeEvent(this, handle__changeEvent, sigval1);
-
+		vtbl->changeEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_changeEvent(void* self, QEvent* param1);
+	friend void QWebEngineView_virtualbase_changeEvent(VirtualQWebEngineView* self, QEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metric = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int metric(QPaintDevice::PaintDeviceMetric param1) const override {
-		if (handle__metric == 0) {
+		if (vtbl->metric == 0) {
 			return QWebEngineView::metric(param1);
 		}
 
 		QPaintDevice::PaintDeviceMetric param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		int callback_return_value = miqt_exec_callback_QWebEngineView_metric(this, handle__metric, sigval1);
+		int callback_return_value = vtbl->metric(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QWebEngineView_virtualbase_metric(const void* self, int param1);
+	friend int QWebEngineView_virtualbase_metric(const VirtualQWebEngineView* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__initPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void initPainter(QPainter* painter) const override {
-		if (handle__initPainter == 0) {
+		if (vtbl->initPainter == 0) {
 			QWebEngineView::initPainter(painter);
 			return;
 		}
 
 		QPainter* sigval1 = painter;
-		miqt_exec_callback_QWebEngineView_initPainter(this, handle__initPainter, sigval1);
-
+		vtbl->initPainter(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_initPainter(const void* self, QPainter* painter);
+	friend void QWebEngineView_virtualbase_initPainter(const VirtualQWebEngineView* self, QPainter* painter);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__redirected = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintDevice* redirected(QPoint* offset) const override {
-		if (handle__redirected == 0) {
+		if (vtbl->redirected == 0) {
 			return QWebEngineView::redirected(offset);
 		}
 
 		QPoint* sigval1 = offset;
-		QPaintDevice* callback_return_value = miqt_exec_callback_QWebEngineView_redirected(this, handle__redirected, sigval1);
+		QPaintDevice* callback_return_value = vtbl->redirected(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QPaintDevice* QWebEngineView_virtualbase_redirected(const void* self, QPoint* offset);
+	friend QPaintDevice* QWebEngineView_virtualbase_redirected(const VirtualQWebEngineView* self, QPoint* offset);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sharedPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPainter* sharedPainter() const override {
-		if (handle__sharedPainter == 0) {
+		if (vtbl->sharedPainter == 0) {
 			return QWebEngineView::sharedPainter();
 		}
 
-		QPainter* callback_return_value = miqt_exec_callback_QWebEngineView_sharedPainter(this, handle__sharedPainter);
+		QPainter* callback_return_value = vtbl->sharedPainter(this);
 		return callback_return_value;
 	}
 
-	friend QPainter* QWebEngineView_virtualbase_sharedPainter(const void* self);
+	friend QPainter* QWebEngineView_virtualbase_sharedPainter(const VirtualQWebEngineView* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void inputMethodEvent(QInputMethodEvent* param1) override {
-		if (handle__inputMethodEvent == 0) {
+		if (vtbl->inputMethodEvent == 0) {
 			QWebEngineView::inputMethodEvent(param1);
 			return;
 		}
 
 		QInputMethodEvent* sigval1 = param1;
-		miqt_exec_callback_QWebEngineView_inputMethodEvent(this, handle__inputMethodEvent, sigval1);
-
+		vtbl->inputMethodEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1);
+	friend void QWebEngineView_virtualbase_inputMethodEvent(VirtualQWebEngineView* self, QInputMethodEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodQuery = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant inputMethodQuery(Qt::InputMethodQuery param1) const override {
-		if (handle__inputMethodQuery == 0) {
+		if (vtbl->inputMethodQuery == 0) {
 			return QWebEngineView::inputMethodQuery(param1);
 		}
 
 		Qt::InputMethodQuery param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		QVariant* callback_return_value = miqt_exec_callback_QWebEngineView_inputMethodQuery(this, handle__inputMethodQuery, sigval1);
+		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QWebEngineView_virtualbase_inputMethodQuery(const void* self, int param1);
+	friend QVariant* QWebEngineView_virtualbase_inputMethodQuery(const VirtualQWebEngineView* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusNextPrevChild = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool focusNextPrevChild(bool next) override {
-		if (handle__focusNextPrevChild == 0) {
+		if (vtbl->focusNextPrevChild == 0) {
 			return QWebEngineView::focusNextPrevChild(next);
 		}
 
 		bool sigval1 = next;
-		bool callback_return_value = miqt_exec_callback_QWebEngineView_focusNextPrevChild(this, handle__focusNextPrevChild, sigval1);
+		bool callback_return_value = vtbl->focusNextPrevChild(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QWebEngineView_virtualbase_focusNextPrevChild(void* self, bool next);
+	friend bool QWebEngineView_virtualbase_focusNextPrevChild(VirtualQWebEngineView* self, bool next);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QWebEngineView::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QWebEngineView_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QWebEngineView_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QWebEngineView_virtualbase_eventFilter(VirtualQWebEngineView* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QWebEngineView::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QWebEngineView_virtualbase_timerEvent(VirtualQWebEngineView* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QWebEngineView::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QWebEngineView_virtualbase_childEvent(VirtualQWebEngineView* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QWebEngineView::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QWebEngineView_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QWebEngineView_virtualbase_customEvent(VirtualQWebEngineView* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QWebEngineView::connectNotify(signal);
 			return;
 		}
@@ -970,18 +703,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QWebEngineView_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QWebEngineView_virtualbase_connectNotify(VirtualQWebEngineView* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QWebEngineView::disconnectNotify(signal);
 			return;
 		}
@@ -989,46 +717,51 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QWebEngineView_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QWebEngineView_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QWebEngineView_virtualbase_disconnectNotify(VirtualQWebEngineView* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QWebEngineView_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self);
-	friend void QWebEngineView_protectedbase_create(bool* _dynamic_cast_ok, void* self);
-	friend void QWebEngineView_protectedbase_destroy(bool* _dynamic_cast_ok, void* self);
-	friend bool QWebEngineView_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self);
-	friend bool QWebEngineView_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self);
-	friend QObject* QWebEngineView_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QWebEngineView_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QWebEngineView_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QWebEngineView_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QWebEngineView_protectedbase_updateMicroFocus(VirtualQWebEngineView* self);
+	friend void QWebEngineView_protectedbase_create(VirtualQWebEngineView* self);
+	friend void QWebEngineView_protectedbase_destroy(VirtualQWebEngineView* self);
+	friend bool QWebEngineView_protectedbase_focusNextChild(VirtualQWebEngineView* self);
+	friend bool QWebEngineView_protectedbase_focusPreviousChild(VirtualQWebEngineView* self);
+	friend QObject* QWebEngineView_protectedbase_sender(const VirtualQWebEngineView* self);
+	friend int QWebEngineView_protectedbase_senderSignalIndex(const VirtualQWebEngineView* self);
+	friend int QWebEngineView_protectedbase_receivers(const VirtualQWebEngineView* self, const char* signal);
+	friend bool QWebEngineView_protectedbase_isSignalConnected(const VirtualQWebEngineView* self, QMetaMethod* signal);
 };
 
-QWebEngineView* QWebEngineView_new(QWidget* parent) {
-	return new (std::nothrow) VirtualQWebEngineView(parent);
+VirtualQWebEngineView* QWebEngineView_new(const QWebEngineView_VTable* vtbl, size_t vdata, QWidget* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWebEngineView>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWebEngineView(vtbl, parent) : nullptr;
 }
 
-QWebEngineView* QWebEngineView_new2() {
-	return new (std::nothrow) VirtualQWebEngineView();
+VirtualQWebEngineView* QWebEngineView_new2(const QWebEngineView_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWebEngineView>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWebEngineView(vtbl) : nullptr;
 }
 
-QWebEngineView* QWebEngineView_new3(QWebEngineProfile* profile) {
-	return new (std::nothrow) VirtualQWebEngineView(profile);
+VirtualQWebEngineView* QWebEngineView_new3(const QWebEngineView_VTable* vtbl, size_t vdata, QWebEngineProfile* profile) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWebEngineView>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWebEngineView(vtbl, profile) : nullptr;
 }
 
-QWebEngineView* QWebEngineView_new4(QWebEnginePage* page) {
-	return new (std::nothrow) VirtualQWebEngineView(page);
+VirtualQWebEngineView* QWebEngineView_new4(const QWebEngineView_VTable* vtbl, size_t vdata, QWebEnginePage* page) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWebEngineView>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWebEngineView(vtbl, page) : nullptr;
 }
 
-QWebEngineView* QWebEngineView_new5(QWebEngineProfile* profile, QWidget* parent) {
-	return new (std::nothrow) VirtualQWebEngineView(profile, parent);
+VirtualQWebEngineView* QWebEngineView_new5(const QWebEngineView_VTable* vtbl, size_t vdata, QWebEngineProfile* profile, QWidget* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWebEngineView>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWebEngineView(vtbl, profile, parent) : nullptr;
 }
 
-QWebEngineView* QWebEngineView_new6(QWebEnginePage* page, QWidget* parent) {
-	return new (std::nothrow) VirtualQWebEngineView(page, parent);
+VirtualQWebEngineView* QWebEngineView_new6(const QWebEngineView_VTable* vtbl, size_t vdata, QWebEnginePage* page, QWidget* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWebEngineView>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWebEngineView(vtbl, page, parent) : nullptr;
 }
 
 void QWebEngineView_virtbase(QWebEngineView* src, QWidget** outptr_QWidget) {
@@ -1400,818 +1133,299 @@ void QWebEngineView_printToPdf3(QWebEngineView* self, struct seaqt_string filePa
 }
 
 const QMetaObject* QWebEngineView_staticMetaObject() { return &QWebEngineView::staticMetaObject; }
-bool QWebEngineView_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QWebEngineView_vdata(VirtualQWebEngineView* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQWebEngineView>()); }
+VirtualQWebEngineView* vdata_QWebEngineView(void* vdata) { return reinterpret_cast<VirtualQWebEngineView*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQWebEngineView>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
-}
-
-QMetaObject* QWebEngineView_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQWebEngineView*>(self)->QWebEngineView::metaObject();
-}
-
-bool QWebEngineView_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QMetaObject* QWebEngineView_virtualbase_metaObject(const VirtualQWebEngineView* self) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return (QMetaObject*) self->QWebEngineView::metaObject();
 }
 
-void* QWebEngineView_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::qt_metacast(param1);
-}
-
-bool QWebEngineView_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QWebEngineView_virtualbase_metacast(VirtualQWebEngineView* self, const char* param1) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QWebEngineView::qt_metacast(param1);
 }
-
-int QWebEngineView_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
-}
-
-bool QWebEngineView_override_virtual_sizeHint(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__sizeHint = slot;
-	return true;
-}
+int QWebEngineView_virtualbase_metacall(VirtualQWebEngineView* self, int param1, int param2, void** param3) {
 
-QSize* QWebEngineView_virtualbase_sizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQWebEngineView*>(self)->QWebEngineView::sizeHint());
+	return self->QWebEngineView::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
-
-bool QWebEngineView_override_virtual_createWindow(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__createWindow = slot;
-	return true;
-}
+QSize* QWebEngineView_virtualbase_sizeHint(const VirtualQWebEngineView* self) {
 
-QWebEngineView* QWebEngineView_virtualbase_createWindow(void* self, int type) {
-	return static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::createWindow(static_cast<QWebEnginePage::WebWindowType>(type));
+	return new QSize(self->QWebEngineView::sizeHint());
 }
-
-bool QWebEngineView_override_virtual_contextMenuEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__contextMenuEvent = slot;
-	return true;
-}
+QWebEngineView* QWebEngineView_virtualbase_createWindow(VirtualQWebEngineView* self, int type) {
 
-void QWebEngineView_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* param1) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::contextMenuEvent(param1);
+	return self->QWebEngineView::createWindow(static_cast<QWebEnginePage::WebWindowType>(type));
 }
-
-bool QWebEngineView_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__event = slot;
-	return true;
-}
+void QWebEngineView_virtualbase_contextMenuEvent(VirtualQWebEngineView* self, QContextMenuEvent* param1) {
 
-bool QWebEngineView_virtualbase_event(void* self, QEvent* param1) {
-	return static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::event(param1);
+	self->QWebEngineView::contextMenuEvent(param1);
 }
 
-bool QWebEngineView_override_virtual_showEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__showEvent = slot;
-	return true;
-}
+bool QWebEngineView_virtualbase_event(VirtualQWebEngineView* self, QEvent* param1) {
 
-void QWebEngineView_virtualbase_showEvent(void* self, QShowEvent* param1) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::showEvent(param1);
+	return self->QWebEngineView::event(param1);
 }
 
-bool QWebEngineView_override_virtual_hideEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebEngineView_virtualbase_showEvent(VirtualQWebEngineView* self, QShowEvent* param1) {
 
-	self_cast->handle__hideEvent = slot;
-	return true;
+	self->QWebEngineView::showEvent(param1);
 }
 
-void QWebEngineView_virtualbase_hideEvent(void* self, QHideEvent* param1) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::hideEvent(param1);
-}
-
-bool QWebEngineView_override_virtual_closeEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__closeEvent = slot;
-	return true;
-}
+void QWebEngineView_virtualbase_hideEvent(VirtualQWebEngineView* self, QHideEvent* param1) {
 
-void QWebEngineView_virtualbase_closeEvent(void* self, QCloseEvent* param1) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::closeEvent(param1);
+	self->QWebEngineView::hideEvent(param1);
 }
 
-bool QWebEngineView_override_virtual_dragEnterEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebEngineView_virtualbase_closeEvent(VirtualQWebEngineView* self, QCloseEvent* param1) {
 
-	self_cast->handle__dragEnterEvent = slot;
-	return true;
+	self->QWebEngineView::closeEvent(param1);
 }
 
-void QWebEngineView_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* e) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::dragEnterEvent(e);
-}
-
-bool QWebEngineView_override_virtual_dragLeaveEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebEngineView_virtualbase_dragEnterEvent(VirtualQWebEngineView* self, QDragEnterEvent* e) {
 
-	self_cast->handle__dragLeaveEvent = slot;
-	return true;
+	self->QWebEngineView::dragEnterEvent(e);
 }
-
-void QWebEngineView_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* e) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::dragLeaveEvent(e);
-}
-
-bool QWebEngineView_override_virtual_dragMoveEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__dragMoveEvent = slot;
-	return true;
-}
+void QWebEngineView_virtualbase_dragLeaveEvent(VirtualQWebEngineView* self, QDragLeaveEvent* e) {
 
-void QWebEngineView_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* e) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::dragMoveEvent(e);
+	self->QWebEngineView::dragLeaveEvent(e);
 }
-
-bool QWebEngineView_override_virtual_dropEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__dropEvent = slot;
-	return true;
-}
+void QWebEngineView_virtualbase_dragMoveEvent(VirtualQWebEngineView* self, QDragMoveEvent* e) {
 
-void QWebEngineView_virtualbase_dropEvent(void* self, QDropEvent* e) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::dropEvent(e);
+	self->QWebEngineView::dragMoveEvent(e);
 }
 
-bool QWebEngineView_override_virtual_devType(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__devType = slot;
-	return true;
-}
+void QWebEngineView_virtualbase_dropEvent(VirtualQWebEngineView* self, QDropEvent* e) {
 
-int QWebEngineView_virtualbase_devType(const void* self) {
-	return static_cast<const VirtualQWebEngineView*>(self)->QWebEngineView::devType();
+	self->QWebEngineView::dropEvent(e);
 }
 
-bool QWebEngineView_override_virtual_setVisible(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QWebEngineView_virtualbase_devType(const VirtualQWebEngineView* self) {
 
-	self_cast->handle__setVisible = slot;
-	return true;
+	return self->QWebEngineView::devType();
 }
 
-void QWebEngineView_virtualbase_setVisible(void* self, bool visible) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::setVisible(visible);
-}
-
-bool QWebEngineView_override_virtual_minimumSizeHint(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebEngineView_virtualbase_setVisible(VirtualQWebEngineView* self, bool visible) {
 
-	self_cast->handle__minimumSizeHint = slot;
-	return true;
+	self->QWebEngineView::setVisible(visible);
 }
-
-QSize* QWebEngineView_virtualbase_minimumSizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQWebEngineView*>(self)->QWebEngineView::minimumSizeHint());
-}
-
-bool QWebEngineView_override_virtual_heightForWidth(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__heightForWidth = slot;
-	return true;
-}
+QSize* QWebEngineView_virtualbase_minimumSizeHint(const VirtualQWebEngineView* self) {
 
-int QWebEngineView_virtualbase_heightForWidth(const void* self, int param1) {
-	return static_cast<const VirtualQWebEngineView*>(self)->QWebEngineView::heightForWidth(static_cast<int>(param1));
+	return new QSize(self->QWebEngineView::minimumSizeHint());
 }
-
-bool QWebEngineView_override_virtual_hasHeightForWidth(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__hasHeightForWidth = slot;
-	return true;
-}
+int QWebEngineView_virtualbase_heightForWidth(const VirtualQWebEngineView* self, int param1) {
 
-bool QWebEngineView_virtualbase_hasHeightForWidth(const void* self) {
-	return static_cast<const VirtualQWebEngineView*>(self)->QWebEngineView::hasHeightForWidth();
+	return self->QWebEngineView::heightForWidth(static_cast<int>(param1));
 }
-
-bool QWebEngineView_override_virtual_paintEngine(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__paintEngine = slot;
-	return true;
-}
+bool QWebEngineView_virtualbase_hasHeightForWidth(const VirtualQWebEngineView* self) {
 
-QPaintEngine* QWebEngineView_virtualbase_paintEngine(const void* self) {
-	return static_cast<const VirtualQWebEngineView*>(self)->QWebEngineView::paintEngine();
+	return self->QWebEngineView::hasHeightForWidth();
 }
-
-bool QWebEngineView_override_virtual_mousePressEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__mousePressEvent = slot;
-	return true;
-}
+QPaintEngine* QWebEngineView_virtualbase_paintEngine(const VirtualQWebEngineView* self) {
 
-void QWebEngineView_virtualbase_mousePressEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::mousePressEvent(event);
+	return self->QWebEngineView::paintEngine();
 }
 
-bool QWebEngineView_override_virtual_mouseReleaseEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mouseReleaseEvent = slot;
-	return true;
-}
+void QWebEngineView_virtualbase_mousePressEvent(VirtualQWebEngineView* self, QMouseEvent* event) {
 
-void QWebEngineView_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::mouseReleaseEvent(event);
+	self->QWebEngineView::mousePressEvent(event);
 }
 
-bool QWebEngineView_override_virtual_mouseDoubleClickEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebEngineView_virtualbase_mouseReleaseEvent(VirtualQWebEngineView* self, QMouseEvent* event) {
 
-	self_cast->handle__mouseDoubleClickEvent = slot;
-	return true;
+	self->QWebEngineView::mouseReleaseEvent(event);
 }
 
-void QWebEngineView_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::mouseDoubleClickEvent(event);
-}
-
-bool QWebEngineView_override_virtual_mouseMoveEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mouseMoveEvent = slot;
-	return true;
-}
+void QWebEngineView_virtualbase_mouseDoubleClickEvent(VirtualQWebEngineView* self, QMouseEvent* event) {
 
-void QWebEngineView_virtualbase_mouseMoveEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::mouseMoveEvent(event);
+	self->QWebEngineView::mouseDoubleClickEvent(event);
 }
 
-bool QWebEngineView_override_virtual_wheelEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebEngineView_virtualbase_mouseMoveEvent(VirtualQWebEngineView* self, QMouseEvent* event) {
 
-	self_cast->handle__wheelEvent = slot;
-	return true;
+	self->QWebEngineView::mouseMoveEvent(event);
 }
 
-void QWebEngineView_virtualbase_wheelEvent(void* self, QWheelEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::wheelEvent(event);
-}
-
-bool QWebEngineView_override_virtual_keyPressEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebEngineView_virtualbase_wheelEvent(VirtualQWebEngineView* self, QWheelEvent* event) {
 
-	self_cast->handle__keyPressEvent = slot;
-	return true;
+	self->QWebEngineView::wheelEvent(event);
 }
-
-void QWebEngineView_virtualbase_keyPressEvent(void* self, QKeyEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::keyPressEvent(event);
-}
-
-bool QWebEngineView_override_virtual_keyReleaseEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__keyReleaseEvent = slot;
-	return true;
-}
+void QWebEngineView_virtualbase_keyPressEvent(VirtualQWebEngineView* self, QKeyEvent* event) {
 
-void QWebEngineView_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::keyReleaseEvent(event);
+	self->QWebEngineView::keyPressEvent(event);
 }
-
-bool QWebEngineView_override_virtual_focusInEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__focusInEvent = slot;
-	return true;
-}
+void QWebEngineView_virtualbase_keyReleaseEvent(VirtualQWebEngineView* self, QKeyEvent* event) {
 
-void QWebEngineView_virtualbase_focusInEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::focusInEvent(event);
+	self->QWebEngineView::keyReleaseEvent(event);
 }
-
-bool QWebEngineView_override_virtual_focusOutEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__focusOutEvent = slot;
-	return true;
-}
+void QWebEngineView_virtualbase_focusInEvent(VirtualQWebEngineView* self, QFocusEvent* event) {
 
-void QWebEngineView_virtualbase_focusOutEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::focusOutEvent(event);
+	self->QWebEngineView::focusInEvent(event);
 }
-
-bool QWebEngineView_override_virtual_enterEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__enterEvent = slot;
-	return true;
-}
+void QWebEngineView_virtualbase_focusOutEvent(VirtualQWebEngineView* self, QFocusEvent* event) {
 
-void QWebEngineView_virtualbase_enterEvent(void* self, QEnterEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::enterEvent(event);
+	self->QWebEngineView::focusOutEvent(event);
 }
 
-bool QWebEngineView_override_virtual_leaveEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__leaveEvent = slot;
-	return true;
-}
+void QWebEngineView_virtualbase_enterEvent(VirtualQWebEngineView* self, QEnterEvent* event) {
 
-void QWebEngineView_virtualbase_leaveEvent(void* self, QEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::leaveEvent(event);
+	self->QWebEngineView::enterEvent(event);
 }
 
-bool QWebEngineView_override_virtual_paintEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebEngineView_virtualbase_leaveEvent(VirtualQWebEngineView* self, QEvent* event) {
 
-	self_cast->handle__paintEvent = slot;
-	return true;
+	self->QWebEngineView::leaveEvent(event);
 }
 
-void QWebEngineView_virtualbase_paintEvent(void* self, QPaintEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::paintEvent(event);
-}
-
-bool QWebEngineView_override_virtual_moveEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebEngineView_virtualbase_paintEvent(VirtualQWebEngineView* self, QPaintEvent* event) {
 
-	self_cast->handle__moveEvent = slot;
-	return true;
+	self->QWebEngineView::paintEvent(event);
 }
-
-void QWebEngineView_virtualbase_moveEvent(void* self, QMoveEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::moveEvent(event);
-}
-
-bool QWebEngineView_override_virtual_resizeEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__resizeEvent = slot;
-	return true;
-}
+void QWebEngineView_virtualbase_moveEvent(VirtualQWebEngineView* self, QMoveEvent* event) {
 
-void QWebEngineView_virtualbase_resizeEvent(void* self, QResizeEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::resizeEvent(event);
+	self->QWebEngineView::moveEvent(event);
 }
-
-bool QWebEngineView_override_virtual_tabletEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__tabletEvent = slot;
-	return true;
-}
+void QWebEngineView_virtualbase_resizeEvent(VirtualQWebEngineView* self, QResizeEvent* event) {
 
-void QWebEngineView_virtualbase_tabletEvent(void* self, QTabletEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::tabletEvent(event);
+	self->QWebEngineView::resizeEvent(event);
 }
 
-bool QWebEngineView_override_virtual_actionEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__actionEvent = slot;
-	return true;
-}
+void QWebEngineView_virtualbase_tabletEvent(VirtualQWebEngineView* self, QTabletEvent* event) {
 
-void QWebEngineView_virtualbase_actionEvent(void* self, QActionEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::actionEvent(event);
+	self->QWebEngineView::tabletEvent(event);
 }
 
-bool QWebEngineView_override_virtual_nativeEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebEngineView_virtualbase_actionEvent(VirtualQWebEngineView* self, QActionEvent* event) {
 
-	self_cast->handle__nativeEvent = slot;
-	return true;
+	self->QWebEngineView::actionEvent(event);
 }
 
-bool QWebEngineView_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, intptr_t* result) {
+bool QWebEngineView_virtualbase_nativeEvent(VirtualQWebEngineView* self, struct seaqt_string eventType, void* message, intptr_t* result) {
 	QByteArray eventType_QByteArray(eventType.data, eventType.len);
-	return static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::nativeEvent(eventType_QByteArray, message, (qintptr*)(result));
+
+	return self->QWebEngineView::nativeEvent(eventType_QByteArray, message, (qintptr*)(result));
 }
 
-bool QWebEngineView_override_virtual_changeEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebEngineView_virtualbase_changeEvent(VirtualQWebEngineView* self, QEvent* param1) {
 
-	self_cast->handle__changeEvent = slot;
-	return true;
+	self->QWebEngineView::changeEvent(param1);
 }
 
-void QWebEngineView_virtualbase_changeEvent(void* self, QEvent* param1) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::changeEvent(param1);
+int QWebEngineView_virtualbase_metric(const VirtualQWebEngineView* self, int param1) {
+
+	return self->QWebEngineView::metric(static_cast<VirtualQWebEngineView::PaintDeviceMetric>(param1));
 }
 
-bool QWebEngineView_override_virtual_metric(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebEngineView_virtualbase_initPainter(const VirtualQWebEngineView* self, QPainter* painter) {
 
-	self_cast->handle__metric = slot;
-	return true;
+	self->QWebEngineView::initPainter(painter);
 }
 
-int QWebEngineView_virtualbase_metric(const void* self, int param1) {
-	return static_cast<const VirtualQWebEngineView*>(self)->QWebEngineView::metric(static_cast<VirtualQWebEngineView::PaintDeviceMetric>(param1));
+QPaintDevice* QWebEngineView_virtualbase_redirected(const VirtualQWebEngineView* self, QPoint* offset) {
+
+	return self->QWebEngineView::redirected(offset);
 }
 
-bool QWebEngineView_override_virtual_initPainter(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QPainter* QWebEngineView_virtualbase_sharedPainter(const VirtualQWebEngineView* self) {
 
-	self_cast->handle__initPainter = slot;
-	return true;
+	return self->QWebEngineView::sharedPainter();
 }
 
-void QWebEngineView_virtualbase_initPainter(const void* self, QPainter* painter) {
-	static_cast<const VirtualQWebEngineView*>(self)->QWebEngineView::initPainter(painter);
+void QWebEngineView_virtualbase_inputMethodEvent(VirtualQWebEngineView* self, QInputMethodEvent* param1) {
+
+	self->QWebEngineView::inputMethodEvent(param1);
 }
 
-bool QWebEngineView_override_virtual_redirected(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QVariant* QWebEngineView_virtualbase_inputMethodQuery(const VirtualQWebEngineView* self, int param1) {
 
-	self_cast->handle__redirected = slot;
-	return true;
+	return new QVariant(self->QWebEngineView::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
 }
 
-QPaintDevice* QWebEngineView_virtualbase_redirected(const void* self, QPoint* offset) {
-	return static_cast<const VirtualQWebEngineView*>(self)->QWebEngineView::redirected(offset);
+bool QWebEngineView_virtualbase_focusNextPrevChild(VirtualQWebEngineView* self, bool next) {
+
+	return self->QWebEngineView::focusNextPrevChild(next);
 }
 
-bool QWebEngineView_override_virtual_sharedPainter(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QWebEngineView_virtualbase_eventFilter(VirtualQWebEngineView* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__sharedPainter = slot;
-	return true;
+	return self->QWebEngineView::eventFilter(watched, event);
 }
 
-QPainter* QWebEngineView_virtualbase_sharedPainter(const void* self) {
-	return static_cast<const VirtualQWebEngineView*>(self)->QWebEngineView::sharedPainter();
+void QWebEngineView_virtualbase_timerEvent(VirtualQWebEngineView* self, QTimerEvent* event) {
+
+	self->QWebEngineView::timerEvent(event);
 }
 
-bool QWebEngineView_override_virtual_inputMethodEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebEngineView_virtualbase_childEvent(VirtualQWebEngineView* self, QChildEvent* event) {
 
-	self_cast->handle__inputMethodEvent = slot;
-	return true;
+	self->QWebEngineView::childEvent(event);
 }
 
-void QWebEngineView_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::inputMethodEvent(param1);
+void QWebEngineView_virtualbase_customEvent(VirtualQWebEngineView* self, QEvent* event) {
+
+	self->QWebEngineView::customEvent(event);
 }
 
-bool QWebEngineView_override_virtual_inputMethodQuery(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebEngineView_virtualbase_connectNotify(VirtualQWebEngineView* self, QMetaMethod* signal) {
 
-	self_cast->handle__inputMethodQuery = slot;
-	return true;
+	self->QWebEngineView::connectNotify(*signal);
 }
 
-QVariant* QWebEngineView_virtualbase_inputMethodQuery(const void* self, int param1) {
-	return new QVariant(static_cast<const VirtualQWebEngineView*>(self)->QWebEngineView::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
+void QWebEngineView_virtualbase_disconnectNotify(VirtualQWebEngineView* self, QMetaMethod* signal) {
+
+	self->QWebEngineView::disconnectNotify(*signal);
 }
 
-bool QWebEngineView_override_virtual_focusNextPrevChild(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__focusNextPrevChild = slot;
-	return true;
+void QWebEngineView_protectedbase_updateMicroFocus(VirtualQWebEngineView* self) {
+	self->updateMicroFocus();
 }
 
-bool QWebEngineView_virtualbase_focusNextPrevChild(void* self, bool next) {
-	return static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::focusNextPrevChild(next);
+void QWebEngineView_protectedbase_create(VirtualQWebEngineView* self) {
+	self->create();
 }
 
-bool QWebEngineView_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
+void QWebEngineView_protectedbase_destroy(VirtualQWebEngineView* self) {
+	self->destroy();
 }
 
-bool QWebEngineView_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::eventFilter(watched, event);
+bool QWebEngineView_protectedbase_focusNextChild(VirtualQWebEngineView* self) {
+	return self->focusNextChild();
 }
 
-bool QWebEngineView_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+bool QWebEngineView_protectedbase_focusPreviousChild(VirtualQWebEngineView* self) {
+	return self->focusPreviousChild();
 }
 
-void QWebEngineView_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::timerEvent(event);
+QObject* QWebEngineView_protectedbase_sender(const VirtualQWebEngineView* self) {
+	return self->sender();
 }
 
-bool QWebEngineView_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QWebEngineView_protectedbase_senderSignalIndex(const VirtualQWebEngineView* self) {
+	return self->senderSignalIndex();
 }
 
-void QWebEngineView_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::childEvent(event);
+int QWebEngineView_protectedbase_receivers(const VirtualQWebEngineView* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QWebEngineView_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QWebEngineView_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::customEvent(event);
-}
-
-bool QWebEngineView_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QWebEngineView_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::connectNotify(*signal);
-}
-
-bool QWebEngineView_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QWebEngineView_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQWebEngineView*>(self)->QWebEngineView::disconnectNotify(*signal);
-}
-
-void QWebEngineView_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->updateMicroFocus();
-}
-
-void QWebEngineView_protectedbase_create(bool* _dynamic_cast_ok, void* self) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->create();
-}
-
-void QWebEngineView_protectedbase_destroy(bool* _dynamic_cast_ok, void* self) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->destroy();
-}
-
-bool QWebEngineView_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusNextChild();
-}
-
-bool QWebEngineView_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusPreviousChild();
-}
-
-QObject* QWebEngineView_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QWebEngineView_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QWebEngineView_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QWebEngineView_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQWebEngineView* self_cast = dynamic_cast<VirtualQWebEngineView*>( (QWebEngineView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QWebEngineView_protectedbase_isSignalConnected(const VirtualQWebEngineView* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QWebEngineView_delete(QWebEngineView* self) {

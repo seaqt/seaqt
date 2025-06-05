@@ -37,6 +37,7 @@ QFont* QFont_new8(struct seaqt_string family, int pointSize, int weight, bool it
 QFont* QFont_new9(struct seaqt_array /* of struct seaqt_string */  families, int pointSize);
 QFont* QFont_new10(struct seaqt_array /* of struct seaqt_string */  families, int pointSize, int weight);
 QFont* QFont_new11(struct seaqt_array /* of struct seaqt_string */  families, int pointSize, int weight, bool italic);
+
 void QFont_swap(QFont* self, QFont* other);
 struct seaqt_string QFont_family(const QFont* self);
 void QFont_setFamily(QFont* self, struct seaqt_string family);

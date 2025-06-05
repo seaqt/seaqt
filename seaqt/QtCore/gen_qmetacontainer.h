@@ -28,6 +28,7 @@ typedef struct QMetaType QMetaType;
 
 QMetaContainer* QMetaContainer_new();
 QMetaContainer* QMetaContainer_new2(QMetaContainer* param1);
+
 bool QMetaContainer_hasInputIterator(const QMetaContainer* self);
 bool QMetaContainer_hasForwardIterator(const QMetaContainer* self);
 bool QMetaContainer_hasBidirectionalIterator(const QMetaContainer* self);
@@ -56,6 +57,7 @@ ptrdiff_t QMetaContainer_diffConstIterator(const QMetaContainer* self, const voi
 void QMetaContainer_delete(QMetaContainer* self);
 
 QMetaSequence* QMetaSequence_new();
+
 void QMetaSequence_virtbase(QMetaSequence* src, QMetaContainer** outptr_QMetaContainer);
 QMetaType* QMetaSequence_valueMetaType(const QMetaSequence* self);
 bool QMetaSequence_isSortable(const QMetaSequence* self);
@@ -91,6 +93,7 @@ void QMetaSequence_valueAtConstIterator(const QMetaSequence* self, const void* i
 void QMetaSequence_delete(QMetaSequence* self);
 
 QMetaAssociation* QMetaAssociation_new();
+
 void QMetaAssociation_virtbase(QMetaAssociation* src, QMetaContainer** outptr_QMetaContainer);
 QMetaType* QMetaAssociation_keyMetaType(const QMetaAssociation* self);
 QMetaType* QMetaAssociation_mappedMetaType(const QMetaAssociation* self);

@@ -22,6 +22,7 @@ typedef struct QQuickGraphicsDevice QQuickGraphicsDevice;
 
 QQuickGraphicsDevice* QQuickGraphicsDevice_new();
 QQuickGraphicsDevice* QQuickGraphicsDevice_new2(QQuickGraphicsDevice* other);
+
 void QQuickGraphicsDevice_operatorAssign(QQuickGraphicsDevice* self, QQuickGraphicsDevice* other);
 bool QQuickGraphicsDevice_isNull(const QQuickGraphicsDevice* self);
 

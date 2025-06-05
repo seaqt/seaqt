@@ -3,42 +3,52 @@
 #include <qqmlpropertyvaluesource.h>
 #include "gen_qqmlpropertyvaluesource.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void miqt_exec_callback_QQmlPropertyValueSource_setTarget(QQmlPropertyValueSource*, intptr_t, QQmlProperty*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQQmlPropertyValueSource final : public QQmlPropertyValueSource {
+	const QQmlPropertyValueSource_VTable* vtbl;
 public:
+	friend void* QQmlPropertyValueSource_vdata(VirtualQQmlPropertyValueSource* self);
+	friend VirtualQQmlPropertyValueSource* vdata_QQmlPropertyValueSource(void* vdata);
 
-	VirtualQQmlPropertyValueSource(): QQmlPropertyValueSource() {}
+	VirtualQQmlPropertyValueSource(const QQmlPropertyValueSource_VTable* vtbl): QQmlPropertyValueSource(), vtbl(vtbl) {}
 
-	virtual ~VirtualQQmlPropertyValueSource() override = default;
+	virtual ~VirtualQQmlPropertyValueSource() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setTarget = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual void setTarget(const QQmlProperty& target) override {
-		if (handle__setTarget == 0) {
+		if (vtbl->setTarget == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		const QQmlProperty& target_ret = target;
 		// Cast returned reference into pointer
 		QQmlProperty* sigval1 = const_cast<QQmlProperty*>(&target_ret);
-		miqt_exec_callback_QQmlPropertyValueSource_setTarget(this, handle__setTarget, sigval1);
-
+		vtbl->setTarget(this, sigval1);
 	}
 
 };
 
-QQmlPropertyValueSource* QQmlPropertyValueSource_new() {
-	return new (std::nothrow) VirtualQQmlPropertyValueSource();
+VirtualQQmlPropertyValueSource* QQmlPropertyValueSource_new(const QQmlPropertyValueSource_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlPropertyValueSource>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlPropertyValueSource(vtbl) : nullptr;
 }
 
 void QQmlPropertyValueSource_setTarget(QQmlPropertyValueSource* self, QQmlProperty* target) {
@@ -49,15 +59,8 @@ void QQmlPropertyValueSource_operatorAssign(QQmlPropertyValueSource* self, QQmlP
 	self->operator=(*param1);
 }
 
-bool QQmlPropertyValueSource_override_virtual_setTarget(void* self, intptr_t slot) {
-	VirtualQQmlPropertyValueSource* self_cast = dynamic_cast<VirtualQQmlPropertyValueSource*>( (QQmlPropertyValueSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setTarget = slot;
-	return true;
-}
+void* QQmlPropertyValueSource_vdata(VirtualQQmlPropertyValueSource* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQQmlPropertyValueSource>()); }
+VirtualQQmlPropertyValueSource* vdata_QQmlPropertyValueSource(void* vdata) { return reinterpret_cast<VirtualQQmlPropertyValueSource*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQQmlPropertyValueSource>()); }
 
 void QQmlPropertyValueSource_delete(QQmlPropertyValueSource* self) {
 	delete self;

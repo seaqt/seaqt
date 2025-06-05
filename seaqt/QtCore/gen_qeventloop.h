@@ -36,8 +36,27 @@ typedef struct QThread QThread;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QEventLoop* QEventLoop_new();
-QEventLoop* QEventLoop_new2(QObject* parent);
+typedef struct VirtualQEventLoop VirtualQEventLoop;
+typedef struct QEventLoop_VTable{
+	void (*destructor)(VirtualQEventLoop* self);
+	QMetaObject* (*metaObject)(const VirtualQEventLoop* self);
+	void* (*metacast)(VirtualQEventLoop* self, const char* param1);
+	int (*metacall)(VirtualQEventLoop* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQEventLoop* self, QEvent* event);
+	bool (*eventFilter)(VirtualQEventLoop* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQEventLoop* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQEventLoop* self, QChildEvent* event);
+	void (*customEvent)(VirtualQEventLoop* self, QEvent* event);
+	void (*connectNotify)(VirtualQEventLoop* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQEventLoop* self, QMetaMethod* signal);
+}QEventLoop_VTable;
+
+void* QEventLoop_vdata(VirtualQEventLoop* self);
+VirtualQEventLoop* vdata_QEventLoop(void* vdata);
+
+VirtualQEventLoop* QEventLoop_new(const QEventLoop_VTable* vtbl, size_t vdata);
+VirtualQEventLoop* QEventLoop_new2(const QEventLoop_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QEventLoop_virtbase(QEventLoop* src, QObject** outptr_QObject);
 QMetaObject* QEventLoop_metaObject(const QEventLoop* self);
 void* QEventLoop_metacast(QEventLoop* self, const char* param1);
@@ -57,31 +76,21 @@ bool QEventLoop_processEventsWithFlags(QEventLoop* self, int flags);
 int QEventLoop_execWithFlags(QEventLoop* self, int flags);
 void QEventLoop_exitWithReturnCode(QEventLoop* self, int returnCode);
 
-bool QEventLoop_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QEventLoop_virtualbase_metaObject(const void* self);
-bool QEventLoop_override_virtual_metacast(void* self, intptr_t slot);
-void* QEventLoop_virtualbase_metacast(void* self, const char* param1);
-bool QEventLoop_override_virtual_metacall(void* self, intptr_t slot);
-int QEventLoop_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QEventLoop_override_virtual_event(void* self, intptr_t slot);
-bool QEventLoop_virtualbase_event(void* self, QEvent* event);
-bool QEventLoop_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QEventLoop_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QEventLoop_override_virtual_timerEvent(void* self, intptr_t slot);
-void QEventLoop_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QEventLoop_override_virtual_childEvent(void* self, intptr_t slot);
-void QEventLoop_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QEventLoop_override_virtual_customEvent(void* self, intptr_t slot);
-void QEventLoop_virtualbase_customEvent(void* self, QEvent* event);
-bool QEventLoop_override_virtual_connectNotify(void* self, intptr_t slot);
-void QEventLoop_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QEventLoop_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QEventLoop_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QEventLoop_virtualbase_metaObject(const VirtualQEventLoop* self);
+void* QEventLoop_virtualbase_metacast(VirtualQEventLoop* self, const char* param1);
+int QEventLoop_virtualbase_metacall(VirtualQEventLoop* self, int param1, int param2, void** param3);
+bool QEventLoop_virtualbase_event(VirtualQEventLoop* self, QEvent* event);
+bool QEventLoop_virtualbase_eventFilter(VirtualQEventLoop* self, QObject* watched, QEvent* event);
+void QEventLoop_virtualbase_timerEvent(VirtualQEventLoop* self, QTimerEvent* event);
+void QEventLoop_virtualbase_childEvent(VirtualQEventLoop* self, QChildEvent* event);
+void QEventLoop_virtualbase_customEvent(VirtualQEventLoop* self, QEvent* event);
+void QEventLoop_virtualbase_connectNotify(VirtualQEventLoop* self, QMetaMethod* signal);
+void QEventLoop_virtualbase_disconnectNotify(VirtualQEventLoop* self, QMetaMethod* signal);
 
-QObject* QEventLoop_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QEventLoop_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QEventLoop_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QEventLoop_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QEventLoop_protectedbase_sender(const VirtualQEventLoop* self);
+int QEventLoop_protectedbase_senderSignalIndex(const VirtualQEventLoop* self);
+int QEventLoop_protectedbase_receivers(const VirtualQEventLoop* self, const char* signal);
+bool QEventLoop_protectedbase_isSignalConnected(const VirtualQEventLoop* self, QMetaMethod* signal);
 
 const QMetaObject* QEventLoop_staticMetaObject();
 void QEventLoop_delete(QEventLoop* self);
@@ -89,6 +98,7 @@ void QEventLoop_delete(QEventLoop* self);
 QEventLoopLocker* QEventLoopLocker_new();
 QEventLoopLocker* QEventLoopLocker_new2(QEventLoop* loop);
 QEventLoopLocker* QEventLoopLocker_new3(QThread* thread);
+
 void QEventLoopLocker_delete(QEventLoopLocker* self);
 
 #ifdef __cplusplus

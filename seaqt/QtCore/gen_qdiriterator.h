@@ -33,6 +33,7 @@ QDirIterator* QDirIterator_new6(struct seaqt_string path, int flags);
 QDirIterator* QDirIterator_new7(struct seaqt_string path, int filter, int flags);
 QDirIterator* QDirIterator_new8(struct seaqt_string path, struct seaqt_array /* of struct seaqt_string */  nameFilters, int filters);
 QDirIterator* QDirIterator_new9(struct seaqt_string path, struct seaqt_array /* of struct seaqt_string */  nameFilters, int filters, int flags);
+
 struct seaqt_string QDirIterator_next(QDirIterator* self);
 QFileInfo* QDirIterator_nextFileInfo(QDirIterator* self);
 bool QDirIterator_hasNext(const QDirIterator* self);

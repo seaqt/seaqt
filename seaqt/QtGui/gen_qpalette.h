@@ -35,6 +35,7 @@ QPalette* QPalette_new4(QColor* button, QColor* window);
 QPalette* QPalette_new5(QBrush* windowText, QBrush* button, QBrush* light, QBrush* dark, QBrush* mid, QBrush* text, QBrush* bright_text, QBrush* base, QBrush* window);
 QPalette* QPalette_new6(QColor* windowText, QColor* window, QColor* light, QColor* dark, QColor* mid, QColor* text, QColor* base);
 QPalette* QPalette_new7(QPalette* palette);
+
 void QPalette_operatorAssign(QPalette* self, QPalette* palette);
 void QPalette_swap(QPalette* self, QPalette* other);
 QVariant* QPalette_ToQVariant(const QPalette* self);

@@ -51,6 +51,7 @@ typedef struct QTextOption QTextOption;
 #endif
 
 QTextInlineObject* QTextInlineObject_new();
+
 bool QTextInlineObject_isValid(const QTextInlineObject* self);
 QRectF* QTextInlineObject_rect(const QTextInlineObject* self);
 double QTextInlineObject_width(const QTextInlineObject* self);
@@ -72,6 +73,7 @@ QTextLayout* QTextLayout_new2(struct seaqt_string text);
 QTextLayout* QTextLayout_new3(struct seaqt_string text, QFont* font);
 QTextLayout* QTextLayout_new4(QTextBlock* b);
 QTextLayout* QTextLayout_new5(struct seaqt_string text, QFont* font, QPaintDevice* paintdevice);
+
 void QTextLayout_setFont(QTextLayout* self, QFont* f);
 QFont* QTextLayout_font(const QTextLayout* self);
 void QTextLayout_setRawFont(QTextLayout* self, QRawFont* rawFont);
@@ -121,6 +123,7 @@ struct seaqt_array /* of QGlyphRun* */  QTextLayout_glyphRuns2(const QTextLayout
 void QTextLayout_delete(QTextLayout* self);
 
 QTextLine* QTextLine_new();
+
 bool QTextLine_isValid(const QTextLine* self);
 QRectF* QTextLine_rect(const QTextLine* self);
 double QTextLine_x(const QTextLine* self);
@@ -157,6 +160,7 @@ struct seaqt_array /* of QGlyphRun* */  QTextLine_glyphRuns2(const QTextLine* se
 void QTextLine_delete(QTextLine* self);
 
 QTextLayout__FormatRange* QTextLayout__FormatRange_new(QTextLayout__FormatRange* param1);
+
 void QTextLayout__FormatRange_operatorAssign(QTextLayout__FormatRange* self, QTextLayout__FormatRange* param1);
 
 void QTextLayout__FormatRange_delete(QTextLayout__FormatRange* self);

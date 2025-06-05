@@ -119,6 +119,7 @@ QVariant* QVariant_new40(QPersistentModelIndex* modelIndex);
 QVariant* QVariant_new41(int type);
 QVariant* QVariant_new42(QMetaType* type, const void* copy);
 QVariant* QVariant_new43(struct seaqt_array /* of QVariant* */  list);
+
 void QVariant_operatorAssign(QVariant* self, QVariant* other);
 void QVariant_swap(QVariant* self, QVariant* other);
 int QVariant_userType(const QVariant* self);
@@ -195,6 +196,7 @@ void QVariant_delete(QVariant* self);
 
 QVariantConstPointer* QVariantConstPointer_new(QVariant* variant);
 QVariantConstPointer* QVariantConstPointer_new2(QVariantConstPointer* param1);
+
 QVariant* QVariantConstPointer_operatorMultiply(const QVariantConstPointer* self);
 QVariant* QVariantConstPointer_operatorMinusGreater(const QVariantConstPointer* self);
 void QVariantConstPointer_operatorAssign(QVariantConstPointer* self, QVariantConstPointer* param1);

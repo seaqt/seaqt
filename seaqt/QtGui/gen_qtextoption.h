@@ -31,6 +31,7 @@ typedef struct QTextOption__Tab QTextOption__Tab;
 QTextOption* QTextOption_new();
 QTextOption* QTextOption_new2(int alignment);
 QTextOption* QTextOption_new3(QTextOption* o);
+
 void QTextOption_operatorAssign(QTextOption* self, QTextOption* o);
 void QTextOption_setAlignment(QTextOption* self, int alignment);
 int QTextOption_alignment(const QTextOption* self);
@@ -54,6 +55,7 @@ void QTextOption_delete(QTextOption* self);
 QTextOption__Tab* QTextOption__Tab_new();
 QTextOption__Tab* QTextOption__Tab_new2(double pos, int tabType);
 QTextOption__Tab* QTextOption__Tab_new3(double pos, int tabType, QChar* delim);
+
 bool QTextOption__Tab_operatorEqual(const QTextOption__Tab* self, QTextOption__Tab* other);
 bool QTextOption__Tab_operatorNotEqual(const QTextOption__Tab* self, QTextOption__Tab* other);
 

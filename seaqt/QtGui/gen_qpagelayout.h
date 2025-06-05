@@ -35,6 +35,7 @@ QPageLayout* QPageLayout_new2(QPageSize* pageSize, int orientation, QMarginsF* m
 QPageLayout* QPageLayout_new3(QPageLayout* other);
 QPageLayout* QPageLayout_new4(QPageSize* pageSize, int orientation, QMarginsF* margins, int units);
 QPageLayout* QPageLayout_new5(QPageSize* pageSize, int orientation, QMarginsF* margins, int units, QMarginsF* minMargins);
+
 void QPageLayout_operatorAssign(QPageLayout* self, QPageLayout* other);
 void QPageLayout_swap(QPageLayout* self, QPageLayout* other);
 bool QPageLayout_isEquivalentTo(const QPageLayout* self, QPageLayout* other);

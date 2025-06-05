@@ -42,6 +42,7 @@ typedef struct QVariant QVariant;
 
 QMetaMethod* QMetaMethod_new();
 QMetaMethod* QMetaMethod_new2(QMetaMethod* param1);
+
 struct seaqt_string QMetaMethod_methodSignature(const QMetaMethod* self);
 struct seaqt_string QMetaMethod_name(const QMetaMethod* self);
 const char* QMetaMethod_typeName(const QMetaMethod* self);
@@ -135,6 +136,7 @@ void QMetaMethod_delete(QMetaMethod* self);
 
 QMetaEnum* QMetaEnum_new();
 QMetaEnum* QMetaEnum_new2(QMetaEnum* param1);
+
 const char* QMetaEnum_name(const QMetaEnum* self);
 const char* QMetaEnum_enumName(const QMetaEnum* self);
 bool QMetaEnum_isFlag(const QMetaEnum* self);
@@ -155,6 +157,7 @@ int QMetaEnum_keysToValue2(const QMetaEnum* self, const char* keys, bool* ok);
 void QMetaEnum_delete(QMetaEnum* self);
 
 QMetaProperty* QMetaProperty_new();
+
 const char* QMetaProperty_name(const QMetaProperty* self);
 const char* QMetaProperty_typeName(const QMetaProperty* self);
 int QMetaProperty_type(const QMetaProperty* self);
@@ -196,6 +199,7 @@ QMetaObject* QMetaProperty_enclosingMetaObject(const QMetaProperty* self);
 void QMetaProperty_delete(QMetaProperty* self);
 
 QMetaClassInfo* QMetaClassInfo_new();
+
 const char* QMetaClassInfo_name(const QMetaClassInfo* self);
 const char* QMetaClassInfo_value(const QMetaClassInfo* self);
 QMetaObject* QMetaClassInfo_enclosingMetaObject(const QMetaClassInfo* self);

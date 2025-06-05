@@ -44,6 +44,17 @@
 #include <qpdfview.h>
 #include "gen_qpdfview.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -54,110 +65,47 @@ void miqt_exec_callback_QPdfView_zoomModeChanged(intptr_t, int);
 void miqt_exec_callback_QPdfView_zoomFactorChanged(intptr_t, double);
 void miqt_exec_callback_QPdfView_pageSpacingChanged(intptr_t, int);
 void miqt_exec_callback_QPdfView_documentMarginsChanged(intptr_t, QMargins*);
-QMetaObject* miqt_exec_callback_QPdfView_metaObject(const QPdfView*, intptr_t);
-void* miqt_exec_callback_QPdfView_metacast(QPdfView*, intptr_t, const char*);
-int miqt_exec_callback_QPdfView_metacall(QPdfView*, intptr_t, int, int, void**);
-void miqt_exec_callback_QPdfView_paintEvent(QPdfView*, intptr_t, QPaintEvent*);
-void miqt_exec_callback_QPdfView_resizeEvent(QPdfView*, intptr_t, QResizeEvent*);
-void miqt_exec_callback_QPdfView_scrollContentsBy(QPdfView*, intptr_t, int, int);
-QSize* miqt_exec_callback_QPdfView_minimumSizeHint(const QPdfView*, intptr_t);
-QSize* miqt_exec_callback_QPdfView_sizeHint(const QPdfView*, intptr_t);
-void miqt_exec_callback_QPdfView_setupViewport(QPdfView*, intptr_t, QWidget*);
-bool miqt_exec_callback_QPdfView_eventFilter(QPdfView*, intptr_t, QObject*, QEvent*);
-bool miqt_exec_callback_QPdfView_event(QPdfView*, intptr_t, QEvent*);
-bool miqt_exec_callback_QPdfView_viewportEvent(QPdfView*, intptr_t, QEvent*);
-void miqt_exec_callback_QPdfView_mousePressEvent(QPdfView*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QPdfView_mouseReleaseEvent(QPdfView*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QPdfView_mouseDoubleClickEvent(QPdfView*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QPdfView_mouseMoveEvent(QPdfView*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QPdfView_wheelEvent(QPdfView*, intptr_t, QWheelEvent*);
-void miqt_exec_callback_QPdfView_contextMenuEvent(QPdfView*, intptr_t, QContextMenuEvent*);
-void miqt_exec_callback_QPdfView_dragEnterEvent(QPdfView*, intptr_t, QDragEnterEvent*);
-void miqt_exec_callback_QPdfView_dragMoveEvent(QPdfView*, intptr_t, QDragMoveEvent*);
-void miqt_exec_callback_QPdfView_dragLeaveEvent(QPdfView*, intptr_t, QDragLeaveEvent*);
-void miqt_exec_callback_QPdfView_dropEvent(QPdfView*, intptr_t, QDropEvent*);
-void miqt_exec_callback_QPdfView_keyPressEvent(QPdfView*, intptr_t, QKeyEvent*);
-QSize* miqt_exec_callback_QPdfView_viewportSizeHint(const QPdfView*, intptr_t);
-void miqt_exec_callback_QPdfView_changeEvent(QPdfView*, intptr_t, QEvent*);
-void miqt_exec_callback_QPdfView_initStyleOption(const QPdfView*, intptr_t, QStyleOptionFrame*);
-int miqt_exec_callback_QPdfView_devType(const QPdfView*, intptr_t);
-void miqt_exec_callback_QPdfView_setVisible(QPdfView*, intptr_t, bool);
-int miqt_exec_callback_QPdfView_heightForWidth(const QPdfView*, intptr_t, int);
-bool miqt_exec_callback_QPdfView_hasHeightForWidth(const QPdfView*, intptr_t);
-QPaintEngine* miqt_exec_callback_QPdfView_paintEngine(const QPdfView*, intptr_t);
-void miqt_exec_callback_QPdfView_keyReleaseEvent(QPdfView*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QPdfView_focusInEvent(QPdfView*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QPdfView_focusOutEvent(QPdfView*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QPdfView_enterEvent(QPdfView*, intptr_t, QEnterEvent*);
-void miqt_exec_callback_QPdfView_leaveEvent(QPdfView*, intptr_t, QEvent*);
-void miqt_exec_callback_QPdfView_moveEvent(QPdfView*, intptr_t, QMoveEvent*);
-void miqt_exec_callback_QPdfView_closeEvent(QPdfView*, intptr_t, QCloseEvent*);
-void miqt_exec_callback_QPdfView_tabletEvent(QPdfView*, intptr_t, QTabletEvent*);
-void miqt_exec_callback_QPdfView_actionEvent(QPdfView*, intptr_t, QActionEvent*);
-void miqt_exec_callback_QPdfView_showEvent(QPdfView*, intptr_t, QShowEvent*);
-void miqt_exec_callback_QPdfView_hideEvent(QPdfView*, intptr_t, QHideEvent*);
-bool miqt_exec_callback_QPdfView_nativeEvent(QPdfView*, intptr_t, struct seaqt_string, void*, intptr_t*);
-int miqt_exec_callback_QPdfView_metric(const QPdfView*, intptr_t, int);
-void miqt_exec_callback_QPdfView_initPainter(const QPdfView*, intptr_t, QPainter*);
-QPaintDevice* miqt_exec_callback_QPdfView_redirected(const QPdfView*, intptr_t, QPoint*);
-QPainter* miqt_exec_callback_QPdfView_sharedPainter(const QPdfView*, intptr_t);
-void miqt_exec_callback_QPdfView_inputMethodEvent(QPdfView*, intptr_t, QInputMethodEvent*);
-QVariant* miqt_exec_callback_QPdfView_inputMethodQuery(const QPdfView*, intptr_t, int);
-bool miqt_exec_callback_QPdfView_focusNextPrevChild(QPdfView*, intptr_t, bool);
-void miqt_exec_callback_QPdfView_timerEvent(QPdfView*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QPdfView_childEvent(QPdfView*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QPdfView_customEvent(QPdfView*, intptr_t, QEvent*);
-void miqt_exec_callback_QPdfView_connectNotify(QPdfView*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QPdfView_disconnectNotify(QPdfView*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQPdfView final : public QPdfView {
+	const QPdfView_VTable* vtbl;
 public:
+	friend void* QPdfView_vdata(VirtualQPdfView* self);
+	friend VirtualQPdfView* vdata_QPdfView(void* vdata);
 
-	VirtualQPdfView(QWidget* parent): QPdfView(parent) {}
-	VirtualQPdfView(): QPdfView() {}
+	VirtualQPdfView(const QPdfView_VTable* vtbl, QWidget* parent): QPdfView(parent), vtbl(vtbl) {}
+	VirtualQPdfView(const QPdfView_VTable* vtbl): QPdfView(), vtbl(vtbl) {}
 
-	virtual ~VirtualQPdfView() override = default;
+	virtual ~VirtualQPdfView() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QPdfView::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QPdfView_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QPdfView_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QPdfView_virtualbase_metaObject(const VirtualQPdfView* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QPdfView::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QPdfView_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QPdfView_virtualbase_metacast(void* self, const char* param1);
+	friend void* QPdfView_virtualbase_metacast(VirtualQPdfView* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QPdfView::qt_metacall(param1, param2, param3);
 		}
 
@@ -165,667 +113,478 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QPdfView_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QPdfView_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QPdfView_virtualbase_metacall(VirtualQPdfView* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void paintEvent(QPaintEvent* event) override {
-		if (handle__paintEvent == 0) {
+		if (vtbl->paintEvent == 0) {
 			QPdfView::paintEvent(event);
 			return;
 		}
 
 		QPaintEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_paintEvent(this, handle__paintEvent, sigval1);
-
+		vtbl->paintEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_paintEvent(void* self, QPaintEvent* event);
+	friend void QPdfView_virtualbase_paintEvent(VirtualQPdfView* self, QPaintEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__resizeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void resizeEvent(QResizeEvent* event) override {
-		if (handle__resizeEvent == 0) {
+		if (vtbl->resizeEvent == 0) {
 			QPdfView::resizeEvent(event);
 			return;
 		}
 
 		QResizeEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_resizeEvent(this, handle__resizeEvent, sigval1);
-
+		vtbl->resizeEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_resizeEvent(void* self, QResizeEvent* event);
+	friend void QPdfView_virtualbase_resizeEvent(VirtualQPdfView* self, QResizeEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__scrollContentsBy = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void scrollContentsBy(int dx, int dy) override {
-		if (handle__scrollContentsBy == 0) {
+		if (vtbl->scrollContentsBy == 0) {
 			QPdfView::scrollContentsBy(dx, dy);
 			return;
 		}
 
 		int sigval1 = dx;
 		int sigval2 = dy;
-		miqt_exec_callback_QPdfView_scrollContentsBy(this, handle__scrollContentsBy, sigval1, sigval2);
-
+		vtbl->scrollContentsBy(this, sigval1, sigval2);
 	}
 
-	friend void QPdfView_virtualbase_scrollContentsBy(void* self, int dx, int dy);
+	friend void QPdfView_virtualbase_scrollContentsBy(VirtualQPdfView* self, int dx, int dy);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__minimumSizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize minimumSizeHint() const override {
-		if (handle__minimumSizeHint == 0) {
+		if (vtbl->minimumSizeHint == 0) {
 			return QPdfView::minimumSizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QPdfView_minimumSizeHint(this, handle__minimumSizeHint);
+		QSize* callback_return_value = vtbl->minimumSizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QPdfView_virtualbase_minimumSizeHint(const void* self);
+	friend QSize* QPdfView_virtualbase_minimumSizeHint(const VirtualQPdfView* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize sizeHint() const override {
-		if (handle__sizeHint == 0) {
+		if (vtbl->sizeHint == 0) {
 			return QPdfView::sizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QPdfView_sizeHint(this, handle__sizeHint);
+		QSize* callback_return_value = vtbl->sizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QPdfView_virtualbase_sizeHint(const void* self);
+	friend QSize* QPdfView_virtualbase_sizeHint(const VirtualQPdfView* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setupViewport = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setupViewport(QWidget* viewport) override {
-		if (handle__setupViewport == 0) {
+		if (vtbl->setupViewport == 0) {
 			QPdfView::setupViewport(viewport);
 			return;
 		}
 
 		QWidget* sigval1 = viewport;
-		miqt_exec_callback_QPdfView_setupViewport(this, handle__setupViewport, sigval1);
-
+		vtbl->setupViewport(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_setupViewport(void* self, QWidget* viewport);
+	friend void QPdfView_virtualbase_setupViewport(VirtualQPdfView* self, QWidget* viewport);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* param1, QEvent* param2) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QPdfView::eventFilter(param1, param2);
 		}
 
 		QObject* sigval1 = param1;
 		QEvent* sigval2 = param2;
-		bool callback_return_value = miqt_exec_callback_QPdfView_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QPdfView_virtualbase_eventFilter(void* self, QObject* param1, QEvent* param2);
+	friend bool QPdfView_virtualbase_eventFilter(VirtualQPdfView* self, QObject* param1, QEvent* param2);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* param1) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QPdfView::event(param1);
 		}
 
 		QEvent* sigval1 = param1;
-		bool callback_return_value = miqt_exec_callback_QPdfView_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QPdfView_virtualbase_event(void* self, QEvent* param1);
+	friend bool QPdfView_virtualbase_event(VirtualQPdfView* self, QEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__viewportEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool viewportEvent(QEvent* param1) override {
-		if (handle__viewportEvent == 0) {
+		if (vtbl->viewportEvent == 0) {
 			return QPdfView::viewportEvent(param1);
 		}
 
 		QEvent* sigval1 = param1;
-		bool callback_return_value = miqt_exec_callback_QPdfView_viewportEvent(this, handle__viewportEvent, sigval1);
+		bool callback_return_value = vtbl->viewportEvent(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QPdfView_virtualbase_viewportEvent(void* self, QEvent* param1);
+	friend bool QPdfView_virtualbase_viewportEvent(VirtualQPdfView* self, QEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mousePressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mousePressEvent(QMouseEvent* param1) override {
-		if (handle__mousePressEvent == 0) {
+		if (vtbl->mousePressEvent == 0) {
 			QPdfView::mousePressEvent(param1);
 			return;
 		}
 
 		QMouseEvent* sigval1 = param1;
-		miqt_exec_callback_QPdfView_mousePressEvent(this, handle__mousePressEvent, sigval1);
-
+		vtbl->mousePressEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_mousePressEvent(void* self, QMouseEvent* param1);
+	friend void QPdfView_virtualbase_mousePressEvent(VirtualQPdfView* self, QMouseEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseReleaseEvent(QMouseEvent* param1) override {
-		if (handle__mouseReleaseEvent == 0) {
+		if (vtbl->mouseReleaseEvent == 0) {
 			QPdfView::mouseReleaseEvent(param1);
 			return;
 		}
 
 		QMouseEvent* sigval1 = param1;
-		miqt_exec_callback_QPdfView_mouseReleaseEvent(this, handle__mouseReleaseEvent, sigval1);
-
+		vtbl->mouseReleaseEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* param1);
+	friend void QPdfView_virtualbase_mouseReleaseEvent(VirtualQPdfView* self, QMouseEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseDoubleClickEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseDoubleClickEvent(QMouseEvent* param1) override {
-		if (handle__mouseDoubleClickEvent == 0) {
+		if (vtbl->mouseDoubleClickEvent == 0) {
 			QPdfView::mouseDoubleClickEvent(param1);
 			return;
 		}
 
 		QMouseEvent* sigval1 = param1;
-		miqt_exec_callback_QPdfView_mouseDoubleClickEvent(this, handle__mouseDoubleClickEvent, sigval1);
-
+		vtbl->mouseDoubleClickEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* param1);
+	friend void QPdfView_virtualbase_mouseDoubleClickEvent(VirtualQPdfView* self, QMouseEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseMoveEvent(QMouseEvent* param1) override {
-		if (handle__mouseMoveEvent == 0) {
+		if (vtbl->mouseMoveEvent == 0) {
 			QPdfView::mouseMoveEvent(param1);
 			return;
 		}
 
 		QMouseEvent* sigval1 = param1;
-		miqt_exec_callback_QPdfView_mouseMoveEvent(this, handle__mouseMoveEvent, sigval1);
-
+		vtbl->mouseMoveEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_mouseMoveEvent(void* self, QMouseEvent* param1);
+	friend void QPdfView_virtualbase_mouseMoveEvent(VirtualQPdfView* self, QMouseEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__wheelEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void wheelEvent(QWheelEvent* param1) override {
-		if (handle__wheelEvent == 0) {
+		if (vtbl->wheelEvent == 0) {
 			QPdfView::wheelEvent(param1);
 			return;
 		}
 
 		QWheelEvent* sigval1 = param1;
-		miqt_exec_callback_QPdfView_wheelEvent(this, handle__wheelEvent, sigval1);
-
+		vtbl->wheelEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_wheelEvent(void* self, QWheelEvent* param1);
+	friend void QPdfView_virtualbase_wheelEvent(VirtualQPdfView* self, QWheelEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__contextMenuEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void contextMenuEvent(QContextMenuEvent* param1) override {
-		if (handle__contextMenuEvent == 0) {
+		if (vtbl->contextMenuEvent == 0) {
 			QPdfView::contextMenuEvent(param1);
 			return;
 		}
 
 		QContextMenuEvent* sigval1 = param1;
-		miqt_exec_callback_QPdfView_contextMenuEvent(this, handle__contextMenuEvent, sigval1);
-
+		vtbl->contextMenuEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* param1);
+	friend void QPdfView_virtualbase_contextMenuEvent(VirtualQPdfView* self, QContextMenuEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragEnterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragEnterEvent(QDragEnterEvent* param1) override {
-		if (handle__dragEnterEvent == 0) {
+		if (vtbl->dragEnterEvent == 0) {
 			QPdfView::dragEnterEvent(param1);
 			return;
 		}
 
 		QDragEnterEvent* sigval1 = param1;
-		miqt_exec_callback_QPdfView_dragEnterEvent(this, handle__dragEnterEvent, sigval1);
-
+		vtbl->dragEnterEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* param1);
+	friend void QPdfView_virtualbase_dragEnterEvent(VirtualQPdfView* self, QDragEnterEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragMoveEvent(QDragMoveEvent* param1) override {
-		if (handle__dragMoveEvent == 0) {
+		if (vtbl->dragMoveEvent == 0) {
 			QPdfView::dragMoveEvent(param1);
 			return;
 		}
 
 		QDragMoveEvent* sigval1 = param1;
-		miqt_exec_callback_QPdfView_dragMoveEvent(this, handle__dragMoveEvent, sigval1);
-
+		vtbl->dragMoveEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* param1);
+	friend void QPdfView_virtualbase_dragMoveEvent(VirtualQPdfView* self, QDragMoveEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragLeaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragLeaveEvent(QDragLeaveEvent* param1) override {
-		if (handle__dragLeaveEvent == 0) {
+		if (vtbl->dragLeaveEvent == 0) {
 			QPdfView::dragLeaveEvent(param1);
 			return;
 		}
 
 		QDragLeaveEvent* sigval1 = param1;
-		miqt_exec_callback_QPdfView_dragLeaveEvent(this, handle__dragLeaveEvent, sigval1);
-
+		vtbl->dragLeaveEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* param1);
+	friend void QPdfView_virtualbase_dragLeaveEvent(VirtualQPdfView* self, QDragLeaveEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dropEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dropEvent(QDropEvent* param1) override {
-		if (handle__dropEvent == 0) {
+		if (vtbl->dropEvent == 0) {
 			QPdfView::dropEvent(param1);
 			return;
 		}
 
 		QDropEvent* sigval1 = param1;
-		miqt_exec_callback_QPdfView_dropEvent(this, handle__dropEvent, sigval1);
-
+		vtbl->dropEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_dropEvent(void* self, QDropEvent* param1);
+	friend void QPdfView_virtualbase_dropEvent(VirtualQPdfView* self, QDropEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyPressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyPressEvent(QKeyEvent* param1) override {
-		if (handle__keyPressEvent == 0) {
+		if (vtbl->keyPressEvent == 0) {
 			QPdfView::keyPressEvent(param1);
 			return;
 		}
 
 		QKeyEvent* sigval1 = param1;
-		miqt_exec_callback_QPdfView_keyPressEvent(this, handle__keyPressEvent, sigval1);
-
+		vtbl->keyPressEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_keyPressEvent(void* self, QKeyEvent* param1);
+	friend void QPdfView_virtualbase_keyPressEvent(VirtualQPdfView* self, QKeyEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__viewportSizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize viewportSizeHint() const override {
-		if (handle__viewportSizeHint == 0) {
+		if (vtbl->viewportSizeHint == 0) {
 			return QPdfView::viewportSizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QPdfView_viewportSizeHint(this, handle__viewportSizeHint);
+		QSize* callback_return_value = vtbl->viewportSizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QPdfView_virtualbase_viewportSizeHint(const void* self);
+	friend QSize* QPdfView_virtualbase_viewportSizeHint(const VirtualQPdfView* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__changeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void changeEvent(QEvent* param1) override {
-		if (handle__changeEvent == 0) {
+		if (vtbl->changeEvent == 0) {
 			QPdfView::changeEvent(param1);
 			return;
 		}
 
 		QEvent* sigval1 = param1;
-		miqt_exec_callback_QPdfView_changeEvent(this, handle__changeEvent, sigval1);
-
+		vtbl->changeEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_changeEvent(void* self, QEvent* param1);
+	friend void QPdfView_virtualbase_changeEvent(VirtualQPdfView* self, QEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__initStyleOption = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void initStyleOption(QStyleOptionFrame* option) const override {
-		if (handle__initStyleOption == 0) {
+		if (vtbl->initStyleOption == 0) {
 			QPdfView::initStyleOption(option);
 			return;
 		}
 
 		QStyleOptionFrame* sigval1 = option;
-		miqt_exec_callback_QPdfView_initStyleOption(this, handle__initStyleOption, sigval1);
-
+		vtbl->initStyleOption(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_initStyleOption(const void* self, QStyleOptionFrame* option);
+	friend void QPdfView_virtualbase_initStyleOption(const VirtualQPdfView* self, QStyleOptionFrame* option);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__devType = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int devType() const override {
-		if (handle__devType == 0) {
+		if (vtbl->devType == 0) {
 			return QPdfView::devType();
 		}
 
-		int callback_return_value = miqt_exec_callback_QPdfView_devType(this, handle__devType);
+		int callback_return_value = vtbl->devType(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QPdfView_virtualbase_devType(const void* self);
+	friend int QPdfView_virtualbase_devType(const VirtualQPdfView* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setVisible = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setVisible(bool visible) override {
-		if (handle__setVisible == 0) {
+		if (vtbl->setVisible == 0) {
 			QPdfView::setVisible(visible);
 			return;
 		}
 
 		bool sigval1 = visible;
-		miqt_exec_callback_QPdfView_setVisible(this, handle__setVisible, sigval1);
-
+		vtbl->setVisible(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_setVisible(void* self, bool visible);
+	friend void QPdfView_virtualbase_setVisible(VirtualQPdfView* self, bool visible);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__heightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int heightForWidth(int param1) const override {
-		if (handle__heightForWidth == 0) {
+		if (vtbl->heightForWidth == 0) {
 			return QPdfView::heightForWidth(param1);
 		}
 
 		int sigval1 = param1;
-		int callback_return_value = miqt_exec_callback_QPdfView_heightForWidth(this, handle__heightForWidth, sigval1);
+		int callback_return_value = vtbl->heightForWidth(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QPdfView_virtualbase_heightForWidth(const void* self, int param1);
+	friend int QPdfView_virtualbase_heightForWidth(const VirtualQPdfView* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hasHeightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool hasHeightForWidth() const override {
-		if (handle__hasHeightForWidth == 0) {
+		if (vtbl->hasHeightForWidth == 0) {
 			return QPdfView::hasHeightForWidth();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QPdfView_hasHeightForWidth(this, handle__hasHeightForWidth);
+		bool callback_return_value = vtbl->hasHeightForWidth(this);
 		return callback_return_value;
 	}
 
-	friend bool QPdfView_virtualbase_hasHeightForWidth(const void* self);
+	friend bool QPdfView_virtualbase_hasHeightForWidth(const VirtualQPdfView* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEngine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintEngine* paintEngine() const override {
-		if (handle__paintEngine == 0) {
+		if (vtbl->paintEngine == 0) {
 			return QPdfView::paintEngine();
 		}
 
-		QPaintEngine* callback_return_value = miqt_exec_callback_QPdfView_paintEngine(this, handle__paintEngine);
+		QPaintEngine* callback_return_value = vtbl->paintEngine(this);
 		return callback_return_value;
 	}
 
-	friend QPaintEngine* QPdfView_virtualbase_paintEngine(const void* self);
+	friend QPaintEngine* QPdfView_virtualbase_paintEngine(const VirtualQPdfView* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyReleaseEvent(QKeyEvent* event) override {
-		if (handle__keyReleaseEvent == 0) {
+		if (vtbl->keyReleaseEvent == 0) {
 			QPdfView::keyReleaseEvent(event);
 			return;
 		}
 
 		QKeyEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_keyReleaseEvent(this, handle__keyReleaseEvent, sigval1);
-
+		vtbl->keyReleaseEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event);
+	friend void QPdfView_virtualbase_keyReleaseEvent(VirtualQPdfView* self, QKeyEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusInEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusInEvent(QFocusEvent* event) override {
-		if (handle__focusInEvent == 0) {
+		if (vtbl->focusInEvent == 0) {
 			QPdfView::focusInEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_focusInEvent(this, handle__focusInEvent, sigval1);
-
+		vtbl->focusInEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_focusInEvent(void* self, QFocusEvent* event);
+	friend void QPdfView_virtualbase_focusInEvent(VirtualQPdfView* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusOutEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusOutEvent(QFocusEvent* event) override {
-		if (handle__focusOutEvent == 0) {
+		if (vtbl->focusOutEvent == 0) {
 			QPdfView::focusOutEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_focusOutEvent(this, handle__focusOutEvent, sigval1);
-
+		vtbl->focusOutEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_focusOutEvent(void* self, QFocusEvent* event);
+	friend void QPdfView_virtualbase_focusOutEvent(VirtualQPdfView* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__enterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void enterEvent(QEnterEvent* event) override {
-		if (handle__enterEvent == 0) {
+		if (vtbl->enterEvent == 0) {
 			QPdfView::enterEvent(event);
 			return;
 		}
 
 		QEnterEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_enterEvent(this, handle__enterEvent, sigval1);
-
+		vtbl->enterEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_enterEvent(void* self, QEnterEvent* event);
+	friend void QPdfView_virtualbase_enterEvent(VirtualQPdfView* self, QEnterEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__leaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void leaveEvent(QEvent* event) override {
-		if (handle__leaveEvent == 0) {
+		if (vtbl->leaveEvent == 0) {
 			QPdfView::leaveEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_leaveEvent(this, handle__leaveEvent, sigval1);
-
+		vtbl->leaveEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_leaveEvent(void* self, QEvent* event);
+	friend void QPdfView_virtualbase_leaveEvent(VirtualQPdfView* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__moveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void moveEvent(QMoveEvent* event) override {
-		if (handle__moveEvent == 0) {
+		if (vtbl->moveEvent == 0) {
 			QPdfView::moveEvent(event);
 			return;
 		}
 
 		QMoveEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_moveEvent(this, handle__moveEvent, sigval1);
-
+		vtbl->moveEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_moveEvent(void* self, QMoveEvent* event);
+	friend void QPdfView_virtualbase_moveEvent(VirtualQPdfView* self, QMoveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__closeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void closeEvent(QCloseEvent* event) override {
-		if (handle__closeEvent == 0) {
+		if (vtbl->closeEvent == 0) {
 			QPdfView::closeEvent(event);
 			return;
 		}
 
 		QCloseEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_closeEvent(this, handle__closeEvent, sigval1);
-
+		vtbl->closeEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_closeEvent(void* self, QCloseEvent* event);
+	friend void QPdfView_virtualbase_closeEvent(VirtualQPdfView* self, QCloseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__tabletEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void tabletEvent(QTabletEvent* event) override {
-		if (handle__tabletEvent == 0) {
+		if (vtbl->tabletEvent == 0) {
 			QPdfView::tabletEvent(event);
 			return;
 		}
 
 		QTabletEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_tabletEvent(this, handle__tabletEvent, sigval1);
-
+		vtbl->tabletEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_tabletEvent(void* self, QTabletEvent* event);
+	friend void QPdfView_virtualbase_tabletEvent(VirtualQPdfView* self, QTabletEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__actionEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void actionEvent(QActionEvent* event) override {
-		if (handle__actionEvent == 0) {
+		if (vtbl->actionEvent == 0) {
 			QPdfView::actionEvent(event);
 			return;
 		}
 
 		QActionEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_actionEvent(this, handle__actionEvent, sigval1);
-
+		vtbl->actionEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_actionEvent(void* self, QActionEvent* event);
+	friend void QPdfView_virtualbase_actionEvent(VirtualQPdfView* self, QActionEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__showEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void showEvent(QShowEvent* event) override {
-		if (handle__showEvent == 0) {
+		if (vtbl->showEvent == 0) {
 			QPdfView::showEvent(event);
 			return;
 		}
 
 		QShowEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_showEvent(this, handle__showEvent, sigval1);
-
+		vtbl->showEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_showEvent(void* self, QShowEvent* event);
+	friend void QPdfView_virtualbase_showEvent(VirtualQPdfView* self, QShowEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hideEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void hideEvent(QHideEvent* event) override {
-		if (handle__hideEvent == 0) {
+		if (vtbl->hideEvent == 0) {
 			QPdfView::hideEvent(event);
 			return;
 		}
 
 		QHideEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_hideEvent(this, handle__hideEvent, sigval1);
-
+		vtbl->hideEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_hideEvent(void* self, QHideEvent* event);
+	friend void QPdfView_virtualbase_hideEvent(VirtualQPdfView* self, QHideEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__nativeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool nativeEvent(const QByteArray& eventType, void* message, qintptr* result) override {
-		if (handle__nativeEvent == 0) {
+		if (vtbl->nativeEvent == 0) {
 			return QPdfView::nativeEvent(eventType, message, result);
 		}
 
@@ -838,184 +597,135 @@ public:
 		void* sigval2 = message;
 		qintptr* result_ret = result;
 		intptr_t* sigval3 = (intptr_t*)(result_ret);
-		bool callback_return_value = miqt_exec_callback_QPdfView_nativeEvent(this, handle__nativeEvent, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->nativeEvent(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QPdfView_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, intptr_t* result);
+	friend bool QPdfView_virtualbase_nativeEvent(VirtualQPdfView* self, struct seaqt_string eventType, void* message, intptr_t* result);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metric = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int metric(QPaintDevice::PaintDeviceMetric param1) const override {
-		if (handle__metric == 0) {
+		if (vtbl->metric == 0) {
 			return QPdfView::metric(param1);
 		}
 
 		QPaintDevice::PaintDeviceMetric param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		int callback_return_value = miqt_exec_callback_QPdfView_metric(this, handle__metric, sigval1);
+		int callback_return_value = vtbl->metric(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QPdfView_virtualbase_metric(const void* self, int param1);
+	friend int QPdfView_virtualbase_metric(const VirtualQPdfView* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__initPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void initPainter(QPainter* painter) const override {
-		if (handle__initPainter == 0) {
+		if (vtbl->initPainter == 0) {
 			QPdfView::initPainter(painter);
 			return;
 		}
 
 		QPainter* sigval1 = painter;
-		miqt_exec_callback_QPdfView_initPainter(this, handle__initPainter, sigval1);
-
+		vtbl->initPainter(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_initPainter(const void* self, QPainter* painter);
+	friend void QPdfView_virtualbase_initPainter(const VirtualQPdfView* self, QPainter* painter);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__redirected = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintDevice* redirected(QPoint* offset) const override {
-		if (handle__redirected == 0) {
+		if (vtbl->redirected == 0) {
 			return QPdfView::redirected(offset);
 		}
 
 		QPoint* sigval1 = offset;
-		QPaintDevice* callback_return_value = miqt_exec_callback_QPdfView_redirected(this, handle__redirected, sigval1);
+		QPaintDevice* callback_return_value = vtbl->redirected(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QPaintDevice* QPdfView_virtualbase_redirected(const void* self, QPoint* offset);
+	friend QPaintDevice* QPdfView_virtualbase_redirected(const VirtualQPdfView* self, QPoint* offset);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sharedPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPainter* sharedPainter() const override {
-		if (handle__sharedPainter == 0) {
+		if (vtbl->sharedPainter == 0) {
 			return QPdfView::sharedPainter();
 		}
 
-		QPainter* callback_return_value = miqt_exec_callback_QPdfView_sharedPainter(this, handle__sharedPainter);
+		QPainter* callback_return_value = vtbl->sharedPainter(this);
 		return callback_return_value;
 	}
 
-	friend QPainter* QPdfView_virtualbase_sharedPainter(const void* self);
+	friend QPainter* QPdfView_virtualbase_sharedPainter(const VirtualQPdfView* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void inputMethodEvent(QInputMethodEvent* param1) override {
-		if (handle__inputMethodEvent == 0) {
+		if (vtbl->inputMethodEvent == 0) {
 			QPdfView::inputMethodEvent(param1);
 			return;
 		}
 
 		QInputMethodEvent* sigval1 = param1;
-		miqt_exec_callback_QPdfView_inputMethodEvent(this, handle__inputMethodEvent, sigval1);
-
+		vtbl->inputMethodEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1);
+	friend void QPdfView_virtualbase_inputMethodEvent(VirtualQPdfView* self, QInputMethodEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodQuery = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant inputMethodQuery(Qt::InputMethodQuery param1) const override {
-		if (handle__inputMethodQuery == 0) {
+		if (vtbl->inputMethodQuery == 0) {
 			return QPdfView::inputMethodQuery(param1);
 		}
 
 		Qt::InputMethodQuery param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		QVariant* callback_return_value = miqt_exec_callback_QPdfView_inputMethodQuery(this, handle__inputMethodQuery, sigval1);
+		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QPdfView_virtualbase_inputMethodQuery(const void* self, int param1);
+	friend QVariant* QPdfView_virtualbase_inputMethodQuery(const VirtualQPdfView* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusNextPrevChild = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool focusNextPrevChild(bool next) override {
-		if (handle__focusNextPrevChild == 0) {
+		if (vtbl->focusNextPrevChild == 0) {
 			return QPdfView::focusNextPrevChild(next);
 		}
 
 		bool sigval1 = next;
-		bool callback_return_value = miqt_exec_callback_QPdfView_focusNextPrevChild(this, handle__focusNextPrevChild, sigval1);
+		bool callback_return_value = vtbl->focusNextPrevChild(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QPdfView_virtualbase_focusNextPrevChild(void* self, bool next);
+	friend bool QPdfView_virtualbase_focusNextPrevChild(VirtualQPdfView* self, bool next);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QPdfView::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QPdfView_virtualbase_timerEvent(VirtualQPdfView* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QPdfView::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QPdfView_virtualbase_childEvent(VirtualQPdfView* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QPdfView::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QPdfView_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QPdfView_virtualbase_customEvent(VirtualQPdfView* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QPdfView::connectNotify(signal);
 			return;
 		}
@@ -1023,18 +733,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QPdfView_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QPdfView_virtualbase_connectNotify(VirtualQPdfView* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QPdfView::disconnectNotify(signal);
 			return;
 		}
@@ -1042,33 +747,34 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QPdfView_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QPdfView_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QPdfView_virtualbase_disconnectNotify(VirtualQPdfView* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QPdfView_protectedbase_setViewportMargins(bool* _dynamic_cast_ok, void* self, int left, int top, int right, int bottom);
-	friend QMargins* QPdfView_protectedbase_viewportMargins(bool* _dynamic_cast_ok, const void* self);
-	friend void QPdfView_protectedbase_drawFrame(bool* _dynamic_cast_ok, void* self, QPainter* param1);
-	friend void QPdfView_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self);
-	friend void QPdfView_protectedbase_create(bool* _dynamic_cast_ok, void* self);
-	friend void QPdfView_protectedbase_destroy(bool* _dynamic_cast_ok, void* self);
-	friend bool QPdfView_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self);
-	friend bool QPdfView_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self);
-	friend QObject* QPdfView_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QPdfView_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QPdfView_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QPdfView_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QPdfView_protectedbase_setViewportMargins(VirtualQPdfView* self, int left, int top, int right, int bottom);
+	friend QMargins* QPdfView_protectedbase_viewportMargins(const VirtualQPdfView* self);
+	friend void QPdfView_protectedbase_drawFrame(VirtualQPdfView* self, QPainter* param1);
+	friend void QPdfView_protectedbase_updateMicroFocus(VirtualQPdfView* self);
+	friend void QPdfView_protectedbase_create(VirtualQPdfView* self);
+	friend void QPdfView_protectedbase_destroy(VirtualQPdfView* self);
+	friend bool QPdfView_protectedbase_focusNextChild(VirtualQPdfView* self);
+	friend bool QPdfView_protectedbase_focusPreviousChild(VirtualQPdfView* self);
+	friend QObject* QPdfView_protectedbase_sender(const VirtualQPdfView* self);
+	friend int QPdfView_protectedbase_senderSignalIndex(const VirtualQPdfView* self);
+	friend int QPdfView_protectedbase_receivers(const VirtualQPdfView* self, const char* signal);
+	friend bool QPdfView_protectedbase_isSignalConnected(const VirtualQPdfView* self, QMetaMethod* signal);
 };
 
-QPdfView* QPdfView_new(QWidget* parent) {
-	return new (std::nothrow) VirtualQPdfView(parent);
+VirtualQPdfView* QPdfView_new(const QPdfView_VTable* vtbl, size_t vdata, QWidget* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQPdfView>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQPdfView(vtbl, parent) : nullptr;
 }
 
-QPdfView* QPdfView_new2() {
-	return new (std::nothrow) VirtualQPdfView();
+VirtualQPdfView* QPdfView_new2(const QPdfView_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQPdfView>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQPdfView(vtbl) : nullptr;
 }
 
 void QPdfView_virtbase(QPdfView* src, QAbstractScrollArea** outptr_QAbstractScrollArea) {
@@ -1245,907 +951,331 @@ struct seaqt_string QPdfView_tr3(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QPdfView_staticMetaObject() { return &QPdfView::staticMetaObject; }
-bool QPdfView_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QPdfView_vdata(VirtualQPdfView* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQPdfView>()); }
+VirtualQPdfView* vdata_QPdfView(void* vdata) { return reinterpret_cast<VirtualQPdfView*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQPdfView>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
-}
-
-QMetaObject* QPdfView_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQPdfView*>(self)->QPdfView::metaObject();
-}
-
-bool QPdfView_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__metacast = slot;
-	return true;
-}
+QMetaObject* QPdfView_virtualbase_metaObject(const VirtualQPdfView* self) {
 
-void* QPdfView_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQPdfView*>(self)->QPdfView::qt_metacast(param1);
+	return (QMetaObject*) self->QPdfView::metaObject();
 }
-
-bool QPdfView_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__metacall = slot;
-	return true;
-}
+void* QPdfView_virtualbase_metacast(VirtualQPdfView* self, const char* param1) {
 
-int QPdfView_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQPdfView*>(self)->QPdfView::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+	return self->QPdfView::qt_metacast(param1);
 }
 
-bool QPdfView_override_virtual_paintEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__paintEvent = slot;
-	return true;
-}
+int QPdfView_virtualbase_metacall(VirtualQPdfView* self, int param1, int param2, void** param3) {
 
-void QPdfView_virtualbase_paintEvent(void* self, QPaintEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::paintEvent(event);
+	return self->QPdfView::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-bool QPdfView_override_virtual_resizeEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfView_virtualbase_paintEvent(VirtualQPdfView* self, QPaintEvent* event) {
 
-	self_cast->handle__resizeEvent = slot;
-	return true;
+	self->QPdfView::paintEvent(event);
 }
 
-void QPdfView_virtualbase_resizeEvent(void* self, QResizeEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::resizeEvent(event);
-}
-
-bool QPdfView_override_virtual_scrollContentsBy(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfView_virtualbase_resizeEvent(VirtualQPdfView* self, QResizeEvent* event) {
 
-	self_cast->handle__scrollContentsBy = slot;
-	return true;
+	self->QPdfView::resizeEvent(event);
 }
-
-void QPdfView_virtualbase_scrollContentsBy(void* self, int dx, int dy) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::scrollContentsBy(static_cast<int>(dx), static_cast<int>(dy));
-}
-
-bool QPdfView_override_virtual_minimumSizeHint(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__minimumSizeHint = slot;
-	return true;
-}
+void QPdfView_virtualbase_scrollContentsBy(VirtualQPdfView* self, int dx, int dy) {
 
-QSize* QPdfView_virtualbase_minimumSizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQPdfView*>(self)->QPdfView::minimumSizeHint());
+	self->QPdfView::scrollContentsBy(static_cast<int>(dx), static_cast<int>(dy));
 }
 
-bool QPdfView_override_virtual_sizeHint(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__sizeHint = slot;
-	return true;
-}
+QSize* QPdfView_virtualbase_minimumSizeHint(const VirtualQPdfView* self) {
 
-QSize* QPdfView_virtualbase_sizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQPdfView*>(self)->QPdfView::sizeHint());
+	return new QSize(self->QPdfView::minimumSizeHint());
 }
 
-bool QPdfView_override_virtual_setupViewport(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QSize* QPdfView_virtualbase_sizeHint(const VirtualQPdfView* self) {
 
-	self_cast->handle__setupViewport = slot;
-	return true;
+	return new QSize(self->QPdfView::sizeHint());
 }
-
-void QPdfView_virtualbase_setupViewport(void* self, QWidget* viewport) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::setupViewport(viewport);
-}
-
-bool QPdfView_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__eventFilter = slot;
-	return true;
-}
+void QPdfView_virtualbase_setupViewport(VirtualQPdfView* self, QWidget* viewport) {
 
-bool QPdfView_virtualbase_eventFilter(void* self, QObject* param1, QEvent* param2) {
-	return static_cast<VirtualQPdfView*>(self)->QPdfView::eventFilter(param1, param2);
+	self->QPdfView::setupViewport(viewport);
 }
-
-bool QPdfView_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__event = slot;
-	return true;
-}
+bool QPdfView_virtualbase_eventFilter(VirtualQPdfView* self, QObject* param1, QEvent* param2) {
 
-bool QPdfView_virtualbase_event(void* self, QEvent* param1) {
-	return static_cast<VirtualQPdfView*>(self)->QPdfView::event(param1);
+	return self->QPdfView::eventFilter(param1, param2);
 }
 
-bool QPdfView_override_virtual_viewportEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__viewportEvent = slot;
-	return true;
-}
+bool QPdfView_virtualbase_event(VirtualQPdfView* self, QEvent* param1) {
 
-bool QPdfView_virtualbase_viewportEvent(void* self, QEvent* param1) {
-	return static_cast<VirtualQPdfView*>(self)->QPdfView::viewportEvent(param1);
+	return self->QPdfView::event(param1);
 }
 
-bool QPdfView_override_virtual_mousePressEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QPdfView_virtualbase_viewportEvent(VirtualQPdfView* self, QEvent* param1) {
 
-	self_cast->handle__mousePressEvent = slot;
-	return true;
+	return self->QPdfView::viewportEvent(param1);
 }
 
-void QPdfView_virtualbase_mousePressEvent(void* self, QMouseEvent* param1) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::mousePressEvent(param1);
-}
-
-bool QPdfView_override_virtual_mouseReleaseEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mouseReleaseEvent = slot;
-	return true;
-}
+void QPdfView_virtualbase_mousePressEvent(VirtualQPdfView* self, QMouseEvent* param1) {
 
-void QPdfView_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* param1) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::mouseReleaseEvent(param1);
+	self->QPdfView::mousePressEvent(param1);
 }
 
-bool QPdfView_override_virtual_mouseDoubleClickEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mouseDoubleClickEvent = slot;
-	return true;
-}
+void QPdfView_virtualbase_mouseReleaseEvent(VirtualQPdfView* self, QMouseEvent* param1) {
 
-void QPdfView_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* param1) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::mouseDoubleClickEvent(param1);
+	self->QPdfView::mouseReleaseEvent(param1);
 }
 
-bool QPdfView_override_virtual_mouseMoveEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfView_virtualbase_mouseDoubleClickEvent(VirtualQPdfView* self, QMouseEvent* param1) {
 
-	self_cast->handle__mouseMoveEvent = slot;
-	return true;
+	self->QPdfView::mouseDoubleClickEvent(param1);
 }
 
-void QPdfView_virtualbase_mouseMoveEvent(void* self, QMouseEvent* param1) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::mouseMoveEvent(param1);
-}
-
-bool QPdfView_override_virtual_wheelEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfView_virtualbase_mouseMoveEvent(VirtualQPdfView* self, QMouseEvent* param1) {
 
-	self_cast->handle__wheelEvent = slot;
-	return true;
+	self->QPdfView::mouseMoveEvent(param1);
 }
-
-void QPdfView_virtualbase_wheelEvent(void* self, QWheelEvent* param1) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::wheelEvent(param1);
-}
-
-bool QPdfView_override_virtual_contextMenuEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__contextMenuEvent = slot;
-	return true;
-}
+void QPdfView_virtualbase_wheelEvent(VirtualQPdfView* self, QWheelEvent* param1) {
 
-void QPdfView_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* param1) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::contextMenuEvent(param1);
+	self->QPdfView::wheelEvent(param1);
 }
 
-bool QPdfView_override_virtual_dragEnterEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__dragEnterEvent = slot;
-	return true;
-}
+void QPdfView_virtualbase_contextMenuEvent(VirtualQPdfView* self, QContextMenuEvent* param1) {
 
-void QPdfView_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* param1) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::dragEnterEvent(param1);
+	self->QPdfView::contextMenuEvent(param1);
 }
 
-bool QPdfView_override_virtual_dragMoveEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfView_virtualbase_dragEnterEvent(VirtualQPdfView* self, QDragEnterEvent* param1) {
 
-	self_cast->handle__dragMoveEvent = slot;
-	return true;
+	self->QPdfView::dragEnterEvent(param1);
 }
-
-void QPdfView_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* param1) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::dragMoveEvent(param1);
-}
-
-bool QPdfView_override_virtual_dragLeaveEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__dragLeaveEvent = slot;
-	return true;
-}
+void QPdfView_virtualbase_dragMoveEvent(VirtualQPdfView* self, QDragMoveEvent* param1) {
 
-void QPdfView_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* param1) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::dragLeaveEvent(param1);
+	self->QPdfView::dragMoveEvent(param1);
 }
-
-bool QPdfView_override_virtual_dropEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__dropEvent = slot;
-	return true;
-}
+void QPdfView_virtualbase_dragLeaveEvent(VirtualQPdfView* self, QDragLeaveEvent* param1) {
 
-void QPdfView_virtualbase_dropEvent(void* self, QDropEvent* param1) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::dropEvent(param1);
+	self->QPdfView::dragLeaveEvent(param1);
 }
 
-bool QPdfView_override_virtual_keyPressEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__keyPressEvent = slot;
-	return true;
-}
+void QPdfView_virtualbase_dropEvent(VirtualQPdfView* self, QDropEvent* param1) {
 
-void QPdfView_virtualbase_keyPressEvent(void* self, QKeyEvent* param1) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::keyPressEvent(param1);
+	self->QPdfView::dropEvent(param1);
 }
 
-bool QPdfView_override_virtual_viewportSizeHint(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfView_virtualbase_keyPressEvent(VirtualQPdfView* self, QKeyEvent* param1) {
 
-	self_cast->handle__viewportSizeHint = slot;
-	return true;
+	self->QPdfView::keyPressEvent(param1);
 }
 
-QSize* QPdfView_virtualbase_viewportSizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQPdfView*>(self)->QPdfView::viewportSizeHint());
-}
-
-bool QPdfView_override_virtual_changeEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QSize* QPdfView_virtualbase_viewportSizeHint(const VirtualQPdfView* self) {
 
-	self_cast->handle__changeEvent = slot;
-	return true;
+	return new QSize(self->QPdfView::viewportSizeHint());
 }
-
-void QPdfView_virtualbase_changeEvent(void* self, QEvent* param1) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::changeEvent(param1);
-}
-
-bool QPdfView_override_virtual_initStyleOption(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__initStyleOption = slot;
-	return true;
-}
+void QPdfView_virtualbase_changeEvent(VirtualQPdfView* self, QEvent* param1) {
 
-void QPdfView_virtualbase_initStyleOption(const void* self, QStyleOptionFrame* option) {
-	static_cast<const VirtualQPdfView*>(self)->QPdfView::initStyleOption(option);
+	self->QPdfView::changeEvent(param1);
 }
-
-bool QPdfView_override_virtual_devType(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__devType = slot;
-	return true;
-}
+void QPdfView_virtualbase_initStyleOption(const VirtualQPdfView* self, QStyleOptionFrame* option) {
 
-int QPdfView_virtualbase_devType(const void* self) {
-	return static_cast<const VirtualQPdfView*>(self)->QPdfView::devType();
+	self->QPdfView::initStyleOption(option);
 }
 
-bool QPdfView_override_virtual_setVisible(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setVisible = slot;
-	return true;
-}
+int QPdfView_virtualbase_devType(const VirtualQPdfView* self) {
 
-void QPdfView_virtualbase_setVisible(void* self, bool visible) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::setVisible(visible);
+	return self->QPdfView::devType();
 }
 
-bool QPdfView_override_virtual_heightForWidth(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfView_virtualbase_setVisible(VirtualQPdfView* self, bool visible) {
 
-	self_cast->handle__heightForWidth = slot;
-	return true;
+	self->QPdfView::setVisible(visible);
 }
 
-int QPdfView_virtualbase_heightForWidth(const void* self, int param1) {
-	return static_cast<const VirtualQPdfView*>(self)->QPdfView::heightForWidth(static_cast<int>(param1));
-}
-
-bool QPdfView_override_virtual_hasHeightForWidth(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__hasHeightForWidth = slot;
-	return true;
-}
+int QPdfView_virtualbase_heightForWidth(const VirtualQPdfView* self, int param1) {
 
-bool QPdfView_virtualbase_hasHeightForWidth(const void* self) {
-	return static_cast<const VirtualQPdfView*>(self)->QPdfView::hasHeightForWidth();
+	return self->QPdfView::heightForWidth(static_cast<int>(param1));
 }
 
-bool QPdfView_override_virtual_paintEngine(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__paintEngine = slot;
-	return true;
-}
+bool QPdfView_virtualbase_hasHeightForWidth(const VirtualQPdfView* self) {
 
-QPaintEngine* QPdfView_virtualbase_paintEngine(const void* self) {
-	return static_cast<const VirtualQPdfView*>(self)->QPdfView::paintEngine();
+	return self->QPdfView::hasHeightForWidth();
 }
 
-bool QPdfView_override_virtual_keyReleaseEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QPaintEngine* QPdfView_virtualbase_paintEngine(const VirtualQPdfView* self) {
 
-	self_cast->handle__keyReleaseEvent = slot;
-	return true;
+	return self->QPdfView::paintEngine();
 }
 
-void QPdfView_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::keyReleaseEvent(event);
-}
-
-bool QPdfView_override_virtual_focusInEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfView_virtualbase_keyReleaseEvent(VirtualQPdfView* self, QKeyEvent* event) {
 
-	self_cast->handle__focusInEvent = slot;
-	return true;
+	self->QPdfView::keyReleaseEvent(event);
 }
-
-void QPdfView_virtualbase_focusInEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::focusInEvent(event);
-}
-
-bool QPdfView_override_virtual_focusOutEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__focusOutEvent = slot;
-	return true;
-}
+void QPdfView_virtualbase_focusInEvent(VirtualQPdfView* self, QFocusEvent* event) {
 
-void QPdfView_virtualbase_focusOutEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::focusOutEvent(event);
+	self->QPdfView::focusInEvent(event);
 }
 
-bool QPdfView_override_virtual_enterEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__enterEvent = slot;
-	return true;
-}
+void QPdfView_virtualbase_focusOutEvent(VirtualQPdfView* self, QFocusEvent* event) {
 
-void QPdfView_virtualbase_enterEvent(void* self, QEnterEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::enterEvent(event);
+	self->QPdfView::focusOutEvent(event);
 }
 
-bool QPdfView_override_virtual_leaveEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfView_virtualbase_enterEvent(VirtualQPdfView* self, QEnterEvent* event) {
 
-	self_cast->handle__leaveEvent = slot;
-	return true;
+	self->QPdfView::enterEvent(event);
 }
-
-void QPdfView_virtualbase_leaveEvent(void* self, QEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::leaveEvent(event);
-}
-
-bool QPdfView_override_virtual_moveEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__moveEvent = slot;
-	return true;
-}
+void QPdfView_virtualbase_leaveEvent(VirtualQPdfView* self, QEvent* event) {
 
-void QPdfView_virtualbase_moveEvent(void* self, QMoveEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::moveEvent(event);
+	self->QPdfView::leaveEvent(event);
 }
-
-bool QPdfView_override_virtual_closeEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__closeEvent = slot;
-	return true;
-}
+void QPdfView_virtualbase_moveEvent(VirtualQPdfView* self, QMoveEvent* event) {
 
-void QPdfView_virtualbase_closeEvent(void* self, QCloseEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::closeEvent(event);
+	self->QPdfView::moveEvent(event);
 }
 
-bool QPdfView_override_virtual_tabletEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__tabletEvent = slot;
-	return true;
-}
+void QPdfView_virtualbase_closeEvent(VirtualQPdfView* self, QCloseEvent* event) {
 
-void QPdfView_virtualbase_tabletEvent(void* self, QTabletEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::tabletEvent(event);
+	self->QPdfView::closeEvent(event);
 }
 
-bool QPdfView_override_virtual_actionEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfView_virtualbase_tabletEvent(VirtualQPdfView* self, QTabletEvent* event) {
 
-	self_cast->handle__actionEvent = slot;
-	return true;
+	self->QPdfView::tabletEvent(event);
 }
 
-void QPdfView_virtualbase_actionEvent(void* self, QActionEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::actionEvent(event);
-}
-
-bool QPdfView_override_virtual_showEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__showEvent = slot;
-	return true;
-}
+void QPdfView_virtualbase_actionEvent(VirtualQPdfView* self, QActionEvent* event) {
 
-void QPdfView_virtualbase_showEvent(void* self, QShowEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::showEvent(event);
+	self->QPdfView::actionEvent(event);
 }
 
-bool QPdfView_override_virtual_hideEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__hideEvent = slot;
-	return true;
-}
+void QPdfView_virtualbase_showEvent(VirtualQPdfView* self, QShowEvent* event) {
 
-void QPdfView_virtualbase_hideEvent(void* self, QHideEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::hideEvent(event);
+	self->QPdfView::showEvent(event);
 }
 
-bool QPdfView_override_virtual_nativeEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfView_virtualbase_hideEvent(VirtualQPdfView* self, QHideEvent* event) {
 
-	self_cast->handle__nativeEvent = slot;
-	return true;
+	self->QPdfView::hideEvent(event);
 }
 
-bool QPdfView_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, intptr_t* result) {
+bool QPdfView_virtualbase_nativeEvent(VirtualQPdfView* self, struct seaqt_string eventType, void* message, intptr_t* result) {
 	QByteArray eventType_QByteArray(eventType.data, eventType.len);
-	return static_cast<VirtualQPdfView*>(self)->QPdfView::nativeEvent(eventType_QByteArray, message, (qintptr*)(result));
+
+	return self->QPdfView::nativeEvent(eventType_QByteArray, message, (qintptr*)(result));
 }
 
-bool QPdfView_override_virtual_metric(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QPdfView_virtualbase_metric(const VirtualQPdfView* self, int param1) {
 
-	self_cast->handle__metric = slot;
-	return true;
+	return self->QPdfView::metric(static_cast<VirtualQPdfView::PaintDeviceMetric>(param1));
 }
 
-int QPdfView_virtualbase_metric(const void* self, int param1) {
-	return static_cast<const VirtualQPdfView*>(self)->QPdfView::metric(static_cast<VirtualQPdfView::PaintDeviceMetric>(param1));
+void QPdfView_virtualbase_initPainter(const VirtualQPdfView* self, QPainter* painter) {
+
+	self->QPdfView::initPainter(painter);
 }
 
-bool QPdfView_override_virtual_initPainter(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QPaintDevice* QPdfView_virtualbase_redirected(const VirtualQPdfView* self, QPoint* offset) {
 
-	self_cast->handle__initPainter = slot;
-	return true;
+	return self->QPdfView::redirected(offset);
 }
 
-void QPdfView_virtualbase_initPainter(const void* self, QPainter* painter) {
-	static_cast<const VirtualQPdfView*>(self)->QPdfView::initPainter(painter);
+QPainter* QPdfView_virtualbase_sharedPainter(const VirtualQPdfView* self) {
+
+	return self->QPdfView::sharedPainter();
 }
 
-bool QPdfView_override_virtual_redirected(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfView_virtualbase_inputMethodEvent(VirtualQPdfView* self, QInputMethodEvent* param1) {
 
-	self_cast->handle__redirected = slot;
-	return true;
+	self->QPdfView::inputMethodEvent(param1);
 }
 
-QPaintDevice* QPdfView_virtualbase_redirected(const void* self, QPoint* offset) {
-	return static_cast<const VirtualQPdfView*>(self)->QPdfView::redirected(offset);
+QVariant* QPdfView_virtualbase_inputMethodQuery(const VirtualQPdfView* self, int param1) {
+
+	return new QVariant(self->QPdfView::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
 }
 
-bool QPdfView_override_virtual_sharedPainter(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QPdfView_virtualbase_focusNextPrevChild(VirtualQPdfView* self, bool next) {
 
-	self_cast->handle__sharedPainter = slot;
-	return true;
+	return self->QPdfView::focusNextPrevChild(next);
 }
 
-QPainter* QPdfView_virtualbase_sharedPainter(const void* self) {
-	return static_cast<const VirtualQPdfView*>(self)->QPdfView::sharedPainter();
+void QPdfView_virtualbase_timerEvent(VirtualQPdfView* self, QTimerEvent* event) {
+
+	self->QPdfView::timerEvent(event);
 }
 
-bool QPdfView_override_virtual_inputMethodEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfView_virtualbase_childEvent(VirtualQPdfView* self, QChildEvent* event) {
 
-	self_cast->handle__inputMethodEvent = slot;
-	return true;
+	self->QPdfView::childEvent(event);
 }
 
-void QPdfView_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::inputMethodEvent(param1);
+void QPdfView_virtualbase_customEvent(VirtualQPdfView* self, QEvent* event) {
+
+	self->QPdfView::customEvent(event);
 }
 
-bool QPdfView_override_virtual_inputMethodQuery(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPdfView_virtualbase_connectNotify(VirtualQPdfView* self, QMetaMethod* signal) {
 
-	self_cast->handle__inputMethodQuery = slot;
-	return true;
+	self->QPdfView::connectNotify(*signal);
 }
 
-QVariant* QPdfView_virtualbase_inputMethodQuery(const void* self, int param1) {
-	return new QVariant(static_cast<const VirtualQPdfView*>(self)->QPdfView::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
+void QPdfView_virtualbase_disconnectNotify(VirtualQPdfView* self, QMetaMethod* signal) {
+
+	self->QPdfView::disconnectNotify(*signal);
 }
 
-bool QPdfView_override_virtual_focusNextPrevChild(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__focusNextPrevChild = slot;
-	return true;
+void QPdfView_protectedbase_setViewportMargins(VirtualQPdfView* self, int left, int top, int right, int bottom) {
+	self->setViewportMargins(static_cast<int>(left), static_cast<int>(top), static_cast<int>(right), static_cast<int>(bottom));
 }
 
-bool QPdfView_virtualbase_focusNextPrevChild(void* self, bool next) {
-	return static_cast<VirtualQPdfView*>(self)->QPdfView::focusNextPrevChild(next);
+QMargins* QPdfView_protectedbase_viewportMargins(const VirtualQPdfView* self) {
+	return new QMargins(self->viewportMargins());
 }
 
-bool QPdfView_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+void QPdfView_protectedbase_drawFrame(VirtualQPdfView* self, QPainter* param1) {
+	self->drawFrame(param1);
 }
 
-void QPdfView_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::timerEvent(event);
+void QPdfView_protectedbase_updateMicroFocus(VirtualQPdfView* self) {
+	self->updateMicroFocus();
 }
 
-bool QPdfView_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+void QPdfView_protectedbase_create(VirtualQPdfView* self) {
+	self->create();
 }
 
-void QPdfView_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::childEvent(event);
+void QPdfView_protectedbase_destroy(VirtualQPdfView* self) {
+	self->destroy();
 }
 
-bool QPdfView_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
+bool QPdfView_protectedbase_focusNextChild(VirtualQPdfView* self) {
+	return self->focusNextChild();
 }
 
-void QPdfView_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::customEvent(event);
+bool QPdfView_protectedbase_focusPreviousChild(VirtualQPdfView* self) {
+	return self->focusPreviousChild();
 }
 
-bool QPdfView_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
+QObject* QPdfView_protectedbase_sender(const VirtualQPdfView* self) {
+	return self->sender();
 }
 
-void QPdfView_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::connectNotify(*signal);
+int QPdfView_protectedbase_senderSignalIndex(const VirtualQPdfView* self) {
+	return self->senderSignalIndex();
 }
 
-bool QPdfView_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
+int QPdfView_protectedbase_receivers(const VirtualQPdfView* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QPdfView_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQPdfView*>(self)->QPdfView::disconnectNotify(*signal);
-}
-
-void QPdfView_protectedbase_setViewportMargins(bool* _dynamic_cast_ok, void* self, int left, int top, int right, int bottom) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setViewportMargins(static_cast<int>(left), static_cast<int>(top), static_cast<int>(right), static_cast<int>(bottom));
-}
-
-QMargins* QPdfView_protectedbase_viewportMargins(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return new QMargins(self_cast->viewportMargins());
-}
-
-void QPdfView_protectedbase_drawFrame(bool* _dynamic_cast_ok, void* self, QPainter* param1) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->drawFrame(param1);
-}
-
-void QPdfView_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->updateMicroFocus();
-}
-
-void QPdfView_protectedbase_create(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->create();
-}
-
-void QPdfView_protectedbase_destroy(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->destroy();
-}
-
-bool QPdfView_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusNextChild();
-}
-
-bool QPdfView_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusPreviousChild();
-}
-
-QObject* QPdfView_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QPdfView_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QPdfView_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QPdfView_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQPdfView* self_cast = dynamic_cast<VirtualQPdfView*>( (QPdfView*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QPdfView_protectedbase_isSignalConnected(const VirtualQPdfView* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QPdfView_delete(QPdfView* self) {

@@ -144,8 +144,20 @@ typedef struct QWheelEvent QWheelEvent;
 typedef struct QWindowStateChangeEvent QWindowStateChangeEvent;
 #endif
 
-QInputEvent* QInputEvent_new(int type, QInputDevice* m_dev);
-QInputEvent* QInputEvent_new2(int type, QInputDevice* m_dev, int modifiers);
+typedef struct VirtualQInputEvent VirtualQInputEvent;
+typedef struct QInputEvent_VTable{
+	void (*destructor)(VirtualQInputEvent* self);
+	QInputEvent* (*clone)(const VirtualQInputEvent* self);
+	void (*setTimestamp)(VirtualQInputEvent* self, unsigned long long timestamp);
+	void (*setAccepted)(VirtualQInputEvent* self, bool accepted);
+}QInputEvent_VTable;
+
+void* QInputEvent_vdata(VirtualQInputEvent* self);
+VirtualQInputEvent* vdata_QInputEvent(void* vdata);
+
+VirtualQInputEvent* QInputEvent_new(const QInputEvent_VTable* vtbl, size_t vdata, int type, QInputDevice* m_dev);
+VirtualQInputEvent* QInputEvent_new2(const QInputEvent_VTable* vtbl, size_t vdata, int type, QInputDevice* m_dev, int modifiers);
+
 void QInputEvent_virtbase(QInputEvent* src, QEvent** outptr_QEvent);
 QInputEvent* QInputEvent_clone(const QInputEvent* self);
 QInputDevice* QInputEvent_device(const QInputEvent* self);
@@ -155,18 +167,30 @@ void QInputEvent_setModifiers(QInputEvent* self, int modifiers);
 unsigned long long QInputEvent_timestamp(const QInputEvent* self);
 void QInputEvent_setTimestamp(QInputEvent* self, unsigned long long timestamp);
 
-bool QInputEvent_override_virtual_clone(void* self, intptr_t slot);
-QInputEvent* QInputEvent_virtualbase_clone(const void* self);
-bool QInputEvent_override_virtual_setTimestamp(void* self, intptr_t slot);
-void QInputEvent_virtualbase_setTimestamp(void* self, unsigned long long timestamp);
-bool QInputEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QInputEvent_virtualbase_setAccepted(void* self, bool accepted);
+QInputEvent* QInputEvent_virtualbase_clone(const VirtualQInputEvent* self);
+void QInputEvent_virtualbase_setTimestamp(VirtualQInputEvent* self, unsigned long long timestamp);
+void QInputEvent_virtualbase_setAccepted(VirtualQInputEvent* self, bool accepted);
 
 void QInputEvent_delete(QInputEvent* self);
 
-QPointerEvent* QPointerEvent_new(int type, QPointingDevice* dev);
-QPointerEvent* QPointerEvent_new2(int type, QPointingDevice* dev, int modifiers);
-QPointerEvent* QPointerEvent_new3(int type, QPointingDevice* dev, int modifiers, struct seaqt_array /* of QEventPoint* */  points);
+typedef struct VirtualQPointerEvent VirtualQPointerEvent;
+typedef struct QPointerEvent_VTable{
+	void (*destructor)(VirtualQPointerEvent* self);
+	QPointerEvent* (*clone)(const VirtualQPointerEvent* self);
+	void (*setTimestamp)(VirtualQPointerEvent* self, unsigned long long timestamp);
+	bool (*isBeginEvent)(const VirtualQPointerEvent* self);
+	bool (*isUpdateEvent)(const VirtualQPointerEvent* self);
+	bool (*isEndEvent)(const VirtualQPointerEvent* self);
+	void (*setAccepted)(VirtualQPointerEvent* self, bool accepted);
+}QPointerEvent_VTable;
+
+void* QPointerEvent_vdata(VirtualQPointerEvent* self);
+VirtualQPointerEvent* vdata_QPointerEvent(void* vdata);
+
+VirtualQPointerEvent* QPointerEvent_new(const QPointerEvent_VTable* vtbl, size_t vdata, int type, QPointingDevice* dev);
+VirtualQPointerEvent* QPointerEvent_new2(const QPointerEvent_VTable* vtbl, size_t vdata, int type, QPointingDevice* dev, int modifiers);
+VirtualQPointerEvent* QPointerEvent_new3(const QPointerEvent_VTable* vtbl, size_t vdata, int type, QPointingDevice* dev, int modifiers, struct seaqt_array /* of QEventPoint* */  points);
+
 void QPointerEvent_virtbase(QPointerEvent* src, QInputEvent** outptr_QInputEvent);
 QPointerEvent* QPointerEvent_clone(const QPointerEvent* self);
 QPointingDevice* QPointerEvent_pointingDevice(const QPointerEvent* self);
@@ -188,18 +212,12 @@ void QPointerEvent_clearPassiveGrabbers(QPointerEvent* self, QEventPoint* point)
 bool QPointerEvent_addPassiveGrabber(QPointerEvent* self, QEventPoint* point, QObject* grabber);
 bool QPointerEvent_removePassiveGrabber(QPointerEvent* self, QEventPoint* point, QObject* grabber);
 
-bool QPointerEvent_override_virtual_clone(void* self, intptr_t slot);
-QPointerEvent* QPointerEvent_virtualbase_clone(const void* self);
-bool QPointerEvent_override_virtual_setTimestamp(void* self, intptr_t slot);
-void QPointerEvent_virtualbase_setTimestamp(void* self, unsigned long long timestamp);
-bool QPointerEvent_override_virtual_isBeginEvent(void* self, intptr_t slot);
-bool QPointerEvent_virtualbase_isBeginEvent(const void* self);
-bool QPointerEvent_override_virtual_isUpdateEvent(void* self, intptr_t slot);
-bool QPointerEvent_virtualbase_isUpdateEvent(const void* self);
-bool QPointerEvent_override_virtual_isEndEvent(void* self, intptr_t slot);
-bool QPointerEvent_virtualbase_isEndEvent(const void* self);
-bool QPointerEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QPointerEvent_virtualbase_setAccepted(void* self, bool accepted);
+QPointerEvent* QPointerEvent_virtualbase_clone(const VirtualQPointerEvent* self);
+void QPointerEvent_virtualbase_setTimestamp(VirtualQPointerEvent* self, unsigned long long timestamp);
+bool QPointerEvent_virtualbase_isBeginEvent(const VirtualQPointerEvent* self);
+bool QPointerEvent_virtualbase_isUpdateEvent(const VirtualQPointerEvent* self);
+bool QPointerEvent_virtualbase_isEndEvent(const VirtualQPointerEvent* self);
+void QPointerEvent_virtualbase_setAccepted(VirtualQPointerEvent* self, bool accepted);
 
 void QPointerEvent_delete(QPointerEvent* self);
 
@@ -219,8 +237,23 @@ void QSinglePointEvent_setExclusivePointGrabber(QSinglePointEvent* self, QObject
 const QMetaObject* QSinglePointEvent_staticMetaObject();
 void QSinglePointEvent_delete(QSinglePointEvent* self);
 
-QEnterEvent* QEnterEvent_new(QPointF* localPos, QPointF* scenePos, QPointF* globalPos);
-QEnterEvent* QEnterEvent_new2(QPointF* localPos, QPointF* scenePos, QPointF* globalPos, QPointingDevice* device);
+typedef struct VirtualQEnterEvent VirtualQEnterEvent;
+typedef struct QEnterEvent_VTable{
+	void (*destructor)(VirtualQEnterEvent* self);
+	QEnterEvent* (*clone)(const VirtualQEnterEvent* self);
+	bool (*isBeginEvent)(const VirtualQEnterEvent* self);
+	bool (*isUpdateEvent)(const VirtualQEnterEvent* self);
+	bool (*isEndEvent)(const VirtualQEnterEvent* self);
+	void (*setTimestamp)(VirtualQEnterEvent* self, unsigned long long timestamp);
+	void (*setAccepted)(VirtualQEnterEvent* self, bool accepted);
+}QEnterEvent_VTable;
+
+void* QEnterEvent_vdata(VirtualQEnterEvent* self);
+VirtualQEnterEvent* vdata_QEnterEvent(void* vdata);
+
+VirtualQEnterEvent* QEnterEvent_new(const QEnterEvent_VTable* vtbl, size_t vdata, QPointF* localPos, QPointF* scenePos, QPointF* globalPos);
+VirtualQEnterEvent* QEnterEvent_new2(const QEnterEvent_VTable* vtbl, size_t vdata, QPointF* localPos, QPointF* scenePos, QPointF* globalPos, QPointingDevice* device);
+
 void QEnterEvent_virtbase(QEnterEvent* src, QSinglePointEvent** outptr_QSinglePointEvent);
 QEnterEvent* QEnterEvent_clone(const QEnterEvent* self);
 QPoint* QEnterEvent_pos(const QEnterEvent* self);
@@ -233,29 +266,38 @@ QPointF* QEnterEvent_localPos(const QEnterEvent* self);
 QPointF* QEnterEvent_windowPos(const QEnterEvent* self);
 QPointF* QEnterEvent_screenPos(const QEnterEvent* self);
 
-bool QEnterEvent_override_virtual_clone(void* self, intptr_t slot);
-QEnterEvent* QEnterEvent_virtualbase_clone(const void* self);
-bool QEnterEvent_override_virtual_isBeginEvent(void* self, intptr_t slot);
-bool QEnterEvent_virtualbase_isBeginEvent(const void* self);
-bool QEnterEvent_override_virtual_isUpdateEvent(void* self, intptr_t slot);
-bool QEnterEvent_virtualbase_isUpdateEvent(const void* self);
-bool QEnterEvent_override_virtual_isEndEvent(void* self, intptr_t slot);
-bool QEnterEvent_virtualbase_isEndEvent(const void* self);
-bool QEnterEvent_override_virtual_setTimestamp(void* self, intptr_t slot);
-void QEnterEvent_virtualbase_setTimestamp(void* self, unsigned long long timestamp);
-bool QEnterEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QEnterEvent_virtualbase_setAccepted(void* self, bool accepted);
+QEnterEvent* QEnterEvent_virtualbase_clone(const VirtualQEnterEvent* self);
+bool QEnterEvent_virtualbase_isBeginEvent(const VirtualQEnterEvent* self);
+bool QEnterEvent_virtualbase_isUpdateEvent(const VirtualQEnterEvent* self);
+bool QEnterEvent_virtualbase_isEndEvent(const VirtualQEnterEvent* self);
+void QEnterEvent_virtualbase_setTimestamp(VirtualQEnterEvent* self, unsigned long long timestamp);
+void QEnterEvent_virtualbase_setAccepted(VirtualQEnterEvent* self, bool accepted);
 
 void QEnterEvent_delete(QEnterEvent* self);
 
-QMouseEvent* QMouseEvent_new(int type, QPointF* localPos, int button, int buttons, int modifiers);
-QMouseEvent* QMouseEvent_new2(int type, QPointF* localPos, QPointF* globalPos, int button, int buttons, int modifiers);
-QMouseEvent* QMouseEvent_new3(int type, QPointF* localPos, QPointF* scenePos, QPointF* globalPos, int button, int buttons, int modifiers);
-QMouseEvent* QMouseEvent_new4(int type, QPointF* localPos, QPointF* scenePos, QPointF* globalPos, int button, int buttons, int modifiers, int source);
-QMouseEvent* QMouseEvent_new5(int type, QPointF* localPos, int button, int buttons, int modifiers, QPointingDevice* device);
-QMouseEvent* QMouseEvent_new6(int type, QPointF* localPos, QPointF* globalPos, int button, int buttons, int modifiers, QPointingDevice* device);
-QMouseEvent* QMouseEvent_new7(int type, QPointF* localPos, QPointF* scenePos, QPointF* globalPos, int button, int buttons, int modifiers, QPointingDevice* device);
-QMouseEvent* QMouseEvent_new8(int type, QPointF* localPos, QPointF* scenePos, QPointF* globalPos, int button, int buttons, int modifiers, int source, QPointingDevice* device);
+typedef struct VirtualQMouseEvent VirtualQMouseEvent;
+typedef struct QMouseEvent_VTable{
+	void (*destructor)(VirtualQMouseEvent* self);
+	QMouseEvent* (*clone)(const VirtualQMouseEvent* self);
+	bool (*isBeginEvent)(const VirtualQMouseEvent* self);
+	bool (*isUpdateEvent)(const VirtualQMouseEvent* self);
+	bool (*isEndEvent)(const VirtualQMouseEvent* self);
+	void (*setTimestamp)(VirtualQMouseEvent* self, unsigned long long timestamp);
+	void (*setAccepted)(VirtualQMouseEvent* self, bool accepted);
+}QMouseEvent_VTable;
+
+void* QMouseEvent_vdata(VirtualQMouseEvent* self);
+VirtualQMouseEvent* vdata_QMouseEvent(void* vdata);
+
+VirtualQMouseEvent* QMouseEvent_new(const QMouseEvent_VTable* vtbl, size_t vdata, int type, QPointF* localPos, int button, int buttons, int modifiers);
+VirtualQMouseEvent* QMouseEvent_new2(const QMouseEvent_VTable* vtbl, size_t vdata, int type, QPointF* localPos, QPointF* globalPos, int button, int buttons, int modifiers);
+VirtualQMouseEvent* QMouseEvent_new3(const QMouseEvent_VTable* vtbl, size_t vdata, int type, QPointF* localPos, QPointF* scenePos, QPointF* globalPos, int button, int buttons, int modifiers);
+VirtualQMouseEvent* QMouseEvent_new4(const QMouseEvent_VTable* vtbl, size_t vdata, int type, QPointF* localPos, QPointF* scenePos, QPointF* globalPos, int button, int buttons, int modifiers, int source);
+VirtualQMouseEvent* QMouseEvent_new5(const QMouseEvent_VTable* vtbl, size_t vdata, int type, QPointF* localPos, int button, int buttons, int modifiers, QPointingDevice* device);
+VirtualQMouseEvent* QMouseEvent_new6(const QMouseEvent_VTable* vtbl, size_t vdata, int type, QPointF* localPos, QPointF* globalPos, int button, int buttons, int modifiers, QPointingDevice* device);
+VirtualQMouseEvent* QMouseEvent_new7(const QMouseEvent_VTable* vtbl, size_t vdata, int type, QPointF* localPos, QPointF* scenePos, QPointF* globalPos, int button, int buttons, int modifiers, QPointingDevice* device);
+VirtualQMouseEvent* QMouseEvent_new8(const QMouseEvent_VTable* vtbl, size_t vdata, int type, QPointF* localPos, QPointF* scenePos, QPointF* globalPos, int button, int buttons, int modifiers, int source, QPointingDevice* device);
+
 void QMouseEvent_virtbase(QMouseEvent* src, QSinglePointEvent** outptr_QSinglePointEvent);
 QMouseEvent* QMouseEvent_clone(const QMouseEvent* self);
 QPoint* QMouseEvent_pos(const QMouseEvent* self);
@@ -270,27 +312,36 @@ QPointF* QMouseEvent_screenPos(const QMouseEvent* self);
 int QMouseEvent_source(const QMouseEvent* self);
 int QMouseEvent_flags(const QMouseEvent* self);
 
-bool QMouseEvent_override_virtual_clone(void* self, intptr_t slot);
-QMouseEvent* QMouseEvent_virtualbase_clone(const void* self);
-bool QMouseEvent_override_virtual_isBeginEvent(void* self, intptr_t slot);
-bool QMouseEvent_virtualbase_isBeginEvent(const void* self);
-bool QMouseEvent_override_virtual_isUpdateEvent(void* self, intptr_t slot);
-bool QMouseEvent_virtualbase_isUpdateEvent(const void* self);
-bool QMouseEvent_override_virtual_isEndEvent(void* self, intptr_t slot);
-bool QMouseEvent_virtualbase_isEndEvent(const void* self);
-bool QMouseEvent_override_virtual_setTimestamp(void* self, intptr_t slot);
-void QMouseEvent_virtualbase_setTimestamp(void* self, unsigned long long timestamp);
-bool QMouseEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QMouseEvent_virtualbase_setAccepted(void* self, bool accepted);
+QMouseEvent* QMouseEvent_virtualbase_clone(const VirtualQMouseEvent* self);
+bool QMouseEvent_virtualbase_isBeginEvent(const VirtualQMouseEvent* self);
+bool QMouseEvent_virtualbase_isUpdateEvent(const VirtualQMouseEvent* self);
+bool QMouseEvent_virtualbase_isEndEvent(const VirtualQMouseEvent* self);
+void QMouseEvent_virtualbase_setTimestamp(VirtualQMouseEvent* self, unsigned long long timestamp);
+void QMouseEvent_virtualbase_setAccepted(VirtualQMouseEvent* self, bool accepted);
 
 void QMouseEvent_delete(QMouseEvent* self);
 
-QHoverEvent* QHoverEvent_new(int type, QPointF* scenePos, QPointF* globalPos, QPointF* oldPos);
-QHoverEvent* QHoverEvent_new2(int type, QPointF* pos, QPointF* oldPos);
-QHoverEvent* QHoverEvent_new3(int type, QPointF* scenePos, QPointF* globalPos, QPointF* oldPos, int modifiers);
-QHoverEvent* QHoverEvent_new4(int type, QPointF* scenePos, QPointF* globalPos, QPointF* oldPos, int modifiers, QPointingDevice* device);
-QHoverEvent* QHoverEvent_new5(int type, QPointF* pos, QPointF* oldPos, int modifiers);
-QHoverEvent* QHoverEvent_new6(int type, QPointF* pos, QPointF* oldPos, int modifiers, QPointingDevice* device);
+typedef struct VirtualQHoverEvent VirtualQHoverEvent;
+typedef struct QHoverEvent_VTable{
+	void (*destructor)(VirtualQHoverEvent* self);
+	QHoverEvent* (*clone)(const VirtualQHoverEvent* self);
+	bool (*isUpdateEvent)(const VirtualQHoverEvent* self);
+	bool (*isBeginEvent)(const VirtualQHoverEvent* self);
+	bool (*isEndEvent)(const VirtualQHoverEvent* self);
+	void (*setTimestamp)(VirtualQHoverEvent* self, unsigned long long timestamp);
+	void (*setAccepted)(VirtualQHoverEvent* self, bool accepted);
+}QHoverEvent_VTable;
+
+void* QHoverEvent_vdata(VirtualQHoverEvent* self);
+VirtualQHoverEvent* vdata_QHoverEvent(void* vdata);
+
+VirtualQHoverEvent* QHoverEvent_new(const QHoverEvent_VTable* vtbl, size_t vdata, int type, QPointF* scenePos, QPointF* globalPos, QPointF* oldPos);
+VirtualQHoverEvent* QHoverEvent_new2(const QHoverEvent_VTable* vtbl, size_t vdata, int type, QPointF* pos, QPointF* oldPos);
+VirtualQHoverEvent* QHoverEvent_new3(const QHoverEvent_VTable* vtbl, size_t vdata, int type, QPointF* scenePos, QPointF* globalPos, QPointF* oldPos, int modifiers);
+VirtualQHoverEvent* QHoverEvent_new4(const QHoverEvent_VTable* vtbl, size_t vdata, int type, QPointF* scenePos, QPointF* globalPos, QPointF* oldPos, int modifiers, QPointingDevice* device);
+VirtualQHoverEvent* QHoverEvent_new5(const QHoverEvent_VTable* vtbl, size_t vdata, int type, QPointF* pos, QPointF* oldPos, int modifiers);
+VirtualQHoverEvent* QHoverEvent_new6(const QHoverEvent_VTable* vtbl, size_t vdata, int type, QPointF* pos, QPointF* oldPos, int modifiers, QPointingDevice* device);
+
 void QHoverEvent_virtbase(QHoverEvent* src, QSinglePointEvent** outptr_QSinglePointEvent);
 QHoverEvent* QHoverEvent_clone(const QHoverEvent* self);
 QPoint* QHoverEvent_pos(const QHoverEvent* self);
@@ -299,24 +350,33 @@ bool QHoverEvent_isUpdateEvent(const QHoverEvent* self);
 QPoint* QHoverEvent_oldPos(const QHoverEvent* self);
 QPointF* QHoverEvent_oldPosF(const QHoverEvent* self);
 
-bool QHoverEvent_override_virtual_clone(void* self, intptr_t slot);
-QHoverEvent* QHoverEvent_virtualbase_clone(const void* self);
-bool QHoverEvent_override_virtual_isUpdateEvent(void* self, intptr_t slot);
-bool QHoverEvent_virtualbase_isUpdateEvent(const void* self);
-bool QHoverEvent_override_virtual_isBeginEvent(void* self, intptr_t slot);
-bool QHoverEvent_virtualbase_isBeginEvent(const void* self);
-bool QHoverEvent_override_virtual_isEndEvent(void* self, intptr_t slot);
-bool QHoverEvent_virtualbase_isEndEvent(const void* self);
-bool QHoverEvent_override_virtual_setTimestamp(void* self, intptr_t slot);
-void QHoverEvent_virtualbase_setTimestamp(void* self, unsigned long long timestamp);
-bool QHoverEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QHoverEvent_virtualbase_setAccepted(void* self, bool accepted);
+QHoverEvent* QHoverEvent_virtualbase_clone(const VirtualQHoverEvent* self);
+bool QHoverEvent_virtualbase_isUpdateEvent(const VirtualQHoverEvent* self);
+bool QHoverEvent_virtualbase_isBeginEvent(const VirtualQHoverEvent* self);
+bool QHoverEvent_virtualbase_isEndEvent(const VirtualQHoverEvent* self);
+void QHoverEvent_virtualbase_setTimestamp(VirtualQHoverEvent* self, unsigned long long timestamp);
+void QHoverEvent_virtualbase_setAccepted(VirtualQHoverEvent* self, bool accepted);
 
 void QHoverEvent_delete(QHoverEvent* self);
 
-QWheelEvent* QWheelEvent_new(QPointF* pos, QPointF* globalPos, QPoint* pixelDelta, QPoint* angleDelta, int buttons, int modifiers, int phase, bool inverted);
-QWheelEvent* QWheelEvent_new2(QPointF* pos, QPointF* globalPos, QPoint* pixelDelta, QPoint* angleDelta, int buttons, int modifiers, int phase, bool inverted, int source);
-QWheelEvent* QWheelEvent_new3(QPointF* pos, QPointF* globalPos, QPoint* pixelDelta, QPoint* angleDelta, int buttons, int modifiers, int phase, bool inverted, int source, QPointingDevice* device);
+typedef struct VirtualQWheelEvent VirtualQWheelEvent;
+typedef struct QWheelEvent_VTable{
+	void (*destructor)(VirtualQWheelEvent* self);
+	QWheelEvent* (*clone)(const VirtualQWheelEvent* self);
+	bool (*isBeginEvent)(const VirtualQWheelEvent* self);
+	bool (*isUpdateEvent)(const VirtualQWheelEvent* self);
+	bool (*isEndEvent)(const VirtualQWheelEvent* self);
+	void (*setTimestamp)(VirtualQWheelEvent* self, unsigned long long timestamp);
+	void (*setAccepted)(VirtualQWheelEvent* self, bool accepted);
+}QWheelEvent_VTable;
+
+void* QWheelEvent_vdata(VirtualQWheelEvent* self);
+VirtualQWheelEvent* vdata_QWheelEvent(void* vdata);
+
+VirtualQWheelEvent* QWheelEvent_new(const QWheelEvent_VTable* vtbl, size_t vdata, QPointF* pos, QPointF* globalPos, QPoint* pixelDelta, QPoint* angleDelta, int buttons, int modifiers, int phase, bool inverted);
+VirtualQWheelEvent* QWheelEvent_new2(const QWheelEvent_VTable* vtbl, size_t vdata, QPointF* pos, QPointF* globalPos, QPoint* pixelDelta, QPoint* angleDelta, int buttons, int modifiers, int phase, bool inverted, int source);
+VirtualQWheelEvent* QWheelEvent_new3(const QWheelEvent_VTable* vtbl, size_t vdata, QPointF* pos, QPointF* globalPos, QPoint* pixelDelta, QPoint* angleDelta, int buttons, int modifiers, int phase, bool inverted, int source, QPointingDevice* device);
+
 void QWheelEvent_virtbase(QWheelEvent* src, QSinglePointEvent** outptr_QSinglePointEvent);
 QWheelEvent* QWheelEvent_clone(const QWheelEvent* self);
 QPoint* QWheelEvent_pixelDelta(const QWheelEvent* self);
@@ -330,23 +390,32 @@ bool QWheelEvent_isUpdateEvent(const QWheelEvent* self);
 bool QWheelEvent_isEndEvent(const QWheelEvent* self);
 int QWheelEvent_source(const QWheelEvent* self);
 
-bool QWheelEvent_override_virtual_clone(void* self, intptr_t slot);
-QWheelEvent* QWheelEvent_virtualbase_clone(const void* self);
-bool QWheelEvent_override_virtual_isBeginEvent(void* self, intptr_t slot);
-bool QWheelEvent_virtualbase_isBeginEvent(const void* self);
-bool QWheelEvent_override_virtual_isUpdateEvent(void* self, intptr_t slot);
-bool QWheelEvent_virtualbase_isUpdateEvent(const void* self);
-bool QWheelEvent_override_virtual_isEndEvent(void* self, intptr_t slot);
-bool QWheelEvent_virtualbase_isEndEvent(const void* self);
-bool QWheelEvent_override_virtual_setTimestamp(void* self, intptr_t slot);
-void QWheelEvent_virtualbase_setTimestamp(void* self, unsigned long long timestamp);
-bool QWheelEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QWheelEvent_virtualbase_setAccepted(void* self, bool accepted);
+QWheelEvent* QWheelEvent_virtualbase_clone(const VirtualQWheelEvent* self);
+bool QWheelEvent_virtualbase_isBeginEvent(const VirtualQWheelEvent* self);
+bool QWheelEvent_virtualbase_isUpdateEvent(const VirtualQWheelEvent* self);
+bool QWheelEvent_virtualbase_isEndEvent(const VirtualQWheelEvent* self);
+void QWheelEvent_virtualbase_setTimestamp(VirtualQWheelEvent* self, unsigned long long timestamp);
+void QWheelEvent_virtualbase_setAccepted(VirtualQWheelEvent* self, bool accepted);
 
 const QMetaObject* QWheelEvent_staticMetaObject();
 void QWheelEvent_delete(QWheelEvent* self);
 
-QTabletEvent* QTabletEvent_new(int t, QPointingDevice* device, QPointF* pos, QPointF* globalPos, double pressure, float xTilt, float yTilt, float tangentialPressure, double rotation, float z, int keyState, int button, int buttons);
+typedef struct VirtualQTabletEvent VirtualQTabletEvent;
+typedef struct QTabletEvent_VTable{
+	void (*destructor)(VirtualQTabletEvent* self);
+	QTabletEvent* (*clone)(const VirtualQTabletEvent* self);
+	bool (*isBeginEvent)(const VirtualQTabletEvent* self);
+	bool (*isUpdateEvent)(const VirtualQTabletEvent* self);
+	bool (*isEndEvent)(const VirtualQTabletEvent* self);
+	void (*setTimestamp)(VirtualQTabletEvent* self, unsigned long long timestamp);
+	void (*setAccepted)(VirtualQTabletEvent* self, bool accepted);
+}QTabletEvent_VTable;
+
+void* QTabletEvent_vdata(VirtualQTabletEvent* self);
+VirtualQTabletEvent* vdata_QTabletEvent(void* vdata);
+
+VirtualQTabletEvent* QTabletEvent_new(const QTabletEvent_VTable* vtbl, size_t vdata, int t, QPointingDevice* device, QPointF* pos, QPointF* globalPos, double pressure, float xTilt, float yTilt, float tangentialPressure, double rotation, float z, int keyState, int button, int buttons);
+
 void QTabletEvent_virtbase(QTabletEvent* src, QSinglePointEvent** outptr_QSinglePointEvent);
 QTabletEvent* QTabletEvent_clone(const QTabletEvent* self);
 QPoint* QTabletEvent_pos(const QTabletEvent* self);
@@ -367,24 +436,33 @@ double QTabletEvent_tangentialPressure(const QTabletEvent* self);
 double QTabletEvent_xTilt(const QTabletEvent* self);
 double QTabletEvent_yTilt(const QTabletEvent* self);
 
-bool QTabletEvent_override_virtual_clone(void* self, intptr_t slot);
-QTabletEvent* QTabletEvent_virtualbase_clone(const void* self);
-bool QTabletEvent_override_virtual_isBeginEvent(void* self, intptr_t slot);
-bool QTabletEvent_virtualbase_isBeginEvent(const void* self);
-bool QTabletEvent_override_virtual_isUpdateEvent(void* self, intptr_t slot);
-bool QTabletEvent_virtualbase_isUpdateEvent(const void* self);
-bool QTabletEvent_override_virtual_isEndEvent(void* self, intptr_t slot);
-bool QTabletEvent_virtualbase_isEndEvent(const void* self);
-bool QTabletEvent_override_virtual_setTimestamp(void* self, intptr_t slot);
-void QTabletEvent_virtualbase_setTimestamp(void* self, unsigned long long timestamp);
-bool QTabletEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QTabletEvent_virtualbase_setAccepted(void* self, bool accepted);
+QTabletEvent* QTabletEvent_virtualbase_clone(const VirtualQTabletEvent* self);
+bool QTabletEvent_virtualbase_isBeginEvent(const VirtualQTabletEvent* self);
+bool QTabletEvent_virtualbase_isUpdateEvent(const VirtualQTabletEvent* self);
+bool QTabletEvent_virtualbase_isEndEvent(const VirtualQTabletEvent* self);
+void QTabletEvent_virtualbase_setTimestamp(VirtualQTabletEvent* self, unsigned long long timestamp);
+void QTabletEvent_virtualbase_setAccepted(VirtualQTabletEvent* self, bool accepted);
 
 void QTabletEvent_delete(QTabletEvent* self);
 
-QNativeGestureEvent* QNativeGestureEvent_new(int type, QPointingDevice* dev, QPointF* localPos, QPointF* scenePos, QPointF* globalPos, double value, unsigned long long sequenceId, unsigned long long intArgument);
-QNativeGestureEvent* QNativeGestureEvent_new2(int type, QPointingDevice* dev, int fingerCount, QPointF* localPos, QPointF* scenePos, QPointF* globalPos, double value, QPointF* delta);
-QNativeGestureEvent* QNativeGestureEvent_new3(int type, QPointingDevice* dev, int fingerCount, QPointF* localPos, QPointF* scenePos, QPointF* globalPos, double value, QPointF* delta, unsigned long long sequenceId);
+typedef struct VirtualQNativeGestureEvent VirtualQNativeGestureEvent;
+typedef struct QNativeGestureEvent_VTable{
+	void (*destructor)(VirtualQNativeGestureEvent* self);
+	QNativeGestureEvent* (*clone)(const VirtualQNativeGestureEvent* self);
+	bool (*isBeginEvent)(const VirtualQNativeGestureEvent* self);
+	bool (*isUpdateEvent)(const VirtualQNativeGestureEvent* self);
+	bool (*isEndEvent)(const VirtualQNativeGestureEvent* self);
+	void (*setTimestamp)(VirtualQNativeGestureEvent* self, unsigned long long timestamp);
+	void (*setAccepted)(VirtualQNativeGestureEvent* self, bool accepted);
+}QNativeGestureEvent_VTable;
+
+void* QNativeGestureEvent_vdata(VirtualQNativeGestureEvent* self);
+VirtualQNativeGestureEvent* vdata_QNativeGestureEvent(void* vdata);
+
+VirtualQNativeGestureEvent* QNativeGestureEvent_new(const QNativeGestureEvent_VTable* vtbl, size_t vdata, int type, QPointingDevice* dev, QPointF* localPos, QPointF* scenePos, QPointF* globalPos, double value, unsigned long long sequenceId, unsigned long long intArgument);
+VirtualQNativeGestureEvent* QNativeGestureEvent_new2(const QNativeGestureEvent_VTable* vtbl, size_t vdata, int type, QPointingDevice* dev, int fingerCount, QPointF* localPos, QPointF* scenePos, QPointF* globalPos, double value, QPointF* delta);
+VirtualQNativeGestureEvent* QNativeGestureEvent_new3(const QNativeGestureEvent_VTable* vtbl, size_t vdata, int type, QPointingDevice* dev, int fingerCount, QPointF* localPos, QPointF* scenePos, QPointF* globalPos, double value, QPointF* delta, unsigned long long sequenceId);
+
 void QNativeGestureEvent_virtbase(QNativeGestureEvent* src, QSinglePointEvent** outptr_QSinglePointEvent);
 QNativeGestureEvent* QNativeGestureEvent_clone(const QNativeGestureEvent* self);
 int QNativeGestureEvent_gestureType(const QNativeGestureEvent* self);
@@ -397,30 +475,36 @@ QPointF* QNativeGestureEvent_localPos(const QNativeGestureEvent* self);
 QPointF* QNativeGestureEvent_windowPos(const QNativeGestureEvent* self);
 QPointF* QNativeGestureEvent_screenPos(const QNativeGestureEvent* self);
 
-bool QNativeGestureEvent_override_virtual_clone(void* self, intptr_t slot);
-QNativeGestureEvent* QNativeGestureEvent_virtualbase_clone(const void* self);
-bool QNativeGestureEvent_override_virtual_isBeginEvent(void* self, intptr_t slot);
-bool QNativeGestureEvent_virtualbase_isBeginEvent(const void* self);
-bool QNativeGestureEvent_override_virtual_isUpdateEvent(void* self, intptr_t slot);
-bool QNativeGestureEvent_virtualbase_isUpdateEvent(const void* self);
-bool QNativeGestureEvent_override_virtual_isEndEvent(void* self, intptr_t slot);
-bool QNativeGestureEvent_virtualbase_isEndEvent(const void* self);
-bool QNativeGestureEvent_override_virtual_setTimestamp(void* self, intptr_t slot);
-void QNativeGestureEvent_virtualbase_setTimestamp(void* self, unsigned long long timestamp);
-bool QNativeGestureEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QNativeGestureEvent_virtualbase_setAccepted(void* self, bool accepted);
+QNativeGestureEvent* QNativeGestureEvent_virtualbase_clone(const VirtualQNativeGestureEvent* self);
+bool QNativeGestureEvent_virtualbase_isBeginEvent(const VirtualQNativeGestureEvent* self);
+bool QNativeGestureEvent_virtualbase_isUpdateEvent(const VirtualQNativeGestureEvent* self);
+bool QNativeGestureEvent_virtualbase_isEndEvent(const VirtualQNativeGestureEvent* self);
+void QNativeGestureEvent_virtualbase_setTimestamp(VirtualQNativeGestureEvent* self, unsigned long long timestamp);
+void QNativeGestureEvent_virtualbase_setAccepted(VirtualQNativeGestureEvent* self, bool accepted);
 
 void QNativeGestureEvent_delete(QNativeGestureEvent* self);
 
-QKeyEvent* QKeyEvent_new(int type, int key, int modifiers);
-QKeyEvent* QKeyEvent_new2(int type, int key, int modifiers, unsigned int nativeScanCode, unsigned int nativeVirtualKey, unsigned int nativeModifiers);
-QKeyEvent* QKeyEvent_new3(int type, int key, int modifiers, struct seaqt_string text);
-QKeyEvent* QKeyEvent_new4(int type, int key, int modifiers, struct seaqt_string text, bool autorep);
-QKeyEvent* QKeyEvent_new5(int type, int key, int modifiers, struct seaqt_string text, bool autorep, unsigned short count);
-QKeyEvent* QKeyEvent_new6(int type, int key, int modifiers, unsigned int nativeScanCode, unsigned int nativeVirtualKey, unsigned int nativeModifiers, struct seaqt_string text);
-QKeyEvent* QKeyEvent_new7(int type, int key, int modifiers, unsigned int nativeScanCode, unsigned int nativeVirtualKey, unsigned int nativeModifiers, struct seaqt_string text, bool autorep);
-QKeyEvent* QKeyEvent_new8(int type, int key, int modifiers, unsigned int nativeScanCode, unsigned int nativeVirtualKey, unsigned int nativeModifiers, struct seaqt_string text, bool autorep, unsigned short count);
-QKeyEvent* QKeyEvent_new9(int type, int key, int modifiers, unsigned int nativeScanCode, unsigned int nativeVirtualKey, unsigned int nativeModifiers, struct seaqt_string text, bool autorep, unsigned short count, QInputDevice* device);
+typedef struct VirtualQKeyEvent VirtualQKeyEvent;
+typedef struct QKeyEvent_VTable{
+	void (*destructor)(VirtualQKeyEvent* self);
+	QKeyEvent* (*clone)(const VirtualQKeyEvent* self);
+	void (*setTimestamp)(VirtualQKeyEvent* self, unsigned long long timestamp);
+	void (*setAccepted)(VirtualQKeyEvent* self, bool accepted);
+}QKeyEvent_VTable;
+
+void* QKeyEvent_vdata(VirtualQKeyEvent* self);
+VirtualQKeyEvent* vdata_QKeyEvent(void* vdata);
+
+VirtualQKeyEvent* QKeyEvent_new(const QKeyEvent_VTable* vtbl, size_t vdata, int type, int key, int modifiers);
+VirtualQKeyEvent* QKeyEvent_new2(const QKeyEvent_VTable* vtbl, size_t vdata, int type, int key, int modifiers, unsigned int nativeScanCode, unsigned int nativeVirtualKey, unsigned int nativeModifiers);
+VirtualQKeyEvent* QKeyEvent_new3(const QKeyEvent_VTable* vtbl, size_t vdata, int type, int key, int modifiers, struct seaqt_string text);
+VirtualQKeyEvent* QKeyEvent_new4(const QKeyEvent_VTable* vtbl, size_t vdata, int type, int key, int modifiers, struct seaqt_string text, bool autorep);
+VirtualQKeyEvent* QKeyEvent_new5(const QKeyEvent_VTable* vtbl, size_t vdata, int type, int key, int modifiers, struct seaqt_string text, bool autorep, unsigned short count);
+VirtualQKeyEvent* QKeyEvent_new6(const QKeyEvent_VTable* vtbl, size_t vdata, int type, int key, int modifiers, unsigned int nativeScanCode, unsigned int nativeVirtualKey, unsigned int nativeModifiers, struct seaqt_string text);
+VirtualQKeyEvent* QKeyEvent_new7(const QKeyEvent_VTable* vtbl, size_t vdata, int type, int key, int modifiers, unsigned int nativeScanCode, unsigned int nativeVirtualKey, unsigned int nativeModifiers, struct seaqt_string text, bool autorep);
+VirtualQKeyEvent* QKeyEvent_new8(const QKeyEvent_VTable* vtbl, size_t vdata, int type, int key, int modifiers, unsigned int nativeScanCode, unsigned int nativeVirtualKey, unsigned int nativeModifiers, struct seaqt_string text, bool autorep, unsigned short count);
+VirtualQKeyEvent* QKeyEvent_new9(const QKeyEvent_VTable* vtbl, size_t vdata, int type, int key, int modifiers, unsigned int nativeScanCode, unsigned int nativeVirtualKey, unsigned int nativeModifiers, struct seaqt_string text, bool autorep, unsigned short count, QInputDevice* device);
+
 void QKeyEvent_virtbase(QKeyEvent* src, QInputEvent** outptr_QInputEvent);
 QKeyEvent* QKeyEvent_clone(const QKeyEvent* self);
 int QKeyEvent_key(const QKeyEvent* self);
@@ -434,141 +518,240 @@ unsigned int QKeyEvent_nativeScanCode(const QKeyEvent* self);
 unsigned int QKeyEvent_nativeVirtualKey(const QKeyEvent* self);
 unsigned int QKeyEvent_nativeModifiers(const QKeyEvent* self);
 
-bool QKeyEvent_override_virtual_clone(void* self, intptr_t slot);
-QKeyEvent* QKeyEvent_virtualbase_clone(const void* self);
-bool QKeyEvent_override_virtual_setTimestamp(void* self, intptr_t slot);
-void QKeyEvent_virtualbase_setTimestamp(void* self, unsigned long long timestamp);
-bool QKeyEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QKeyEvent_virtualbase_setAccepted(void* self, bool accepted);
+QKeyEvent* QKeyEvent_virtualbase_clone(const VirtualQKeyEvent* self);
+void QKeyEvent_virtualbase_setTimestamp(VirtualQKeyEvent* self, unsigned long long timestamp);
+void QKeyEvent_virtualbase_setAccepted(VirtualQKeyEvent* self, bool accepted);
 
 void QKeyEvent_delete(QKeyEvent* self);
 
-QFocusEvent* QFocusEvent_new(int type);
-QFocusEvent* QFocusEvent_new2(int type, int reason);
+typedef struct VirtualQFocusEvent VirtualQFocusEvent;
+typedef struct QFocusEvent_VTable{
+	void (*destructor)(VirtualQFocusEvent* self);
+	QFocusEvent* (*clone)(const VirtualQFocusEvent* self);
+	void (*setAccepted)(VirtualQFocusEvent* self, bool accepted);
+}QFocusEvent_VTable;
+
+void* QFocusEvent_vdata(VirtualQFocusEvent* self);
+VirtualQFocusEvent* vdata_QFocusEvent(void* vdata);
+
+VirtualQFocusEvent* QFocusEvent_new(const QFocusEvent_VTable* vtbl, size_t vdata, int type);
+VirtualQFocusEvent* QFocusEvent_new2(const QFocusEvent_VTable* vtbl, size_t vdata, int type, int reason);
+
 void QFocusEvent_virtbase(QFocusEvent* src, QEvent** outptr_QEvent);
 QFocusEvent* QFocusEvent_clone(const QFocusEvent* self);
 bool QFocusEvent_gotFocus(const QFocusEvent* self);
 bool QFocusEvent_lostFocus(const QFocusEvent* self);
 int QFocusEvent_reason(const QFocusEvent* self);
 
-bool QFocusEvent_override_virtual_clone(void* self, intptr_t slot);
-QFocusEvent* QFocusEvent_virtualbase_clone(const void* self);
-bool QFocusEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QFocusEvent_virtualbase_setAccepted(void* self, bool accepted);
+QFocusEvent* QFocusEvent_virtualbase_clone(const VirtualQFocusEvent* self);
+void QFocusEvent_virtualbase_setAccepted(VirtualQFocusEvent* self, bool accepted);
 
 void QFocusEvent_delete(QFocusEvent* self);
 
-QPaintEvent* QPaintEvent_new(QRegion* paintRegion);
-QPaintEvent* QPaintEvent_new2(QRect* paintRect);
+typedef struct VirtualQPaintEvent VirtualQPaintEvent;
+typedef struct QPaintEvent_VTable{
+	void (*destructor)(VirtualQPaintEvent* self);
+	QPaintEvent* (*clone)(const VirtualQPaintEvent* self);
+	void (*setAccepted)(VirtualQPaintEvent* self, bool accepted);
+}QPaintEvent_VTable;
+
+void* QPaintEvent_vdata(VirtualQPaintEvent* self);
+VirtualQPaintEvent* vdata_QPaintEvent(void* vdata);
+
+VirtualQPaintEvent* QPaintEvent_new(const QPaintEvent_VTable* vtbl, size_t vdata, QRegion* paintRegion);
+VirtualQPaintEvent* QPaintEvent_new2(const QPaintEvent_VTable* vtbl, size_t vdata, QRect* paintRect);
+
 void QPaintEvent_virtbase(QPaintEvent* src, QEvent** outptr_QEvent);
 QPaintEvent* QPaintEvent_clone(const QPaintEvent* self);
 QRect* QPaintEvent_rect(const QPaintEvent* self);
 QRegion* QPaintEvent_region(const QPaintEvent* self);
 
-bool QPaintEvent_override_virtual_clone(void* self, intptr_t slot);
-QPaintEvent* QPaintEvent_virtualbase_clone(const void* self);
-bool QPaintEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QPaintEvent_virtualbase_setAccepted(void* self, bool accepted);
+QPaintEvent* QPaintEvent_virtualbase_clone(const VirtualQPaintEvent* self);
+void QPaintEvent_virtualbase_setAccepted(VirtualQPaintEvent* self, bool accepted);
 
 void QPaintEvent_delete(QPaintEvent* self);
 
-QMoveEvent* QMoveEvent_new(QPoint* pos, QPoint* oldPos);
+typedef struct VirtualQMoveEvent VirtualQMoveEvent;
+typedef struct QMoveEvent_VTable{
+	void (*destructor)(VirtualQMoveEvent* self);
+	QMoveEvent* (*clone)(const VirtualQMoveEvent* self);
+	void (*setAccepted)(VirtualQMoveEvent* self, bool accepted);
+}QMoveEvent_VTable;
+
+void* QMoveEvent_vdata(VirtualQMoveEvent* self);
+VirtualQMoveEvent* vdata_QMoveEvent(void* vdata);
+
+VirtualQMoveEvent* QMoveEvent_new(const QMoveEvent_VTable* vtbl, size_t vdata, QPoint* pos, QPoint* oldPos);
+
 void QMoveEvent_virtbase(QMoveEvent* src, QEvent** outptr_QEvent);
 QMoveEvent* QMoveEvent_clone(const QMoveEvent* self);
 QPoint* QMoveEvent_pos(const QMoveEvent* self);
 QPoint* QMoveEvent_oldPos(const QMoveEvent* self);
 
-bool QMoveEvent_override_virtual_clone(void* self, intptr_t slot);
-QMoveEvent* QMoveEvent_virtualbase_clone(const void* self);
-bool QMoveEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QMoveEvent_virtualbase_setAccepted(void* self, bool accepted);
+QMoveEvent* QMoveEvent_virtualbase_clone(const VirtualQMoveEvent* self);
+void QMoveEvent_virtualbase_setAccepted(VirtualQMoveEvent* self, bool accepted);
 
 void QMoveEvent_delete(QMoveEvent* self);
 
-QExposeEvent* QExposeEvent_new(QRegion* m_region);
+typedef struct VirtualQExposeEvent VirtualQExposeEvent;
+typedef struct QExposeEvent_VTable{
+	void (*destructor)(VirtualQExposeEvent* self);
+	QExposeEvent* (*clone)(const VirtualQExposeEvent* self);
+	void (*setAccepted)(VirtualQExposeEvent* self, bool accepted);
+}QExposeEvent_VTable;
+
+void* QExposeEvent_vdata(VirtualQExposeEvent* self);
+VirtualQExposeEvent* vdata_QExposeEvent(void* vdata);
+
+VirtualQExposeEvent* QExposeEvent_new(const QExposeEvent_VTable* vtbl, size_t vdata, QRegion* m_region);
+
 void QExposeEvent_virtbase(QExposeEvent* src, QEvent** outptr_QEvent);
 QExposeEvent* QExposeEvent_clone(const QExposeEvent* self);
 QRegion* QExposeEvent_region(const QExposeEvent* self);
 
-bool QExposeEvent_override_virtual_clone(void* self, intptr_t slot);
-QExposeEvent* QExposeEvent_virtualbase_clone(const void* self);
-bool QExposeEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QExposeEvent_virtualbase_setAccepted(void* self, bool accepted);
+QExposeEvent* QExposeEvent_virtualbase_clone(const VirtualQExposeEvent* self);
+void QExposeEvent_virtualbase_setAccepted(VirtualQExposeEvent* self, bool accepted);
 
 void QExposeEvent_delete(QExposeEvent* self);
 
-QPlatformSurfaceEvent* QPlatformSurfaceEvent_new(int surfaceEventType);
+typedef struct VirtualQPlatformSurfaceEvent VirtualQPlatformSurfaceEvent;
+typedef struct QPlatformSurfaceEvent_VTable{
+	void (*destructor)(VirtualQPlatformSurfaceEvent* self);
+	QPlatformSurfaceEvent* (*clone)(const VirtualQPlatformSurfaceEvent* self);
+	void (*setAccepted)(VirtualQPlatformSurfaceEvent* self, bool accepted);
+}QPlatformSurfaceEvent_VTable;
+
+void* QPlatformSurfaceEvent_vdata(VirtualQPlatformSurfaceEvent* self);
+VirtualQPlatformSurfaceEvent* vdata_QPlatformSurfaceEvent(void* vdata);
+
+VirtualQPlatformSurfaceEvent* QPlatformSurfaceEvent_new(const QPlatformSurfaceEvent_VTable* vtbl, size_t vdata, int surfaceEventType);
+
 void QPlatformSurfaceEvent_virtbase(QPlatformSurfaceEvent* src, QEvent** outptr_QEvent);
 QPlatformSurfaceEvent* QPlatformSurfaceEvent_clone(const QPlatformSurfaceEvent* self);
 int QPlatformSurfaceEvent_surfaceEventType(const QPlatformSurfaceEvent* self);
 
-bool QPlatformSurfaceEvent_override_virtual_clone(void* self, intptr_t slot);
-QPlatformSurfaceEvent* QPlatformSurfaceEvent_virtualbase_clone(const void* self);
-bool QPlatformSurfaceEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QPlatformSurfaceEvent_virtualbase_setAccepted(void* self, bool accepted);
+QPlatformSurfaceEvent* QPlatformSurfaceEvent_virtualbase_clone(const VirtualQPlatformSurfaceEvent* self);
+void QPlatformSurfaceEvent_virtualbase_setAccepted(VirtualQPlatformSurfaceEvent* self, bool accepted);
 
 void QPlatformSurfaceEvent_delete(QPlatformSurfaceEvent* self);
 
-QResizeEvent* QResizeEvent_new(QSize* size, QSize* oldSize);
+typedef struct VirtualQResizeEvent VirtualQResizeEvent;
+typedef struct QResizeEvent_VTable{
+	void (*destructor)(VirtualQResizeEvent* self);
+	QResizeEvent* (*clone)(const VirtualQResizeEvent* self);
+	void (*setAccepted)(VirtualQResizeEvent* self, bool accepted);
+}QResizeEvent_VTable;
+
+void* QResizeEvent_vdata(VirtualQResizeEvent* self);
+VirtualQResizeEvent* vdata_QResizeEvent(void* vdata);
+
+VirtualQResizeEvent* QResizeEvent_new(const QResizeEvent_VTable* vtbl, size_t vdata, QSize* size, QSize* oldSize);
+
 void QResizeEvent_virtbase(QResizeEvent* src, QEvent** outptr_QEvent);
 QResizeEvent* QResizeEvent_clone(const QResizeEvent* self);
 QSize* QResizeEvent_size(const QResizeEvent* self);
 QSize* QResizeEvent_oldSize(const QResizeEvent* self);
 
-bool QResizeEvent_override_virtual_clone(void* self, intptr_t slot);
-QResizeEvent* QResizeEvent_virtualbase_clone(const void* self);
-bool QResizeEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QResizeEvent_virtualbase_setAccepted(void* self, bool accepted);
+QResizeEvent* QResizeEvent_virtualbase_clone(const VirtualQResizeEvent* self);
+void QResizeEvent_virtualbase_setAccepted(VirtualQResizeEvent* self, bool accepted);
 
 void QResizeEvent_delete(QResizeEvent* self);
 
-QCloseEvent* QCloseEvent_new();
+typedef struct VirtualQCloseEvent VirtualQCloseEvent;
+typedef struct QCloseEvent_VTable{
+	void (*destructor)(VirtualQCloseEvent* self);
+	QCloseEvent* (*clone)(const VirtualQCloseEvent* self);
+	void (*setAccepted)(VirtualQCloseEvent* self, bool accepted);
+}QCloseEvent_VTable;
+
+void* QCloseEvent_vdata(VirtualQCloseEvent* self);
+VirtualQCloseEvent* vdata_QCloseEvent(void* vdata);
+
+VirtualQCloseEvent* QCloseEvent_new(const QCloseEvent_VTable* vtbl, size_t vdata);
+
 void QCloseEvent_virtbase(QCloseEvent* src, QEvent** outptr_QEvent);
 QCloseEvent* QCloseEvent_clone(const QCloseEvent* self);
 
-bool QCloseEvent_override_virtual_clone(void* self, intptr_t slot);
-QCloseEvent* QCloseEvent_virtualbase_clone(const void* self);
-bool QCloseEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QCloseEvent_virtualbase_setAccepted(void* self, bool accepted);
+QCloseEvent* QCloseEvent_virtualbase_clone(const VirtualQCloseEvent* self);
+void QCloseEvent_virtualbase_setAccepted(VirtualQCloseEvent* self, bool accepted);
 
 void QCloseEvent_delete(QCloseEvent* self);
 
-QIconDragEvent* QIconDragEvent_new();
+typedef struct VirtualQIconDragEvent VirtualQIconDragEvent;
+typedef struct QIconDragEvent_VTable{
+	void (*destructor)(VirtualQIconDragEvent* self);
+	QIconDragEvent* (*clone)(const VirtualQIconDragEvent* self);
+	void (*setAccepted)(VirtualQIconDragEvent* self, bool accepted);
+}QIconDragEvent_VTable;
+
+void* QIconDragEvent_vdata(VirtualQIconDragEvent* self);
+VirtualQIconDragEvent* vdata_QIconDragEvent(void* vdata);
+
+VirtualQIconDragEvent* QIconDragEvent_new(const QIconDragEvent_VTable* vtbl, size_t vdata);
+
 void QIconDragEvent_virtbase(QIconDragEvent* src, QEvent** outptr_QEvent);
 QIconDragEvent* QIconDragEvent_clone(const QIconDragEvent* self);
 
-bool QIconDragEvent_override_virtual_clone(void* self, intptr_t slot);
-QIconDragEvent* QIconDragEvent_virtualbase_clone(const void* self);
-bool QIconDragEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QIconDragEvent_virtualbase_setAccepted(void* self, bool accepted);
+QIconDragEvent* QIconDragEvent_virtualbase_clone(const VirtualQIconDragEvent* self);
+void QIconDragEvent_virtualbase_setAccepted(VirtualQIconDragEvent* self, bool accepted);
 
 void QIconDragEvent_delete(QIconDragEvent* self);
 
-QShowEvent* QShowEvent_new();
+typedef struct VirtualQShowEvent VirtualQShowEvent;
+typedef struct QShowEvent_VTable{
+	void (*destructor)(VirtualQShowEvent* self);
+	QShowEvent* (*clone)(const VirtualQShowEvent* self);
+	void (*setAccepted)(VirtualQShowEvent* self, bool accepted);
+}QShowEvent_VTable;
+
+void* QShowEvent_vdata(VirtualQShowEvent* self);
+VirtualQShowEvent* vdata_QShowEvent(void* vdata);
+
+VirtualQShowEvent* QShowEvent_new(const QShowEvent_VTable* vtbl, size_t vdata);
+
 void QShowEvent_virtbase(QShowEvent* src, QEvent** outptr_QEvent);
 QShowEvent* QShowEvent_clone(const QShowEvent* self);
 
-bool QShowEvent_override_virtual_clone(void* self, intptr_t slot);
-QShowEvent* QShowEvent_virtualbase_clone(const void* self);
-bool QShowEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QShowEvent_virtualbase_setAccepted(void* self, bool accepted);
+QShowEvent* QShowEvent_virtualbase_clone(const VirtualQShowEvent* self);
+void QShowEvent_virtualbase_setAccepted(VirtualQShowEvent* self, bool accepted);
 
 void QShowEvent_delete(QShowEvent* self);
 
-QHideEvent* QHideEvent_new();
+typedef struct VirtualQHideEvent VirtualQHideEvent;
+typedef struct QHideEvent_VTable{
+	void (*destructor)(VirtualQHideEvent* self);
+	QHideEvent* (*clone)(const VirtualQHideEvent* self);
+	void (*setAccepted)(VirtualQHideEvent* self, bool accepted);
+}QHideEvent_VTable;
+
+void* QHideEvent_vdata(VirtualQHideEvent* self);
+VirtualQHideEvent* vdata_QHideEvent(void* vdata);
+
+VirtualQHideEvent* QHideEvent_new(const QHideEvent_VTable* vtbl, size_t vdata);
+
 void QHideEvent_virtbase(QHideEvent* src, QEvent** outptr_QEvent);
 QHideEvent* QHideEvent_clone(const QHideEvent* self);
 
-bool QHideEvent_override_virtual_clone(void* self, intptr_t slot);
-QHideEvent* QHideEvent_virtualbase_clone(const void* self);
-bool QHideEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QHideEvent_virtualbase_setAccepted(void* self, bool accepted);
+QHideEvent* QHideEvent_virtualbase_clone(const VirtualQHideEvent* self);
+void QHideEvent_virtualbase_setAccepted(VirtualQHideEvent* self, bool accepted);
 
 void QHideEvent_delete(QHideEvent* self);
 
-QContextMenuEvent* QContextMenuEvent_new(int reason, QPoint* pos, QPoint* globalPos);
-QContextMenuEvent* QContextMenuEvent_new2(int reason, QPoint* pos);
-QContextMenuEvent* QContextMenuEvent_new3(int reason, QPoint* pos, QPoint* globalPos, int modifiers);
+typedef struct VirtualQContextMenuEvent VirtualQContextMenuEvent;
+typedef struct QContextMenuEvent_VTable{
+	void (*destructor)(VirtualQContextMenuEvent* self);
+	QContextMenuEvent* (*clone)(const VirtualQContextMenuEvent* self);
+	void (*setTimestamp)(VirtualQContextMenuEvent* self, unsigned long long timestamp);
+	void (*setAccepted)(VirtualQContextMenuEvent* self, bool accepted);
+}QContextMenuEvent_VTable;
+
+void* QContextMenuEvent_vdata(VirtualQContextMenuEvent* self);
+VirtualQContextMenuEvent* vdata_QContextMenuEvent(void* vdata);
+
+VirtualQContextMenuEvent* QContextMenuEvent_new(const QContextMenuEvent_VTable* vtbl, size_t vdata, int reason, QPoint* pos, QPoint* globalPos);
+VirtualQContextMenuEvent* QContextMenuEvent_new2(const QContextMenuEvent_VTable* vtbl, size_t vdata, int reason, QPoint* pos);
+VirtualQContextMenuEvent* QContextMenuEvent_new3(const QContextMenuEvent_VTable* vtbl, size_t vdata, int reason, QPoint* pos, QPoint* globalPos, int modifiers);
+
 void QContextMenuEvent_virtbase(QContextMenuEvent* src, QInputEvent** outptr_QInputEvent);
 QContextMenuEvent* QContextMenuEvent_clone(const QContextMenuEvent* self);
 int QContextMenuEvent_x(const QContextMenuEvent* self);
@@ -579,17 +762,25 @@ QPoint* QContextMenuEvent_pos(const QContextMenuEvent* self);
 QPoint* QContextMenuEvent_globalPos(const QContextMenuEvent* self);
 int QContextMenuEvent_reason(const QContextMenuEvent* self);
 
-bool QContextMenuEvent_override_virtual_clone(void* self, intptr_t slot);
-QContextMenuEvent* QContextMenuEvent_virtualbase_clone(const void* self);
-bool QContextMenuEvent_override_virtual_setTimestamp(void* self, intptr_t slot);
-void QContextMenuEvent_virtualbase_setTimestamp(void* self, unsigned long long timestamp);
-bool QContextMenuEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QContextMenuEvent_virtualbase_setAccepted(void* self, bool accepted);
+QContextMenuEvent* QContextMenuEvent_virtualbase_clone(const VirtualQContextMenuEvent* self);
+void QContextMenuEvent_virtualbase_setTimestamp(VirtualQContextMenuEvent* self, unsigned long long timestamp);
+void QContextMenuEvent_virtualbase_setAccepted(VirtualQContextMenuEvent* self, bool accepted);
 
 void QContextMenuEvent_delete(QContextMenuEvent* self);
 
-QInputMethodEvent* QInputMethodEvent_new();
-QInputMethodEvent* QInputMethodEvent_new2(struct seaqt_string preeditText, struct seaqt_array /* of QInputMethodEvent__Attribute* */  attributes);
+typedef struct VirtualQInputMethodEvent VirtualQInputMethodEvent;
+typedef struct QInputMethodEvent_VTable{
+	void (*destructor)(VirtualQInputMethodEvent* self);
+	QInputMethodEvent* (*clone)(const VirtualQInputMethodEvent* self);
+	void (*setAccepted)(VirtualQInputMethodEvent* self, bool accepted);
+}QInputMethodEvent_VTable;
+
+void* QInputMethodEvent_vdata(VirtualQInputMethodEvent* self);
+VirtualQInputMethodEvent* vdata_QInputMethodEvent(void* vdata);
+
+VirtualQInputMethodEvent* QInputMethodEvent_new(const QInputMethodEvent_VTable* vtbl, size_t vdata);
+VirtualQInputMethodEvent* QInputMethodEvent_new2(const QInputMethodEvent_VTable* vtbl, size_t vdata, struct seaqt_string preeditText, struct seaqt_array /* of QInputMethodEvent__Attribute* */  attributes);
+
 void QInputMethodEvent_virtbase(QInputMethodEvent* src, QEvent** outptr_QEvent);
 QInputMethodEvent* QInputMethodEvent_clone(const QInputMethodEvent* self);
 void QInputMethodEvent_setCommitString(QInputMethodEvent* self, struct seaqt_string commitString);
@@ -601,29 +792,47 @@ int QInputMethodEvent_replacementLength(const QInputMethodEvent* self);
 void QInputMethodEvent_setCommitString2(QInputMethodEvent* self, struct seaqt_string commitString, int replaceFrom);
 void QInputMethodEvent_setCommitString3(QInputMethodEvent* self, struct seaqt_string commitString, int replaceFrom, int replaceLength);
 
-bool QInputMethodEvent_override_virtual_clone(void* self, intptr_t slot);
-QInputMethodEvent* QInputMethodEvent_virtualbase_clone(const void* self);
-bool QInputMethodEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QInputMethodEvent_virtualbase_setAccepted(void* self, bool accepted);
+QInputMethodEvent* QInputMethodEvent_virtualbase_clone(const VirtualQInputMethodEvent* self);
+void QInputMethodEvent_virtualbase_setAccepted(VirtualQInputMethodEvent* self, bool accepted);
 
 void QInputMethodEvent_delete(QInputMethodEvent* self);
 
-QInputMethodQueryEvent* QInputMethodQueryEvent_new(int queries);
+typedef struct VirtualQInputMethodQueryEvent VirtualQInputMethodQueryEvent;
+typedef struct QInputMethodQueryEvent_VTable{
+	void (*destructor)(VirtualQInputMethodQueryEvent* self);
+	QInputMethodQueryEvent* (*clone)(const VirtualQInputMethodQueryEvent* self);
+	void (*setAccepted)(VirtualQInputMethodQueryEvent* self, bool accepted);
+}QInputMethodQueryEvent_VTable;
+
+void* QInputMethodQueryEvent_vdata(VirtualQInputMethodQueryEvent* self);
+VirtualQInputMethodQueryEvent* vdata_QInputMethodQueryEvent(void* vdata);
+
+VirtualQInputMethodQueryEvent* QInputMethodQueryEvent_new(const QInputMethodQueryEvent_VTable* vtbl, size_t vdata, int queries);
+
 void QInputMethodQueryEvent_virtbase(QInputMethodQueryEvent* src, QEvent** outptr_QEvent);
 QInputMethodQueryEvent* QInputMethodQueryEvent_clone(const QInputMethodQueryEvent* self);
 int QInputMethodQueryEvent_queries(const QInputMethodQueryEvent* self);
 void QInputMethodQueryEvent_setValue(QInputMethodQueryEvent* self, int query, QVariant* value);
 QVariant* QInputMethodQueryEvent_value(const QInputMethodQueryEvent* self, int query);
 
-bool QInputMethodQueryEvent_override_virtual_clone(void* self, intptr_t slot);
-QInputMethodQueryEvent* QInputMethodQueryEvent_virtualbase_clone(const void* self);
-bool QInputMethodQueryEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QInputMethodQueryEvent_virtualbase_setAccepted(void* self, bool accepted);
+QInputMethodQueryEvent* QInputMethodQueryEvent_virtualbase_clone(const VirtualQInputMethodQueryEvent* self);
+void QInputMethodQueryEvent_virtualbase_setAccepted(VirtualQInputMethodQueryEvent* self, bool accepted);
 
 void QInputMethodQueryEvent_delete(QInputMethodQueryEvent* self);
 
-QDropEvent* QDropEvent_new(QPointF* pos, int actions, QMimeData* data, int buttons, int modifiers);
-QDropEvent* QDropEvent_new2(QPointF* pos, int actions, QMimeData* data, int buttons, int modifiers, int type);
+typedef struct VirtualQDropEvent VirtualQDropEvent;
+typedef struct QDropEvent_VTable{
+	void (*destructor)(VirtualQDropEvent* self);
+	QDropEvent* (*clone)(const VirtualQDropEvent* self);
+	void (*setAccepted)(VirtualQDropEvent* self, bool accepted);
+}QDropEvent_VTable;
+
+void* QDropEvent_vdata(VirtualQDropEvent* self);
+VirtualQDropEvent* vdata_QDropEvent(void* vdata);
+
+VirtualQDropEvent* QDropEvent_new(const QDropEvent_VTable* vtbl, size_t vdata, QPointF* pos, int actions, QMimeData* data, int buttons, int modifiers);
+VirtualQDropEvent* QDropEvent_new2(const QDropEvent_VTable* vtbl, size_t vdata, QPointF* pos, int actions, QMimeData* data, int buttons, int modifiers, int type);
+
 void QDropEvent_virtbase(QDropEvent* src, QEvent** outptr_QEvent);
 QDropEvent* QDropEvent_clone(const QDropEvent* self);
 QPoint* QDropEvent_pos(const QDropEvent* self);
@@ -641,15 +850,24 @@ void QDropEvent_setDropAction(QDropEvent* self, int action);
 QObject* QDropEvent_source(const QDropEvent* self);
 QMimeData* QDropEvent_mimeData(const QDropEvent* self);
 
-bool QDropEvent_override_virtual_clone(void* self, intptr_t slot);
-QDropEvent* QDropEvent_virtualbase_clone(const void* self);
-bool QDropEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QDropEvent_virtualbase_setAccepted(void* self, bool accepted);
+QDropEvent* QDropEvent_virtualbase_clone(const VirtualQDropEvent* self);
+void QDropEvent_virtualbase_setAccepted(VirtualQDropEvent* self, bool accepted);
 
 void QDropEvent_delete(QDropEvent* self);
 
-QDragMoveEvent* QDragMoveEvent_new(QPoint* pos, int actions, QMimeData* data, int buttons, int modifiers);
-QDragMoveEvent* QDragMoveEvent_new2(QPoint* pos, int actions, QMimeData* data, int buttons, int modifiers, int type);
+typedef struct VirtualQDragMoveEvent VirtualQDragMoveEvent;
+typedef struct QDragMoveEvent_VTable{
+	void (*destructor)(VirtualQDragMoveEvent* self);
+	QDragMoveEvent* (*clone)(const VirtualQDragMoveEvent* self);
+	void (*setAccepted)(VirtualQDragMoveEvent* self, bool accepted);
+}QDragMoveEvent_VTable;
+
+void* QDragMoveEvent_vdata(VirtualQDragMoveEvent* self);
+VirtualQDragMoveEvent* vdata_QDragMoveEvent(void* vdata);
+
+VirtualQDragMoveEvent* QDragMoveEvent_new(const QDragMoveEvent_VTable* vtbl, size_t vdata, QPoint* pos, int actions, QMimeData* data, int buttons, int modifiers);
+VirtualQDragMoveEvent* QDragMoveEvent_new2(const QDragMoveEvent_VTable* vtbl, size_t vdata, QPoint* pos, int actions, QMimeData* data, int buttons, int modifiers, int type);
+
 void QDragMoveEvent_virtbase(QDragMoveEvent* src, QDropEvent** outptr_QDropEvent);
 QDragMoveEvent* QDragMoveEvent_clone(const QDragMoveEvent* self);
 QRect* QDragMoveEvent_answerRect(const QDragMoveEvent* self);
@@ -658,36 +876,63 @@ void QDragMoveEvent_ignore(QDragMoveEvent* self);
 void QDragMoveEvent_acceptWithQRect(QDragMoveEvent* self, QRect* r);
 void QDragMoveEvent_ignoreWithQRect(QDragMoveEvent* self, QRect* r);
 
-bool QDragMoveEvent_override_virtual_clone(void* self, intptr_t slot);
-QDragMoveEvent* QDragMoveEvent_virtualbase_clone(const void* self);
-bool QDragMoveEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QDragMoveEvent_virtualbase_setAccepted(void* self, bool accepted);
+QDragMoveEvent* QDragMoveEvent_virtualbase_clone(const VirtualQDragMoveEvent* self);
+void QDragMoveEvent_virtualbase_setAccepted(VirtualQDragMoveEvent* self, bool accepted);
 
 void QDragMoveEvent_delete(QDragMoveEvent* self);
 
-QDragEnterEvent* QDragEnterEvent_new(QPoint* pos, int actions, QMimeData* data, int buttons, int modifiers);
+typedef struct VirtualQDragEnterEvent VirtualQDragEnterEvent;
+typedef struct QDragEnterEvent_VTable{
+	void (*destructor)(VirtualQDragEnterEvent* self);
+	QDragEnterEvent* (*clone)(const VirtualQDragEnterEvent* self);
+	void (*setAccepted)(VirtualQDragEnterEvent* self, bool accepted);
+}QDragEnterEvent_VTable;
+
+void* QDragEnterEvent_vdata(VirtualQDragEnterEvent* self);
+VirtualQDragEnterEvent* vdata_QDragEnterEvent(void* vdata);
+
+VirtualQDragEnterEvent* QDragEnterEvent_new(const QDragEnterEvent_VTable* vtbl, size_t vdata, QPoint* pos, int actions, QMimeData* data, int buttons, int modifiers);
+
 void QDragEnterEvent_virtbase(QDragEnterEvent* src, QDragMoveEvent** outptr_QDragMoveEvent);
 QDragEnterEvent* QDragEnterEvent_clone(const QDragEnterEvent* self);
 
-bool QDragEnterEvent_override_virtual_clone(void* self, intptr_t slot);
-QDragEnterEvent* QDragEnterEvent_virtualbase_clone(const void* self);
-bool QDragEnterEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QDragEnterEvent_virtualbase_setAccepted(void* self, bool accepted);
+QDragEnterEvent* QDragEnterEvent_virtualbase_clone(const VirtualQDragEnterEvent* self);
+void QDragEnterEvent_virtualbase_setAccepted(VirtualQDragEnterEvent* self, bool accepted);
 
 void QDragEnterEvent_delete(QDragEnterEvent* self);
 
-QDragLeaveEvent* QDragLeaveEvent_new();
+typedef struct VirtualQDragLeaveEvent VirtualQDragLeaveEvent;
+typedef struct QDragLeaveEvent_VTable{
+	void (*destructor)(VirtualQDragLeaveEvent* self);
+	QDragLeaveEvent* (*clone)(const VirtualQDragLeaveEvent* self);
+	void (*setAccepted)(VirtualQDragLeaveEvent* self, bool accepted);
+}QDragLeaveEvent_VTable;
+
+void* QDragLeaveEvent_vdata(VirtualQDragLeaveEvent* self);
+VirtualQDragLeaveEvent* vdata_QDragLeaveEvent(void* vdata);
+
+VirtualQDragLeaveEvent* QDragLeaveEvent_new(const QDragLeaveEvent_VTable* vtbl, size_t vdata);
+
 void QDragLeaveEvent_virtbase(QDragLeaveEvent* src, QEvent** outptr_QEvent);
 QDragLeaveEvent* QDragLeaveEvent_clone(const QDragLeaveEvent* self);
 
-bool QDragLeaveEvent_override_virtual_clone(void* self, intptr_t slot);
-QDragLeaveEvent* QDragLeaveEvent_virtualbase_clone(const void* self);
-bool QDragLeaveEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QDragLeaveEvent_virtualbase_setAccepted(void* self, bool accepted);
+QDragLeaveEvent* QDragLeaveEvent_virtualbase_clone(const VirtualQDragLeaveEvent* self);
+void QDragLeaveEvent_virtualbase_setAccepted(VirtualQDragLeaveEvent* self, bool accepted);
 
 void QDragLeaveEvent_delete(QDragLeaveEvent* self);
 
-QHelpEvent* QHelpEvent_new(int type, QPoint* pos, QPoint* globalPos);
+typedef struct VirtualQHelpEvent VirtualQHelpEvent;
+typedef struct QHelpEvent_VTable{
+	void (*destructor)(VirtualQHelpEvent* self);
+	QHelpEvent* (*clone)(const VirtualQHelpEvent* self);
+	void (*setAccepted)(VirtualQHelpEvent* self, bool accepted);
+}QHelpEvent_VTable;
+
+void* QHelpEvent_vdata(VirtualQHelpEvent* self);
+VirtualQHelpEvent* vdata_QHelpEvent(void* vdata);
+
+VirtualQHelpEvent* QHelpEvent_new(const QHelpEvent_VTable* vtbl, size_t vdata, int type, QPoint* pos, QPoint* globalPos);
+
 void QHelpEvent_virtbase(QHelpEvent* src, QEvent** outptr_QEvent);
 QHelpEvent* QHelpEvent_clone(const QHelpEvent* self);
 int QHelpEvent_x(const QHelpEvent* self);
@@ -697,34 +942,50 @@ int QHelpEvent_globalY(const QHelpEvent* self);
 QPoint* QHelpEvent_pos(const QHelpEvent* self);
 QPoint* QHelpEvent_globalPos(const QHelpEvent* self);
 
-bool QHelpEvent_override_virtual_clone(void* self, intptr_t slot);
-QHelpEvent* QHelpEvent_virtualbase_clone(const void* self);
-bool QHelpEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QHelpEvent_virtualbase_setAccepted(void* self, bool accepted);
+QHelpEvent* QHelpEvent_virtualbase_clone(const VirtualQHelpEvent* self);
+void QHelpEvent_virtualbase_setAccepted(VirtualQHelpEvent* self, bool accepted);
 
 void QHelpEvent_delete(QHelpEvent* self);
 
-QStatusTipEvent* QStatusTipEvent_new(struct seaqt_string tip);
+typedef struct VirtualQStatusTipEvent VirtualQStatusTipEvent;
+typedef struct QStatusTipEvent_VTable{
+	void (*destructor)(VirtualQStatusTipEvent* self);
+	QStatusTipEvent* (*clone)(const VirtualQStatusTipEvent* self);
+	void (*setAccepted)(VirtualQStatusTipEvent* self, bool accepted);
+}QStatusTipEvent_VTable;
+
+void* QStatusTipEvent_vdata(VirtualQStatusTipEvent* self);
+VirtualQStatusTipEvent* vdata_QStatusTipEvent(void* vdata);
+
+VirtualQStatusTipEvent* QStatusTipEvent_new(const QStatusTipEvent_VTable* vtbl, size_t vdata, struct seaqt_string tip);
+
 void QStatusTipEvent_virtbase(QStatusTipEvent* src, QEvent** outptr_QEvent);
 QStatusTipEvent* QStatusTipEvent_clone(const QStatusTipEvent* self);
 struct seaqt_string QStatusTipEvent_tip(const QStatusTipEvent* self);
 
-bool QStatusTipEvent_override_virtual_clone(void* self, intptr_t slot);
-QStatusTipEvent* QStatusTipEvent_virtualbase_clone(const void* self);
-bool QStatusTipEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QStatusTipEvent_virtualbase_setAccepted(void* self, bool accepted);
+QStatusTipEvent* QStatusTipEvent_virtualbase_clone(const VirtualQStatusTipEvent* self);
+void QStatusTipEvent_virtualbase_setAccepted(VirtualQStatusTipEvent* self, bool accepted);
 
 void QStatusTipEvent_delete(QStatusTipEvent* self);
 
-QWhatsThisClickedEvent* QWhatsThisClickedEvent_new(struct seaqt_string href);
+typedef struct VirtualQWhatsThisClickedEvent VirtualQWhatsThisClickedEvent;
+typedef struct QWhatsThisClickedEvent_VTable{
+	void (*destructor)(VirtualQWhatsThisClickedEvent* self);
+	QWhatsThisClickedEvent* (*clone)(const VirtualQWhatsThisClickedEvent* self);
+	void (*setAccepted)(VirtualQWhatsThisClickedEvent* self, bool accepted);
+}QWhatsThisClickedEvent_VTable;
+
+void* QWhatsThisClickedEvent_vdata(VirtualQWhatsThisClickedEvent* self);
+VirtualQWhatsThisClickedEvent* vdata_QWhatsThisClickedEvent(void* vdata);
+
+VirtualQWhatsThisClickedEvent* QWhatsThisClickedEvent_new(const QWhatsThisClickedEvent_VTable* vtbl, size_t vdata, struct seaqt_string href);
+
 void QWhatsThisClickedEvent_virtbase(QWhatsThisClickedEvent* src, QEvent** outptr_QEvent);
 QWhatsThisClickedEvent* QWhatsThisClickedEvent_clone(const QWhatsThisClickedEvent* self);
 struct seaqt_string QWhatsThisClickedEvent_href(const QWhatsThisClickedEvent* self);
 
-bool QWhatsThisClickedEvent_override_virtual_clone(void* self, intptr_t slot);
-QWhatsThisClickedEvent* QWhatsThisClickedEvent_virtualbase_clone(const void* self);
-bool QWhatsThisClickedEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QWhatsThisClickedEvent_virtualbase_setAccepted(void* self, bool accepted);
+QWhatsThisClickedEvent* QWhatsThisClickedEvent_virtualbase_clone(const VirtualQWhatsThisClickedEvent* self);
+void QWhatsThisClickedEvent_virtualbase_setAccepted(VirtualQWhatsThisClickedEvent* self, bool accepted);
 
 void QWhatsThisClickedEvent_delete(QWhatsThisClickedEvent* self);
 
@@ -733,68 +994,119 @@ QActionEvent* QActionEvent_clone(const QActionEvent* self);
 
 void QActionEvent_delete(QActionEvent* self);
 
-QFileOpenEvent* QFileOpenEvent_new(struct seaqt_string file);
-QFileOpenEvent* QFileOpenEvent_new2(QUrl* url);
+typedef struct VirtualQFileOpenEvent VirtualQFileOpenEvent;
+typedef struct QFileOpenEvent_VTable{
+	void (*destructor)(VirtualQFileOpenEvent* self);
+	QFileOpenEvent* (*clone)(const VirtualQFileOpenEvent* self);
+	void (*setAccepted)(VirtualQFileOpenEvent* self, bool accepted);
+}QFileOpenEvent_VTable;
+
+void* QFileOpenEvent_vdata(VirtualQFileOpenEvent* self);
+VirtualQFileOpenEvent* vdata_QFileOpenEvent(void* vdata);
+
+VirtualQFileOpenEvent* QFileOpenEvent_new(const QFileOpenEvent_VTable* vtbl, size_t vdata, struct seaqt_string file);
+VirtualQFileOpenEvent* QFileOpenEvent_new2(const QFileOpenEvent_VTable* vtbl, size_t vdata, QUrl* url);
+
 void QFileOpenEvent_virtbase(QFileOpenEvent* src, QEvent** outptr_QEvent);
 QFileOpenEvent* QFileOpenEvent_clone(const QFileOpenEvent* self);
 struct seaqt_string QFileOpenEvent_file(const QFileOpenEvent* self);
 QUrl* QFileOpenEvent_url(const QFileOpenEvent* self);
 bool QFileOpenEvent_openFile(const QFileOpenEvent* self, QFile* file, int flags);
 
-bool QFileOpenEvent_override_virtual_clone(void* self, intptr_t slot);
-QFileOpenEvent* QFileOpenEvent_virtualbase_clone(const void* self);
-bool QFileOpenEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QFileOpenEvent_virtualbase_setAccepted(void* self, bool accepted);
+QFileOpenEvent* QFileOpenEvent_virtualbase_clone(const VirtualQFileOpenEvent* self);
+void QFileOpenEvent_virtualbase_setAccepted(VirtualQFileOpenEvent* self, bool accepted);
 
 void QFileOpenEvent_delete(QFileOpenEvent* self);
 
-QToolBarChangeEvent* QToolBarChangeEvent_new(bool t);
+typedef struct VirtualQToolBarChangeEvent VirtualQToolBarChangeEvent;
+typedef struct QToolBarChangeEvent_VTable{
+	void (*destructor)(VirtualQToolBarChangeEvent* self);
+	QToolBarChangeEvent* (*clone)(const VirtualQToolBarChangeEvent* self);
+	void (*setAccepted)(VirtualQToolBarChangeEvent* self, bool accepted);
+}QToolBarChangeEvent_VTable;
+
+void* QToolBarChangeEvent_vdata(VirtualQToolBarChangeEvent* self);
+VirtualQToolBarChangeEvent* vdata_QToolBarChangeEvent(void* vdata);
+
+VirtualQToolBarChangeEvent* QToolBarChangeEvent_new(const QToolBarChangeEvent_VTable* vtbl, size_t vdata, bool t);
+
 void QToolBarChangeEvent_virtbase(QToolBarChangeEvent* src, QEvent** outptr_QEvent);
 QToolBarChangeEvent* QToolBarChangeEvent_clone(const QToolBarChangeEvent* self);
 bool QToolBarChangeEvent_toggle(const QToolBarChangeEvent* self);
 
-bool QToolBarChangeEvent_override_virtual_clone(void* self, intptr_t slot);
-QToolBarChangeEvent* QToolBarChangeEvent_virtualbase_clone(const void* self);
-bool QToolBarChangeEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QToolBarChangeEvent_virtualbase_setAccepted(void* self, bool accepted);
+QToolBarChangeEvent* QToolBarChangeEvent_virtualbase_clone(const VirtualQToolBarChangeEvent* self);
+void QToolBarChangeEvent_virtualbase_setAccepted(VirtualQToolBarChangeEvent* self, bool accepted);
 
 void QToolBarChangeEvent_delete(QToolBarChangeEvent* self);
 
-QShortcutEvent* QShortcutEvent_new(QKeySequence* key, int id);
-QShortcutEvent* QShortcutEvent_new2(QKeySequence* key, int id, bool ambiguous);
+typedef struct VirtualQShortcutEvent VirtualQShortcutEvent;
+typedef struct QShortcutEvent_VTable{
+	void (*destructor)(VirtualQShortcutEvent* self);
+	QShortcutEvent* (*clone)(const VirtualQShortcutEvent* self);
+	void (*setAccepted)(VirtualQShortcutEvent* self, bool accepted);
+}QShortcutEvent_VTable;
+
+void* QShortcutEvent_vdata(VirtualQShortcutEvent* self);
+VirtualQShortcutEvent* vdata_QShortcutEvent(void* vdata);
+
+VirtualQShortcutEvent* QShortcutEvent_new(const QShortcutEvent_VTable* vtbl, size_t vdata, QKeySequence* key, int id);
+VirtualQShortcutEvent* QShortcutEvent_new2(const QShortcutEvent_VTable* vtbl, size_t vdata, QKeySequence* key, int id, bool ambiguous);
+
 void QShortcutEvent_virtbase(QShortcutEvent* src, QEvent** outptr_QEvent);
 QShortcutEvent* QShortcutEvent_clone(const QShortcutEvent* self);
 QKeySequence* QShortcutEvent_key(const QShortcutEvent* self);
 int QShortcutEvent_shortcutId(const QShortcutEvent* self);
 bool QShortcutEvent_isAmbiguous(const QShortcutEvent* self);
 
-bool QShortcutEvent_override_virtual_clone(void* self, intptr_t slot);
-QShortcutEvent* QShortcutEvent_virtualbase_clone(const void* self);
-bool QShortcutEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QShortcutEvent_virtualbase_setAccepted(void* self, bool accepted);
+QShortcutEvent* QShortcutEvent_virtualbase_clone(const VirtualQShortcutEvent* self);
+void QShortcutEvent_virtualbase_setAccepted(VirtualQShortcutEvent* self, bool accepted);
 
 void QShortcutEvent_delete(QShortcutEvent* self);
 
-QWindowStateChangeEvent* QWindowStateChangeEvent_new(int oldState);
-QWindowStateChangeEvent* QWindowStateChangeEvent_new2(int oldState, bool isOverride);
+typedef struct VirtualQWindowStateChangeEvent VirtualQWindowStateChangeEvent;
+typedef struct QWindowStateChangeEvent_VTable{
+	void (*destructor)(VirtualQWindowStateChangeEvent* self);
+	QWindowStateChangeEvent* (*clone)(const VirtualQWindowStateChangeEvent* self);
+	void (*setAccepted)(VirtualQWindowStateChangeEvent* self, bool accepted);
+}QWindowStateChangeEvent_VTable;
+
+void* QWindowStateChangeEvent_vdata(VirtualQWindowStateChangeEvent* self);
+VirtualQWindowStateChangeEvent* vdata_QWindowStateChangeEvent(void* vdata);
+
+VirtualQWindowStateChangeEvent* QWindowStateChangeEvent_new(const QWindowStateChangeEvent_VTable* vtbl, size_t vdata, int oldState);
+VirtualQWindowStateChangeEvent* QWindowStateChangeEvent_new2(const QWindowStateChangeEvent_VTable* vtbl, size_t vdata, int oldState, bool isOverride);
+
 void QWindowStateChangeEvent_virtbase(QWindowStateChangeEvent* src, QEvent** outptr_QEvent);
 QWindowStateChangeEvent* QWindowStateChangeEvent_clone(const QWindowStateChangeEvent* self);
 int QWindowStateChangeEvent_oldState(const QWindowStateChangeEvent* self);
 bool QWindowStateChangeEvent_isOverride(const QWindowStateChangeEvent* self);
 
-bool QWindowStateChangeEvent_override_virtual_clone(void* self, intptr_t slot);
-QWindowStateChangeEvent* QWindowStateChangeEvent_virtualbase_clone(const void* self);
-bool QWindowStateChangeEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QWindowStateChangeEvent_virtualbase_setAccepted(void* self, bool accepted);
+QWindowStateChangeEvent* QWindowStateChangeEvent_virtualbase_clone(const VirtualQWindowStateChangeEvent* self);
+void QWindowStateChangeEvent_virtualbase_setAccepted(VirtualQWindowStateChangeEvent* self, bool accepted);
 
 void QWindowStateChangeEvent_delete(QWindowStateChangeEvent* self);
 
-QTouchEvent* QTouchEvent_new(int eventType);
-QTouchEvent* QTouchEvent_new2(int eventType, QPointingDevice* device, int modifiers, uint8_t touchPointStates);
-QTouchEvent* QTouchEvent_new3(int eventType, QPointingDevice* device);
-QTouchEvent* QTouchEvent_new4(int eventType, QPointingDevice* device, int modifiers);
-QTouchEvent* QTouchEvent_new5(int eventType, QPointingDevice* device, int modifiers, struct seaqt_array /* of QEventPoint* */  touchPoints);
-QTouchEvent* QTouchEvent_new6(int eventType, QPointingDevice* device, int modifiers, uint8_t touchPointStates, struct seaqt_array /* of QEventPoint* */  touchPoints);
+typedef struct VirtualQTouchEvent VirtualQTouchEvent;
+typedef struct QTouchEvent_VTable{
+	void (*destructor)(VirtualQTouchEvent* self);
+	QTouchEvent* (*clone)(const VirtualQTouchEvent* self);
+	bool (*isBeginEvent)(const VirtualQTouchEvent* self);
+	bool (*isUpdateEvent)(const VirtualQTouchEvent* self);
+	bool (*isEndEvent)(const VirtualQTouchEvent* self);
+	void (*setTimestamp)(VirtualQTouchEvent* self, unsigned long long timestamp);
+	void (*setAccepted)(VirtualQTouchEvent* self, bool accepted);
+}QTouchEvent_VTable;
+
+void* QTouchEvent_vdata(VirtualQTouchEvent* self);
+VirtualQTouchEvent* vdata_QTouchEvent(void* vdata);
+
+VirtualQTouchEvent* QTouchEvent_new(const QTouchEvent_VTable* vtbl, size_t vdata, int eventType);
+VirtualQTouchEvent* QTouchEvent_new2(const QTouchEvent_VTable* vtbl, size_t vdata, int eventType, QPointingDevice* device, int modifiers, uint8_t touchPointStates);
+VirtualQTouchEvent* QTouchEvent_new3(const QTouchEvent_VTable* vtbl, size_t vdata, int eventType, QPointingDevice* device);
+VirtualQTouchEvent* QTouchEvent_new4(const QTouchEvent_VTable* vtbl, size_t vdata, int eventType, QPointingDevice* device, int modifiers);
+VirtualQTouchEvent* QTouchEvent_new5(const QTouchEvent_VTable* vtbl, size_t vdata, int eventType, QPointingDevice* device, int modifiers, struct seaqt_array /* of QEventPoint* */  touchPoints);
+VirtualQTouchEvent* QTouchEvent_new6(const QTouchEvent_VTable* vtbl, size_t vdata, int eventType, QPointingDevice* device, int modifiers, uint8_t touchPointStates, struct seaqt_array /* of QEventPoint* */  touchPoints);
+
 void QTouchEvent_virtbase(QTouchEvent* src, QPointerEvent** outptr_QPointerEvent);
 QTouchEvent* QTouchEvent_clone(const QTouchEvent* self);
 QObject* QTouchEvent_target(const QTouchEvent* self);
@@ -804,22 +1116,27 @@ bool QTouchEvent_isBeginEvent(const QTouchEvent* self);
 bool QTouchEvent_isUpdateEvent(const QTouchEvent* self);
 bool QTouchEvent_isEndEvent(const QTouchEvent* self);
 
-bool QTouchEvent_override_virtual_clone(void* self, intptr_t slot);
-QTouchEvent* QTouchEvent_virtualbase_clone(const void* self);
-bool QTouchEvent_override_virtual_isBeginEvent(void* self, intptr_t slot);
-bool QTouchEvent_virtualbase_isBeginEvent(const void* self);
-bool QTouchEvent_override_virtual_isUpdateEvent(void* self, intptr_t slot);
-bool QTouchEvent_virtualbase_isUpdateEvent(const void* self);
-bool QTouchEvent_override_virtual_isEndEvent(void* self, intptr_t slot);
-bool QTouchEvent_virtualbase_isEndEvent(const void* self);
-bool QTouchEvent_override_virtual_setTimestamp(void* self, intptr_t slot);
-void QTouchEvent_virtualbase_setTimestamp(void* self, unsigned long long timestamp);
-bool QTouchEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QTouchEvent_virtualbase_setAccepted(void* self, bool accepted);
+QTouchEvent* QTouchEvent_virtualbase_clone(const VirtualQTouchEvent* self);
+bool QTouchEvent_virtualbase_isBeginEvent(const VirtualQTouchEvent* self);
+bool QTouchEvent_virtualbase_isUpdateEvent(const VirtualQTouchEvent* self);
+bool QTouchEvent_virtualbase_isEndEvent(const VirtualQTouchEvent* self);
+void QTouchEvent_virtualbase_setTimestamp(VirtualQTouchEvent* self, unsigned long long timestamp);
+void QTouchEvent_virtualbase_setAccepted(VirtualQTouchEvent* self, bool accepted);
 
 void QTouchEvent_delete(QTouchEvent* self);
 
-QScrollPrepareEvent* QScrollPrepareEvent_new(QPointF* startPos);
+typedef struct VirtualQScrollPrepareEvent VirtualQScrollPrepareEvent;
+typedef struct QScrollPrepareEvent_VTable{
+	void (*destructor)(VirtualQScrollPrepareEvent* self);
+	QScrollPrepareEvent* (*clone)(const VirtualQScrollPrepareEvent* self);
+	void (*setAccepted)(VirtualQScrollPrepareEvent* self, bool accepted);
+}QScrollPrepareEvent_VTable;
+
+void* QScrollPrepareEvent_vdata(VirtualQScrollPrepareEvent* self);
+VirtualQScrollPrepareEvent* vdata_QScrollPrepareEvent(void* vdata);
+
+VirtualQScrollPrepareEvent* QScrollPrepareEvent_new(const QScrollPrepareEvent_VTable* vtbl, size_t vdata, QPointF* startPos);
+
 void QScrollPrepareEvent_virtbase(QScrollPrepareEvent* src, QEvent** outptr_QEvent);
 QScrollPrepareEvent* QScrollPrepareEvent_clone(const QScrollPrepareEvent* self);
 QPointF* QScrollPrepareEvent_startPos(const QScrollPrepareEvent* self);
@@ -830,55 +1147,81 @@ void QScrollPrepareEvent_setViewportSize(QScrollPrepareEvent* self, QSizeF* size
 void QScrollPrepareEvent_setContentPosRange(QScrollPrepareEvent* self, QRectF* rect);
 void QScrollPrepareEvent_setContentPos(QScrollPrepareEvent* self, QPointF* pos);
 
-bool QScrollPrepareEvent_override_virtual_clone(void* self, intptr_t slot);
-QScrollPrepareEvent* QScrollPrepareEvent_virtualbase_clone(const void* self);
-bool QScrollPrepareEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QScrollPrepareEvent_virtualbase_setAccepted(void* self, bool accepted);
+QScrollPrepareEvent* QScrollPrepareEvent_virtualbase_clone(const VirtualQScrollPrepareEvent* self);
+void QScrollPrepareEvent_virtualbase_setAccepted(VirtualQScrollPrepareEvent* self, bool accepted);
 
 void QScrollPrepareEvent_delete(QScrollPrepareEvent* self);
 
-QScrollEvent* QScrollEvent_new(QPointF* contentPos, QPointF* overshoot, int scrollState);
+typedef struct VirtualQScrollEvent VirtualQScrollEvent;
+typedef struct QScrollEvent_VTable{
+	void (*destructor)(VirtualQScrollEvent* self);
+	QScrollEvent* (*clone)(const VirtualQScrollEvent* self);
+	void (*setAccepted)(VirtualQScrollEvent* self, bool accepted);
+}QScrollEvent_VTable;
+
+void* QScrollEvent_vdata(VirtualQScrollEvent* self);
+VirtualQScrollEvent* vdata_QScrollEvent(void* vdata);
+
+VirtualQScrollEvent* QScrollEvent_new(const QScrollEvent_VTable* vtbl, size_t vdata, QPointF* contentPos, QPointF* overshoot, int scrollState);
+
 void QScrollEvent_virtbase(QScrollEvent* src, QEvent** outptr_QEvent);
 QScrollEvent* QScrollEvent_clone(const QScrollEvent* self);
 QPointF* QScrollEvent_contentPos(const QScrollEvent* self);
 QPointF* QScrollEvent_overshootDistance(const QScrollEvent* self);
 int QScrollEvent_scrollState(const QScrollEvent* self);
 
-bool QScrollEvent_override_virtual_clone(void* self, intptr_t slot);
-QScrollEvent* QScrollEvent_virtualbase_clone(const void* self);
-bool QScrollEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QScrollEvent_virtualbase_setAccepted(void* self, bool accepted);
+QScrollEvent* QScrollEvent_virtualbase_clone(const VirtualQScrollEvent* self);
+void QScrollEvent_virtualbase_setAccepted(VirtualQScrollEvent* self, bool accepted);
 
 void QScrollEvent_delete(QScrollEvent* self);
 
-QScreenOrientationChangeEvent* QScreenOrientationChangeEvent_new(QScreen* screen, int orientation);
+typedef struct VirtualQScreenOrientationChangeEvent VirtualQScreenOrientationChangeEvent;
+typedef struct QScreenOrientationChangeEvent_VTable{
+	void (*destructor)(VirtualQScreenOrientationChangeEvent* self);
+	QScreenOrientationChangeEvent* (*clone)(const VirtualQScreenOrientationChangeEvent* self);
+	void (*setAccepted)(VirtualQScreenOrientationChangeEvent* self, bool accepted);
+}QScreenOrientationChangeEvent_VTable;
+
+void* QScreenOrientationChangeEvent_vdata(VirtualQScreenOrientationChangeEvent* self);
+VirtualQScreenOrientationChangeEvent* vdata_QScreenOrientationChangeEvent(void* vdata);
+
+VirtualQScreenOrientationChangeEvent* QScreenOrientationChangeEvent_new(const QScreenOrientationChangeEvent_VTable* vtbl, size_t vdata, QScreen* screen, int orientation);
+
 void QScreenOrientationChangeEvent_virtbase(QScreenOrientationChangeEvent* src, QEvent** outptr_QEvent);
 QScreenOrientationChangeEvent* QScreenOrientationChangeEvent_clone(const QScreenOrientationChangeEvent* self);
 QScreen* QScreenOrientationChangeEvent_screen(const QScreenOrientationChangeEvent* self);
 int QScreenOrientationChangeEvent_orientation(const QScreenOrientationChangeEvent* self);
 
-bool QScreenOrientationChangeEvent_override_virtual_clone(void* self, intptr_t slot);
-QScreenOrientationChangeEvent* QScreenOrientationChangeEvent_virtualbase_clone(const void* self);
-bool QScreenOrientationChangeEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QScreenOrientationChangeEvent_virtualbase_setAccepted(void* self, bool accepted);
+QScreenOrientationChangeEvent* QScreenOrientationChangeEvent_virtualbase_clone(const VirtualQScreenOrientationChangeEvent* self);
+void QScreenOrientationChangeEvent_virtualbase_setAccepted(VirtualQScreenOrientationChangeEvent* self, bool accepted);
 
 void QScreenOrientationChangeEvent_delete(QScreenOrientationChangeEvent* self);
 
-QApplicationStateChangeEvent* QApplicationStateChangeEvent_new(int state);
+typedef struct VirtualQApplicationStateChangeEvent VirtualQApplicationStateChangeEvent;
+typedef struct QApplicationStateChangeEvent_VTable{
+	void (*destructor)(VirtualQApplicationStateChangeEvent* self);
+	QApplicationStateChangeEvent* (*clone)(const VirtualQApplicationStateChangeEvent* self);
+	void (*setAccepted)(VirtualQApplicationStateChangeEvent* self, bool accepted);
+}QApplicationStateChangeEvent_VTable;
+
+void* QApplicationStateChangeEvent_vdata(VirtualQApplicationStateChangeEvent* self);
+VirtualQApplicationStateChangeEvent* vdata_QApplicationStateChangeEvent(void* vdata);
+
+VirtualQApplicationStateChangeEvent* QApplicationStateChangeEvent_new(const QApplicationStateChangeEvent_VTable* vtbl, size_t vdata, int state);
+
 void QApplicationStateChangeEvent_virtbase(QApplicationStateChangeEvent* src, QEvent** outptr_QEvent);
 QApplicationStateChangeEvent* QApplicationStateChangeEvent_clone(const QApplicationStateChangeEvent* self);
 int QApplicationStateChangeEvent_applicationState(const QApplicationStateChangeEvent* self);
 
-bool QApplicationStateChangeEvent_override_virtual_clone(void* self, intptr_t slot);
-QApplicationStateChangeEvent* QApplicationStateChangeEvent_virtualbase_clone(const void* self);
-bool QApplicationStateChangeEvent_override_virtual_setAccepted(void* self, intptr_t slot);
-void QApplicationStateChangeEvent_virtualbase_setAccepted(void* self, bool accepted);
+QApplicationStateChangeEvent* QApplicationStateChangeEvent_virtualbase_clone(const VirtualQApplicationStateChangeEvent* self);
+void QApplicationStateChangeEvent_virtualbase_setAccepted(VirtualQApplicationStateChangeEvent* self, bool accepted);
 
 void QApplicationStateChangeEvent_delete(QApplicationStateChangeEvent* self);
 
 QInputMethodEvent__Attribute* QInputMethodEvent__Attribute_new(int typ, int s, int l, QVariant* val);
 QInputMethodEvent__Attribute* QInputMethodEvent__Attribute_new2(int typ, int s, int l);
 QInputMethodEvent__Attribute* QInputMethodEvent__Attribute_new3(QInputMethodEvent__Attribute* param1);
+
 void QInputMethodEvent__Attribute_operatorAssign(QInputMethodEvent__Attribute* self, QInputMethodEvent__Attribute* param1);
 
 void QInputMethodEvent__Attribute_delete(QInputMethodEvent__Attribute* self);

@@ -18,75 +18,68 @@
 #include <qqmlapplicationengine.h>
 #include "gen_qqmlapplicationengine.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void miqt_exec_callback_QQmlApplicationEngine_objectCreated(intptr_t, QObject*, QUrl*);
 void miqt_exec_callback_QQmlApplicationEngine_objectCreationFailed(intptr_t, QUrl*);
-QMetaObject* miqt_exec_callback_QQmlApplicationEngine_metaObject(const QQmlApplicationEngine*, intptr_t);
-void* miqt_exec_callback_QQmlApplicationEngine_metacast(QQmlApplicationEngine*, intptr_t, const char*);
-int miqt_exec_callback_QQmlApplicationEngine_metacall(QQmlApplicationEngine*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QQmlApplicationEngine_event(QQmlApplicationEngine*, intptr_t, QEvent*);
-bool miqt_exec_callback_QQmlApplicationEngine_eventFilter(QQmlApplicationEngine*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QQmlApplicationEngine_timerEvent(QQmlApplicationEngine*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QQmlApplicationEngine_childEvent(QQmlApplicationEngine*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QQmlApplicationEngine_customEvent(QQmlApplicationEngine*, intptr_t, QEvent*);
-void miqt_exec_callback_QQmlApplicationEngine_connectNotify(QQmlApplicationEngine*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QQmlApplicationEngine_disconnectNotify(QQmlApplicationEngine*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQQmlApplicationEngine final : public QQmlApplicationEngine {
+	const QQmlApplicationEngine_VTable* vtbl;
 public:
+	friend void* QQmlApplicationEngine_vdata(VirtualQQmlApplicationEngine* self);
+	friend VirtualQQmlApplicationEngine* vdata_QQmlApplicationEngine(void* vdata);
 
-	VirtualQQmlApplicationEngine(): QQmlApplicationEngine() {}
-	VirtualQQmlApplicationEngine(const QUrl& url): QQmlApplicationEngine(url) {}
-	VirtualQQmlApplicationEngine(const QString& filePath): QQmlApplicationEngine(filePath) {}
-	VirtualQQmlApplicationEngine(QObject* parent): QQmlApplicationEngine(parent) {}
-	VirtualQQmlApplicationEngine(const QUrl& url, QObject* parent): QQmlApplicationEngine(url, parent) {}
-	VirtualQQmlApplicationEngine(const QString& filePath, QObject* parent): QQmlApplicationEngine(filePath, parent) {}
+	VirtualQQmlApplicationEngine(const QQmlApplicationEngine_VTable* vtbl): QQmlApplicationEngine(), vtbl(vtbl) {}
+	VirtualQQmlApplicationEngine(const QQmlApplicationEngine_VTable* vtbl, const QUrl& url): QQmlApplicationEngine(url), vtbl(vtbl) {}
+	VirtualQQmlApplicationEngine(const QQmlApplicationEngine_VTable* vtbl, const QString& filePath): QQmlApplicationEngine(filePath), vtbl(vtbl) {}
+	VirtualQQmlApplicationEngine(const QQmlApplicationEngine_VTable* vtbl, QObject* parent): QQmlApplicationEngine(parent), vtbl(vtbl) {}
+	VirtualQQmlApplicationEngine(const QQmlApplicationEngine_VTable* vtbl, const QUrl& url, QObject* parent): QQmlApplicationEngine(url, parent), vtbl(vtbl) {}
+	VirtualQQmlApplicationEngine(const QQmlApplicationEngine_VTable* vtbl, const QString& filePath, QObject* parent): QQmlApplicationEngine(filePath, parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQQmlApplicationEngine() override = default;
+	virtual ~VirtualQQmlApplicationEngine() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QQmlApplicationEngine::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QQmlApplicationEngine_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QQmlApplicationEngine_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QQmlApplicationEngine_virtualbase_metaObject(const VirtualQQmlApplicationEngine* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QQmlApplicationEngine::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QQmlApplicationEngine_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QQmlApplicationEngine_virtualbase_metacast(void* self, const char* param1);
+	friend void* QQmlApplicationEngine_virtualbase_metacast(VirtualQQmlApplicationEngine* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QQmlApplicationEngine::qt_metacall(param1, param2, param3);
 		}
 
@@ -94,102 +87,75 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QQmlApplicationEngine_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QQmlApplicationEngine_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QQmlApplicationEngine_virtualbase_metacall(VirtualQQmlApplicationEngine* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* param1) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QQmlApplicationEngine::event(param1);
 		}
 
 		QEvent* sigval1 = param1;
-		bool callback_return_value = miqt_exec_callback_QQmlApplicationEngine_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QQmlApplicationEngine_virtualbase_event(void* self, QEvent* param1);
+	friend bool QQmlApplicationEngine_virtualbase_event(VirtualQQmlApplicationEngine* self, QEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QQmlApplicationEngine::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QQmlApplicationEngine_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QQmlApplicationEngine_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QQmlApplicationEngine_virtualbase_eventFilter(VirtualQQmlApplicationEngine* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QQmlApplicationEngine::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QQmlApplicationEngine_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QQmlApplicationEngine_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QQmlApplicationEngine_virtualbase_timerEvent(VirtualQQmlApplicationEngine* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QQmlApplicationEngine::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QQmlApplicationEngine_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QQmlApplicationEngine_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QQmlApplicationEngine_virtualbase_childEvent(VirtualQQmlApplicationEngine* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QQmlApplicationEngine::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QQmlApplicationEngine_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QQmlApplicationEngine_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QQmlApplicationEngine_virtualbase_customEvent(VirtualQQmlApplicationEngine* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QQmlApplicationEngine::connectNotify(signal);
 			return;
 		}
@@ -197,18 +163,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QQmlApplicationEngine_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QQmlApplicationEngine_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QQmlApplicationEngine_virtualbase_connectNotify(VirtualQQmlApplicationEngine* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QQmlApplicationEngine::disconnectNotify(signal);
 			return;
 		}
@@ -216,43 +177,48 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QQmlApplicationEngine_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QQmlApplicationEngine_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QQmlApplicationEngine_virtualbase_disconnectNotify(VirtualQQmlApplicationEngine* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QQmlApplicationEngine_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QQmlApplicationEngine_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QQmlApplicationEngine_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QQmlApplicationEngine_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QQmlApplicationEngine_protectedbase_sender(const VirtualQQmlApplicationEngine* self);
+	friend int QQmlApplicationEngine_protectedbase_senderSignalIndex(const VirtualQQmlApplicationEngine* self);
+	friend int QQmlApplicationEngine_protectedbase_receivers(const VirtualQQmlApplicationEngine* self, const char* signal);
+	friend bool QQmlApplicationEngine_protectedbase_isSignalConnected(const VirtualQQmlApplicationEngine* self, QMetaMethod* signal);
 };
 
-QQmlApplicationEngine* QQmlApplicationEngine_new() {
-	return new (std::nothrow) VirtualQQmlApplicationEngine();
+VirtualQQmlApplicationEngine* QQmlApplicationEngine_new(const QQmlApplicationEngine_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlApplicationEngine>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlApplicationEngine(vtbl) : nullptr;
 }
 
-QQmlApplicationEngine* QQmlApplicationEngine_new2(QUrl* url) {
-	return new (std::nothrow) VirtualQQmlApplicationEngine(*url);
+VirtualQQmlApplicationEngine* QQmlApplicationEngine_new2(const QQmlApplicationEngine_VTable* vtbl, size_t vdata, QUrl* url) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlApplicationEngine>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlApplicationEngine(vtbl, *url) : nullptr;
 }
 
-QQmlApplicationEngine* QQmlApplicationEngine_new3(struct seaqt_string filePath) {
+VirtualQQmlApplicationEngine* QQmlApplicationEngine_new3(const QQmlApplicationEngine_VTable* vtbl, size_t vdata, struct seaqt_string filePath) {
 	QString filePath_QString = QString::fromUtf8(filePath.data, filePath.len);
-	return new (std::nothrow) VirtualQQmlApplicationEngine(filePath_QString);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlApplicationEngine>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlApplicationEngine(vtbl, filePath_QString) : nullptr;
 }
 
-QQmlApplicationEngine* QQmlApplicationEngine_new4(QObject* parent) {
-	return new (std::nothrow) VirtualQQmlApplicationEngine(parent);
+VirtualQQmlApplicationEngine* QQmlApplicationEngine_new4(const QQmlApplicationEngine_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlApplicationEngine>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlApplicationEngine(vtbl, parent) : nullptr;
 }
 
-QQmlApplicationEngine* QQmlApplicationEngine_new5(QUrl* url, QObject* parent) {
-	return new (std::nothrow) VirtualQQmlApplicationEngine(*url, parent);
+VirtualQQmlApplicationEngine* QQmlApplicationEngine_new5(const QQmlApplicationEngine_VTable* vtbl, size_t vdata, QUrl* url, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlApplicationEngine>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlApplicationEngine(vtbl, *url, parent) : nullptr;
 }
 
-QQmlApplicationEngine* QQmlApplicationEngine_new6(struct seaqt_string filePath, QObject* parent) {
+VirtualQQmlApplicationEngine* QQmlApplicationEngine_new6(const QQmlApplicationEngine_VTable* vtbl, size_t vdata, struct seaqt_string filePath, QObject* parent) {
 	QString filePath_QString = QString::fromUtf8(filePath.data, filePath.len);
-	return new (std::nothrow) VirtualQQmlApplicationEngine(filePath_QString, parent);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlApplicationEngine>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlApplicationEngine(vtbl, filePath_QString, parent) : nullptr;
 }
 
 void QQmlApplicationEngine_virtbase(QQmlApplicationEngine* src, QQmlEngine** outptr_QQmlEngine) {
@@ -386,188 +352,73 @@ void QQmlApplicationEngine_loadData2(QQmlApplicationEngine* self, struct seaqt_s
 }
 
 const QMetaObject* QQmlApplicationEngine_staticMetaObject() { return &QQmlApplicationEngine::staticMetaObject; }
-bool QQmlApplicationEngine_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQQmlApplicationEngine* self_cast = dynamic_cast<VirtualQQmlApplicationEngine*>( (QQmlApplicationEngine*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QQmlApplicationEngine_vdata(VirtualQQmlApplicationEngine* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQQmlApplicationEngine>()); }
+VirtualQQmlApplicationEngine* vdata_QQmlApplicationEngine(void* vdata) { return reinterpret_cast<VirtualQQmlApplicationEngine*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQQmlApplicationEngine>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QQmlApplicationEngine_virtualbase_metaObject(const VirtualQQmlApplicationEngine* self) {
+
+	return (QMetaObject*) self->QQmlApplicationEngine::metaObject();
 }
 
-QMetaObject* QQmlApplicationEngine_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQQmlApplicationEngine*>(self)->QQmlApplicationEngine::metaObject();
+void* QQmlApplicationEngine_virtualbase_metacast(VirtualQQmlApplicationEngine* self, const char* param1) {
+
+	return self->QQmlApplicationEngine::qt_metacast(param1);
 }
 
-bool QQmlApplicationEngine_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQQmlApplicationEngine* self_cast = dynamic_cast<VirtualQQmlApplicationEngine*>( (QQmlApplicationEngine*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QQmlApplicationEngine_virtualbase_metacall(VirtualQQmlApplicationEngine* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QQmlApplicationEngine::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QQmlApplicationEngine_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQQmlApplicationEngine*>(self)->QQmlApplicationEngine::qt_metacast(param1);
+bool QQmlApplicationEngine_virtualbase_event(VirtualQQmlApplicationEngine* self, QEvent* param1) {
+
+	return self->QQmlApplicationEngine::event(param1);
 }
 
-bool QQmlApplicationEngine_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQQmlApplicationEngine* self_cast = dynamic_cast<VirtualQQmlApplicationEngine*>( (QQmlApplicationEngine*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QQmlApplicationEngine_virtualbase_eventFilter(VirtualQQmlApplicationEngine* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QQmlApplicationEngine::eventFilter(watched, event);
 }
 
-int QQmlApplicationEngine_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQQmlApplicationEngine*>(self)->QQmlApplicationEngine::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+void QQmlApplicationEngine_virtualbase_timerEvent(VirtualQQmlApplicationEngine* self, QTimerEvent* event) {
+
+	self->QQmlApplicationEngine::timerEvent(event);
 }
 
-bool QQmlApplicationEngine_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQQmlApplicationEngine* self_cast = dynamic_cast<VirtualQQmlApplicationEngine*>( (QQmlApplicationEngine*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QQmlApplicationEngine_virtualbase_childEvent(VirtualQQmlApplicationEngine* self, QChildEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QQmlApplicationEngine::childEvent(event);
 }
 
-bool QQmlApplicationEngine_virtualbase_event(void* self, QEvent* param1) {
-	return static_cast<VirtualQQmlApplicationEngine*>(self)->QQmlApplicationEngine::event(param1);
+void QQmlApplicationEngine_virtualbase_customEvent(VirtualQQmlApplicationEngine* self, QEvent* event) {
+
+	self->QQmlApplicationEngine::customEvent(event);
 }
 
-bool QQmlApplicationEngine_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQQmlApplicationEngine* self_cast = dynamic_cast<VirtualQQmlApplicationEngine*>( (QQmlApplicationEngine*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QQmlApplicationEngine_virtualbase_connectNotify(VirtualQQmlApplicationEngine* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QQmlApplicationEngine::connectNotify(*signal);
 }
 
-bool QQmlApplicationEngine_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQQmlApplicationEngine*>(self)->QQmlApplicationEngine::eventFilter(watched, event);
+void QQmlApplicationEngine_virtualbase_disconnectNotify(VirtualQQmlApplicationEngine* self, QMetaMethod* signal) {
+
+	self->QQmlApplicationEngine::disconnectNotify(*signal);
 }
 
-bool QQmlApplicationEngine_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQQmlApplicationEngine* self_cast = dynamic_cast<VirtualQQmlApplicationEngine*>( (QQmlApplicationEngine*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+QObject* QQmlApplicationEngine_protectedbase_sender(const VirtualQQmlApplicationEngine* self) {
+	return self->sender();
 }
 
-void QQmlApplicationEngine_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQQmlApplicationEngine*>(self)->QQmlApplicationEngine::timerEvent(event);
+int QQmlApplicationEngine_protectedbase_senderSignalIndex(const VirtualQQmlApplicationEngine* self) {
+	return self->senderSignalIndex();
 }
 
-bool QQmlApplicationEngine_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQQmlApplicationEngine* self_cast = dynamic_cast<VirtualQQmlApplicationEngine*>( (QQmlApplicationEngine*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QQmlApplicationEngine_protectedbase_receivers(const VirtualQQmlApplicationEngine* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QQmlApplicationEngine_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQQmlApplicationEngine*>(self)->QQmlApplicationEngine::childEvent(event);
-}
-
-bool QQmlApplicationEngine_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQQmlApplicationEngine* self_cast = dynamic_cast<VirtualQQmlApplicationEngine*>( (QQmlApplicationEngine*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QQmlApplicationEngine_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQQmlApplicationEngine*>(self)->QQmlApplicationEngine::customEvent(event);
-}
-
-bool QQmlApplicationEngine_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQQmlApplicationEngine* self_cast = dynamic_cast<VirtualQQmlApplicationEngine*>( (QQmlApplicationEngine*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QQmlApplicationEngine_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQQmlApplicationEngine*>(self)->QQmlApplicationEngine::connectNotify(*signal);
-}
-
-bool QQmlApplicationEngine_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQQmlApplicationEngine* self_cast = dynamic_cast<VirtualQQmlApplicationEngine*>( (QQmlApplicationEngine*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QQmlApplicationEngine_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQQmlApplicationEngine*>(self)->QQmlApplicationEngine::disconnectNotify(*signal);
-}
-
-QObject* QQmlApplicationEngine_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQQmlApplicationEngine* self_cast = dynamic_cast<VirtualQQmlApplicationEngine*>( (QQmlApplicationEngine*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QQmlApplicationEngine_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQQmlApplicationEngine* self_cast = dynamic_cast<VirtualQQmlApplicationEngine*>( (QQmlApplicationEngine*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QQmlApplicationEngine_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQQmlApplicationEngine* self_cast = dynamic_cast<VirtualQQmlApplicationEngine*>( (QQmlApplicationEngine*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QQmlApplicationEngine_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQQmlApplicationEngine* self_cast = dynamic_cast<VirtualQQmlApplicationEngine*>( (QQmlApplicationEngine*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QQmlApplicationEngine_protectedbase_isSignalConnected(const VirtualQQmlApplicationEngine* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QQmlApplicationEngine_delete(QQmlApplicationEngine* self) {

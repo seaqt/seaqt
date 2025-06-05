@@ -52,8 +52,27 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QUdpSocket QUdpSocket;
 #endif
 
-QDtlsClientVerifier* QDtlsClientVerifier_new();
-QDtlsClientVerifier* QDtlsClientVerifier_new2(QObject* parent);
+typedef struct VirtualQDtlsClientVerifier VirtualQDtlsClientVerifier;
+typedef struct QDtlsClientVerifier_VTable{
+	void (*destructor)(VirtualQDtlsClientVerifier* self);
+	QMetaObject* (*metaObject)(const VirtualQDtlsClientVerifier* self);
+	void* (*metacast)(VirtualQDtlsClientVerifier* self, const char* param1);
+	int (*metacall)(VirtualQDtlsClientVerifier* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQDtlsClientVerifier* self, QEvent* event);
+	bool (*eventFilter)(VirtualQDtlsClientVerifier* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQDtlsClientVerifier* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQDtlsClientVerifier* self, QChildEvent* event);
+	void (*customEvent)(VirtualQDtlsClientVerifier* self, QEvent* event);
+	void (*connectNotify)(VirtualQDtlsClientVerifier* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQDtlsClientVerifier* self, QMetaMethod* signal);
+}QDtlsClientVerifier_VTable;
+
+void* QDtlsClientVerifier_vdata(VirtualQDtlsClientVerifier* self);
+VirtualQDtlsClientVerifier* vdata_QDtlsClientVerifier(void* vdata);
+
+VirtualQDtlsClientVerifier* QDtlsClientVerifier_new(const QDtlsClientVerifier_VTable* vtbl, size_t vdata);
+VirtualQDtlsClientVerifier* QDtlsClientVerifier_new2(const QDtlsClientVerifier_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QDtlsClientVerifier_virtbase(QDtlsClientVerifier* src, QObject** outptr_QObject);
 QMetaObject* QDtlsClientVerifier_metaObject(const QDtlsClientVerifier* self);
 void* QDtlsClientVerifier_metacast(QDtlsClientVerifier* self, const char* param1);
@@ -68,37 +87,46 @@ struct seaqt_string QDtlsClientVerifier_dtlsErrorString(const QDtlsClientVerifie
 struct seaqt_string QDtlsClientVerifier_tr2(const char* s, const char* c);
 struct seaqt_string QDtlsClientVerifier_tr3(const char* s, const char* c, int n);
 
-bool QDtlsClientVerifier_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QDtlsClientVerifier_virtualbase_metaObject(const void* self);
-bool QDtlsClientVerifier_override_virtual_metacast(void* self, intptr_t slot);
-void* QDtlsClientVerifier_virtualbase_metacast(void* self, const char* param1);
-bool QDtlsClientVerifier_override_virtual_metacall(void* self, intptr_t slot);
-int QDtlsClientVerifier_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QDtlsClientVerifier_override_virtual_event(void* self, intptr_t slot);
-bool QDtlsClientVerifier_virtualbase_event(void* self, QEvent* event);
-bool QDtlsClientVerifier_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QDtlsClientVerifier_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QDtlsClientVerifier_override_virtual_timerEvent(void* self, intptr_t slot);
-void QDtlsClientVerifier_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QDtlsClientVerifier_override_virtual_childEvent(void* self, intptr_t slot);
-void QDtlsClientVerifier_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QDtlsClientVerifier_override_virtual_customEvent(void* self, intptr_t slot);
-void QDtlsClientVerifier_virtualbase_customEvent(void* self, QEvent* event);
-bool QDtlsClientVerifier_override_virtual_connectNotify(void* self, intptr_t slot);
-void QDtlsClientVerifier_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QDtlsClientVerifier_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QDtlsClientVerifier_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QDtlsClientVerifier_virtualbase_metaObject(const VirtualQDtlsClientVerifier* self);
+void* QDtlsClientVerifier_virtualbase_metacast(VirtualQDtlsClientVerifier* self, const char* param1);
+int QDtlsClientVerifier_virtualbase_metacall(VirtualQDtlsClientVerifier* self, int param1, int param2, void** param3);
+bool QDtlsClientVerifier_virtualbase_event(VirtualQDtlsClientVerifier* self, QEvent* event);
+bool QDtlsClientVerifier_virtualbase_eventFilter(VirtualQDtlsClientVerifier* self, QObject* watched, QEvent* event);
+void QDtlsClientVerifier_virtualbase_timerEvent(VirtualQDtlsClientVerifier* self, QTimerEvent* event);
+void QDtlsClientVerifier_virtualbase_childEvent(VirtualQDtlsClientVerifier* self, QChildEvent* event);
+void QDtlsClientVerifier_virtualbase_customEvent(VirtualQDtlsClientVerifier* self, QEvent* event);
+void QDtlsClientVerifier_virtualbase_connectNotify(VirtualQDtlsClientVerifier* self, QMetaMethod* signal);
+void QDtlsClientVerifier_virtualbase_disconnectNotify(VirtualQDtlsClientVerifier* self, QMetaMethod* signal);
 
-QObject* QDtlsClientVerifier_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QDtlsClientVerifier_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QDtlsClientVerifier_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QDtlsClientVerifier_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QDtlsClientVerifier_protectedbase_sender(const VirtualQDtlsClientVerifier* self);
+int QDtlsClientVerifier_protectedbase_senderSignalIndex(const VirtualQDtlsClientVerifier* self);
+int QDtlsClientVerifier_protectedbase_receivers(const VirtualQDtlsClientVerifier* self, const char* signal);
+bool QDtlsClientVerifier_protectedbase_isSignalConnected(const VirtualQDtlsClientVerifier* self, QMetaMethod* signal);
 
 const QMetaObject* QDtlsClientVerifier_staticMetaObject();
 void QDtlsClientVerifier_delete(QDtlsClientVerifier* self);
 
-QDtls* QDtls_new(int mode);
-QDtls* QDtls_new2(int mode, QObject* parent);
+typedef struct VirtualQDtls VirtualQDtls;
+typedef struct QDtls_VTable{
+	void (*destructor)(VirtualQDtls* self);
+	QMetaObject* (*metaObject)(const VirtualQDtls* self);
+	void* (*metacast)(VirtualQDtls* self, const char* param1);
+	int (*metacall)(VirtualQDtls* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQDtls* self, QEvent* event);
+	bool (*eventFilter)(VirtualQDtls* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQDtls* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQDtls* self, QChildEvent* event);
+	void (*customEvent)(VirtualQDtls* self, QEvent* event);
+	void (*connectNotify)(VirtualQDtls* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQDtls* self, QMetaMethod* signal);
+}QDtls_VTable;
+
+void* QDtls_vdata(VirtualQDtls* self);
+VirtualQDtls* vdata_QDtls(void* vdata);
+
+VirtualQDtls* QDtls_new(const QDtls_VTable* vtbl, size_t vdata, int mode);
+VirtualQDtls* QDtls_new2(const QDtls_VTable* vtbl, size_t vdata, int mode, QObject* parent);
+
 void QDtls_virtbase(QDtls* src, QObject** outptr_QObject);
 QMetaObject* QDtls_metaObject(const QDtls* self);
 void* QDtls_metacast(QDtls* self, const char* param1);
@@ -140,31 +168,21 @@ struct seaqt_string QDtls_tr3(const char* s, const char* c, int n);
 bool QDtls_setPeer2(QDtls* self, QHostAddress* address, unsigned short port, struct seaqt_string verificationName);
 bool QDtls_doHandshake2(QDtls* self, QUdpSocket* socket, struct seaqt_string dgram);
 
-bool QDtls_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QDtls_virtualbase_metaObject(const void* self);
-bool QDtls_override_virtual_metacast(void* self, intptr_t slot);
-void* QDtls_virtualbase_metacast(void* self, const char* param1);
-bool QDtls_override_virtual_metacall(void* self, intptr_t slot);
-int QDtls_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QDtls_override_virtual_event(void* self, intptr_t slot);
-bool QDtls_virtualbase_event(void* self, QEvent* event);
-bool QDtls_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QDtls_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QDtls_override_virtual_timerEvent(void* self, intptr_t slot);
-void QDtls_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QDtls_override_virtual_childEvent(void* self, intptr_t slot);
-void QDtls_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QDtls_override_virtual_customEvent(void* self, intptr_t slot);
-void QDtls_virtualbase_customEvent(void* self, QEvent* event);
-bool QDtls_override_virtual_connectNotify(void* self, intptr_t slot);
-void QDtls_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QDtls_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QDtls_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QDtls_virtualbase_metaObject(const VirtualQDtls* self);
+void* QDtls_virtualbase_metacast(VirtualQDtls* self, const char* param1);
+int QDtls_virtualbase_metacall(VirtualQDtls* self, int param1, int param2, void** param3);
+bool QDtls_virtualbase_event(VirtualQDtls* self, QEvent* event);
+bool QDtls_virtualbase_eventFilter(VirtualQDtls* self, QObject* watched, QEvent* event);
+void QDtls_virtualbase_timerEvent(VirtualQDtls* self, QTimerEvent* event);
+void QDtls_virtualbase_childEvent(VirtualQDtls* self, QChildEvent* event);
+void QDtls_virtualbase_customEvent(VirtualQDtls* self, QEvent* event);
+void QDtls_virtualbase_connectNotify(VirtualQDtls* self, QMetaMethod* signal);
+void QDtls_virtualbase_disconnectNotify(VirtualQDtls* self, QMetaMethod* signal);
 
-QObject* QDtls_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QDtls_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QDtls_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QDtls_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QDtls_protectedbase_sender(const VirtualQDtls* self);
+int QDtls_protectedbase_senderSignalIndex(const VirtualQDtls* self);
+int QDtls_protectedbase_receivers(const VirtualQDtls* self, const char* signal);
+bool QDtls_protectedbase_isSignalConnected(const VirtualQDtls* self, QMetaMethod* signal);
 
 const QMetaObject* QDtls_staticMetaObject();
 void QDtls_delete(QDtls* self);
@@ -172,6 +190,7 @@ void QDtls_delete(QDtls* self);
 QDtlsClientVerifier__GeneratorParameters* QDtlsClientVerifier__GeneratorParameters_new();
 QDtlsClientVerifier__GeneratorParameters* QDtlsClientVerifier__GeneratorParameters_new2(int a, struct seaqt_string s);
 QDtlsClientVerifier__GeneratorParameters* QDtlsClientVerifier__GeneratorParameters_new3(QDtlsClientVerifier__GeneratorParameters* param1);
+
 void QDtlsClientVerifier__GeneratorParameters_operatorAssign(QDtlsClientVerifier__GeneratorParameters* self, QDtlsClientVerifier__GeneratorParameters* param1);
 
 void QDtlsClientVerifier__GeneratorParameters_delete(QDtlsClientVerifier__GeneratorParameters* self);
