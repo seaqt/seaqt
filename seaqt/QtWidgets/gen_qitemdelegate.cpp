@@ -37,15 +37,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQItemDelegate final : public QItemDelegate {
 	const QItemDelegate_VTable* vtbl;
 public:

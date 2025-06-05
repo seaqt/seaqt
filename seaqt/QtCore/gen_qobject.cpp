@@ -28,18 +28,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QObject_destroyed(intptr_t);
-void miqt_exec_callback_QObject_destroyedWithQObject(intptr_t, QObject*);
-void miqt_exec_callback_QObject_objectNameChanged(intptr_t, struct seaqt_string);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QMetaObject* QObjectData_dynamicMetaObject(const QObjectData* self) {
 	return self->dynamicMetaObject();
 }
@@ -394,10 +382,15 @@ void QObject_destroyed(QObject* self) {
 	self->destroyed();
 }
 
-void QObject_connect_destroyed(QObject* self, intptr_t slot) {
-	QObject::connect(self, static_cast<void (QObject::*)(QObject*)>(&QObject::destroyed), self, [=]() {
-		miqt_exec_callback_QObject_destroyed(slot);
-	});
+void QObject_connect_destroyed(QObject* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QObject::connect(self, static_cast<void (QObject::*)(QObject*)>(&QObject::destroyed), self, local_caller{slot, callback, release});
 }
 
 QObject* QObject_parent(const QObject* self) {
@@ -472,11 +465,16 @@ void QObject_destroyedWithQObject(QObject* self, QObject* param1) {
 	self->destroyed(param1);
 }
 
-void QObject_connect_destroyedWithQObject(QObject* self, intptr_t slot) {
-	QObject::connect(self, static_cast<void (QObject::*)(QObject*)>(&QObject::destroyed), self, [=](QObject* param1) {
-		QObject* sigval1 = param1;
-		miqt_exec_callback_QObject_destroyedWithQObject(slot, sigval1);
-	});
+void QObject_connect_destroyedWithQObject(QObject* self, intptr_t slot, void (*callback)(intptr_t, QObject*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QObject*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QObject*);
+		void operator()(QObject* param1) {
+			QObject* sigval1 = param1;
+			callback(slot, sigval1);
+		}
+	};
+	QObject::connect(self, static_cast<void (QObject::*)(QObject*)>(&QObject::destroyed), self, local_caller{slot, callback, release});
 }
 
 const QMetaObject* QObject_staticMetaObject() { return &QObject::staticMetaObject; }

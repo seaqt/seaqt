@@ -27,15 +27,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQWebPluginFactory final : public QWebPluginFactory {
 	const QWebPluginFactory_VTable* vtbl;
 public:

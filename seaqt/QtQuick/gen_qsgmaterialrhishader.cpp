@@ -16,15 +16,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 int QSGMaterialRhiShader__RenderState_dirtyStates(const QSGMaterialRhiShader__RenderState* self) {
 	QSGMaterialRhiShader::RenderState::DirtyStates _ret = self->dirtyStates();
 	return static_cast<int>(_ret);
