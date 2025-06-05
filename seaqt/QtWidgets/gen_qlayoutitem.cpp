@@ -591,6 +591,10 @@ QSizePolicy* QSpacerItem_sizePolicy(const QSpacerItem* self) {
 	return new QSizePolicy(self->sizePolicy());
 }
 
+void QSpacerItem_operatorAssign(QSpacerItem* self, QSpacerItem* param1) {
+	self->operator=(*param1);
+}
+
 void QSpacerItem_changeSize2(QSpacerItem* self, int w, int h, int hData) {
 	self->changeSize(static_cast<int>(w), static_cast<int>(h), static_cast<QSizePolicy::Policy>(hData));
 }

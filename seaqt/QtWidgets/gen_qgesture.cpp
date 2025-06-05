@@ -2051,6 +2051,10 @@ QPointF* QGestureEvent_mapToGraphicsScene(const QGestureEvent* self, QPointF* ge
 	return new QPointF(self->mapToGraphicsScene(*gesturePoint));
 }
 
+void QGestureEvent_operatorAssign(QGestureEvent* self, QGestureEvent* param1) {
+	self->operator=(*param1);
+}
+
 void* QGestureEvent_vdata(VirtualQGestureEvent* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGestureEvent>()); }
 VirtualQGestureEvent* vdata_QGestureEvent(void* vdata) { return reinterpret_cast<VirtualQGestureEvent*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGestureEvent>()); }
 

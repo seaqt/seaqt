@@ -54,6 +54,10 @@ void QQmlParserStatus_componentComplete(QQmlParserStatus* self) {
 	self->componentComplete();
 }
 
+void QQmlParserStatus_operatorAssign(QQmlParserStatus* self, QQmlParserStatus* param1) {
+	self->operator=(*param1);
+}
+
 void* QQmlParserStatus_vdata(VirtualQQmlParserStatus* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQQmlParserStatus>()); }
 VirtualQQmlParserStatus* vdata_QQmlParserStatus(void* vdata) { return reinterpret_cast<VirtualQQmlParserStatus*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQQmlParserStatus>()); }
 

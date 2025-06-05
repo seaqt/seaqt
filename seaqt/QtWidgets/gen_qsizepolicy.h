@@ -51,6 +51,7 @@ bool QSizePolicy_retainSizeWhenHidden(const QSizePolicy* self);
 void QSizePolicy_setRetainSizeWhenHidden(QSizePolicy* self, bool retainSize);
 void QSizePolicy_transpose(QSizePolicy* self);
 QSizePolicy* QSizePolicy_transposed(const QSizePolicy* self);
+void QSizePolicy_operatorAssign(QSizePolicy* self, QSizePolicy* param1);
 
 const QMetaObject* QSizePolicy_staticMetaObject();
 void QSizePolicy_delete(QSizePolicy* self);
