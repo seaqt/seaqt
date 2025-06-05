@@ -22,16 +22,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QSocketNotifier_activated(intptr_t, QSocketDescriptor*, int);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQSocketNotifier final : public QSocketNotifier {
 	const QSocketNotifier_VTable* vtbl;
 public:

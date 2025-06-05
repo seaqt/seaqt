@@ -12,15 +12,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QJSNumberCoercion* QJSNumberCoercion_new(QJSNumberCoercion* param1) {
 	return new (std::nothrow) QJSNumberCoercion(*param1);
 }

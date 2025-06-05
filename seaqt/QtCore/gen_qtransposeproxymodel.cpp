@@ -34,15 +34,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQTransposeProxyModel final : public QTransposeProxyModel {
 	const QTransposeProxyModel_VTable* vtbl;
 public:

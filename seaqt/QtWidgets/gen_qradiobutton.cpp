@@ -50,15 +50,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQRadioButton final : public QRadioButton {
 	const QRadioButton_VTable* vtbl;
 public:

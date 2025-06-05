@@ -52,16 +52,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QFontComboBox_currentFontChanged(intptr_t, QFont*);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQFontComboBox final : public QFontComboBox {
 	const QFontComboBox_VTable* vtbl;
 public:
@@ -853,13 +843,18 @@ void QFontComboBox_currentFontChanged(QFontComboBox* self, QFont* f) {
 	self->currentFontChanged(*f);
 }
 
-void QFontComboBox_connect_currentFontChanged(QFontComboBox* self, intptr_t slot) {
-	QFontComboBox::connect(self, static_cast<void (QFontComboBox::*)(const QFont&)>(&QFontComboBox::currentFontChanged), self, [=](const QFont& f) {
-		const QFont& f_ret = f;
-		// Cast returned reference into pointer
-		QFont* sigval1 = const_cast<QFont*>(&f_ret);
-		miqt_exec_callback_QFontComboBox_currentFontChanged(slot, sigval1);
-	});
+void QFontComboBox_connect_currentFontChanged(QFontComboBox* self, intptr_t slot, void (*callback)(intptr_t, QFont*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QFont*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QFont*);
+		void operator()(const QFont& f) {
+			const QFont& f_ret = f;
+			// Cast returned reference into pointer
+			QFont* sigval1 = const_cast<QFont*>(&f_ret);
+			callback(slot, sigval1);
+		}
+	};
+	QFontComboBox::connect(self, static_cast<void (QFontComboBox::*)(const QFont&)>(&QFontComboBox::currentFontChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QFontComboBox_tr2(const char* s, const char* c) {

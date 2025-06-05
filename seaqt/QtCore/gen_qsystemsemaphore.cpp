@@ -15,15 +15,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QSystemSemaphore* QSystemSemaphore_new(struct seaqt_string key) {
 	QString key_QString = QString::fromUtf8(key.data, key.len);
 	return new (std::nothrow) QSystemSemaphore(key_QString);

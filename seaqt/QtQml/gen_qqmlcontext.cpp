@@ -27,15 +27,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQQmlContext final : public QQmlContext {
 	const QQmlContext_VTable* vtbl;
 public:

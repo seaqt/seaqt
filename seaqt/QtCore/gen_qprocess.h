@@ -152,9 +152,9 @@ struct seaqt_string QProcess_nullDevice();
 void QProcess_terminate(QProcess* self);
 void QProcess_kill(QProcess* self);
 void QProcess_finished(QProcess* self, int exitCode);
-void QProcess_connect_finished(QProcess* self, intptr_t slot);
+void QProcess_connect_finished(QProcess* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t));
 void QProcess_errorOccurred(QProcess* self, int error);
-void QProcess_connect_errorOccurred(QProcess* self, intptr_t slot);
+void QProcess_connect_errorOccurred(QProcess* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t));
 long long QProcess_readData(QProcess* self, char* data, long long maxlen);
 long long QProcess_writeData(QProcess* self, const char* data, long long len);
 struct seaqt_string QProcess_tr2(const char* s, const char* c);
@@ -173,7 +173,7 @@ bool QProcess_startDetached2(struct seaqt_string program, struct seaqt_array /* 
 bool QProcess_startDetached3(struct seaqt_string program, struct seaqt_array /* of struct seaqt_string */  arguments, struct seaqt_string workingDirectory);
 bool QProcess_startDetached4(struct seaqt_string program, struct seaqt_array /* of struct seaqt_string */  arguments, struct seaqt_string workingDirectory, long long* pid);
 void QProcess_finished2(QProcess* self, int exitCode, int exitStatus);
-void QProcess_connect_finished2(QProcess* self, intptr_t slot);
+void QProcess_connect_finished2(QProcess* self, intptr_t slot, void (*callback)(intptr_t, int, int), void (*release)(intptr_t));
 
 QMetaObject* QProcess_virtualbase_metaObject(const VirtualQProcess* self);
 void* QProcess_virtualbase_metacast(VirtualQProcess* self, const char* param1);

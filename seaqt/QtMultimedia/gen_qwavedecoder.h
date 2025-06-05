@@ -93,9 +93,9 @@ long long QWaveDecoder_size(const QWaveDecoder* self);
 bool QWaveDecoder_isSequential(const QWaveDecoder* self);
 long long QWaveDecoder_bytesAvailable(const QWaveDecoder* self);
 void QWaveDecoder_formatKnown(QWaveDecoder* self);
-void QWaveDecoder_connect_formatKnown(QWaveDecoder* self, intptr_t slot);
+void QWaveDecoder_connect_formatKnown(QWaveDecoder* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 void QWaveDecoder_parsingError(QWaveDecoder* self);
-void QWaveDecoder_connect_parsingError(QWaveDecoder* self, intptr_t slot);
+void QWaveDecoder_connect_parsingError(QWaveDecoder* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 struct seaqt_string QWaveDecoder_tr2(const char* s, const char* c);
 struct seaqt_string QWaveDecoder_tr3(const char* s, const char* c, int n);
 

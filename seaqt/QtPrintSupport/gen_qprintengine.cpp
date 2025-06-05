@@ -13,15 +13,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QPrintEngine_setProperty(QPrintEngine* self, int key, QVariant* value) {
 	self->setProperty(static_cast<QPrintEngine::PrintEnginePropertyKey>(key), *value);
 }

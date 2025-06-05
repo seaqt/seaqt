@@ -116,7 +116,7 @@ struct seaqt_array /* of struct seaqt_string */  QObject_dynamicPropertyNames(co
 QBindingStorage* QObject_bindingStorage(QObject* self);
 QBindingStorage* QObject_bindingStorage2(const QObject* self);
 void QObject_destroyed(QObject* self);
-void QObject_connect_destroyed(QObject* self, intptr_t slot);
+void QObject_connect_destroyed(QObject* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 QObject* QObject_parent(const QObject* self);
 bool QObject_inherits(const QObject* self, const char* classname);
 void QObject_deleteLater(QObject* self);
@@ -131,7 +131,7 @@ int QObject_startTimer2(QObject* self, int interval, int timerType);
 QMetaObject__Connection* QObject_connect3(QObject* sender, QMetaMethod* signal, QObject* receiver, QMetaMethod* method, int type);
 QMetaObject__Connection* QObject_connect4(const QObject* self, QObject* sender, const char* signal, const char* member, int type);
 void QObject_destroyedWithQObject(QObject* self, QObject* param1);
-void QObject_connect_destroyedWithQObject(QObject* self, intptr_t slot);
+void QObject_connect_destroyedWithQObject(QObject* self, intptr_t slot, void (*callback)(intptr_t, QObject*), void (*release)(intptr_t));
 
 QMetaObject* QObject_virtualbase_metaObject(const VirtualQObject* self);
 void* QObject_virtualbase_metacast(VirtualQObject* self, const char* param1);
