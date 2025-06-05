@@ -108,7 +108,9 @@ public:
 		// Cast returned reference into pointer
 		QModelIndex* sigval2 = const_cast<QModelIndex*>(&index_ret);
 		QSize* callback_return_value = vtbl->sizeHint(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	virtual QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const override {
@@ -243,6 +245,7 @@ public:
 		for(size_t i = 0; i < callback_return_value.len; ++i) {
 			callback_return_value_QList.push_back(static_cast<int>(callback_return_value_arr[i]));
 		}
+		free(callback_return_value.data);
 		return callback_return_value_QList;
 	}
 

@@ -444,7 +444,9 @@ public:
 		}
 
 		QRectF* callback_return_value = vtbl->boundingRect(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRectF* QQuickItem_virtualbase_boundingRect(const VirtualQQuickItem* self);
@@ -455,7 +457,9 @@ public:
 		}
 
 		QRectF* callback_return_value = vtbl->clipRect(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRectF* QQuickItem_virtualbase_clipRect(const VirtualQQuickItem* self);
@@ -482,7 +486,9 @@ public:
 		Qt::InputMethodQuery query_ret = query;
 		int sigval1 = static_cast<int>(query_ret);
 		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QQuickItem_virtualbase_inputMethodQuery(const VirtualQQuickItem* self, int query);

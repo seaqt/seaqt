@@ -66,7 +66,9 @@ public:
 		uint id_ret = id;
 		unsigned int sigval3 = static_cast<unsigned int>(id_ret);
 		QScriptValue* callback_return_value = vtbl->property(this, sigval1, sigval2, sigval3);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QScriptValue* QScriptClass_virtualbase_property(VirtualQScriptClass* self, QScriptValue* object, QScriptString* name, unsigned int id);
@@ -132,7 +134,9 @@ public:
 		}
 
 		QScriptValue* callback_return_value = vtbl->prototype(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QScriptValue* QScriptClass_virtualbase_prototype(const VirtualQScriptClass* self);
@@ -144,6 +148,7 @@ public:
 
 		struct seaqt_string callback_return_value = vtbl->name(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -173,7 +178,9 @@ public:
 		// Cast returned reference into pointer
 		QVariant* sigval2 = const_cast<QVariant*>(&argument_ret);
 		QVariant* callback_return_value = vtbl->extension(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QScriptClass_virtualbase_extension(VirtualQScriptClass* self, int extension, QVariant* argument);

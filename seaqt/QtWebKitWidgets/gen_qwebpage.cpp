@@ -269,6 +269,7 @@ public:
 		struct seaqt_string sigval2 = oldFile_ms;
 		struct seaqt_string callback_return_value = vtbl->chooseFile(this, sigval1, sigval2);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -352,6 +353,7 @@ public:
 		QUrl* sigval1 = const_cast<QUrl*>(&url_ret);
 		struct seaqt_string callback_return_value = vtbl->userAgentForUrl(this, sigval1);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 

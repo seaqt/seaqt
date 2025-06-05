@@ -101,7 +101,9 @@ public:
 		// Cast returned reference into pointer
 		QSizeF* sigval2 = const_cast<QSizeF*>(&constraint_ret);
 		QSizeF* callback_return_value = vtbl->sizeHint(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSizeF* QGraphicsGridLayout_virtualbase_sizeHint(const VirtualQGraphicsGridLayout* self, int which, QSizeF* constraint);
