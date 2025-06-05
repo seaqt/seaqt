@@ -18,6 +18,7 @@ extern "C" {
 class QBrush;
 class QColor;
 class QFont;
+class QMetaObject;
 class QPen;
 class QTextBlockFormat;
 class QTextCharFormat;
@@ -38,6 +39,7 @@ class QVariant;
 typedef struct QBrush QBrush;
 typedef struct QColor QColor;
 typedef struct QFont QFont;
+typedef struct QMetaObject QMetaObject;
 typedef struct QPen QPen;
 typedef struct QTextBlockFormat QTextBlockFormat;
 typedef struct QTextCharFormat QTextCharFormat;
@@ -119,6 +121,7 @@ void QTextFormat_setForeground(QTextFormat* self, QBrush* brush);
 QBrush* QTextFormat_foreground(const QTextFormat* self);
 void QTextFormat_clearForeground(QTextFormat* self);
 
+const QMetaObject* QTextFormat_staticMetaObject();
 void QTextFormat_delete(QTextFormat* self);
 
 QTextCharFormat* QTextCharFormat_new();

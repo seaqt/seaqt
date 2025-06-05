@@ -42,6 +42,7 @@ QDrag* QDrag_new(QObject* dragSource);
 void QDrag_virtbase(QDrag* src, QObject** outptr_QObject);
 QMetaObject* QDrag_metaObject(const QDrag* self);
 void* QDrag_metacast(QDrag* self, const char* param1);
+int QDrag_metacall(QDrag* self, int param1, int param2, void** param3);
 struct seaqt_string QDrag_tr(const char* s);
 void QDrag_setMimeData(QDrag* self, QMimeData* data);
 QMimeData* QDrag_mimeData(const QDrag* self);
@@ -66,6 +67,12 @@ struct seaqt_string QDrag_tr2(const char* s, const char* c);
 struct seaqt_string QDrag_tr3(const char* s, const char* c, int n);
 int QDrag_execWithSupportedActions(QDrag* self, int supportedActions);
 
+bool QDrag_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QDrag_virtualbase_metaObject(const void* self);
+bool QDrag_override_virtual_metacast(void* self, intptr_t slot);
+void* QDrag_virtualbase_metacast(void* self, const char* param1);
+bool QDrag_override_virtual_metacall(void* self, intptr_t slot);
+int QDrag_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QDrag_override_virtual_event(void* self, intptr_t slot);
 bool QDrag_virtualbase_event(void* self, QEvent* event);
 bool QDrag_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -86,6 +93,7 @@ int QDrag_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* se
 int QDrag_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QDrag_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QDrag_staticMetaObject();
 void QDrag_delete(QDrag* self);
 
 #ifdef __cplusplus

@@ -1,3 +1,4 @@
+#include <QMetaObject>
 #include <QPdfSelection>
 #include <QRectF>
 #include <QString>
@@ -61,6 +62,7 @@ void QPdfSelection_copyToClipboardWithMode(const QPdfSelection* self, int mode) 
 	self->copyToClipboard(static_cast<QClipboard::Mode>(mode));
 }
 
+const QMetaObject* QPdfSelection_staticMetaObject() { return &QPdfSelection::staticMetaObject; }
 void QPdfSelection_delete(QPdfSelection* self) {
 	delete self;
 }

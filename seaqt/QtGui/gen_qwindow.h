@@ -88,6 +88,7 @@ QWindow* QWindow_new3(QScreen* screen);
 void QWindow_virtbase(QWindow* src, QObject** outptr_QObject, QSurface** outptr_QSurface);
 QMetaObject* QWindow_metaObject(const QWindow* self);
 void* QWindow_metacast(QWindow* self, const char* param1);
+int QWindow_metacall(QWindow* self, int param1, int param2, void** param3);
 struct seaqt_string QWindow_tr(const char* s);
 void QWindow_setSurfaceType(QWindow* self, int surfaceType);
 int QWindow_surfaceType(const QWindow* self);
@@ -262,6 +263,12 @@ QWindow* QWindow_parentWithMode(const QWindow* self, int mode);
 void QWindow_setFlag2(QWindow* self, int param1, bool on);
 bool QWindow_isAncestorOf2(const QWindow* self, QWindow* child, int mode);
 
+bool QWindow_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QWindow_virtualbase_metaObject(const void* self);
+bool QWindow_override_virtual_metacast(void* self, intptr_t slot);
+void* QWindow_virtualbase_metacast(void* self, const char* param1);
+bool QWindow_override_virtual_metacall(void* self, intptr_t slot);
+int QWindow_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QWindow_override_virtual_surfaceType(void* self, intptr_t slot);
 int QWindow_virtualbase_surfaceType(const void* self);
 bool QWindow_override_virtual_format(void* self, intptr_t slot);
@@ -331,6 +338,7 @@ int QWindow_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* 
 int QWindow_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QWindow_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QWindow_staticMetaObject();
 void QWindow_delete(QWindow* self);
 
 #ifdef __cplusplus

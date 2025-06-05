@@ -15,9 +15,11 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
+class QMetaObject;
 class QUrl;
 class QWebEngineRegisterProtocolHandlerRequest;
 #else
+typedef struct QMetaObject QMetaObject;
 typedef struct QUrl QUrl;
 typedef struct QWebEngineRegisterProtocolHandlerRequest QWebEngineRegisterProtocolHandlerRequest;
 #endif
@@ -31,6 +33,7 @@ struct seaqt_string QWebEngineRegisterProtocolHandlerRequest_scheme(const QWebEn
 bool QWebEngineRegisterProtocolHandlerRequest_operatorEqual(const QWebEngineRegisterProtocolHandlerRequest* self, QWebEngineRegisterProtocolHandlerRequest* that);
 bool QWebEngineRegisterProtocolHandlerRequest_operatorNotEqual(const QWebEngineRegisterProtocolHandlerRequest* self, QWebEngineRegisterProtocolHandlerRequest* that);
 
+const QMetaObject* QWebEngineRegisterProtocolHandlerRequest_staticMetaObject();
 void QWebEngineRegisterProtocolHandlerRequest_delete(QWebEngineRegisterProtocolHandlerRequest* self);
 
 #ifdef __cplusplus

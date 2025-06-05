@@ -1,5 +1,6 @@
 #include <QByteArray>
 #include <QList>
+#include <QMetaObject>
 #include <QNetworkProxy>
 #include <QNetworkProxyFactory>
 #include <QNetworkProxyQuery>
@@ -148,6 +149,7 @@ void QNetworkProxyQuery_setUrl(QNetworkProxyQuery* self, QUrl* url) {
 	self->setUrl(*url);
 }
 
+const QMetaObject* QNetworkProxyQuery_staticMetaObject() { return &QNetworkProxyQuery::staticMetaObject; }
 void QNetworkProxyQuery_delete(QNetworkProxyQuery* self) {
 	delete self;
 }

@@ -99,6 +99,7 @@ QMenuBar* QMenuBar_new2();
 void QMenuBar_virtbase(QMenuBar* src, QWidget** outptr_QWidget);
 QMetaObject* QMenuBar_metaObject(const QMenuBar* self);
 void* QMenuBar_metacast(QMenuBar* self, const char* param1);
+int QMenuBar_metacall(QMenuBar* self, int param1, int param2, void** param3);
 struct seaqt_string QMenuBar_tr(const char* s);
 QAction* QMenuBar_addMenu(QMenuBar* self, QMenu* menu);
 QMenu* QMenuBar_addMenuWithTitle(QMenuBar* self, struct seaqt_string title);
@@ -145,6 +146,12 @@ struct seaqt_string QMenuBar_tr3(const char* s, const char* c, int n);
 void QMenuBar_setCornerWidget2(QMenuBar* self, QWidget* w, int corner);
 QWidget* QMenuBar_cornerWidgetWithCorner(const QMenuBar* self, int corner);
 
+bool QMenuBar_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QMenuBar_virtualbase_metaObject(const void* self);
+bool QMenuBar_override_virtual_metacast(void* self, intptr_t slot);
+void* QMenuBar_virtualbase_metacast(void* self, const char* param1);
+bool QMenuBar_override_virtual_metacall(void* self, intptr_t slot);
+int QMenuBar_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QMenuBar_override_virtual_sizeHint(void* self, intptr_t slot);
 QSize* QMenuBar_virtualbase_sizeHint(const void* self);
 bool QMenuBar_override_virtual_minimumSizeHint(void* self, intptr_t slot);
@@ -252,6 +259,7 @@ int QMenuBar_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void*
 int QMenuBar_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QMenuBar_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QMenuBar_staticMetaObject();
 void QMenuBar_delete(QMenuBar* self);
 
 #ifdef __cplusplus

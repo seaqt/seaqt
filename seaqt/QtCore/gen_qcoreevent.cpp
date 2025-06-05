@@ -2,6 +2,7 @@
 #include <QChildEvent>
 #include <QDynamicPropertyChangeEvent>
 #include <QEvent>
+#include <QMetaObject>
 #include <QObject>
 #include <QTimerEvent>
 #include <qcoreevent.h>
@@ -117,6 +118,7 @@ int QEvent_registerEventTypeWithHint(int hint) {
 	return QEvent::registerEventType(static_cast<int>(hint));
 }
 
+const QMetaObject* QEvent_staticMetaObject() { return &QEvent::staticMetaObject; }
 bool QEvent_override_virtual_setAccepted(void* self, intptr_t slot) {
 	VirtualQEvent* self_cast = dynamic_cast<VirtualQEvent*>( (QEvent*)(self) );
 	if (self_cast == nullptr) {

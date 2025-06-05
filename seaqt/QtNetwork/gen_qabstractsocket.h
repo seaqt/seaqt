@@ -48,6 +48,7 @@ QAbstractSocket* QAbstractSocket_new(int socketType, QObject* parent);
 void QAbstractSocket_virtbase(QAbstractSocket* src, QIODevice** outptr_QIODevice);
 QMetaObject* QAbstractSocket_metaObject(const QAbstractSocket* self);
 void* QAbstractSocket_metacast(QAbstractSocket* self, const char* param1);
+int QAbstractSocket_metacall(QAbstractSocket* self, int param1, int param2, void** param3);
 struct seaqt_string QAbstractSocket_tr(const char* s);
 void QAbstractSocket_resume(QAbstractSocket* self);
 int QAbstractSocket_pauseMode(const QAbstractSocket* self);
@@ -108,6 +109,12 @@ bool QAbstractSocket_bindWithPort(QAbstractSocket* self, unsigned short port);
 bool QAbstractSocket_bind3(QAbstractSocket* self, unsigned short port, int mode);
 void QAbstractSocket_connectToHost3(QAbstractSocket* self, QHostAddress* address, unsigned short port, int mode);
 
+bool QAbstractSocket_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QAbstractSocket_virtualbase_metaObject(const void* self);
+bool QAbstractSocket_override_virtual_metacast(void* self, intptr_t slot);
+void* QAbstractSocket_virtualbase_metacast(void* self, const char* param1);
+bool QAbstractSocket_override_virtual_metacall(void* self, intptr_t slot);
+int QAbstractSocket_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QAbstractSocket_override_virtual_resume(void* self, intptr_t slot);
 void QAbstractSocket_virtualbase_resume(void* self);
 bool QAbstractSocket_override_virtual_bind(void* self, intptr_t slot);
@@ -193,6 +200,7 @@ int QAbstractSocket_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, cons
 int QAbstractSocket_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QAbstractSocket_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QAbstractSocket_staticMetaObject();
 void QAbstractSocket_delete(QAbstractSocket* self);
 
 #ifdef __cplusplus

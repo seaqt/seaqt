@@ -5,6 +5,7 @@
 #include <QDate>
 #include <QList>
 #include <QLocale>
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -256,6 +257,7 @@ struct seaqt_string QCalendar_standaloneWeekDayName2(const QCalendar* self, QLoc
 	return _ms;
 }
 
+const QMetaObject* QCalendar_staticMetaObject() { return &QCalendar::staticMetaObject; }
 void QCalendar_delete(QCalendar* self) {
 	delete self;
 }

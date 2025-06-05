@@ -53,6 +53,7 @@ QAbstractProxyModel* QAbstractProxyModel_new2(QObject* parent);
 void QAbstractProxyModel_virtbase(QAbstractProxyModel* src, QAbstractItemModel** outptr_QAbstractItemModel);
 QMetaObject* QAbstractProxyModel_metaObject(const QAbstractProxyModel* self);
 void* QAbstractProxyModel_metacast(QAbstractProxyModel* self, const char* param1);
+int QAbstractProxyModel_metacall(QAbstractProxyModel* self, int param1, int param2, void** param3);
 struct seaqt_string QAbstractProxyModel_tr(const char* s);
 void QAbstractProxyModel_setSourceModel(QAbstractProxyModel* self, QAbstractItemModel* sourceModel);
 QAbstractItemModel* QAbstractProxyModel_sourceModel(const QAbstractProxyModel* self);
@@ -87,6 +88,12 @@ struct seaqt_map /* of int to struct seaqt_string */  QAbstractProxyModel_roleNa
 struct seaqt_string QAbstractProxyModel_tr2(const char* s, const char* c);
 struct seaqt_string QAbstractProxyModel_tr3(const char* s, const char* c, int n);
 
+bool QAbstractProxyModel_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QAbstractProxyModel_virtualbase_metaObject(const void* self);
+bool QAbstractProxyModel_override_virtual_metacast(void* self, intptr_t slot);
+void* QAbstractProxyModel_virtualbase_metacast(void* self, const char* param1);
+bool QAbstractProxyModel_override_virtual_metacall(void* self, intptr_t slot);
+int QAbstractProxyModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QAbstractProxyModel_override_virtual_setSourceModel(void* self, intptr_t slot);
 void QAbstractProxyModel_virtualbase_setSourceModel(void* self, QAbstractItemModel* sourceModel);
 bool QAbstractProxyModel_override_virtual_mapToSource(void* self, intptr_t slot);
@@ -214,6 +221,7 @@ bool QAbstractProxyModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok,
 
 void QAbstractProxyModel_connect_sourceModelChanged(QAbstractProxyModel* self, intptr_t slot);
 
+const QMetaObject* QAbstractProxyModel_staticMetaObject();
 void QAbstractProxyModel_delete(QAbstractProxyModel* self);
 
 #ifdef __cplusplus

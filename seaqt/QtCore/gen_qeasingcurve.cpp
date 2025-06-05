@@ -1,5 +1,6 @@
 #include <QEasingCurve>
 #include <QList>
+#include <QMetaObject>
 #include <QPointF>
 #include <qeasingcurve.h>
 #include "gen_qeasingcurve.h"
@@ -102,6 +103,7 @@ double QEasingCurve_valueForProgress(const QEasingCurve* self, double progress) 
 	return static_cast<double>(_ret);
 }
 
+const QMetaObject* QEasingCurve_staticMetaObject() { return &QEasingCurve::staticMetaObject; }
 void QEasingCurve_delete(QEasingCurve* self) {
 	delete self;
 }
