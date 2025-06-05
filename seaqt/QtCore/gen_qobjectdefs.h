@@ -113,6 +113,7 @@ bool QMetaObject_invokeMethod4(QObject* obj, const char* member);
 QObject* QMetaObject_newInstance(const QMetaObject* self);
 int QMetaObject_staticMetacall(const QMetaObject* self, int param1, int param2, void** param3);
 int QMetaObject_metacall(QObject* param1, int param2, int param3, void** param4);
+void QMetaObject_operatorAssign(QMetaObject* self, QMetaObject* param1);
 struct seaqt_string QMetaObject_tr2(const QMetaObject* self, const char* s, const char* c, int n);
 QMetaObject__Connection* QMetaObject_connect2(QObject* sender, int signal_index, QObject* receiver, int method_index, int type);
 QMetaObject__Connection* QMetaObject_connect3(QObject* sender, int signal_index, QObject* receiver, int method_index, int type, int* types);

@@ -948,6 +948,10 @@ QQuickTextureFactory* QQuickImageProvider_requestTexture(QQuickImageProvider* se
 	return self->requestTexture(id_QString, size, *requestedSize);
 }
 
+void QQuickImageProvider_operatorAssign(QQuickImageProvider* self, QQuickImageProvider* param1) {
+	self->operator=(*param1);
+}
+
 void* QQuickImageProvider_vdata(VirtualQQuickImageProvider* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQQuickImageProvider>()); }
 VirtualQQuickImageProvider* vdata_QQuickImageProvider(void* vdata) { return reinterpret_cast<VirtualQQuickImageProvider*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQQuickImageProvider>()); }
 
@@ -1131,6 +1135,10 @@ void QQuickAsyncImageProvider_virtbase(QQuickAsyncImageProvider* src, QQuickImag
 QQuickImageResponse* QQuickAsyncImageProvider_requestImageResponse(QQuickAsyncImageProvider* self, struct seaqt_string id, QSize* requestedSize) {
 	QString id_QString = QString::fromUtf8(id.data, id.len);
 	return self->requestImageResponse(id_QString, *requestedSize);
+}
+
+void QQuickAsyncImageProvider_operatorAssign(QQuickAsyncImageProvider* self, QQuickAsyncImageProvider* param1) {
+	self->operator=(*param1);
 }
 
 void* QQuickAsyncImageProvider_vdata(VirtualQQuickAsyncImageProvider* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQQuickAsyncImageProvider>()); }

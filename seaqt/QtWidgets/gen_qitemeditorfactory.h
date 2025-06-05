@@ -48,6 +48,7 @@ struct seaqt_string QItemEditorFactory_valuePropertyName(const QItemEditorFactor
 void QItemEditorFactory_registerEditor(QItemEditorFactory* self, int userType, QItemEditorCreatorBase* creator);
 QItemEditorFactory* QItemEditorFactory_defaultFactory();
 void QItemEditorFactory_setDefaultFactory(QItemEditorFactory* factory);
+void QItemEditorFactory_operatorAssign(QItemEditorFactory* self, QItemEditorFactory* param1);
 
 QWidget* QItemEditorFactory_virtualbase_createEditor(const VirtualQItemEditorFactory* self, int userType, QWidget* parent);
 struct seaqt_string QItemEditorFactory_virtualbase_valuePropertyName(const VirtualQItemEditorFactory* self, int userType);

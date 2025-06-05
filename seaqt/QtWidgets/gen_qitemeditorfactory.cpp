@@ -112,6 +112,10 @@ void QItemEditorFactory_setDefaultFactory(QItemEditorFactory* factory) {
 	QItemEditorFactory::setDefaultFactory(factory);
 }
 
+void QItemEditorFactory_operatorAssign(QItemEditorFactory* self, QItemEditorFactory* param1) {
+	self->operator=(*param1);
+}
+
 void* QItemEditorFactory_vdata(VirtualQItemEditorFactory* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQItemEditorFactory>()); }
 VirtualQItemEditorFactory* vdata_QItemEditorFactory(void* vdata) { return reinterpret_cast<VirtualQItemEditorFactory*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQItemEditorFactory>()); }
 

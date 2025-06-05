@@ -66,6 +66,10 @@ struct seaqt_array /* of QRectF* */  QPdfSearchResult_rectangles(const QPdfSearc
 	return _out;
 }
 
+void QPdfSearchResult_operatorAssign(QPdfSearchResult* self, QPdfSearchResult* param1) {
+	self->operator=(*param1);
+}
+
 const QMetaObject* QPdfSearchResult_staticMetaObject() { return &QPdfSearchResult::staticMetaObject; }
 void QPdfSearchResult_delete(QPdfSearchResult* self) {
 	delete self;

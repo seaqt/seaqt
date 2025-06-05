@@ -627,6 +627,10 @@ struct seaqt_array /* of QVariant* */  QStateMachine__SignalEvent_arguments(cons
 	return _out;
 }
 
+void QStateMachine__SignalEvent_operatorAssign(QStateMachine__SignalEvent* self, QStateMachine__SignalEvent* param1) {
+	self->operator=(*param1);
+}
+
 void QStateMachine__SignalEvent_delete(QStateMachine__SignalEvent* self) {
 	delete self;
 }
@@ -649,6 +653,10 @@ QObject* QStateMachine__WrappedEvent_object(const QStateMachine__WrappedEvent* s
 
 QEvent* QStateMachine__WrappedEvent_event(const QStateMachine__WrappedEvent* self) {
 	return self->event();
+}
+
+void QStateMachine__WrappedEvent_operatorAssign(QStateMachine__WrappedEvent* self, QStateMachine__WrappedEvent* param1) {
+	self->operator=(*param1);
 }
 
 void QStateMachine__WrappedEvent_delete(QStateMachine__WrappedEvent* self) {

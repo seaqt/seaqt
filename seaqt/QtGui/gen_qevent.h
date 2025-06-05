@@ -322,6 +322,7 @@ void QFocusEvent_virtbase(QFocusEvent* src, QEvent** outptr_QEvent);
 bool QFocusEvent_gotFocus(const QFocusEvent* self);
 bool QFocusEvent_lostFocus(const QFocusEvent* self);
 int QFocusEvent_reason(const QFocusEvent* self);
+void QFocusEvent_operatorAssign(QFocusEvent* self, QFocusEvent* param1);
 
 void QFocusEvent_delete(QFocusEvent* self);
 
@@ -428,6 +429,7 @@ struct seaqt_string QInputMethodEvent_preeditString(const QInputMethodEvent* sel
 struct seaqt_string QInputMethodEvent_commitString(const QInputMethodEvent* self);
 int QInputMethodEvent_replacementStart(const QInputMethodEvent* self);
 int QInputMethodEvent_replacementLength(const QInputMethodEvent* self);
+void QInputMethodEvent_operatorAssign(QInputMethodEvent* self, QInputMethodEvent* param1);
 void QInputMethodEvent_setCommitString2(QInputMethodEvent* self, struct seaqt_string commitString, int replaceFrom);
 void QInputMethodEvent_setCommitString3(QInputMethodEvent* self, struct seaqt_string commitString, int replaceFrom, int replaceLength);
 
@@ -440,6 +442,7 @@ void QInputMethodQueryEvent_virtbase(QInputMethodQueryEvent* src, QEvent** outpt
 int QInputMethodQueryEvent_queries(const QInputMethodQueryEvent* self);
 void QInputMethodQueryEvent_setValue(QInputMethodQueryEvent* self, int query, QVariant* value);
 QVariant* QInputMethodQueryEvent_value(const QInputMethodQueryEvent* self, int query);
+void QInputMethodQueryEvent_operatorAssign(QInputMethodQueryEvent* self, QInputMethodQueryEvent* param1);
 
 void QInputMethodQueryEvent_delete(QInputMethodQueryEvent* self);
 
@@ -501,6 +504,7 @@ int QHelpEvent_globalX(const QHelpEvent* self);
 int QHelpEvent_globalY(const QHelpEvent* self);
 QPoint* QHelpEvent_pos(const QHelpEvent* self);
 QPoint* QHelpEvent_globalPos(const QHelpEvent* self);
+void QHelpEvent_operatorAssign(QHelpEvent* self, QHelpEvent* param1);
 
 void QHelpEvent_delete(QHelpEvent* self);
 
@@ -509,6 +513,7 @@ QStatusTipEvent* QStatusTipEvent_new2(QStatusTipEvent* param1);
 
 void QStatusTipEvent_virtbase(QStatusTipEvent* src, QEvent** outptr_QEvent);
 struct seaqt_string QStatusTipEvent_tip(const QStatusTipEvent* self);
+void QStatusTipEvent_operatorAssign(QStatusTipEvent* self, QStatusTipEvent* param1);
 
 void QStatusTipEvent_delete(QStatusTipEvent* self);
 
@@ -517,6 +522,7 @@ QWhatsThisClickedEvent* QWhatsThisClickedEvent_new2(QWhatsThisClickedEvent* para
 
 void QWhatsThisClickedEvent_virtbase(QWhatsThisClickedEvent* src, QEvent** outptr_QEvent);
 struct seaqt_string QWhatsThisClickedEvent_href(const QWhatsThisClickedEvent* self);
+void QWhatsThisClickedEvent_operatorAssign(QWhatsThisClickedEvent* self, QWhatsThisClickedEvent* param1);
 
 void QWhatsThisClickedEvent_delete(QWhatsThisClickedEvent* self);
 
@@ -535,6 +541,7 @@ void QFileOpenEvent_virtbase(QFileOpenEvent* src, QEvent** outptr_QEvent);
 struct seaqt_string QFileOpenEvent_file(const QFileOpenEvent* self);
 QUrl* QFileOpenEvent_url(const QFileOpenEvent* self);
 bool QFileOpenEvent_openFile(const QFileOpenEvent* self, QFile* file, int flags);
+void QFileOpenEvent_operatorAssign(QFileOpenEvent* self, QFileOpenEvent* param1);
 
 void QFileOpenEvent_delete(QFileOpenEvent* self);
 
@@ -543,6 +550,7 @@ QToolBarChangeEvent* QToolBarChangeEvent_new2(QToolBarChangeEvent* param1);
 
 void QToolBarChangeEvent_virtbase(QToolBarChangeEvent* src, QEvent** outptr_QEvent);
 bool QToolBarChangeEvent_toggle(const QToolBarChangeEvent* self);
+void QToolBarChangeEvent_operatorAssign(QToolBarChangeEvent* self, QToolBarChangeEvent* param1);
 
 void QToolBarChangeEvent_delete(QToolBarChangeEvent* self);
 
@@ -564,6 +572,7 @@ QWindowStateChangeEvent* QWindowStateChangeEvent_new3(int aOldState, bool isOver
 void QWindowStateChangeEvent_virtbase(QWindowStateChangeEvent* src, QEvent** outptr_QEvent);
 int QWindowStateChangeEvent_oldState(const QWindowStateChangeEvent* self);
 bool QWindowStateChangeEvent_isOverride(const QWindowStateChangeEvent* self);
+void QWindowStateChangeEvent_operatorAssign(QWindowStateChangeEvent* self, QWindowStateChangeEvent* param1);
 
 void QWindowStateChangeEvent_delete(QWindowStateChangeEvent* self);
 
@@ -609,6 +618,7 @@ QPointF* QScrollPrepareEvent_contentPos(const QScrollPrepareEvent* self);
 void QScrollPrepareEvent_setViewportSize(QScrollPrepareEvent* self, QSizeF* size);
 void QScrollPrepareEvent_setContentPosRange(QScrollPrepareEvent* self, QRectF* rect);
 void QScrollPrepareEvent_setContentPos(QScrollPrepareEvent* self, QPointF* pos);
+void QScrollPrepareEvent_operatorAssign(QScrollPrepareEvent* self, QScrollPrepareEvent* param1);
 
 void QScrollPrepareEvent_delete(QScrollPrepareEvent* self);
 
@@ -619,6 +629,7 @@ void QScrollEvent_virtbase(QScrollEvent* src, QEvent** outptr_QEvent);
 QPointF* QScrollEvent_contentPos(const QScrollEvent* self);
 QPointF* QScrollEvent_overshootDistance(const QScrollEvent* self);
 int QScrollEvent_scrollState(const QScrollEvent* self);
+void QScrollEvent_operatorAssign(QScrollEvent* self, QScrollEvent* param1);
 
 void QScrollEvent_delete(QScrollEvent* self);
 
@@ -628,6 +639,7 @@ QScreenOrientationChangeEvent* QScreenOrientationChangeEvent_new2(QScreenOrienta
 void QScreenOrientationChangeEvent_virtbase(QScreenOrientationChangeEvent* src, QEvent** outptr_QEvent);
 QScreen* QScreenOrientationChangeEvent_screen(const QScreenOrientationChangeEvent* self);
 int QScreenOrientationChangeEvent_orientation(const QScreenOrientationChangeEvent* self);
+void QScreenOrientationChangeEvent_operatorAssign(QScreenOrientationChangeEvent* self, QScreenOrientationChangeEvent* param1);
 
 void QScreenOrientationChangeEvent_delete(QScreenOrientationChangeEvent* self);
 
@@ -636,6 +648,7 @@ QApplicationStateChangeEvent* QApplicationStateChangeEvent_new2(QApplicationStat
 
 void QApplicationStateChangeEvent_virtbase(QApplicationStateChangeEvent* src, QEvent** outptr_QEvent);
 int QApplicationStateChangeEvent_applicationState(const QApplicationStateChangeEvent* self);
+void QApplicationStateChangeEvent_operatorAssign(QApplicationStateChangeEvent* self, QApplicationStateChangeEvent* param1);
 
 void QApplicationStateChangeEvent_delete(QApplicationStateChangeEvent* self);
 

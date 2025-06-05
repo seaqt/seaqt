@@ -40,6 +40,10 @@ int QQmlImageProviderBase_flags(const QQmlImageProviderBase* self) {
 	return static_cast<int>(_ret);
 }
 
+void QQmlImageProviderBase_operatorAssign(QQmlImageProviderBase* self, QQmlImageProviderBase* param1) {
+	self->operator=(*param1);
+}
+
 void QQmlImageProviderBase_delete(QQmlImageProviderBase* self) {
 	delete self;
 }

@@ -747,6 +747,10 @@ int QFocusEvent_reason(const QFocusEvent* self) {
 	return static_cast<int>(_ret);
 }
 
+void QFocusEvent_operatorAssign(QFocusEvent* self, QFocusEvent* param1) {
+	self->operator=(*param1);
+}
+
 void QFocusEvent_delete(QFocusEvent* self) {
 	delete self;
 }
@@ -1090,6 +1094,10 @@ int QInputMethodEvent_replacementLength(const QInputMethodEvent* self) {
 	return self->replacementLength();
 }
 
+void QInputMethodEvent_operatorAssign(QInputMethodEvent* self, QInputMethodEvent* param1) {
+	self->operator=(*param1);
+}
+
 void QInputMethodEvent_setCommitString2(QInputMethodEvent* self, struct seaqt_string commitString, int replaceFrom) {
 	QString commitString_QString = QString::fromUtf8(commitString.data, commitString.len);
 	self->setCommitString(commitString_QString, static_cast<int>(replaceFrom));
@@ -1127,6 +1135,10 @@ void QInputMethodQueryEvent_setValue(QInputMethodQueryEvent* self, int query, QV
 
 QVariant* QInputMethodQueryEvent_value(const QInputMethodQueryEvent* self, int query) {
 	return new QVariant(self->value(static_cast<Qt::InputMethodQuery>(query)));
+}
+
+void QInputMethodQueryEvent_operatorAssign(QInputMethodQueryEvent* self, QInputMethodQueryEvent* param1) {
+	self->operator=(*param1);
 }
 
 void QInputMethodQueryEvent_delete(QInputMethodQueryEvent* self) {
@@ -1324,6 +1336,10 @@ QPoint* QHelpEvent_globalPos(const QHelpEvent* self) {
 	return const_cast<QPoint*>(&_ret);
 }
 
+void QHelpEvent_operatorAssign(QHelpEvent* self, QHelpEvent* param1) {
+	self->operator=(*param1);
+}
+
 void QHelpEvent_delete(QHelpEvent* self) {
 	delete self;
 }
@@ -1352,6 +1368,10 @@ struct seaqt_string QStatusTipEvent_tip(const QStatusTipEvent* self) {
 	return _ms;
 }
 
+void QStatusTipEvent_operatorAssign(QStatusTipEvent* self, QStatusTipEvent* param1) {
+	self->operator=(*param1);
+}
+
 void QStatusTipEvent_delete(QStatusTipEvent* self) {
 	delete self;
 }
@@ -1378,6 +1398,10 @@ struct seaqt_string QWhatsThisClickedEvent_href(const QWhatsThisClickedEvent* se
 	_ms.data = static_cast<char*>(malloc(_ms.len));
 	memcpy(_ms.data, _b.data(), _ms.len);
 	return _ms;
+}
+
+void QWhatsThisClickedEvent_operatorAssign(QWhatsThisClickedEvent* self, QWhatsThisClickedEvent* param1) {
+	self->operator=(*param1);
 }
 
 void QWhatsThisClickedEvent_delete(QWhatsThisClickedEvent* self) {
@@ -1436,6 +1460,10 @@ bool QFileOpenEvent_openFile(const QFileOpenEvent* self, QFile* file, int flags)
 	return self->openFile(*file, static_cast<QIODevice::OpenMode>(flags));
 }
 
+void QFileOpenEvent_operatorAssign(QFileOpenEvent* self, QFileOpenEvent* param1) {
+	self->operator=(*param1);
+}
+
 void QFileOpenEvent_delete(QFileOpenEvent* self) {
 	delete self;
 }
@@ -1454,6 +1482,10 @@ void QToolBarChangeEvent_virtbase(QToolBarChangeEvent* src, QEvent** outptr_QEve
 
 bool QToolBarChangeEvent_toggle(const QToolBarChangeEvent* self) {
 	return self->toggle();
+}
+
+void QToolBarChangeEvent_operatorAssign(QToolBarChangeEvent* self, QToolBarChangeEvent* param1) {
+	self->operator=(*param1);
 }
 
 void QToolBarChangeEvent_delete(QToolBarChangeEvent* self) {
@@ -1517,6 +1549,10 @@ int QWindowStateChangeEvent_oldState(const QWindowStateChangeEvent* self) {
 
 bool QWindowStateChangeEvent_isOverride(const QWindowStateChangeEvent* self) {
 	return self->isOverride();
+}
+
+void QWindowStateChangeEvent_operatorAssign(QWindowStateChangeEvent* self, QWindowStateChangeEvent* param1) {
+	self->operator=(*param1);
 }
 
 void QWindowStateChangeEvent_delete(QWindowStateChangeEvent* self) {
@@ -1683,6 +1719,10 @@ void QScrollPrepareEvent_setContentPos(QScrollPrepareEvent* self, QPointF* pos) 
 	self->setContentPos(*pos);
 }
 
+void QScrollPrepareEvent_operatorAssign(QScrollPrepareEvent* self, QScrollPrepareEvent* param1) {
+	self->operator=(*param1);
+}
+
 void QScrollPrepareEvent_delete(QScrollPrepareEvent* self) {
 	delete self;
 }
@@ -1712,6 +1752,10 @@ int QScrollEvent_scrollState(const QScrollEvent* self) {
 	return static_cast<int>(_ret);
 }
 
+void QScrollEvent_operatorAssign(QScrollEvent* self, QScrollEvent* param1) {
+	self->operator=(*param1);
+}
+
 void QScrollEvent_delete(QScrollEvent* self) {
 	delete self;
 }
@@ -1737,6 +1781,10 @@ int QScreenOrientationChangeEvent_orientation(const QScreenOrientationChangeEven
 	return static_cast<int>(_ret);
 }
 
+void QScreenOrientationChangeEvent_operatorAssign(QScreenOrientationChangeEvent* self, QScreenOrientationChangeEvent* param1) {
+	self->operator=(*param1);
+}
+
 void QScreenOrientationChangeEvent_delete(QScreenOrientationChangeEvent* self) {
 	delete self;
 }
@@ -1756,6 +1804,10 @@ void QApplicationStateChangeEvent_virtbase(QApplicationStateChangeEvent* src, QE
 int QApplicationStateChangeEvent_applicationState(const QApplicationStateChangeEvent* self) {
 	Qt::ApplicationState _ret = self->applicationState();
 	return static_cast<int>(_ret);
+}
+
+void QApplicationStateChangeEvent_operatorAssign(QApplicationStateChangeEvent* self, QApplicationStateChangeEvent* param1) {
+	self->operator=(*param1);
 }
 
 void QApplicationStateChangeEvent_delete(QApplicationStateChangeEvent* self) {
