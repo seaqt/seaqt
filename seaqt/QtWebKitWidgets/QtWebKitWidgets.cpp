@@ -1,0 +1,5 @@
+#include "gen_qgraphicswebview.cpp"
+#include "gen_qwebframe.cpp"
+#include "gen_qwebinspector.cpp"
+#include "gen_qwebpage.cpp"
+#include "gen_qwebview.cpp"
