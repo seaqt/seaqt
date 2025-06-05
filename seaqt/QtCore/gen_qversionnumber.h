@@ -44,8 +44,8 @@ bool QVersionNumber_isPrefixOf(const QVersionNumber* self, QVersionNumber* other
 int QVersionNumber_compare(QVersionNumber* v1, QVersionNumber* v2);
 QVersionNumber* QVersionNumber_commonPrefix(QVersionNumber* v1, QVersionNumber* v2);
 struct seaqt_string QVersionNumber_toString(const QVersionNumber* self);
-QVersionNumber* QVersionNumber_fromString(QAnyStringView* string);
-QVersionNumber* QVersionNumber_fromString2(QAnyStringView* string, ptrdiff_t* suffixIndex);
+QVersionNumber* QVersionNumber_fromString(struct seaqt_string string);
+QVersionNumber* QVersionNumber_fromString2(struct seaqt_string string, ptrdiff_t* suffixIndex);
 
 void QVersionNumber_delete(QVersionNumber* self);
 
