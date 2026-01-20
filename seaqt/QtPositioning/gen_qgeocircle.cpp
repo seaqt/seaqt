@@ -1,6 +1,7 @@
 #include <QGeoCircle>
 #include <QGeoCoordinate>
 #include <QGeoShape>
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -91,6 +92,7 @@ struct seaqt_string QGeoCircle_toString(const QGeoCircle* self) {
 	return _ms;
 }
 
+const QMetaObject* QGeoCircle_staticMetaObject() { return &QGeoCircle::staticMetaObject; }
 void QGeoCircle_delete(QGeoCircle* self) {
 	delete self;
 }

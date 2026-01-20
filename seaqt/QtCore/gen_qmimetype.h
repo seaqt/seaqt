@@ -15,8 +15,10 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
+class QMetaObject;
 class QMimeType;
 #else
+typedef struct QMetaObject QMetaObject;
 typedef struct QMimeType QMimeType;
 #endif
 
@@ -41,6 +43,7 @@ struct seaqt_string QMimeType_preferredSuffix(const QMimeType* self);
 bool QMimeType_inherits(const QMimeType* self, struct seaqt_string mimeTypeName);
 struct seaqt_string QMimeType_filterString(const QMimeType* self);
 
+const QMetaObject* QMimeType_staticMetaObject();
 void QMimeType_delete(QMimeType* self);
 
 #ifdef __cplusplus

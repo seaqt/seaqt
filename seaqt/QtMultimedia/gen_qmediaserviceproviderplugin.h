@@ -98,6 +98,7 @@ void QMediaServiceFeaturesInterface_delete(QMediaServiceFeaturesInterface* self)
 void QMediaServiceProviderPlugin_virtbase(QMediaServiceProviderPlugin* src, QObject** outptr_QObject, QMediaServiceProviderFactoryInterface** outptr_QMediaServiceProviderFactoryInterface);
 QMetaObject* QMediaServiceProviderPlugin_metaObject(const QMediaServiceProviderPlugin* self);
 void* QMediaServiceProviderPlugin_metacast(QMediaServiceProviderPlugin* self, const char* param1);
+int QMediaServiceProviderPlugin_metacall(QMediaServiceProviderPlugin* self, int param1, int param2, void** param3);
 struct seaqt_string QMediaServiceProviderPlugin_tr(const char* s);
 struct seaqt_string QMediaServiceProviderPlugin_trUtf8(const char* s);
 QMediaService* QMediaServiceProviderPlugin_create(QMediaServiceProviderPlugin* self, struct seaqt_string key);
@@ -107,6 +108,7 @@ struct seaqt_string QMediaServiceProviderPlugin_tr3(const char* s, const char* c
 struct seaqt_string QMediaServiceProviderPlugin_trUtf82(const char* s, const char* c);
 struct seaqt_string QMediaServiceProviderPlugin_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QMediaServiceProviderPlugin_staticMetaObject();
 void QMediaServiceProviderPlugin_delete(QMediaServiceProviderPlugin* self);
 
 #ifdef __cplusplus

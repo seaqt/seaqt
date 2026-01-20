@@ -127,6 +127,7 @@ QTextEdit* QTextEdit_new4(struct seaqt_string text, QWidget* parent);
 void QTextEdit_virtbase(QTextEdit* src, QAbstractScrollArea** outptr_QAbstractScrollArea);
 QMetaObject* QTextEdit_metaObject(const QTextEdit* self);
 void* QTextEdit_metacast(QTextEdit* self, const char* param1);
+int QTextEdit_metacall(QTextEdit* self, int param1, int param2, void** param3);
 struct seaqt_string QTextEdit_tr(const char* s);
 struct seaqt_string QTextEdit_trUtf8(const char* s);
 void QTextEdit_setDocument(QTextEdit* self, QTextDocument* document);
@@ -275,6 +276,12 @@ void QTextEdit_moveCursor2(QTextEdit* self, int operation, int mode);
 void QTextEdit_zoomInWithRange(QTextEdit* self, int range);
 void QTextEdit_zoomOutWithRange(QTextEdit* self, int range);
 
+bool QTextEdit_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QTextEdit_virtualbase_metaObject(const void* self);
+bool QTextEdit_override_virtual_metacast(void* self, intptr_t slot);
+void* QTextEdit_virtualbase_metacast(void* self, const char* param1);
+bool QTextEdit_override_virtual_metacall(void* self, intptr_t slot);
+int QTextEdit_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QTextEdit_override_virtual_loadResource(void* self, intptr_t slot);
 QVariant* QTextEdit_virtualbase_loadResource(void* self, int type, QUrl* name);
 bool QTextEdit_override_virtual_inputMethodQuery(void* self, intptr_t slot);
@@ -403,6 +410,7 @@ int QTextEdit_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void
 int QTextEdit_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QTextEdit_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QTextEdit_staticMetaObject();
 void QTextEdit_delete(QTextEdit* self);
 
 QTextEdit__ExtraSelection* QTextEdit__ExtraSelection_new(QTextEdit__ExtraSelection* param1);

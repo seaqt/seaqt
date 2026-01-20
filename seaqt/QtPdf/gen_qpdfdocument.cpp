@@ -27,6 +27,9 @@ void miqt_exec_callback_QPdfDocument_passwordChanged(intptr_t);
 void miqt_exec_callback_QPdfDocument_passwordRequired(intptr_t);
 void miqt_exec_callback_QPdfDocument_statusChanged(intptr_t, int);
 void miqt_exec_callback_QPdfDocument_pageCountChanged(intptr_t, int);
+QMetaObject* miqt_exec_callback_QPdfDocument_metaObject(const QPdfDocument*, intptr_t);
+void* miqt_exec_callback_QPdfDocument_metacast(QPdfDocument*, intptr_t, const char*);
+int miqt_exec_callback_QPdfDocument_metacall(QPdfDocument*, intptr_t, int, int, void**);
 bool miqt_exec_callback_QPdfDocument_event(QPdfDocument*, intptr_t, QEvent*);
 bool miqt_exec_callback_QPdfDocument_eventFilter(QPdfDocument*, intptr_t, QObject*, QEvent*);
 void miqt_exec_callback_QPdfDocument_timerEvent(QPdfDocument*, intptr_t, QTimerEvent*);
@@ -45,6 +48,56 @@ public:
 	VirtualQPdfDocument(QObject* parent): QPdfDocument(parent) {}
 
 	virtual ~VirtualQPdfDocument() override = default;
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metaObject = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual const QMetaObject* metaObject() const override {
+		if (handle__metaObject == 0) {
+			return QPdfDocument::metaObject();
+		}
+
+		QMetaObject* callback_return_value = miqt_exec_callback_QPdfDocument_metaObject(this, handle__metaObject);
+		return callback_return_value;
+	}
+
+	friend QMetaObject* QPdfDocument_virtualbase_metaObject(const void* self);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacast = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual void* qt_metacast(const char* param1) override {
+		if (handle__metacast == 0) {
+			return QPdfDocument::qt_metacast(param1);
+		}
+
+		const char* sigval1 = (const char*) param1;
+		void* callback_return_value = miqt_exec_callback_QPdfDocument_metacast(this, handle__metacast, sigval1);
+		return callback_return_value;
+	}
+
+	friend void* QPdfDocument_virtualbase_metacast(void* self, const char* param1);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacall = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
+		if (handle__metacall == 0) {
+			return QPdfDocument::qt_metacall(param1, param2, param3);
+		}
+
+		QMetaObject::Call param1_ret = param1;
+		int sigval1 = static_cast<int>(param1_ret);
+		int sigval2 = param2;
+		void** sigval3 = param3;
+		int callback_return_value = miqt_exec_callback_QPdfDocument_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		return static_cast<int>(callback_return_value);
+	}
+
+	friend int QPdfDocument_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 
 	// cgo.Handle value for overwritten implementation
 	intptr_t handle__event = 0;
@@ -193,6 +246,10 @@ QMetaObject* QPdfDocument_metaObject(const QPdfDocument* self) {
 
 void* QPdfDocument_metacast(QPdfDocument* self, const char* param1) {
 	return self->qt_metacast(param1);
+}
+
+int QPdfDocument_metacall(QPdfDocument* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 struct seaqt_string QPdfDocument_tr(const char* s) {
@@ -374,6 +431,49 @@ struct seaqt_string QPdfDocument_trUtf83(const char* s, const char* c, int n) {
 
 QImage* QPdfDocument_render2(QPdfDocument* self, int page, QSize* imageSize, QPdfDocumentRenderOptions* options) {
 	return new QImage(self->render(static_cast<int>(page), *imageSize, *options));
+}
+
+const QMetaObject* QPdfDocument_staticMetaObject() { return &QPdfDocument::staticMetaObject; }
+bool QPdfDocument_override_virtual_metaObject(void* self, intptr_t slot) {
+	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metaObject = slot;
+	return true;
+}
+
+QMetaObject* QPdfDocument_virtualbase_metaObject(const void* self) {
+	return (QMetaObject*) static_cast<const VirtualQPdfDocument*>(self)->QPdfDocument::metaObject();
+}
+
+bool QPdfDocument_override_virtual_metacast(void* self, intptr_t slot) {
+	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacast = slot;
+	return true;
+}
+
+void* QPdfDocument_virtualbase_metacast(void* self, const char* param1) {
+	return static_cast<VirtualQPdfDocument*>(self)->QPdfDocument::qt_metacast(param1);
+}
+
+bool QPdfDocument_override_virtual_metacall(void* self, intptr_t slot) {
+	VirtualQPdfDocument* self_cast = dynamic_cast<VirtualQPdfDocument*>( (QPdfDocument*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacall = slot;
+	return true;
+}
+
+int QPdfDocument_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
+	return static_cast<VirtualQPdfDocument*>(self)->QPdfDocument::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 bool QPdfDocument_override_virtual_event(void* self, intptr_t slot) {

@@ -23,11 +23,13 @@ class QCalendar__YearMonthDay;
 #endif
 class QDate;
 class QLocale;
+class QMetaObject;
 #else
 typedef struct QCalendar QCalendar;
 typedef struct QCalendar__YearMonthDay QCalendar__YearMonthDay;
 typedef struct QDate QDate;
 typedef struct QLocale QLocale;
+typedef struct QMetaObject QMetaObject;
 #endif
 
 QCalendar* QCalendar_new();
@@ -65,6 +67,7 @@ struct seaqt_string QCalendar_standaloneMonthName3(const QCalendar* self, QLocal
 struct seaqt_string QCalendar_weekDayName2(const QCalendar* self, QLocale* locale, int day, int format);
 struct seaqt_string QCalendar_standaloneWeekDayName2(const QCalendar* self, QLocale* locale, int day, int format);
 
+const QMetaObject* QCalendar_staticMetaObject();
 void QCalendar_delete(QCalendar* self);
 
 QCalendar__YearMonthDay* QCalendar__YearMonthDay_new();

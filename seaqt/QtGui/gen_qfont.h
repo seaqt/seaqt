@@ -16,10 +16,12 @@ extern "C" {
 
 #ifdef __cplusplus
 class QFont;
+class QMetaObject;
 class QPaintDevice;
 class QVariant;
 #else
 typedef struct QFont QFont;
+typedef struct QMetaObject QMetaObject;
 typedef struct QPaintDevice QPaintDevice;
 typedef struct QVariant QVariant;
 #endif
@@ -109,6 +111,7 @@ unsigned int QFont_resolve2(const QFont* self);
 void QFont_resolveWithMask(QFont* self, unsigned int mask);
 void QFont_setStyleHint2(QFont* self, int param1, int param2);
 
+const QMetaObject* QFont_staticMetaObject();
 void QFont_delete(QFont* self);
 
 #ifdef __cplusplus

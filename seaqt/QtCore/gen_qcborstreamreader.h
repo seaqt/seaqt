@@ -18,10 +18,12 @@ extern "C" {
 class QCborError;
 class QCborStreamReader;
 class QIODevice;
+class QMetaObject;
 #else
 typedef struct QCborError QCborError;
 typedef struct QCborStreamReader QCborStreamReader;
 typedef struct QIODevice QIODevice;
+typedef struct QMetaObject QMetaObject;
 #endif
 
 QCborStreamReader* QCborStreamReader_new();
@@ -80,6 +82,7 @@ double QCborStreamReader_toDouble(const QCborStreamReader* self);
 long long QCborStreamReader_toInteger(const QCborStreamReader* self);
 bool QCborStreamReader_nextWithMaxRecursion(QCborStreamReader* self, int maxRecursion);
 
+const QMetaObject* QCborStreamReader_staticMetaObject();
 void QCborStreamReader_delete(QCborStreamReader* self);
 
 #ifdef __cplusplus

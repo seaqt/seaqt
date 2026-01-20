@@ -80,6 +80,7 @@ QSqlRelationalTableModel* QSqlRelationalTableModel_new3(QObject* parent, QSqlDat
 void QSqlRelationalTableModel_virtbase(QSqlRelationalTableModel* src, QSqlTableModel** outptr_QSqlTableModel);
 QMetaObject* QSqlRelationalTableModel_metaObject(const QSqlRelationalTableModel* self);
 void* QSqlRelationalTableModel_metacast(QSqlRelationalTableModel* self, const char* param1);
+int QSqlRelationalTableModel_metacall(QSqlRelationalTableModel* self, int param1, int param2, void** param3);
 struct seaqt_string QSqlRelationalTableModel_tr(const char* s);
 struct seaqt_string QSqlRelationalTableModel_trUtf8(const char* s);
 QVariant* QSqlRelationalTableModel_data(const QSqlRelationalTableModel* self, QModelIndex* item, int role);
@@ -102,6 +103,12 @@ struct seaqt_string QSqlRelationalTableModel_tr3(const char* s, const char* c, i
 struct seaqt_string QSqlRelationalTableModel_trUtf82(const char* s, const char* c);
 struct seaqt_string QSqlRelationalTableModel_trUtf83(const char* s, const char* c, int n);
 
+bool QSqlRelationalTableModel_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QSqlRelationalTableModel_virtualbase_metaObject(const void* self);
+bool QSqlRelationalTableModel_override_virtual_metacast(void* self, intptr_t slot);
+void* QSqlRelationalTableModel_virtualbase_metacast(void* self, const char* param1);
+bool QSqlRelationalTableModel_override_virtual_metacall(void* self, intptr_t slot);
+int QSqlRelationalTableModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QSqlRelationalTableModel_override_virtual_data(void* self, intptr_t slot);
 QVariant* QSqlRelationalTableModel_virtualbase_data(const void* self, QModelIndex* item, int role);
 bool QSqlRelationalTableModel_override_virtual_setData(void* self, intptr_t slot);
@@ -245,6 +252,7 @@ int QSqlRelationalTableModel_protectedbase_senderSignalIndex(bool* _dynamic_cast
 int QSqlRelationalTableModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QSqlRelationalTableModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QSqlRelationalTableModel_staticMetaObject();
 void QSqlRelationalTableModel_delete(QSqlRelationalTableModel* self);
 
 #ifdef __cplusplus

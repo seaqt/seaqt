@@ -33,6 +33,7 @@ typedef struct QVariant QVariant;
 void QMetaDataReaderControl_virtbase(QMetaDataReaderControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QMetaDataReaderControl_metaObject(const QMetaDataReaderControl* self);
 void* QMetaDataReaderControl_metacast(QMetaDataReaderControl* self, const char* param1);
+int QMetaDataReaderControl_metacall(QMetaDataReaderControl* self, int param1, int param2, void** param3);
 struct seaqt_string QMetaDataReaderControl_tr(const char* s);
 struct seaqt_string QMetaDataReaderControl_trUtf8(const char* s);
 bool QMetaDataReaderControl_isMetaDataAvailable(const QMetaDataReaderControl* self);
@@ -49,6 +50,7 @@ struct seaqt_string QMetaDataReaderControl_tr3(const char* s, const char* c, int
 struct seaqt_string QMetaDataReaderControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QMetaDataReaderControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QMetaDataReaderControl_staticMetaObject();
 void QMetaDataReaderControl_delete(QMetaDataReaderControl* self);
 
 #ifdef __cplusplus

@@ -37,6 +37,7 @@ QSignalMapper* QSignalMapper_new2(QObject* parent);
 void QSignalMapper_virtbase(QSignalMapper* src, QObject** outptr_QObject);
 QMetaObject* QSignalMapper_metaObject(const QSignalMapper* self);
 void* QSignalMapper_metacast(QSignalMapper* self, const char* param1);
+int QSignalMapper_metacall(QSignalMapper* self, int param1, int param2, void** param3);
 struct seaqt_string QSignalMapper_tr(const char* s);
 struct seaqt_string QSignalMapper_trUtf8(const char* s);
 void QSignalMapper_setMapping(QSignalMapper* self, QObject* sender, int id);
@@ -65,6 +66,12 @@ struct seaqt_string QSignalMapper_tr3(const char* s, const char* c, int n);
 struct seaqt_string QSignalMapper_trUtf82(const char* s, const char* c);
 struct seaqt_string QSignalMapper_trUtf83(const char* s, const char* c, int n);
 
+bool QSignalMapper_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QSignalMapper_virtualbase_metaObject(const void* self);
+bool QSignalMapper_override_virtual_metacast(void* self, intptr_t slot);
+void* QSignalMapper_virtualbase_metacast(void* self, const char* param1);
+bool QSignalMapper_override_virtual_metacall(void* self, intptr_t slot);
+int QSignalMapper_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QSignalMapper_override_virtual_event(void* self, intptr_t slot);
 bool QSignalMapper_virtualbase_event(void* self, QEvent* event);
 bool QSignalMapper_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -85,6 +92,7 @@ int QSignalMapper_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const 
 int QSignalMapper_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QSignalMapper_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QSignalMapper_staticMetaObject();
 void QSignalMapper_delete(QSignalMapper* self);
 
 #ifdef __cplusplus

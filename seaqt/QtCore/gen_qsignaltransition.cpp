@@ -20,6 +20,9 @@ extern "C" {
 
 void miqt_exec_callback_QSignalTransition_senderObjectChanged(intptr_t);
 void miqt_exec_callback_QSignalTransition_signalChanged(intptr_t);
+QMetaObject* miqt_exec_callback_QSignalTransition_metaObject(const QSignalTransition*, intptr_t);
+void* miqt_exec_callback_QSignalTransition_metacast(QSignalTransition*, intptr_t, const char*);
+int miqt_exec_callback_QSignalTransition_metacall(QSignalTransition*, intptr_t, int, int, void**);
 bool miqt_exec_callback_QSignalTransition_eventTest(QSignalTransition*, intptr_t, QEvent*);
 void miqt_exec_callback_QSignalTransition_onTransition(QSignalTransition*, intptr_t, QEvent*);
 bool miqt_exec_callback_QSignalTransition_event(QSignalTransition*, intptr_t, QEvent*);
@@ -42,6 +45,56 @@ public:
 	VirtualQSignalTransition(const QObject* sender, const char* signal, QState* sourceState): QSignalTransition(sender, signal, sourceState) {}
 
 	virtual ~VirtualQSignalTransition() override = default;
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metaObject = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual const QMetaObject* metaObject() const override {
+		if (handle__metaObject == 0) {
+			return QSignalTransition::metaObject();
+		}
+
+		QMetaObject* callback_return_value = miqt_exec_callback_QSignalTransition_metaObject(this, handle__metaObject);
+		return callback_return_value;
+	}
+
+	friend QMetaObject* QSignalTransition_virtualbase_metaObject(const void* self);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacast = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual void* qt_metacast(const char* param1) override {
+		if (handle__metacast == 0) {
+			return QSignalTransition::qt_metacast(param1);
+		}
+
+		const char* sigval1 = (const char*) param1;
+		void* callback_return_value = miqt_exec_callback_QSignalTransition_metacast(this, handle__metacast, sigval1);
+		return callback_return_value;
+	}
+
+	friend void* QSignalTransition_virtualbase_metacast(void* self, const char* param1);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacall = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
+		if (handle__metacall == 0) {
+			return QSignalTransition::qt_metacall(param1, param2, param3);
+		}
+
+		QMetaObject::Call param1_ret = param1;
+		int sigval1 = static_cast<int>(param1_ret);
+		int sigval2 = param2;
+		void** sigval3 = param3;
+		int callback_return_value = miqt_exec_callback_QSignalTransition_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		return static_cast<int>(callback_return_value);
+	}
+
+	friend int QSignalTransition_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 
 	// cgo.Handle value for overwritten implementation
 	intptr_t handle__eventTest = 0;
@@ -233,6 +286,10 @@ void* QSignalTransition_metacast(QSignalTransition* self, const char* param1) {
 	return self->qt_metacast(param1);
 }
 
+int QSignalTransition_metacall(QSignalTransition* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+}
+
 struct seaqt_string QSignalTransition_tr(const char* s) {
 	QString _ret = QSignalTransition::tr(s);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
@@ -319,6 +376,49 @@ struct seaqt_string QSignalTransition_trUtf83(const char* s, const char* c, int 
 	_ms.data = static_cast<char*>(malloc(_ms.len));
 	memcpy(_ms.data, _b.data(), _ms.len);
 	return _ms;
+}
+
+const QMetaObject* QSignalTransition_staticMetaObject() { return &QSignalTransition::staticMetaObject; }
+bool QSignalTransition_override_virtual_metaObject(void* self, intptr_t slot) {
+	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metaObject = slot;
+	return true;
+}
+
+QMetaObject* QSignalTransition_virtualbase_metaObject(const void* self) {
+	return (QMetaObject*) static_cast<const VirtualQSignalTransition*>(self)->QSignalTransition::metaObject();
+}
+
+bool QSignalTransition_override_virtual_metacast(void* self, intptr_t slot) {
+	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacast = slot;
+	return true;
+}
+
+void* QSignalTransition_virtualbase_metacast(void* self, const char* param1) {
+	return static_cast<VirtualQSignalTransition*>(self)->QSignalTransition::qt_metacast(param1);
+}
+
+bool QSignalTransition_override_virtual_metacall(void* self, intptr_t slot) {
+	VirtualQSignalTransition* self_cast = dynamic_cast<VirtualQSignalTransition*>( (QSignalTransition*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacall = slot;
+	return true;
+}
+
+int QSignalTransition_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
+	return static_cast<VirtualQSignalTransition*>(self)->QSignalTransition::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 bool QSignalTransition_override_virtual_eventTest(void* self, intptr_t slot) {

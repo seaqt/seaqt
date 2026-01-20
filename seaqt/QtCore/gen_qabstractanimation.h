@@ -41,6 +41,7 @@ QAbstractAnimation* QAbstractAnimation_new2(QObject* parent);
 void QAbstractAnimation_virtbase(QAbstractAnimation* src, QObject** outptr_QObject);
 QMetaObject* QAbstractAnimation_metaObject(const QAbstractAnimation* self);
 void* QAbstractAnimation_metacast(QAbstractAnimation* self, const char* param1);
+int QAbstractAnimation_metacall(QAbstractAnimation* self, int param1, int param2, void** param3);
 struct seaqt_string QAbstractAnimation_tr(const char* s);
 struct seaqt_string QAbstractAnimation_trUtf8(const char* s);
 int QAbstractAnimation_state(const QAbstractAnimation* self);
@@ -78,6 +79,12 @@ struct seaqt_string QAbstractAnimation_trUtf82(const char* s, const char* c);
 struct seaqt_string QAbstractAnimation_trUtf83(const char* s, const char* c, int n);
 void QAbstractAnimation_startWithPolicy(QAbstractAnimation* self, int policy);
 
+bool QAbstractAnimation_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QAbstractAnimation_virtualbase_metaObject(const void* self);
+bool QAbstractAnimation_override_virtual_metacast(void* self, intptr_t slot);
+void* QAbstractAnimation_virtualbase_metacast(void* self, const char* param1);
+bool QAbstractAnimation_override_virtual_metacall(void* self, intptr_t slot);
+int QAbstractAnimation_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QAbstractAnimation_override_virtual_duration(void* self, intptr_t slot);
 int QAbstractAnimation_virtualbase_duration(const void* self);
 bool QAbstractAnimation_override_virtual_event(void* self, intptr_t slot);
@@ -106,6 +113,7 @@ int QAbstractAnimation_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, c
 int QAbstractAnimation_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QAbstractAnimation_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QAbstractAnimation_staticMetaObject();
 void QAbstractAnimation_delete(QAbstractAnimation* self);
 
 QAnimationDriver* QAnimationDriver_new();
@@ -113,6 +121,7 @@ QAnimationDriver* QAnimationDriver_new2(QObject* parent);
 void QAnimationDriver_virtbase(QAnimationDriver* src, QObject** outptr_QObject);
 QMetaObject* QAnimationDriver_metaObject(const QAnimationDriver* self);
 void* QAnimationDriver_metacast(QAnimationDriver* self, const char* param1);
+int QAnimationDriver_metacall(QAnimationDriver* self, int param1, int param2, void** param3);
 struct seaqt_string QAnimationDriver_tr(const char* s);
 struct seaqt_string QAnimationDriver_trUtf8(const char* s);
 void QAnimationDriver_advance(QAnimationDriver* self);
@@ -133,6 +142,12 @@ struct seaqt_string QAnimationDriver_tr3(const char* s, const char* c, int n);
 struct seaqt_string QAnimationDriver_trUtf82(const char* s, const char* c);
 struct seaqt_string QAnimationDriver_trUtf83(const char* s, const char* c, int n);
 
+bool QAnimationDriver_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QAnimationDriver_virtualbase_metaObject(const void* self);
+bool QAnimationDriver_override_virtual_metacast(void* self, intptr_t slot);
+void* QAnimationDriver_virtualbase_metacast(void* self, const char* param1);
+bool QAnimationDriver_override_virtual_metacall(void* self, intptr_t slot);
+int QAnimationDriver_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QAnimationDriver_override_virtual_advance(void* self, intptr_t slot);
 void QAnimationDriver_virtualbase_advance(void* self);
 bool QAnimationDriver_override_virtual_elapsed(void* self, intptr_t slot);
@@ -163,6 +178,7 @@ int QAnimationDriver_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, con
 int QAnimationDriver_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QAnimationDriver_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QAnimationDriver_staticMetaObject();
 void QAnimationDriver_delete(QAnimationDriver* self);
 
 #ifdef __cplusplus

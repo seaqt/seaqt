@@ -48,6 +48,7 @@ QAbstractVideoFilter* QAbstractVideoFilter_new2(QObject* parent);
 void QAbstractVideoFilter_virtbase(QAbstractVideoFilter* src, QObject** outptr_QObject);
 QMetaObject* QAbstractVideoFilter_metaObject(const QAbstractVideoFilter* self);
 void* QAbstractVideoFilter_metacast(QAbstractVideoFilter* self, const char* param1);
+int QAbstractVideoFilter_metacall(QAbstractVideoFilter* self, int param1, int param2, void** param3);
 struct seaqt_string QAbstractVideoFilter_tr(const char* s);
 struct seaqt_string QAbstractVideoFilter_trUtf8(const char* s);
 bool QAbstractVideoFilter_isActive(const QAbstractVideoFilter* self);
@@ -60,6 +61,12 @@ struct seaqt_string QAbstractVideoFilter_tr3(const char* s, const char* c, int n
 struct seaqt_string QAbstractVideoFilter_trUtf82(const char* s, const char* c);
 struct seaqt_string QAbstractVideoFilter_trUtf83(const char* s, const char* c, int n);
 
+bool QAbstractVideoFilter_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QAbstractVideoFilter_virtualbase_metaObject(const void* self);
+bool QAbstractVideoFilter_override_virtual_metacast(void* self, intptr_t slot);
+void* QAbstractVideoFilter_virtualbase_metacast(void* self, const char* param1);
+bool QAbstractVideoFilter_override_virtual_metacall(void* self, intptr_t slot);
+int QAbstractVideoFilter_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QAbstractVideoFilter_override_virtual_createFilterRunnable(void* self, intptr_t slot);
 QVideoFilterRunnable* QAbstractVideoFilter_virtualbase_createFilterRunnable(void* self);
 bool QAbstractVideoFilter_override_virtual_event(void* self, intptr_t slot);
@@ -82,6 +89,7 @@ int QAbstractVideoFilter_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok,
 int QAbstractVideoFilter_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QAbstractVideoFilter_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QAbstractVideoFilter_staticMetaObject();
 void QAbstractVideoFilter_delete(QAbstractVideoFilter* self);
 
 #ifdef __cplusplus

@@ -1,6 +1,7 @@
 #include <QDeadlineTimer>
 #include <QHostAddress>
 #include <QList>
+#include <QMetaObject>
 #include <QNetworkAddressEntry>
 #include <QNetworkInterface>
 #include <QString>
@@ -249,6 +250,7 @@ struct seaqt_array /* of QHostAddress* */  QNetworkInterface_allAddresses() {
 	return _out;
 }
 
+const QMetaObject* QNetworkInterface_staticMetaObject() { return &QNetworkInterface::staticMetaObject; }
 void QNetworkInterface_delete(QNetworkInterface* self) {
 	delete self;
 }

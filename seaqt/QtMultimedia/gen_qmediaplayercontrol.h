@@ -37,6 +37,7 @@ typedef struct QObject QObject;
 void QMediaPlayerControl_virtbase(QMediaPlayerControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QMediaPlayerControl_metaObject(const QMediaPlayerControl* self);
 void* QMediaPlayerControl_metacast(QMediaPlayerControl* self, const char* param1);
+int QMediaPlayerControl_metacall(QMediaPlayerControl* self, int param1, int param2, void** param3);
 struct seaqt_string QMediaPlayerControl_tr(const char* s);
 struct seaqt_string QMediaPlayerControl_trUtf8(const char* s);
 int QMediaPlayerControl_state(const QMediaPlayerControl* self);
@@ -94,6 +95,7 @@ struct seaqt_string QMediaPlayerControl_tr3(const char* s, const char* c, int n)
 struct seaqt_string QMediaPlayerControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QMediaPlayerControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QMediaPlayerControl_staticMetaObject();
 void QMediaPlayerControl_delete(QMediaPlayerControl* self);
 
 #ifdef __cplusplus

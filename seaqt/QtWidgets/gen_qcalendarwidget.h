@@ -95,6 +95,7 @@ QCalendarWidget* QCalendarWidget_new2();
 void QCalendarWidget_virtbase(QCalendarWidget* src, QWidget** outptr_QWidget);
 QMetaObject* QCalendarWidget_metaObject(const QCalendarWidget* self);
 void* QCalendarWidget_metacast(QCalendarWidget* self, const char* param1);
+int QCalendarWidget_metacall(QCalendarWidget* self, int param1, int param2, void** param3);
 struct seaqt_string QCalendarWidget_tr(const char* s);
 struct seaqt_string QCalendarWidget_trUtf8(const char* s);
 QSize* QCalendarWidget_sizeHint(const QCalendarWidget* self);
@@ -159,6 +160,12 @@ struct seaqt_string QCalendarWidget_tr3(const char* s, const char* c, int n);
 struct seaqt_string QCalendarWidget_trUtf82(const char* s, const char* c);
 struct seaqt_string QCalendarWidget_trUtf83(const char* s, const char* c, int n);
 
+bool QCalendarWidget_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QCalendarWidget_virtualbase_metaObject(const void* self);
+bool QCalendarWidget_override_virtual_metacast(void* self, intptr_t slot);
+void* QCalendarWidget_virtualbase_metacast(void* self, const char* param1);
+bool QCalendarWidget_override_virtual_metacall(void* self, intptr_t slot);
+int QCalendarWidget_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QCalendarWidget_override_virtual_sizeHint(void* self, intptr_t slot);
 QSize* QCalendarWidget_virtualbase_sizeHint(const void* self);
 bool QCalendarWidget_override_virtual_minimumSizeHint(void* self, intptr_t slot);
@@ -268,6 +275,7 @@ int QCalendarWidget_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, cons
 int QCalendarWidget_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QCalendarWidget_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QCalendarWidget_staticMetaObject();
 void QCalendarWidget_delete(QCalendarWidget* self);
 
 #ifdef __cplusplus

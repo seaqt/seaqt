@@ -17,11 +17,13 @@ extern "C" {
 #ifdef __cplusplus
 class QColorSpace;
 class QColorTransform;
+class QMetaObject;
 class QPointF;
 class QVariant;
 #else
 typedef struct QColorSpace QColorSpace;
 typedef struct QColorTransform QColorTransform;
+typedef struct QMetaObject QMetaObject;
 typedef struct QPointF QPointF;
 typedef struct QVariant QVariant;
 #endif
@@ -51,6 +53,7 @@ QVariant* QColorSpace_ToQVariant(const QColorSpace* self);
 void QColorSpace_setTransferFunction2(QColorSpace* self, int transferFunction, float gamma);
 QColorSpace* QColorSpace_withTransferFunction2(const QColorSpace* self, int transferFunction, float gamma);
 
+const QMetaObject* QColorSpace_staticMetaObject();
 void QColorSpace_delete(QColorSpace* self);
 
 #ifdef __cplusplus

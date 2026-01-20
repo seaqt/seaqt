@@ -51,6 +51,7 @@ QPdfBookmarkModel* QPdfBookmarkModel_new2(QObject* parent);
 void QPdfBookmarkModel_virtbase(QPdfBookmarkModel* src, QAbstractItemModel** outptr_QAbstractItemModel);
 QMetaObject* QPdfBookmarkModel_metaObject(const QPdfBookmarkModel* self);
 void* QPdfBookmarkModel_metacast(QPdfBookmarkModel* self, const char* param1);
+int QPdfBookmarkModel_metacall(QPdfBookmarkModel* self, int param1, int param2, void** param3);
 struct seaqt_string QPdfBookmarkModel_tr(const char* s);
 struct seaqt_string QPdfBookmarkModel_trUtf8(const char* s);
 QPdfDocument* QPdfBookmarkModel_document(const QPdfBookmarkModel* self);
@@ -72,6 +73,12 @@ struct seaqt_string QPdfBookmarkModel_tr3(const char* s, const char* c, int n);
 struct seaqt_string QPdfBookmarkModel_trUtf82(const char* s, const char* c);
 struct seaqt_string QPdfBookmarkModel_trUtf83(const char* s, const char* c, int n);
 
+bool QPdfBookmarkModel_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QPdfBookmarkModel_virtualbase_metaObject(const void* self);
+bool QPdfBookmarkModel_override_virtual_metacast(void* self, intptr_t slot);
+void* QPdfBookmarkModel_virtualbase_metacast(void* self, const char* param1);
+bool QPdfBookmarkModel_override_virtual_metacall(void* self, intptr_t slot);
+int QPdfBookmarkModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QPdfBookmarkModel_override_virtual_data(void* self, intptr_t slot);
 QVariant* QPdfBookmarkModel_virtualbase_data(const void* self, QModelIndex* index, int role);
 bool QPdfBookmarkModel_override_virtual_index(void* self, intptr_t slot);
@@ -181,6 +188,7 @@ int QPdfBookmarkModel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, co
 int QPdfBookmarkModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QPdfBookmarkModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QPdfBookmarkModel_staticMetaObject();
 void QPdfBookmarkModel_delete(QPdfBookmarkModel* self);
 
 #ifdef __cplusplus

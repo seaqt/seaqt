@@ -31,6 +31,7 @@ typedef struct QObject QObject;
 void QMediaContainerControl_virtbase(QMediaContainerControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QMediaContainerControl_metaObject(const QMediaContainerControl* self);
 void* QMediaContainerControl_metacast(QMediaContainerControl* self, const char* param1);
+int QMediaContainerControl_metacall(QMediaContainerControl* self, int param1, int param2, void** param3);
 struct seaqt_string QMediaContainerControl_tr(const char* s);
 struct seaqt_string QMediaContainerControl_trUtf8(const char* s);
 struct seaqt_array /* of struct seaqt_string */  QMediaContainerControl_supportedContainers(const QMediaContainerControl* self);
@@ -42,6 +43,7 @@ struct seaqt_string QMediaContainerControl_tr3(const char* s, const char* c, int
 struct seaqt_string QMediaContainerControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QMediaContainerControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QMediaContainerControl_staticMetaObject();
 void QMediaContainerControl_delete(QMediaContainerControl* self);
 
 #ifdef __cplusplus

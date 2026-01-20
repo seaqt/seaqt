@@ -1,4 +1,5 @@
 #include <QGeoCoordinate>
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -114,6 +115,7 @@ struct seaqt_string QGeoCoordinate_toStringWithFormat(const QGeoCoordinate* self
 	return _ms;
 }
 
+const QMetaObject* QGeoCoordinate_staticMetaObject() { return &QGeoCoordinate::staticMetaObject; }
 void QGeoCoordinate_delete(QGeoCoordinate* self) {
 	delete self;
 }
