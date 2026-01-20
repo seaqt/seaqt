@@ -26,6 +26,14 @@ void QPropertyProxyBindingData_setDPtr(QPropertyProxyBindingData* self, uintptr_
 	self->d_ptr = static_cast<quintptr>(d_ptr);
 }
 
+const void* QPropertyProxyBindingData_originalBindingData(const QPropertyProxyBindingData* self) {
+	return (const void*) self->originalBindingData;
+}
+
+void QPropertyProxyBindingData_setOriginalBindingData(QPropertyProxyBindingData* self, const void* originalBindingData) {
+	self->originalBindingData = static_cast<const QtPrivate::QPropertyBindingData*>(originalBindingData);
+}
+
 QUntypedPropertyData* QPropertyProxyBindingData_propertyData(const QPropertyProxyBindingData* self) {
 	return self->propertyData;
 }
