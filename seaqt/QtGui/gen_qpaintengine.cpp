@@ -34,15 +34,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 double QTextItem_descent(const QTextItem* self) {
 	qreal _ret = self->descent();
 	return static_cast<double>(_ret);

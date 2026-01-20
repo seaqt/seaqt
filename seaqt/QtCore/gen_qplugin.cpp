@@ -17,15 +17,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 unsigned char QPluginMetaData_archRequirements() {
 	quint8 _ret = QPluginMetaData::archRequirements();
 	return static_cast<unsigned char>(_ret);

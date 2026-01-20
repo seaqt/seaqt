@@ -13,15 +13,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 int QArrayData_flags(const QArrayData* self) {
 	QArrayData::ArrayOptions flags_ret = self->flags;
 	return static_cast<int>(flags_ret);

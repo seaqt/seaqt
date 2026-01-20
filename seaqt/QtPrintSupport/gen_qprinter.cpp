@@ -28,15 +28,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQPrinter final : public QPrinter {
 	const QPrinter_VTable* vtbl;
 public:

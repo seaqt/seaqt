@@ -12,15 +12,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 ptrdiff_t QContiguousCacheData_alloc(const QContiguousCacheData* self) {
 	qsizetype alloc_ret = self->alloc;
 	return static_cast<ptrdiff_t>(alloc_ret);

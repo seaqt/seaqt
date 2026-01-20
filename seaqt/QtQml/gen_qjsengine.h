@@ -84,7 +84,7 @@ QJSValue* QJSEngine_catchError(QJSEngine* self);
 struct seaqt_string QJSEngine_uiLanguage(const QJSEngine* self);
 void QJSEngine_setUiLanguage(QJSEngine* self, struct seaqt_string language);
 void QJSEngine_uiLanguageChanged(QJSEngine* self);
-void QJSEngine_connect_uiLanguageChanged(QJSEngine* self, intptr_t slot);
+void QJSEngine_connect_uiLanguageChanged(QJSEngine* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 struct seaqt_string QJSEngine_tr2(const char* s, const char* c);
 struct seaqt_string QJSEngine_tr3(const char* s, const char* c, int n);
 QJSValue* QJSEngine_evaluate2(QJSEngine* self, struct seaqt_string program, struct seaqt_string fileName);

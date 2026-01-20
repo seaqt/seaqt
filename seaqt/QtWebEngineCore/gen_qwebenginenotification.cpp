@@ -20,16 +20,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QWebEngineNotification_closed(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QWebEngineNotification_virtbase(QWebEngineNotification* src, QObject** outptr_QObject) {
 	*outptr_QObject = static_cast<QObject*>(src);
 }
@@ -134,10 +124,15 @@ void QWebEngineNotification_closed(QWebEngineNotification* self) {
 	self->closed();
 }
 
-void QWebEngineNotification_connect_closed(QWebEngineNotification* self, intptr_t slot) {
-	QWebEngineNotification::connect(self, static_cast<void (QWebEngineNotification::*)()>(&QWebEngineNotification::closed), self, [=]() {
-		miqt_exec_callback_QWebEngineNotification_closed(slot);
-	});
+void QWebEngineNotification_connect_closed(QWebEngineNotification* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QWebEngineNotification::connect(self, static_cast<void (QWebEngineNotification::*)()>(&QWebEngineNotification::closed), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QWebEngineNotification_tr2(const char* s, const char* c) {

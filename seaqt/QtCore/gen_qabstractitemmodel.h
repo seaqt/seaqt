@@ -237,13 +237,13 @@ struct seaqt_map /* of int to struct seaqt_string */  QAbstractItemModel_roleNam
 bool QAbstractItemModel_checkIndex(const QAbstractItemModel* self, QModelIndex* index);
 void QAbstractItemModel_multiData(const QAbstractItemModel* self, QModelIndex* index, QModelRoleDataSpan* roleDataSpan);
 void QAbstractItemModel_dataChanged(QAbstractItemModel* self, QModelIndex* topLeft, QModelIndex* bottomRight);
-void QAbstractItemModel_connect_dataChanged(QAbstractItemModel* self, intptr_t slot);
+void QAbstractItemModel_connect_dataChanged(QAbstractItemModel* self, intptr_t slot, void (*callback)(intptr_t, QModelIndex*, QModelIndex*), void (*release)(intptr_t));
 void QAbstractItemModel_headerDataChanged(QAbstractItemModel* self, int orientation, int first, int last);
-void QAbstractItemModel_connect_headerDataChanged(QAbstractItemModel* self, intptr_t slot);
+void QAbstractItemModel_connect_headerDataChanged(QAbstractItemModel* self, intptr_t slot, void (*callback)(intptr_t, int, int, int), void (*release)(intptr_t));
 void QAbstractItemModel_layoutChanged(QAbstractItemModel* self);
-void QAbstractItemModel_connect_layoutChanged(QAbstractItemModel* self, intptr_t slot);
+void QAbstractItemModel_connect_layoutChanged(QAbstractItemModel* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 void QAbstractItemModel_layoutAboutToBeChanged(QAbstractItemModel* self);
-void QAbstractItemModel_connect_layoutAboutToBeChanged(QAbstractItemModel* self, intptr_t slot);
+void QAbstractItemModel_connect_layoutAboutToBeChanged(QAbstractItemModel* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 bool QAbstractItemModel_submit(QAbstractItemModel* self);
 void QAbstractItemModel_revert(QAbstractItemModel* self);
 void QAbstractItemModel_resetInternalData(QAbstractItemModel* self);
@@ -256,15 +256,15 @@ bool QAbstractItemModel_removeRow2(QAbstractItemModel* self, int row, QModelInde
 bool QAbstractItemModel_removeColumn2(QAbstractItemModel* self, int column, QModelIndex* parent);
 bool QAbstractItemModel_checkIndex2(const QAbstractItemModel* self, QModelIndex* index, int options);
 void QAbstractItemModel_dataChanged2(QAbstractItemModel* self, QModelIndex* topLeft, QModelIndex* bottomRight, struct seaqt_array /* of int */  roles);
-void QAbstractItemModel_connect_dataChanged2(QAbstractItemModel* self, intptr_t slot);
+void QAbstractItemModel_connect_dataChanged2(QAbstractItemModel* self, intptr_t slot, void (*callback)(intptr_t, QModelIndex*, QModelIndex*, struct seaqt_array /* of int */ ), void (*release)(intptr_t));
 void QAbstractItemModel_layoutChangedWithParents(QAbstractItemModel* self, struct seaqt_array /* of QPersistentModelIndex* */  parents);
-void QAbstractItemModel_connect_layoutChangedWithParents(QAbstractItemModel* self, intptr_t slot);
+void QAbstractItemModel_connect_layoutChangedWithParents(QAbstractItemModel* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_array /* of QPersistentModelIndex* */ ), void (*release)(intptr_t));
 void QAbstractItemModel_layoutChanged2(QAbstractItemModel* self, struct seaqt_array /* of QPersistentModelIndex* */  parents, int hint);
-void QAbstractItemModel_connect_layoutChanged2(QAbstractItemModel* self, intptr_t slot);
+void QAbstractItemModel_connect_layoutChanged2(QAbstractItemModel* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_array /* of QPersistentModelIndex* */ , int), void (*release)(intptr_t));
 void QAbstractItemModel_layoutAboutToBeChangedWithParents(QAbstractItemModel* self, struct seaqt_array /* of QPersistentModelIndex* */  parents);
-void QAbstractItemModel_connect_layoutAboutToBeChangedWithParents(QAbstractItemModel* self, intptr_t slot);
+void QAbstractItemModel_connect_layoutAboutToBeChangedWithParents(QAbstractItemModel* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_array /* of QPersistentModelIndex* */ ), void (*release)(intptr_t));
 void QAbstractItemModel_layoutAboutToBeChanged2(QAbstractItemModel* self, struct seaqt_array /* of QPersistentModelIndex* */  parents, int hint);
-void QAbstractItemModel_connect_layoutAboutToBeChanged2(QAbstractItemModel* self, intptr_t slot);
+void QAbstractItemModel_connect_layoutAboutToBeChanged2(QAbstractItemModel* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_array /* of QPersistentModelIndex* */ , int), void (*release)(intptr_t));
 
 QMetaObject* QAbstractItemModel_virtualbase_metaObject(const VirtualQAbstractItemModel* self);
 void* QAbstractItemModel_virtualbase_metacast(VirtualQAbstractItemModel* self, const char* param1);

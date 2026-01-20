@@ -19,15 +19,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QWebEngineCertificateError* QWebEngineCertificateError_new(QWebEngineCertificateError* other) {
 	return new (std::nothrow) QWebEngineCertificateError(*other);
 }
