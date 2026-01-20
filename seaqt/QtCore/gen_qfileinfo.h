@@ -31,6 +31,7 @@ QFileInfo* QFileInfo_new2(struct seaqt_string file);
 QFileInfo* QFileInfo_new3(QFileDevice* file);
 QFileInfo* QFileInfo_new4(QDir* dir, struct seaqt_string file);
 QFileInfo* QFileInfo_new5(QFileInfo* fileinfo);
+
 void QFileInfo_operatorAssign(QFileInfo* self, QFileInfo* fileinfo);
 void QFileInfo_swap(QFileInfo* self, QFileInfo* other);
 bool QFileInfo_operatorEqual(const QFileInfo* self, QFileInfo* fileinfo);

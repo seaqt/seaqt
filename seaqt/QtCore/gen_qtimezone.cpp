@@ -10,6 +10,17 @@
 #include <qtimezone.h>
 #include "gen_qtimezone.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -374,7 +385,7 @@ void QTimeZone_delete(QTimeZone* self) {
 }
 
 QTimeZone__OffsetData* QTimeZone__OffsetData_new(QTimeZone__OffsetData* param1) {
-	return new (std::nothrow) QTimeZone::OffsetData(*param1);
+	return new (std::nothrow) QTimeZone__OffsetData(*param1);
 }
 
 struct seaqt_string QTimeZone__OffsetData_abbreviation(const QTimeZone__OffsetData* self) {

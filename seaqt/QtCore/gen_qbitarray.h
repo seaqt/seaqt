@@ -26,6 +26,7 @@ QBitArray* QBitArray_new();
 QBitArray* QBitArray_new2(ptrdiff_t size);
 QBitArray* QBitArray_new3(QBitArray* other);
 QBitArray* QBitArray_new4(ptrdiff_t size, bool val);
+
 void QBitArray_operatorAssign(QBitArray* self, QBitArray* other);
 void QBitArray_swap(QBitArray* self, QBitArray* other);
 ptrdiff_t QBitArray_size(const QBitArray* self);
@@ -62,6 +63,7 @@ unsigned int QBitArray_toUInt322(const QBitArray* self, int endianness, bool* ok
 void QBitArray_delete(QBitArray* self);
 
 QBitRef* QBitRef_new(QBitRef* param1);
+
 bool QBitRef_ToBool(const QBitRef* self);
 bool QBitRef_operatorNot(const QBitRef* self);
 void QBitRef_operatorAssign(QBitRef* self, QBitRef* val);

@@ -26,6 +26,7 @@ typedef struct QSize QSize;
 
 QPdfDocumentRenderOptions* QPdfDocumentRenderOptions_new();
 QPdfDocumentRenderOptions* QPdfDocumentRenderOptions_new2(QPdfDocumentRenderOptions* param1);
+
 int QPdfDocumentRenderOptions_rotation(const QPdfDocumentRenderOptions* self);
 void QPdfDocumentRenderOptions_setRotation(QPdfDocumentRenderOptions* self, int r);
 int QPdfDocumentRenderOptions_renderFlags(const QPdfDocumentRenderOptions* self);

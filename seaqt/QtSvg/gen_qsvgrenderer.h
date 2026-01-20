@@ -44,14 +44,33 @@ typedef struct QTransform QTransform;
 typedef struct QXmlStreamReader QXmlStreamReader;
 #endif
 
-QSvgRenderer* QSvgRenderer_new();
-QSvgRenderer* QSvgRenderer_new2(struct seaqt_string filename);
-QSvgRenderer* QSvgRenderer_new3(struct seaqt_string contents);
-QSvgRenderer* QSvgRenderer_new4(QXmlStreamReader* contents);
-QSvgRenderer* QSvgRenderer_new5(QObject* parent);
-QSvgRenderer* QSvgRenderer_new6(struct seaqt_string filename, QObject* parent);
-QSvgRenderer* QSvgRenderer_new7(struct seaqt_string contents, QObject* parent);
-QSvgRenderer* QSvgRenderer_new8(QXmlStreamReader* contents, QObject* parent);
+typedef struct VirtualQSvgRenderer VirtualQSvgRenderer;
+typedef struct QSvgRenderer_VTable{
+	void (*destructor)(VirtualQSvgRenderer* self);
+	QMetaObject* (*metaObject)(const VirtualQSvgRenderer* self);
+	void* (*metacast)(VirtualQSvgRenderer* self, const char* param1);
+	int (*metacall)(VirtualQSvgRenderer* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQSvgRenderer* self, QEvent* event);
+	bool (*eventFilter)(VirtualQSvgRenderer* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQSvgRenderer* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQSvgRenderer* self, QChildEvent* event);
+	void (*customEvent)(VirtualQSvgRenderer* self, QEvent* event);
+	void (*connectNotify)(VirtualQSvgRenderer* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQSvgRenderer* self, QMetaMethod* signal);
+}QSvgRenderer_VTable;
+
+void* QSvgRenderer_vdata(VirtualQSvgRenderer* self);
+VirtualQSvgRenderer* vdata_QSvgRenderer(void* vdata);
+
+VirtualQSvgRenderer* QSvgRenderer_new(const QSvgRenderer_VTable* vtbl, size_t vdata);
+VirtualQSvgRenderer* QSvgRenderer_new2(const QSvgRenderer_VTable* vtbl, size_t vdata, struct seaqt_string filename);
+VirtualQSvgRenderer* QSvgRenderer_new3(const QSvgRenderer_VTable* vtbl, size_t vdata, struct seaqt_string contents);
+VirtualQSvgRenderer* QSvgRenderer_new4(const QSvgRenderer_VTable* vtbl, size_t vdata, QXmlStreamReader* contents);
+VirtualQSvgRenderer* QSvgRenderer_new5(const QSvgRenderer_VTable* vtbl, size_t vdata, QObject* parent);
+VirtualQSvgRenderer* QSvgRenderer_new6(const QSvgRenderer_VTable* vtbl, size_t vdata, struct seaqt_string filename, QObject* parent);
+VirtualQSvgRenderer* QSvgRenderer_new7(const QSvgRenderer_VTable* vtbl, size_t vdata, struct seaqt_string contents, QObject* parent);
+VirtualQSvgRenderer* QSvgRenderer_new8(const QSvgRenderer_VTable* vtbl, size_t vdata, QXmlStreamReader* contents, QObject* parent);
+
 void QSvgRenderer_virtbase(QSvgRenderer* src, QObject** outptr_QObject);
 QMetaObject* QSvgRenderer_metaObject(const QSvgRenderer* self);
 void* QSvgRenderer_metacast(QSvgRenderer* self, const char* param1);
@@ -86,31 +105,21 @@ struct seaqt_string QSvgRenderer_tr2(const char* s, const char* c);
 struct seaqt_string QSvgRenderer_tr3(const char* s, const char* c, int n);
 void QSvgRenderer_render4(QSvgRenderer* self, QPainter* p, struct seaqt_string elementId, QRectF* bounds);
 
-bool QSvgRenderer_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QSvgRenderer_virtualbase_metaObject(const void* self);
-bool QSvgRenderer_override_virtual_metacast(void* self, intptr_t slot);
-void* QSvgRenderer_virtualbase_metacast(void* self, const char* param1);
-bool QSvgRenderer_override_virtual_metacall(void* self, intptr_t slot);
-int QSvgRenderer_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QSvgRenderer_override_virtual_event(void* self, intptr_t slot);
-bool QSvgRenderer_virtualbase_event(void* self, QEvent* event);
-bool QSvgRenderer_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QSvgRenderer_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QSvgRenderer_override_virtual_timerEvent(void* self, intptr_t slot);
-void QSvgRenderer_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QSvgRenderer_override_virtual_childEvent(void* self, intptr_t slot);
-void QSvgRenderer_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QSvgRenderer_override_virtual_customEvent(void* self, intptr_t slot);
-void QSvgRenderer_virtualbase_customEvent(void* self, QEvent* event);
-bool QSvgRenderer_override_virtual_connectNotify(void* self, intptr_t slot);
-void QSvgRenderer_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QSvgRenderer_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QSvgRenderer_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QSvgRenderer_virtualbase_metaObject(const VirtualQSvgRenderer* self);
+void* QSvgRenderer_virtualbase_metacast(VirtualQSvgRenderer* self, const char* param1);
+int QSvgRenderer_virtualbase_metacall(VirtualQSvgRenderer* self, int param1, int param2, void** param3);
+bool QSvgRenderer_virtualbase_event(VirtualQSvgRenderer* self, QEvent* event);
+bool QSvgRenderer_virtualbase_eventFilter(VirtualQSvgRenderer* self, QObject* watched, QEvent* event);
+void QSvgRenderer_virtualbase_timerEvent(VirtualQSvgRenderer* self, QTimerEvent* event);
+void QSvgRenderer_virtualbase_childEvent(VirtualQSvgRenderer* self, QChildEvent* event);
+void QSvgRenderer_virtualbase_customEvent(VirtualQSvgRenderer* self, QEvent* event);
+void QSvgRenderer_virtualbase_connectNotify(VirtualQSvgRenderer* self, QMetaMethod* signal);
+void QSvgRenderer_virtualbase_disconnectNotify(VirtualQSvgRenderer* self, QMetaMethod* signal);
 
-QObject* QSvgRenderer_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QSvgRenderer_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QSvgRenderer_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QSvgRenderer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QSvgRenderer_protectedbase_sender(const VirtualQSvgRenderer* self);
+int QSvgRenderer_protectedbase_senderSignalIndex(const VirtualQSvgRenderer* self);
+int QSvgRenderer_protectedbase_receivers(const VirtualQSvgRenderer* self, const char* signal);
+bool QSvgRenderer_protectedbase_isSignalConnected(const VirtualQSvgRenderer* self, QMetaMethod* signal);
 
 const QMetaObject* QSvgRenderer_staticMetaObject();
 void QSvgRenderer_delete(QSvgRenderer* self);

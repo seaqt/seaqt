@@ -43,6 +43,7 @@ QTransform* QTransform_new2();
 QTransform* QTransform_new3(double h11, double h12, double h13, double h21, double h22, double h23, double h31, double h32, double h33);
 QTransform* QTransform_new4(double h11, double h12, double h21, double h22, double dx, double dy);
 QTransform* QTransform_new5(QTransform* other);
+
 void QTransform_operatorAssign(QTransform* self, QTransform* param1);
 bool QTransform_isAffine(const QTransform* self);
 bool QTransform_isIdentity(const QTransform* self);

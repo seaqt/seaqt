@@ -42,12 +42,33 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QWidget QWidget;
 #endif
 
-QCompleter* QCompleter_new();
-QCompleter* QCompleter_new2(QAbstractItemModel* model);
-QCompleter* QCompleter_new3(struct seaqt_array /* of struct seaqt_string */  completions);
-QCompleter* QCompleter_new4(QObject* parent);
-QCompleter* QCompleter_new5(QAbstractItemModel* model, QObject* parent);
-QCompleter* QCompleter_new6(struct seaqt_array /* of struct seaqt_string */  completions, QObject* parent);
+typedef struct VirtualQCompleter VirtualQCompleter;
+typedef struct QCompleter_VTable{
+	void (*destructor)(VirtualQCompleter* self);
+	QMetaObject* (*metaObject)(const VirtualQCompleter* self);
+	void* (*metacast)(VirtualQCompleter* self, const char* param1);
+	int (*metacall)(VirtualQCompleter* self, int param1, int param2, void** param3);
+	struct seaqt_string (*pathFromIndex)(const VirtualQCompleter* self, QModelIndex* index);
+	struct seaqt_array /* of struct seaqt_string */  (*splitPath)(const VirtualQCompleter* self, struct seaqt_string path);
+	bool (*eventFilter)(VirtualQCompleter* self, QObject* o, QEvent* e);
+	bool (*event)(VirtualQCompleter* self, QEvent* param1);
+	void (*timerEvent)(VirtualQCompleter* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQCompleter* self, QChildEvent* event);
+	void (*customEvent)(VirtualQCompleter* self, QEvent* event);
+	void (*connectNotify)(VirtualQCompleter* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQCompleter* self, QMetaMethod* signal);
+}QCompleter_VTable;
+
+void* QCompleter_vdata(VirtualQCompleter* self);
+VirtualQCompleter* vdata_QCompleter(void* vdata);
+
+VirtualQCompleter* QCompleter_new(const QCompleter_VTable* vtbl, size_t vdata);
+VirtualQCompleter* QCompleter_new2(const QCompleter_VTable* vtbl, size_t vdata, QAbstractItemModel* model);
+VirtualQCompleter* QCompleter_new3(const QCompleter_VTable* vtbl, size_t vdata, struct seaqt_array /* of struct seaqt_string */  completions);
+VirtualQCompleter* QCompleter_new4(const QCompleter_VTable* vtbl, size_t vdata, QObject* parent);
+VirtualQCompleter* QCompleter_new5(const QCompleter_VTable* vtbl, size_t vdata, QAbstractItemModel* model, QObject* parent);
+VirtualQCompleter* QCompleter_new6(const QCompleter_VTable* vtbl, size_t vdata, struct seaqt_array /* of struct seaqt_string */  completions, QObject* parent);
+
 void QCompleter_virtbase(QCompleter* src, QObject** outptr_QObject);
 QMetaObject* QCompleter_metaObject(const QCompleter* self);
 void* QCompleter_metacast(QCompleter* self, const char* param1);
@@ -100,35 +121,23 @@ struct seaqt_string QCompleter_tr2(const char* s, const char* c);
 struct seaqt_string QCompleter_tr3(const char* s, const char* c, int n);
 void QCompleter_completeWithRect(QCompleter* self, QRect* rect);
 
-bool QCompleter_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QCompleter_virtualbase_metaObject(const void* self);
-bool QCompleter_override_virtual_metacast(void* self, intptr_t slot);
-void* QCompleter_virtualbase_metacast(void* self, const char* param1);
-bool QCompleter_override_virtual_metacall(void* self, intptr_t slot);
-int QCompleter_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QCompleter_override_virtual_pathFromIndex(void* self, intptr_t slot);
-struct seaqt_string QCompleter_virtualbase_pathFromIndex(const void* self, QModelIndex* index);
-bool QCompleter_override_virtual_splitPath(void* self, intptr_t slot);
-struct seaqt_array /* of struct seaqt_string */  QCompleter_virtualbase_splitPath(const void* self, struct seaqt_string path);
-bool QCompleter_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QCompleter_virtualbase_eventFilter(void* self, QObject* o, QEvent* e);
-bool QCompleter_override_virtual_event(void* self, intptr_t slot);
-bool QCompleter_virtualbase_event(void* self, QEvent* param1);
-bool QCompleter_override_virtual_timerEvent(void* self, intptr_t slot);
-void QCompleter_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QCompleter_override_virtual_childEvent(void* self, intptr_t slot);
-void QCompleter_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QCompleter_override_virtual_customEvent(void* self, intptr_t slot);
-void QCompleter_virtualbase_customEvent(void* self, QEvent* event);
-bool QCompleter_override_virtual_connectNotify(void* self, intptr_t slot);
-void QCompleter_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QCompleter_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QCompleter_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QCompleter_virtualbase_metaObject(const VirtualQCompleter* self);
+void* QCompleter_virtualbase_metacast(VirtualQCompleter* self, const char* param1);
+int QCompleter_virtualbase_metacall(VirtualQCompleter* self, int param1, int param2, void** param3);
+struct seaqt_string QCompleter_virtualbase_pathFromIndex(const VirtualQCompleter* self, QModelIndex* index);
+struct seaqt_array /* of struct seaqt_string */  QCompleter_virtualbase_splitPath(const VirtualQCompleter* self, struct seaqt_string path);
+bool QCompleter_virtualbase_eventFilter(VirtualQCompleter* self, QObject* o, QEvent* e);
+bool QCompleter_virtualbase_event(VirtualQCompleter* self, QEvent* param1);
+void QCompleter_virtualbase_timerEvent(VirtualQCompleter* self, QTimerEvent* event);
+void QCompleter_virtualbase_childEvent(VirtualQCompleter* self, QChildEvent* event);
+void QCompleter_virtualbase_customEvent(VirtualQCompleter* self, QEvent* event);
+void QCompleter_virtualbase_connectNotify(VirtualQCompleter* self, QMetaMethod* signal);
+void QCompleter_virtualbase_disconnectNotify(VirtualQCompleter* self, QMetaMethod* signal);
 
-QObject* QCompleter_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QCompleter_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QCompleter_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QCompleter_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QCompleter_protectedbase_sender(const VirtualQCompleter* self);
+int QCompleter_protectedbase_senderSignalIndex(const VirtualQCompleter* self);
+int QCompleter_protectedbase_receivers(const VirtualQCompleter* self, const char* signal);
+bool QCompleter_protectedbase_isSignalConnected(const VirtualQCompleter* self, QMetaMethod* signal);
 
 const QMetaObject* QCompleter_staticMetaObject();
 void QCompleter_delete(QCompleter* self);

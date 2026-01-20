@@ -55,6 +55,7 @@ typedef struct QSGGeometry__TexturedPoint2D QSGGeometry__TexturedPoint2D;
 QSGGeometry* QSGGeometry_new(QSGGeometry__AttributeSet* attribs, int vertexCount);
 QSGGeometry* QSGGeometry_new2(QSGGeometry__AttributeSet* attribs, int vertexCount, int indexCount);
 QSGGeometry* QSGGeometry_new3(QSGGeometry__AttributeSet* attribs, int vertexCount, int indexCount, int indexType);
+
 QSGGeometry__AttributeSet* QSGGeometry_defaultAttributes_Point2D();
 QSGGeometry__AttributeSet* QSGGeometry_defaultAttributes_TexturedPoint2D();
 QSGGeometry__AttributeSet* QSGGeometry_defaultAttributes_ColoredPoint2D();

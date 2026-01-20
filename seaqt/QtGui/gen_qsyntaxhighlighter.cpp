@@ -17,70 +17,62 @@
 #include <qsyntaxhighlighter.h>
 #include "gen_qsyntaxhighlighter.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QSyntaxHighlighter_metaObject(const QSyntaxHighlighter*, intptr_t);
-void* miqt_exec_callback_QSyntaxHighlighter_metacast(QSyntaxHighlighter*, intptr_t, const char*);
-int miqt_exec_callback_QSyntaxHighlighter_metacall(QSyntaxHighlighter*, intptr_t, int, int, void**);
-void miqt_exec_callback_QSyntaxHighlighter_highlightBlock(QSyntaxHighlighter*, intptr_t, struct seaqt_string);
-bool miqt_exec_callback_QSyntaxHighlighter_event(QSyntaxHighlighter*, intptr_t, QEvent*);
-bool miqt_exec_callback_QSyntaxHighlighter_eventFilter(QSyntaxHighlighter*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QSyntaxHighlighter_timerEvent(QSyntaxHighlighter*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QSyntaxHighlighter_childEvent(QSyntaxHighlighter*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QSyntaxHighlighter_customEvent(QSyntaxHighlighter*, intptr_t, QEvent*);
-void miqt_exec_callback_QSyntaxHighlighter_connectNotify(QSyntaxHighlighter*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QSyntaxHighlighter_disconnectNotify(QSyntaxHighlighter*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQSyntaxHighlighter final : public QSyntaxHighlighter {
+	const QSyntaxHighlighter_VTable* vtbl;
 public:
+	friend void* QSyntaxHighlighter_vdata(VirtualQSyntaxHighlighter* self);
+	friend VirtualQSyntaxHighlighter* vdata_QSyntaxHighlighter(void* vdata);
 
-	VirtualQSyntaxHighlighter(QObject* parent): QSyntaxHighlighter(parent) {}
-	VirtualQSyntaxHighlighter(QTextDocument* parent): QSyntaxHighlighter(parent) {}
+	VirtualQSyntaxHighlighter(const QSyntaxHighlighter_VTable* vtbl, QObject* parent): QSyntaxHighlighter(parent), vtbl(vtbl) {}
+	VirtualQSyntaxHighlighter(const QSyntaxHighlighter_VTable* vtbl, QTextDocument* parent): QSyntaxHighlighter(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQSyntaxHighlighter() override = default;
+	virtual ~VirtualQSyntaxHighlighter() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QSyntaxHighlighter::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QSyntaxHighlighter_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QSyntaxHighlighter_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QSyntaxHighlighter_virtualbase_metaObject(const VirtualQSyntaxHighlighter* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QSyntaxHighlighter::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QSyntaxHighlighter_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QSyntaxHighlighter_virtualbase_metacast(void* self, const char* param1);
+	friend void* QSyntaxHighlighter_virtualbase_metacast(VirtualQSyntaxHighlighter* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QSyntaxHighlighter::qt_metacall(param1, param2, param3);
 		}
 
@@ -88,18 +80,14 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QSyntaxHighlighter_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QSyntaxHighlighter_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QSyntaxHighlighter_virtualbase_metacall(VirtualQSyntaxHighlighter* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__highlightBlock = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void highlightBlock(const QString& text) override {
-		if (handle__highlightBlock == 0) {
+		if (vtbl->highlightBlock == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -111,100 +99,72 @@ public:
 		text_ms.data = static_cast<char*>(malloc(text_ms.len));
 		memcpy(text_ms.data, text_b.data(), text_ms.len);
 		struct seaqt_string sigval1 = text_ms;
-		miqt_exec_callback_QSyntaxHighlighter_highlightBlock(this, handle__highlightBlock, sigval1);
-
+		vtbl->highlightBlock(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QSyntaxHighlighter::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QSyntaxHighlighter_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSyntaxHighlighter_virtualbase_event(void* self, QEvent* event);
+	friend bool QSyntaxHighlighter_virtualbase_event(VirtualQSyntaxHighlighter* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QSyntaxHighlighter::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QSyntaxHighlighter_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QSyntaxHighlighter_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QSyntaxHighlighter_virtualbase_eventFilter(VirtualQSyntaxHighlighter* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QSyntaxHighlighter::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QSyntaxHighlighter_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QSyntaxHighlighter_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QSyntaxHighlighter_virtualbase_timerEvent(VirtualQSyntaxHighlighter* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QSyntaxHighlighter::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QSyntaxHighlighter_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QSyntaxHighlighter_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QSyntaxHighlighter_virtualbase_childEvent(VirtualQSyntaxHighlighter* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QSyntaxHighlighter::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QSyntaxHighlighter_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QSyntaxHighlighter_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QSyntaxHighlighter_virtualbase_customEvent(VirtualQSyntaxHighlighter* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QSyntaxHighlighter::connectNotify(signal);
 			return;
 		}
@@ -212,18 +172,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSyntaxHighlighter_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QSyntaxHighlighter_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QSyntaxHighlighter_virtualbase_connectNotify(VirtualQSyntaxHighlighter* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QSyntaxHighlighter::disconnectNotify(signal);
 			return;
 		}
@@ -231,35 +186,36 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSyntaxHighlighter_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QSyntaxHighlighter_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QSyntaxHighlighter_virtualbase_disconnectNotify(VirtualQSyntaxHighlighter* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QSyntaxHighlighter_protectedbase_setFormat(bool* _dynamic_cast_ok, void* self, int start, int count, QTextCharFormat* format);
-	friend void QSyntaxHighlighter_protectedbase_setFormat2(bool* _dynamic_cast_ok, void* self, int start, int count, QColor* color);
-	friend void QSyntaxHighlighter_protectedbase_setFormat3(bool* _dynamic_cast_ok, void* self, int start, int count, QFont* font);
-	friend QTextCharFormat* QSyntaxHighlighter_protectedbase_format(bool* _dynamic_cast_ok, const void* self, int pos);
-	friend int QSyntaxHighlighter_protectedbase_previousBlockState(bool* _dynamic_cast_ok, const void* self);
-	friend int QSyntaxHighlighter_protectedbase_currentBlockState(bool* _dynamic_cast_ok, const void* self);
-	friend void QSyntaxHighlighter_protectedbase_setCurrentBlockState(bool* _dynamic_cast_ok, void* self, int newState);
-	friend void QSyntaxHighlighter_protectedbase_setCurrentBlockUserData(bool* _dynamic_cast_ok, void* self, QTextBlockUserData* data);
-	friend QTextBlockUserData* QSyntaxHighlighter_protectedbase_currentBlockUserData(bool* _dynamic_cast_ok, const void* self);
-	friend QTextBlock* QSyntaxHighlighter_protectedbase_currentBlock(bool* _dynamic_cast_ok, const void* self);
-	friend QObject* QSyntaxHighlighter_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QSyntaxHighlighter_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QSyntaxHighlighter_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QSyntaxHighlighter_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QSyntaxHighlighter_protectedbase_setFormat(VirtualQSyntaxHighlighter* self, int start, int count, QTextCharFormat* format);
+	friend void QSyntaxHighlighter_protectedbase_setFormat2(VirtualQSyntaxHighlighter* self, int start, int count, QColor* color);
+	friend void QSyntaxHighlighter_protectedbase_setFormat3(VirtualQSyntaxHighlighter* self, int start, int count, QFont* font);
+	friend QTextCharFormat* QSyntaxHighlighter_protectedbase_format(const VirtualQSyntaxHighlighter* self, int pos);
+	friend int QSyntaxHighlighter_protectedbase_previousBlockState(const VirtualQSyntaxHighlighter* self);
+	friend int QSyntaxHighlighter_protectedbase_currentBlockState(const VirtualQSyntaxHighlighter* self);
+	friend void QSyntaxHighlighter_protectedbase_setCurrentBlockState(VirtualQSyntaxHighlighter* self, int newState);
+	friend void QSyntaxHighlighter_protectedbase_setCurrentBlockUserData(VirtualQSyntaxHighlighter* self, QTextBlockUserData* data);
+	friend QTextBlockUserData* QSyntaxHighlighter_protectedbase_currentBlockUserData(const VirtualQSyntaxHighlighter* self);
+	friend QTextBlock* QSyntaxHighlighter_protectedbase_currentBlock(const VirtualQSyntaxHighlighter* self);
+	friend QObject* QSyntaxHighlighter_protectedbase_sender(const VirtualQSyntaxHighlighter* self);
+	friend int QSyntaxHighlighter_protectedbase_senderSignalIndex(const VirtualQSyntaxHighlighter* self);
+	friend int QSyntaxHighlighter_protectedbase_receivers(const VirtualQSyntaxHighlighter* self, const char* signal);
+	friend bool QSyntaxHighlighter_protectedbase_isSignalConnected(const VirtualQSyntaxHighlighter* self, QMetaMethod* signal);
 };
 
-QSyntaxHighlighter* QSyntaxHighlighter_new(QObject* parent) {
-	return new (std::nothrow) VirtualQSyntaxHighlighter(parent);
+VirtualQSyntaxHighlighter* QSyntaxHighlighter_new(const QSyntaxHighlighter_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSyntaxHighlighter>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSyntaxHighlighter(vtbl, parent) : nullptr;
 }
 
-QSyntaxHighlighter* QSyntaxHighlighter_new2(QTextDocument* parent) {
-	return new (std::nothrow) VirtualQSyntaxHighlighter(parent);
+VirtualQSyntaxHighlighter* QSyntaxHighlighter_new2(const QSyntaxHighlighter_VTable* vtbl, size_t vdata, QTextDocument* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSyntaxHighlighter>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSyntaxHighlighter(vtbl, parent) : nullptr;
 }
 
 void QSyntaxHighlighter_virtbase(QSyntaxHighlighter* src, QObject** outptr_QObject) {
@@ -328,308 +284,113 @@ struct seaqt_string QSyntaxHighlighter_tr3(const char* s, const char* c, int n) 
 }
 
 const QMetaObject* QSyntaxHighlighter_staticMetaObject() { return &QSyntaxHighlighter::staticMetaObject; }
-bool QSyntaxHighlighter_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QSyntaxHighlighter_vdata(VirtualQSyntaxHighlighter* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQSyntaxHighlighter>()); }
+VirtualQSyntaxHighlighter* vdata_QSyntaxHighlighter(void* vdata) { return reinterpret_cast<VirtualQSyntaxHighlighter*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQSyntaxHighlighter>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QSyntaxHighlighter_virtualbase_metaObject(const VirtualQSyntaxHighlighter* self) {
+
+	return (QMetaObject*) self->QSyntaxHighlighter::metaObject();
 }
 
-QMetaObject* QSyntaxHighlighter_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQSyntaxHighlighter*>(self)->QSyntaxHighlighter::metaObject();
+void* QSyntaxHighlighter_virtualbase_metacast(VirtualQSyntaxHighlighter* self, const char* param1) {
+
+	return self->QSyntaxHighlighter::qt_metacast(param1);
 }
 
-bool QSyntaxHighlighter_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QSyntaxHighlighter_virtualbase_metacall(VirtualQSyntaxHighlighter* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QSyntaxHighlighter::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QSyntaxHighlighter_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQSyntaxHighlighter*>(self)->QSyntaxHighlighter::qt_metacast(param1);
+bool QSyntaxHighlighter_virtualbase_event(VirtualQSyntaxHighlighter* self, QEvent* event) {
+
+	return self->QSyntaxHighlighter::event(event);
 }
 
-bool QSyntaxHighlighter_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSyntaxHighlighter_virtualbase_eventFilter(VirtualQSyntaxHighlighter* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QSyntaxHighlighter::eventFilter(watched, event);
 }
 
-int QSyntaxHighlighter_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQSyntaxHighlighter*>(self)->QSyntaxHighlighter::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+void QSyntaxHighlighter_virtualbase_timerEvent(VirtualQSyntaxHighlighter* self, QTimerEvent* event) {
+
+	self->QSyntaxHighlighter::timerEvent(event);
 }
 
-bool QSyntaxHighlighter_override_virtual_highlightBlock(void* self, intptr_t slot) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSyntaxHighlighter_virtualbase_childEvent(VirtualQSyntaxHighlighter* self, QChildEvent* event) {
 
-	self_cast->handle__highlightBlock = slot;
-	return true;
+	self->QSyntaxHighlighter::childEvent(event);
 }
 
-bool QSyntaxHighlighter_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSyntaxHighlighter_virtualbase_customEvent(VirtualQSyntaxHighlighter* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QSyntaxHighlighter::customEvent(event);
 }
 
-bool QSyntaxHighlighter_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQSyntaxHighlighter*>(self)->QSyntaxHighlighter::event(event);
+void QSyntaxHighlighter_virtualbase_connectNotify(VirtualQSyntaxHighlighter* self, QMetaMethod* signal) {
+
+	self->QSyntaxHighlighter::connectNotify(*signal);
 }
 
-bool QSyntaxHighlighter_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSyntaxHighlighter_virtualbase_disconnectNotify(VirtualQSyntaxHighlighter* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QSyntaxHighlighter::disconnectNotify(*signal);
 }
 
-bool QSyntaxHighlighter_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQSyntaxHighlighter*>(self)->QSyntaxHighlighter::eventFilter(watched, event);
+void QSyntaxHighlighter_protectedbase_setFormat(VirtualQSyntaxHighlighter* self, int start, int count, QTextCharFormat* format) {
+	self->setFormat(static_cast<int>(start), static_cast<int>(count), *format);
 }
 
-bool QSyntaxHighlighter_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+void QSyntaxHighlighter_protectedbase_setFormat2(VirtualQSyntaxHighlighter* self, int start, int count, QColor* color) {
+	self->setFormat(static_cast<int>(start), static_cast<int>(count), *color);
 }
 
-void QSyntaxHighlighter_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQSyntaxHighlighter*>(self)->QSyntaxHighlighter::timerEvent(event);
+void QSyntaxHighlighter_protectedbase_setFormat3(VirtualQSyntaxHighlighter* self, int start, int count, QFont* font) {
+	self->setFormat(static_cast<int>(start), static_cast<int>(count), *font);
 }
 
-bool QSyntaxHighlighter_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+QTextCharFormat* QSyntaxHighlighter_protectedbase_format(const VirtualQSyntaxHighlighter* self, int pos) {
+	return new QTextCharFormat(self->format(static_cast<int>(pos)));
 }
 
-void QSyntaxHighlighter_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQSyntaxHighlighter*>(self)->QSyntaxHighlighter::childEvent(event);
+int QSyntaxHighlighter_protectedbase_previousBlockState(const VirtualQSyntaxHighlighter* self) {
+	return self->previousBlockState();
 }
 
-bool QSyntaxHighlighter_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
+int QSyntaxHighlighter_protectedbase_currentBlockState(const VirtualQSyntaxHighlighter* self) {
+	return self->currentBlockState();
 }
 
-void QSyntaxHighlighter_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQSyntaxHighlighter*>(self)->QSyntaxHighlighter::customEvent(event);
+void QSyntaxHighlighter_protectedbase_setCurrentBlockState(VirtualQSyntaxHighlighter* self, int newState) {
+	self->setCurrentBlockState(static_cast<int>(newState));
 }
 
-bool QSyntaxHighlighter_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
+void QSyntaxHighlighter_protectedbase_setCurrentBlockUserData(VirtualQSyntaxHighlighter* self, QTextBlockUserData* data) {
+	self->setCurrentBlockUserData(data);
 }
 
-void QSyntaxHighlighter_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSyntaxHighlighter*>(self)->QSyntaxHighlighter::connectNotify(*signal);
+QTextBlockUserData* QSyntaxHighlighter_protectedbase_currentBlockUserData(const VirtualQSyntaxHighlighter* self) {
+	return self->currentBlockUserData();
 }
 
-bool QSyntaxHighlighter_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
+QTextBlock* QSyntaxHighlighter_protectedbase_currentBlock(const VirtualQSyntaxHighlighter* self) {
+	return new QTextBlock(self->currentBlock());
 }
 
-void QSyntaxHighlighter_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSyntaxHighlighter*>(self)->QSyntaxHighlighter::disconnectNotify(*signal);
+QObject* QSyntaxHighlighter_protectedbase_sender(const VirtualQSyntaxHighlighter* self) {
+	return self->sender();
 }
 
-void QSyntaxHighlighter_protectedbase_setFormat(bool* _dynamic_cast_ok, void* self, int start, int count, QTextCharFormat* format) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setFormat(static_cast<int>(start), static_cast<int>(count), *format);
+int QSyntaxHighlighter_protectedbase_senderSignalIndex(const VirtualQSyntaxHighlighter* self) {
+	return self->senderSignalIndex();
 }
 
-void QSyntaxHighlighter_protectedbase_setFormat2(bool* _dynamic_cast_ok, void* self, int start, int count, QColor* color) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setFormat(static_cast<int>(start), static_cast<int>(count), *color);
+int QSyntaxHighlighter_protectedbase_receivers(const VirtualQSyntaxHighlighter* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QSyntaxHighlighter_protectedbase_setFormat3(bool* _dynamic_cast_ok, void* self, int start, int count, QFont* font) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setFormat(static_cast<int>(start), static_cast<int>(count), *font);
-}
-
-QTextCharFormat* QSyntaxHighlighter_protectedbase_format(bool* _dynamic_cast_ok, const void* self, int pos) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return new QTextCharFormat(self_cast->format(static_cast<int>(pos)));
-}
-
-int QSyntaxHighlighter_protectedbase_previousBlockState(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->previousBlockState();
-}
-
-int QSyntaxHighlighter_protectedbase_currentBlockState(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->currentBlockState();
-}
-
-void QSyntaxHighlighter_protectedbase_setCurrentBlockState(bool* _dynamic_cast_ok, void* self, int newState) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setCurrentBlockState(static_cast<int>(newState));
-}
-
-void QSyntaxHighlighter_protectedbase_setCurrentBlockUserData(bool* _dynamic_cast_ok, void* self, QTextBlockUserData* data) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setCurrentBlockUserData(data);
-}
-
-QTextBlockUserData* QSyntaxHighlighter_protectedbase_currentBlockUserData(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->currentBlockUserData();
-}
-
-QTextBlock* QSyntaxHighlighter_protectedbase_currentBlock(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return new QTextBlock(self_cast->currentBlock());
-}
-
-QObject* QSyntaxHighlighter_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QSyntaxHighlighter_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QSyntaxHighlighter_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QSyntaxHighlighter_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQSyntaxHighlighter* self_cast = dynamic_cast<VirtualQSyntaxHighlighter*>( (QSyntaxHighlighter*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QSyntaxHighlighter_protectedbase_isSignalConnected(const VirtualQSyntaxHighlighter* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QSyntaxHighlighter_delete(QSyntaxHighlighter* self) {

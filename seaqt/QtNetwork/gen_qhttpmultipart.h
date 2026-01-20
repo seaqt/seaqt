@@ -40,6 +40,7 @@ typedef struct QVariant QVariant;
 
 QHttpPart* QHttpPart_new();
 QHttpPart* QHttpPart_new2(QHttpPart* other);
+
 void QHttpPart_operatorAssign(QHttpPart* self, QHttpPart* other);
 void QHttpPart_swap(QHttpPart* self, QHttpPart* other);
 bool QHttpPart_operatorEqual(const QHttpPart* self, QHttpPart* other);
@@ -51,10 +52,29 @@ void QHttpPart_setBodyDevice(QHttpPart* self, QIODevice* device);
 
 void QHttpPart_delete(QHttpPart* self);
 
-QHttpMultiPart* QHttpMultiPart_new();
-QHttpMultiPart* QHttpMultiPart_new2(int contentType);
-QHttpMultiPart* QHttpMultiPart_new3(QObject* parent);
-QHttpMultiPart* QHttpMultiPart_new4(int contentType, QObject* parent);
+typedef struct VirtualQHttpMultiPart VirtualQHttpMultiPart;
+typedef struct QHttpMultiPart_VTable{
+	void (*destructor)(VirtualQHttpMultiPart* self);
+	QMetaObject* (*metaObject)(const VirtualQHttpMultiPart* self);
+	void* (*metacast)(VirtualQHttpMultiPart* self, const char* param1);
+	int (*metacall)(VirtualQHttpMultiPart* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQHttpMultiPart* self, QEvent* event);
+	bool (*eventFilter)(VirtualQHttpMultiPart* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQHttpMultiPart* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQHttpMultiPart* self, QChildEvent* event);
+	void (*customEvent)(VirtualQHttpMultiPart* self, QEvent* event);
+	void (*connectNotify)(VirtualQHttpMultiPart* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQHttpMultiPart* self, QMetaMethod* signal);
+}QHttpMultiPart_VTable;
+
+void* QHttpMultiPart_vdata(VirtualQHttpMultiPart* self);
+VirtualQHttpMultiPart* vdata_QHttpMultiPart(void* vdata);
+
+VirtualQHttpMultiPart* QHttpMultiPart_new(const QHttpMultiPart_VTable* vtbl, size_t vdata);
+VirtualQHttpMultiPart* QHttpMultiPart_new2(const QHttpMultiPart_VTable* vtbl, size_t vdata, int contentType);
+VirtualQHttpMultiPart* QHttpMultiPart_new3(const QHttpMultiPart_VTable* vtbl, size_t vdata, QObject* parent);
+VirtualQHttpMultiPart* QHttpMultiPart_new4(const QHttpMultiPart_VTable* vtbl, size_t vdata, int contentType, QObject* parent);
+
 void QHttpMultiPart_virtbase(QHttpMultiPart* src, QObject** outptr_QObject);
 QMetaObject* QHttpMultiPart_metaObject(const QHttpMultiPart* self);
 void* QHttpMultiPart_metacast(QHttpMultiPart* self, const char* param1);
@@ -67,31 +87,21 @@ void QHttpMultiPart_setBoundary(QHttpMultiPart* self, struct seaqt_string bounda
 struct seaqt_string QHttpMultiPart_tr2(const char* s, const char* c);
 struct seaqt_string QHttpMultiPart_tr3(const char* s, const char* c, int n);
 
-bool QHttpMultiPart_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QHttpMultiPart_virtualbase_metaObject(const void* self);
-bool QHttpMultiPart_override_virtual_metacast(void* self, intptr_t slot);
-void* QHttpMultiPart_virtualbase_metacast(void* self, const char* param1);
-bool QHttpMultiPart_override_virtual_metacall(void* self, intptr_t slot);
-int QHttpMultiPart_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QHttpMultiPart_override_virtual_event(void* self, intptr_t slot);
-bool QHttpMultiPart_virtualbase_event(void* self, QEvent* event);
-bool QHttpMultiPart_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QHttpMultiPart_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QHttpMultiPart_override_virtual_timerEvent(void* self, intptr_t slot);
-void QHttpMultiPart_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QHttpMultiPart_override_virtual_childEvent(void* self, intptr_t slot);
-void QHttpMultiPart_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QHttpMultiPart_override_virtual_customEvent(void* self, intptr_t slot);
-void QHttpMultiPart_virtualbase_customEvent(void* self, QEvent* event);
-bool QHttpMultiPart_override_virtual_connectNotify(void* self, intptr_t slot);
-void QHttpMultiPart_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QHttpMultiPart_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QHttpMultiPart_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QHttpMultiPart_virtualbase_metaObject(const VirtualQHttpMultiPart* self);
+void* QHttpMultiPart_virtualbase_metacast(VirtualQHttpMultiPart* self, const char* param1);
+int QHttpMultiPart_virtualbase_metacall(VirtualQHttpMultiPart* self, int param1, int param2, void** param3);
+bool QHttpMultiPart_virtualbase_event(VirtualQHttpMultiPart* self, QEvent* event);
+bool QHttpMultiPart_virtualbase_eventFilter(VirtualQHttpMultiPart* self, QObject* watched, QEvent* event);
+void QHttpMultiPart_virtualbase_timerEvent(VirtualQHttpMultiPart* self, QTimerEvent* event);
+void QHttpMultiPart_virtualbase_childEvent(VirtualQHttpMultiPart* self, QChildEvent* event);
+void QHttpMultiPart_virtualbase_customEvent(VirtualQHttpMultiPart* self, QEvent* event);
+void QHttpMultiPart_virtualbase_connectNotify(VirtualQHttpMultiPart* self, QMetaMethod* signal);
+void QHttpMultiPart_virtualbase_disconnectNotify(VirtualQHttpMultiPart* self, QMetaMethod* signal);
 
-QObject* QHttpMultiPart_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QHttpMultiPart_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QHttpMultiPart_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QHttpMultiPart_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QHttpMultiPart_protectedbase_sender(const VirtualQHttpMultiPart* self);
+int QHttpMultiPart_protectedbase_senderSignalIndex(const VirtualQHttpMultiPart* self);
+int QHttpMultiPart_protectedbase_receivers(const VirtualQHttpMultiPart* self, const char* signal);
+bool QHttpMultiPart_protectedbase_isSignalConnected(const VirtualQHttpMultiPart* self, QMetaMethod* signal);
 
 const QMetaObject* QHttpMultiPart_staticMetaObject();
 void QHttpMultiPart_delete(QHttpMultiPart* self);

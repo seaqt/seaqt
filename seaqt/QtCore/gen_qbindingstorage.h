@@ -30,6 +30,7 @@ void QBindingStatus_setThreadId(QBindingStatus* self, void* threadId);
 void QBindingStatus_delete(QBindingStatus* self);
 
 QBindingStorage* QBindingStorage_new();
+
 bool QBindingStorage_isEmpty(QBindingStorage* self);
 bool QBindingStorage_isValid(const QBindingStorage* self);
 void QBindingStorage_registerDependency(const QBindingStorage* self, QUntypedPropertyData* data);

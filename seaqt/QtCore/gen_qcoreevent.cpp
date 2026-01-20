@@ -8,65 +8,64 @@
 #include <qcoreevent.h>
 #include "gen_qcoreevent.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void miqt_exec_callback_QEvent_setAccepted(QEvent*, intptr_t, bool);
-QEvent* miqt_exec_callback_QEvent_clone(const QEvent*, intptr_t);
-QTimerEvent* miqt_exec_callback_QTimerEvent_clone(const QTimerEvent*, intptr_t);
-void miqt_exec_callback_QTimerEvent_setAccepted(QTimerEvent*, intptr_t, bool);
-QChildEvent* miqt_exec_callback_QChildEvent_clone(const QChildEvent*, intptr_t);
-void miqt_exec_callback_QChildEvent_setAccepted(QChildEvent*, intptr_t, bool);
-QDynamicPropertyChangeEvent* miqt_exec_callback_QDynamicPropertyChangeEvent_clone(const QDynamicPropertyChangeEvent*, intptr_t);
-void miqt_exec_callback_QDynamicPropertyChangeEvent_setAccepted(QDynamicPropertyChangeEvent*, intptr_t, bool);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQEvent final : public QEvent {
+	const QEvent_VTable* vtbl;
 public:
+	friend void* QEvent_vdata(VirtualQEvent* self);
+	friend VirtualQEvent* vdata_QEvent(void* vdata);
 
-	VirtualQEvent(QEvent::Type type): QEvent(type) {}
+	VirtualQEvent(const QEvent_VTable* vtbl, QEvent::Type type): QEvent(type), vtbl(vtbl) {}
 
-	virtual ~VirtualQEvent() override = default;
+	virtual ~VirtualQEvent() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setAccepted = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual void setAccepted(bool accepted) override {
-		if (handle__setAccepted == 0) {
+		if (vtbl->setAccepted == 0) {
 			QEvent::setAccepted(accepted);
 			return;
 		}
 
 		bool sigval1 = accepted;
-		miqt_exec_callback_QEvent_setAccepted(this, handle__setAccepted, sigval1);
-
+		vtbl->setAccepted(this, sigval1);
 	}
 
-	friend void QEvent_virtualbase_setAccepted(void* self, bool accepted);
+	friend void QEvent_virtualbase_setAccepted(VirtualQEvent* self, bool accepted);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clone = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QEvent* clone() const override {
-		if (handle__clone == 0) {
+		if (vtbl->clone == 0) {
 			return QEvent::clone();
 		}
 
-		QEvent* callback_return_value = miqt_exec_callback_QEvent_clone(this, handle__clone);
+		QEvent* callback_return_value = vtbl->clone(this);
 		return callback_return_value;
 	}
 
-	friend QEvent* QEvent_virtualbase_clone(const void* self);
+	friend QEvent* QEvent_virtualbase_clone(const VirtualQEvent* self);
 
 };
 
-QEvent* QEvent_new(int type) {
-	return new (std::nothrow) VirtualQEvent(static_cast<QEvent::Type>(type));
+VirtualQEvent* QEvent_new(const QEvent_VTable* vtbl, size_t vdata, int type) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQEvent(vtbl, static_cast<QEvent::Type>(type)) : nullptr;
 }
 
 int QEvent_type(const QEvent* self) {
@@ -119,32 +118,17 @@ int QEvent_registerEventTypeWithHint(int hint) {
 }
 
 const QMetaObject* QEvent_staticMetaObject() { return &QEvent::staticMetaObject; }
-bool QEvent_override_virtual_setAccepted(void* self, intptr_t slot) {
-	VirtualQEvent* self_cast = dynamic_cast<VirtualQEvent*>( (QEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QEvent_vdata(VirtualQEvent* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQEvent>()); }
+VirtualQEvent* vdata_QEvent(void* vdata) { return reinterpret_cast<VirtualQEvent*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQEvent>()); }
 
-	self_cast->handle__setAccepted = slot;
-	return true;
+void QEvent_virtualbase_setAccepted(VirtualQEvent* self, bool accepted) {
+
+	self->QEvent::setAccepted(accepted);
 }
 
-void QEvent_virtualbase_setAccepted(void* self, bool accepted) {
-	static_cast<VirtualQEvent*>(self)->QEvent::setAccepted(accepted);
-}
+QEvent* QEvent_virtualbase_clone(const VirtualQEvent* self) {
 
-bool QEvent_override_virtual_clone(void* self, intptr_t slot) {
-	VirtualQEvent* self_cast = dynamic_cast<VirtualQEvent*>( (QEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__clone = slot;
-	return true;
-}
-
-QEvent* QEvent_virtualbase_clone(const void* self) {
-	return static_cast<const VirtualQEvent*>(self)->QEvent::clone();
+	return self->QEvent::clone();
 }
 
 void QEvent_delete(QEvent* self) {
@@ -152,48 +136,44 @@ void QEvent_delete(QEvent* self) {
 }
 
 class VirtualQTimerEvent final : public QTimerEvent {
+	const QTimerEvent_VTable* vtbl;
 public:
+	friend void* QTimerEvent_vdata(VirtualQTimerEvent* self);
+	friend VirtualQTimerEvent* vdata_QTimerEvent(void* vdata);
 
-	VirtualQTimerEvent(int timerId): QTimerEvent(timerId) {}
+	VirtualQTimerEvent(const QTimerEvent_VTable* vtbl, int timerId): QTimerEvent(timerId), vtbl(vtbl) {}
 
-	virtual ~VirtualQTimerEvent() override = default;
+	virtual ~VirtualQTimerEvent() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clone = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual QTimerEvent* clone() const override {
-		if (handle__clone == 0) {
+		if (vtbl->clone == 0) {
 			return QTimerEvent::clone();
 		}
 
-		QTimerEvent* callback_return_value = miqt_exec_callback_QTimerEvent_clone(this, handle__clone);
+		QTimerEvent* callback_return_value = vtbl->clone(this);
 		return callback_return_value;
 	}
 
-	friend QTimerEvent* QTimerEvent_virtualbase_clone(const void* self);
+	friend QTimerEvent* QTimerEvent_virtualbase_clone(const VirtualQTimerEvent* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setAccepted = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setAccepted(bool accepted) override {
-		if (handle__setAccepted == 0) {
+		if (vtbl->setAccepted == 0) {
 			QTimerEvent::setAccepted(accepted);
 			return;
 		}
 
 		bool sigval1 = accepted;
-		miqt_exec_callback_QTimerEvent_setAccepted(this, handle__setAccepted, sigval1);
-
+		vtbl->setAccepted(this, sigval1);
 	}
 
-	friend void QTimerEvent_virtualbase_setAccepted(void* self, bool accepted);
+	friend void QTimerEvent_virtualbase_setAccepted(VirtualQTimerEvent* self, bool accepted);
 
 };
 
-QTimerEvent* QTimerEvent_new(int timerId) {
-	return new (std::nothrow) VirtualQTimerEvent(static_cast<int>(timerId));
+VirtualQTimerEvent* QTimerEvent_new(const QTimerEvent_VTable* vtbl, size_t vdata, int timerId) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQTimerEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQTimerEvent(vtbl, static_cast<int>(timerId)) : nullptr;
 }
 
 void QTimerEvent_virtbase(QTimerEvent* src, QEvent** outptr_QEvent) {
@@ -208,32 +188,17 @@ int QTimerEvent_timerId(const QTimerEvent* self) {
 	return self->timerId();
 }
 
-bool QTimerEvent_override_virtual_clone(void* self, intptr_t slot) {
-	VirtualQTimerEvent* self_cast = dynamic_cast<VirtualQTimerEvent*>( (QTimerEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QTimerEvent_vdata(VirtualQTimerEvent* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQTimerEvent>()); }
+VirtualQTimerEvent* vdata_QTimerEvent(void* vdata) { return reinterpret_cast<VirtualQTimerEvent*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQTimerEvent>()); }
 
-	self_cast->handle__clone = slot;
-	return true;
+QTimerEvent* QTimerEvent_virtualbase_clone(const VirtualQTimerEvent* self) {
+
+	return self->QTimerEvent::clone();
 }
 
-QTimerEvent* QTimerEvent_virtualbase_clone(const void* self) {
-	return static_cast<const VirtualQTimerEvent*>(self)->QTimerEvent::clone();
-}
+void QTimerEvent_virtualbase_setAccepted(VirtualQTimerEvent* self, bool accepted) {
 
-bool QTimerEvent_override_virtual_setAccepted(void* self, intptr_t slot) {
-	VirtualQTimerEvent* self_cast = dynamic_cast<VirtualQTimerEvent*>( (QTimerEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setAccepted = slot;
-	return true;
-}
-
-void QTimerEvent_virtualbase_setAccepted(void* self, bool accepted) {
-	static_cast<VirtualQTimerEvent*>(self)->QTimerEvent::setAccepted(accepted);
+	self->QTimerEvent::setAccepted(accepted);
 }
 
 void QTimerEvent_delete(QTimerEvent* self) {
@@ -241,48 +206,44 @@ void QTimerEvent_delete(QTimerEvent* self) {
 }
 
 class VirtualQChildEvent final : public QChildEvent {
+	const QChildEvent_VTable* vtbl;
 public:
+	friend void* QChildEvent_vdata(VirtualQChildEvent* self);
+	friend VirtualQChildEvent* vdata_QChildEvent(void* vdata);
 
-	VirtualQChildEvent(QEvent::Type type, QObject* child): QChildEvent(type, child) {}
+	VirtualQChildEvent(const QChildEvent_VTable* vtbl, QEvent::Type type, QObject* child): QChildEvent(type, child), vtbl(vtbl) {}
 
-	virtual ~VirtualQChildEvent() override = default;
+	virtual ~VirtualQChildEvent() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clone = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual QChildEvent* clone() const override {
-		if (handle__clone == 0) {
+		if (vtbl->clone == 0) {
 			return QChildEvent::clone();
 		}
 
-		QChildEvent* callback_return_value = miqt_exec_callback_QChildEvent_clone(this, handle__clone);
+		QChildEvent* callback_return_value = vtbl->clone(this);
 		return callback_return_value;
 	}
 
-	friend QChildEvent* QChildEvent_virtualbase_clone(const void* self);
+	friend QChildEvent* QChildEvent_virtualbase_clone(const VirtualQChildEvent* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setAccepted = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setAccepted(bool accepted) override {
-		if (handle__setAccepted == 0) {
+		if (vtbl->setAccepted == 0) {
 			QChildEvent::setAccepted(accepted);
 			return;
 		}
 
 		bool sigval1 = accepted;
-		miqt_exec_callback_QChildEvent_setAccepted(this, handle__setAccepted, sigval1);
-
+		vtbl->setAccepted(this, sigval1);
 	}
 
-	friend void QChildEvent_virtualbase_setAccepted(void* self, bool accepted);
+	friend void QChildEvent_virtualbase_setAccepted(VirtualQChildEvent* self, bool accepted);
 
 };
 
-QChildEvent* QChildEvent_new(int type, QObject* child) {
-	return new (std::nothrow) VirtualQChildEvent(static_cast<QEvent::Type>(type), child);
+VirtualQChildEvent* QChildEvent_new(const QChildEvent_VTable* vtbl, size_t vdata, int type, QObject* child) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQChildEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQChildEvent(vtbl, static_cast<QEvent::Type>(type), child) : nullptr;
 }
 
 void QChildEvent_virtbase(QChildEvent* src, QEvent** outptr_QEvent) {
@@ -309,32 +270,17 @@ bool QChildEvent_removed(const QChildEvent* self) {
 	return self->removed();
 }
 
-bool QChildEvent_override_virtual_clone(void* self, intptr_t slot) {
-	VirtualQChildEvent* self_cast = dynamic_cast<VirtualQChildEvent*>( (QChildEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QChildEvent_vdata(VirtualQChildEvent* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQChildEvent>()); }
+VirtualQChildEvent* vdata_QChildEvent(void* vdata) { return reinterpret_cast<VirtualQChildEvent*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQChildEvent>()); }
 
-	self_cast->handle__clone = slot;
-	return true;
+QChildEvent* QChildEvent_virtualbase_clone(const VirtualQChildEvent* self) {
+
+	return self->QChildEvent::clone();
 }
 
-QChildEvent* QChildEvent_virtualbase_clone(const void* self) {
-	return static_cast<const VirtualQChildEvent*>(self)->QChildEvent::clone();
-}
+void QChildEvent_virtualbase_setAccepted(VirtualQChildEvent* self, bool accepted) {
 
-bool QChildEvent_override_virtual_setAccepted(void* self, intptr_t slot) {
-	VirtualQChildEvent* self_cast = dynamic_cast<VirtualQChildEvent*>( (QChildEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setAccepted = slot;
-	return true;
-}
-
-void QChildEvent_virtualbase_setAccepted(void* self, bool accepted) {
-	static_cast<VirtualQChildEvent*>(self)->QChildEvent::setAccepted(accepted);
+	self->QChildEvent::setAccepted(accepted);
 }
 
 void QChildEvent_delete(QChildEvent* self) {
@@ -342,49 +288,45 @@ void QChildEvent_delete(QChildEvent* self) {
 }
 
 class VirtualQDynamicPropertyChangeEvent final : public QDynamicPropertyChangeEvent {
+	const QDynamicPropertyChangeEvent_VTable* vtbl;
 public:
+	friend void* QDynamicPropertyChangeEvent_vdata(VirtualQDynamicPropertyChangeEvent* self);
+	friend VirtualQDynamicPropertyChangeEvent* vdata_QDynamicPropertyChangeEvent(void* vdata);
 
-	VirtualQDynamicPropertyChangeEvent(const QByteArray& name): QDynamicPropertyChangeEvent(name) {}
+	VirtualQDynamicPropertyChangeEvent(const QDynamicPropertyChangeEvent_VTable* vtbl, const QByteArray& name): QDynamicPropertyChangeEvent(name), vtbl(vtbl) {}
 
-	virtual ~VirtualQDynamicPropertyChangeEvent() override = default;
+	virtual ~VirtualQDynamicPropertyChangeEvent() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clone = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual QDynamicPropertyChangeEvent* clone() const override {
-		if (handle__clone == 0) {
+		if (vtbl->clone == 0) {
 			return QDynamicPropertyChangeEvent::clone();
 		}
 
-		QDynamicPropertyChangeEvent* callback_return_value = miqt_exec_callback_QDynamicPropertyChangeEvent_clone(this, handle__clone);
+		QDynamicPropertyChangeEvent* callback_return_value = vtbl->clone(this);
 		return callback_return_value;
 	}
 
-	friend QDynamicPropertyChangeEvent* QDynamicPropertyChangeEvent_virtualbase_clone(const void* self);
+	friend QDynamicPropertyChangeEvent* QDynamicPropertyChangeEvent_virtualbase_clone(const VirtualQDynamicPropertyChangeEvent* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setAccepted = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setAccepted(bool accepted) override {
-		if (handle__setAccepted == 0) {
+		if (vtbl->setAccepted == 0) {
 			QDynamicPropertyChangeEvent::setAccepted(accepted);
 			return;
 		}
 
 		bool sigval1 = accepted;
-		miqt_exec_callback_QDynamicPropertyChangeEvent_setAccepted(this, handle__setAccepted, sigval1);
-
+		vtbl->setAccepted(this, sigval1);
 	}
 
-	friend void QDynamicPropertyChangeEvent_virtualbase_setAccepted(void* self, bool accepted);
+	friend void QDynamicPropertyChangeEvent_virtualbase_setAccepted(VirtualQDynamicPropertyChangeEvent* self, bool accepted);
 
 };
 
-QDynamicPropertyChangeEvent* QDynamicPropertyChangeEvent_new(struct seaqt_string name) {
+VirtualQDynamicPropertyChangeEvent* QDynamicPropertyChangeEvent_new(const QDynamicPropertyChangeEvent_VTable* vtbl, size_t vdata, struct seaqt_string name) {
 	QByteArray name_QByteArray(name.data, name.len);
-	return new (std::nothrow) VirtualQDynamicPropertyChangeEvent(name_QByteArray);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDynamicPropertyChangeEvent>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDynamicPropertyChangeEvent(vtbl, name_QByteArray) : nullptr;
 }
 
 void QDynamicPropertyChangeEvent_virtbase(QDynamicPropertyChangeEvent* src, QEvent** outptr_QEvent) {
@@ -404,32 +346,17 @@ struct seaqt_string QDynamicPropertyChangeEvent_propertyName(const QDynamicPrope
 	return _ms;
 }
 
-bool QDynamicPropertyChangeEvent_override_virtual_clone(void* self, intptr_t slot) {
-	VirtualQDynamicPropertyChangeEvent* self_cast = dynamic_cast<VirtualQDynamicPropertyChangeEvent*>( (QDynamicPropertyChangeEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QDynamicPropertyChangeEvent_vdata(VirtualQDynamicPropertyChangeEvent* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQDynamicPropertyChangeEvent>()); }
+VirtualQDynamicPropertyChangeEvent* vdata_QDynamicPropertyChangeEvent(void* vdata) { return reinterpret_cast<VirtualQDynamicPropertyChangeEvent*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQDynamicPropertyChangeEvent>()); }
 
-	self_cast->handle__clone = slot;
-	return true;
+QDynamicPropertyChangeEvent* QDynamicPropertyChangeEvent_virtualbase_clone(const VirtualQDynamicPropertyChangeEvent* self) {
+
+	return self->QDynamicPropertyChangeEvent::clone();
 }
 
-QDynamicPropertyChangeEvent* QDynamicPropertyChangeEvent_virtualbase_clone(const void* self) {
-	return static_cast<const VirtualQDynamicPropertyChangeEvent*>(self)->QDynamicPropertyChangeEvent::clone();
-}
+void QDynamicPropertyChangeEvent_virtualbase_setAccepted(VirtualQDynamicPropertyChangeEvent* self, bool accepted) {
 
-bool QDynamicPropertyChangeEvent_override_virtual_setAccepted(void* self, intptr_t slot) {
-	VirtualQDynamicPropertyChangeEvent* self_cast = dynamic_cast<VirtualQDynamicPropertyChangeEvent*>( (QDynamicPropertyChangeEvent*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setAccepted = slot;
-	return true;
-}
-
-void QDynamicPropertyChangeEvent_virtualbase_setAccepted(void* self, bool accepted) {
-	static_cast<VirtualQDynamicPropertyChangeEvent*>(self)->QDynamicPropertyChangeEvent::setAccepted(accepted);
+	self->QDynamicPropertyChangeEvent::setAccepted(accepted);
 }
 
 void QDynamicPropertyChangeEvent_delete(QDynamicPropertyChangeEvent* self) {

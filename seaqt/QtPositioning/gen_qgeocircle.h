@@ -31,6 +31,7 @@ QGeoCircle* QGeoCircle_new2(QGeoCoordinate* center);
 QGeoCircle* QGeoCircle_new3(QGeoCircle* other);
 QGeoCircle* QGeoCircle_new4(QGeoShape* other);
 QGeoCircle* QGeoCircle_new5(QGeoCoordinate* center, double radius);
+
 void QGeoCircle_virtbase(QGeoCircle* src, QGeoShape** outptr_QGeoShape);
 void QGeoCircle_operatorAssign(QGeoCircle* self, QGeoCircle* other);
 void QGeoCircle_setCenter(QGeoCircle* self, QGeoCoordinate* center);

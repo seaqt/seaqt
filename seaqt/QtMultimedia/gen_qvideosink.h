@@ -36,8 +36,27 @@ typedef struct QVideoFrame QVideoFrame;
 typedef struct QVideoSink QVideoSink;
 #endif
 
-QVideoSink* QVideoSink_new();
-QVideoSink* QVideoSink_new2(QObject* parent);
+typedef struct VirtualQVideoSink VirtualQVideoSink;
+typedef struct QVideoSink_VTable{
+	void (*destructor)(VirtualQVideoSink* self);
+	QMetaObject* (*metaObject)(const VirtualQVideoSink* self);
+	void* (*metacast)(VirtualQVideoSink* self, const char* param1);
+	int (*metacall)(VirtualQVideoSink* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQVideoSink* self, QEvent* event);
+	bool (*eventFilter)(VirtualQVideoSink* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQVideoSink* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQVideoSink* self, QChildEvent* event);
+	void (*customEvent)(VirtualQVideoSink* self, QEvent* event);
+	void (*connectNotify)(VirtualQVideoSink* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQVideoSink* self, QMetaMethod* signal);
+}QVideoSink_VTable;
+
+void* QVideoSink_vdata(VirtualQVideoSink* self);
+VirtualQVideoSink* vdata_QVideoSink(void* vdata);
+
+VirtualQVideoSink* QVideoSink_new(const QVideoSink_VTable* vtbl, size_t vdata);
+VirtualQVideoSink* QVideoSink_new2(const QVideoSink_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QVideoSink_virtbase(QVideoSink* src, QObject** outptr_QObject);
 QMetaObject* QVideoSink_metaObject(const QVideoSink* self);
 void* QVideoSink_metacast(QVideoSink* self, const char* param1);
@@ -57,31 +76,21 @@ void QVideoSink_connect_videoSizeChanged(QVideoSink* self, intptr_t slot);
 struct seaqt_string QVideoSink_tr2(const char* s, const char* c);
 struct seaqt_string QVideoSink_tr3(const char* s, const char* c, int n);
 
-bool QVideoSink_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QVideoSink_virtualbase_metaObject(const void* self);
-bool QVideoSink_override_virtual_metacast(void* self, intptr_t slot);
-void* QVideoSink_virtualbase_metacast(void* self, const char* param1);
-bool QVideoSink_override_virtual_metacall(void* self, intptr_t slot);
-int QVideoSink_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QVideoSink_override_virtual_event(void* self, intptr_t slot);
-bool QVideoSink_virtualbase_event(void* self, QEvent* event);
-bool QVideoSink_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QVideoSink_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QVideoSink_override_virtual_timerEvent(void* self, intptr_t slot);
-void QVideoSink_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QVideoSink_override_virtual_childEvent(void* self, intptr_t slot);
-void QVideoSink_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QVideoSink_override_virtual_customEvent(void* self, intptr_t slot);
-void QVideoSink_virtualbase_customEvent(void* self, QEvent* event);
-bool QVideoSink_override_virtual_connectNotify(void* self, intptr_t slot);
-void QVideoSink_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QVideoSink_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QVideoSink_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QVideoSink_virtualbase_metaObject(const VirtualQVideoSink* self);
+void* QVideoSink_virtualbase_metacast(VirtualQVideoSink* self, const char* param1);
+int QVideoSink_virtualbase_metacall(VirtualQVideoSink* self, int param1, int param2, void** param3);
+bool QVideoSink_virtualbase_event(VirtualQVideoSink* self, QEvent* event);
+bool QVideoSink_virtualbase_eventFilter(VirtualQVideoSink* self, QObject* watched, QEvent* event);
+void QVideoSink_virtualbase_timerEvent(VirtualQVideoSink* self, QTimerEvent* event);
+void QVideoSink_virtualbase_childEvent(VirtualQVideoSink* self, QChildEvent* event);
+void QVideoSink_virtualbase_customEvent(VirtualQVideoSink* self, QEvent* event);
+void QVideoSink_virtualbase_connectNotify(VirtualQVideoSink* self, QMetaMethod* signal);
+void QVideoSink_virtualbase_disconnectNotify(VirtualQVideoSink* self, QMetaMethod* signal);
 
-QObject* QVideoSink_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QVideoSink_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QVideoSink_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QVideoSink_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QVideoSink_protectedbase_sender(const VirtualQVideoSink* self);
+int QVideoSink_protectedbase_senderSignalIndex(const VirtualQVideoSink* self);
+int QVideoSink_protectedbase_receivers(const VirtualQVideoSink* self, const char* signal);
+bool QVideoSink_protectedbase_isSignalConnected(const VirtualQVideoSink* self, QMetaMethod* signal);
 
 const QMetaObject* QVideoSink_staticMetaObject();
 void QVideoSink_delete(QVideoSink* self);

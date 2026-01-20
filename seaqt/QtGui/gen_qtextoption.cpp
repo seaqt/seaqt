@@ -5,6 +5,17 @@
 #include <qtextoption.h>
 #include "gen_qtextoption.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -133,15 +144,15 @@ void QTextOption_delete(QTextOption* self) {
 }
 
 QTextOption__Tab* QTextOption__Tab_new() {
-	return new (std::nothrow) QTextOption::Tab();
+	return new (std::nothrow) QTextOption__Tab();
 }
 
 QTextOption__Tab* QTextOption__Tab_new2(double pos, int tabType) {
-	return new (std::nothrow) QTextOption::Tab(static_cast<qreal>(pos), static_cast<QTextOption::TabType>(tabType));
+	return new (std::nothrow) QTextOption__Tab(static_cast<qreal>(pos), static_cast<QTextOption::TabType>(tabType));
 }
 
 QTextOption__Tab* QTextOption__Tab_new3(double pos, int tabType, QChar* delim) {
-	return new (std::nothrow) QTextOption::Tab(static_cast<qreal>(pos), static_cast<QTextOption::TabType>(tabType), *delim);
+	return new (std::nothrow) QTextOption__Tab(static_cast<qreal>(pos), static_cast<QTextOption::TabType>(tabType), *delim);
 }
 
 bool QTextOption__Tab_operatorEqual(const QTextOption__Tab* self, QTextOption__Tab* other) {

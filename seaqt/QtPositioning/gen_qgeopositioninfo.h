@@ -27,6 +27,7 @@ typedef struct QGeoPositionInfo QGeoPositionInfo;
 QGeoPositionInfo* QGeoPositionInfo_new();
 QGeoPositionInfo* QGeoPositionInfo_new2(QGeoCoordinate* coordinate, QDateTime* updateTime);
 QGeoPositionInfo* QGeoPositionInfo_new3(QGeoPositionInfo* other);
+
 void QGeoPositionInfo_operatorAssign(QGeoPositionInfo* self, QGeoPositionInfo* other);
 void QGeoPositionInfo_swap(QGeoPositionInfo* self, QGeoPositionInfo* other);
 bool QGeoPositionInfo_isValid(const QGeoPositionInfo* self);

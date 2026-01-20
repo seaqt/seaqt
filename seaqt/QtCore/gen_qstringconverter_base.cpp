@@ -4,6 +4,17 @@
 #include <qstringconverter_base.h>
 #include "gen_qstringconverter_base.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -37,11 +48,11 @@ const char* QStringConverter_nameForEncoding(int e) {
 }
 
 QStringConverterBase__State* QStringConverterBase__State_new() {
-	return new (std::nothrow) QStringConverterBase::State();
+	return new (std::nothrow) QStringConverterBase__State();
 }
 
 QStringConverterBase__State* QStringConverterBase__State_new2(int f) {
-	return new (std::nothrow) QStringConverterBase::State(static_cast<QStringConverterBase::Flags>(f));
+	return new (std::nothrow) QStringConverterBase__State(static_cast<QStringConverterBase::Flags>(f));
 }
 
 void QStringConverterBase__State_clear(QStringConverterBase__State* self) {

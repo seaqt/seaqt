@@ -17,83 +17,62 @@
 #include <qqmlextensionplugin.h>
 #include "gen_qqmlextensionplugin.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QQmlExtensionPlugin_metaObject(const QQmlExtensionPlugin*, intptr_t);
-void* miqt_exec_callback_QQmlExtensionPlugin_metacast(QQmlExtensionPlugin*, intptr_t, const char*);
-int miqt_exec_callback_QQmlExtensionPlugin_metacall(QQmlExtensionPlugin*, intptr_t, int, int, void**);
-void miqt_exec_callback_QQmlExtensionPlugin_registerTypes(QQmlExtensionPlugin*, intptr_t, const char*);
-void miqt_exec_callback_QQmlExtensionPlugin_unregisterTypes(QQmlExtensionPlugin*, intptr_t);
-void miqt_exec_callback_QQmlExtensionPlugin_initializeEngine(QQmlExtensionPlugin*, intptr_t, QQmlEngine*, const char*);
-bool miqt_exec_callback_QQmlExtensionPlugin_event(QQmlExtensionPlugin*, intptr_t, QEvent*);
-bool miqt_exec_callback_QQmlExtensionPlugin_eventFilter(QQmlExtensionPlugin*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QQmlExtensionPlugin_timerEvent(QQmlExtensionPlugin*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QQmlExtensionPlugin_childEvent(QQmlExtensionPlugin*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QQmlExtensionPlugin_customEvent(QQmlExtensionPlugin*, intptr_t, QEvent*);
-void miqt_exec_callback_QQmlExtensionPlugin_connectNotify(QQmlExtensionPlugin*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QQmlExtensionPlugin_disconnectNotify(QQmlExtensionPlugin*, intptr_t, QMetaMethod*);
-QMetaObject* miqt_exec_callback_QQmlEngineExtensionPlugin_metaObject(const QQmlEngineExtensionPlugin*, intptr_t);
-void* miqt_exec_callback_QQmlEngineExtensionPlugin_metacast(QQmlEngineExtensionPlugin*, intptr_t, const char*);
-int miqt_exec_callback_QQmlEngineExtensionPlugin_metacall(QQmlEngineExtensionPlugin*, intptr_t, int, int, void**);
-void miqt_exec_callback_QQmlEngineExtensionPlugin_initializeEngine(QQmlEngineExtensionPlugin*, intptr_t, QQmlEngine*, const char*);
-bool miqt_exec_callback_QQmlEngineExtensionPlugin_event(QQmlEngineExtensionPlugin*, intptr_t, QEvent*);
-bool miqt_exec_callback_QQmlEngineExtensionPlugin_eventFilter(QQmlEngineExtensionPlugin*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QQmlEngineExtensionPlugin_timerEvent(QQmlEngineExtensionPlugin*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QQmlEngineExtensionPlugin_childEvent(QQmlEngineExtensionPlugin*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QQmlEngineExtensionPlugin_customEvent(QQmlEngineExtensionPlugin*, intptr_t, QEvent*);
-void miqt_exec_callback_QQmlEngineExtensionPlugin_connectNotify(QQmlEngineExtensionPlugin*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QQmlEngineExtensionPlugin_disconnectNotify(QQmlEngineExtensionPlugin*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQQmlExtensionPlugin final : public QQmlExtensionPlugin {
+	const QQmlExtensionPlugin_VTable* vtbl;
 public:
+	friend void* QQmlExtensionPlugin_vdata(VirtualQQmlExtensionPlugin* self);
+	friend VirtualQQmlExtensionPlugin* vdata_QQmlExtensionPlugin(void* vdata);
 
-	VirtualQQmlExtensionPlugin(): QQmlExtensionPlugin() {}
-	VirtualQQmlExtensionPlugin(QObject* parent): QQmlExtensionPlugin(parent) {}
+	VirtualQQmlExtensionPlugin(const QQmlExtensionPlugin_VTable* vtbl): QQmlExtensionPlugin(), vtbl(vtbl) {}
+	VirtualQQmlExtensionPlugin(const QQmlExtensionPlugin_VTable* vtbl, QObject* parent): QQmlExtensionPlugin(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQQmlExtensionPlugin() override = default;
+	virtual ~VirtualQQmlExtensionPlugin() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QQmlExtensionPlugin::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QQmlExtensionPlugin_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QQmlExtensionPlugin_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QQmlExtensionPlugin_virtualbase_metaObject(const VirtualQQmlExtensionPlugin* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QQmlExtensionPlugin::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QQmlExtensionPlugin_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QQmlExtensionPlugin_virtualbase_metacast(void* self, const char* param1);
+	friend void* QQmlExtensionPlugin_virtualbase_metacast(VirtualQQmlExtensionPlugin* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QQmlExtensionPlugin::qt_metacall(param1, param2, param3);
 		}
 
@@ -101,150 +80,108 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QQmlExtensionPlugin_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QQmlExtensionPlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QQmlExtensionPlugin_virtualbase_metacall(VirtualQQmlExtensionPlugin* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__registerTypes = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void registerTypes(const char* uri) override {
-		if (handle__registerTypes == 0) {
+		if (vtbl->registerTypes == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		const char* sigval1 = (const char*) uri;
-		miqt_exec_callback_QQmlExtensionPlugin_registerTypes(this, handle__registerTypes, sigval1);
-
+		vtbl->registerTypes(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__unregisterTypes = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void unregisterTypes() override {
-		if (handle__unregisterTypes == 0) {
+		if (vtbl->unregisterTypes == 0) {
 			QQmlExtensionPlugin::unregisterTypes();
 			return;
 		}
 
-		miqt_exec_callback_QQmlExtensionPlugin_unregisterTypes(this, handle__unregisterTypes);
-
+		vtbl->unregisterTypes(this);
 	}
 
-	friend void QQmlExtensionPlugin_virtualbase_unregisterTypes(void* self);
+	friend void QQmlExtensionPlugin_virtualbase_unregisterTypes(VirtualQQmlExtensionPlugin* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__initializeEngine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void initializeEngine(QQmlEngine* engine, const char* uri) override {
-		if (handle__initializeEngine == 0) {
+		if (vtbl->initializeEngine == 0) {
 			QQmlExtensionPlugin::initializeEngine(engine, uri);
 			return;
 		}
 
 		QQmlEngine* sigval1 = engine;
 		const char* sigval2 = (const char*) uri;
-		miqt_exec_callback_QQmlExtensionPlugin_initializeEngine(this, handle__initializeEngine, sigval1, sigval2);
-
+		vtbl->initializeEngine(this, sigval1, sigval2);
 	}
 
-	friend void QQmlExtensionPlugin_virtualbase_initializeEngine(void* self, QQmlEngine* engine, const char* uri);
+	friend void QQmlExtensionPlugin_virtualbase_initializeEngine(VirtualQQmlExtensionPlugin* self, QQmlEngine* engine, const char* uri);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QQmlExtensionPlugin::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QQmlExtensionPlugin_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QQmlExtensionPlugin_virtualbase_event(void* self, QEvent* event);
+	friend bool QQmlExtensionPlugin_virtualbase_event(VirtualQQmlExtensionPlugin* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QQmlExtensionPlugin::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QQmlExtensionPlugin_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QQmlExtensionPlugin_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QQmlExtensionPlugin_virtualbase_eventFilter(VirtualQQmlExtensionPlugin* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QQmlExtensionPlugin::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QQmlExtensionPlugin_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QQmlExtensionPlugin_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QQmlExtensionPlugin_virtualbase_timerEvent(VirtualQQmlExtensionPlugin* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QQmlExtensionPlugin::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QQmlExtensionPlugin_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QQmlExtensionPlugin_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QQmlExtensionPlugin_virtualbase_childEvent(VirtualQQmlExtensionPlugin* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QQmlExtensionPlugin::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QQmlExtensionPlugin_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QQmlExtensionPlugin_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QQmlExtensionPlugin_virtualbase_customEvent(VirtualQQmlExtensionPlugin* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QQmlExtensionPlugin::connectNotify(signal);
 			return;
 		}
@@ -252,18 +189,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QQmlExtensionPlugin_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QQmlExtensionPlugin_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QQmlExtensionPlugin_virtualbase_connectNotify(VirtualQQmlExtensionPlugin* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QQmlExtensionPlugin::disconnectNotify(signal);
 			return;
 		}
@@ -271,25 +203,26 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QQmlExtensionPlugin_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QQmlExtensionPlugin_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QQmlExtensionPlugin_virtualbase_disconnectNotify(VirtualQQmlExtensionPlugin* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QQmlExtensionPlugin_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QQmlExtensionPlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QQmlExtensionPlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QQmlExtensionPlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QQmlExtensionPlugin_protectedbase_sender(const VirtualQQmlExtensionPlugin* self);
+	friend int QQmlExtensionPlugin_protectedbase_senderSignalIndex(const VirtualQQmlExtensionPlugin* self);
+	friend int QQmlExtensionPlugin_protectedbase_receivers(const VirtualQQmlExtensionPlugin* self, const char* signal);
+	friend bool QQmlExtensionPlugin_protectedbase_isSignalConnected(const VirtualQQmlExtensionPlugin* self, QMetaMethod* signal);
 };
 
-QQmlExtensionPlugin* QQmlExtensionPlugin_new() {
-	return new (std::nothrow) VirtualQQmlExtensionPlugin();
+VirtualQQmlExtensionPlugin* QQmlExtensionPlugin_new(const QQmlExtensionPlugin_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlExtensionPlugin>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlExtensionPlugin(vtbl) : nullptr;
 }
 
-QQmlExtensionPlugin* QQmlExtensionPlugin_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQQmlExtensionPlugin(parent);
+VirtualQQmlExtensionPlugin* QQmlExtensionPlugin_new2(const QQmlExtensionPlugin_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlExtensionPlugin>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlExtensionPlugin(vtbl, parent) : nullptr;
 }
 
 void QQmlExtensionPlugin_virtbase(QQmlExtensionPlugin* src, QObject** outptr_QObject, QQmlExtensionInterface** outptr_QQmlExtensionInterface) {
@@ -359,226 +292,83 @@ struct seaqt_string QQmlExtensionPlugin_tr3(const char* s, const char* c, int n)
 }
 
 const QMetaObject* QQmlExtensionPlugin_staticMetaObject() { return &QQmlExtensionPlugin::staticMetaObject; }
-bool QQmlExtensionPlugin_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QQmlExtensionPlugin_vdata(VirtualQQmlExtensionPlugin* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQQmlExtensionPlugin>()); }
+VirtualQQmlExtensionPlugin* vdata_QQmlExtensionPlugin(void* vdata) { return reinterpret_cast<VirtualQQmlExtensionPlugin*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQQmlExtensionPlugin>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QQmlExtensionPlugin_virtualbase_metaObject(const VirtualQQmlExtensionPlugin* self) {
+
+	return (QMetaObject*) self->QQmlExtensionPlugin::metaObject();
 }
 
-QMetaObject* QQmlExtensionPlugin_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQQmlExtensionPlugin*>(self)->QQmlExtensionPlugin::metaObject();
+void* QQmlExtensionPlugin_virtualbase_metacast(VirtualQQmlExtensionPlugin* self, const char* param1) {
+
+	return self->QQmlExtensionPlugin::qt_metacast(param1);
 }
 
-bool QQmlExtensionPlugin_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QQmlExtensionPlugin_virtualbase_metacall(VirtualQQmlExtensionPlugin* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QQmlExtensionPlugin::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QQmlExtensionPlugin_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQQmlExtensionPlugin*>(self)->QQmlExtensionPlugin::qt_metacast(param1);
+void QQmlExtensionPlugin_virtualbase_unregisterTypes(VirtualQQmlExtensionPlugin* self) {
+
+	self->QQmlExtensionPlugin::unregisterTypes();
 }
 
-bool QQmlExtensionPlugin_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QQmlExtensionPlugin_virtualbase_initializeEngine(VirtualQQmlExtensionPlugin* self, QQmlEngine* engine, const char* uri) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	self->QQmlExtensionPlugin::initializeEngine(engine, uri);
 }
 
-int QQmlExtensionPlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQQmlExtensionPlugin*>(self)->QQmlExtensionPlugin::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+bool QQmlExtensionPlugin_virtualbase_event(VirtualQQmlExtensionPlugin* self, QEvent* event) {
+
+	return self->QQmlExtensionPlugin::event(event);
 }
 
-bool QQmlExtensionPlugin_override_virtual_registerTypes(void* self, intptr_t slot) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QQmlExtensionPlugin_virtualbase_eventFilter(VirtualQQmlExtensionPlugin* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__registerTypes = slot;
-	return true;
+	return self->QQmlExtensionPlugin::eventFilter(watched, event);
 }
 
-bool QQmlExtensionPlugin_override_virtual_unregisterTypes(void* self, intptr_t slot) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QQmlExtensionPlugin_virtualbase_timerEvent(VirtualQQmlExtensionPlugin* self, QTimerEvent* event) {
 
-	self_cast->handle__unregisterTypes = slot;
-	return true;
+	self->QQmlExtensionPlugin::timerEvent(event);
 }
 
-void QQmlExtensionPlugin_virtualbase_unregisterTypes(void* self) {
-	static_cast<VirtualQQmlExtensionPlugin*>(self)->QQmlExtensionPlugin::unregisterTypes();
+void QQmlExtensionPlugin_virtualbase_childEvent(VirtualQQmlExtensionPlugin* self, QChildEvent* event) {
+
+	self->QQmlExtensionPlugin::childEvent(event);
 }
 
-bool QQmlExtensionPlugin_override_virtual_initializeEngine(void* self, intptr_t slot) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QQmlExtensionPlugin_virtualbase_customEvent(VirtualQQmlExtensionPlugin* self, QEvent* event) {
 
-	self_cast->handle__initializeEngine = slot;
-	return true;
+	self->QQmlExtensionPlugin::customEvent(event);
 }
 
-void QQmlExtensionPlugin_virtualbase_initializeEngine(void* self, QQmlEngine* engine, const char* uri) {
-	static_cast<VirtualQQmlExtensionPlugin*>(self)->QQmlExtensionPlugin::initializeEngine(engine, uri);
+void QQmlExtensionPlugin_virtualbase_connectNotify(VirtualQQmlExtensionPlugin* self, QMetaMethod* signal) {
+
+	self->QQmlExtensionPlugin::connectNotify(*signal);
 }
 
-bool QQmlExtensionPlugin_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QQmlExtensionPlugin_virtualbase_disconnectNotify(VirtualQQmlExtensionPlugin* self, QMetaMethod* signal) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QQmlExtensionPlugin::disconnectNotify(*signal);
 }
 
-bool QQmlExtensionPlugin_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQQmlExtensionPlugin*>(self)->QQmlExtensionPlugin::event(event);
+QObject* QQmlExtensionPlugin_protectedbase_sender(const VirtualQQmlExtensionPlugin* self) {
+	return self->sender();
 }
 
-bool QQmlExtensionPlugin_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
+int QQmlExtensionPlugin_protectedbase_senderSignalIndex(const VirtualQQmlExtensionPlugin* self) {
+	return self->senderSignalIndex();
 }
 
-bool QQmlExtensionPlugin_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQQmlExtensionPlugin*>(self)->QQmlExtensionPlugin::eventFilter(watched, event);
+int QQmlExtensionPlugin_protectedbase_receivers(const VirtualQQmlExtensionPlugin* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QQmlExtensionPlugin_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
-}
-
-void QQmlExtensionPlugin_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQQmlExtensionPlugin*>(self)->QQmlExtensionPlugin::timerEvent(event);
-}
-
-bool QQmlExtensionPlugin_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QQmlExtensionPlugin_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQQmlExtensionPlugin*>(self)->QQmlExtensionPlugin::childEvent(event);
-}
-
-bool QQmlExtensionPlugin_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QQmlExtensionPlugin_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQQmlExtensionPlugin*>(self)->QQmlExtensionPlugin::customEvent(event);
-}
-
-bool QQmlExtensionPlugin_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QQmlExtensionPlugin_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQQmlExtensionPlugin*>(self)->QQmlExtensionPlugin::connectNotify(*signal);
-}
-
-bool QQmlExtensionPlugin_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QQmlExtensionPlugin_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQQmlExtensionPlugin*>(self)->QQmlExtensionPlugin::disconnectNotify(*signal);
-}
-
-QObject* QQmlExtensionPlugin_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QQmlExtensionPlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QQmlExtensionPlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QQmlExtensionPlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQQmlExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlExtensionPlugin*>( (QQmlExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QQmlExtensionPlugin_protectedbase_isSignalConnected(const VirtualQQmlExtensionPlugin* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QQmlExtensionPlugin_delete(QQmlExtensionPlugin* self) {
@@ -586,50 +376,42 @@ void QQmlExtensionPlugin_delete(QQmlExtensionPlugin* self) {
 }
 
 class VirtualQQmlEngineExtensionPlugin final : public QQmlEngineExtensionPlugin {
+	const QQmlEngineExtensionPlugin_VTable* vtbl;
 public:
+	friend void* QQmlEngineExtensionPlugin_vdata(VirtualQQmlEngineExtensionPlugin* self);
+	friend VirtualQQmlEngineExtensionPlugin* vdata_QQmlEngineExtensionPlugin(void* vdata);
 
-	VirtualQQmlEngineExtensionPlugin(): QQmlEngineExtensionPlugin() {}
-	VirtualQQmlEngineExtensionPlugin(QObject* parent): QQmlEngineExtensionPlugin(parent) {}
+	VirtualQQmlEngineExtensionPlugin(const QQmlEngineExtensionPlugin_VTable* vtbl): QQmlEngineExtensionPlugin(), vtbl(vtbl) {}
+	VirtualQQmlEngineExtensionPlugin(const QQmlEngineExtensionPlugin_VTable* vtbl, QObject* parent): QQmlEngineExtensionPlugin(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQQmlEngineExtensionPlugin() override = default;
+	virtual ~VirtualQQmlEngineExtensionPlugin() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QQmlEngineExtensionPlugin::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QQmlEngineExtensionPlugin_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QQmlEngineExtensionPlugin_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QQmlEngineExtensionPlugin_virtualbase_metaObject(const VirtualQQmlEngineExtensionPlugin* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QQmlEngineExtensionPlugin::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QQmlEngineExtensionPlugin_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QQmlEngineExtensionPlugin_virtualbase_metacast(void* self, const char* param1);
+	friend void* QQmlEngineExtensionPlugin_virtualbase_metacast(VirtualQQmlEngineExtensionPlugin* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QQmlEngineExtensionPlugin::qt_metacall(param1, param2, param3);
 		}
 
@@ -637,120 +419,88 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QQmlEngineExtensionPlugin_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QQmlEngineExtensionPlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QQmlEngineExtensionPlugin_virtualbase_metacall(VirtualQQmlEngineExtensionPlugin* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__initializeEngine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void initializeEngine(QQmlEngine* engine, const char* uri) override {
-		if (handle__initializeEngine == 0) {
+		if (vtbl->initializeEngine == 0) {
 			QQmlEngineExtensionPlugin::initializeEngine(engine, uri);
 			return;
 		}
 
 		QQmlEngine* sigval1 = engine;
 		const char* sigval2 = (const char*) uri;
-		miqt_exec_callback_QQmlEngineExtensionPlugin_initializeEngine(this, handle__initializeEngine, sigval1, sigval2);
-
+		vtbl->initializeEngine(this, sigval1, sigval2);
 	}
 
-	friend void QQmlEngineExtensionPlugin_virtualbase_initializeEngine(void* self, QQmlEngine* engine, const char* uri);
+	friend void QQmlEngineExtensionPlugin_virtualbase_initializeEngine(VirtualQQmlEngineExtensionPlugin* self, QQmlEngine* engine, const char* uri);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QQmlEngineExtensionPlugin::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QQmlEngineExtensionPlugin_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QQmlEngineExtensionPlugin_virtualbase_event(void* self, QEvent* event);
+	friend bool QQmlEngineExtensionPlugin_virtualbase_event(VirtualQQmlEngineExtensionPlugin* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QQmlEngineExtensionPlugin::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QQmlEngineExtensionPlugin_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QQmlEngineExtensionPlugin_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QQmlEngineExtensionPlugin_virtualbase_eventFilter(VirtualQQmlEngineExtensionPlugin* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QQmlEngineExtensionPlugin::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QQmlEngineExtensionPlugin_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QQmlEngineExtensionPlugin_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QQmlEngineExtensionPlugin_virtualbase_timerEvent(VirtualQQmlEngineExtensionPlugin* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QQmlEngineExtensionPlugin::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QQmlEngineExtensionPlugin_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QQmlEngineExtensionPlugin_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QQmlEngineExtensionPlugin_virtualbase_childEvent(VirtualQQmlEngineExtensionPlugin* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QQmlEngineExtensionPlugin::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QQmlEngineExtensionPlugin_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QQmlEngineExtensionPlugin_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QQmlEngineExtensionPlugin_virtualbase_customEvent(VirtualQQmlEngineExtensionPlugin* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QQmlEngineExtensionPlugin::connectNotify(signal);
 			return;
 		}
@@ -758,18 +508,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QQmlEngineExtensionPlugin_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QQmlEngineExtensionPlugin_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QQmlEngineExtensionPlugin_virtualbase_connectNotify(VirtualQQmlEngineExtensionPlugin* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QQmlEngineExtensionPlugin::disconnectNotify(signal);
 			return;
 		}
@@ -777,25 +522,26 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QQmlEngineExtensionPlugin_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QQmlEngineExtensionPlugin_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QQmlEngineExtensionPlugin_virtualbase_disconnectNotify(VirtualQQmlEngineExtensionPlugin* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QQmlEngineExtensionPlugin_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QQmlEngineExtensionPlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QQmlEngineExtensionPlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QQmlEngineExtensionPlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QQmlEngineExtensionPlugin_protectedbase_sender(const VirtualQQmlEngineExtensionPlugin* self);
+	friend int QQmlEngineExtensionPlugin_protectedbase_senderSignalIndex(const VirtualQQmlEngineExtensionPlugin* self);
+	friend int QQmlEngineExtensionPlugin_protectedbase_receivers(const VirtualQQmlEngineExtensionPlugin* self, const char* signal);
+	friend bool QQmlEngineExtensionPlugin_protectedbase_isSignalConnected(const VirtualQQmlEngineExtensionPlugin* self, QMetaMethod* signal);
 };
 
-QQmlEngineExtensionPlugin* QQmlEngineExtensionPlugin_new() {
-	return new (std::nothrow) VirtualQQmlEngineExtensionPlugin();
+VirtualQQmlEngineExtensionPlugin* QQmlEngineExtensionPlugin_new(const QQmlEngineExtensionPlugin_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlEngineExtensionPlugin>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlEngineExtensionPlugin(vtbl) : nullptr;
 }
 
-QQmlEngineExtensionPlugin* QQmlEngineExtensionPlugin_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQQmlEngineExtensionPlugin(parent);
+VirtualQQmlEngineExtensionPlugin* QQmlEngineExtensionPlugin_new2(const QQmlEngineExtensionPlugin_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlEngineExtensionPlugin>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlEngineExtensionPlugin(vtbl, parent) : nullptr;
 }
 
 void QQmlEngineExtensionPlugin_virtbase(QQmlEngineExtensionPlugin* src, QObject** outptr_QObject, QQmlEngineExtensionInterface** outptr_QQmlEngineExtensionInterface) {
@@ -853,202 +599,78 @@ struct seaqt_string QQmlEngineExtensionPlugin_tr3(const char* s, const char* c, 
 }
 
 const QMetaObject* QQmlEngineExtensionPlugin_staticMetaObject() { return &QQmlEngineExtensionPlugin::staticMetaObject; }
-bool QQmlEngineExtensionPlugin_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQQmlEngineExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlEngineExtensionPlugin*>( (QQmlEngineExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QQmlEngineExtensionPlugin_vdata(VirtualQQmlEngineExtensionPlugin* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQQmlEngineExtensionPlugin>()); }
+VirtualQQmlEngineExtensionPlugin* vdata_QQmlEngineExtensionPlugin(void* vdata) { return reinterpret_cast<VirtualQQmlEngineExtensionPlugin*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQQmlEngineExtensionPlugin>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QQmlEngineExtensionPlugin_virtualbase_metaObject(const VirtualQQmlEngineExtensionPlugin* self) {
+
+	return (QMetaObject*) self->QQmlEngineExtensionPlugin::metaObject();
 }
 
-QMetaObject* QQmlEngineExtensionPlugin_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQQmlEngineExtensionPlugin*>(self)->QQmlEngineExtensionPlugin::metaObject();
+void* QQmlEngineExtensionPlugin_virtualbase_metacast(VirtualQQmlEngineExtensionPlugin* self, const char* param1) {
+
+	return self->QQmlEngineExtensionPlugin::qt_metacast(param1);
 }
 
-bool QQmlEngineExtensionPlugin_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQQmlEngineExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlEngineExtensionPlugin*>( (QQmlEngineExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QQmlEngineExtensionPlugin_virtualbase_metacall(VirtualQQmlEngineExtensionPlugin* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QQmlEngineExtensionPlugin::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QQmlEngineExtensionPlugin_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQQmlEngineExtensionPlugin*>(self)->QQmlEngineExtensionPlugin::qt_metacast(param1);
+void QQmlEngineExtensionPlugin_virtualbase_initializeEngine(VirtualQQmlEngineExtensionPlugin* self, QQmlEngine* engine, const char* uri) {
+
+	self->QQmlEngineExtensionPlugin::initializeEngine(engine, uri);
 }
 
-bool QQmlEngineExtensionPlugin_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQQmlEngineExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlEngineExtensionPlugin*>( (QQmlEngineExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QQmlEngineExtensionPlugin_virtualbase_event(VirtualQQmlEngineExtensionPlugin* self, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QQmlEngineExtensionPlugin::event(event);
 }
 
-int QQmlEngineExtensionPlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQQmlEngineExtensionPlugin*>(self)->QQmlEngineExtensionPlugin::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+bool QQmlEngineExtensionPlugin_virtualbase_eventFilter(VirtualQQmlEngineExtensionPlugin* self, QObject* watched, QEvent* event) {
+
+	return self->QQmlEngineExtensionPlugin::eventFilter(watched, event);
 }
 
-bool QQmlEngineExtensionPlugin_override_virtual_initializeEngine(void* self, intptr_t slot) {
-	VirtualQQmlEngineExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlEngineExtensionPlugin*>( (QQmlEngineExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QQmlEngineExtensionPlugin_virtualbase_timerEvent(VirtualQQmlEngineExtensionPlugin* self, QTimerEvent* event) {
 
-	self_cast->handle__initializeEngine = slot;
-	return true;
+	self->QQmlEngineExtensionPlugin::timerEvent(event);
 }
 
-void QQmlEngineExtensionPlugin_virtualbase_initializeEngine(void* self, QQmlEngine* engine, const char* uri) {
-	static_cast<VirtualQQmlEngineExtensionPlugin*>(self)->QQmlEngineExtensionPlugin::initializeEngine(engine, uri);
+void QQmlEngineExtensionPlugin_virtualbase_childEvent(VirtualQQmlEngineExtensionPlugin* self, QChildEvent* event) {
+
+	self->QQmlEngineExtensionPlugin::childEvent(event);
 }
 
-bool QQmlEngineExtensionPlugin_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQQmlEngineExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlEngineExtensionPlugin*>( (QQmlEngineExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QQmlEngineExtensionPlugin_virtualbase_customEvent(VirtualQQmlEngineExtensionPlugin* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QQmlEngineExtensionPlugin::customEvent(event);
 }
 
-bool QQmlEngineExtensionPlugin_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQQmlEngineExtensionPlugin*>(self)->QQmlEngineExtensionPlugin::event(event);
+void QQmlEngineExtensionPlugin_virtualbase_connectNotify(VirtualQQmlEngineExtensionPlugin* self, QMetaMethod* signal) {
+
+	self->QQmlEngineExtensionPlugin::connectNotify(*signal);
 }
 
-bool QQmlEngineExtensionPlugin_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQQmlEngineExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlEngineExtensionPlugin*>( (QQmlEngineExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QQmlEngineExtensionPlugin_virtualbase_disconnectNotify(VirtualQQmlEngineExtensionPlugin* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QQmlEngineExtensionPlugin::disconnectNotify(*signal);
 }
 
-bool QQmlEngineExtensionPlugin_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQQmlEngineExtensionPlugin*>(self)->QQmlEngineExtensionPlugin::eventFilter(watched, event);
+QObject* QQmlEngineExtensionPlugin_protectedbase_sender(const VirtualQQmlEngineExtensionPlugin* self) {
+	return self->sender();
 }
 
-bool QQmlEngineExtensionPlugin_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQQmlEngineExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlEngineExtensionPlugin*>( (QQmlEngineExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+int QQmlEngineExtensionPlugin_protectedbase_senderSignalIndex(const VirtualQQmlEngineExtensionPlugin* self) {
+	return self->senderSignalIndex();
 }
 
-void QQmlEngineExtensionPlugin_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQQmlEngineExtensionPlugin*>(self)->QQmlEngineExtensionPlugin::timerEvent(event);
+int QQmlEngineExtensionPlugin_protectedbase_receivers(const VirtualQQmlEngineExtensionPlugin* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QQmlEngineExtensionPlugin_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQQmlEngineExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlEngineExtensionPlugin*>( (QQmlEngineExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QQmlEngineExtensionPlugin_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQQmlEngineExtensionPlugin*>(self)->QQmlEngineExtensionPlugin::childEvent(event);
-}
-
-bool QQmlEngineExtensionPlugin_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQQmlEngineExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlEngineExtensionPlugin*>( (QQmlEngineExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QQmlEngineExtensionPlugin_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQQmlEngineExtensionPlugin*>(self)->QQmlEngineExtensionPlugin::customEvent(event);
-}
-
-bool QQmlEngineExtensionPlugin_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQQmlEngineExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlEngineExtensionPlugin*>( (QQmlEngineExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QQmlEngineExtensionPlugin_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQQmlEngineExtensionPlugin*>(self)->QQmlEngineExtensionPlugin::connectNotify(*signal);
-}
-
-bool QQmlEngineExtensionPlugin_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQQmlEngineExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlEngineExtensionPlugin*>( (QQmlEngineExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QQmlEngineExtensionPlugin_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQQmlEngineExtensionPlugin*>(self)->QQmlEngineExtensionPlugin::disconnectNotify(*signal);
-}
-
-QObject* QQmlEngineExtensionPlugin_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQQmlEngineExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlEngineExtensionPlugin*>( (QQmlEngineExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QQmlEngineExtensionPlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQQmlEngineExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlEngineExtensionPlugin*>( (QQmlEngineExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QQmlEngineExtensionPlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQQmlEngineExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlEngineExtensionPlugin*>( (QQmlEngineExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QQmlEngineExtensionPlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQQmlEngineExtensionPlugin* self_cast = dynamic_cast<VirtualQQmlEngineExtensionPlugin*>( (QQmlEngineExtensionPlugin*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QQmlEngineExtensionPlugin_protectedbase_isSignalConnected(const VirtualQQmlEngineExtensionPlugin* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QQmlEngineExtensionPlugin_delete(QQmlEngineExtensionPlugin* self) {
