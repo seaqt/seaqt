@@ -15,15 +15,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QSqlError* QSqlError_new(struct seaqt_string driverText, struct seaqt_string databaseText, int type, int number) {
 	QString driverText_QString = QString::fromUtf8(driverText.data, driverText.len);
 	QString databaseText_QString = QString::fromUtf8(databaseText.data, databaseText.len);

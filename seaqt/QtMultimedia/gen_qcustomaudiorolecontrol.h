@@ -38,7 +38,7 @@ struct seaqt_string QCustomAudioRoleControl_customAudioRole(const QCustomAudioRo
 void QCustomAudioRoleControl_setCustomAudioRole(QCustomAudioRoleControl* self, struct seaqt_string role);
 struct seaqt_array /* of struct seaqt_string */  QCustomAudioRoleControl_supportedCustomAudioRoles(const QCustomAudioRoleControl* self);
 void QCustomAudioRoleControl_customAudioRoleChanged(QCustomAudioRoleControl* self, struct seaqt_string role);
-void QCustomAudioRoleControl_connect_customAudioRoleChanged(QCustomAudioRoleControl* self, intptr_t slot);
+void QCustomAudioRoleControl_connect_customAudioRoleChanged(QCustomAudioRoleControl* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_string), void (*release)(intptr_t));
 struct seaqt_string QCustomAudioRoleControl_tr2(const char* s, const char* c);
 struct seaqt_string QCustomAudioRoleControl_tr3(const char* s, const char* c, int n);
 struct seaqt_string QCustomAudioRoleControl_trUtf82(const char* s, const char* c);

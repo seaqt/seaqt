@@ -22,20 +22,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QPdfPageNavigation_documentChanged(intptr_t, QPdfDocument*);
-void miqt_exec_callback_QPdfPageNavigation_currentPageChanged(intptr_t, int);
-void miqt_exec_callback_QPdfPageNavigation_pageCountChanged(intptr_t, int);
-void miqt_exec_callback_QPdfPageNavigation_canGoToPreviousPageChanged(intptr_t, bool);
-void miqt_exec_callback_QPdfPageNavigation_canGoToNextPageChanged(intptr_t, bool);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQPdfPageNavigation final : public QPdfPageNavigation {
 	const QPdfPageNavigation_VTable* vtbl;
 public:
@@ -270,55 +256,80 @@ void QPdfPageNavigation_documentChanged(QPdfPageNavigation* self, QPdfDocument* 
 	self->documentChanged(document);
 }
 
-void QPdfPageNavigation_connect_documentChanged(QPdfPageNavigation* self, intptr_t slot) {
-	QPdfPageNavigation::connect(self, static_cast<void (QPdfPageNavigation::*)(QPdfDocument*)>(&QPdfPageNavigation::documentChanged), self, [=](QPdfDocument* document) {
-		QPdfDocument* sigval1 = document;
-		miqt_exec_callback_QPdfPageNavigation_documentChanged(slot, sigval1);
-	});
+void QPdfPageNavigation_connect_documentChanged(QPdfPageNavigation* self, intptr_t slot, void (*callback)(intptr_t, QPdfDocument*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QPdfDocument*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QPdfDocument*);
+		void operator()(QPdfDocument* document) {
+			QPdfDocument* sigval1 = document;
+			callback(slot, sigval1);
+		}
+	};
+	QPdfPageNavigation::connect(self, static_cast<void (QPdfPageNavigation::*)(QPdfDocument*)>(&QPdfPageNavigation::documentChanged), self, local_caller{slot, callback, release});
 }
 
 void QPdfPageNavigation_currentPageChanged(QPdfPageNavigation* self, int currentPage) {
 	self->currentPageChanged(static_cast<int>(currentPage));
 }
 
-void QPdfPageNavigation_connect_currentPageChanged(QPdfPageNavigation* self, intptr_t slot) {
-	QPdfPageNavigation::connect(self, static_cast<void (QPdfPageNavigation::*)(int)>(&QPdfPageNavigation::currentPageChanged), self, [=](int currentPage) {
-		int sigval1 = currentPage;
-		miqt_exec_callback_QPdfPageNavigation_currentPageChanged(slot, sigval1);
-	});
+void QPdfPageNavigation_connect_currentPageChanged(QPdfPageNavigation* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(int currentPage) {
+			int sigval1 = currentPage;
+			callback(slot, sigval1);
+		}
+	};
+	QPdfPageNavigation::connect(self, static_cast<void (QPdfPageNavigation::*)(int)>(&QPdfPageNavigation::currentPageChanged), self, local_caller{slot, callback, release});
 }
 
 void QPdfPageNavigation_pageCountChanged(QPdfPageNavigation* self, int pageCount) {
 	self->pageCountChanged(static_cast<int>(pageCount));
 }
 
-void QPdfPageNavigation_connect_pageCountChanged(QPdfPageNavigation* self, intptr_t slot) {
-	QPdfPageNavigation::connect(self, static_cast<void (QPdfPageNavigation::*)(int)>(&QPdfPageNavigation::pageCountChanged), self, [=](int pageCount) {
-		int sigval1 = pageCount;
-		miqt_exec_callback_QPdfPageNavigation_pageCountChanged(slot, sigval1);
-	});
+void QPdfPageNavigation_connect_pageCountChanged(QPdfPageNavigation* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(int pageCount) {
+			int sigval1 = pageCount;
+			callback(slot, sigval1);
+		}
+	};
+	QPdfPageNavigation::connect(self, static_cast<void (QPdfPageNavigation::*)(int)>(&QPdfPageNavigation::pageCountChanged), self, local_caller{slot, callback, release});
 }
 
 void QPdfPageNavigation_canGoToPreviousPageChanged(QPdfPageNavigation* self, bool canGo) {
 	self->canGoToPreviousPageChanged(canGo);
 }
 
-void QPdfPageNavigation_connect_canGoToPreviousPageChanged(QPdfPageNavigation* self, intptr_t slot) {
-	QPdfPageNavigation::connect(self, static_cast<void (QPdfPageNavigation::*)(bool)>(&QPdfPageNavigation::canGoToPreviousPageChanged), self, [=](bool canGo) {
-		bool sigval1 = canGo;
-		miqt_exec_callback_QPdfPageNavigation_canGoToPreviousPageChanged(slot, sigval1);
-	});
+void QPdfPageNavigation_connect_canGoToPreviousPageChanged(QPdfPageNavigation* self, intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, bool);
+		void operator()(bool canGo) {
+			bool sigval1 = canGo;
+			callback(slot, sigval1);
+		}
+	};
+	QPdfPageNavigation::connect(self, static_cast<void (QPdfPageNavigation::*)(bool)>(&QPdfPageNavigation::canGoToPreviousPageChanged), self, local_caller{slot, callback, release});
 }
 
 void QPdfPageNavigation_canGoToNextPageChanged(QPdfPageNavigation* self, bool canGo) {
 	self->canGoToNextPageChanged(canGo);
 }
 
-void QPdfPageNavigation_connect_canGoToNextPageChanged(QPdfPageNavigation* self, intptr_t slot) {
-	QPdfPageNavigation::connect(self, static_cast<void (QPdfPageNavigation::*)(bool)>(&QPdfPageNavigation::canGoToNextPageChanged), self, [=](bool canGo) {
-		bool sigval1 = canGo;
-		miqt_exec_callback_QPdfPageNavigation_canGoToNextPageChanged(slot, sigval1);
-	});
+void QPdfPageNavigation_connect_canGoToNextPageChanged(QPdfPageNavigation* self, intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, bool);
+		void operator()(bool canGo) {
+			bool sigval1 = canGo;
+			callback(slot, sigval1);
+		}
+	};
+	QPdfPageNavigation::connect(self, static_cast<void (QPdfPageNavigation::*)(bool)>(&QPdfPageNavigation::canGoToNextPageChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QPdfPageNavigation_tr2(const char* s, const char* c) {

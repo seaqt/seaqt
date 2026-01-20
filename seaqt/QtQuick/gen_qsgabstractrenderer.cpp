@@ -25,16 +25,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QSGAbstractRenderer_sceneGraphChanged(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QSGAbstractRenderer_virtbase(QSGAbstractRenderer* src, QObject** outptr_QObject) {
 	*outptr_QObject = static_cast<QObject*>(src);
 }
@@ -154,10 +144,15 @@ void QSGAbstractRenderer_sceneGraphChanged(QSGAbstractRenderer* self) {
 	self->sceneGraphChanged();
 }
 
-void QSGAbstractRenderer_connect_sceneGraphChanged(QSGAbstractRenderer* self, intptr_t slot) {
-	QSGAbstractRenderer::connect(self, static_cast<void (QSGAbstractRenderer::*)()>(&QSGAbstractRenderer::sceneGraphChanged), self, [=]() {
-		miqt_exec_callback_QSGAbstractRenderer_sceneGraphChanged(slot);
-	});
+void QSGAbstractRenderer_connect_sceneGraphChanged(QSGAbstractRenderer* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QSGAbstractRenderer::connect(self, static_cast<void (QSGAbstractRenderer::*)()>(&QSGAbstractRenderer::sceneGraphChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QSGAbstractRenderer_tr2(const char* s, const char* c) {

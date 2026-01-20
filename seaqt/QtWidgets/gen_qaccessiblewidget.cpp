@@ -27,15 +27,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QAccessibleWidget* QAccessibleWidget_new(QWidget* o) {
 	return new (std::nothrow) QAccessibleWidget(o);
 }

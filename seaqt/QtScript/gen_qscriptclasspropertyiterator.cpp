@@ -14,15 +14,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QScriptValue* QScriptClassPropertyIterator_object(const QScriptClassPropertyIterator* self) {
 	return new QScriptValue(self->object());
 }

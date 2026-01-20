@@ -18,15 +18,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QWebEngineCertificateError* QWebEngineCertificateError_new(int error, QUrl* url, bool overridable, struct seaqt_string errorDescription) {
 	QString errorDescription_QString = QString::fromUtf8(errorDescription.data, errorDescription.len);
 	return new (std::nothrow) QWebEngineCertificateError(static_cast<int>(error), *url, overridable, errorDescription_QString);

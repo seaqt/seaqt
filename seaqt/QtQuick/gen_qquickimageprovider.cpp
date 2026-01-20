@@ -30,16 +30,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QQuickImageResponse_finished(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQQuickTextureFactory final : public QQuickTextureFactory {
 	const QQuickTextureFactory_VTable* vtbl;
 public:
@@ -653,10 +643,15 @@ void QQuickImageResponse_finished(QQuickImageResponse* self) {
 	self->finished();
 }
 
-void QQuickImageResponse_connect_finished(QQuickImageResponse* self, intptr_t slot) {
-	QQuickImageResponse::connect(self, static_cast<void (QQuickImageResponse::*)()>(&QQuickImageResponse::finished), self, [=]() {
-		miqt_exec_callback_QQuickImageResponse_finished(slot);
-	});
+void QQuickImageResponse_connect_finished(QQuickImageResponse* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QQuickImageResponse::connect(self, static_cast<void (QQuickImageResponse::*)()>(&QQuickImageResponse::finished), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QQuickImageResponse_tr2(const char* s, const char* c) {
