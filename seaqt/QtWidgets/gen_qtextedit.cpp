@@ -127,7 +127,9 @@ public:
 		// Cast returned reference into pointer
 		QUrl* sigval2 = const_cast<QUrl*>(&name_ret);
 		QVariant* callback_return_value = vtbl->loadResource(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QTextEdit_virtualbase_loadResource(VirtualQTextEdit* self, int type, QUrl* name);
@@ -140,7 +142,9 @@ public:
 		Qt::InputMethodQuery property_ret = property;
 		int sigval1 = static_cast<int>(property_ret);
 		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QTextEdit_virtualbase_inputMethodQuery(const VirtualQTextEdit* self, int property);
@@ -477,7 +481,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->minimumSizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QTextEdit_virtualbase_minimumSizeHint(const VirtualQTextEdit* self);
@@ -488,7 +494,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->sizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QTextEdit_virtualbase_sizeHint(const VirtualQTextEdit* self);
@@ -536,7 +544,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->viewportSizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QTextEdit_virtualbase_viewportSizeHint(const VirtualQTextEdit* self);

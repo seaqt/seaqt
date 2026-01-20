@@ -144,7 +144,9 @@ public:
 		// Cast returned reference into pointer
 		QUrl* sigval2 = const_cast<QUrl*>(&name_ret);
 		QVariant* callback_return_value = vtbl->loadResource(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QTextDocument_virtualbase_loadResource(VirtualQTextDocument* self, int type, QUrl* name);
