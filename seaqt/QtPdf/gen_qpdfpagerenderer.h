@@ -45,6 +45,7 @@ QPdfPageRenderer* QPdfPageRenderer_new2(QObject* parent);
 void QPdfPageRenderer_virtbase(QPdfPageRenderer* src, QObject** outptr_QObject);
 QMetaObject* QPdfPageRenderer_metaObject(const QPdfPageRenderer* self);
 void* QPdfPageRenderer_metacast(QPdfPageRenderer* self, const char* param1);
+int QPdfPageRenderer_metacall(QPdfPageRenderer* self, int param1, int param2, void** param3);
 struct seaqt_string QPdfPageRenderer_tr(const char* s);
 int QPdfPageRenderer_renderMode(const QPdfPageRenderer* self);
 void QPdfPageRenderer_setRenderMode(QPdfPageRenderer* self, int mode);
@@ -61,6 +62,12 @@ struct seaqt_string QPdfPageRenderer_tr2(const char* s, const char* c);
 struct seaqt_string QPdfPageRenderer_tr3(const char* s, const char* c, int n);
 unsigned long long QPdfPageRenderer_requestPage2(QPdfPageRenderer* self, int pageNumber, QSize* imageSize, QPdfDocumentRenderOptions* options);
 
+bool QPdfPageRenderer_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QPdfPageRenderer_virtualbase_metaObject(const void* self);
+bool QPdfPageRenderer_override_virtual_metacast(void* self, intptr_t slot);
+void* QPdfPageRenderer_virtualbase_metacast(void* self, const char* param1);
+bool QPdfPageRenderer_override_virtual_metacall(void* self, intptr_t slot);
+int QPdfPageRenderer_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QPdfPageRenderer_override_virtual_event(void* self, intptr_t slot);
 bool QPdfPageRenderer_virtualbase_event(void* self, QEvent* event);
 bool QPdfPageRenderer_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -81,6 +88,7 @@ int QPdfPageRenderer_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, con
 int QPdfPageRenderer_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QPdfPageRenderer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QPdfPageRenderer_staticMetaObject();
 void QPdfPageRenderer_delete(QPdfPageRenderer* self);
 
 #ifdef __cplusplus

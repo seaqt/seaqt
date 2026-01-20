@@ -40,6 +40,7 @@ QGeoPositionInfoSource* QGeoPositionInfoSource_new(QObject* parent);
 void QGeoPositionInfoSource_virtbase(QGeoPositionInfoSource* src, QObject** outptr_QObject);
 QMetaObject* QGeoPositionInfoSource_metaObject(const QGeoPositionInfoSource* self);
 void* QGeoPositionInfoSource_metacast(QGeoPositionInfoSource* self, const char* param1);
+int QGeoPositionInfoSource_metacall(QGeoPositionInfoSource* self, int param1, int param2, void** param3);
 struct seaqt_string QGeoPositionInfoSource_tr(const char* s);
 void QGeoPositionInfoSource_setUpdateInterval(QGeoPositionInfoSource* self, int msec);
 int QGeoPositionInfoSource_updateInterval(const QGeoPositionInfoSource* self);
@@ -69,6 +70,12 @@ void QGeoPositionInfoSource_connect_supportedPositioningMethodsChanged(QGeoPosit
 struct seaqt_string QGeoPositionInfoSource_tr2(const char* s, const char* c);
 struct seaqt_string QGeoPositionInfoSource_tr3(const char* s, const char* c, int n);
 
+bool QGeoPositionInfoSource_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QGeoPositionInfoSource_virtualbase_metaObject(const void* self);
+bool QGeoPositionInfoSource_override_virtual_metacast(void* self, intptr_t slot);
+void* QGeoPositionInfoSource_virtualbase_metacast(void* self, const char* param1);
+bool QGeoPositionInfoSource_override_virtual_metacall(void* self, intptr_t slot);
+int QGeoPositionInfoSource_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QGeoPositionInfoSource_override_virtual_setUpdateInterval(void* self, intptr_t slot);
 void QGeoPositionInfoSource_virtualbase_setUpdateInterval(void* self, int msec);
 bool QGeoPositionInfoSource_override_virtual_setPreferredPositioningMethods(void* self, intptr_t slot);
@@ -111,6 +118,7 @@ int QGeoPositionInfoSource_protectedbase_senderSignalIndex(bool* _dynamic_cast_o
 int QGeoPositionInfoSource_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QGeoPositionInfoSource_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QGeoPositionInfoSource_staticMetaObject();
 void QGeoPositionInfoSource_delete(QGeoPositionInfoSource* self);
 
 #ifdef __cplusplus

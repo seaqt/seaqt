@@ -45,6 +45,7 @@ QNmeaSatelliteInfoSource* QNmeaSatelliteInfoSource_new2(int mode, QObject* paren
 void QNmeaSatelliteInfoSource_virtbase(QNmeaSatelliteInfoSource* src, QGeoSatelliteInfoSource** outptr_QGeoSatelliteInfoSource);
 QMetaObject* QNmeaSatelliteInfoSource_metaObject(const QNmeaSatelliteInfoSource* self);
 void* QNmeaSatelliteInfoSource_metacast(QNmeaSatelliteInfoSource* self, const char* param1);
+int QNmeaSatelliteInfoSource_metacall(QNmeaSatelliteInfoSource* self, int param1, int param2, void** param3);
 struct seaqt_string QNmeaSatelliteInfoSource_tr(const char* s);
 int QNmeaSatelliteInfoSource_updateMode(const QNmeaSatelliteInfoSource* self);
 void QNmeaSatelliteInfoSource_setDevice(QNmeaSatelliteInfoSource* self, QIODevice* source);
@@ -62,6 +63,12 @@ int QNmeaSatelliteInfoSource_parseSatelliteInfoFromNmea(QNmeaSatelliteInfoSource
 struct seaqt_string QNmeaSatelliteInfoSource_tr2(const char* s, const char* c);
 struct seaqt_string QNmeaSatelliteInfoSource_tr3(const char* s, const char* c, int n);
 
+bool QNmeaSatelliteInfoSource_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QNmeaSatelliteInfoSource_virtualbase_metaObject(const void* self);
+bool QNmeaSatelliteInfoSource_override_virtual_metacast(void* self, intptr_t slot);
+void* QNmeaSatelliteInfoSource_virtualbase_metacast(void* self, const char* param1);
+bool QNmeaSatelliteInfoSource_override_virtual_metacall(void* self, intptr_t slot);
+int QNmeaSatelliteInfoSource_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QNmeaSatelliteInfoSource_override_virtual_setUpdateInterval(void* self, intptr_t slot);
 void QNmeaSatelliteInfoSource_virtualbase_setUpdateInterval(void* self, int msec);
 bool QNmeaSatelliteInfoSource_override_virtual_minimumUpdateInterval(void* self, intptr_t slot);
@@ -103,6 +110,7 @@ int QNmeaSatelliteInfoSource_protectedbase_senderSignalIndex(bool* _dynamic_cast
 int QNmeaSatelliteInfoSource_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QNmeaSatelliteInfoSource_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QNmeaSatelliteInfoSource_staticMetaObject();
 void QNmeaSatelliteInfoSource_delete(QNmeaSatelliteInfoSource* self);
 
 #ifdef __cplusplus

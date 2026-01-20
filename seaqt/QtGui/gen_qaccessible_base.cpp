@@ -3,6 +3,7 @@
 #define WORKAROUND_INNER_CLASS_DEFINITION_QAccessible__State
 #include <QAccessibleEvent>
 #include <QAccessibleInterface>
+#include <QMetaObject>
 #include <QObject>
 #include <QPair>
 #include <QTextCursor>
@@ -81,6 +82,7 @@ struct seaqt_map /* tuple of int and int */  QAccessible_qAccessibleTextBoundary
 	return _out;
 }
 
+const QMetaObject* QAccessible_staticMetaObject() { return &QAccessible::staticMetaObject; }
 void QAccessible_delete(QAccessible* self) {
 	delete self;
 }

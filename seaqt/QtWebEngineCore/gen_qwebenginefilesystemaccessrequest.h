@@ -15,9 +15,11 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
+class QMetaObject;
 class QUrl;
 class QWebEngineFileSystemAccessRequest;
 #else
+typedef struct QMetaObject QMetaObject;
 typedef struct QUrl QUrl;
 typedef struct QWebEngineFileSystemAccessRequest QWebEngineFileSystemAccessRequest;
 #endif
@@ -32,6 +34,7 @@ QUrl* QWebEngineFileSystemAccessRequest_filePath(const QWebEngineFileSystemAcces
 int QWebEngineFileSystemAccessRequest_handleType(const QWebEngineFileSystemAccessRequest* self);
 int QWebEngineFileSystemAccessRequest_accessFlags(const QWebEngineFileSystemAccessRequest* self);
 
+const QMetaObject* QWebEngineFileSystemAccessRequest_staticMetaObject();
 void QWebEngineFileSystemAccessRequest_delete(QWebEngineFileSystemAccessRequest* self);
 
 #ifdef __cplusplus

@@ -24,6 +24,7 @@ class QGlyphRun;
 class QImage;
 class QLine;
 class QLineF;
+class QMetaObject;
 class QPaintDevice;
 class QPaintEngine;
 class QPainter;
@@ -55,6 +56,7 @@ typedef struct QGlyphRun QGlyphRun;
 typedef struct QImage QImage;
 typedef struct QLine QLine;
 typedef struct QLineF QLineF;
+typedef struct QMetaObject QMetaObject;
 typedef struct QPaintDevice QPaintDevice;
 typedef struct QPaintEngine QPaintEngine;
 typedef struct QPainter QPainter;
@@ -296,6 +298,7 @@ QRectF* QPainter_boundingRect5(QPainter* self, QRectF* rect, struct seaqt_string
 void QPainter_setRenderHint2(QPainter* self, int hint, bool on);
 void QPainter_setRenderHints2(QPainter* self, int hints, bool on);
 
+const QMetaObject* QPainter_staticMetaObject();
 void QPainter_delete(QPainter* self);
 
 double QPainter__PixmapFragment_x(const QPainter__PixmapFragment* self);

@@ -39,6 +39,7 @@ QFileSystemWatcher* QFileSystemWatcher_new4(struct seaqt_array /* of struct seaq
 void QFileSystemWatcher_virtbase(QFileSystemWatcher* src, QObject** outptr_QObject);
 QMetaObject* QFileSystemWatcher_metaObject(const QFileSystemWatcher* self);
 void* QFileSystemWatcher_metacast(QFileSystemWatcher* self, const char* param1);
+int QFileSystemWatcher_metacall(QFileSystemWatcher* self, int param1, int param2, void** param3);
 struct seaqt_string QFileSystemWatcher_tr(const char* s);
 bool QFileSystemWatcher_addPath(QFileSystemWatcher* self, struct seaqt_string file);
 struct seaqt_array /* of struct seaqt_string */  QFileSystemWatcher_addPaths(QFileSystemWatcher* self, struct seaqt_array /* of struct seaqt_string */  files);
@@ -49,6 +50,12 @@ struct seaqt_array /* of struct seaqt_string */  QFileSystemWatcher_directories(
 struct seaqt_string QFileSystemWatcher_tr2(const char* s, const char* c);
 struct seaqt_string QFileSystemWatcher_tr3(const char* s, const char* c, int n);
 
+bool QFileSystemWatcher_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QFileSystemWatcher_virtualbase_metaObject(const void* self);
+bool QFileSystemWatcher_override_virtual_metacast(void* self, intptr_t slot);
+void* QFileSystemWatcher_virtualbase_metacast(void* self, const char* param1);
+bool QFileSystemWatcher_override_virtual_metacall(void* self, intptr_t slot);
+int QFileSystemWatcher_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QFileSystemWatcher_override_virtual_event(void* self, intptr_t slot);
 bool QFileSystemWatcher_virtualbase_event(void* self, QEvent* event);
 bool QFileSystemWatcher_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -72,6 +79,7 @@ bool QFileSystemWatcher_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, 
 void QFileSystemWatcher_connect_fileChanged(QFileSystemWatcher* self, intptr_t slot);
 void QFileSystemWatcher_connect_directoryChanged(QFileSystemWatcher* self, intptr_t slot);
 
+const QMetaObject* QFileSystemWatcher_staticMetaObject();
 void QFileSystemWatcher_delete(QFileSystemWatcher* self);
 
 #ifdef __cplusplus

@@ -49,6 +49,7 @@ QSqlDriver* QSqlDriver_new2(QObject* parent);
 void QSqlDriver_virtbase(QSqlDriver* src, QObject** outptr_QObject);
 QMetaObject* QSqlDriver_metaObject(const QSqlDriver* self);
 void* QSqlDriver_metacast(QSqlDriver* self, const char* param1);
+int QSqlDriver_metacall(QSqlDriver* self, int param1, int param2, void** param3);
 struct seaqt_string QSqlDriver_tr(const char* s);
 bool QSqlDriver_isOpen(const QSqlDriver* self);
 bool QSqlDriver_isOpenError(const QSqlDriver* self);
@@ -85,6 +86,12 @@ void QSqlDriver_setLastError(QSqlDriver* self, QSqlError* e);
 struct seaqt_string QSqlDriver_tr2(const char* s, const char* c);
 struct seaqt_string QSqlDriver_tr3(const char* s, const char* c, int n);
 
+bool QSqlDriver_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QSqlDriver_virtualbase_metaObject(const void* self);
+bool QSqlDriver_override_virtual_metacast(void* self, intptr_t slot);
+void* QSqlDriver_virtualbase_metacast(void* self, const char* param1);
+bool QSqlDriver_override_virtual_metacall(void* self, intptr_t slot);
+int QSqlDriver_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QSqlDriver_override_virtual_isOpen(void* self, intptr_t slot);
 bool QSqlDriver_virtualbase_isOpen(const void* self);
 bool QSqlDriver_override_virtual_beginTransaction(void* self, intptr_t slot);
@@ -155,6 +162,7 @@ int QSqlDriver_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const voi
 int QSqlDriver_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QSqlDriver_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QSqlDriver_staticMetaObject();
 void QSqlDriver_delete(QSqlDriver* self);
 
 #ifdef __cplusplus

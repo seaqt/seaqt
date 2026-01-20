@@ -107,6 +107,7 @@ QDnsLookup* QDnsLookup_new6(int type, struct seaqt_string name, QHostAddress* na
 void QDnsLookup_virtbase(QDnsLookup* src, QObject** outptr_QObject);
 QMetaObject* QDnsLookup_metaObject(const QDnsLookup* self);
 void* QDnsLookup_metacast(QDnsLookup* self, const char* param1);
+int QDnsLookup_metacall(QDnsLookup* self, int param1, int param2, void** param3);
 struct seaqt_string QDnsLookup_tr(const char* s);
 int QDnsLookup_error(const QDnsLookup* self);
 struct seaqt_string QDnsLookup_errorString(const QDnsLookup* self);
@@ -137,6 +138,12 @@ void QDnsLookup_connect_nameserverChanged(QDnsLookup* self, intptr_t slot);
 struct seaqt_string QDnsLookup_tr2(const char* s, const char* c);
 struct seaqt_string QDnsLookup_tr3(const char* s, const char* c, int n);
 
+bool QDnsLookup_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QDnsLookup_virtualbase_metaObject(const void* self);
+bool QDnsLookup_override_virtual_metacast(void* self, intptr_t slot);
+void* QDnsLookup_virtualbase_metacast(void* self, const char* param1);
+bool QDnsLookup_override_virtual_metacall(void* self, intptr_t slot);
+int QDnsLookup_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QDnsLookup_override_virtual_event(void* self, intptr_t slot);
 bool QDnsLookup_virtualbase_event(void* self, QEvent* event);
 bool QDnsLookup_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -157,6 +164,7 @@ int QDnsLookup_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const voi
 int QDnsLookup_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QDnsLookup_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QDnsLookup_staticMetaObject();
 void QDnsLookup_delete(QDnsLookup* self);
 
 #ifdef __cplusplus

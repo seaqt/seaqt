@@ -61,6 +61,7 @@ QSqlQueryModel* QSqlQueryModel_new2(QObject* parent);
 void QSqlQueryModel_virtbase(QSqlQueryModel* src, QAbstractTableModel** outptr_QAbstractTableModel);
 QMetaObject* QSqlQueryModel_metaObject(const QSqlQueryModel* self);
 void* QSqlQueryModel_metacast(QSqlQueryModel* self, const char* param1);
+int QSqlQueryModel_metacall(QSqlQueryModel* self, int param1, int param2, void** param3);
 struct seaqt_string QSqlQueryModel_tr(const char* s);
 int QSqlQueryModel_rowCount(const QSqlQueryModel* self, QModelIndex* parent);
 int QSqlQueryModel_columnCount(const QSqlQueryModel* self, QModelIndex* parent);
@@ -85,6 +86,12 @@ struct seaqt_string QSqlQueryModel_tr2(const char* s, const char* c);
 struct seaqt_string QSqlQueryModel_tr3(const char* s, const char* c, int n);
 void QSqlQueryModel_setQuery2(QSqlQueryModel* self, struct seaqt_string query, QSqlDatabase* db);
 
+bool QSqlQueryModel_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QSqlQueryModel_virtualbase_metaObject(const void* self);
+bool QSqlQueryModel_override_virtual_metacast(void* self, intptr_t slot);
+void* QSqlQueryModel_virtualbase_metacast(void* self, const char* param1);
+bool QSqlQueryModel_override_virtual_metacall(void* self, intptr_t slot);
+int QSqlQueryModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QSqlQueryModel_override_virtual_rowCount(void* self, intptr_t slot);
 int QSqlQueryModel_virtualbase_rowCount(const void* self, QModelIndex* parent);
 bool QSqlQueryModel_override_virtual_columnCount(void* self, intptr_t slot);
@@ -202,6 +209,7 @@ int QSqlQueryModel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const
 int QSqlQueryModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QSqlQueryModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QSqlQueryModel_staticMetaObject();
 void QSqlQueryModel_delete(QSqlQueryModel* self);
 
 #ifdef __cplusplus

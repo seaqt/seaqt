@@ -28,6 +28,7 @@ class QAccessible__State;
 #endif
 class QAccessibleEvent;
 class QAccessibleInterface;
+class QMetaObject;
 class QObject;
 class QTextCursor;
 #else
@@ -36,6 +37,7 @@ typedef struct QAccessible__ActivationObserver QAccessible__ActivationObserver;
 typedef struct QAccessible__State QAccessible__State;
 typedef struct QAccessibleEvent QAccessibleEvent;
 typedef struct QAccessibleInterface QAccessibleInterface;
+typedef struct QMetaObject QMetaObject;
 typedef struct QObject QObject;
 typedef struct QTextCursor QTextCursor;
 #endif
@@ -54,6 +56,7 @@ void QAccessible_setRootObject(QObject* object);
 void QAccessible_cleanup();
 struct seaqt_map /* tuple of int and int */  QAccessible_qAccessibleTextBoundaryHelper(QTextCursor* cursor, int boundaryType);
 
+const QMetaObject* QAccessible_staticMetaObject();
 void QAccessible_delete(QAccessible* self);
 
 QAccessible__State* QAccessible__State_new();

@@ -95,6 +95,7 @@ QPageSetupDialog* QPageSetupDialog_new4(QPrinter* printer, QWidget* parent);
 void QPageSetupDialog_virtbase(QPageSetupDialog* src, QDialog** outptr_QDialog);
 QMetaObject* QPageSetupDialog_metaObject(const QPageSetupDialog* self);
 void* QPageSetupDialog_metacast(QPageSetupDialog* self, const char* param1);
+int QPageSetupDialog_metacall(QPageSetupDialog* self, int param1, int param2, void** param3);
 struct seaqt_string QPageSetupDialog_tr(const char* s);
 int QPageSetupDialog_exec(QPageSetupDialog* self);
 void QPageSetupDialog_done(QPageSetupDialog* self, int result);
@@ -102,6 +103,12 @@ QPrinter* QPageSetupDialog_printer(QPageSetupDialog* self);
 struct seaqt_string QPageSetupDialog_tr2(const char* s, const char* c);
 struct seaqt_string QPageSetupDialog_tr3(const char* s, const char* c, int n);
 
+bool QPageSetupDialog_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QPageSetupDialog_virtualbase_metaObject(const void* self);
+bool QPageSetupDialog_override_virtual_metacast(void* self, intptr_t slot);
+void* QPageSetupDialog_virtualbase_metacast(void* self, const char* param1);
+bool QPageSetupDialog_override_virtual_metacall(void* self, intptr_t slot);
+int QPageSetupDialog_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QPageSetupDialog_override_virtual_exec(void* self, intptr_t slot);
 int QPageSetupDialog_virtualbase_exec(void* self);
 bool QPageSetupDialog_override_virtual_done(void* self, intptr_t slot);
@@ -218,6 +225,7 @@ int QPageSetupDialog_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, con
 int QPageSetupDialog_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QPageSetupDialog_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QPageSetupDialog_staticMetaObject();
 void QPageSetupDialog_delete(QPageSetupDialog* self);
 
 #ifdef __cplusplus

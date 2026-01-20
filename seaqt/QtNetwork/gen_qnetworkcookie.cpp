@@ -1,6 +1,7 @@
 #include <QByteArray>
 #include <QDateTime>
 #include <QList>
+#include <QMetaObject>
 #include <QNetworkCookie>
 #include <QString>
 #include <QByteArray>
@@ -189,6 +190,7 @@ struct seaqt_string QNetworkCookie_toRawFormWithForm(const QNetworkCookie* self,
 	return _ms;
 }
 
+const QMetaObject* QNetworkCookie_staticMetaObject() { return &QNetworkCookie::staticMetaObject; }
 void QNetworkCookie_delete(QNetworkCookie* self) {
 	delete self;
 }
