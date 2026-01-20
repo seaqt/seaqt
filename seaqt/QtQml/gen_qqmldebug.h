@@ -24,6 +24,7 @@ typedef struct QVariant QVariant;
 
 QQmlDebuggingEnabler* QQmlDebuggingEnabler_new();
 QQmlDebuggingEnabler* QQmlDebuggingEnabler_new2(bool printWarning);
+
 struct seaqt_array /* of struct seaqt_string */  QQmlDebuggingEnabler_debuggerServices();
 struct seaqt_array /* of struct seaqt_string */  QQmlDebuggingEnabler_inspectorServices();
 struct seaqt_array /* of struct seaqt_string */  QQmlDebuggingEnabler_profilerServices();

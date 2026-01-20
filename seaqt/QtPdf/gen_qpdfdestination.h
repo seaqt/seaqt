@@ -25,6 +25,7 @@ typedef struct QPointF QPointF;
 #endif
 
 QPdfDestination* QPdfDestination_new(QPdfDestination* other);
+
 void QPdfDestination_operatorAssign(QPdfDestination* self, QPdfDestination* other);
 void QPdfDestination_swap(QPdfDestination* self, QPdfDestination* other);
 bool QPdfDestination_isValid(const QPdfDestination* self);

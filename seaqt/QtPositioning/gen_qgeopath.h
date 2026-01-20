@@ -33,6 +33,7 @@ QGeoPath* QGeoPath_new2(struct seaqt_array /* of QGeoCoordinate* */  path);
 QGeoPath* QGeoPath_new3(QGeoPath* other);
 QGeoPath* QGeoPath_new4(QGeoShape* other);
 QGeoPath* QGeoPath_new5(struct seaqt_array /* of QGeoCoordinate* */  path, const double* width);
+
 void QGeoPath_virtbase(QGeoPath* src, QGeoShape** outptr_QGeoShape);
 void QGeoPath_operatorAssign(QGeoPath* self, QGeoPath* other);
 bool QGeoPath_operatorEqual(const QGeoPath* self, QGeoPath* other);

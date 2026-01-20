@@ -38,6 +38,7 @@ QLocale* QLocale_new3(int language);
 QLocale* QLocale_new4(int language, int script, int country);
 QLocale* QLocale_new5(QLocale* other);
 QLocale* QLocale_new6(int language, int country);
+
 void QLocale_operatorAssign(QLocale* self, QLocale* other);
 void QLocale_swap(QLocale* self, QLocale* other);
 int QLocale_language(const QLocale* self);

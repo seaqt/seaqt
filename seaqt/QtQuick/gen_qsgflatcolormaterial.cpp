@@ -6,74 +6,75 @@
 #include <qsgflatcolormaterial.h>
 #include "gen_qsgflatcolormaterial.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QSGMaterialType* miqt_exec_callback_QSGFlatColorMaterial_type(const QSGFlatColorMaterial*, intptr_t);
-QSGMaterialShader* miqt_exec_callback_QSGFlatColorMaterial_createShader(const QSGFlatColorMaterial*, intptr_t);
-int miqt_exec_callback_QSGFlatColorMaterial_compare(const QSGFlatColorMaterial*, intptr_t, QSGMaterial*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQSGFlatColorMaterial final : public QSGFlatColorMaterial {
+	const QSGFlatColorMaterial_VTable* vtbl;
 public:
+	friend void* QSGFlatColorMaterial_vdata(VirtualQSGFlatColorMaterial* self);
+	friend VirtualQSGFlatColorMaterial* vdata_QSGFlatColorMaterial(void* vdata);
 
-	VirtualQSGFlatColorMaterial(): QSGFlatColorMaterial() {}
+	VirtualQSGFlatColorMaterial(const QSGFlatColorMaterial_VTable* vtbl): QSGFlatColorMaterial(), vtbl(vtbl) {}
 
-	virtual ~VirtualQSGFlatColorMaterial() override = default;
+	virtual ~VirtualQSGFlatColorMaterial() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__type = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual QSGMaterialType* type() const override {
-		if (handle__type == 0) {
+		if (vtbl->type == 0) {
 			return QSGFlatColorMaterial::type();
 		}
 
-		QSGMaterialType* callback_return_value = miqt_exec_callback_QSGFlatColorMaterial_type(this, handle__type);
+		QSGMaterialType* callback_return_value = vtbl->type(this);
 		return callback_return_value;
 	}
 
-	friend QSGMaterialType* QSGFlatColorMaterial_virtualbase_type(const void* self);
+	friend QSGMaterialType* QSGFlatColorMaterial_virtualbase_type(const VirtualQSGFlatColorMaterial* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__createShader = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSGMaterialShader* createShader() const override {
-		if (handle__createShader == 0) {
+		if (vtbl->createShader == 0) {
 			return QSGFlatColorMaterial::createShader();
 		}
 
-		QSGMaterialShader* callback_return_value = miqt_exec_callback_QSGFlatColorMaterial_createShader(this, handle__createShader);
+		QSGMaterialShader* callback_return_value = vtbl->createShader(this);
 		return callback_return_value;
 	}
 
-	friend QSGMaterialShader* QSGFlatColorMaterial_virtualbase_createShader(const void* self);
+	friend QSGMaterialShader* QSGFlatColorMaterial_virtualbase_createShader(const VirtualQSGFlatColorMaterial* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__compare = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int compare(const QSGMaterial* other) const override {
-		if (handle__compare == 0) {
+		if (vtbl->compare == 0) {
 			return QSGFlatColorMaterial::compare(other);
 		}
 
 		QSGMaterial* sigval1 = (QSGMaterial*) other;
-		int callback_return_value = miqt_exec_callback_QSGFlatColorMaterial_compare(this, handle__compare, sigval1);
+		int callback_return_value = vtbl->compare(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QSGFlatColorMaterial_virtualbase_compare(const void* self, QSGMaterial* other);
+	friend int QSGFlatColorMaterial_virtualbase_compare(const VirtualQSGFlatColorMaterial* self, QSGMaterial* other);
 
 };
 
-QSGFlatColorMaterial* QSGFlatColorMaterial_new() {
-	return new (std::nothrow) VirtualQSGFlatColorMaterial();
+VirtualQSGFlatColorMaterial* QSGFlatColorMaterial_new(const QSGFlatColorMaterial_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSGFlatColorMaterial>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSGFlatColorMaterial(vtbl) : nullptr;
 }
 
 void QSGFlatColorMaterial_virtbase(QSGFlatColorMaterial* src, QSGMaterial** outptr_QSGMaterial) {
@@ -102,46 +103,22 @@ int QSGFlatColorMaterial_compare(const QSGFlatColorMaterial* self, QSGMaterial* 
 	return self->compare(other);
 }
 
-bool QSGFlatColorMaterial_override_virtual_type(void* self, intptr_t slot) {
-	VirtualQSGFlatColorMaterial* self_cast = dynamic_cast<VirtualQSGFlatColorMaterial*>( (QSGFlatColorMaterial*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QSGFlatColorMaterial_vdata(VirtualQSGFlatColorMaterial* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQSGFlatColorMaterial>()); }
+VirtualQSGFlatColorMaterial* vdata_QSGFlatColorMaterial(void* vdata) { return reinterpret_cast<VirtualQSGFlatColorMaterial*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQSGFlatColorMaterial>()); }
 
-	self_cast->handle__type = slot;
-	return true;
+QSGMaterialType* QSGFlatColorMaterial_virtualbase_type(const VirtualQSGFlatColorMaterial* self) {
+
+	return self->QSGFlatColorMaterial::type();
 }
 
-QSGMaterialType* QSGFlatColorMaterial_virtualbase_type(const void* self) {
-	return static_cast<const VirtualQSGFlatColorMaterial*>(self)->QSGFlatColorMaterial::type();
+QSGMaterialShader* QSGFlatColorMaterial_virtualbase_createShader(const VirtualQSGFlatColorMaterial* self) {
+
+	return self->QSGFlatColorMaterial::createShader();
 }
 
-bool QSGFlatColorMaterial_override_virtual_createShader(void* self, intptr_t slot) {
-	VirtualQSGFlatColorMaterial* self_cast = dynamic_cast<VirtualQSGFlatColorMaterial*>( (QSGFlatColorMaterial*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QSGFlatColorMaterial_virtualbase_compare(const VirtualQSGFlatColorMaterial* self, QSGMaterial* other) {
 
-	self_cast->handle__createShader = slot;
-	return true;
-}
-
-QSGMaterialShader* QSGFlatColorMaterial_virtualbase_createShader(const void* self) {
-	return static_cast<const VirtualQSGFlatColorMaterial*>(self)->QSGFlatColorMaterial::createShader();
-}
-
-bool QSGFlatColorMaterial_override_virtual_compare(void* self, intptr_t slot) {
-	VirtualQSGFlatColorMaterial* self_cast = dynamic_cast<VirtualQSGFlatColorMaterial*>( (QSGFlatColorMaterial*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__compare = slot;
-	return true;
-}
-
-int QSGFlatColorMaterial_virtualbase_compare(const void* self, QSGMaterial* other) {
-	return static_cast<const VirtualQSGFlatColorMaterial*>(self)->QSGFlatColorMaterial::compare(other);
+	return self->QSGFlatColorMaterial::compare(other);
 }
 
 void QSGFlatColorMaterial_delete(QSGFlatColorMaterial* self) {

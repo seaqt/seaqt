@@ -40,6 +40,7 @@ QRawFont* QRawFont_new3(struct seaqt_string fontData, double pixelSize);
 QRawFont* QRawFont_new4(QRawFont* other);
 QRawFont* QRawFont_new5(struct seaqt_string fileName, double pixelSize, int hintingPreference);
 QRawFont* QRawFont_new6(struct seaqt_string fontData, double pixelSize, int hintingPreference);
+
 void QRawFont_operatorAssign(QRawFont* self, QRawFont* other);
 void QRawFont_swap(QRawFont* self, QRawFont* other);
 bool QRawFont_isValid(const QRawFont* self);

@@ -36,10 +36,31 @@ typedef struct QState QState;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QEventTransition* QEventTransition_new();
-QEventTransition* QEventTransition_new2(QObject* object, int type);
-QEventTransition* QEventTransition_new3(QState* sourceState);
-QEventTransition* QEventTransition_new4(QObject* object, int type, QState* sourceState);
+typedef struct VirtualQEventTransition VirtualQEventTransition;
+typedef struct QEventTransition_VTable{
+	void (*destructor)(VirtualQEventTransition* self);
+	QMetaObject* (*metaObject)(const VirtualQEventTransition* self);
+	void* (*metacast)(VirtualQEventTransition* self, const char* param1);
+	int (*metacall)(VirtualQEventTransition* self, int param1, int param2, void** param3);
+	bool (*eventTest)(VirtualQEventTransition* self, QEvent* event);
+	void (*onTransition)(VirtualQEventTransition* self, QEvent* event);
+	bool (*event)(VirtualQEventTransition* self, QEvent* e);
+	bool (*eventFilter)(VirtualQEventTransition* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQEventTransition* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQEventTransition* self, QChildEvent* event);
+	void (*customEvent)(VirtualQEventTransition* self, QEvent* event);
+	void (*connectNotify)(VirtualQEventTransition* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQEventTransition* self, QMetaMethod* signal);
+}QEventTransition_VTable;
+
+void* QEventTransition_vdata(VirtualQEventTransition* self);
+VirtualQEventTransition* vdata_QEventTransition(void* vdata);
+
+VirtualQEventTransition* QEventTransition_new(const QEventTransition_VTable* vtbl, size_t vdata);
+VirtualQEventTransition* QEventTransition_new2(const QEventTransition_VTable* vtbl, size_t vdata, QObject* object, int type);
+VirtualQEventTransition* QEventTransition_new3(const QEventTransition_VTable* vtbl, size_t vdata, QState* sourceState);
+VirtualQEventTransition* QEventTransition_new4(const QEventTransition_VTable* vtbl, size_t vdata, QObject* object, int type, QState* sourceState);
+
 void QEventTransition_virtbase(QEventTransition* src, QAbstractTransition** outptr_QAbstractTransition);
 QMetaObject* QEventTransition_metaObject(const QEventTransition* self);
 void* QEventTransition_metacast(QEventTransition* self, const char* param1);
@@ -58,35 +79,23 @@ struct seaqt_string QEventTransition_tr3(const char* s, const char* c, int n);
 struct seaqt_string QEventTransition_trUtf82(const char* s, const char* c);
 struct seaqt_string QEventTransition_trUtf83(const char* s, const char* c, int n);
 
-bool QEventTransition_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QEventTransition_virtualbase_metaObject(const void* self);
-bool QEventTransition_override_virtual_metacast(void* self, intptr_t slot);
-void* QEventTransition_virtualbase_metacast(void* self, const char* param1);
-bool QEventTransition_override_virtual_metacall(void* self, intptr_t slot);
-int QEventTransition_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QEventTransition_override_virtual_eventTest(void* self, intptr_t slot);
-bool QEventTransition_virtualbase_eventTest(void* self, QEvent* event);
-bool QEventTransition_override_virtual_onTransition(void* self, intptr_t slot);
-void QEventTransition_virtualbase_onTransition(void* self, QEvent* event);
-bool QEventTransition_override_virtual_event(void* self, intptr_t slot);
-bool QEventTransition_virtualbase_event(void* self, QEvent* e);
-bool QEventTransition_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QEventTransition_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QEventTransition_override_virtual_timerEvent(void* self, intptr_t slot);
-void QEventTransition_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QEventTransition_override_virtual_childEvent(void* self, intptr_t slot);
-void QEventTransition_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QEventTransition_override_virtual_customEvent(void* self, intptr_t slot);
-void QEventTransition_virtualbase_customEvent(void* self, QEvent* event);
-bool QEventTransition_override_virtual_connectNotify(void* self, intptr_t slot);
-void QEventTransition_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QEventTransition_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QEventTransition_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QEventTransition_virtualbase_metaObject(const VirtualQEventTransition* self);
+void* QEventTransition_virtualbase_metacast(VirtualQEventTransition* self, const char* param1);
+int QEventTransition_virtualbase_metacall(VirtualQEventTransition* self, int param1, int param2, void** param3);
+bool QEventTransition_virtualbase_eventTest(VirtualQEventTransition* self, QEvent* event);
+void QEventTransition_virtualbase_onTransition(VirtualQEventTransition* self, QEvent* event);
+bool QEventTransition_virtualbase_event(VirtualQEventTransition* self, QEvent* e);
+bool QEventTransition_virtualbase_eventFilter(VirtualQEventTransition* self, QObject* watched, QEvent* event);
+void QEventTransition_virtualbase_timerEvent(VirtualQEventTransition* self, QTimerEvent* event);
+void QEventTransition_virtualbase_childEvent(VirtualQEventTransition* self, QChildEvent* event);
+void QEventTransition_virtualbase_customEvent(VirtualQEventTransition* self, QEvent* event);
+void QEventTransition_virtualbase_connectNotify(VirtualQEventTransition* self, QMetaMethod* signal);
+void QEventTransition_virtualbase_disconnectNotify(VirtualQEventTransition* self, QMetaMethod* signal);
 
-QObject* QEventTransition_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QEventTransition_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QEventTransition_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QEventTransition_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QEventTransition_protectedbase_sender(const VirtualQEventTransition* self);
+int QEventTransition_protectedbase_senderSignalIndex(const VirtualQEventTransition* self);
+int QEventTransition_protectedbase_receivers(const VirtualQEventTransition* self, const char* signal);
+bool QEventTransition_protectedbase_isSignalConnected(const VirtualQEventTransition* self, QMetaMethod* signal);
 
 const QMetaObject* QEventTransition_staticMetaObject();
 void QEventTransition_delete(QEventTransition* self);

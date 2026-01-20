@@ -30,8 +30,26 @@ typedef struct QRectF QRectF;
 typedef struct QSizeF QSizeF;
 #endif
 
-QGraphicsLayout* QGraphicsLayout_new();
-QGraphicsLayout* QGraphicsLayout_new2(QGraphicsLayoutItem* parent);
+typedef struct VirtualQGraphicsLayout VirtualQGraphicsLayout;
+typedef struct QGraphicsLayout_VTable{
+	void (*destructor)(VirtualQGraphicsLayout* self);
+	void (*getContentsMargins)(const VirtualQGraphicsLayout* self, double* left, double* top, double* right, double* bottom);
+	void (*invalidate)(VirtualQGraphicsLayout* self);
+	void (*updateGeometry)(VirtualQGraphicsLayout* self);
+	void (*widgetEvent)(VirtualQGraphicsLayout* self, QEvent* e);
+	int (*count)(const VirtualQGraphicsLayout* self);
+	QGraphicsLayoutItem* (*itemAt)(const VirtualQGraphicsLayout* self, int i);
+	void (*removeAt)(VirtualQGraphicsLayout* self, int index);
+	void (*setGeometry)(VirtualQGraphicsLayout* self, QRectF* rect);
+	QSizeF* (*sizeHint)(const VirtualQGraphicsLayout* self, int which, QSizeF* constraint);
+}QGraphicsLayout_VTable;
+
+void* QGraphicsLayout_vdata(VirtualQGraphicsLayout* self);
+VirtualQGraphicsLayout* vdata_QGraphicsLayout(void* vdata);
+
+VirtualQGraphicsLayout* QGraphicsLayout_new(const QGraphicsLayout_VTable* vtbl, size_t vdata);
+VirtualQGraphicsLayout* QGraphicsLayout_new2(const QGraphicsLayout_VTable* vtbl, size_t vdata, QGraphicsLayoutItem* parent);
+
 void QGraphicsLayout_virtbase(QGraphicsLayout* src, QGraphicsLayoutItem** outptr_QGraphicsLayoutItem);
 void QGraphicsLayout_setContentsMargins(QGraphicsLayout* self, double left, double top, double right, double bottom);
 void QGraphicsLayout_getContentsMargins(const QGraphicsLayout* self, double* left, double* top, double* right, double* bottom);
@@ -46,28 +64,19 @@ void QGraphicsLayout_removeAt(QGraphicsLayout* self, int index);
 void QGraphicsLayout_setInstantInvalidatePropagation(bool enable);
 bool QGraphicsLayout_instantInvalidatePropagation();
 
-bool QGraphicsLayout_override_virtual_getContentsMargins(void* self, intptr_t slot);
-void QGraphicsLayout_virtualbase_getContentsMargins(const void* self, double* left, double* top, double* right, double* bottom);
-bool QGraphicsLayout_override_virtual_invalidate(void* self, intptr_t slot);
-void QGraphicsLayout_virtualbase_invalidate(void* self);
-bool QGraphicsLayout_override_virtual_updateGeometry(void* self, intptr_t slot);
-void QGraphicsLayout_virtualbase_updateGeometry(void* self);
-bool QGraphicsLayout_override_virtual_widgetEvent(void* self, intptr_t slot);
-void QGraphicsLayout_virtualbase_widgetEvent(void* self, QEvent* e);
-bool QGraphicsLayout_override_virtual_count(void* self, intptr_t slot);
-int QGraphicsLayout_virtualbase_count(const void* self);
-bool QGraphicsLayout_override_virtual_itemAt(void* self, intptr_t slot);
-QGraphicsLayoutItem* QGraphicsLayout_virtualbase_itemAt(const void* self, int i);
-bool QGraphicsLayout_override_virtual_removeAt(void* self, intptr_t slot);
-void QGraphicsLayout_virtualbase_removeAt(void* self, int index);
-bool QGraphicsLayout_override_virtual_setGeometry(void* self, intptr_t slot);
-void QGraphicsLayout_virtualbase_setGeometry(void* self, QRectF* rect);
-bool QGraphicsLayout_override_virtual_sizeHint(void* self, intptr_t slot);
-QSizeF* QGraphicsLayout_virtualbase_sizeHint(const void* self, int which, QSizeF* constraint);
+void QGraphicsLayout_virtualbase_getContentsMargins(const VirtualQGraphicsLayout* self, double* left, double* top, double* right, double* bottom);
+void QGraphicsLayout_virtualbase_invalidate(VirtualQGraphicsLayout* self);
+void QGraphicsLayout_virtualbase_updateGeometry(VirtualQGraphicsLayout* self);
+void QGraphicsLayout_virtualbase_widgetEvent(VirtualQGraphicsLayout* self, QEvent* e);
+int QGraphicsLayout_virtualbase_count(const VirtualQGraphicsLayout* self);
+QGraphicsLayoutItem* QGraphicsLayout_virtualbase_itemAt(const VirtualQGraphicsLayout* self, int i);
+void QGraphicsLayout_virtualbase_removeAt(VirtualQGraphicsLayout* self, int index);
+void QGraphicsLayout_virtualbase_setGeometry(VirtualQGraphicsLayout* self, QRectF* rect);
+QSizeF* QGraphicsLayout_virtualbase_sizeHint(const VirtualQGraphicsLayout* self, int which, QSizeF* constraint);
 
-void QGraphicsLayout_protectedbase_addChildLayoutItem(bool* _dynamic_cast_ok, void* self, QGraphicsLayoutItem* layoutItem);
-void QGraphicsLayout_protectedbase_setGraphicsItem(bool* _dynamic_cast_ok, void* self, QGraphicsItem* item);
-void QGraphicsLayout_protectedbase_setOwnedByLayout(bool* _dynamic_cast_ok, void* self, bool ownedByLayout);
+void QGraphicsLayout_protectedbase_addChildLayoutItem(VirtualQGraphicsLayout* self, QGraphicsLayoutItem* layoutItem);
+void QGraphicsLayout_protectedbase_setGraphicsItem(VirtualQGraphicsLayout* self, QGraphicsItem* item);
+void QGraphicsLayout_protectedbase_setOwnedByLayout(VirtualQGraphicsLayout* self, bool ownedByLayout);
 
 void QGraphicsLayout_delete(QGraphicsLayout* self);
 

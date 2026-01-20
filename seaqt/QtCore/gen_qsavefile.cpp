@@ -13,90 +13,64 @@
 #include <qsavefile.h>
 #include "gen_qsavefile.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QSaveFile_metaObject(const QSaveFile*, intptr_t);
-void* miqt_exec_callback_QSaveFile_metacast(QSaveFile*, intptr_t, const char*);
-int miqt_exec_callback_QSaveFile_metacall(QSaveFile*, intptr_t, int, int, void**);
-struct seaqt_string miqt_exec_callback_QSaveFile_fileName(const QSaveFile*, intptr_t);
-bool miqt_exec_callback_QSaveFile_open(QSaveFile*, intptr_t, int);
-long long miqt_exec_callback_QSaveFile_writeData(QSaveFile*, intptr_t, const char*, long long);
-bool miqt_exec_callback_QSaveFile_isSequential(const QSaveFile*, intptr_t);
-long long miqt_exec_callback_QSaveFile_pos(const QSaveFile*, intptr_t);
-bool miqt_exec_callback_QSaveFile_seek(QSaveFile*, intptr_t, long long);
-bool miqt_exec_callback_QSaveFile_atEnd(const QSaveFile*, intptr_t);
-long long miqt_exec_callback_QSaveFile_size(const QSaveFile*, intptr_t);
-bool miqt_exec_callback_QSaveFile_resize(QSaveFile*, intptr_t, long long);
-int miqt_exec_callback_QSaveFile_permissions(const QSaveFile*, intptr_t);
-bool miqt_exec_callback_QSaveFile_setPermissions(QSaveFile*, intptr_t, int);
-long long miqt_exec_callback_QSaveFile_readData(QSaveFile*, intptr_t, char*, long long);
-long long miqt_exec_callback_QSaveFile_readLineData(QSaveFile*, intptr_t, char*, long long);
-bool miqt_exec_callback_QSaveFile_reset(QSaveFile*, intptr_t);
-long long miqt_exec_callback_QSaveFile_bytesAvailable(const QSaveFile*, intptr_t);
-long long miqt_exec_callback_QSaveFile_bytesToWrite(const QSaveFile*, intptr_t);
-bool miqt_exec_callback_QSaveFile_canReadLine(const QSaveFile*, intptr_t);
-bool miqt_exec_callback_QSaveFile_waitForReadyRead(QSaveFile*, intptr_t, int);
-bool miqt_exec_callback_QSaveFile_waitForBytesWritten(QSaveFile*, intptr_t, int);
-bool miqt_exec_callback_QSaveFile_event(QSaveFile*, intptr_t, QEvent*);
-bool miqt_exec_callback_QSaveFile_eventFilter(QSaveFile*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QSaveFile_timerEvent(QSaveFile*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QSaveFile_childEvent(QSaveFile*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QSaveFile_customEvent(QSaveFile*, intptr_t, QEvent*);
-void miqt_exec_callback_QSaveFile_connectNotify(QSaveFile*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QSaveFile_disconnectNotify(QSaveFile*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQSaveFile final : public QSaveFile {
+	const QSaveFile_VTable* vtbl;
 public:
+	friend void* QSaveFile_vdata(VirtualQSaveFile* self);
+	friend VirtualQSaveFile* vdata_QSaveFile(void* vdata);
 
-	VirtualQSaveFile(const QString& name): QSaveFile(name) {}
-	VirtualQSaveFile(): QSaveFile() {}
-	VirtualQSaveFile(const QString& name, QObject* parent): QSaveFile(name, parent) {}
-	VirtualQSaveFile(QObject* parent): QSaveFile(parent) {}
+	VirtualQSaveFile(const QSaveFile_VTable* vtbl, const QString& name): QSaveFile(name), vtbl(vtbl) {}
+	VirtualQSaveFile(const QSaveFile_VTable* vtbl): QSaveFile(), vtbl(vtbl) {}
+	VirtualQSaveFile(const QSaveFile_VTable* vtbl, const QString& name, QObject* parent): QSaveFile(name, parent), vtbl(vtbl) {}
+	VirtualQSaveFile(const QSaveFile_VTable* vtbl, QObject* parent): QSaveFile(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQSaveFile() override = default;
+	virtual ~VirtualQSaveFile() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QSaveFile::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QSaveFile_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QSaveFile_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QSaveFile_virtualbase_metaObject(const VirtualQSaveFile* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QSaveFile::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QSaveFile_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QSaveFile_virtualbase_metacast(void* self, const char* param1);
+	friend void* QSaveFile_virtualbase_metacast(VirtualQSaveFile* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QSaveFile::qt_metacall(param1, param2, param3);
 		}
 
@@ -104,407 +78,304 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QSaveFile_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QSaveFile_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QSaveFile_virtualbase_metacall(VirtualQSaveFile* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__fileName = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString fileName() const override {
-		if (handle__fileName == 0) {
+		if (vtbl->fileName == 0) {
 			return QSaveFile::fileName();
 		}
 
-		struct seaqt_string callback_return_value = miqt_exec_callback_QSaveFile_fileName(this, handle__fileName);
+		struct seaqt_string callback_return_value = vtbl->fileName(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	friend struct seaqt_string QSaveFile_virtualbase_fileName(const void* self);
+	friend struct seaqt_string QSaveFile_virtualbase_fileName(const VirtualQSaveFile* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__open = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool open(QIODevice::OpenMode flags) override {
-		if (handle__open == 0) {
+		if (vtbl->open == 0) {
 			return QSaveFile::open(flags);
 		}
 
 		QIODevice::OpenMode flags_ret = flags;
 		int sigval1 = static_cast<int>(flags_ret);
-		bool callback_return_value = miqt_exec_callback_QSaveFile_open(this, handle__open, sigval1);
+		bool callback_return_value = vtbl->open(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSaveFile_virtualbase_open(void* self, int flags);
+	friend bool QSaveFile_virtualbase_open(VirtualQSaveFile* self, int flags);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__writeData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 writeData(const char* data, qint64 len) override {
-		if (handle__writeData == 0) {
+		if (vtbl->writeData == 0) {
 			return QSaveFile::writeData(data, len);
 		}
 
 		const char* sigval1 = (const char*) data;
 		qint64 len_ret = len;
 		long long sigval2 = static_cast<long long>(len_ret);
-		long long callback_return_value = miqt_exec_callback_QSaveFile_writeData(this, handle__writeData, sigval1, sigval2);
+		long long callback_return_value = vtbl->writeData(this, sigval1, sigval2);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QSaveFile_virtualbase_writeData(void* self, const char* data, long long len);
+	friend long long QSaveFile_virtualbase_writeData(VirtualQSaveFile* self, const char* data, long long len);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isSequential = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isSequential() const override {
-		if (handle__isSequential == 0) {
+		if (vtbl->isSequential == 0) {
 			return QSaveFile::isSequential();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QSaveFile_isSequential(this, handle__isSequential);
+		bool callback_return_value = vtbl->isSequential(this);
 		return callback_return_value;
 	}
 
-	friend bool QSaveFile_virtualbase_isSequential(const void* self);
+	friend bool QSaveFile_virtualbase_isSequential(const VirtualQSaveFile* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__pos = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 pos() const override {
-		if (handle__pos == 0) {
+		if (vtbl->pos == 0) {
 			return QSaveFile::pos();
 		}
 
-		long long callback_return_value = miqt_exec_callback_QSaveFile_pos(this, handle__pos);
+		long long callback_return_value = vtbl->pos(this);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QSaveFile_virtualbase_pos(const void* self);
+	friend long long QSaveFile_virtualbase_pos(const VirtualQSaveFile* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__seek = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool seek(qint64 offset) override {
-		if (handle__seek == 0) {
+		if (vtbl->seek == 0) {
 			return QSaveFile::seek(offset);
 		}
 
 		qint64 offset_ret = offset;
 		long long sigval1 = static_cast<long long>(offset_ret);
-		bool callback_return_value = miqt_exec_callback_QSaveFile_seek(this, handle__seek, sigval1);
+		bool callback_return_value = vtbl->seek(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSaveFile_virtualbase_seek(void* self, long long offset);
+	friend bool QSaveFile_virtualbase_seek(VirtualQSaveFile* self, long long offset);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__atEnd = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool atEnd() const override {
-		if (handle__atEnd == 0) {
+		if (vtbl->atEnd == 0) {
 			return QSaveFile::atEnd();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QSaveFile_atEnd(this, handle__atEnd);
+		bool callback_return_value = vtbl->atEnd(this);
 		return callback_return_value;
 	}
 
-	friend bool QSaveFile_virtualbase_atEnd(const void* self);
+	friend bool QSaveFile_virtualbase_atEnd(const VirtualQSaveFile* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__size = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 size() const override {
-		if (handle__size == 0) {
+		if (vtbl->size == 0) {
 			return QSaveFile::size();
 		}
 
-		long long callback_return_value = miqt_exec_callback_QSaveFile_size(this, handle__size);
+		long long callback_return_value = vtbl->size(this);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QSaveFile_virtualbase_size(const void* self);
+	friend long long QSaveFile_virtualbase_size(const VirtualQSaveFile* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__resize = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool resize(qint64 sz) override {
-		if (handle__resize == 0) {
+		if (vtbl->resize == 0) {
 			return QSaveFile::resize(sz);
 		}
 
 		qint64 sz_ret = sz;
 		long long sigval1 = static_cast<long long>(sz_ret);
-		bool callback_return_value = miqt_exec_callback_QSaveFile_resize(this, handle__resize, sigval1);
+		bool callback_return_value = vtbl->resize(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSaveFile_virtualbase_resize(void* self, long long sz);
+	friend bool QSaveFile_virtualbase_resize(VirtualQSaveFile* self, long long sz);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__permissions = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QFileDevice::Permissions permissions() const override {
-		if (handle__permissions == 0) {
+		if (vtbl->permissions == 0) {
 			return QSaveFile::permissions();
 		}
 
-		int callback_return_value = miqt_exec_callback_QSaveFile_permissions(this, handle__permissions);
+		int callback_return_value = vtbl->permissions(this);
 		return static_cast<QFileDevice::Permissions>(callback_return_value);
 	}
 
-	friend int QSaveFile_virtualbase_permissions(const void* self);
+	friend int QSaveFile_virtualbase_permissions(const VirtualQSaveFile* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setPermissions = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool setPermissions(QFileDevice::Permissions permissionSpec) override {
-		if (handle__setPermissions == 0) {
+		if (vtbl->setPermissions == 0) {
 			return QSaveFile::setPermissions(permissionSpec);
 		}
 
 		QFileDevice::Permissions permissionSpec_ret = permissionSpec;
 		int sigval1 = static_cast<int>(permissionSpec_ret);
-		bool callback_return_value = miqt_exec_callback_QSaveFile_setPermissions(this, handle__setPermissions, sigval1);
+		bool callback_return_value = vtbl->setPermissions(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSaveFile_virtualbase_setPermissions(void* self, int permissionSpec);
+	friend bool QSaveFile_virtualbase_setPermissions(VirtualQSaveFile* self, int permissionSpec);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__readData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 readData(char* data, qint64 maxlen) override {
-		if (handle__readData == 0) {
+		if (vtbl->readData == 0) {
 			return QSaveFile::readData(data, maxlen);
 		}
 
 		char* sigval1 = data;
 		qint64 maxlen_ret = maxlen;
 		long long sigval2 = static_cast<long long>(maxlen_ret);
-		long long callback_return_value = miqt_exec_callback_QSaveFile_readData(this, handle__readData, sigval1, sigval2);
+		long long callback_return_value = vtbl->readData(this, sigval1, sigval2);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QSaveFile_virtualbase_readData(void* self, char* data, long long maxlen);
+	friend long long QSaveFile_virtualbase_readData(VirtualQSaveFile* self, char* data, long long maxlen);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__readLineData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 readLineData(char* data, qint64 maxlen) override {
-		if (handle__readLineData == 0) {
+		if (vtbl->readLineData == 0) {
 			return QSaveFile::readLineData(data, maxlen);
 		}
 
 		char* sigval1 = data;
 		qint64 maxlen_ret = maxlen;
 		long long sigval2 = static_cast<long long>(maxlen_ret);
-		long long callback_return_value = miqt_exec_callback_QSaveFile_readLineData(this, handle__readLineData, sigval1, sigval2);
+		long long callback_return_value = vtbl->readLineData(this, sigval1, sigval2);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QSaveFile_virtualbase_readLineData(void* self, char* data, long long maxlen);
+	friend long long QSaveFile_virtualbase_readLineData(VirtualQSaveFile* self, char* data, long long maxlen);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__reset = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool reset() override {
-		if (handle__reset == 0) {
+		if (vtbl->reset == 0) {
 			return QSaveFile::reset();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QSaveFile_reset(this, handle__reset);
+		bool callback_return_value = vtbl->reset(this);
 		return callback_return_value;
 	}
 
-	friend bool QSaveFile_virtualbase_reset(void* self);
+	friend bool QSaveFile_virtualbase_reset(VirtualQSaveFile* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__bytesAvailable = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 bytesAvailable() const override {
-		if (handle__bytesAvailable == 0) {
+		if (vtbl->bytesAvailable == 0) {
 			return QSaveFile::bytesAvailable();
 		}
 
-		long long callback_return_value = miqt_exec_callback_QSaveFile_bytesAvailable(this, handle__bytesAvailable);
+		long long callback_return_value = vtbl->bytesAvailable(this);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QSaveFile_virtualbase_bytesAvailable(const void* self);
+	friend long long QSaveFile_virtualbase_bytesAvailable(const VirtualQSaveFile* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__bytesToWrite = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 bytesToWrite() const override {
-		if (handle__bytesToWrite == 0) {
+		if (vtbl->bytesToWrite == 0) {
 			return QSaveFile::bytesToWrite();
 		}
 
-		long long callback_return_value = miqt_exec_callback_QSaveFile_bytesToWrite(this, handle__bytesToWrite);
+		long long callback_return_value = vtbl->bytesToWrite(this);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QSaveFile_virtualbase_bytesToWrite(const void* self);
+	friend long long QSaveFile_virtualbase_bytesToWrite(const VirtualQSaveFile* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__canReadLine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool canReadLine() const override {
-		if (handle__canReadLine == 0) {
+		if (vtbl->canReadLine == 0) {
 			return QSaveFile::canReadLine();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QSaveFile_canReadLine(this, handle__canReadLine);
+		bool callback_return_value = vtbl->canReadLine(this);
 		return callback_return_value;
 	}
 
-	friend bool QSaveFile_virtualbase_canReadLine(const void* self);
+	friend bool QSaveFile_virtualbase_canReadLine(const VirtualQSaveFile* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__waitForReadyRead = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool waitForReadyRead(int msecs) override {
-		if (handle__waitForReadyRead == 0) {
+		if (vtbl->waitForReadyRead == 0) {
 			return QSaveFile::waitForReadyRead(msecs);
 		}
 
 		int sigval1 = msecs;
-		bool callback_return_value = miqt_exec_callback_QSaveFile_waitForReadyRead(this, handle__waitForReadyRead, sigval1);
+		bool callback_return_value = vtbl->waitForReadyRead(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSaveFile_virtualbase_waitForReadyRead(void* self, int msecs);
+	friend bool QSaveFile_virtualbase_waitForReadyRead(VirtualQSaveFile* self, int msecs);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__waitForBytesWritten = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool waitForBytesWritten(int msecs) override {
-		if (handle__waitForBytesWritten == 0) {
+		if (vtbl->waitForBytesWritten == 0) {
 			return QSaveFile::waitForBytesWritten(msecs);
 		}
 
 		int sigval1 = msecs;
-		bool callback_return_value = miqt_exec_callback_QSaveFile_waitForBytesWritten(this, handle__waitForBytesWritten, sigval1);
+		bool callback_return_value = vtbl->waitForBytesWritten(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSaveFile_virtualbase_waitForBytesWritten(void* self, int msecs);
+	friend bool QSaveFile_virtualbase_waitForBytesWritten(VirtualQSaveFile* self, int msecs);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QSaveFile::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QSaveFile_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSaveFile_virtualbase_event(void* self, QEvent* event);
+	friend bool QSaveFile_virtualbase_event(VirtualQSaveFile* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QSaveFile::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QSaveFile_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QSaveFile_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QSaveFile_virtualbase_eventFilter(VirtualQSaveFile* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QSaveFile::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QSaveFile_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QSaveFile_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QSaveFile_virtualbase_timerEvent(VirtualQSaveFile* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QSaveFile::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QSaveFile_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QSaveFile_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QSaveFile_virtualbase_childEvent(VirtualQSaveFile* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QSaveFile::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QSaveFile_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QSaveFile_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QSaveFile_virtualbase_customEvent(VirtualQSaveFile* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QSaveFile::connectNotify(signal);
 			return;
 		}
@@ -512,18 +383,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSaveFile_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QSaveFile_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QSaveFile_virtualbase_connectNotify(VirtualQSaveFile* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QSaveFile::disconnectNotify(signal);
 			return;
 		}
@@ -531,37 +397,40 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSaveFile_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QSaveFile_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QSaveFile_virtualbase_disconnectNotify(VirtualQSaveFile* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QSaveFile_protectedbase_setOpenMode(bool* _dynamic_cast_ok, void* self, int openMode);
-	friend void QSaveFile_protectedbase_setErrorString(bool* _dynamic_cast_ok, void* self, struct seaqt_string errorString);
-	friend QObject* QSaveFile_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QSaveFile_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QSaveFile_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QSaveFile_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QSaveFile_protectedbase_setOpenMode(VirtualQSaveFile* self, int openMode);
+	friend void QSaveFile_protectedbase_setErrorString(VirtualQSaveFile* self, struct seaqt_string errorString);
+	friend QObject* QSaveFile_protectedbase_sender(const VirtualQSaveFile* self);
+	friend int QSaveFile_protectedbase_senderSignalIndex(const VirtualQSaveFile* self);
+	friend int QSaveFile_protectedbase_receivers(const VirtualQSaveFile* self, const char* signal);
+	friend bool QSaveFile_protectedbase_isSignalConnected(const VirtualQSaveFile* self, QMetaMethod* signal);
 };
 
-QSaveFile* QSaveFile_new(struct seaqt_string name) {
+VirtualQSaveFile* QSaveFile_new(const QSaveFile_VTable* vtbl, size_t vdata, struct seaqt_string name) {
 	QString name_QString = QString::fromUtf8(name.data, name.len);
-	return new (std::nothrow) VirtualQSaveFile(name_QString);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSaveFile>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSaveFile(vtbl, name_QString) : nullptr;
 }
 
-QSaveFile* QSaveFile_new2() {
-	return new (std::nothrow) VirtualQSaveFile();
+VirtualQSaveFile* QSaveFile_new2(const QSaveFile_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSaveFile>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSaveFile(vtbl) : nullptr;
 }
 
-QSaveFile* QSaveFile_new3(struct seaqt_string name, QObject* parent) {
+VirtualQSaveFile* QSaveFile_new3(const QSaveFile_VTable* vtbl, size_t vdata, struct seaqt_string name, QObject* parent) {
 	QString name_QString = QString::fromUtf8(name.data, name.len);
-	return new (std::nothrow) VirtualQSaveFile(name_QString, parent);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSaveFile>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSaveFile(vtbl, name_QString, parent) : nullptr;
 }
 
-QSaveFile* QSaveFile_new4(QObject* parent) {
-	return new (std::nothrow) VirtualQSaveFile(parent);
+VirtualQSaveFile* QSaveFile_new4(const QSaveFile_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSaveFile>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSaveFile(vtbl, parent) : nullptr;
 }
 
 void QSaveFile_virtbase(QSaveFile* src, QFileDevice** outptr_QFileDevice) {
@@ -683,60 +552,27 @@ struct seaqt_string QSaveFile_trUtf83(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QSaveFile_staticMetaObject() { return &QSaveFile::staticMetaObject; }
-bool QSaveFile_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QSaveFile_vdata(VirtualQSaveFile* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQSaveFile>()); }
+VirtualQSaveFile* vdata_QSaveFile(void* vdata) { return reinterpret_cast<VirtualQSaveFile*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQSaveFile>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QSaveFile_virtualbase_metaObject(const VirtualQSaveFile* self) {
+
+	return (QMetaObject*) self->QSaveFile::metaObject();
 }
 
-QMetaObject* QSaveFile_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQSaveFile*>(self)->QSaveFile::metaObject();
+void* QSaveFile_virtualbase_metacast(VirtualQSaveFile* self, const char* param1) {
+
+	return self->QSaveFile::qt_metacast(param1);
 }
 
-bool QSaveFile_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QSaveFile_virtualbase_metacall(VirtualQSaveFile* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QSaveFile::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QSaveFile_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQSaveFile*>(self)->QSaveFile::qt_metacast(param1);
-}
+struct seaqt_string QSaveFile_virtualbase_fileName(const VirtualQSaveFile* self) {
 
-bool QSaveFile_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__metacall = slot;
-	return true;
-}
-
-int QSaveFile_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQSaveFile*>(self)->QSaveFile::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
-}
-
-bool QSaveFile_override_virtual_fileName(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__fileName = slot;
-	return true;
-}
-
-struct seaqt_string QSaveFile_virtualbase_fileName(const void* self) {
-	QString _ret = static_cast<const VirtualQSaveFile*>(self)->QSaveFile::fileName();
+	QString _ret = self->QSaveFile::fileName();
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
 	QByteArray _b = _ret.toUtf8();
 	struct seaqt_string _ms;
@@ -746,429 +582,162 @@ struct seaqt_string QSaveFile_virtualbase_fileName(const void* self) {
 	return _ms;
 }
 
-bool QSaveFile_override_virtual_open(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSaveFile_virtualbase_open(VirtualQSaveFile* self, int flags) {
 
-	self_cast->handle__open = slot;
-	return true;
+	return self->QSaveFile::open(static_cast<VirtualQSaveFile::OpenMode>(flags));
 }
 
-bool QSaveFile_virtualbase_open(void* self, int flags) {
-	return static_cast<VirtualQSaveFile*>(self)->QSaveFile::open(static_cast<VirtualQSaveFile::OpenMode>(flags));
-}
+long long QSaveFile_virtualbase_writeData(VirtualQSaveFile* self, const char* data, long long len) {
 
-bool QSaveFile_override_virtual_writeData(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__writeData = slot;
-	return true;
-}
-
-long long QSaveFile_virtualbase_writeData(void* self, const char* data, long long len) {
-	qint64 _ret = static_cast<VirtualQSaveFile*>(self)->QSaveFile::writeData(data, static_cast<qint64>(len));
+	qint64 _ret = self->QSaveFile::writeData(data, static_cast<qint64>(len));
 	return static_cast<long long>(_ret);
 }
 
-bool QSaveFile_override_virtual_isSequential(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSaveFile_virtualbase_isSequential(const VirtualQSaveFile* self) {
 
-	self_cast->handle__isSequential = slot;
-	return true;
+	return self->QSaveFile::isSequential();
 }
 
-bool QSaveFile_virtualbase_isSequential(const void* self) {
-	return static_cast<const VirtualQSaveFile*>(self)->QSaveFile::isSequential();
-}
+long long QSaveFile_virtualbase_pos(const VirtualQSaveFile* self) {
 
-bool QSaveFile_override_virtual_pos(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__pos = slot;
-	return true;
-}
-
-long long QSaveFile_virtualbase_pos(const void* self) {
-	qint64 _ret = static_cast<const VirtualQSaveFile*>(self)->QSaveFile::pos();
+	qint64 _ret = self->QSaveFile::pos();
 	return static_cast<long long>(_ret);
 }
 
-bool QSaveFile_override_virtual_seek(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSaveFile_virtualbase_seek(VirtualQSaveFile* self, long long offset) {
 
-	self_cast->handle__seek = slot;
-	return true;
+	return self->QSaveFile::seek(static_cast<qint64>(offset));
 }
 
-bool QSaveFile_virtualbase_seek(void* self, long long offset) {
-	return static_cast<VirtualQSaveFile*>(self)->QSaveFile::seek(static_cast<qint64>(offset));
+bool QSaveFile_virtualbase_atEnd(const VirtualQSaveFile* self) {
+
+	return self->QSaveFile::atEnd();
 }
 
-bool QSaveFile_override_virtual_atEnd(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+long long QSaveFile_virtualbase_size(const VirtualQSaveFile* self) {
 
-	self_cast->handle__atEnd = slot;
-	return true;
-}
-
-bool QSaveFile_virtualbase_atEnd(const void* self) {
-	return static_cast<const VirtualQSaveFile*>(self)->QSaveFile::atEnd();
-}
-
-bool QSaveFile_override_virtual_size(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__size = slot;
-	return true;
-}
-
-long long QSaveFile_virtualbase_size(const void* self) {
-	qint64 _ret = static_cast<const VirtualQSaveFile*>(self)->QSaveFile::size();
+	qint64 _ret = self->QSaveFile::size();
 	return static_cast<long long>(_ret);
 }
 
-bool QSaveFile_override_virtual_resize(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSaveFile_virtualbase_resize(VirtualQSaveFile* self, long long sz) {
 
-	self_cast->handle__resize = slot;
-	return true;
+	return self->QSaveFile::resize(static_cast<qint64>(sz));
 }
 
-bool QSaveFile_virtualbase_resize(void* self, long long sz) {
-	return static_cast<VirtualQSaveFile*>(self)->QSaveFile::resize(static_cast<qint64>(sz));
-}
+int QSaveFile_virtualbase_permissions(const VirtualQSaveFile* self) {
 
-bool QSaveFile_override_virtual_permissions(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__permissions = slot;
-	return true;
-}
-
-int QSaveFile_virtualbase_permissions(const void* self) {
-	VirtualQSaveFile::Permissions _ret = static_cast<const VirtualQSaveFile*>(self)->QSaveFile::permissions();
+	VirtualQSaveFile::Permissions _ret = self->QSaveFile::permissions();
 	return static_cast<int>(_ret);
 }
 
-bool QSaveFile_override_virtual_setPermissions(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSaveFile_virtualbase_setPermissions(VirtualQSaveFile* self, int permissionSpec) {
 
-	self_cast->handle__setPermissions = slot;
-	return true;
+	return self->QSaveFile::setPermissions(static_cast<VirtualQSaveFile::Permissions>(permissionSpec));
 }
 
-bool QSaveFile_virtualbase_setPermissions(void* self, int permissionSpec) {
-	return static_cast<VirtualQSaveFile*>(self)->QSaveFile::setPermissions(static_cast<VirtualQSaveFile::Permissions>(permissionSpec));
-}
+long long QSaveFile_virtualbase_readData(VirtualQSaveFile* self, char* data, long long maxlen) {
 
-bool QSaveFile_override_virtual_readData(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__readData = slot;
-	return true;
-}
-
-long long QSaveFile_virtualbase_readData(void* self, char* data, long long maxlen) {
-	qint64 _ret = static_cast<VirtualQSaveFile*>(self)->QSaveFile::readData(data, static_cast<qint64>(maxlen));
+	qint64 _ret = self->QSaveFile::readData(data, static_cast<qint64>(maxlen));
 	return static_cast<long long>(_ret);
 }
 
-bool QSaveFile_override_virtual_readLineData(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+long long QSaveFile_virtualbase_readLineData(VirtualQSaveFile* self, char* data, long long maxlen) {
 
-	self_cast->handle__readLineData = slot;
-	return true;
-}
-
-long long QSaveFile_virtualbase_readLineData(void* self, char* data, long long maxlen) {
-	qint64 _ret = static_cast<VirtualQSaveFile*>(self)->QSaveFile::readLineData(data, static_cast<qint64>(maxlen));
+	qint64 _ret = self->QSaveFile::readLineData(data, static_cast<qint64>(maxlen));
 	return static_cast<long long>(_ret);
 }
 
-bool QSaveFile_override_virtual_reset(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSaveFile_virtualbase_reset(VirtualQSaveFile* self) {
 
-	self_cast->handle__reset = slot;
-	return true;
+	return self->QSaveFile::reset();
 }
 
-bool QSaveFile_virtualbase_reset(void* self) {
-	return static_cast<VirtualQSaveFile*>(self)->QSaveFile::reset();
-}
+long long QSaveFile_virtualbase_bytesAvailable(const VirtualQSaveFile* self) {
 
-bool QSaveFile_override_virtual_bytesAvailable(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__bytesAvailable = slot;
-	return true;
-}
-
-long long QSaveFile_virtualbase_bytesAvailable(const void* self) {
-	qint64 _ret = static_cast<const VirtualQSaveFile*>(self)->QSaveFile::bytesAvailable();
+	qint64 _ret = self->QSaveFile::bytesAvailable();
 	return static_cast<long long>(_ret);
 }
 
-bool QSaveFile_override_virtual_bytesToWrite(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+long long QSaveFile_virtualbase_bytesToWrite(const VirtualQSaveFile* self) {
 
-	self_cast->handle__bytesToWrite = slot;
-	return true;
-}
-
-long long QSaveFile_virtualbase_bytesToWrite(const void* self) {
-	qint64 _ret = static_cast<const VirtualQSaveFile*>(self)->QSaveFile::bytesToWrite();
+	qint64 _ret = self->QSaveFile::bytesToWrite();
 	return static_cast<long long>(_ret);
 }
 
-bool QSaveFile_override_virtual_canReadLine(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSaveFile_virtualbase_canReadLine(const VirtualQSaveFile* self) {
 
-	self_cast->handle__canReadLine = slot;
-	return true;
+	return self->QSaveFile::canReadLine();
 }
 
-bool QSaveFile_virtualbase_canReadLine(const void* self) {
-	return static_cast<const VirtualQSaveFile*>(self)->QSaveFile::canReadLine();
+bool QSaveFile_virtualbase_waitForReadyRead(VirtualQSaveFile* self, int msecs) {
+
+	return self->QSaveFile::waitForReadyRead(static_cast<int>(msecs));
 }
 
-bool QSaveFile_override_virtual_waitForReadyRead(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSaveFile_virtualbase_waitForBytesWritten(VirtualQSaveFile* self, int msecs) {
 
-	self_cast->handle__waitForReadyRead = slot;
-	return true;
+	return self->QSaveFile::waitForBytesWritten(static_cast<int>(msecs));
 }
 
-bool QSaveFile_virtualbase_waitForReadyRead(void* self, int msecs) {
-	return static_cast<VirtualQSaveFile*>(self)->QSaveFile::waitForReadyRead(static_cast<int>(msecs));
+bool QSaveFile_virtualbase_event(VirtualQSaveFile* self, QEvent* event) {
+
+	return self->QSaveFile::event(event);
 }
 
-bool QSaveFile_override_virtual_waitForBytesWritten(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSaveFile_virtualbase_eventFilter(VirtualQSaveFile* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__waitForBytesWritten = slot;
-	return true;
+	return self->QSaveFile::eventFilter(watched, event);
 }
 
-bool QSaveFile_virtualbase_waitForBytesWritten(void* self, int msecs) {
-	return static_cast<VirtualQSaveFile*>(self)->QSaveFile::waitForBytesWritten(static_cast<int>(msecs));
+void QSaveFile_virtualbase_timerEvent(VirtualQSaveFile* self, QTimerEvent* event) {
+
+	self->QSaveFile::timerEvent(event);
 }
 
-bool QSaveFile_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSaveFile_virtualbase_childEvent(VirtualQSaveFile* self, QChildEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QSaveFile::childEvent(event);
 }
 
-bool QSaveFile_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQSaveFile*>(self)->QSaveFile::event(event);
+void QSaveFile_virtualbase_customEvent(VirtualQSaveFile* self, QEvent* event) {
+
+	self->QSaveFile::customEvent(event);
 }
 
-bool QSaveFile_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSaveFile_virtualbase_connectNotify(VirtualQSaveFile* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QSaveFile::connectNotify(*signal);
 }
 
-bool QSaveFile_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQSaveFile*>(self)->QSaveFile::eventFilter(watched, event);
+void QSaveFile_virtualbase_disconnectNotify(VirtualQSaveFile* self, QMetaMethod* signal) {
+
+	self->QSaveFile::disconnectNotify(*signal);
 }
 
-bool QSaveFile_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+void QSaveFile_protectedbase_setOpenMode(VirtualQSaveFile* self, int openMode) {
+	self->setOpenMode(static_cast<VirtualQSaveFile::OpenMode>(openMode));
 }
 
-void QSaveFile_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQSaveFile*>(self)->QSaveFile::timerEvent(event);
-}
-
-bool QSaveFile_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QSaveFile_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQSaveFile*>(self)->QSaveFile::childEvent(event);
-}
-
-bool QSaveFile_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QSaveFile_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQSaveFile*>(self)->QSaveFile::customEvent(event);
-}
-
-bool QSaveFile_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QSaveFile_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSaveFile*>(self)->QSaveFile::connectNotify(*signal);
-}
-
-bool QSaveFile_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QSaveFile_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSaveFile*>(self)->QSaveFile::disconnectNotify(*signal);
-}
-
-void QSaveFile_protectedbase_setOpenMode(bool* _dynamic_cast_ok, void* self, int openMode) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setOpenMode(static_cast<VirtualQSaveFile::OpenMode>(openMode));
-}
-
-void QSaveFile_protectedbase_setErrorString(bool* _dynamic_cast_ok, void* self, struct seaqt_string errorString) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
+void QSaveFile_protectedbase_setErrorString(VirtualQSaveFile* self, struct seaqt_string errorString) {
 		QString errorString_QString = QString::fromUtf8(errorString.data, errorString.len);
-	self_cast->setErrorString(errorString_QString);
+	self->setErrorString(errorString_QString);
 }
 
-QObject* QSaveFile_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
+QObject* QSaveFile_protectedbase_sender(const VirtualQSaveFile* self) {
+	return self->sender();
 }
 
-int QSaveFile_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
+int QSaveFile_protectedbase_senderSignalIndex(const VirtualQSaveFile* self) {
+	return self->senderSignalIndex();
 }
 
-int QSaveFile_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
+int QSaveFile_protectedbase_receivers(const VirtualQSaveFile* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QSaveFile_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQSaveFile* self_cast = dynamic_cast<VirtualQSaveFile*>( (QSaveFile*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QSaveFile_protectedbase_isSignalConnected(const VirtualQSaveFile* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QSaveFile_delete(QSaveFile* self) {

@@ -27,6 +27,7 @@ QSqlError* QSqlError_new4(struct seaqt_string driverText);
 QSqlError* QSqlError_new5(struct seaqt_string driverText, struct seaqt_string databaseText);
 QSqlError* QSqlError_new6(struct seaqt_string driverText, struct seaqt_string databaseText, int type);
 QSqlError* QSqlError_new7(struct seaqt_string driverText, struct seaqt_string databaseText, int type, struct seaqt_string errorCode);
+
 void QSqlError_operatorAssign(QSqlError* self, QSqlError* other);
 bool QSqlError_operatorEqual(const QSqlError* self, QSqlError* other);
 bool QSqlError_operatorNotEqual(const QSqlError* self, QSqlError* other);

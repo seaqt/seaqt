@@ -34,8 +34,27 @@ typedef struct QSocketNotifier QSocketNotifier;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QSocketNotifier* QSocketNotifier_new(intptr_t socket, int param2);
-QSocketNotifier* QSocketNotifier_new2(intptr_t socket, int param2, QObject* parent);
+typedef struct VirtualQSocketNotifier VirtualQSocketNotifier;
+typedef struct QSocketNotifier_VTable{
+	void (*destructor)(VirtualQSocketNotifier* self);
+	QMetaObject* (*metaObject)(const VirtualQSocketNotifier* self);
+	void* (*metacast)(VirtualQSocketNotifier* self, const char* param1);
+	int (*metacall)(VirtualQSocketNotifier* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQSocketNotifier* self, QEvent* param1);
+	bool (*eventFilter)(VirtualQSocketNotifier* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQSocketNotifier* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQSocketNotifier* self, QChildEvent* event);
+	void (*customEvent)(VirtualQSocketNotifier* self, QEvent* event);
+	void (*connectNotify)(VirtualQSocketNotifier* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQSocketNotifier* self, QMetaMethod* signal);
+}QSocketNotifier_VTable;
+
+void* QSocketNotifier_vdata(VirtualQSocketNotifier* self);
+VirtualQSocketNotifier* vdata_QSocketNotifier(void* vdata);
+
+VirtualQSocketNotifier* QSocketNotifier_new(const QSocketNotifier_VTable* vtbl, size_t vdata, intptr_t socket, int param2);
+VirtualQSocketNotifier* QSocketNotifier_new2(const QSocketNotifier_VTable* vtbl, size_t vdata, intptr_t socket, int param2, QObject* parent);
+
 void QSocketNotifier_virtbase(QSocketNotifier* src, QObject** outptr_QObject);
 QMetaObject* QSocketNotifier_metaObject(const QSocketNotifier* self);
 void* QSocketNotifier_metacast(QSocketNotifier* self, const char* param1);
@@ -52,33 +71,21 @@ struct seaqt_string QSocketNotifier_tr3(const char* s, const char* c, int n);
 struct seaqt_string QSocketNotifier_trUtf82(const char* s, const char* c);
 struct seaqt_string QSocketNotifier_trUtf83(const char* s, const char* c, int n);
 
-bool QSocketNotifier_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QSocketNotifier_virtualbase_metaObject(const void* self);
-bool QSocketNotifier_override_virtual_metacast(void* self, intptr_t slot);
-void* QSocketNotifier_virtualbase_metacast(void* self, const char* param1);
-bool QSocketNotifier_override_virtual_metacall(void* self, intptr_t slot);
-int QSocketNotifier_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QSocketNotifier_override_virtual_event(void* self, intptr_t slot);
-bool QSocketNotifier_virtualbase_event(void* self, QEvent* param1);
-bool QSocketNotifier_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QSocketNotifier_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QSocketNotifier_override_virtual_timerEvent(void* self, intptr_t slot);
-void QSocketNotifier_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QSocketNotifier_override_virtual_childEvent(void* self, intptr_t slot);
-void QSocketNotifier_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QSocketNotifier_override_virtual_customEvent(void* self, intptr_t slot);
-void QSocketNotifier_virtualbase_customEvent(void* self, QEvent* event);
-bool QSocketNotifier_override_virtual_connectNotify(void* self, intptr_t slot);
-void QSocketNotifier_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QSocketNotifier_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QSocketNotifier_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QSocketNotifier_virtualbase_metaObject(const VirtualQSocketNotifier* self);
+void* QSocketNotifier_virtualbase_metacast(VirtualQSocketNotifier* self, const char* param1);
+int QSocketNotifier_virtualbase_metacall(VirtualQSocketNotifier* self, int param1, int param2, void** param3);
+bool QSocketNotifier_virtualbase_event(VirtualQSocketNotifier* self, QEvent* param1);
+bool QSocketNotifier_virtualbase_eventFilter(VirtualQSocketNotifier* self, QObject* watched, QEvent* event);
+void QSocketNotifier_virtualbase_timerEvent(VirtualQSocketNotifier* self, QTimerEvent* event);
+void QSocketNotifier_virtualbase_childEvent(VirtualQSocketNotifier* self, QChildEvent* event);
+void QSocketNotifier_virtualbase_customEvent(VirtualQSocketNotifier* self, QEvent* event);
+void QSocketNotifier_virtualbase_connectNotify(VirtualQSocketNotifier* self, QMetaMethod* signal);
+void QSocketNotifier_virtualbase_disconnectNotify(VirtualQSocketNotifier* self, QMetaMethod* signal);
 
-QObject* QSocketNotifier_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QSocketNotifier_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QSocketNotifier_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QSocketNotifier_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
-
-void QSocketNotifier_connect_activated(QSocketNotifier* self, intptr_t slot);
+QObject* QSocketNotifier_protectedbase_sender(const VirtualQSocketNotifier* self);
+int QSocketNotifier_protectedbase_senderSignalIndex(const VirtualQSocketNotifier* self);
+int QSocketNotifier_protectedbase_receivers(const VirtualQSocketNotifier* self, const char* signal);
+bool QSocketNotifier_protectedbase_isSignalConnected(const VirtualQSocketNotifier* self, QMetaMethod* signal);
 
 const QMetaObject* QSocketNotifier_staticMetaObject();
 void QSocketNotifier_delete(QSocketNotifier* self);
@@ -86,6 +93,7 @@ void QSocketNotifier_delete(QSocketNotifier* self);
 QSocketDescriptor* QSocketDescriptor_new();
 QSocketDescriptor* QSocketDescriptor_new2(QSocketDescriptor* param1);
 QSocketDescriptor* QSocketDescriptor_new3(int descriptor);
+
 int QSocketDescriptor_ToInt(const QSocketDescriptor* self);
 bool QSocketDescriptor_isValid(const QSocketDescriptor* self);
 

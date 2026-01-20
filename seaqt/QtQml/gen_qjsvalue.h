@@ -39,6 +39,7 @@ QJSValue* QJSValue_new6(double value);
 QJSValue* QJSValue_new7(struct seaqt_string value);
 QJSValue* QJSValue_new8(const char* str);
 QJSValue* QJSValue_new9(int value);
+
 void QJSValue_operatorAssign(QJSValue* self, QJSValue* other);
 bool QJSValue_isBool(const QJSValue* self);
 bool QJSValue_isNumber(const QJSValue* self);

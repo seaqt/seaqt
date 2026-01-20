@@ -25,6 +25,7 @@ typedef struct QPointF QPointF;
 QPoint* QPoint_new();
 QPoint* QPoint_new2(int xpos, int ypos);
 QPoint* QPoint_new3(QPoint* param1);
+
 bool QPoint_isNull(const QPoint* self);
 int QPoint_x(const QPoint* self);
 int QPoint_y(const QPoint* self);
@@ -46,6 +47,7 @@ QPointF* QPointF_new();
 QPointF* QPointF_new2(QPoint* p);
 QPointF* QPointF_new3(double xpos, double ypos);
 QPointF* QPointF_new4(QPointF* param1);
+
 double QPointF_manhattanLength(const QPointF* self);
 bool QPointF_isNull(const QPointF* self);
 double QPointF_x(const QPointF* self);

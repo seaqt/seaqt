@@ -15,6 +15,17 @@
 #include <qcoreapplication.h>
 #include "gen_qcoreapplication.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -24,66 +35,47 @@ void miqt_exec_callback_QCoreApplication_organizationDomainChanged(intptr_t);
 void miqt_exec_callback_QCoreApplication_applicationNameChanged(intptr_t);
 void miqt_exec_callback_QCoreApplication_applicationVersionChanged(intptr_t);
 void miqt_exec_callback_QCoreApplication_aboutToQuit(intptr_t);
-QMetaObject* miqt_exec_callback_QCoreApplication_metaObject(const QCoreApplication*, intptr_t);
-void* miqt_exec_callback_QCoreApplication_metacast(QCoreApplication*, intptr_t, const char*);
-int miqt_exec_callback_QCoreApplication_metacall(QCoreApplication*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QCoreApplication_notify(QCoreApplication*, intptr_t, QObject*, QEvent*);
-bool miqt_exec_callback_QCoreApplication_event(QCoreApplication*, intptr_t, QEvent*);
-bool miqt_exec_callback_QCoreApplication_eventFilter(QCoreApplication*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QCoreApplication_timerEvent(QCoreApplication*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QCoreApplication_childEvent(QCoreApplication*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QCoreApplication_customEvent(QCoreApplication*, intptr_t, QEvent*);
-void miqt_exec_callback_QCoreApplication_connectNotify(QCoreApplication*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QCoreApplication_disconnectNotify(QCoreApplication*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQCoreApplication final : public QCoreApplication {
+	const QCoreApplication_VTable* vtbl;
 public:
+	friend void* QCoreApplication_vdata(VirtualQCoreApplication* self);
+	friend VirtualQCoreApplication* vdata_QCoreApplication(void* vdata);
 
-	VirtualQCoreApplication(int& argc, char** argv): QCoreApplication(argc, argv) {}
-	VirtualQCoreApplication(int& argc, char** argv, int param3): QCoreApplication(argc, argv, param3) {}
+	VirtualQCoreApplication(const QCoreApplication_VTable* vtbl, int& argc, char** argv): QCoreApplication(argc, argv), vtbl(vtbl) {}
+	VirtualQCoreApplication(const QCoreApplication_VTable* vtbl, int& argc, char** argv, int param3): QCoreApplication(argc, argv, param3), vtbl(vtbl) {}
 
-	virtual ~VirtualQCoreApplication() override = default;
+	virtual ~VirtualQCoreApplication() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QCoreApplication::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QCoreApplication_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QCoreApplication_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QCoreApplication_virtualbase_metaObject(const VirtualQCoreApplication* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QCoreApplication::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QCoreApplication_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QCoreApplication_virtualbase_metacast(void* self, const char* param1);
+	friend void* QCoreApplication_virtualbase_metacast(VirtualQCoreApplication* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QCoreApplication::qt_metacall(param1, param2, param3);
 		}
 
@@ -91,119 +83,88 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QCoreApplication_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QCoreApplication_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QCoreApplication_virtualbase_metacall(VirtualQCoreApplication* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__notify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool notify(QObject* param1, QEvent* param2) override {
-		if (handle__notify == 0) {
+		if (vtbl->notify == 0) {
 			return QCoreApplication::notify(param1, param2);
 		}
 
 		QObject* sigval1 = param1;
 		QEvent* sigval2 = param2;
-		bool callback_return_value = miqt_exec_callback_QCoreApplication_notify(this, handle__notify, sigval1, sigval2);
+		bool callback_return_value = vtbl->notify(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QCoreApplication_virtualbase_notify(void* self, QObject* param1, QEvent* param2);
+	friend bool QCoreApplication_virtualbase_notify(VirtualQCoreApplication* self, QObject* param1, QEvent* param2);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* param1) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QCoreApplication::event(param1);
 		}
 
 		QEvent* sigval1 = param1;
-		bool callback_return_value = miqt_exec_callback_QCoreApplication_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QCoreApplication_virtualbase_event(void* self, QEvent* param1);
+	friend bool QCoreApplication_virtualbase_event(VirtualQCoreApplication* self, QEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QCoreApplication::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QCoreApplication_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QCoreApplication_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QCoreApplication_virtualbase_eventFilter(VirtualQCoreApplication* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QCoreApplication::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QCoreApplication_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QCoreApplication_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QCoreApplication_virtualbase_timerEvent(VirtualQCoreApplication* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QCoreApplication::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QCoreApplication_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QCoreApplication_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QCoreApplication_virtualbase_childEvent(VirtualQCoreApplication* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QCoreApplication::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QCoreApplication_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QCoreApplication_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QCoreApplication_virtualbase_customEvent(VirtualQCoreApplication* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QCoreApplication::connectNotify(signal);
 			return;
 		}
@@ -211,18 +172,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QCoreApplication_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QCoreApplication_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QCoreApplication_virtualbase_connectNotify(VirtualQCoreApplication* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QCoreApplication::disconnectNotify(signal);
 			return;
 		}
@@ -230,25 +186,26 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QCoreApplication_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QCoreApplication_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QCoreApplication_virtualbase_disconnectNotify(VirtualQCoreApplication* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QCoreApplication_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QCoreApplication_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QCoreApplication_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QCoreApplication_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QCoreApplication_protectedbase_sender(const VirtualQCoreApplication* self);
+	friend int QCoreApplication_protectedbase_senderSignalIndex(const VirtualQCoreApplication* self);
+	friend int QCoreApplication_protectedbase_receivers(const VirtualQCoreApplication* self, const char* signal);
+	friend bool QCoreApplication_protectedbase_isSignalConnected(const VirtualQCoreApplication* self, QMetaMethod* signal);
 };
 
-QCoreApplication* QCoreApplication_new(int* argc, char** argv) {
-	return new (std::nothrow) VirtualQCoreApplication(static_cast<int&>(*argc), argv);
+VirtualQCoreApplication* QCoreApplication_new(const QCoreApplication_VTable* vtbl, size_t vdata, int* argc, char** argv) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQCoreApplication>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQCoreApplication(vtbl, static_cast<int&>(*argc), argv) : nullptr;
 }
 
-QCoreApplication* QCoreApplication_new2(int* argc, char** argv, int param3) {
-	return new (std::nothrow) VirtualQCoreApplication(static_cast<int&>(*argc), argv, static_cast<int>(param3));
+VirtualQCoreApplication* QCoreApplication_new2(const QCoreApplication_VTable* vtbl, size_t vdata, int* argc, char** argv, int param3) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQCoreApplication>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQCoreApplication(vtbl, static_cast<int&>(*argc), argv, static_cast<int>(param3)) : nullptr;
 }
 
 void QCoreApplication_virtbase(QCoreApplication* src, QObject** outptr_QObject) {
@@ -695,208 +652,78 @@ struct seaqt_string QCoreApplication_translate3(const char* context, const char*
 }
 
 const QMetaObject* QCoreApplication_staticMetaObject() { return &QCoreApplication::staticMetaObject; }
-bool QCoreApplication_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQCoreApplication* self_cast = dynamic_cast<VirtualQCoreApplication*>( (QCoreApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QCoreApplication_vdata(VirtualQCoreApplication* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQCoreApplication>()); }
+VirtualQCoreApplication* vdata_QCoreApplication(void* vdata) { return reinterpret_cast<VirtualQCoreApplication*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQCoreApplication>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QCoreApplication_virtualbase_metaObject(const VirtualQCoreApplication* self) {
+
+	return (QMetaObject*) self->QCoreApplication::metaObject();
 }
 
-QMetaObject* QCoreApplication_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQCoreApplication*>(self)->QCoreApplication::metaObject();
+void* QCoreApplication_virtualbase_metacast(VirtualQCoreApplication* self, const char* param1) {
+
+	return self->QCoreApplication::qt_metacast(param1);
 }
 
-bool QCoreApplication_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQCoreApplication* self_cast = dynamic_cast<VirtualQCoreApplication*>( (QCoreApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QCoreApplication_virtualbase_metacall(VirtualQCoreApplication* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QCoreApplication::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QCoreApplication_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQCoreApplication*>(self)->QCoreApplication::qt_metacast(param1);
+bool QCoreApplication_virtualbase_notify(VirtualQCoreApplication* self, QObject* param1, QEvent* param2) {
+
+	return self->QCoreApplication::notify(param1, param2);
 }
 
-bool QCoreApplication_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQCoreApplication* self_cast = dynamic_cast<VirtualQCoreApplication*>( (QCoreApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QCoreApplication_virtualbase_event(VirtualQCoreApplication* self, QEvent* param1) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QCoreApplication::event(param1);
 }
 
-int QCoreApplication_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQCoreApplication*>(self)->QCoreApplication::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+bool QCoreApplication_virtualbase_eventFilter(VirtualQCoreApplication* self, QObject* watched, QEvent* event) {
+
+	return self->QCoreApplication::eventFilter(watched, event);
 }
 
-bool QCoreApplication_override_virtual_notify(void* self, intptr_t slot) {
-	VirtualQCoreApplication* self_cast = dynamic_cast<VirtualQCoreApplication*>( (QCoreApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCoreApplication_virtualbase_timerEvent(VirtualQCoreApplication* self, QTimerEvent* event) {
 
-	self_cast->handle__notify = slot;
-	return true;
+	self->QCoreApplication::timerEvent(event);
 }
 
-bool QCoreApplication_virtualbase_notify(void* self, QObject* param1, QEvent* param2) {
-	return static_cast<VirtualQCoreApplication*>(self)->QCoreApplication::notify(param1, param2);
+void QCoreApplication_virtualbase_childEvent(VirtualQCoreApplication* self, QChildEvent* event) {
+
+	self->QCoreApplication::childEvent(event);
 }
 
-bool QCoreApplication_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQCoreApplication* self_cast = dynamic_cast<VirtualQCoreApplication*>( (QCoreApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCoreApplication_virtualbase_customEvent(VirtualQCoreApplication* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QCoreApplication::customEvent(event);
 }
 
-bool QCoreApplication_virtualbase_event(void* self, QEvent* param1) {
-	return static_cast<VirtualQCoreApplication*>(self)->QCoreApplication::event(param1);
+void QCoreApplication_virtualbase_connectNotify(VirtualQCoreApplication* self, QMetaMethod* signal) {
+
+	self->QCoreApplication::connectNotify(*signal);
 }
 
-bool QCoreApplication_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQCoreApplication* self_cast = dynamic_cast<VirtualQCoreApplication*>( (QCoreApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCoreApplication_virtualbase_disconnectNotify(VirtualQCoreApplication* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QCoreApplication::disconnectNotify(*signal);
 }
 
-bool QCoreApplication_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQCoreApplication*>(self)->QCoreApplication::eventFilter(watched, event);
+QObject* QCoreApplication_protectedbase_sender(const VirtualQCoreApplication* self) {
+	return self->sender();
 }
 
-bool QCoreApplication_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQCoreApplication* self_cast = dynamic_cast<VirtualQCoreApplication*>( (QCoreApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+int QCoreApplication_protectedbase_senderSignalIndex(const VirtualQCoreApplication* self) {
+	return self->senderSignalIndex();
 }
 
-void QCoreApplication_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQCoreApplication*>(self)->QCoreApplication::timerEvent(event);
+int QCoreApplication_protectedbase_receivers(const VirtualQCoreApplication* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QCoreApplication_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQCoreApplication* self_cast = dynamic_cast<VirtualQCoreApplication*>( (QCoreApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QCoreApplication_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQCoreApplication*>(self)->QCoreApplication::childEvent(event);
-}
-
-bool QCoreApplication_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQCoreApplication* self_cast = dynamic_cast<VirtualQCoreApplication*>( (QCoreApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QCoreApplication_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQCoreApplication*>(self)->QCoreApplication::customEvent(event);
-}
-
-bool QCoreApplication_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQCoreApplication* self_cast = dynamic_cast<VirtualQCoreApplication*>( (QCoreApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QCoreApplication_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQCoreApplication*>(self)->QCoreApplication::connectNotify(*signal);
-}
-
-bool QCoreApplication_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQCoreApplication* self_cast = dynamic_cast<VirtualQCoreApplication*>( (QCoreApplication*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QCoreApplication_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQCoreApplication*>(self)->QCoreApplication::disconnectNotify(*signal);
-}
-
-QObject* QCoreApplication_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQCoreApplication* self_cast = dynamic_cast<VirtualQCoreApplication*>( (QCoreApplication*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QCoreApplication_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQCoreApplication* self_cast = dynamic_cast<VirtualQCoreApplication*>( (QCoreApplication*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QCoreApplication_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQCoreApplication* self_cast = dynamic_cast<VirtualQCoreApplication*>( (QCoreApplication*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QCoreApplication_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQCoreApplication* self_cast = dynamic_cast<VirtualQCoreApplication*>( (QCoreApplication*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
-}
-
-void QCoreApplication_connect_aboutToQuit(QCoreApplication* self, intptr_t slot) {
-	QCoreApplication::connect(self, &QCoreApplication::aboutToQuit, self, [=]() {
-		miqt_exec_callback_QCoreApplication_aboutToQuit(slot);
-	});
+bool QCoreApplication_protectedbase_isSignalConnected(const VirtualQCoreApplication* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QCoreApplication_delete(QCoreApplication* self) {

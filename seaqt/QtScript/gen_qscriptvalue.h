@@ -52,6 +52,7 @@ QScriptValue* QScriptValue_new13(unsigned int value);
 QScriptValue* QScriptValue_new14(double value);
 QScriptValue* QScriptValue_new15(struct seaqt_string value);
 QScriptValue* QScriptValue_new16(const char* value);
+
 void QScriptValue_operatorAssign(QScriptValue* self, QScriptValue* other);
 QScriptEngine* QScriptValue_engine(const QScriptValue* self);
 bool QScriptValue_isValid(const QScriptValue* self);

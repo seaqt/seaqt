@@ -39,6 +39,17 @@
 #include <qvariant.h>
 #include "gen_qvariant.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -651,7 +662,7 @@ void QVariant__Handler_delete(QVariant__Handler* self) {
 }
 
 QSequentialIterable__const_iterator* QSequentialIterable__const_iterator_new(QSequentialIterable__const_iterator* other) {
-	return new (std::nothrow) QSequentialIterable::const_iterator(*other);
+	return new (std::nothrow) QSequentialIterable__const_iterator(*other);
 }
 
 void QSequentialIterable__const_iterator_operatorAssign(QSequentialIterable__const_iterator* self, QSequentialIterable__const_iterator* other) {
@@ -715,7 +726,7 @@ void QSequentialIterable__const_iterator_delete(QSequentialIterable__const_itera
 }
 
 QAssociativeIterable__const_iterator* QAssociativeIterable__const_iterator_new(QAssociativeIterable__const_iterator* other) {
-	return new (std::nothrow) QAssociativeIterable::const_iterator(*other);
+	return new (std::nothrow) QAssociativeIterable__const_iterator(*other);
 }
 
 void QAssociativeIterable__const_iterator_operatorAssign(QAssociativeIterable__const_iterator* self, QAssociativeIterable__const_iterator* other) {

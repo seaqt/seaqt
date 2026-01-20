@@ -24,6 +24,7 @@ QTileRules* QTileRules_new(int horizontalRule, int verticalRule);
 QTileRules* QTileRules_new2();
 QTileRules* QTileRules_new3(QTileRules* param1);
 QTileRules* QTileRules_new4(int rule);
+
 int QTileRules_horizontal(const QTileRules* self);
 void QTileRules_setHorizontal(QTileRules* self, int horizontal);
 int QTileRules_vertical(const QTileRules* self);

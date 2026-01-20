@@ -40,6 +40,7 @@ QVector4D* QVector4D_new7(QVector2D* vector, float zpos, float wpos);
 QVector4D* QVector4D_new8(QVector3D* vector);
 QVector4D* QVector4D_new9(QVector3D* vector, float wpos);
 QVector4D* QVector4D_new10(QVector4D* param1);
+
 bool QVector4D_isNull(const QVector4D* self);
 float QVector4D_x(const QVector4D* self);
 float QVector4D_y(const QVector4D* self);

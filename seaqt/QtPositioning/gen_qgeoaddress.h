@@ -22,6 +22,7 @@ typedef struct QGeoAddress QGeoAddress;
 
 QGeoAddress* QGeoAddress_new();
 QGeoAddress* QGeoAddress_new2(QGeoAddress* other);
+
 void QGeoAddress_operatorAssign(QGeoAddress* self, QGeoAddress* other);
 bool QGeoAddress_operatorEqual(const QGeoAddress* self, QGeoAddress* other);
 bool QGeoAddress_operatorNotEqual(const QGeoAddress* self, QGeoAddress* other);

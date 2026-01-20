@@ -31,6 +31,7 @@ typedef struct QWindow QWindow;
 #endif
 
 QBackingStore* QBackingStore_new(QWindow* window);
+
 QWindow* QBackingStore_window(const QBackingStore* self);
 QPaintDevice* QBackingStore_paintDevice(QBackingStore* self);
 void QBackingStore_flush(QBackingStore* self, QRegion* region);

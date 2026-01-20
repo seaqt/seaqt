@@ -24,15 +24,24 @@ typedef struct QScriptEngine QScriptEngine;
 typedef struct QScriptExtensionInterface QScriptExtensionInterface;
 #endif
 
-QScriptExtensionInterface* QScriptExtensionInterface_new(QScriptExtensionInterface* param1);
+typedef struct VirtualQScriptExtensionInterface VirtualQScriptExtensionInterface;
+typedef struct QScriptExtensionInterface_VTable{
+	void (*destructor)(VirtualQScriptExtensionInterface* self);
+	void (*initialize)(VirtualQScriptExtensionInterface* self, struct seaqt_string key, QScriptEngine* engine);
+	struct seaqt_array /* of struct seaqt_string */  (*keys)(const VirtualQScriptExtensionInterface* self);
+}QScriptExtensionInterface_VTable;
+
+void* QScriptExtensionInterface_vdata(VirtualQScriptExtensionInterface* self);
+VirtualQScriptExtensionInterface* vdata_QScriptExtensionInterface(void* vdata);
+
+VirtualQScriptExtensionInterface* QScriptExtensionInterface_new(const QScriptExtensionInterface_VTable* vtbl, size_t vdata, QScriptExtensionInterface* param1);
+
 void QScriptExtensionInterface_virtbase(QScriptExtensionInterface* src, QFactoryInterface** outptr_QFactoryInterface);
 void QScriptExtensionInterface_initialize(QScriptExtensionInterface* self, struct seaqt_string key, QScriptEngine* engine);
 void QScriptExtensionInterface_operatorAssign(QScriptExtensionInterface* self, QScriptExtensionInterface* param1);
 
-bool QScriptExtensionInterface_override_virtual_initialize(void* self, intptr_t slot);
-void QScriptExtensionInterface_virtualbase_initialize(void* self, struct seaqt_string key, QScriptEngine* engine);
-bool QScriptExtensionInterface_override_virtual_keys(void* self, intptr_t slot);
-struct seaqt_array /* of struct seaqt_string */  QScriptExtensionInterface_virtualbase_keys(const void* self);
+void QScriptExtensionInterface_virtualbase_initialize(VirtualQScriptExtensionInterface* self, struct seaqt_string key, QScriptEngine* engine);
+struct seaqt_array /* of struct seaqt_string */  QScriptExtensionInterface_virtualbase_keys(const VirtualQScriptExtensionInterface* self);
 
 void QScriptExtensionInterface_delete(QScriptExtensionInterface* self);
 

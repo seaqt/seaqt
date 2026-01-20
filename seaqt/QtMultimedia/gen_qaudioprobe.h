@@ -38,8 +38,27 @@ typedef struct QObject QObject;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QAudioProbe* QAudioProbe_new();
-QAudioProbe* QAudioProbe_new2(QObject* parent);
+typedef struct VirtualQAudioProbe VirtualQAudioProbe;
+typedef struct QAudioProbe_VTable{
+	void (*destructor)(VirtualQAudioProbe* self);
+	QMetaObject* (*metaObject)(const VirtualQAudioProbe* self);
+	void* (*metacast)(VirtualQAudioProbe* self, const char* param1);
+	int (*metacall)(VirtualQAudioProbe* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQAudioProbe* self, QEvent* event);
+	bool (*eventFilter)(VirtualQAudioProbe* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQAudioProbe* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQAudioProbe* self, QChildEvent* event);
+	void (*customEvent)(VirtualQAudioProbe* self, QEvent* event);
+	void (*connectNotify)(VirtualQAudioProbe* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQAudioProbe* self, QMetaMethod* signal);
+}QAudioProbe_VTable;
+
+void* QAudioProbe_vdata(VirtualQAudioProbe* self);
+VirtualQAudioProbe* vdata_QAudioProbe(void* vdata);
+
+VirtualQAudioProbe* QAudioProbe_new(const QAudioProbe_VTable* vtbl, size_t vdata);
+VirtualQAudioProbe* QAudioProbe_new2(const QAudioProbe_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QAudioProbe_virtbase(QAudioProbe* src, QObject** outptr_QObject);
 QMetaObject* QAudioProbe_metaObject(const QAudioProbe* self);
 void* QAudioProbe_metacast(QAudioProbe* self, const char* param1);
@@ -58,31 +77,21 @@ struct seaqt_string QAudioProbe_tr3(const char* s, const char* c, int n);
 struct seaqt_string QAudioProbe_trUtf82(const char* s, const char* c);
 struct seaqt_string QAudioProbe_trUtf83(const char* s, const char* c, int n);
 
-bool QAudioProbe_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QAudioProbe_virtualbase_metaObject(const void* self);
-bool QAudioProbe_override_virtual_metacast(void* self, intptr_t slot);
-void* QAudioProbe_virtualbase_metacast(void* self, const char* param1);
-bool QAudioProbe_override_virtual_metacall(void* self, intptr_t slot);
-int QAudioProbe_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QAudioProbe_override_virtual_event(void* self, intptr_t slot);
-bool QAudioProbe_virtualbase_event(void* self, QEvent* event);
-bool QAudioProbe_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QAudioProbe_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QAudioProbe_override_virtual_timerEvent(void* self, intptr_t slot);
-void QAudioProbe_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QAudioProbe_override_virtual_childEvent(void* self, intptr_t slot);
-void QAudioProbe_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QAudioProbe_override_virtual_customEvent(void* self, intptr_t slot);
-void QAudioProbe_virtualbase_customEvent(void* self, QEvent* event);
-bool QAudioProbe_override_virtual_connectNotify(void* self, intptr_t slot);
-void QAudioProbe_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QAudioProbe_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QAudioProbe_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QAudioProbe_virtualbase_metaObject(const VirtualQAudioProbe* self);
+void* QAudioProbe_virtualbase_metacast(VirtualQAudioProbe* self, const char* param1);
+int QAudioProbe_virtualbase_metacall(VirtualQAudioProbe* self, int param1, int param2, void** param3);
+bool QAudioProbe_virtualbase_event(VirtualQAudioProbe* self, QEvent* event);
+bool QAudioProbe_virtualbase_eventFilter(VirtualQAudioProbe* self, QObject* watched, QEvent* event);
+void QAudioProbe_virtualbase_timerEvent(VirtualQAudioProbe* self, QTimerEvent* event);
+void QAudioProbe_virtualbase_childEvent(VirtualQAudioProbe* self, QChildEvent* event);
+void QAudioProbe_virtualbase_customEvent(VirtualQAudioProbe* self, QEvent* event);
+void QAudioProbe_virtualbase_connectNotify(VirtualQAudioProbe* self, QMetaMethod* signal);
+void QAudioProbe_virtualbase_disconnectNotify(VirtualQAudioProbe* self, QMetaMethod* signal);
 
-QObject* QAudioProbe_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QAudioProbe_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QAudioProbe_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QAudioProbe_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QAudioProbe_protectedbase_sender(const VirtualQAudioProbe* self);
+int QAudioProbe_protectedbase_senderSignalIndex(const VirtualQAudioProbe* self);
+int QAudioProbe_protectedbase_receivers(const VirtualQAudioProbe* self, const char* signal);
+bool QAudioProbe_protectedbase_isSignalConnected(const VirtualQAudioProbe* self, QMetaMethod* signal);
 
 const QMetaObject* QAudioProbe_staticMetaObject();
 void QAudioProbe_delete(QAudioProbe* self);

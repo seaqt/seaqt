@@ -24,6 +24,7 @@ typedef struct QMessageAuthenticationCode QMessageAuthenticationCode;
 
 QMessageAuthenticationCode* QMessageAuthenticationCode_new(int method);
 QMessageAuthenticationCode* QMessageAuthenticationCode_new2(int method, struct seaqt_string key);
+
 void QMessageAuthenticationCode_reset(QMessageAuthenticationCode* self);
 void QMessageAuthenticationCode_setKey(QMessageAuthenticationCode* self, struct seaqt_string key);
 void QMessageAuthenticationCode_addData(QMessageAuthenticationCode* self, const char* data, int length);

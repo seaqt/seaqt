@@ -38,6 +38,7 @@ QSqlQuery* QSqlQuery_new3(QSqlDatabase* db);
 QSqlQuery* QSqlQuery_new4(QSqlQuery* other);
 QSqlQuery* QSqlQuery_new5(struct seaqt_string query);
 QSqlQuery* QSqlQuery_new6(struct seaqt_string query, QSqlDatabase* db);
+
 void QSqlQuery_operatorAssign(QSqlQuery* self, QSqlQuery* other);
 bool QSqlQuery_isValid(const QSqlQuery* self);
 bool QSqlQuery_isActive(const QSqlQuery* self);

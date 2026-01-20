@@ -22,6 +22,7 @@ typedef struct QScriptString QScriptString;
 
 QScriptString* QScriptString_new();
 QScriptString* QScriptString_new2(QScriptString* other);
+
 void QScriptString_operatorAssign(QScriptString* self, QScriptString* other);
 bool QScriptString_isValid(const QScriptString* self);
 bool QScriptString_operatorEqual(const QScriptString* self, QScriptString* other);

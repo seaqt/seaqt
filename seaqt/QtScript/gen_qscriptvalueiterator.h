@@ -25,6 +25,7 @@ typedef struct QScriptValueIterator QScriptValueIterator;
 #endif
 
 QScriptValueIterator* QScriptValueIterator_new(QScriptValue* value);
+
 bool QScriptValueIterator_hasNext(const QScriptValueIterator* self);
 void QScriptValueIterator_next(QScriptValueIterator* self);
 bool QScriptValueIterator_hasPrevious(const QScriptValueIterator* self);

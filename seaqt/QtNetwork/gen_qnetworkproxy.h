@@ -50,6 +50,7 @@ QNetworkProxyQuery* QNetworkProxyQuery_new15(QNetworkConfiguration* networkConfi
 QNetworkProxyQuery* QNetworkProxyQuery_new16(QNetworkConfiguration* networkConfiguration, struct seaqt_string hostname, int port, struct seaqt_string protocolTag, int queryType);
 QNetworkProxyQuery* QNetworkProxyQuery_new17(QNetworkConfiguration* networkConfiguration, unsigned short bindPort, struct seaqt_string protocolTag);
 QNetworkProxyQuery* QNetworkProxyQuery_new18(QNetworkConfiguration* networkConfiguration, unsigned short bindPort, struct seaqt_string protocolTag, int queryType);
+
 void QNetworkProxyQuery_operatorAssign(QNetworkProxyQuery* self, QNetworkProxyQuery* other);
 void QNetworkProxyQuery_swap(QNetworkProxyQuery* self, QNetworkProxyQuery* other);
 bool QNetworkProxyQuery_operatorEqual(const QNetworkProxyQuery* self, QNetworkProxyQuery* other);
@@ -79,6 +80,7 @@ QNetworkProxy* QNetworkProxy_new4(int type, struct seaqt_string hostName);
 QNetworkProxy* QNetworkProxy_new5(int type, struct seaqt_string hostName, unsigned short port);
 QNetworkProxy* QNetworkProxy_new6(int type, struct seaqt_string hostName, unsigned short port, struct seaqt_string user);
 QNetworkProxy* QNetworkProxy_new7(int type, struct seaqt_string hostName, unsigned short port, struct seaqt_string user, struct seaqt_string password);
+
 void QNetworkProxy_operatorAssign(QNetworkProxy* self, QNetworkProxy* other);
 void QNetworkProxy_swap(QNetworkProxy* self, QNetworkProxy* other);
 bool QNetworkProxy_operatorEqual(const QNetworkProxy* self, QNetworkProxy* other);
@@ -108,7 +110,17 @@ void QNetworkProxy_setRawHeader(QNetworkProxy* self, struct seaqt_string headerN
 
 void QNetworkProxy_delete(QNetworkProxy* self);
 
-QNetworkProxyFactory* QNetworkProxyFactory_new();
+typedef struct VirtualQNetworkProxyFactory VirtualQNetworkProxyFactory;
+typedef struct QNetworkProxyFactory_VTable{
+	void (*destructor)(VirtualQNetworkProxyFactory* self);
+	struct seaqt_array /* of QNetworkProxy* */  (*queryProxy)(VirtualQNetworkProxyFactory* self, QNetworkProxyQuery* query);
+}QNetworkProxyFactory_VTable;
+
+void* QNetworkProxyFactory_vdata(VirtualQNetworkProxyFactory* self);
+VirtualQNetworkProxyFactory* vdata_QNetworkProxyFactory(void* vdata);
+
+VirtualQNetworkProxyFactory* QNetworkProxyFactory_new(const QNetworkProxyFactory_VTable* vtbl, size_t vdata);
+
 struct seaqt_array /* of QNetworkProxy* */  QNetworkProxyFactory_queryProxy(QNetworkProxyFactory* self, QNetworkProxyQuery* query);
 bool QNetworkProxyFactory_usesSystemConfiguration();
 void QNetworkProxyFactory_setUseSystemConfiguration(bool enable);
@@ -118,8 +130,7 @@ struct seaqt_array /* of QNetworkProxy* */  QNetworkProxyFactory_systemProxyForQ
 void QNetworkProxyFactory_operatorAssign(QNetworkProxyFactory* self, QNetworkProxyFactory* param1);
 struct seaqt_array /* of QNetworkProxy* */  QNetworkProxyFactory_systemProxyForQueryWithQuery(QNetworkProxyQuery* query);
 
-bool QNetworkProxyFactory_override_virtual_queryProxy(void* self, intptr_t slot);
-struct seaqt_array /* of QNetworkProxy* */  QNetworkProxyFactory_virtualbase_queryProxy(void* self, QNetworkProxyQuery* query);
+struct seaqt_array /* of QNetworkProxy* */  QNetworkProxyFactory_virtualbase_queryProxy(VirtualQNetworkProxyFactory* self, QNetworkProxyQuery* query);
 
 void QNetworkProxyFactory_delete(QNetworkProxyFactory* self);
 

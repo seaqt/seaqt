@@ -65,6 +65,7 @@ QTextEncoder* QTextCodec_makeEncoderWithFlags(const QTextCodec* self, int flags)
 
 QTextEncoder* QTextEncoder_new(QTextCodec* codec);
 QTextEncoder* QTextEncoder_new2(QTextCodec* codec, int flags);
+
 struct seaqt_string QTextEncoder_fromUnicode(QTextEncoder* self, struct seaqt_string str);
 struct seaqt_string QTextEncoder_fromUnicode2(QTextEncoder* self, QChar* uc, int len);
 bool QTextEncoder_hasFailure(const QTextEncoder* self);
@@ -73,6 +74,7 @@ void QTextEncoder_delete(QTextEncoder* self);
 
 QTextDecoder* QTextDecoder_new(QTextCodec* codec);
 QTextDecoder* QTextDecoder_new2(QTextCodec* codec, int flags);
+
 struct seaqt_string QTextDecoder_toUnicode(QTextDecoder* self, const char* chars, int len);
 struct seaqt_string QTextDecoder_toUnicodeWithBa(QTextDecoder* self, struct seaqt_string ba);
 bool QTextDecoder_hasFailure(const QTextDecoder* self);
@@ -82,6 +84,7 @@ void QTextDecoder_delete(QTextDecoder* self);
 
 QTextCodec__ConverterState* QTextCodec__ConverterState_new();
 QTextCodec__ConverterState* QTextCodec__ConverterState_new2(int f);
+
 int QTextCodec__ConverterState_flags(const QTextCodec__ConverterState* self);
 void QTextCodec__ConverterState_setFlags(QTextCodec__ConverterState* self, int flags);
 int QTextCodec__ConverterState_remainingChars(const QTextCodec__ConverterState* self);

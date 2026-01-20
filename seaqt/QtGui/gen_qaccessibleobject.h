@@ -45,6 +45,7 @@ QAccessibleInterface* QAccessibleObject_childAt(const QAccessibleObject* self, i
 
 
 QAccessibleApplication* QAccessibleApplication_new();
+
 void QAccessibleApplication_virtbase(QAccessibleApplication* src, QAccessibleObject** outptr_QAccessibleObject);
 QWindow* QAccessibleApplication_window(const QAccessibleApplication* self);
 int QAccessibleApplication_childCount(const QAccessibleApplication* self);
