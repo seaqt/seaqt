@@ -108,7 +108,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->sizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QTabBar_virtualbase_sizeHint(const VirtualQTabBar* self);
@@ -119,7 +121,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->minimumSizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QTabBar_virtualbase_minimumSizeHint(const VirtualQTabBar* self);
@@ -131,7 +135,9 @@ public:
 
 		int sigval1 = index;
 		QSize* callback_return_value = vtbl->tabSizeHint(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QTabBar_virtualbase_tabSizeHint(const VirtualQTabBar* self, int index);
@@ -143,7 +149,9 @@ public:
 
 		int sigval1 = index;
 		QSize* callback_return_value = vtbl->minimumTabSizeHint(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QTabBar_virtualbase_minimumTabSizeHint(const VirtualQTabBar* self, int index);
@@ -665,7 +673,9 @@ public:
 		Qt::InputMethodQuery param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
 		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QTabBar_virtualbase_inputMethodQuery(const VirtualQTabBar* self, int param1);

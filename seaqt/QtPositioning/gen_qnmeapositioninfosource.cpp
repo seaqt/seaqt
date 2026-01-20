@@ -94,7 +94,9 @@ public:
 
 		bool sigval1 = fromSatellitePositioningMethodsOnly;
 		QGeoPositionInfo* callback_return_value = vtbl->lastKnownPosition(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QGeoPositionInfo* QNmeaPositionInfoSource_virtualbase_lastKnownPosition(const VirtualQNmeaPositionInfoSource* self, bool fromSatellitePositioningMethodsOnly);
@@ -230,7 +232,9 @@ public:
 		memcpy(name_ms.data, name_b.data(), name_ms.len);
 		struct seaqt_string sigval1 = name_ms;
 		QVariant* callback_return_value = vtbl->backendProperty(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QNmeaPositionInfoSource_virtualbase_backendProperty(const VirtualQNmeaPositionInfoSource* self, struct seaqt_string name);
