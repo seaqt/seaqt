@@ -458,6 +458,11 @@ bool QWebEnginePage_event(QWebEnginePage* self, QEvent* param1) {
 	return self->event(param1);
 }
 
+void QWebEnginePage_findText(QWebEnginePage* self, struct seaqt_string subString) {
+	QString subString_QString = QString::fromUtf8(subString.data, subString.len);
+	self->findText(subString_QString);
+}
+
 void QWebEnginePage_setFeaturePermission(QWebEnginePage* self, QUrl* securityOrigin, int feature, int policy) {
 	self->setFeaturePermission(*securityOrigin, static_cast<QWebEnginePage::Feature>(feature), static_cast<QWebEnginePage::PermissionPolicy>(policy));
 }
@@ -534,6 +539,11 @@ QPointF* QWebEnginePage_scrollPosition(const QWebEnginePage* self) {
 
 QSizeF* QWebEnginePage_contentsSize(const QWebEnginePage* self) {
 	return new QSizeF(self->contentsSize());
+}
+
+void QWebEnginePage_runJavaScriptWithScriptSource(QWebEnginePage* self, struct seaqt_string scriptSource) {
+	QString scriptSource_QString = QString::fromUtf8(scriptSource.data, scriptSource.len);
+	self->runJavaScript(scriptSource_QString);
 }
 
 QWebEngineScriptCollection* QWebEnginePage_scripts(QWebEnginePage* self) {
@@ -1303,6 +1313,11 @@ struct seaqt_string QWebEnginePage_tr3(const char* s, const char* c, int n) {
 	return _ms;
 }
 
+void QWebEnginePage_findText2(QWebEnginePage* self, struct seaqt_string subString, int options) {
+	QString subString_QString = QString::fromUtf8(subString.data, subString.len);
+	self->findText(subString_QString, static_cast<QWebEnginePage::FindFlags>(options));
+}
+
 void QWebEnginePage_download2(QWebEnginePage* self, QUrl* url, struct seaqt_string filename) {
 	QString filename_QString = QString::fromUtf8(filename.data, filename.len);
 	self->download(*url, filename_QString);
@@ -1323,6 +1338,11 @@ void QWebEnginePage_setContent3(QWebEnginePage* self, struct seaqt_string data, 
 	QByteArray data_QByteArray(data.data, data.len);
 	QString mimeType_QString = QString::fromUtf8(mimeType.data, mimeType.len);
 	self->setContent(data_QByteArray, mimeType_QString, *baseUrl);
+}
+
+void QWebEnginePage_runJavaScript2(QWebEnginePage* self, struct seaqt_string scriptSource, unsigned int worldId) {
+	QString scriptSource_QString = QString::fromUtf8(scriptSource.data, scriptSource.len);
+	self->runJavaScript(scriptSource_QString, static_cast<quint32>(worldId));
 }
 
 void QWebEnginePage_setWebChannel2(QWebEnginePage* self, QWebChannel* param1, unsigned int worldId) {

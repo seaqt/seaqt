@@ -200,6 +200,7 @@ QAction* QWebEngineView_pageAction(const QWebEngineView* self, int action);
 void QWebEngineView_triggerPageAction(QWebEngineView* self, int action);
 double QWebEngineView_zoomFactor(const QWebEngineView* self);
 void QWebEngineView_setZoomFactor(QWebEngineView* self, double factor);
+void QWebEngineView_findText(QWebEngineView* self, struct seaqt_string subString);
 QSize* QWebEngineView_sizeHint(const QWebEngineView* self);
 QWebEngineSettings* QWebEngineView_settings(const QWebEngineView* self);
 QMenu* QWebEngineView_createStandardContextMenu(QWebEngineView* self);
@@ -250,6 +251,7 @@ void QWebEngineView_setHtml2(QWebEngineView* self, struct seaqt_string html, QUr
 void QWebEngineView_setContent2(QWebEngineView* self, struct seaqt_string data, struct seaqt_string mimeType);
 void QWebEngineView_setContent3(QWebEngineView* self, struct seaqt_string data, struct seaqt_string mimeType, QUrl* baseUrl);
 void QWebEngineView_triggerPageAction2(QWebEngineView* self, int action, bool checked);
+void QWebEngineView_findText2(QWebEngineView* self, struct seaqt_string subString, int options);
 void QWebEngineView_printToPdf2(QWebEngineView* self, struct seaqt_string filePath, QPageLayout* layout);
 void QWebEngineView_printToPdf3(QWebEngineView* self, struct seaqt_string filePath, QPageLayout* layout, QPageRanges* ranges);
 
