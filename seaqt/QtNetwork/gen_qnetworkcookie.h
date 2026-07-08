@@ -16,10 +16,12 @@ extern "C" {
 
 #ifdef __cplusplus
 class QDateTime;
+class QMetaObject;
 class QNetworkCookie;
 class QUrl;
 #else
 typedef struct QDateTime QDateTime;
+typedef struct QMetaObject QMetaObject;
 typedef struct QNetworkCookie QNetworkCookie;
 typedef struct QUrl QUrl;
 #endif
@@ -55,6 +57,7 @@ void QNetworkCookie_normalize(QNetworkCookie* self, QUrl* url);
 struct seaqt_array /* of QNetworkCookie* */  QNetworkCookie_parseCookies(struct seaqt_string cookieString);
 struct seaqt_string QNetworkCookie_toRawFormWithForm(const QNetworkCookie* self, int form);
 
+const QMetaObject* QNetworkCookie_staticMetaObject();
 void QNetworkCookie_delete(QNetworkCookie* self);
 
 #ifdef __cplusplus

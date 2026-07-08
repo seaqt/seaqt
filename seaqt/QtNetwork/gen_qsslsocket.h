@@ -63,6 +63,7 @@ QSslSocket* QSslSocket_new2(QObject* parent);
 void QSslSocket_virtbase(QSslSocket* src, QTcpSocket** outptr_QTcpSocket);
 QMetaObject* QSslSocket_metaObject(const QSslSocket* self);
 void* QSslSocket_metacast(QSslSocket* self, const char* param1);
+int QSslSocket_metacall(QSslSocket* self, int param1, int param2, void** param3);
 struct seaqt_string QSslSocket_tr(const char* s);
 void QSslSocket_resume(QSslSocket* self);
 void QSslSocket_connectToHostEncrypted(QSslSocket* self, struct seaqt_string hostName, unsigned short port);
@@ -171,6 +172,12 @@ bool QSslSocket_isClassImplemented2(int cl, struct seaqt_string backendName);
 struct seaqt_array /* of int */  QSslSocket_supportedFeaturesWithBackendName(struct seaqt_string backendName);
 bool QSslSocket_isFeatureSupported2(int feat, struct seaqt_string backendName);
 
+bool QSslSocket_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QSslSocket_virtualbase_metaObject(const void* self);
+bool QSslSocket_override_virtual_metacast(void* self, intptr_t slot);
+void* QSslSocket_virtualbase_metacast(void* self, const char* param1);
+bool QSslSocket_override_virtual_metacall(void* self, intptr_t slot);
+int QSslSocket_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QSslSocket_override_virtual_resume(void* self, intptr_t slot);
 void QSslSocket_virtualbase_resume(void* self);
 bool QSslSocket_override_virtual_setSocketDescriptor(void* self, intptr_t slot);
@@ -256,6 +263,7 @@ int QSslSocket_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const voi
 int QSslSocket_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QSslSocket_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QSslSocket_staticMetaObject();
 void QSslSocket_delete(QSslSocket* self);
 
 #ifdef __cplusplus

@@ -46,6 +46,7 @@ QGeoAreaMonitorSource* QGeoAreaMonitorSource_new(QObject* parent);
 void QGeoAreaMonitorSource_virtbase(QGeoAreaMonitorSource* src, QObject** outptr_QObject);
 QMetaObject* QGeoAreaMonitorSource_metaObject(const QGeoAreaMonitorSource* self);
 void* QGeoAreaMonitorSource_metacast(QGeoAreaMonitorSource* self, const char* param1);
+int QGeoAreaMonitorSource_metacall(QGeoAreaMonitorSource* self, int param1, int param2, void** param3);
 struct seaqt_string QGeoAreaMonitorSource_tr(const char* s);
 QGeoAreaMonitorSource* QGeoAreaMonitorSource_createDefaultSource(QObject* parent);
 QGeoAreaMonitorSource* QGeoAreaMonitorSource_createSource(struct seaqt_string sourceName, QObject* parent);
@@ -73,6 +74,12 @@ void QGeoAreaMonitorSource_connect_errorOccurred(QGeoAreaMonitorSource* self, in
 struct seaqt_string QGeoAreaMonitorSource_tr2(const char* s, const char* c);
 struct seaqt_string QGeoAreaMonitorSource_tr3(const char* s, const char* c, int n);
 
+bool QGeoAreaMonitorSource_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QGeoAreaMonitorSource_virtualbase_metaObject(const void* self);
+bool QGeoAreaMonitorSource_override_virtual_metacast(void* self, intptr_t slot);
+void* QGeoAreaMonitorSource_virtualbase_metacast(void* self, const char* param1);
+bool QGeoAreaMonitorSource_override_virtual_metacall(void* self, intptr_t slot);
+int QGeoAreaMonitorSource_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QGeoAreaMonitorSource_override_virtual_setPositionInfoSource(void* self, intptr_t slot);
 void QGeoAreaMonitorSource_virtualbase_setPositionInfoSource(void* self, QGeoPositionInfoSource* source);
 bool QGeoAreaMonitorSource_override_virtual_positionInfoSource(void* self, intptr_t slot);
@@ -115,6 +122,7 @@ int QGeoAreaMonitorSource_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok
 int QGeoAreaMonitorSource_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QGeoAreaMonitorSource_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QGeoAreaMonitorSource_staticMetaObject();
 void QGeoAreaMonitorSource_delete(QGeoAreaMonitorSource* self);
 
 #ifdef __cplusplus

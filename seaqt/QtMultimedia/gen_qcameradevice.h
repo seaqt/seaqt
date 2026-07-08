@@ -17,10 +17,12 @@ extern "C" {
 #ifdef __cplusplus
 class QCameraDevice;
 class QCameraFormat;
+class QMetaObject;
 class QSize;
 #else
 typedef struct QCameraDevice QCameraDevice;
 typedef struct QCameraFormat QCameraFormat;
+typedef struct QMetaObject QMetaObject;
 typedef struct QSize QSize;
 #endif
 
@@ -35,6 +37,7 @@ bool QCameraFormat_isNull(const QCameraFormat* self);
 bool QCameraFormat_operatorEqual(const QCameraFormat* self, QCameraFormat* other);
 bool QCameraFormat_operatorNotEqual(const QCameraFormat* self, QCameraFormat* other);
 
+const QMetaObject* QCameraFormat_staticMetaObject();
 void QCameraFormat_delete(QCameraFormat* self);
 
 QCameraDevice* QCameraDevice_new();
@@ -50,6 +53,7 @@ int QCameraDevice_position(const QCameraDevice* self);
 struct seaqt_array /* of QSize* */  QCameraDevice_photoResolutions(const QCameraDevice* self);
 struct seaqt_array /* of QCameraFormat* */  QCameraDevice_videoFormats(const QCameraDevice* self);
 
+const QMetaObject* QCameraDevice_staticMetaObject();
 void QCameraDevice_delete(QCameraDevice* self);
 
 #ifdef __cplusplus

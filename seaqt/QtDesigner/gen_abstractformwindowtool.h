@@ -37,6 +37,7 @@ typedef struct QWidget QWidget;
 void QDesignerFormWindowToolInterface_virtbase(QDesignerFormWindowToolInterface* src, QObject** outptr_QObject);
 QMetaObject* QDesignerFormWindowToolInterface_metaObject(const QDesignerFormWindowToolInterface* self);
 void* QDesignerFormWindowToolInterface_metacast(QDesignerFormWindowToolInterface* self, const char* param1);
+int QDesignerFormWindowToolInterface_metacall(QDesignerFormWindowToolInterface* self, int param1, int param2, void** param3);
 struct seaqt_string QDesignerFormWindowToolInterface_tr(const char* s);
 QDesignerFormWindowInterface* QDesignerFormWindowToolInterface_formWindow(const QDesignerFormWindowToolInterface* self);
 QWidget* QDesignerFormWindowToolInterface_editor(const QDesignerFormWindowToolInterface* self);
@@ -47,6 +48,7 @@ bool QDesignerFormWindowToolInterface_handleEvent(QDesignerFormWindowToolInterfa
 struct seaqt_string QDesignerFormWindowToolInterface_tr2(const char* s, const char* c);
 struct seaqt_string QDesignerFormWindowToolInterface_tr3(const char* s, const char* c, int n);
 
+const QMetaObject* QDesignerFormWindowToolInterface_staticMetaObject();
 void QDesignerFormWindowToolInterface_delete(QDesignerFormWindowToolInterface* self);
 
 #ifdef __cplusplus

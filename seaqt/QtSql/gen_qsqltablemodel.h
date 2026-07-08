@@ -66,6 +66,7 @@ QSqlTableModel* QSqlTableModel_new3(QObject* parent, QSqlDatabase* db);
 void QSqlTableModel_virtbase(QSqlTableModel* src, QSqlQueryModel** outptr_QSqlQueryModel);
 QMetaObject* QSqlTableModel_metaObject(const QSqlTableModel* self);
 void* QSqlTableModel_metacast(QSqlTableModel* self, const char* param1);
+int QSqlTableModel_metacall(QSqlTableModel* self, int param1, int param2, void** param3);
 struct seaqt_string QSqlTableModel_tr(const char* s);
 void QSqlTableModel_setTable(QSqlTableModel* self, struct seaqt_string tableName);
 struct seaqt_string QSqlTableModel_tableName(const QSqlTableModel* self);
@@ -118,6 +119,12 @@ QModelIndex* QSqlTableModel_indexInQuery(const QSqlTableModel* self, QModelIndex
 struct seaqt_string QSqlTableModel_tr2(const char* s, const char* c);
 struct seaqt_string QSqlTableModel_tr3(const char* s, const char* c, int n);
 
+bool QSqlTableModel_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QSqlTableModel_virtualbase_metaObject(const void* self);
+bool QSqlTableModel_override_virtual_metacast(void* self, intptr_t slot);
+void* QSqlTableModel_virtualbase_metacast(void* self, const char* param1);
+bool QSqlTableModel_override_virtual_metacall(void* self, intptr_t slot);
+int QSqlTableModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QSqlTableModel_override_virtual_setTable(void* self, intptr_t slot);
 void QSqlTableModel_virtualbase_setTable(void* self, struct seaqt_string tableName);
 bool QSqlTableModel_override_virtual_flags(void* self, intptr_t slot);
@@ -262,6 +269,7 @@ int QSqlTableModel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const
 int QSqlTableModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QSqlTableModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QSqlTableModel_staticMetaObject();
 void QSqlTableModel_delete(QSqlTableModel* self);
 
 #ifdef __cplusplus

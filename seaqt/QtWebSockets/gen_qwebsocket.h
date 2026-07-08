@@ -59,6 +59,7 @@ QWebSocket* QWebSocket_new4(struct seaqt_string origin, int version, QObject* pa
 void QWebSocket_virtbase(QWebSocket* src, QObject** outptr_QObject);
 QMetaObject* QWebSocket_metaObject(const QWebSocket* self);
 void* QWebSocket_metacast(QWebSocket* self, const char* param1);
+int QWebSocket_metacall(QWebSocket* self, int param1, int param2, void** param3);
 struct seaqt_string QWebSocket_tr(const char* s);
 void QWebSocket_abort(QWebSocket* self);
 int QWebSocket_error(const QWebSocket* self);
@@ -156,6 +157,12 @@ void QWebSocket_closeWithCloseCode(QWebSocket* self, int closeCode);
 void QWebSocket_close2(QWebSocket* self, int closeCode, struct seaqt_string reason);
 void QWebSocket_pingWithPayload(QWebSocket* self, struct seaqt_string payload);
 
+bool QWebSocket_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QWebSocket_virtualbase_metaObject(const void* self);
+bool QWebSocket_override_virtual_metacast(void* self, intptr_t slot);
+void* QWebSocket_virtualbase_metacast(void* self, const char* param1);
+bool QWebSocket_override_virtual_metacall(void* self, intptr_t slot);
+int QWebSocket_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QWebSocket_override_virtual_event(void* self, intptr_t slot);
 bool QWebSocket_virtualbase_event(void* self, QEvent* event);
 bool QWebSocket_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -176,6 +183,7 @@ int QWebSocket_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const voi
 int QWebSocket_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QWebSocket_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QWebSocket_staticMetaObject();
 void QWebSocket_delete(QWebSocket* self);
 
 #ifdef __cplusplus

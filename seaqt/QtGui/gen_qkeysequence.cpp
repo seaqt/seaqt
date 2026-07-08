@@ -1,6 +1,7 @@
 #include <QKeyCombination>
 #include <QKeySequence>
 #include <QList>
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -239,6 +240,7 @@ struct seaqt_string QKeySequence_listToString2(struct seaqt_array /* of QKeySequ
 	return _ms;
 }
 
+const QMetaObject* QKeySequence_staticMetaObject() { return &QKeySequence::staticMetaObject; }
 void QKeySequence_delete(QKeySequence* self) {
 	delete self;
 }

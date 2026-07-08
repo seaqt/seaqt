@@ -31,6 +31,7 @@ typedef struct QWebEngineNavigationRequest QWebEngineNavigationRequest;
 void QWebEngineNavigationRequest_virtbase(QWebEngineNavigationRequest* src, QObject** outptr_QObject);
 QMetaObject* QWebEngineNavigationRequest_metaObject(const QWebEngineNavigationRequest* self);
 void* QWebEngineNavigationRequest_metacast(QWebEngineNavigationRequest* self, const char* param1);
+int QWebEngineNavigationRequest_metacall(QWebEngineNavigationRequest* self, int param1, int param2, void** param3);
 struct seaqt_string QWebEngineNavigationRequest_tr(const char* s);
 QUrl* QWebEngineNavigationRequest_url(const QWebEngineNavigationRequest* self);
 bool QWebEngineNavigationRequest_isMainFrame(const QWebEngineNavigationRequest* self);
@@ -42,6 +43,7 @@ void QWebEngineNavigationRequest_connect_actionChanged(QWebEngineNavigationReque
 struct seaqt_string QWebEngineNavigationRequest_tr2(const char* s, const char* c);
 struct seaqt_string QWebEngineNavigationRequest_tr3(const char* s, const char* c, int n);
 
+const QMetaObject* QWebEngineNavigationRequest_staticMetaObject();
 void QWebEngineNavigationRequest_delete(QWebEngineNavigationRequest* self);
 
 #ifdef __cplusplus

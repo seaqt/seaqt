@@ -95,6 +95,7 @@ QAbstractButton* QAbstractButton_new2(QWidget* parent);
 void QAbstractButton_virtbase(QAbstractButton* src, QWidget** outptr_QWidget);
 QMetaObject* QAbstractButton_metaObject(const QAbstractButton* self);
 void* QAbstractButton_metacast(QAbstractButton* self, const char* param1);
+int QAbstractButton_metacall(QAbstractButton* self, int param1, int param2, void** param3);
 struct seaqt_string QAbstractButton_tr(const char* s);
 void QAbstractButton_setText(QAbstractButton* self, struct seaqt_string text);
 struct seaqt_string QAbstractButton_text(const QAbstractButton* self);
@@ -149,6 +150,12 @@ struct seaqt_string QAbstractButton_tr3(const char* s, const char* c, int n);
 void QAbstractButton_clickedWithChecked(QAbstractButton* self, bool checked);
 void QAbstractButton_connect_clickedWithChecked(QAbstractButton* self, intptr_t slot);
 
+bool QAbstractButton_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QAbstractButton_virtualbase_metaObject(const void* self);
+bool QAbstractButton_override_virtual_metacast(void* self, intptr_t slot);
+void* QAbstractButton_virtualbase_metacast(void* self, const char* param1);
+bool QAbstractButton_override_virtual_metacall(void* self, intptr_t slot);
+int QAbstractButton_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QAbstractButton_override_virtual_paintEvent(void* self, intptr_t slot);
 void QAbstractButton_virtualbase_paintEvent(void* self, QPaintEvent* e);
 bool QAbstractButton_override_virtual_hitButton(void* self, intptr_t slot);
@@ -260,6 +267,7 @@ int QAbstractButton_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, cons
 int QAbstractButton_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QAbstractButton_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QAbstractButton_staticMetaObject();
 void QAbstractButton_delete(QAbstractButton* self);
 
 #ifdef __cplusplus

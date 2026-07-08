@@ -99,6 +99,7 @@ QSplashScreen* QSplashScreen_new6(QScreen* screen, QPixmap* pixmap, int f);
 void QSplashScreen_virtbase(QSplashScreen* src, QWidget** outptr_QWidget);
 QMetaObject* QSplashScreen_metaObject(const QSplashScreen* self);
 void* QSplashScreen_metacast(QSplashScreen* self, const char* param1);
+int QSplashScreen_metacall(QSplashScreen* self, int param1, int param2, void** param3);
 struct seaqt_string QSplashScreen_tr(const char* s);
 void QSplashScreen_setPixmap(QSplashScreen* self, QPixmap* pixmap);
 QPixmap* QSplashScreen_pixmap(const QSplashScreen* self);
@@ -117,6 +118,12 @@ struct seaqt_string QSplashScreen_tr3(const char* s, const char* c, int n);
 void QSplashScreen_showMessage2(QSplashScreen* self, struct seaqt_string message, int alignment);
 void QSplashScreen_showMessage3(QSplashScreen* self, struct seaqt_string message, int alignment, QColor* color);
 
+bool QSplashScreen_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QSplashScreen_virtualbase_metaObject(const void* self);
+bool QSplashScreen_override_virtual_metacast(void* self, intptr_t slot);
+void* QSplashScreen_virtualbase_metacast(void* self, const char* param1);
+bool QSplashScreen_override_virtual_metacall(void* self, intptr_t slot);
+int QSplashScreen_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QSplashScreen_override_virtual_event(void* self, intptr_t slot);
 bool QSplashScreen_virtualbase_event(void* self, QEvent* e);
 bool QSplashScreen_override_virtual_drawContents(void* self, intptr_t slot);
@@ -224,6 +231,7 @@ int QSplashScreen_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const 
 int QSplashScreen_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QSplashScreen_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QSplashScreen_staticMetaObject();
 void QSplashScreen_delete(QSplashScreen* self);
 
 #ifdef __cplusplus

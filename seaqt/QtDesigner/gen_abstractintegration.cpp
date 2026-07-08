@@ -39,6 +39,10 @@ void* QDesignerIntegrationInterface_metacast(QDesignerIntegrationInterface* self
 	return self->qt_metacast(param1);
 }
 
+int QDesignerIntegrationInterface_metacall(QDesignerIntegrationInterface* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+}
+
 struct seaqt_string QDesignerIntegrationInterface_tr(const char* s) {
 	QString _ret = QDesignerIntegrationInterface::tr(s);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
@@ -360,6 +364,7 @@ struct seaqt_string QDesignerIntegrationInterface_tr3(const char* s, const char*
 	return _ms;
 }
 
+const QMetaObject* QDesignerIntegrationInterface_staticMetaObject() { return &QDesignerIntegrationInterface::staticMetaObject; }
 void QDesignerIntegrationInterface_delete(QDesignerIntegrationInterface* self) {
 	delete self;
 }
@@ -374,6 +379,10 @@ QMetaObject* QDesignerIntegration_metaObject(const QDesignerIntegration* self) {
 
 void* QDesignerIntegration_metacast(QDesignerIntegration* self, const char* param1) {
 	return self->qt_metacast(param1);
+}
+
+int QDesignerIntegration_metacall(QDesignerIntegration* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 struct seaqt_string QDesignerIntegration_tr(const char* s) {
@@ -511,6 +520,7 @@ struct seaqt_string QDesignerIntegration_tr3(const char* s, const char* c, int n
 	return _ms;
 }
 
+const QMetaObject* QDesignerIntegration_staticMetaObject() { return &QDesignerIntegration::staticMetaObject; }
 void QDesignerIntegration_delete(QDesignerIntegration* self) {
 	delete self;
 }

@@ -39,11 +39,18 @@ QSqlDriverPlugin* QSqlDriverPlugin_new2(QObject* parent);
 void QSqlDriverPlugin_virtbase(QSqlDriverPlugin* src, QObject** outptr_QObject);
 QMetaObject* QSqlDriverPlugin_metaObject(const QSqlDriverPlugin* self);
 void* QSqlDriverPlugin_metacast(QSqlDriverPlugin* self, const char* param1);
+int QSqlDriverPlugin_metacall(QSqlDriverPlugin* self, int param1, int param2, void** param3);
 struct seaqt_string QSqlDriverPlugin_tr(const char* s);
 QSqlDriver* QSqlDriverPlugin_create(QSqlDriverPlugin* self, struct seaqt_string key);
 struct seaqt_string QSqlDriverPlugin_tr2(const char* s, const char* c);
 struct seaqt_string QSqlDriverPlugin_tr3(const char* s, const char* c, int n);
 
+bool QSqlDriverPlugin_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QSqlDriverPlugin_virtualbase_metaObject(const void* self);
+bool QSqlDriverPlugin_override_virtual_metacast(void* self, intptr_t slot);
+void* QSqlDriverPlugin_virtualbase_metacast(void* self, const char* param1);
+bool QSqlDriverPlugin_override_virtual_metacall(void* self, intptr_t slot);
+int QSqlDriverPlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QSqlDriverPlugin_override_virtual_create(void* self, intptr_t slot);
 QSqlDriver* QSqlDriverPlugin_virtualbase_create(void* self, struct seaqt_string key);
 bool QSqlDriverPlugin_override_virtual_event(void* self, intptr_t slot);
@@ -66,6 +73,7 @@ int QSqlDriverPlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, con
 int QSqlDriverPlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QSqlDriverPlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QSqlDriverPlugin_staticMetaObject();
 void QSqlDriverPlugin_delete(QSqlDriverPlugin* self);
 
 #ifdef __cplusplus

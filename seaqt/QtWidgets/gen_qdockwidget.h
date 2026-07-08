@@ -97,6 +97,7 @@ QDockWidget* QDockWidget_new6(QWidget* parent, int flags);
 void QDockWidget_virtbase(QDockWidget* src, QWidget** outptr_QWidget);
 QMetaObject* QDockWidget_metaObject(const QDockWidget* self);
 void* QDockWidget_metacast(QDockWidget* self, const char* param1);
+int QDockWidget_metacall(QDockWidget* self, int param1, int param2, void** param3);
 struct seaqt_string QDockWidget_tr(const char* s);
 QWidget* QDockWidget_widget(const QDockWidget* self);
 void QDockWidget_setWidget(QDockWidget* self, QWidget* widget);
@@ -128,6 +129,12 @@ void QDockWidget_initStyleOption(const QDockWidget* self, QStyleOptionDockWidget
 struct seaqt_string QDockWidget_tr2(const char* s, const char* c);
 struct seaqt_string QDockWidget_tr3(const char* s, const char* c, int n);
 
+bool QDockWidget_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QDockWidget_virtualbase_metaObject(const void* self);
+bool QDockWidget_override_virtual_metacast(void* self, intptr_t slot);
+void* QDockWidget_virtualbase_metacast(void* self, const char* param1);
+bool QDockWidget_override_virtual_metacall(void* self, intptr_t slot);
+int QDockWidget_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QDockWidget_override_virtual_changeEvent(void* self, intptr_t slot);
 void QDockWidget_virtualbase_changeEvent(void* self, QEvent* event);
 bool QDockWidget_override_virtual_closeEvent(void* self, intptr_t slot);
@@ -235,6 +242,7 @@ int QDockWidget_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const vo
 int QDockWidget_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QDockWidget_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QDockWidget_staticMetaObject();
 void QDockWidget_delete(QDockWidget* self);
 
 #ifdef __cplusplus

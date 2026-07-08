@@ -43,6 +43,7 @@ QSignalTransition* QSignalTransition_new4(QObject* sender, const char* signal, Q
 void QSignalTransition_virtbase(QSignalTransition* src, QAbstractTransition** outptr_QAbstractTransition);
 QMetaObject* QSignalTransition_metaObject(const QSignalTransition* self);
 void* QSignalTransition_metacast(QSignalTransition* self, const char* param1);
+int QSignalTransition_metacall(QSignalTransition* self, int param1, int param2, void** param3);
 struct seaqt_string QSignalTransition_tr(const char* s);
 QObject* QSignalTransition_senderObject(const QSignalTransition* self);
 void QSignalTransition_setSenderObject(QSignalTransition* self, QObject* sender);
@@ -54,6 +55,12 @@ bool QSignalTransition_event(QSignalTransition* self, QEvent* e);
 struct seaqt_string QSignalTransition_tr2(const char* s, const char* c);
 struct seaqt_string QSignalTransition_tr3(const char* s, const char* c, int n);
 
+bool QSignalTransition_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QSignalTransition_virtualbase_metaObject(const void* self);
+bool QSignalTransition_override_virtual_metacast(void* self, intptr_t slot);
+void* QSignalTransition_virtualbase_metacast(void* self, const char* param1);
+bool QSignalTransition_override_virtual_metacall(void* self, intptr_t slot);
+int QSignalTransition_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QSignalTransition_override_virtual_eventTest(void* self, intptr_t slot);
 bool QSignalTransition_virtualbase_eventTest(void* self, QEvent* event);
 bool QSignalTransition_override_virtual_onTransition(void* self, intptr_t slot);
@@ -81,6 +88,7 @@ bool QSignalTransition_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, c
 void QSignalTransition_connect_senderObjectChanged(QSignalTransition* self, intptr_t slot);
 void QSignalTransition_connect_signalChanged(QSignalTransition* self, intptr_t slot);
 
+const QMetaObject* QSignalTransition_staticMetaObject();
 void QSignalTransition_delete(QSignalTransition* self);
 
 #ifdef __cplusplus

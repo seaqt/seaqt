@@ -17,6 +17,9 @@
 extern "C" {
 #endif
 
+QMetaObject* miqt_exec_callback_QExtensionFactory_metaObject(const QExtensionFactory*, intptr_t);
+void* miqt_exec_callback_QExtensionFactory_metacast(QExtensionFactory*, intptr_t, const char*);
+int miqt_exec_callback_QExtensionFactory_metacall(QExtensionFactory*, intptr_t, int, int, void**);
 QObject* miqt_exec_callback_QExtensionFactory_extension(const QExtensionFactory*, intptr_t, QObject*, struct seaqt_string);
 QObject* miqt_exec_callback_QExtensionFactory_createExtension(const QExtensionFactory*, intptr_t, QObject*, struct seaqt_string, QObject*);
 bool miqt_exec_callback_QExtensionFactory_event(QExtensionFactory*, intptr_t, QEvent*);
@@ -37,6 +40,56 @@ public:
 	VirtualQExtensionFactory(QExtensionManager* parent): QExtensionFactory(parent) {}
 
 	virtual ~VirtualQExtensionFactory() override = default;
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metaObject = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual const QMetaObject* metaObject() const override {
+		if (handle__metaObject == 0) {
+			return QExtensionFactory::metaObject();
+		}
+
+		QMetaObject* callback_return_value = miqt_exec_callback_QExtensionFactory_metaObject(this, handle__metaObject);
+		return callback_return_value;
+	}
+
+	friend QMetaObject* QExtensionFactory_virtualbase_metaObject(const void* self);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacast = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual void* qt_metacast(const char* param1) override {
+		if (handle__metacast == 0) {
+			return QExtensionFactory::qt_metacast(param1);
+		}
+
+		const char* sigval1 = (const char*) param1;
+		void* callback_return_value = miqt_exec_callback_QExtensionFactory_metacast(this, handle__metacast, sigval1);
+		return callback_return_value;
+	}
+
+	friend void* QExtensionFactory_virtualbase_metacast(void* self, const char* param1);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacall = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
+		if (handle__metacall == 0) {
+			return QExtensionFactory::qt_metacall(param1, param2, param3);
+		}
+
+		QMetaObject::Call param1_ret = param1;
+		int sigval1 = static_cast<int>(param1_ret);
+		int sigval2 = param2;
+		void** sigval3 = param3;
+		int callback_return_value = miqt_exec_callback_QExtensionFactory_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		return static_cast<int>(callback_return_value);
+	}
+
+	friend int QExtensionFactory_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 
 	// cgo.Handle value for overwritten implementation
 	intptr_t handle__extension = 0;
@@ -237,6 +290,10 @@ void* QExtensionFactory_metacast(QExtensionFactory* self, const char* param1) {
 	return self->qt_metacast(param1);
 }
 
+int QExtensionFactory_metacall(QExtensionFactory* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+}
+
 struct seaqt_string QExtensionFactory_tr(const char* s) {
 	QString _ret = QExtensionFactory::tr(s);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
@@ -277,6 +334,49 @@ struct seaqt_string QExtensionFactory_tr3(const char* s, const char* c, int n) {
 	_ms.data = static_cast<char*>(malloc(_ms.len));
 	memcpy(_ms.data, _b.data(), _ms.len);
 	return _ms;
+}
+
+const QMetaObject* QExtensionFactory_staticMetaObject() { return &QExtensionFactory::staticMetaObject; }
+bool QExtensionFactory_override_virtual_metaObject(void* self, intptr_t slot) {
+	VirtualQExtensionFactory* self_cast = dynamic_cast<VirtualQExtensionFactory*>( (QExtensionFactory*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metaObject = slot;
+	return true;
+}
+
+QMetaObject* QExtensionFactory_virtualbase_metaObject(const void* self) {
+	return (QMetaObject*) static_cast<const VirtualQExtensionFactory*>(self)->QExtensionFactory::metaObject();
+}
+
+bool QExtensionFactory_override_virtual_metacast(void* self, intptr_t slot) {
+	VirtualQExtensionFactory* self_cast = dynamic_cast<VirtualQExtensionFactory*>( (QExtensionFactory*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacast = slot;
+	return true;
+}
+
+void* QExtensionFactory_virtualbase_metacast(void* self, const char* param1) {
+	return static_cast<VirtualQExtensionFactory*>(self)->QExtensionFactory::qt_metacast(param1);
+}
+
+bool QExtensionFactory_override_virtual_metacall(void* self, intptr_t slot) {
+	VirtualQExtensionFactory* self_cast = dynamic_cast<VirtualQExtensionFactory*>( (QExtensionFactory*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacall = slot;
+	return true;
+}
+
+int QExtensionFactory_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
+	return static_cast<VirtualQExtensionFactory*>(self)->QExtensionFactory::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 bool QExtensionFactory_override_virtual_extension(void* self, intptr_t slot) {

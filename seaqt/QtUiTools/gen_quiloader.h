@@ -49,6 +49,7 @@ QUiLoader* QUiLoader_new2(QObject* parent);
 void QUiLoader_virtbase(QUiLoader* src, QObject** outptr_QObject);
 QMetaObject* QUiLoader_metaObject(const QUiLoader* self);
 void* QUiLoader_metacast(QUiLoader* self, const char* param1);
+int QUiLoader_metacall(QUiLoader* self, int param1, int param2, void** param3);
 struct seaqt_string QUiLoader_tr(const char* s);
 struct seaqt_array /* of struct seaqt_string */  QUiLoader_pluginPaths(const QUiLoader* self);
 void QUiLoader_clearPluginPaths(QUiLoader* self);
@@ -71,6 +72,12 @@ struct seaqt_string QUiLoader_tr2(const char* s, const char* c);
 struct seaqt_string QUiLoader_tr3(const char* s, const char* c, int n);
 QWidget* QUiLoader_load2(QUiLoader* self, QIODevice* device, QWidget* parentWidget);
 
+bool QUiLoader_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QUiLoader_virtualbase_metaObject(const void* self);
+bool QUiLoader_override_virtual_metacast(void* self, intptr_t slot);
+void* QUiLoader_virtualbase_metacast(void* self, const char* param1);
+bool QUiLoader_override_virtual_metacall(void* self, intptr_t slot);
+int QUiLoader_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QUiLoader_override_virtual_createWidget(void* self, intptr_t slot);
 QWidget* QUiLoader_virtualbase_createWidget(void* self, struct seaqt_string className, QWidget* parent, struct seaqt_string name);
 bool QUiLoader_override_virtual_createLayout(void* self, intptr_t slot);
@@ -99,6 +106,7 @@ int QUiLoader_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void
 int QUiLoader_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QUiLoader_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QUiLoader_staticMetaObject();
 void QUiLoader_delete(QUiLoader* self);
 
 #ifdef __cplusplus

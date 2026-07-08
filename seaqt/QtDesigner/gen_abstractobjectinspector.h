@@ -91,11 +91,18 @@ QDesignerObjectInspectorInterface* QDesignerObjectInspectorInterface_new2(QWidge
 void QDesignerObjectInspectorInterface_virtbase(QDesignerObjectInspectorInterface* src, QWidget** outptr_QWidget);
 QMetaObject* QDesignerObjectInspectorInterface_metaObject(const QDesignerObjectInspectorInterface* self);
 void* QDesignerObjectInspectorInterface_metacast(QDesignerObjectInspectorInterface* self, const char* param1);
+int QDesignerObjectInspectorInterface_metacall(QDesignerObjectInspectorInterface* self, int param1, int param2, void** param3);
 struct seaqt_string QDesignerObjectInspectorInterface_tr(const char* s);
 void QDesignerObjectInspectorInterface_setFormWindow(QDesignerObjectInspectorInterface* self, QDesignerFormWindowInterface* formWindow);
 struct seaqt_string QDesignerObjectInspectorInterface_tr2(const char* s, const char* c);
 struct seaqt_string QDesignerObjectInspectorInterface_tr3(const char* s, const char* c, int n);
 
+bool QDesignerObjectInspectorInterface_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QDesignerObjectInspectorInterface_virtualbase_metaObject(const void* self);
+bool QDesignerObjectInspectorInterface_override_virtual_metacast(void* self, intptr_t slot);
+void* QDesignerObjectInspectorInterface_virtualbase_metacast(void* self, const char* param1);
+bool QDesignerObjectInspectorInterface_override_virtual_metacall(void* self, intptr_t slot);
+int QDesignerObjectInspectorInterface_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QDesignerObjectInspectorInterface_override_virtual_setFormWindow(void* self, intptr_t slot);
 void QDesignerObjectInspectorInterface_virtualbase_setFormWindow(void* self, QDesignerFormWindowInterface* formWindow);
 bool QDesignerObjectInspectorInterface_override_virtual_devType(void* self, intptr_t slot);
@@ -203,6 +210,7 @@ int QDesignerObjectInspectorInterface_protectedbase_senderSignalIndex(bool* _dyn
 int QDesignerObjectInspectorInterface_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QDesignerObjectInspectorInterface_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QDesignerObjectInspectorInterface_staticMetaObject();
 void QDesignerObjectInspectorInterface_delete(QDesignerObjectInspectorInterface* self);
 
 #ifdef __cplusplus

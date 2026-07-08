@@ -55,6 +55,7 @@ QPdfDocument* QPdfDocument_new2(QObject* parent);
 void QPdfDocument_virtbase(QPdfDocument* src, QObject** outptr_QObject);
 QMetaObject* QPdfDocument_metaObject(const QPdfDocument* self);
 void* QPdfDocument_metacast(QPdfDocument* self, const char* param1);
+int QPdfDocument_metacall(QPdfDocument* self, int param1, int param2, void** param3);
 struct seaqt_string QPdfDocument_tr(const char* s);
 int QPdfDocument_load(QPdfDocument* self, struct seaqt_string fileName);
 int QPdfDocument_status(const QPdfDocument* self);
@@ -86,6 +87,12 @@ struct seaqt_string QPdfDocument_tr2(const char* s, const char* c);
 struct seaqt_string QPdfDocument_tr3(const char* s, const char* c, int n);
 QImage* QPdfDocument_render2(QPdfDocument* self, int page, QSize* imageSize, QPdfDocumentRenderOptions* options);
 
+bool QPdfDocument_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QPdfDocument_virtualbase_metaObject(const void* self);
+bool QPdfDocument_override_virtual_metacast(void* self, intptr_t slot);
+void* QPdfDocument_virtualbase_metacast(void* self, const char* param1);
+bool QPdfDocument_override_virtual_metacall(void* self, intptr_t slot);
+int QPdfDocument_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QPdfDocument_override_virtual_event(void* self, intptr_t slot);
 bool QPdfDocument_virtualbase_event(void* self, QEvent* event);
 bool QPdfDocument_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -106,6 +113,7 @@ int QPdfDocument_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const v
 int QPdfDocument_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QPdfDocument_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QPdfDocument_staticMetaObject();
 void QPdfDocument_delete(QPdfDocument* self);
 
 #ifdef __cplusplus

@@ -46,6 +46,7 @@ class QInputMethodQueryEvent;
 class QKeyCombination;
 class QKeyEvent;
 class QKeySequence;
+class QMetaObject;
 class QMimeData;
 class QMouseEvent;
 class QMoveEvent;
@@ -107,6 +108,7 @@ typedef struct QInputMethodQueryEvent QInputMethodQueryEvent;
 typedef struct QKeyCombination QKeyCombination;
 typedef struct QKeyEvent QKeyEvent;
 typedef struct QKeySequence QKeySequence;
+typedef struct QMetaObject QMetaObject;
 typedef struct QMimeData QMimeData;
 typedef struct QMouseEvent QMouseEvent;
 typedef struct QMoveEvent QMoveEvent;
@@ -214,6 +216,7 @@ bool QSinglePointEvent_isEndEvent(const QSinglePointEvent* self);
 QObject* QSinglePointEvent_exclusivePointGrabber(const QSinglePointEvent* self);
 void QSinglePointEvent_setExclusivePointGrabber(QSinglePointEvent* self, QObject* exclusiveGrabber);
 
+const QMetaObject* QSinglePointEvent_staticMetaObject();
 void QSinglePointEvent_delete(QSinglePointEvent* self);
 
 QEnterEvent* QEnterEvent_new(QPointF* localPos, QPointF* scenePos, QPointF* globalPos);
@@ -340,6 +343,7 @@ void QWheelEvent_virtualbase_setTimestamp(void* self, unsigned long long timesta
 bool QWheelEvent_override_virtual_setAccepted(void* self, intptr_t slot);
 void QWheelEvent_virtualbase_setAccepted(void* self, bool accepted);
 
+const QMetaObject* QWheelEvent_staticMetaObject();
 void QWheelEvent_delete(QWheelEvent* self);
 
 QTabletEvent* QTabletEvent_new(int t, QPointingDevice* device, QPointF* pos, QPointF* globalPos, double pressure, float xTilt, float yTilt, float tangentialPressure, double rotation, float z, int keyState, int button, int buttons);

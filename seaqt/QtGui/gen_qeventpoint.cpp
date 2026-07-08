@@ -1,4 +1,5 @@
 #include <QEventPoint>
+#include <QMetaObject>
 #include <QPointF>
 #include <QPointingDevice>
 #include <QPointingDeviceUniqueId>
@@ -218,6 +219,7 @@ void QEventPoint_setAcceptedWithAccepted(QEventPoint* self, bool accepted) {
 	self->setAccepted(accepted);
 }
 
+const QMetaObject* QEventPoint_staticMetaObject() { return &QEventPoint::staticMetaObject; }
 void QEventPoint_delete(QEventPoint* self) {
 	delete self;
 }

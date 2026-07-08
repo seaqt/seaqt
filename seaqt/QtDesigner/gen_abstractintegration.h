@@ -39,6 +39,7 @@ typedef struct QWidget QWidget;
 void QDesignerIntegrationInterface_virtbase(QDesignerIntegrationInterface* src, QObject** outptr_QObject);
 QMetaObject* QDesignerIntegrationInterface_metaObject(const QDesignerIntegrationInterface* self);
 void* QDesignerIntegrationInterface_metacast(QDesignerIntegrationInterface* self, const char* param1);
+int QDesignerIntegrationInterface_metacall(QDesignerIntegrationInterface* self, int param1, int param2, void** param3);
 struct seaqt_string QDesignerIntegrationInterface_tr(const char* s);
 QWidget* QDesignerIntegrationInterface_containerWindow(const QDesignerIntegrationInterface* self, QWidget* widget);
 QDesignerResourceBrowserInterface* QDesignerIntegrationInterface_createResourceBrowser(QDesignerIntegrationInterface* self, QWidget* parent);
@@ -78,11 +79,13 @@ void QDesignerIntegrationInterface_updateCustomWidgetPlugins(QDesignerIntegratio
 struct seaqt_string QDesignerIntegrationInterface_tr2(const char* s, const char* c);
 struct seaqt_string QDesignerIntegrationInterface_tr3(const char* s, const char* c, int n);
 
+const QMetaObject* QDesignerIntegrationInterface_staticMetaObject();
 void QDesignerIntegrationInterface_delete(QDesignerIntegrationInterface* self);
 
 void QDesignerIntegration_virtbase(QDesignerIntegration* src, QDesignerIntegrationInterface** outptr_QDesignerIntegrationInterface);
 QMetaObject* QDesignerIntegration_metaObject(const QDesignerIntegration* self);
 void* QDesignerIntegration_metacast(QDesignerIntegration* self, const char* param1);
+int QDesignerIntegration_metacall(QDesignerIntegration* self, int param1, int param2, void** param3);
 struct seaqt_string QDesignerIntegration_tr(const char* s);
 struct seaqt_string QDesignerIntegration_headerSuffix(const QDesignerIntegration* self);
 void QDesignerIntegration_setHeaderSuffix(QDesignerIntegration* self, struct seaqt_string headerSuffix);
@@ -107,6 +110,7 @@ void QDesignerIntegration_updateCustomWidgetPlugins(QDesignerIntegration* self);
 struct seaqt_string QDesignerIntegration_tr2(const char* s, const char* c);
 struct seaqt_string QDesignerIntegration_tr3(const char* s, const char* c, int n);
 
+const QMetaObject* QDesignerIntegration_staticMetaObject();
 void QDesignerIntegration_delete(QDesignerIntegration* self);
 
 #ifdef __cplusplus

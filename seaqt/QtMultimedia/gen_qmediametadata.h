@@ -16,9 +16,11 @@ extern "C" {
 
 #ifdef __cplusplus
 class QMediaMetaData;
+class QMetaObject;
 class QVariant;
 #else
 typedef struct QMediaMetaData QMediaMetaData;
+typedef struct QMetaObject QMetaObject;
 typedef struct QVariant QVariant;
 #endif
 
@@ -35,6 +37,7 @@ struct seaqt_string QMediaMetaData_stringValue(const QMediaMetaData* self, int k
 struct seaqt_string QMediaMetaData_metaDataKeyToString(int k);
 void QMediaMetaData_operatorAssign(QMediaMetaData* self, QMediaMetaData* param1);
 
+const QMetaObject* QMediaMetaData_staticMetaObject();
 void QMediaMetaData_delete(QMediaMetaData* self);
 
 #ifdef __cplusplus

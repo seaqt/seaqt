@@ -101,6 +101,7 @@ QPdfView* QPdfView_new2(QWidget* parent);
 void QPdfView_virtbase(QPdfView* src, QAbstractScrollArea** outptr_QAbstractScrollArea);
 QMetaObject* QPdfView_metaObject(const QPdfView* self);
 void* QPdfView_metacast(QPdfView* self, const char* param1);
+int QPdfView_metacall(QPdfView* self, int param1, int param2, void** param3);
 struct seaqt_string QPdfView_tr(const char* s);
 void QPdfView_setDocument(QPdfView* self, QPdfDocument* document);
 QPdfDocument* QPdfView_document(const QPdfView* self);
@@ -133,6 +134,12 @@ void QPdfView_scrollContentsBy(QPdfView* self, int dx, int dy);
 struct seaqt_string QPdfView_tr2(const char* s, const char* c);
 struct seaqt_string QPdfView_tr3(const char* s, const char* c, int n);
 
+bool QPdfView_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QPdfView_virtualbase_metaObject(const void* self);
+bool QPdfView_override_virtual_metacast(void* self, intptr_t slot);
+void* QPdfView_virtualbase_metacast(void* self, const char* param1);
+bool QPdfView_override_virtual_metacall(void* self, intptr_t slot);
+int QPdfView_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QPdfView_override_virtual_paintEvent(void* self, intptr_t slot);
 void QPdfView_virtualbase_paintEvent(void* self, QPaintEvent* event);
 bool QPdfView_override_virtual_resizeEvent(void* self, intptr_t slot);
@@ -251,6 +258,7 @@ int QPdfView_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void*
 int QPdfView_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QPdfView_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QPdfView_staticMetaObject();
 void QPdfView_delete(QPdfView* self);
 
 #ifdef __cplusplus

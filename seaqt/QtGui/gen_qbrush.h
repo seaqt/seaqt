@@ -26,6 +26,7 @@ class QGradient__QGradientData;
 #endif
 class QImage;
 class QLinearGradient;
+class QMetaObject;
 class QPixmap;
 class QPointF;
 class QRadialGradient;
@@ -39,6 +40,7 @@ typedef struct QGradient QGradient;
 typedef struct QGradient__QGradientData QGradient__QGradientData;
 typedef struct QImage QImage;
 typedef struct QLinearGradient QLinearGradient;
+typedef struct QMetaObject QMetaObject;
 typedef struct QPixmap QPixmap;
 typedef struct QPointF QPointF;
 typedef struct QRadialGradient QRadialGradient;
@@ -96,6 +98,7 @@ void QGradient_setInterpolationMode(QGradient* self, int mode);
 bool QGradient_operatorEqual(const QGradient* self, QGradient* gradient);
 bool QGradient_operatorNotEqual(const QGradient* self, QGradient* other);
 
+const QMetaObject* QGradient_staticMetaObject();
 void QGradient_delete(QGradient* self);
 
 QLinearGradient* QLinearGradient_new();

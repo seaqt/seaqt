@@ -1,5 +1,6 @@
 #include <QList>
 #include <QMediaMetaData>
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -89,6 +90,7 @@ void QMediaMetaData_operatorAssign(QMediaMetaData* self, QMediaMetaData* param1)
 	self->operator=(*param1);
 }
 
+const QMetaObject* QMediaMetaData_staticMetaObject() { return &QMediaMetaData::staticMetaObject; }
 void QMediaMetaData_delete(QMediaMetaData* self) {
 	delete self;
 }

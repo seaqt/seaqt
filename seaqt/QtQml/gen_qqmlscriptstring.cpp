@@ -1,3 +1,4 @@
+#include <QMetaObject>
 #include <QQmlScriptString>
 #include <QString>
 #include <QByteArray>
@@ -65,6 +66,7 @@ bool QQmlScriptString_booleanLiteral(const QQmlScriptString* self, bool* ok) {
 	return self->booleanLiteral(ok);
 }
 
+const QMetaObject* QQmlScriptString_staticMetaObject() { return &QQmlScriptString::staticMetaObject; }
 void QQmlScriptString_delete(QQmlScriptString* self) {
 	delete self;
 }

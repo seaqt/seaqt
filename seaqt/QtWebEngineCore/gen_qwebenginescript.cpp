@@ -1,3 +1,4 @@
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -104,6 +105,7 @@ void QWebEngineScript_swap(QWebEngineScript* self, QWebEngineScript* other) {
 	self->swap(*other);
 }
 
+const QMetaObject* QWebEngineScript_staticMetaObject() { return &QWebEngineScript::staticMetaObject; }
 void QWebEngineScript_delete(QWebEngineScript* self) {
 	delete self;
 }

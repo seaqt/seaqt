@@ -43,6 +43,7 @@ typedef struct QWidget QWidget;
 void QDesignerFormWindowInterface_virtbase(QDesignerFormWindowInterface* src, QWidget** outptr_QWidget);
 QMetaObject* QDesignerFormWindowInterface_metaObject(const QDesignerFormWindowInterface* self);
 void* QDesignerFormWindowInterface_metacast(QDesignerFormWindowInterface* self, const char* param1);
+int QDesignerFormWindowInterface_metacall(QDesignerFormWindowInterface* self, int param1, int param2, void** param3);
 struct seaqt_string QDesignerFormWindowInterface_tr(const char* s);
 struct seaqt_string QDesignerFormWindowInterface_fileName(const QDesignerFormWindowInterface* self);
 QDir* QDesignerFormWindowInterface_absoluteDir(const QDesignerFormWindowInterface* self);
@@ -132,6 +133,7 @@ struct seaqt_string QDesignerFormWindowInterface_tr2(const char* s, const char* 
 struct seaqt_string QDesignerFormWindowInterface_tr3(const char* s, const char* c, int n);
 void QDesignerFormWindowInterface_activateResourceFilePaths2(QDesignerFormWindowInterface* self, struct seaqt_array /* of struct seaqt_string */  paths, int* errorCount);
 
+const QMetaObject* QDesignerFormWindowInterface_staticMetaObject();
 void QDesignerFormWindowInterface_delete(QDesignerFormWindowInterface* self);
 
 #ifdef __cplusplus

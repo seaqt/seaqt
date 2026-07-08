@@ -98,6 +98,7 @@ QWizard* QWizard_new3(QWidget* parent, int flags);
 void QWizard_virtbase(QWizard* src, QDialog** outptr_QDialog);
 QMetaObject* QWizard_metaObject(const QWizard* self);
 void* QWizard_metacast(QWizard* self, const char* param1);
+int QWizard_metacall(QWizard* self, int param1, int param2, void** param3);
 struct seaqt_string QWizard_tr(const char* s);
 int QWizard_addPage(QWizard* self, QWizardPage* page);
 void QWizard_setPage(QWizard* self, int id, QWizardPage* page);
@@ -160,6 +161,12 @@ struct seaqt_string QWizard_tr2(const char* s, const char* c);
 struct seaqt_string QWizard_tr3(const char* s, const char* c, int n);
 void QWizard_setOption2(QWizard* self, int option, bool on);
 
+bool QWizard_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QWizard_virtualbase_metaObject(const void* self);
+bool QWizard_override_virtual_metacast(void* self, intptr_t slot);
+void* QWizard_virtualbase_metacast(void* self, const char* param1);
+bool QWizard_override_virtual_metacall(void* self, intptr_t slot);
+int QWizard_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QWizard_override_virtual_validateCurrentPage(void* self, intptr_t slot);
 bool QWizard_virtualbase_validateCurrentPage(void* self);
 bool QWizard_override_virtual_nextId(void* self, intptr_t slot);
@@ -284,6 +291,7 @@ int QWizard_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* 
 int QWizard_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QWizard_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QWizard_staticMetaObject();
 void QWizard_delete(QWizard* self);
 
 QWizardPage* QWizardPage_new();
@@ -291,6 +299,7 @@ QWizardPage* QWizardPage_new2(QWidget* parent);
 void QWizardPage_virtbase(QWizardPage* src, QWidget** outptr_QWidget);
 QMetaObject* QWizardPage_metaObject(const QWizardPage* self);
 void* QWizardPage_metacast(QWizardPage* self, const char* param1);
+int QWizardPage_metacall(QWizardPage* self, int param1, int param2, void** param3);
 struct seaqt_string QWizardPage_tr(const char* s);
 void QWizardPage_setTitle(QWizardPage* self, struct seaqt_string title);
 struct seaqt_string QWizardPage_title(const QWizardPage* self);
@@ -314,6 +323,12 @@ void QWizardPage_connect_completeChanged(QWizardPage* self, intptr_t slot);
 struct seaqt_string QWizardPage_tr2(const char* s, const char* c);
 struct seaqt_string QWizardPage_tr3(const char* s, const char* c, int n);
 
+bool QWizardPage_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QWizardPage_virtualbase_metaObject(const void* self);
+bool QWizardPage_override_virtual_metacast(void* self, intptr_t slot);
+void* QWizardPage_virtualbase_metacast(void* self, const char* param1);
+bool QWizardPage_override_virtual_metacall(void* self, intptr_t slot);
+int QWizardPage_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QWizardPage_override_virtual_initializePage(void* self, intptr_t slot);
 void QWizardPage_virtualbase_initializePage(void* self);
 bool QWizardPage_override_virtual_cleanupPage(void* self, intptr_t slot);
@@ -435,6 +450,7 @@ int QWizardPage_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const vo
 int QWizardPage_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QWizardPage_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QWizardPage_staticMetaObject();
 void QWizardPage_delete(QWizardPage* self);
 
 #ifdef __cplusplus

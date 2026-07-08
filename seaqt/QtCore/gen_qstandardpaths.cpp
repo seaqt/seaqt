@@ -1,4 +1,5 @@
 #include <QList>
+#include <QMetaObject>
 #include <QStandardPaths>
 #include <QString>
 #include <QByteArray>
@@ -161,3 +162,4 @@ struct seaqt_string QStandardPaths_findExecutable2(struct seaqt_string executabl
 	return _ms;
 }
 
+const QMetaObject* QStandardPaths_staticMetaObject() { return &QStandardPaths::staticMetaObject; }
