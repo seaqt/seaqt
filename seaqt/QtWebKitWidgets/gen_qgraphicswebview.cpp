@@ -155,7 +155,9 @@ public:
 		// Cast returned reference into pointer
 		QVariant* sigval2 = const_cast<QVariant*>(&value_ret);
 		QVariant* callback_return_value = vtbl->itemChange(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QGraphicsWebView_virtualbase_itemChange(VirtualQGraphicsWebView* self, int change, QVariant* value);
@@ -183,7 +185,9 @@ public:
 		// Cast returned reference into pointer
 		QSizeF* sigval2 = const_cast<QSizeF*>(&constraint_ret);
 		QSizeF* callback_return_value = vtbl->sizeHint(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSizeF* QGraphicsWebView_virtualbase_sizeHint(const VirtualQGraphicsWebView* self, int which, QSizeF* constraint);
@@ -196,7 +200,9 @@ public:
 		Qt::InputMethodQuery query_ret = query;
 		int sigval1 = static_cast<int>(query_ret);
 		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QGraphicsWebView_virtualbase_inputMethodQuery(const VirtualQGraphicsWebView* self, int query);
@@ -479,7 +485,9 @@ public:
 		}
 
 		QRectF* callback_return_value = vtbl->boundingRect(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRectF* QGraphicsWebView_virtualbase_boundingRect(const VirtualQGraphicsWebView* self);
@@ -490,7 +498,9 @@ public:
 		}
 
 		QPainterPath* callback_return_value = vtbl->shape(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QPainterPath* QGraphicsWebView_virtualbase_shape(const VirtualQGraphicsWebView* self);
@@ -524,7 +534,9 @@ public:
 		// Cast returned reference into pointer
 		QVariant* sigval2 = const_cast<QVariant*>(&value_ret);
 		QVariant* callback_return_value = vtbl->propertyChange(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QGraphicsWebView_virtualbase_propertyChange(VirtualQGraphicsWebView* self, struct seaqt_string propertyName, QVariant* value);
@@ -837,7 +849,9 @@ public:
 		}
 
 		QPainterPath* callback_return_value = vtbl->opaqueArea(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QPainterPath* QGraphicsWebView_virtualbase_opaqueArea(const VirtualQGraphicsWebView* self);
@@ -905,7 +919,9 @@ public:
 		// Cast returned reference into pointer
 		QVariant* sigval1 = const_cast<QVariant*>(&variant_ret);
 		QVariant* callback_return_value = vtbl->extension(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QGraphicsWebView_virtualbase_extension(const VirtualQGraphicsWebView* self, QVariant* variant);

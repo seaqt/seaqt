@@ -83,7 +83,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->sizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QGridLayout_virtualbase_sizeHint(const VirtualQGridLayout* self);
@@ -94,7 +96,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->minimumSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QGridLayout_virtualbase_minimumSize(const VirtualQGridLayout* self);
@@ -105,7 +109,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->maximumSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QGridLayout_virtualbase_maximumSize(const VirtualQGridLayout* self);
@@ -234,7 +240,9 @@ public:
 		}
 
 		QRect* callback_return_value = vtbl->geometry(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRect* QGridLayout_virtualbase_geometry(const VirtualQGridLayout* self);

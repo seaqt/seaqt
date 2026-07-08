@@ -93,7 +93,9 @@ public:
 		}
 
 		QSurfaceFormat* callback_return_value = vtbl->format(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSurfaceFormat* QOffscreenSurface_virtualbase_format(const VirtualQOffscreenSurface* self);
@@ -104,7 +106,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->size(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QOffscreenSurface_virtualbase_size(const VirtualQOffscreenSurface* self);
