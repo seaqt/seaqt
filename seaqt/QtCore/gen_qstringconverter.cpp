@@ -78,12 +78,14 @@ ptrdiff_t QStringDecoder_requiredSpace(const QStringDecoder* self, ptrdiff_t inp
 	return static_cast<ptrdiff_t>(_ret);
 }
 
-QChar* QStringDecoder_appendToBuffer(QStringDecoder* self, QChar* out, QByteArrayView* ba) {
-	return self->appendToBuffer(out, *ba);
+QChar* QStringDecoder_appendToBuffer(QStringDecoder* self, QChar* out, struct seaqt_string ba) {
+	QByteArrayView ba_QByteArray(ba.data, ba.len);
+	return self->appendToBuffer(out, ba_QByteArray);
 }
 
-QStringDecoder* QStringDecoder_decoderForHtml(QByteArrayView* data) {
-	return new QStringDecoder(QStringDecoder::decoderForHtml(*data));
+QStringDecoder* QStringDecoder_decoderForHtml(struct seaqt_string data) {
+	QByteArrayView data_QByteArray(data.data, data.len);
+	return new QStringDecoder(QStringDecoder::decoderForHtml(data_QByteArray));
 }
 
 void QStringDecoder_delete(QStringDecoder* self) {
