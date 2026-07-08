@@ -44,6 +44,7 @@ typedef struct QVariant QVariant;
 
 QJsonObject* QJsonObject_new();
 QJsonObject* QJsonObject_new2(QJsonObject* other);
+
 void QJsonObject_operatorAssign(QJsonObject* self, QJsonObject* other);
 void QJsonObject_swap(QJsonObject* self, QJsonObject* other);
 QJsonObject* QJsonObject_fromVariantMap(struct seaqt_map /* of struct seaqt_string to QVariant* */  map);
@@ -81,6 +82,7 @@ void QJsonObject_delete(QJsonObject* self);
 QJsonObject__iterator* QJsonObject__iterator_new();
 QJsonObject__iterator* QJsonObject__iterator_new2(QJsonObject* obj, int index);
 QJsonObject__iterator* QJsonObject__iterator_new3(QJsonObject__iterator* param1);
+
 struct seaqt_string QJsonObject__iterator_key(const QJsonObject__iterator* self);
 QJsonValueRef* QJsonObject__iterator_value(const QJsonObject__iterator* self);
 QJsonValueRef* QJsonObject__iterator_operatorMultiply(const QJsonObject__iterator* self);
@@ -114,6 +116,7 @@ QJsonObject__const_iterator* QJsonObject__const_iterator_new();
 QJsonObject__const_iterator* QJsonObject__const_iterator_new2(QJsonObject* obj, int index);
 QJsonObject__const_iterator* QJsonObject__const_iterator_new3(QJsonObject__iterator* other);
 QJsonObject__const_iterator* QJsonObject__const_iterator_new4(QJsonObject__const_iterator* param1);
+
 struct seaqt_string QJsonObject__const_iterator_key(const QJsonObject__const_iterator* self);
 QJsonValue* QJsonObject__const_iterator_value(const QJsonObject__const_iterator* self);
 QJsonValue* QJsonObject__const_iterator_operatorMultiply(const QJsonObject__const_iterator* self);

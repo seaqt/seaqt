@@ -26,6 +26,7 @@ QGeoCoordinate* QGeoCoordinate_new();
 QGeoCoordinate* QGeoCoordinate_new2(double latitude, double longitude);
 QGeoCoordinate* QGeoCoordinate_new3(double latitude, double longitude, double altitude);
 QGeoCoordinate* QGeoCoordinate_new4(QGeoCoordinate* other);
+
 void QGeoCoordinate_operatorAssign(QGeoCoordinate* self, QGeoCoordinate* other);
 bool QGeoCoordinate_operatorEqual(const QGeoCoordinate* self, QGeoCoordinate* other);
 bool QGeoCoordinate_operatorNotEqual(const QGeoCoordinate* self, QGeoCoordinate* other);

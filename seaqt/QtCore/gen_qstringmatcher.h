@@ -28,6 +28,7 @@ QStringMatcher* QStringMatcher_new3(QChar* uc, int len);
 QStringMatcher* QStringMatcher_new4(QStringMatcher* other);
 QStringMatcher* QStringMatcher_new5(struct seaqt_string pattern, int cs);
 QStringMatcher* QStringMatcher_new6(QChar* uc, int len, int cs);
+
 void QStringMatcher_operatorAssign(QStringMatcher* self, QStringMatcher* other);
 void QStringMatcher_setPattern(QStringMatcher* self, struct seaqt_string pattern);
 void QStringMatcher_setCaseSensitivity(QStringMatcher* self, int cs);

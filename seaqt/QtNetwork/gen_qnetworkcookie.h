@@ -28,6 +28,7 @@ QNetworkCookie* QNetworkCookie_new();
 QNetworkCookie* QNetworkCookie_new2(QNetworkCookie* other);
 QNetworkCookie* QNetworkCookie_new3(struct seaqt_string name);
 QNetworkCookie* QNetworkCookie_new4(struct seaqt_string name, struct seaqt_string value);
+
 void QNetworkCookie_operatorAssign(QNetworkCookie* self, QNetworkCookie* other);
 void QNetworkCookie_swap(QNetworkCookie* self, QNetworkCookie* other);
 bool QNetworkCookie_operatorEqual(const QNetworkCookie* self, QNetworkCookie* other);

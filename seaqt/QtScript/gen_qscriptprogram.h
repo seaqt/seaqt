@@ -25,6 +25,7 @@ QScriptProgram* QScriptProgram_new2(struct seaqt_string sourceCode);
 QScriptProgram* QScriptProgram_new3(QScriptProgram* other);
 QScriptProgram* QScriptProgram_new4(struct seaqt_string sourceCode, struct seaqt_string fileName);
 QScriptProgram* QScriptProgram_new5(struct seaqt_string sourceCode, struct seaqt_string fileName, int firstLineNumber);
+
 void QScriptProgram_operatorAssign(QScriptProgram* self, QScriptProgram* other);
 bool QScriptProgram_isNull(const QScriptProgram* self);
 struct seaqt_string QScriptProgram_sourceCode(const QScriptProgram* self);

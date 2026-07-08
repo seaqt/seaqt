@@ -30,6 +30,7 @@ typedef struct QNoDebug QNoDebug;
 
 QDebug* QDebug_new(QIODevice* device);
 QDebug* QDebug_new2(QDebug* o);
+
 void QDebug_operatorAssign(QDebug* self, QDebug* other);
 void QDebug_swap(QDebug* self, QDebug* other);
 QDebug* QDebug_resetFormat(QDebug* self);
@@ -66,6 +67,7 @@ QDebug* QDebug_maybeQuoteWithChar(QDebug* self, char c);
 void QDebug_delete(QDebug* self);
 
 QDebugStateSaver* QDebugStateSaver_new(QDebug* dbg);
+
 void QDebugStateSaver_delete(QDebugStateSaver* self);
 
 QNoDebug* QNoDebug_space(QNoDebug* self);

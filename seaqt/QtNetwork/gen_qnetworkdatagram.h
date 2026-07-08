@@ -27,6 +27,7 @@ QNetworkDatagram* QNetworkDatagram_new2(struct seaqt_string data);
 QNetworkDatagram* QNetworkDatagram_new3(QNetworkDatagram* other);
 QNetworkDatagram* QNetworkDatagram_new4(struct seaqt_string data, QHostAddress* destinationAddress);
 QNetworkDatagram* QNetworkDatagram_new5(struct seaqt_string data, QHostAddress* destinationAddress, unsigned short port);
+
 void QNetworkDatagram_operatorAssign(QNetworkDatagram* self, QNetworkDatagram* other);
 void QNetworkDatagram_swap(QNetworkDatagram* self, QNetworkDatagram* other);
 void QNetworkDatagram_clear(QNetworkDatagram* self);

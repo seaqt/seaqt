@@ -26,7 +26,27 @@ typedef struct QScriptValue QScriptValue;
 typedef struct QVariant QVariant;
 #endif
 
-QScriptEngineAgent* QScriptEngineAgent_new(QScriptEngine* engine);
+typedef struct VirtualQScriptEngineAgent VirtualQScriptEngineAgent;
+typedef struct QScriptEngineAgent_VTable{
+	void (*destructor)(VirtualQScriptEngineAgent* self);
+	void (*scriptLoad)(VirtualQScriptEngineAgent* self, long long id, struct seaqt_string program, struct seaqt_string fileName, int baseLineNumber);
+	void (*scriptUnload)(VirtualQScriptEngineAgent* self, long long id);
+	void (*contextPush)(VirtualQScriptEngineAgent* self);
+	void (*contextPop)(VirtualQScriptEngineAgent* self);
+	void (*functionEntry)(VirtualQScriptEngineAgent* self, long long scriptId);
+	void (*functionExit)(VirtualQScriptEngineAgent* self, long long scriptId, QScriptValue* returnValue);
+	void (*positionChange)(VirtualQScriptEngineAgent* self, long long scriptId, int lineNumber, int columnNumber);
+	void (*exceptionThrow)(VirtualQScriptEngineAgent* self, long long scriptId, QScriptValue* exception, bool hasHandler);
+	void (*exceptionCatch)(VirtualQScriptEngineAgent* self, long long scriptId, QScriptValue* exception);
+	bool (*supportsExtension)(const VirtualQScriptEngineAgent* self, int extension);
+	QVariant* (*extension)(VirtualQScriptEngineAgent* self, int extension, QVariant* argument);
+}QScriptEngineAgent_VTable;
+
+void* QScriptEngineAgent_vdata(VirtualQScriptEngineAgent* self);
+VirtualQScriptEngineAgent* vdata_QScriptEngineAgent(void* vdata);
+
+VirtualQScriptEngineAgent* QScriptEngineAgent_new(const QScriptEngineAgent_VTable* vtbl, size_t vdata, QScriptEngine* engine);
+
 void QScriptEngineAgent_scriptLoad(QScriptEngineAgent* self, long long id, struct seaqt_string program, struct seaqt_string fileName, int baseLineNumber);
 void QScriptEngineAgent_scriptUnload(QScriptEngineAgent* self, long long id);
 void QScriptEngineAgent_contextPush(QScriptEngineAgent* self);
@@ -40,28 +60,17 @@ bool QScriptEngineAgent_supportsExtension(const QScriptEngineAgent* self, int ex
 QVariant* QScriptEngineAgent_extension(QScriptEngineAgent* self, int extension, QVariant* argument);
 QScriptEngine* QScriptEngineAgent_engine(const QScriptEngineAgent* self);
 
-bool QScriptEngineAgent_override_virtual_scriptLoad(void* self, intptr_t slot);
-void QScriptEngineAgent_virtualbase_scriptLoad(void* self, long long id, struct seaqt_string program, struct seaqt_string fileName, int baseLineNumber);
-bool QScriptEngineAgent_override_virtual_scriptUnload(void* self, intptr_t slot);
-void QScriptEngineAgent_virtualbase_scriptUnload(void* self, long long id);
-bool QScriptEngineAgent_override_virtual_contextPush(void* self, intptr_t slot);
-void QScriptEngineAgent_virtualbase_contextPush(void* self);
-bool QScriptEngineAgent_override_virtual_contextPop(void* self, intptr_t slot);
-void QScriptEngineAgent_virtualbase_contextPop(void* self);
-bool QScriptEngineAgent_override_virtual_functionEntry(void* self, intptr_t slot);
-void QScriptEngineAgent_virtualbase_functionEntry(void* self, long long scriptId);
-bool QScriptEngineAgent_override_virtual_functionExit(void* self, intptr_t slot);
-void QScriptEngineAgent_virtualbase_functionExit(void* self, long long scriptId, QScriptValue* returnValue);
-bool QScriptEngineAgent_override_virtual_positionChange(void* self, intptr_t slot);
-void QScriptEngineAgent_virtualbase_positionChange(void* self, long long scriptId, int lineNumber, int columnNumber);
-bool QScriptEngineAgent_override_virtual_exceptionThrow(void* self, intptr_t slot);
-void QScriptEngineAgent_virtualbase_exceptionThrow(void* self, long long scriptId, QScriptValue* exception, bool hasHandler);
-bool QScriptEngineAgent_override_virtual_exceptionCatch(void* self, intptr_t slot);
-void QScriptEngineAgent_virtualbase_exceptionCatch(void* self, long long scriptId, QScriptValue* exception);
-bool QScriptEngineAgent_override_virtual_supportsExtension(void* self, intptr_t slot);
-bool QScriptEngineAgent_virtualbase_supportsExtension(const void* self, int extension);
-bool QScriptEngineAgent_override_virtual_extension(void* self, intptr_t slot);
-QVariant* QScriptEngineAgent_virtualbase_extension(void* self, int extension, QVariant* argument);
+void QScriptEngineAgent_virtualbase_scriptLoad(VirtualQScriptEngineAgent* self, long long id, struct seaqt_string program, struct seaqt_string fileName, int baseLineNumber);
+void QScriptEngineAgent_virtualbase_scriptUnload(VirtualQScriptEngineAgent* self, long long id);
+void QScriptEngineAgent_virtualbase_contextPush(VirtualQScriptEngineAgent* self);
+void QScriptEngineAgent_virtualbase_contextPop(VirtualQScriptEngineAgent* self);
+void QScriptEngineAgent_virtualbase_functionEntry(VirtualQScriptEngineAgent* self, long long scriptId);
+void QScriptEngineAgent_virtualbase_functionExit(VirtualQScriptEngineAgent* self, long long scriptId, QScriptValue* returnValue);
+void QScriptEngineAgent_virtualbase_positionChange(VirtualQScriptEngineAgent* self, long long scriptId, int lineNumber, int columnNumber);
+void QScriptEngineAgent_virtualbase_exceptionThrow(VirtualQScriptEngineAgent* self, long long scriptId, QScriptValue* exception, bool hasHandler);
+void QScriptEngineAgent_virtualbase_exceptionCatch(VirtualQScriptEngineAgent* self, long long scriptId, QScriptValue* exception);
+bool QScriptEngineAgent_virtualbase_supportsExtension(const VirtualQScriptEngineAgent* self, int extension);
+QVariant* QScriptEngineAgent_virtualbase_extension(VirtualQScriptEngineAgent* self, int extension, QVariant* argument);
 
 void QScriptEngineAgent_delete(QScriptEngineAgent* self);
 

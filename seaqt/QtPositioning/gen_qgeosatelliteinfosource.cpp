@@ -15,6 +15,17 @@
 #include <qgeosatelliteinfosource.h>
 #include "gen_qgeosatelliteinfosource.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -23,70 +34,46 @@ void miqt_exec_callback_QGeoSatelliteInfoSource_satellitesInViewUpdated(intptr_t
 void miqt_exec_callback_QGeoSatelliteInfoSource_satellitesInUseUpdated(intptr_t, struct seaqt_array /* of QGeoSatelliteInfo* */ );
 void miqt_exec_callback_QGeoSatelliteInfoSource_requestTimeout(intptr_t);
 void miqt_exec_callback_QGeoSatelliteInfoSource_errorWithQGeoSatelliteInfoSourceError(intptr_t, int);
-QMetaObject* miqt_exec_callback_QGeoSatelliteInfoSource_metaObject(const QGeoSatelliteInfoSource*, intptr_t);
-void* miqt_exec_callback_QGeoSatelliteInfoSource_metacast(QGeoSatelliteInfoSource*, intptr_t, const char*);
-int miqt_exec_callback_QGeoSatelliteInfoSource_metacall(QGeoSatelliteInfoSource*, intptr_t, int, int, void**);
-void miqt_exec_callback_QGeoSatelliteInfoSource_setUpdateInterval(QGeoSatelliteInfoSource*, intptr_t, int);
-int miqt_exec_callback_QGeoSatelliteInfoSource_minimumUpdateInterval(const QGeoSatelliteInfoSource*, intptr_t);
-int miqt_exec_callback_QGeoSatelliteInfoSource_error(const QGeoSatelliteInfoSource*, intptr_t);
-void miqt_exec_callback_QGeoSatelliteInfoSource_startUpdates(QGeoSatelliteInfoSource*, intptr_t);
-void miqt_exec_callback_QGeoSatelliteInfoSource_stopUpdates(QGeoSatelliteInfoSource*, intptr_t);
-void miqt_exec_callback_QGeoSatelliteInfoSource_requestUpdate(QGeoSatelliteInfoSource*, intptr_t, int);
-bool miqt_exec_callback_QGeoSatelliteInfoSource_event(QGeoSatelliteInfoSource*, intptr_t, QEvent*);
-bool miqt_exec_callback_QGeoSatelliteInfoSource_eventFilter(QGeoSatelliteInfoSource*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QGeoSatelliteInfoSource_timerEvent(QGeoSatelliteInfoSource*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QGeoSatelliteInfoSource_childEvent(QGeoSatelliteInfoSource*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QGeoSatelliteInfoSource_customEvent(QGeoSatelliteInfoSource*, intptr_t, QEvent*);
-void miqt_exec_callback_QGeoSatelliteInfoSource_connectNotify(QGeoSatelliteInfoSource*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QGeoSatelliteInfoSource_disconnectNotify(QGeoSatelliteInfoSource*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQGeoSatelliteInfoSource final : public QGeoSatelliteInfoSource {
+	const QGeoSatelliteInfoSource_VTable* vtbl;
 public:
+	friend void* QGeoSatelliteInfoSource_vdata(VirtualQGeoSatelliteInfoSource* self);
+	friend VirtualQGeoSatelliteInfoSource* vdata_QGeoSatelliteInfoSource(void* vdata);
 
-	VirtualQGeoSatelliteInfoSource(QObject* parent): QGeoSatelliteInfoSource(parent) {}
+	VirtualQGeoSatelliteInfoSource(const QGeoSatelliteInfoSource_VTable* vtbl, QObject* parent): QGeoSatelliteInfoSource(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQGeoSatelliteInfoSource() override = default;
+	virtual ~VirtualQGeoSatelliteInfoSource() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QGeoSatelliteInfoSource::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QGeoSatelliteInfoSource_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QGeoSatelliteInfoSource_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QGeoSatelliteInfoSource_virtualbase_metaObject(const VirtualQGeoSatelliteInfoSource* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QGeoSatelliteInfoSource::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QGeoSatelliteInfoSource_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QGeoSatelliteInfoSource_virtualbase_metacast(void* self, const char* param1);
+	friend void* QGeoSatelliteInfoSource_virtualbase_metacast(VirtualQGeoSatelliteInfoSource* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QGeoSatelliteInfoSource::qt_metacall(param1, param2, param3);
 		}
 
@@ -94,185 +81,130 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QGeoSatelliteInfoSource_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QGeoSatelliteInfoSource_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QGeoSatelliteInfoSource_virtualbase_metacall(VirtualQGeoSatelliteInfoSource* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setUpdateInterval = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setUpdateInterval(int msec) override {
-		if (handle__setUpdateInterval == 0) {
+		if (vtbl->setUpdateInterval == 0) {
 			QGeoSatelliteInfoSource::setUpdateInterval(msec);
 			return;
 		}
 
 		int sigval1 = msec;
-		miqt_exec_callback_QGeoSatelliteInfoSource_setUpdateInterval(this, handle__setUpdateInterval, sigval1);
-
+		vtbl->setUpdateInterval(this, sigval1);
 	}
 
-	friend void QGeoSatelliteInfoSource_virtualbase_setUpdateInterval(void* self, int msec);
+	friend void QGeoSatelliteInfoSource_virtualbase_setUpdateInterval(VirtualQGeoSatelliteInfoSource* self, int msec);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__minimumUpdateInterval = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int minimumUpdateInterval() const override {
-		if (handle__minimumUpdateInterval == 0) {
+		if (vtbl->minimumUpdateInterval == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QGeoSatelliteInfoSource_minimumUpdateInterval(this, handle__minimumUpdateInterval);
+		int callback_return_value = vtbl->minimumUpdateInterval(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__error = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QGeoSatelliteInfoSource::Error error() const override {
-		if (handle__error == 0) {
+		if (vtbl->error == 0) {
 			return (QGeoSatelliteInfoSource::Error)(0); // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QGeoSatelliteInfoSource_error(this, handle__error);
+		int callback_return_value = vtbl->error(this);
 		return static_cast<QGeoSatelliteInfoSource::Error>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__startUpdates = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void startUpdates() override {
-		if (handle__startUpdates == 0) {
+		if (vtbl->startUpdates == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
-		miqt_exec_callback_QGeoSatelliteInfoSource_startUpdates(this, handle__startUpdates);
-
+		vtbl->startUpdates(this);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__stopUpdates = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void stopUpdates() override {
-		if (handle__stopUpdates == 0) {
+		if (vtbl->stopUpdates == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
-		miqt_exec_callback_QGeoSatelliteInfoSource_stopUpdates(this, handle__stopUpdates);
-
+		vtbl->stopUpdates(this);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__requestUpdate = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void requestUpdate(int timeout) override {
-		if (handle__requestUpdate == 0) {
+		if (vtbl->requestUpdate == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = timeout;
-		miqt_exec_callback_QGeoSatelliteInfoSource_requestUpdate(this, handle__requestUpdate, sigval1);
-
+		vtbl->requestUpdate(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QGeoSatelliteInfoSource::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QGeoSatelliteInfoSource_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QGeoSatelliteInfoSource_virtualbase_event(void* self, QEvent* event);
+	friend bool QGeoSatelliteInfoSource_virtualbase_event(VirtualQGeoSatelliteInfoSource* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QGeoSatelliteInfoSource::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QGeoSatelliteInfoSource_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QGeoSatelliteInfoSource_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QGeoSatelliteInfoSource_virtualbase_eventFilter(VirtualQGeoSatelliteInfoSource* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QGeoSatelliteInfoSource::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QGeoSatelliteInfoSource_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QGeoSatelliteInfoSource_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QGeoSatelliteInfoSource_virtualbase_timerEvent(VirtualQGeoSatelliteInfoSource* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QGeoSatelliteInfoSource::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QGeoSatelliteInfoSource_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QGeoSatelliteInfoSource_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QGeoSatelliteInfoSource_virtualbase_childEvent(VirtualQGeoSatelliteInfoSource* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QGeoSatelliteInfoSource::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QGeoSatelliteInfoSource_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QGeoSatelliteInfoSource_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QGeoSatelliteInfoSource_virtualbase_customEvent(VirtualQGeoSatelliteInfoSource* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QGeoSatelliteInfoSource::connectNotify(signal);
 			return;
 		}
@@ -280,18 +212,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGeoSatelliteInfoSource_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QGeoSatelliteInfoSource_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QGeoSatelliteInfoSource_virtualbase_connectNotify(VirtualQGeoSatelliteInfoSource* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QGeoSatelliteInfoSource::disconnectNotify(signal);
 			return;
 		}
@@ -299,21 +226,21 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGeoSatelliteInfoSource_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QGeoSatelliteInfoSource_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QGeoSatelliteInfoSource_virtualbase_disconnectNotify(VirtualQGeoSatelliteInfoSource* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QGeoSatelliteInfoSource_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QGeoSatelliteInfoSource_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QGeoSatelliteInfoSource_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QGeoSatelliteInfoSource_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QGeoSatelliteInfoSource_protectedbase_sender(const VirtualQGeoSatelliteInfoSource* self);
+	friend int QGeoSatelliteInfoSource_protectedbase_senderSignalIndex(const VirtualQGeoSatelliteInfoSource* self);
+	friend int QGeoSatelliteInfoSource_protectedbase_receivers(const VirtualQGeoSatelliteInfoSource* self, const char* signal);
+	friend bool QGeoSatelliteInfoSource_protectedbase_isSignalConnected(const VirtualQGeoSatelliteInfoSource* self, QMetaMethod* signal);
 };
 
-QGeoSatelliteInfoSource* QGeoSatelliteInfoSource_new(QObject* parent) {
-	return new (std::nothrow) VirtualQGeoSatelliteInfoSource(parent);
+VirtualQGeoSatelliteInfoSource* QGeoSatelliteInfoSource_new(const QGeoSatelliteInfoSource_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGeoSatelliteInfoSource>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGeoSatelliteInfoSource(vtbl, parent) : nullptr;
 }
 
 void QGeoSatelliteInfoSource_virtbase(QGeoSatelliteInfoSource* src, QObject** outptr_QObject) {
@@ -565,252 +492,78 @@ struct seaqt_string QGeoSatelliteInfoSource_trUtf83(const char* s, const char* c
 }
 
 const QMetaObject* QGeoSatelliteInfoSource_staticMetaObject() { return &QGeoSatelliteInfoSource::staticMetaObject; }
-bool QGeoSatelliteInfoSource_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGeoSatelliteInfoSource_vdata(VirtualQGeoSatelliteInfoSource* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGeoSatelliteInfoSource>()); }
+VirtualQGeoSatelliteInfoSource* vdata_QGeoSatelliteInfoSource(void* vdata) { return reinterpret_cast<VirtualQGeoSatelliteInfoSource*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGeoSatelliteInfoSource>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QGeoSatelliteInfoSource_virtualbase_metaObject(const VirtualQGeoSatelliteInfoSource* self) {
+
+	return (QMetaObject*) self->QGeoSatelliteInfoSource::metaObject();
 }
 
-QMetaObject* QGeoSatelliteInfoSource_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQGeoSatelliteInfoSource*>(self)->QGeoSatelliteInfoSource::metaObject();
+void* QGeoSatelliteInfoSource_virtualbase_metacast(VirtualQGeoSatelliteInfoSource* self, const char* param1) {
+
+	return self->QGeoSatelliteInfoSource::qt_metacast(param1);
 }
 
-bool QGeoSatelliteInfoSource_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QGeoSatelliteInfoSource_virtualbase_metacall(VirtualQGeoSatelliteInfoSource* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QGeoSatelliteInfoSource::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QGeoSatelliteInfoSource_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQGeoSatelliteInfoSource*>(self)->QGeoSatelliteInfoSource::qt_metacast(param1);
+void QGeoSatelliteInfoSource_virtualbase_setUpdateInterval(VirtualQGeoSatelliteInfoSource* self, int msec) {
+
+	self->QGeoSatelliteInfoSource::setUpdateInterval(static_cast<int>(msec));
 }
 
-bool QGeoSatelliteInfoSource_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QGeoSatelliteInfoSource_virtualbase_event(VirtualQGeoSatelliteInfoSource* self, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QGeoSatelliteInfoSource::event(event);
 }
 
-int QGeoSatelliteInfoSource_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQGeoSatelliteInfoSource*>(self)->QGeoSatelliteInfoSource::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+bool QGeoSatelliteInfoSource_virtualbase_eventFilter(VirtualQGeoSatelliteInfoSource* self, QObject* watched, QEvent* event) {
+
+	return self->QGeoSatelliteInfoSource::eventFilter(watched, event);
 }
 
-bool QGeoSatelliteInfoSource_override_virtual_setUpdateInterval(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGeoSatelliteInfoSource_virtualbase_timerEvent(VirtualQGeoSatelliteInfoSource* self, QTimerEvent* event) {
 
-	self_cast->handle__setUpdateInterval = slot;
-	return true;
+	self->QGeoSatelliteInfoSource::timerEvent(event);
 }
 
-void QGeoSatelliteInfoSource_virtualbase_setUpdateInterval(void* self, int msec) {
-	static_cast<VirtualQGeoSatelliteInfoSource*>(self)->QGeoSatelliteInfoSource::setUpdateInterval(static_cast<int>(msec));
+void QGeoSatelliteInfoSource_virtualbase_childEvent(VirtualQGeoSatelliteInfoSource* self, QChildEvent* event) {
+
+	self->QGeoSatelliteInfoSource::childEvent(event);
 }
 
-bool QGeoSatelliteInfoSource_override_virtual_minimumUpdateInterval(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGeoSatelliteInfoSource_virtualbase_customEvent(VirtualQGeoSatelliteInfoSource* self, QEvent* event) {
 
-	self_cast->handle__minimumUpdateInterval = slot;
-	return true;
+	self->QGeoSatelliteInfoSource::customEvent(event);
 }
 
-bool QGeoSatelliteInfoSource_override_virtual_error(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGeoSatelliteInfoSource_virtualbase_connectNotify(VirtualQGeoSatelliteInfoSource* self, QMetaMethod* signal) {
 
-	self_cast->handle__error = slot;
-	return true;
+	self->QGeoSatelliteInfoSource::connectNotify(*signal);
 }
 
-bool QGeoSatelliteInfoSource_override_virtual_startUpdates(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGeoSatelliteInfoSource_virtualbase_disconnectNotify(VirtualQGeoSatelliteInfoSource* self, QMetaMethod* signal) {
 
-	self_cast->handle__startUpdates = slot;
-	return true;
+	self->QGeoSatelliteInfoSource::disconnectNotify(*signal);
 }
 
-bool QGeoSatelliteInfoSource_override_virtual_stopUpdates(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__stopUpdates = slot;
-	return true;
+QObject* QGeoSatelliteInfoSource_protectedbase_sender(const VirtualQGeoSatelliteInfoSource* self) {
+	return self->sender();
 }
 
-bool QGeoSatelliteInfoSource_override_virtual_requestUpdate(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__requestUpdate = slot;
-	return true;
+int QGeoSatelliteInfoSource_protectedbase_senderSignalIndex(const VirtualQGeoSatelliteInfoSource* self) {
+	return self->senderSignalIndex();
 }
 
-bool QGeoSatelliteInfoSource_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__event = slot;
-	return true;
+int QGeoSatelliteInfoSource_protectedbase_receivers(const VirtualQGeoSatelliteInfoSource* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QGeoSatelliteInfoSource_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQGeoSatelliteInfoSource*>(self)->QGeoSatelliteInfoSource::event(event);
-}
-
-bool QGeoSatelliteInfoSource_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
-}
-
-bool QGeoSatelliteInfoSource_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQGeoSatelliteInfoSource*>(self)->QGeoSatelliteInfoSource::eventFilter(watched, event);
-}
-
-bool QGeoSatelliteInfoSource_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
-}
-
-void QGeoSatelliteInfoSource_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQGeoSatelliteInfoSource*>(self)->QGeoSatelliteInfoSource::timerEvent(event);
-}
-
-bool QGeoSatelliteInfoSource_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QGeoSatelliteInfoSource_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQGeoSatelliteInfoSource*>(self)->QGeoSatelliteInfoSource::childEvent(event);
-}
-
-bool QGeoSatelliteInfoSource_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QGeoSatelliteInfoSource_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQGeoSatelliteInfoSource*>(self)->QGeoSatelliteInfoSource::customEvent(event);
-}
-
-bool QGeoSatelliteInfoSource_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QGeoSatelliteInfoSource_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGeoSatelliteInfoSource*>(self)->QGeoSatelliteInfoSource::connectNotify(*signal);
-}
-
-bool QGeoSatelliteInfoSource_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QGeoSatelliteInfoSource_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGeoSatelliteInfoSource*>(self)->QGeoSatelliteInfoSource::disconnectNotify(*signal);
-}
-
-QObject* QGeoSatelliteInfoSource_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QGeoSatelliteInfoSource_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QGeoSatelliteInfoSource_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QGeoSatelliteInfoSource_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQGeoSatelliteInfoSource* self_cast = dynamic_cast<VirtualQGeoSatelliteInfoSource*>( (QGeoSatelliteInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QGeoSatelliteInfoSource_protectedbase_isSignalConnected(const VirtualQGeoSatelliteInfoSource* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QGeoSatelliteInfoSource_delete(QGeoSatelliteInfoSource* self) {

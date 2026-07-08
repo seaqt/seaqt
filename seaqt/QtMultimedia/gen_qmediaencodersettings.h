@@ -30,6 +30,7 @@ typedef struct QVideoEncoderSettings QVideoEncoderSettings;
 
 QAudioEncoderSettings* QAudioEncoderSettings_new();
 QAudioEncoderSettings* QAudioEncoderSettings_new2(QAudioEncoderSettings* other);
+
 void QAudioEncoderSettings_operatorAssign(QAudioEncoderSettings* self, QAudioEncoderSettings* other);
 bool QAudioEncoderSettings_operatorEqual(const QAudioEncoderSettings* self, QAudioEncoderSettings* other);
 bool QAudioEncoderSettings_operatorNotEqual(const QAudioEncoderSettings* self, QAudioEncoderSettings* other);
@@ -55,6 +56,7 @@ void QAudioEncoderSettings_delete(QAudioEncoderSettings* self);
 
 QVideoEncoderSettings* QVideoEncoderSettings_new();
 QVideoEncoderSettings* QVideoEncoderSettings_new2(QVideoEncoderSettings* other);
+
 void QVideoEncoderSettings_operatorAssign(QVideoEncoderSettings* self, QVideoEncoderSettings* other);
 bool QVideoEncoderSettings_operatorEqual(const QVideoEncoderSettings* self, QVideoEncoderSettings* other);
 bool QVideoEncoderSettings_operatorNotEqual(const QVideoEncoderSettings* self, QVideoEncoderSettings* other);
@@ -81,6 +83,7 @@ void QVideoEncoderSettings_delete(QVideoEncoderSettings* self);
 
 QImageEncoderSettings* QImageEncoderSettings_new();
 QImageEncoderSettings* QImageEncoderSettings_new2(QImageEncoderSettings* other);
+
 void QImageEncoderSettings_operatorAssign(QImageEncoderSettings* self, QImageEncoderSettings* other);
 bool QImageEncoderSettings_operatorEqual(const QImageEncoderSettings* self, QImageEncoderSettings* other);
 bool QImageEncoderSettings_operatorNotEqual(const QImageEncoderSettings* self, QImageEncoderSettings* other);

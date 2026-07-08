@@ -24,6 +24,7 @@ typedef struct QAudioFormat QAudioFormat;
 
 QAudioDeviceInfo* QAudioDeviceInfo_new();
 QAudioDeviceInfo* QAudioDeviceInfo_new2(QAudioDeviceInfo* other);
+
 void QAudioDeviceInfo_operatorAssign(QAudioDeviceInfo* self, QAudioDeviceInfo* other);
 bool QAudioDeviceInfo_operatorEqual(const QAudioDeviceInfo* self, QAudioDeviceInfo* other);
 bool QAudioDeviceInfo_operatorNotEqual(const QAudioDeviceInfo* self, QAudioDeviceInfo* other);

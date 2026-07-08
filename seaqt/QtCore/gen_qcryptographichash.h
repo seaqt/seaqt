@@ -25,6 +25,7 @@ typedef struct QMetaObject QMetaObject;
 #endif
 
 QCryptographicHash* QCryptographicHash_new(int method);
+
 void QCryptographicHash_reset(QCryptographicHash* self);
 void QCryptographicHash_addData(QCryptographicHash* self, const char* data, int length);
 void QCryptographicHash_addDataWithData(QCryptographicHash* self, struct seaqt_string data);

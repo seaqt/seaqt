@@ -39,6 +39,7 @@ QIcon* QIcon_new2(QPixmap* pixmap);
 QIcon* QIcon_new3(QIcon* other);
 QIcon* QIcon_new4(struct seaqt_string fileName);
 QIcon* QIcon_new5(QIconEngine* engine);
+
 void QIcon_operatorAssign(QIcon* self, QIcon* other);
 void QIcon_swap(QIcon* self, QIcon* other);
 QVariant* QIcon_ToQVariant(const QIcon* self);

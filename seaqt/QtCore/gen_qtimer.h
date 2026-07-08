@@ -32,8 +32,27 @@ typedef struct QTimer QTimer;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QTimer* QTimer_new();
-QTimer* QTimer_new2(QObject* parent);
+typedef struct VirtualQTimer VirtualQTimer;
+typedef struct QTimer_VTable{
+	void (*destructor)(VirtualQTimer* self);
+	QMetaObject* (*metaObject)(const VirtualQTimer* self);
+	void* (*metacast)(VirtualQTimer* self, const char* param1);
+	int (*metacall)(VirtualQTimer* self, int param1, int param2, void** param3);
+	void (*timerEvent)(VirtualQTimer* self, QTimerEvent* param1);
+	bool (*event)(VirtualQTimer* self, QEvent* event);
+	bool (*eventFilter)(VirtualQTimer* self, QObject* watched, QEvent* event);
+	void (*childEvent)(VirtualQTimer* self, QChildEvent* event);
+	void (*customEvent)(VirtualQTimer* self, QEvent* event);
+	void (*connectNotify)(VirtualQTimer* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQTimer* self, QMetaMethod* signal);
+}QTimer_VTable;
+
+void* QTimer_vdata(VirtualQTimer* self);
+VirtualQTimer* vdata_QTimer(void* vdata);
+
+VirtualQTimer* QTimer_new(const QTimer_VTable* vtbl, size_t vdata);
+VirtualQTimer* QTimer_new2(const QTimer_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QTimer_virtbase(QTimer* src, QObject** outptr_QObject);
 QMetaObject* QTimer_metaObject(const QTimer* self);
 void* QTimer_metacast(QTimer* self, const char* param1);
@@ -58,33 +77,21 @@ struct seaqt_string QTimer_tr3(const char* s, const char* c, int n);
 struct seaqt_string QTimer_trUtf82(const char* s, const char* c);
 struct seaqt_string QTimer_trUtf83(const char* s, const char* c, int n);
 
-bool QTimer_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QTimer_virtualbase_metaObject(const void* self);
-bool QTimer_override_virtual_metacast(void* self, intptr_t slot);
-void* QTimer_virtualbase_metacast(void* self, const char* param1);
-bool QTimer_override_virtual_metacall(void* self, intptr_t slot);
-int QTimer_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QTimer_override_virtual_timerEvent(void* self, intptr_t slot);
-void QTimer_virtualbase_timerEvent(void* self, QTimerEvent* param1);
-bool QTimer_override_virtual_event(void* self, intptr_t slot);
-bool QTimer_virtualbase_event(void* self, QEvent* event);
-bool QTimer_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QTimer_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QTimer_override_virtual_childEvent(void* self, intptr_t slot);
-void QTimer_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QTimer_override_virtual_customEvent(void* self, intptr_t slot);
-void QTimer_virtualbase_customEvent(void* self, QEvent* event);
-bool QTimer_override_virtual_connectNotify(void* self, intptr_t slot);
-void QTimer_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QTimer_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QTimer_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QTimer_virtualbase_metaObject(const VirtualQTimer* self);
+void* QTimer_virtualbase_metacast(VirtualQTimer* self, const char* param1);
+int QTimer_virtualbase_metacall(VirtualQTimer* self, int param1, int param2, void** param3);
+void QTimer_virtualbase_timerEvent(VirtualQTimer* self, QTimerEvent* param1);
+bool QTimer_virtualbase_event(VirtualQTimer* self, QEvent* event);
+bool QTimer_virtualbase_eventFilter(VirtualQTimer* self, QObject* watched, QEvent* event);
+void QTimer_virtualbase_childEvent(VirtualQTimer* self, QChildEvent* event);
+void QTimer_virtualbase_customEvent(VirtualQTimer* self, QEvent* event);
+void QTimer_virtualbase_connectNotify(VirtualQTimer* self, QMetaMethod* signal);
+void QTimer_virtualbase_disconnectNotify(VirtualQTimer* self, QMetaMethod* signal);
 
-QObject* QTimer_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QTimer_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QTimer_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QTimer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
-
-void QTimer_connect_timeout(QTimer* self, intptr_t slot);
+QObject* QTimer_protectedbase_sender(const VirtualQTimer* self);
+int QTimer_protectedbase_senderSignalIndex(const VirtualQTimer* self);
+int QTimer_protectedbase_receivers(const VirtualQTimer* self, const char* signal);
+bool QTimer_protectedbase_isSignalConnected(const VirtualQTimer* self, QMetaMethod* signal);
 
 const QMetaObject* QTimer_staticMetaObject();
 void QTimer_delete(QTimer* self);

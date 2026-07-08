@@ -34,8 +34,27 @@ typedef struct QObject QObject;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QNetworkConfigurationManager* QNetworkConfigurationManager_new();
-QNetworkConfigurationManager* QNetworkConfigurationManager_new2(QObject* parent);
+typedef struct VirtualQNetworkConfigurationManager VirtualQNetworkConfigurationManager;
+typedef struct QNetworkConfigurationManager_VTable{
+	void (*destructor)(VirtualQNetworkConfigurationManager* self);
+	QMetaObject* (*metaObject)(const VirtualQNetworkConfigurationManager* self);
+	void* (*metacast)(VirtualQNetworkConfigurationManager* self, const char* param1);
+	int (*metacall)(VirtualQNetworkConfigurationManager* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQNetworkConfigurationManager* self, QEvent* event);
+	bool (*eventFilter)(VirtualQNetworkConfigurationManager* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQNetworkConfigurationManager* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQNetworkConfigurationManager* self, QChildEvent* event);
+	void (*customEvent)(VirtualQNetworkConfigurationManager* self, QEvent* event);
+	void (*connectNotify)(VirtualQNetworkConfigurationManager* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQNetworkConfigurationManager* self, QMetaMethod* signal);
+}QNetworkConfigurationManager_VTable;
+
+void* QNetworkConfigurationManager_vdata(VirtualQNetworkConfigurationManager* self);
+VirtualQNetworkConfigurationManager* vdata_QNetworkConfigurationManager(void* vdata);
+
+VirtualQNetworkConfigurationManager* QNetworkConfigurationManager_new(const QNetworkConfigurationManager_VTable* vtbl, size_t vdata);
+VirtualQNetworkConfigurationManager* QNetworkConfigurationManager_new2(const QNetworkConfigurationManager_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QNetworkConfigurationManager_virtbase(QNetworkConfigurationManager* src, QObject** outptr_QObject);
 QMetaObject* QNetworkConfigurationManager_metaObject(const QNetworkConfigurationManager* self);
 void* QNetworkConfigurationManager_metacast(QNetworkConfigurationManager* self, const char* param1);
@@ -64,31 +83,21 @@ struct seaqt_string QNetworkConfigurationManager_trUtf82(const char* s, const ch
 struct seaqt_string QNetworkConfigurationManager_trUtf83(const char* s, const char* c, int n);
 struct seaqt_array /* of QNetworkConfiguration* */  QNetworkConfigurationManager_allConfigurationsWithFlags(const QNetworkConfigurationManager* self, int flags);
 
-bool QNetworkConfigurationManager_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QNetworkConfigurationManager_virtualbase_metaObject(const void* self);
-bool QNetworkConfigurationManager_override_virtual_metacast(void* self, intptr_t slot);
-void* QNetworkConfigurationManager_virtualbase_metacast(void* self, const char* param1);
-bool QNetworkConfigurationManager_override_virtual_metacall(void* self, intptr_t slot);
-int QNetworkConfigurationManager_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QNetworkConfigurationManager_override_virtual_event(void* self, intptr_t slot);
-bool QNetworkConfigurationManager_virtualbase_event(void* self, QEvent* event);
-bool QNetworkConfigurationManager_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QNetworkConfigurationManager_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QNetworkConfigurationManager_override_virtual_timerEvent(void* self, intptr_t slot);
-void QNetworkConfigurationManager_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QNetworkConfigurationManager_override_virtual_childEvent(void* self, intptr_t slot);
-void QNetworkConfigurationManager_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QNetworkConfigurationManager_override_virtual_customEvent(void* self, intptr_t slot);
-void QNetworkConfigurationManager_virtualbase_customEvent(void* self, QEvent* event);
-bool QNetworkConfigurationManager_override_virtual_connectNotify(void* self, intptr_t slot);
-void QNetworkConfigurationManager_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QNetworkConfigurationManager_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QNetworkConfigurationManager_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QNetworkConfigurationManager_virtualbase_metaObject(const VirtualQNetworkConfigurationManager* self);
+void* QNetworkConfigurationManager_virtualbase_metacast(VirtualQNetworkConfigurationManager* self, const char* param1);
+int QNetworkConfigurationManager_virtualbase_metacall(VirtualQNetworkConfigurationManager* self, int param1, int param2, void** param3);
+bool QNetworkConfigurationManager_virtualbase_event(VirtualQNetworkConfigurationManager* self, QEvent* event);
+bool QNetworkConfigurationManager_virtualbase_eventFilter(VirtualQNetworkConfigurationManager* self, QObject* watched, QEvent* event);
+void QNetworkConfigurationManager_virtualbase_timerEvent(VirtualQNetworkConfigurationManager* self, QTimerEvent* event);
+void QNetworkConfigurationManager_virtualbase_childEvent(VirtualQNetworkConfigurationManager* self, QChildEvent* event);
+void QNetworkConfigurationManager_virtualbase_customEvent(VirtualQNetworkConfigurationManager* self, QEvent* event);
+void QNetworkConfigurationManager_virtualbase_connectNotify(VirtualQNetworkConfigurationManager* self, QMetaMethod* signal);
+void QNetworkConfigurationManager_virtualbase_disconnectNotify(VirtualQNetworkConfigurationManager* self, QMetaMethod* signal);
 
-QObject* QNetworkConfigurationManager_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QNetworkConfigurationManager_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QNetworkConfigurationManager_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QNetworkConfigurationManager_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QNetworkConfigurationManager_protectedbase_sender(const VirtualQNetworkConfigurationManager* self);
+int QNetworkConfigurationManager_protectedbase_senderSignalIndex(const VirtualQNetworkConfigurationManager* self);
+int QNetworkConfigurationManager_protectedbase_receivers(const VirtualQNetworkConfigurationManager* self, const char* signal);
+bool QNetworkConfigurationManager_protectedbase_isSignalConnected(const VirtualQNetworkConfigurationManager* self, QMetaMethod* signal);
 
 const QMetaObject* QNetworkConfigurationManager_staticMetaObject();
 void QNetworkConfigurationManager_delete(QNetworkConfigurationManager* self);

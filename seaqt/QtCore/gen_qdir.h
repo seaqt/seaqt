@@ -30,6 +30,7 @@ QDir* QDir_new3(struct seaqt_string path, struct seaqt_string nameFilter);
 QDir* QDir_new4(struct seaqt_string path);
 QDir* QDir_new5(struct seaqt_string path, struct seaqt_string nameFilter, int sort);
 QDir* QDir_new6(struct seaqt_string path, struct seaqt_string nameFilter, int sort, int filter);
+
 void QDir_operatorAssign(QDir* self, QDir* param1);
 void QDir_operatorAssignWithPath(QDir* self, struct seaqt_string path);
 void QDir_swap(QDir* self, QDir* other);

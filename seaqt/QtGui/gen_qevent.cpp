@@ -65,6 +65,17 @@
 #include <qevent.h>
 #include "gen_qevent.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -1885,15 +1896,15 @@ void QApplicationStateChangeEvent_delete(QApplicationStateChangeEvent* self) {
 }
 
 QInputMethodEvent__Attribute* QInputMethodEvent__Attribute_new(int typ, int s, int l, QVariant* val) {
-	return new (std::nothrow) QInputMethodEvent::Attribute(static_cast<QInputMethodEvent::AttributeType>(typ), static_cast<int>(s), static_cast<int>(l), *val);
+	return new (std::nothrow) QInputMethodEvent__Attribute(static_cast<QInputMethodEvent::AttributeType>(typ), static_cast<int>(s), static_cast<int>(l), *val);
 }
 
 QInputMethodEvent__Attribute* QInputMethodEvent__Attribute_new2(int typ, int s, int l) {
-	return new (std::nothrow) QInputMethodEvent::Attribute(static_cast<QInputMethodEvent::AttributeType>(typ), static_cast<int>(s), static_cast<int>(l));
+	return new (std::nothrow) QInputMethodEvent__Attribute(static_cast<QInputMethodEvent::AttributeType>(typ), static_cast<int>(s), static_cast<int>(l));
 }
 
 QInputMethodEvent__Attribute* QInputMethodEvent__Attribute_new3(QInputMethodEvent__Attribute* param1) {
-	return new (std::nothrow) QInputMethodEvent::Attribute(*param1);
+	return new (std::nothrow) QInputMethodEvent__Attribute(*param1);
 }
 
 int QInputMethodEvent__Attribute_type(const QInputMethodEvent__Attribute* self) {
@@ -1938,15 +1949,15 @@ void QInputMethodEvent__Attribute_delete(QInputMethodEvent__Attribute* self) {
 }
 
 QTouchEvent__TouchPoint* QTouchEvent__TouchPoint_new() {
-	return new (std::nothrow) QTouchEvent::TouchPoint();
+	return new (std::nothrow) QTouchEvent__TouchPoint();
 }
 
 QTouchEvent__TouchPoint* QTouchEvent__TouchPoint_new2(QTouchEvent__TouchPoint* other) {
-	return new (std::nothrow) QTouchEvent::TouchPoint(*other);
+	return new (std::nothrow) QTouchEvent__TouchPoint(*other);
 }
 
 QTouchEvent__TouchPoint* QTouchEvent__TouchPoint_new3(int id) {
-	return new (std::nothrow) QTouchEvent::TouchPoint(static_cast<int>(id));
+	return new (std::nothrow) QTouchEvent__TouchPoint(static_cast<int>(id));
 }
 
 void QTouchEvent__TouchPoint_operatorAssign(QTouchEvent__TouchPoint* self, QTouchEvent__TouchPoint* other) {

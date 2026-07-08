@@ -24,7 +24,21 @@ typedef struct QAbstractVideoBuffer QAbstractVideoBuffer;
 typedef struct QVariant QVariant;
 #endif
 
-QAbstractVideoBuffer* QAbstractVideoBuffer_new(int type);
+typedef struct VirtualQAbstractVideoBuffer VirtualQAbstractVideoBuffer;
+typedef struct QAbstractVideoBuffer_VTable{
+	void (*destructor)(VirtualQAbstractVideoBuffer* self);
+	void (*release)(VirtualQAbstractVideoBuffer* self);
+	int (*mapMode)(const VirtualQAbstractVideoBuffer* self);
+	unsigned char* (*map)(VirtualQAbstractVideoBuffer* self, int mode, int* numBytes, int* bytesPerLine);
+	void (*unmap)(VirtualQAbstractVideoBuffer* self);
+	QVariant* (*handle)(const VirtualQAbstractVideoBuffer* self);
+}QAbstractVideoBuffer_VTable;
+
+void* QAbstractVideoBuffer_vdata(VirtualQAbstractVideoBuffer* self);
+VirtualQAbstractVideoBuffer* vdata_QAbstractVideoBuffer(void* vdata);
+
+VirtualQAbstractVideoBuffer* QAbstractVideoBuffer_new(const QAbstractVideoBuffer_VTable* vtbl, size_t vdata, int type);
+
 void QAbstractVideoBuffer_release(QAbstractVideoBuffer* self);
 int QAbstractVideoBuffer_handleType(const QAbstractVideoBuffer* self);
 int QAbstractVideoBuffer_mapMode(const QAbstractVideoBuffer* self);
@@ -32,16 +46,11 @@ unsigned char* QAbstractVideoBuffer_map(QAbstractVideoBuffer* self, int mode, in
 void QAbstractVideoBuffer_unmap(QAbstractVideoBuffer* self);
 QVariant* QAbstractVideoBuffer_handle(const QAbstractVideoBuffer* self);
 
-bool QAbstractVideoBuffer_override_virtual_release(void* self, intptr_t slot);
-void QAbstractVideoBuffer_virtualbase_release(void* self);
-bool QAbstractVideoBuffer_override_virtual_mapMode(void* self, intptr_t slot);
-int QAbstractVideoBuffer_virtualbase_mapMode(const void* self);
-bool QAbstractVideoBuffer_override_virtual_map(void* self, intptr_t slot);
-unsigned char* QAbstractVideoBuffer_virtualbase_map(void* self, int mode, int* numBytes, int* bytesPerLine);
-bool QAbstractVideoBuffer_override_virtual_unmap(void* self, intptr_t slot);
-void QAbstractVideoBuffer_virtualbase_unmap(void* self);
-bool QAbstractVideoBuffer_override_virtual_handle(void* self, intptr_t slot);
-QVariant* QAbstractVideoBuffer_virtualbase_handle(const void* self);
+void QAbstractVideoBuffer_virtualbase_release(VirtualQAbstractVideoBuffer* self);
+int QAbstractVideoBuffer_virtualbase_mapMode(const VirtualQAbstractVideoBuffer* self);
+unsigned char* QAbstractVideoBuffer_virtualbase_map(VirtualQAbstractVideoBuffer* self, int mode, int* numBytes, int* bytesPerLine);
+void QAbstractVideoBuffer_virtualbase_unmap(VirtualQAbstractVideoBuffer* self);
+QVariant* QAbstractVideoBuffer_virtualbase_handle(const VirtualQAbstractVideoBuffer* self);
 
 void QAbstractVideoBuffer_delete(QAbstractVideoBuffer* self);
 

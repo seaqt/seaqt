@@ -15,6 +15,17 @@
 #include <qcbormap.h>
 #include "gen_qcbormap.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -362,11 +373,11 @@ void QCborMap_delete(QCborMap* self) {
 }
 
 QCborMap__Iterator* QCborMap__Iterator_new() {
-	return new (std::nothrow) QCborMap::Iterator();
+	return new (std::nothrow) QCborMap__Iterator();
 }
 
 QCborMap__Iterator* QCborMap__Iterator_new2(QCborMap__Iterator* param1) {
-	return new (std::nothrow) QCborMap::Iterator(*param1);
+	return new (std::nothrow) QCborMap__Iterator(*param1);
 }
 
 void QCborMap__Iterator_operatorAssign(QCborMap__Iterator* self, QCborMap__Iterator* other) {
@@ -497,11 +508,11 @@ void QCborMap__Iterator_delete(QCborMap__Iterator* self) {
 }
 
 QCborMap__ConstIterator* QCborMap__ConstIterator_new() {
-	return new (std::nothrow) QCborMap::ConstIterator();
+	return new (std::nothrow) QCborMap__ConstIterator();
 }
 
 QCborMap__ConstIterator* QCborMap__ConstIterator_new2(QCborMap__ConstIterator* param1) {
-	return new (std::nothrow) QCborMap::ConstIterator(*param1);
+	return new (std::nothrow) QCborMap__ConstIterator(*param1);
 }
 
 void QCborMap__ConstIterator_operatorAssign(QCborMap__ConstIterator* self, QCborMap__ConstIterator* other) {

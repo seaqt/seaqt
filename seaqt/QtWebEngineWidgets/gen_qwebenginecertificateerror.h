@@ -26,6 +26,7 @@ typedef struct QWebEngineCertificateError QWebEngineCertificateError;
 
 QWebEngineCertificateError* QWebEngineCertificateError_new(int error, QUrl* url, bool overridable, struct seaqt_string errorDescription);
 QWebEngineCertificateError* QWebEngineCertificateError_new2(QWebEngineCertificateError* other);
+
 int QWebEngineCertificateError_error(const QWebEngineCertificateError* self);
 QUrl* QWebEngineCertificateError_url(const QWebEngineCertificateError* self);
 bool QWebEngineCertificateError_isOverridable(const QWebEngineCertificateError* self);

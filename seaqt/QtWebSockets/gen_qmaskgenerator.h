@@ -32,41 +32,50 @@ typedef struct QObject QObject;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QMaskGenerator* QMaskGenerator_new();
-QMaskGenerator* QMaskGenerator_new2(QObject* parent);
+typedef struct VirtualQMaskGenerator VirtualQMaskGenerator;
+typedef struct QMaskGenerator_VTable{
+	void (*destructor)(VirtualQMaskGenerator* self);
+	bool (*seed)(VirtualQMaskGenerator* self);
+	unsigned int (*nextMask)(VirtualQMaskGenerator* self);
+	QMetaObject* (*metaObject)(const VirtualQMaskGenerator* self);
+	void* (*metacast)(VirtualQMaskGenerator* self, const char* param1);
+	int (*metacall)(VirtualQMaskGenerator* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQMaskGenerator* self, QEvent* event);
+	bool (*eventFilter)(VirtualQMaskGenerator* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQMaskGenerator* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQMaskGenerator* self, QChildEvent* event);
+	void (*customEvent)(VirtualQMaskGenerator* self, QEvent* event);
+	void (*connectNotify)(VirtualQMaskGenerator* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQMaskGenerator* self, QMetaMethod* signal);
+}QMaskGenerator_VTable;
+
+void* QMaskGenerator_vdata(VirtualQMaskGenerator* self);
+VirtualQMaskGenerator* vdata_QMaskGenerator(void* vdata);
+
+VirtualQMaskGenerator* QMaskGenerator_new(const QMaskGenerator_VTable* vtbl, size_t vdata);
+VirtualQMaskGenerator* QMaskGenerator_new2(const QMaskGenerator_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QMaskGenerator_virtbase(QMaskGenerator* src, QObject** outptr_QObject);
 bool QMaskGenerator_seed(QMaskGenerator* self);
 unsigned int QMaskGenerator_nextMask(QMaskGenerator* self);
 
-bool QMaskGenerator_override_virtual_seed(void* self, intptr_t slot);
-bool QMaskGenerator_virtualbase_seed(void* self);
-bool QMaskGenerator_override_virtual_nextMask(void* self, intptr_t slot);
-unsigned int QMaskGenerator_virtualbase_nextMask(void* self);
-bool QMaskGenerator_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QMaskGenerator_virtualbase_metaObject(const void* self);
-bool QMaskGenerator_override_virtual_metacast(void* self, intptr_t slot);
-void* QMaskGenerator_virtualbase_metacast(void* self, const char* param1);
-bool QMaskGenerator_override_virtual_metacall(void* self, intptr_t slot);
-int QMaskGenerator_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QMaskGenerator_override_virtual_event(void* self, intptr_t slot);
-bool QMaskGenerator_virtualbase_event(void* self, QEvent* event);
-bool QMaskGenerator_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QMaskGenerator_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QMaskGenerator_override_virtual_timerEvent(void* self, intptr_t slot);
-void QMaskGenerator_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QMaskGenerator_override_virtual_childEvent(void* self, intptr_t slot);
-void QMaskGenerator_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QMaskGenerator_override_virtual_customEvent(void* self, intptr_t slot);
-void QMaskGenerator_virtualbase_customEvent(void* self, QEvent* event);
-bool QMaskGenerator_override_virtual_connectNotify(void* self, intptr_t slot);
-void QMaskGenerator_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QMaskGenerator_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QMaskGenerator_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+bool QMaskGenerator_virtualbase_seed(VirtualQMaskGenerator* self);
+unsigned int QMaskGenerator_virtualbase_nextMask(VirtualQMaskGenerator* self);
+QMetaObject* QMaskGenerator_virtualbase_metaObject(const VirtualQMaskGenerator* self);
+void* QMaskGenerator_virtualbase_metacast(VirtualQMaskGenerator* self, const char* param1);
+int QMaskGenerator_virtualbase_metacall(VirtualQMaskGenerator* self, int param1, int param2, void** param3);
+bool QMaskGenerator_virtualbase_event(VirtualQMaskGenerator* self, QEvent* event);
+bool QMaskGenerator_virtualbase_eventFilter(VirtualQMaskGenerator* self, QObject* watched, QEvent* event);
+void QMaskGenerator_virtualbase_timerEvent(VirtualQMaskGenerator* self, QTimerEvent* event);
+void QMaskGenerator_virtualbase_childEvent(VirtualQMaskGenerator* self, QChildEvent* event);
+void QMaskGenerator_virtualbase_customEvent(VirtualQMaskGenerator* self, QEvent* event);
+void QMaskGenerator_virtualbase_connectNotify(VirtualQMaskGenerator* self, QMetaMethod* signal);
+void QMaskGenerator_virtualbase_disconnectNotify(VirtualQMaskGenerator* self, QMetaMethod* signal);
 
-QObject* QMaskGenerator_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QMaskGenerator_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QMaskGenerator_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QMaskGenerator_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QMaskGenerator_protectedbase_sender(const VirtualQMaskGenerator* self);
+int QMaskGenerator_protectedbase_senderSignalIndex(const VirtualQMaskGenerator* self);
+int QMaskGenerator_protectedbase_receivers(const VirtualQMaskGenerator* self, const char* signal);
+bool QMaskGenerator_protectedbase_isSignalConnected(const VirtualQMaskGenerator* self, QMetaMethod* signal);
 
 void QMaskGenerator_delete(QMaskGenerator* self);
 

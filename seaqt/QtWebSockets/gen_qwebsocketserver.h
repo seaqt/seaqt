@@ -50,8 +50,28 @@ typedef struct QWebSocketCorsAuthenticator QWebSocketCorsAuthenticator;
 typedef struct QWebSocketServer QWebSocketServer;
 #endif
 
-QWebSocketServer* QWebSocketServer_new(struct seaqt_string serverName, int secureMode);
-QWebSocketServer* QWebSocketServer_new2(struct seaqt_string serverName, int secureMode, QObject* parent);
+typedef struct VirtualQWebSocketServer VirtualQWebSocketServer;
+typedef struct QWebSocketServer_VTable{
+	void (*destructor)(VirtualQWebSocketServer* self);
+	QMetaObject* (*metaObject)(const VirtualQWebSocketServer* self);
+	void* (*metacast)(VirtualQWebSocketServer* self, const char* param1);
+	int (*metacall)(VirtualQWebSocketServer* self, int param1, int param2, void** param3);
+	QWebSocket* (*nextPendingConnection)(VirtualQWebSocketServer* self);
+	bool (*event)(VirtualQWebSocketServer* self, QEvent* event);
+	bool (*eventFilter)(VirtualQWebSocketServer* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQWebSocketServer* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQWebSocketServer* self, QChildEvent* event);
+	void (*customEvent)(VirtualQWebSocketServer* self, QEvent* event);
+	void (*connectNotify)(VirtualQWebSocketServer* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQWebSocketServer* self, QMetaMethod* signal);
+}QWebSocketServer_VTable;
+
+void* QWebSocketServer_vdata(VirtualQWebSocketServer* self);
+VirtualQWebSocketServer* vdata_QWebSocketServer(void* vdata);
+
+VirtualQWebSocketServer* QWebSocketServer_new(const QWebSocketServer_VTable* vtbl, size_t vdata, struct seaqt_string serverName, int secureMode);
+VirtualQWebSocketServer* QWebSocketServer_new2(const QWebSocketServer_VTable* vtbl, size_t vdata, struct seaqt_string serverName, int secureMode, QObject* parent);
+
 void QWebSocketServer_virtbase(QWebSocketServer* src, QObject** outptr_QObject);
 QMetaObject* QWebSocketServer_metaObject(const QWebSocketServer* self);
 void* QWebSocketServer_metacast(QWebSocketServer* self, const char* param1);
@@ -110,33 +130,22 @@ struct seaqt_string QWebSocketServer_trUtf83(const char* s, const char* c, int n
 bool QWebSocketServer_listenWithAddress(QWebSocketServer* self, QHostAddress* address);
 bool QWebSocketServer_listen2(QWebSocketServer* self, QHostAddress* address, unsigned short port);
 
-bool QWebSocketServer_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QWebSocketServer_virtualbase_metaObject(const void* self);
-bool QWebSocketServer_override_virtual_metacast(void* self, intptr_t slot);
-void* QWebSocketServer_virtualbase_metacast(void* self, const char* param1);
-bool QWebSocketServer_override_virtual_metacall(void* self, intptr_t slot);
-int QWebSocketServer_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QWebSocketServer_override_virtual_nextPendingConnection(void* self, intptr_t slot);
-QWebSocket* QWebSocketServer_virtualbase_nextPendingConnection(void* self);
-bool QWebSocketServer_override_virtual_event(void* self, intptr_t slot);
-bool QWebSocketServer_virtualbase_event(void* self, QEvent* event);
-bool QWebSocketServer_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QWebSocketServer_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QWebSocketServer_override_virtual_timerEvent(void* self, intptr_t slot);
-void QWebSocketServer_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QWebSocketServer_override_virtual_childEvent(void* self, intptr_t slot);
-void QWebSocketServer_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QWebSocketServer_override_virtual_customEvent(void* self, intptr_t slot);
-void QWebSocketServer_virtualbase_customEvent(void* self, QEvent* event);
-bool QWebSocketServer_override_virtual_connectNotify(void* self, intptr_t slot);
-void QWebSocketServer_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QWebSocketServer_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QWebSocketServer_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QWebSocketServer_virtualbase_metaObject(const VirtualQWebSocketServer* self);
+void* QWebSocketServer_virtualbase_metacast(VirtualQWebSocketServer* self, const char* param1);
+int QWebSocketServer_virtualbase_metacall(VirtualQWebSocketServer* self, int param1, int param2, void** param3);
+QWebSocket* QWebSocketServer_virtualbase_nextPendingConnection(VirtualQWebSocketServer* self);
+bool QWebSocketServer_virtualbase_event(VirtualQWebSocketServer* self, QEvent* event);
+bool QWebSocketServer_virtualbase_eventFilter(VirtualQWebSocketServer* self, QObject* watched, QEvent* event);
+void QWebSocketServer_virtualbase_timerEvent(VirtualQWebSocketServer* self, QTimerEvent* event);
+void QWebSocketServer_virtualbase_childEvent(VirtualQWebSocketServer* self, QChildEvent* event);
+void QWebSocketServer_virtualbase_customEvent(VirtualQWebSocketServer* self, QEvent* event);
+void QWebSocketServer_virtualbase_connectNotify(VirtualQWebSocketServer* self, QMetaMethod* signal);
+void QWebSocketServer_virtualbase_disconnectNotify(VirtualQWebSocketServer* self, QMetaMethod* signal);
 
-QObject* QWebSocketServer_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QWebSocketServer_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QWebSocketServer_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QWebSocketServer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QWebSocketServer_protectedbase_sender(const VirtualQWebSocketServer* self);
+int QWebSocketServer_protectedbase_senderSignalIndex(const VirtualQWebSocketServer* self);
+int QWebSocketServer_protectedbase_receivers(const VirtualQWebSocketServer* self, const char* signal);
+bool QWebSocketServer_protectedbase_isSignalConnected(const VirtualQWebSocketServer* self, QMetaMethod* signal);
 
 const QMetaObject* QWebSocketServer_staticMetaObject();
 void QWebSocketServer_delete(QWebSocketServer* self);

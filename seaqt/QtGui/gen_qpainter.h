@@ -80,6 +80,7 @@ typedef struct QTransform QTransform;
 
 QPainter* QPainter_new();
 QPainter* QPainter_new2(QPaintDevice* param1);
+
 QPaintDevice* QPainter_device(const QPainter* self);
 bool QPainter_begin(QPainter* self, QPaintDevice* param1);
 bool QPainter_end(QPainter* self);

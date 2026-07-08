@@ -32,6 +32,7 @@ QGeoPolygon* QGeoPolygon_new();
 QGeoPolygon* QGeoPolygon_new2(struct seaqt_array /* of QGeoCoordinate* */  path);
 QGeoPolygon* QGeoPolygon_new3(QGeoPolygon* other);
 QGeoPolygon* QGeoPolygon_new4(QGeoShape* other);
+
 void QGeoPolygon_virtbase(QGeoPolygon* src, QGeoShape** outptr_QGeoShape);
 void QGeoPolygon_operatorAssign(QGeoPolygon* self, QGeoPolygon* other);
 bool QGeoPolygon_operatorEqual(const QGeoPolygon* self, QGeoPolygon* other);

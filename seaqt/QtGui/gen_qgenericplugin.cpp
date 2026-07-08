@@ -11,70 +11,62 @@
 #include <qgenericplugin.h>
 #include "gen_qgenericplugin.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QGenericPlugin_metaObject(const QGenericPlugin*, intptr_t);
-void* miqt_exec_callback_QGenericPlugin_metacast(QGenericPlugin*, intptr_t, const char*);
-int miqt_exec_callback_QGenericPlugin_metacall(QGenericPlugin*, intptr_t, int, int, void**);
-QObject* miqt_exec_callback_QGenericPlugin_create(QGenericPlugin*, intptr_t, struct seaqt_string, struct seaqt_string);
-bool miqt_exec_callback_QGenericPlugin_event(QGenericPlugin*, intptr_t, QEvent*);
-bool miqt_exec_callback_QGenericPlugin_eventFilter(QGenericPlugin*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QGenericPlugin_timerEvent(QGenericPlugin*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QGenericPlugin_childEvent(QGenericPlugin*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QGenericPlugin_customEvent(QGenericPlugin*, intptr_t, QEvent*);
-void miqt_exec_callback_QGenericPlugin_connectNotify(QGenericPlugin*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QGenericPlugin_disconnectNotify(QGenericPlugin*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQGenericPlugin final : public QGenericPlugin {
+	const QGenericPlugin_VTable* vtbl;
 public:
+	friend void* QGenericPlugin_vdata(VirtualQGenericPlugin* self);
+	friend VirtualQGenericPlugin* vdata_QGenericPlugin(void* vdata);
 
-	VirtualQGenericPlugin(): QGenericPlugin() {}
-	VirtualQGenericPlugin(QObject* parent): QGenericPlugin(parent) {}
+	VirtualQGenericPlugin(const QGenericPlugin_VTable* vtbl): QGenericPlugin(), vtbl(vtbl) {}
+	VirtualQGenericPlugin(const QGenericPlugin_VTable* vtbl, QObject* parent): QGenericPlugin(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQGenericPlugin() override = default;
+	virtual ~VirtualQGenericPlugin() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QGenericPlugin::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QGenericPlugin_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QGenericPlugin_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QGenericPlugin_virtualbase_metaObject(const VirtualQGenericPlugin* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QGenericPlugin::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QGenericPlugin_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QGenericPlugin_virtualbase_metacast(void* self, const char* param1);
+	friend void* QGenericPlugin_virtualbase_metacast(VirtualQGenericPlugin* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QGenericPlugin::qt_metacall(param1, param2, param3);
 		}
 
@@ -82,18 +74,14 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QGenericPlugin_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QGenericPlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QGenericPlugin_virtualbase_metacall(VirtualQGenericPlugin* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__create = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QObject* create(const QString& name, const QString& spec) override {
-		if (handle__create == 0) {
+		if (vtbl->create == 0) {
 			return nullptr; // Pure virtual, there is no base we can call
 		}
 
@@ -113,100 +101,73 @@ public:
 		spec_ms.data = static_cast<char*>(malloc(spec_ms.len));
 		memcpy(spec_ms.data, spec_b.data(), spec_ms.len);
 		struct seaqt_string sigval2 = spec_ms;
-		QObject* callback_return_value = miqt_exec_callback_QGenericPlugin_create(this, handle__create, sigval1, sigval2);
+		QObject* callback_return_value = vtbl->create(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QGenericPlugin::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QGenericPlugin_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QGenericPlugin_virtualbase_event(void* self, QEvent* event);
+	friend bool QGenericPlugin_virtualbase_event(VirtualQGenericPlugin* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QGenericPlugin::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QGenericPlugin_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QGenericPlugin_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QGenericPlugin_virtualbase_eventFilter(VirtualQGenericPlugin* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QGenericPlugin::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QGenericPlugin_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QGenericPlugin_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QGenericPlugin_virtualbase_timerEvent(VirtualQGenericPlugin* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QGenericPlugin::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QGenericPlugin_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QGenericPlugin_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QGenericPlugin_virtualbase_childEvent(VirtualQGenericPlugin* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QGenericPlugin::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QGenericPlugin_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QGenericPlugin_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QGenericPlugin_virtualbase_customEvent(VirtualQGenericPlugin* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QGenericPlugin::connectNotify(signal);
 			return;
 		}
@@ -214,18 +175,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGenericPlugin_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QGenericPlugin_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QGenericPlugin_virtualbase_connectNotify(VirtualQGenericPlugin* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QGenericPlugin::disconnectNotify(signal);
 			return;
 		}
@@ -233,25 +189,26 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGenericPlugin_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QGenericPlugin_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QGenericPlugin_virtualbase_disconnectNotify(VirtualQGenericPlugin* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QGenericPlugin_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QGenericPlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QGenericPlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QGenericPlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QGenericPlugin_protectedbase_sender(const VirtualQGenericPlugin* self);
+	friend int QGenericPlugin_protectedbase_senderSignalIndex(const VirtualQGenericPlugin* self);
+	friend int QGenericPlugin_protectedbase_receivers(const VirtualQGenericPlugin* self, const char* signal);
+	friend bool QGenericPlugin_protectedbase_isSignalConnected(const VirtualQGenericPlugin* self, QMetaMethod* signal);
 };
 
-QGenericPlugin* QGenericPlugin_new() {
-	return new (std::nothrow) VirtualQGenericPlugin();
+VirtualQGenericPlugin* QGenericPlugin_new(const QGenericPlugin_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGenericPlugin>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGenericPlugin(vtbl) : nullptr;
 }
 
-QGenericPlugin* QGenericPlugin_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQGenericPlugin(parent);
+VirtualQGenericPlugin* QGenericPlugin_new2(const QGenericPlugin_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGenericPlugin>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGenericPlugin(vtbl, parent) : nullptr;
 }
 
 void QGenericPlugin_virtbase(QGenericPlugin* src, QObject** outptr_QObject) {
@@ -343,198 +300,73 @@ struct seaqt_string QGenericPlugin_trUtf83(const char* s, const char* c, int n) 
 }
 
 const QMetaObject* QGenericPlugin_staticMetaObject() { return &QGenericPlugin::staticMetaObject; }
-bool QGenericPlugin_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQGenericPlugin* self_cast = dynamic_cast<VirtualQGenericPlugin*>( (QGenericPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGenericPlugin_vdata(VirtualQGenericPlugin* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGenericPlugin>()); }
+VirtualQGenericPlugin* vdata_QGenericPlugin(void* vdata) { return reinterpret_cast<VirtualQGenericPlugin*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGenericPlugin>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QGenericPlugin_virtualbase_metaObject(const VirtualQGenericPlugin* self) {
+
+	return (QMetaObject*) self->QGenericPlugin::metaObject();
 }
 
-QMetaObject* QGenericPlugin_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQGenericPlugin*>(self)->QGenericPlugin::metaObject();
+void* QGenericPlugin_virtualbase_metacast(VirtualQGenericPlugin* self, const char* param1) {
+
+	return self->QGenericPlugin::qt_metacast(param1);
 }
 
-bool QGenericPlugin_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQGenericPlugin* self_cast = dynamic_cast<VirtualQGenericPlugin*>( (QGenericPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QGenericPlugin_virtualbase_metacall(VirtualQGenericPlugin* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QGenericPlugin::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QGenericPlugin_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQGenericPlugin*>(self)->QGenericPlugin::qt_metacast(param1);
+bool QGenericPlugin_virtualbase_event(VirtualQGenericPlugin* self, QEvent* event) {
+
+	return self->QGenericPlugin::event(event);
 }
 
-bool QGenericPlugin_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQGenericPlugin* self_cast = dynamic_cast<VirtualQGenericPlugin*>( (QGenericPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QGenericPlugin_virtualbase_eventFilter(VirtualQGenericPlugin* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QGenericPlugin::eventFilter(watched, event);
 }
 
-int QGenericPlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQGenericPlugin*>(self)->QGenericPlugin::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+void QGenericPlugin_virtualbase_timerEvent(VirtualQGenericPlugin* self, QTimerEvent* event) {
+
+	self->QGenericPlugin::timerEvent(event);
 }
 
-bool QGenericPlugin_override_virtual_create(void* self, intptr_t slot) {
-	VirtualQGenericPlugin* self_cast = dynamic_cast<VirtualQGenericPlugin*>( (QGenericPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGenericPlugin_virtualbase_childEvent(VirtualQGenericPlugin* self, QChildEvent* event) {
 
-	self_cast->handle__create = slot;
-	return true;
+	self->QGenericPlugin::childEvent(event);
 }
 
-bool QGenericPlugin_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQGenericPlugin* self_cast = dynamic_cast<VirtualQGenericPlugin*>( (QGenericPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGenericPlugin_virtualbase_customEvent(VirtualQGenericPlugin* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QGenericPlugin::customEvent(event);
 }
 
-bool QGenericPlugin_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQGenericPlugin*>(self)->QGenericPlugin::event(event);
+void QGenericPlugin_virtualbase_connectNotify(VirtualQGenericPlugin* self, QMetaMethod* signal) {
+
+	self->QGenericPlugin::connectNotify(*signal);
 }
 
-bool QGenericPlugin_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQGenericPlugin* self_cast = dynamic_cast<VirtualQGenericPlugin*>( (QGenericPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGenericPlugin_virtualbase_disconnectNotify(VirtualQGenericPlugin* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QGenericPlugin::disconnectNotify(*signal);
 }
 
-bool QGenericPlugin_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQGenericPlugin*>(self)->QGenericPlugin::eventFilter(watched, event);
+QObject* QGenericPlugin_protectedbase_sender(const VirtualQGenericPlugin* self) {
+	return self->sender();
 }
 
-bool QGenericPlugin_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQGenericPlugin* self_cast = dynamic_cast<VirtualQGenericPlugin*>( (QGenericPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+int QGenericPlugin_protectedbase_senderSignalIndex(const VirtualQGenericPlugin* self) {
+	return self->senderSignalIndex();
 }
 
-void QGenericPlugin_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQGenericPlugin*>(self)->QGenericPlugin::timerEvent(event);
+int QGenericPlugin_protectedbase_receivers(const VirtualQGenericPlugin* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QGenericPlugin_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQGenericPlugin* self_cast = dynamic_cast<VirtualQGenericPlugin*>( (QGenericPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QGenericPlugin_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQGenericPlugin*>(self)->QGenericPlugin::childEvent(event);
-}
-
-bool QGenericPlugin_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQGenericPlugin* self_cast = dynamic_cast<VirtualQGenericPlugin*>( (QGenericPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QGenericPlugin_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQGenericPlugin*>(self)->QGenericPlugin::customEvent(event);
-}
-
-bool QGenericPlugin_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQGenericPlugin* self_cast = dynamic_cast<VirtualQGenericPlugin*>( (QGenericPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QGenericPlugin_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGenericPlugin*>(self)->QGenericPlugin::connectNotify(*signal);
-}
-
-bool QGenericPlugin_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQGenericPlugin* self_cast = dynamic_cast<VirtualQGenericPlugin*>( (QGenericPlugin*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QGenericPlugin_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGenericPlugin*>(self)->QGenericPlugin::disconnectNotify(*signal);
-}
-
-QObject* QGenericPlugin_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGenericPlugin* self_cast = dynamic_cast<VirtualQGenericPlugin*>( (QGenericPlugin*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QGenericPlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGenericPlugin* self_cast = dynamic_cast<VirtualQGenericPlugin*>( (QGenericPlugin*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QGenericPlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQGenericPlugin* self_cast = dynamic_cast<VirtualQGenericPlugin*>( (QGenericPlugin*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QGenericPlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQGenericPlugin* self_cast = dynamic_cast<VirtualQGenericPlugin*>( (QGenericPlugin*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QGenericPlugin_protectedbase_isSignalConnected(const VirtualQGenericPlugin* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QGenericPlugin_delete(QGenericPlugin* self) {

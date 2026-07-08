@@ -44,6 +44,17 @@
 #include <qfiledialog.h>
 #include "gen_qfiledialog.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -57,114 +68,51 @@ void miqt_exec_callback_QFileDialog_urlsSelected(intptr_t, struct seaqt_array /*
 void miqt_exec_callback_QFileDialog_currentUrlChanged(intptr_t, QUrl*);
 void miqt_exec_callback_QFileDialog_directoryUrlEntered(intptr_t, QUrl*);
 void miqt_exec_callback_QFileDialog_filterSelected(intptr_t, struct seaqt_string);
-QMetaObject* miqt_exec_callback_QFileDialog_metaObject(const QFileDialog*, intptr_t);
-void* miqt_exec_callback_QFileDialog_metacast(QFileDialog*, intptr_t, const char*);
-int miqt_exec_callback_QFileDialog_metacall(QFileDialog*, intptr_t, int, int, void**);
-void miqt_exec_callback_QFileDialog_setVisible(QFileDialog*, intptr_t, bool);
-void miqt_exec_callback_QFileDialog_done(QFileDialog*, intptr_t, int);
-void miqt_exec_callback_QFileDialog_accept(QFileDialog*, intptr_t);
-void miqt_exec_callback_QFileDialog_changeEvent(QFileDialog*, intptr_t, QEvent*);
-QSize* miqt_exec_callback_QFileDialog_sizeHint(const QFileDialog*, intptr_t);
-QSize* miqt_exec_callback_QFileDialog_minimumSizeHint(const QFileDialog*, intptr_t);
-void miqt_exec_callback_QFileDialog_open(QFileDialog*, intptr_t);
-int miqt_exec_callback_QFileDialog_exec(QFileDialog*, intptr_t);
-void miqt_exec_callback_QFileDialog_reject(QFileDialog*, intptr_t);
-void miqt_exec_callback_QFileDialog_keyPressEvent(QFileDialog*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QFileDialog_closeEvent(QFileDialog*, intptr_t, QCloseEvent*);
-void miqt_exec_callback_QFileDialog_showEvent(QFileDialog*, intptr_t, QShowEvent*);
-void miqt_exec_callback_QFileDialog_resizeEvent(QFileDialog*, intptr_t, QResizeEvent*);
-void miqt_exec_callback_QFileDialog_contextMenuEvent(QFileDialog*, intptr_t, QContextMenuEvent*);
-bool miqt_exec_callback_QFileDialog_eventFilter(QFileDialog*, intptr_t, QObject*, QEvent*);
-int miqt_exec_callback_QFileDialog_devType(const QFileDialog*, intptr_t);
-int miqt_exec_callback_QFileDialog_heightForWidth(const QFileDialog*, intptr_t, int);
-bool miqt_exec_callback_QFileDialog_hasHeightForWidth(const QFileDialog*, intptr_t);
-QPaintEngine* miqt_exec_callback_QFileDialog_paintEngine(const QFileDialog*, intptr_t);
-bool miqt_exec_callback_QFileDialog_event(QFileDialog*, intptr_t, QEvent*);
-void miqt_exec_callback_QFileDialog_mousePressEvent(QFileDialog*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QFileDialog_mouseReleaseEvent(QFileDialog*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QFileDialog_mouseDoubleClickEvent(QFileDialog*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QFileDialog_mouseMoveEvent(QFileDialog*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QFileDialog_wheelEvent(QFileDialog*, intptr_t, QWheelEvent*);
-void miqt_exec_callback_QFileDialog_keyReleaseEvent(QFileDialog*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QFileDialog_focusInEvent(QFileDialog*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QFileDialog_focusOutEvent(QFileDialog*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QFileDialog_enterEvent(QFileDialog*, intptr_t, QEvent*);
-void miqt_exec_callback_QFileDialog_leaveEvent(QFileDialog*, intptr_t, QEvent*);
-void miqt_exec_callback_QFileDialog_paintEvent(QFileDialog*, intptr_t, QPaintEvent*);
-void miqt_exec_callback_QFileDialog_moveEvent(QFileDialog*, intptr_t, QMoveEvent*);
-void miqt_exec_callback_QFileDialog_tabletEvent(QFileDialog*, intptr_t, QTabletEvent*);
-void miqt_exec_callback_QFileDialog_actionEvent(QFileDialog*, intptr_t, QActionEvent*);
-void miqt_exec_callback_QFileDialog_dragEnterEvent(QFileDialog*, intptr_t, QDragEnterEvent*);
-void miqt_exec_callback_QFileDialog_dragMoveEvent(QFileDialog*, intptr_t, QDragMoveEvent*);
-void miqt_exec_callback_QFileDialog_dragLeaveEvent(QFileDialog*, intptr_t, QDragLeaveEvent*);
-void miqt_exec_callback_QFileDialog_dropEvent(QFileDialog*, intptr_t, QDropEvent*);
-void miqt_exec_callback_QFileDialog_hideEvent(QFileDialog*, intptr_t, QHideEvent*);
-bool miqt_exec_callback_QFileDialog_nativeEvent(QFileDialog*, intptr_t, struct seaqt_string, void*, long*);
-int miqt_exec_callback_QFileDialog_metric(const QFileDialog*, intptr_t, int);
-void miqt_exec_callback_QFileDialog_initPainter(const QFileDialog*, intptr_t, QPainter*);
-QPaintDevice* miqt_exec_callback_QFileDialog_redirected(const QFileDialog*, intptr_t, QPoint*);
-QPainter* miqt_exec_callback_QFileDialog_sharedPainter(const QFileDialog*, intptr_t);
-void miqt_exec_callback_QFileDialog_inputMethodEvent(QFileDialog*, intptr_t, QInputMethodEvent*);
-QVariant* miqt_exec_callback_QFileDialog_inputMethodQuery(const QFileDialog*, intptr_t, int);
-bool miqt_exec_callback_QFileDialog_focusNextPrevChild(QFileDialog*, intptr_t, bool);
-void miqt_exec_callback_QFileDialog_timerEvent(QFileDialog*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QFileDialog_childEvent(QFileDialog*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QFileDialog_customEvent(QFileDialog*, intptr_t, QEvent*);
-void miqt_exec_callback_QFileDialog_connectNotify(QFileDialog*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QFileDialog_disconnectNotify(QFileDialog*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQFileDialog final : public QFileDialog {
+	const QFileDialog_VTable* vtbl;
 public:
+	friend void* QFileDialog_vdata(VirtualQFileDialog* self);
+	friend VirtualQFileDialog* vdata_QFileDialog(void* vdata);
 
-	VirtualQFileDialog(QWidget* parent, Qt::WindowFlags f): QFileDialog(parent, f) {}
-	VirtualQFileDialog(): QFileDialog() {}
-	VirtualQFileDialog(QWidget* parent): QFileDialog(parent) {}
-	VirtualQFileDialog(QWidget* parent, const QString& caption): QFileDialog(parent, caption) {}
-	VirtualQFileDialog(QWidget* parent, const QString& caption, const QString& directory): QFileDialog(parent, caption, directory) {}
-	VirtualQFileDialog(QWidget* parent, const QString& caption, const QString& directory, const QString& filter): QFileDialog(parent, caption, directory, filter) {}
+	VirtualQFileDialog(const QFileDialog_VTable* vtbl, QWidget* parent, Qt::WindowFlags f): QFileDialog(parent, f), vtbl(vtbl) {}
+	VirtualQFileDialog(const QFileDialog_VTable* vtbl): QFileDialog(), vtbl(vtbl) {}
+	VirtualQFileDialog(const QFileDialog_VTable* vtbl, QWidget* parent): QFileDialog(parent), vtbl(vtbl) {}
+	VirtualQFileDialog(const QFileDialog_VTable* vtbl, QWidget* parent, const QString& caption): QFileDialog(parent, caption), vtbl(vtbl) {}
+	VirtualQFileDialog(const QFileDialog_VTable* vtbl, QWidget* parent, const QString& caption, const QString& directory): QFileDialog(parent, caption, directory), vtbl(vtbl) {}
+	VirtualQFileDialog(const QFileDialog_VTable* vtbl, QWidget* parent, const QString& caption, const QString& directory, const QString& filter): QFileDialog(parent, caption, directory, filter), vtbl(vtbl) {}
 
-	virtual ~VirtualQFileDialog() override = default;
+	virtual ~VirtualQFileDialog() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QFileDialog::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QFileDialog_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QFileDialog_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QFileDialog_virtualbase_metaObject(const VirtualQFileDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QFileDialog::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QFileDialog_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QFileDialog_virtualbase_metacast(void* self, const char* param1);
+	friend void* QFileDialog_virtualbase_metacast(VirtualQFileDialog* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QFileDialog::qt_metacall(param1, param2, param3);
 		}
 
@@ -172,664 +120,474 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QFileDialog_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QFileDialog_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QFileDialog_virtualbase_metacall(VirtualQFileDialog* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setVisible = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setVisible(bool visible) override {
-		if (handle__setVisible == 0) {
+		if (vtbl->setVisible == 0) {
 			QFileDialog::setVisible(visible);
 			return;
 		}
 
 		bool sigval1 = visible;
-		miqt_exec_callback_QFileDialog_setVisible(this, handle__setVisible, sigval1);
-
+		vtbl->setVisible(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_setVisible(void* self, bool visible);
+	friend void QFileDialog_virtualbase_setVisible(VirtualQFileDialog* self, bool visible);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__done = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void done(int result) override {
-		if (handle__done == 0) {
+		if (vtbl->done == 0) {
 			QFileDialog::done(result);
 			return;
 		}
 
 		int sigval1 = result;
-		miqt_exec_callback_QFileDialog_done(this, handle__done, sigval1);
-
+		vtbl->done(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_done(void* self, int result);
+	friend void QFileDialog_virtualbase_done(VirtualQFileDialog* self, int result);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__accept = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void accept() override {
-		if (handle__accept == 0) {
+		if (vtbl->accept == 0) {
 			QFileDialog::accept();
 			return;
 		}
 
-		miqt_exec_callback_QFileDialog_accept(this, handle__accept);
-
+		vtbl->accept(this);
 	}
 
-	friend void QFileDialog_virtualbase_accept(void* self);
+	friend void QFileDialog_virtualbase_accept(VirtualQFileDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__changeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void changeEvent(QEvent* e) override {
-		if (handle__changeEvent == 0) {
+		if (vtbl->changeEvent == 0) {
 			QFileDialog::changeEvent(e);
 			return;
 		}
 
 		QEvent* sigval1 = e;
-		miqt_exec_callback_QFileDialog_changeEvent(this, handle__changeEvent, sigval1);
-
+		vtbl->changeEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_changeEvent(void* self, QEvent* e);
+	friend void QFileDialog_virtualbase_changeEvent(VirtualQFileDialog* self, QEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize sizeHint() const override {
-		if (handle__sizeHint == 0) {
+		if (vtbl->sizeHint == 0) {
 			return QFileDialog::sizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QFileDialog_sizeHint(this, handle__sizeHint);
+		QSize* callback_return_value = vtbl->sizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QFileDialog_virtualbase_sizeHint(const void* self);
+	friend QSize* QFileDialog_virtualbase_sizeHint(const VirtualQFileDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__minimumSizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize minimumSizeHint() const override {
-		if (handle__minimumSizeHint == 0) {
+		if (vtbl->minimumSizeHint == 0) {
 			return QFileDialog::minimumSizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QFileDialog_minimumSizeHint(this, handle__minimumSizeHint);
+		QSize* callback_return_value = vtbl->minimumSizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QFileDialog_virtualbase_minimumSizeHint(const void* self);
+	friend QSize* QFileDialog_virtualbase_minimumSizeHint(const VirtualQFileDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__open = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void open() override {
-		if (handle__open == 0) {
+		if (vtbl->open == 0) {
 			QFileDialog::open();
 			return;
 		}
 
-		miqt_exec_callback_QFileDialog_open(this, handle__open);
-
+		vtbl->open(this);
 	}
 
-	friend void QFileDialog_virtualbase_open(void* self);
+	friend void QFileDialog_virtualbase_open(VirtualQFileDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__exec = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int exec() override {
-		if (handle__exec == 0) {
+		if (vtbl->exec == 0) {
 			return QFileDialog::exec();
 		}
 
-		int callback_return_value = miqt_exec_callback_QFileDialog_exec(this, handle__exec);
+		int callback_return_value = vtbl->exec(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QFileDialog_virtualbase_exec(void* self);
+	friend int QFileDialog_virtualbase_exec(VirtualQFileDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__reject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void reject() override {
-		if (handle__reject == 0) {
+		if (vtbl->reject == 0) {
 			QFileDialog::reject();
 			return;
 		}
 
-		miqt_exec_callback_QFileDialog_reject(this, handle__reject);
-
+		vtbl->reject(this);
 	}
 
-	friend void QFileDialog_virtualbase_reject(void* self);
+	friend void QFileDialog_virtualbase_reject(VirtualQFileDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyPressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyPressEvent(QKeyEvent* param1) override {
-		if (handle__keyPressEvent == 0) {
+		if (vtbl->keyPressEvent == 0) {
 			QFileDialog::keyPressEvent(param1);
 			return;
 		}
 
 		QKeyEvent* sigval1 = param1;
-		miqt_exec_callback_QFileDialog_keyPressEvent(this, handle__keyPressEvent, sigval1);
-
+		vtbl->keyPressEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_keyPressEvent(void* self, QKeyEvent* param1);
+	friend void QFileDialog_virtualbase_keyPressEvent(VirtualQFileDialog* self, QKeyEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__closeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void closeEvent(QCloseEvent* param1) override {
-		if (handle__closeEvent == 0) {
+		if (vtbl->closeEvent == 0) {
 			QFileDialog::closeEvent(param1);
 			return;
 		}
 
 		QCloseEvent* sigval1 = param1;
-		miqt_exec_callback_QFileDialog_closeEvent(this, handle__closeEvent, sigval1);
-
+		vtbl->closeEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_closeEvent(void* self, QCloseEvent* param1);
+	friend void QFileDialog_virtualbase_closeEvent(VirtualQFileDialog* self, QCloseEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__showEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void showEvent(QShowEvent* param1) override {
-		if (handle__showEvent == 0) {
+		if (vtbl->showEvent == 0) {
 			QFileDialog::showEvent(param1);
 			return;
 		}
 
 		QShowEvent* sigval1 = param1;
-		miqt_exec_callback_QFileDialog_showEvent(this, handle__showEvent, sigval1);
-
+		vtbl->showEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_showEvent(void* self, QShowEvent* param1);
+	friend void QFileDialog_virtualbase_showEvent(VirtualQFileDialog* self, QShowEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__resizeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void resizeEvent(QResizeEvent* param1) override {
-		if (handle__resizeEvent == 0) {
+		if (vtbl->resizeEvent == 0) {
 			QFileDialog::resizeEvent(param1);
 			return;
 		}
 
 		QResizeEvent* sigval1 = param1;
-		miqt_exec_callback_QFileDialog_resizeEvent(this, handle__resizeEvent, sigval1);
-
+		vtbl->resizeEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_resizeEvent(void* self, QResizeEvent* param1);
+	friend void QFileDialog_virtualbase_resizeEvent(VirtualQFileDialog* self, QResizeEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__contextMenuEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void contextMenuEvent(QContextMenuEvent* param1) override {
-		if (handle__contextMenuEvent == 0) {
+		if (vtbl->contextMenuEvent == 0) {
 			QFileDialog::contextMenuEvent(param1);
 			return;
 		}
 
 		QContextMenuEvent* sigval1 = param1;
-		miqt_exec_callback_QFileDialog_contextMenuEvent(this, handle__contextMenuEvent, sigval1);
-
+		vtbl->contextMenuEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* param1);
+	friend void QFileDialog_virtualbase_contextMenuEvent(VirtualQFileDialog* self, QContextMenuEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* param1, QEvent* param2) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QFileDialog::eventFilter(param1, param2);
 		}
 
 		QObject* sigval1 = param1;
 		QEvent* sigval2 = param2;
-		bool callback_return_value = miqt_exec_callback_QFileDialog_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QFileDialog_virtualbase_eventFilter(void* self, QObject* param1, QEvent* param2);
+	friend bool QFileDialog_virtualbase_eventFilter(VirtualQFileDialog* self, QObject* param1, QEvent* param2);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__devType = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int devType() const override {
-		if (handle__devType == 0) {
+		if (vtbl->devType == 0) {
 			return QFileDialog::devType();
 		}
 
-		int callback_return_value = miqt_exec_callback_QFileDialog_devType(this, handle__devType);
+		int callback_return_value = vtbl->devType(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QFileDialog_virtualbase_devType(const void* self);
+	friend int QFileDialog_virtualbase_devType(const VirtualQFileDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__heightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int heightForWidth(int param1) const override {
-		if (handle__heightForWidth == 0) {
+		if (vtbl->heightForWidth == 0) {
 			return QFileDialog::heightForWidth(param1);
 		}
 
 		int sigval1 = param1;
-		int callback_return_value = miqt_exec_callback_QFileDialog_heightForWidth(this, handle__heightForWidth, sigval1);
+		int callback_return_value = vtbl->heightForWidth(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QFileDialog_virtualbase_heightForWidth(const void* self, int param1);
+	friend int QFileDialog_virtualbase_heightForWidth(const VirtualQFileDialog* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hasHeightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool hasHeightForWidth() const override {
-		if (handle__hasHeightForWidth == 0) {
+		if (vtbl->hasHeightForWidth == 0) {
 			return QFileDialog::hasHeightForWidth();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QFileDialog_hasHeightForWidth(this, handle__hasHeightForWidth);
+		bool callback_return_value = vtbl->hasHeightForWidth(this);
 		return callback_return_value;
 	}
 
-	friend bool QFileDialog_virtualbase_hasHeightForWidth(const void* self);
+	friend bool QFileDialog_virtualbase_hasHeightForWidth(const VirtualQFileDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEngine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintEngine* paintEngine() const override {
-		if (handle__paintEngine == 0) {
+		if (vtbl->paintEngine == 0) {
 			return QFileDialog::paintEngine();
 		}
 
-		QPaintEngine* callback_return_value = miqt_exec_callback_QFileDialog_paintEngine(this, handle__paintEngine);
+		QPaintEngine* callback_return_value = vtbl->paintEngine(this);
 		return callback_return_value;
 	}
 
-	friend QPaintEngine* QFileDialog_virtualbase_paintEngine(const void* self);
+	friend QPaintEngine* QFileDialog_virtualbase_paintEngine(const VirtualQFileDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QFileDialog::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QFileDialog_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QFileDialog_virtualbase_event(void* self, QEvent* event);
+	friend bool QFileDialog_virtualbase_event(VirtualQFileDialog* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mousePressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mousePressEvent(QMouseEvent* event) override {
-		if (handle__mousePressEvent == 0) {
+		if (vtbl->mousePressEvent == 0) {
 			QFileDialog::mousePressEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_mousePressEvent(this, handle__mousePressEvent, sigval1);
-
+		vtbl->mousePressEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_mousePressEvent(void* self, QMouseEvent* event);
+	friend void QFileDialog_virtualbase_mousePressEvent(VirtualQFileDialog* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseReleaseEvent(QMouseEvent* event) override {
-		if (handle__mouseReleaseEvent == 0) {
+		if (vtbl->mouseReleaseEvent == 0) {
 			QFileDialog::mouseReleaseEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_mouseReleaseEvent(this, handle__mouseReleaseEvent, sigval1);
-
+		vtbl->mouseReleaseEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* event);
+	friend void QFileDialog_virtualbase_mouseReleaseEvent(VirtualQFileDialog* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseDoubleClickEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseDoubleClickEvent(QMouseEvent* event) override {
-		if (handle__mouseDoubleClickEvent == 0) {
+		if (vtbl->mouseDoubleClickEvent == 0) {
 			QFileDialog::mouseDoubleClickEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_mouseDoubleClickEvent(this, handle__mouseDoubleClickEvent, sigval1);
-
+		vtbl->mouseDoubleClickEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* event);
+	friend void QFileDialog_virtualbase_mouseDoubleClickEvent(VirtualQFileDialog* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseMoveEvent(QMouseEvent* event) override {
-		if (handle__mouseMoveEvent == 0) {
+		if (vtbl->mouseMoveEvent == 0) {
 			QFileDialog::mouseMoveEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_mouseMoveEvent(this, handle__mouseMoveEvent, sigval1);
-
+		vtbl->mouseMoveEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_mouseMoveEvent(void* self, QMouseEvent* event);
+	friend void QFileDialog_virtualbase_mouseMoveEvent(VirtualQFileDialog* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__wheelEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void wheelEvent(QWheelEvent* event) override {
-		if (handle__wheelEvent == 0) {
+		if (vtbl->wheelEvent == 0) {
 			QFileDialog::wheelEvent(event);
 			return;
 		}
 
 		QWheelEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_wheelEvent(this, handle__wheelEvent, sigval1);
-
+		vtbl->wheelEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_wheelEvent(void* self, QWheelEvent* event);
+	friend void QFileDialog_virtualbase_wheelEvent(VirtualQFileDialog* self, QWheelEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyReleaseEvent(QKeyEvent* event) override {
-		if (handle__keyReleaseEvent == 0) {
+		if (vtbl->keyReleaseEvent == 0) {
 			QFileDialog::keyReleaseEvent(event);
 			return;
 		}
 
 		QKeyEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_keyReleaseEvent(this, handle__keyReleaseEvent, sigval1);
-
+		vtbl->keyReleaseEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event);
+	friend void QFileDialog_virtualbase_keyReleaseEvent(VirtualQFileDialog* self, QKeyEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusInEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusInEvent(QFocusEvent* event) override {
-		if (handle__focusInEvent == 0) {
+		if (vtbl->focusInEvent == 0) {
 			QFileDialog::focusInEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_focusInEvent(this, handle__focusInEvent, sigval1);
-
+		vtbl->focusInEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_focusInEvent(void* self, QFocusEvent* event);
+	friend void QFileDialog_virtualbase_focusInEvent(VirtualQFileDialog* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusOutEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusOutEvent(QFocusEvent* event) override {
-		if (handle__focusOutEvent == 0) {
+		if (vtbl->focusOutEvent == 0) {
 			QFileDialog::focusOutEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_focusOutEvent(this, handle__focusOutEvent, sigval1);
-
+		vtbl->focusOutEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_focusOutEvent(void* self, QFocusEvent* event);
+	friend void QFileDialog_virtualbase_focusOutEvent(VirtualQFileDialog* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__enterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void enterEvent(QEvent* event) override {
-		if (handle__enterEvent == 0) {
+		if (vtbl->enterEvent == 0) {
 			QFileDialog::enterEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_enterEvent(this, handle__enterEvent, sigval1);
-
+		vtbl->enterEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_enterEvent(void* self, QEvent* event);
+	friend void QFileDialog_virtualbase_enterEvent(VirtualQFileDialog* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__leaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void leaveEvent(QEvent* event) override {
-		if (handle__leaveEvent == 0) {
+		if (vtbl->leaveEvent == 0) {
 			QFileDialog::leaveEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_leaveEvent(this, handle__leaveEvent, sigval1);
-
+		vtbl->leaveEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_leaveEvent(void* self, QEvent* event);
+	friend void QFileDialog_virtualbase_leaveEvent(VirtualQFileDialog* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void paintEvent(QPaintEvent* event) override {
-		if (handle__paintEvent == 0) {
+		if (vtbl->paintEvent == 0) {
 			QFileDialog::paintEvent(event);
 			return;
 		}
 
 		QPaintEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_paintEvent(this, handle__paintEvent, sigval1);
-
+		vtbl->paintEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_paintEvent(void* self, QPaintEvent* event);
+	friend void QFileDialog_virtualbase_paintEvent(VirtualQFileDialog* self, QPaintEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__moveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void moveEvent(QMoveEvent* event) override {
-		if (handle__moveEvent == 0) {
+		if (vtbl->moveEvent == 0) {
 			QFileDialog::moveEvent(event);
 			return;
 		}
 
 		QMoveEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_moveEvent(this, handle__moveEvent, sigval1);
-
+		vtbl->moveEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_moveEvent(void* self, QMoveEvent* event);
+	friend void QFileDialog_virtualbase_moveEvent(VirtualQFileDialog* self, QMoveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__tabletEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void tabletEvent(QTabletEvent* event) override {
-		if (handle__tabletEvent == 0) {
+		if (vtbl->tabletEvent == 0) {
 			QFileDialog::tabletEvent(event);
 			return;
 		}
 
 		QTabletEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_tabletEvent(this, handle__tabletEvent, sigval1);
-
+		vtbl->tabletEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_tabletEvent(void* self, QTabletEvent* event);
+	friend void QFileDialog_virtualbase_tabletEvent(VirtualQFileDialog* self, QTabletEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__actionEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void actionEvent(QActionEvent* event) override {
-		if (handle__actionEvent == 0) {
+		if (vtbl->actionEvent == 0) {
 			QFileDialog::actionEvent(event);
 			return;
 		}
 
 		QActionEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_actionEvent(this, handle__actionEvent, sigval1);
-
+		vtbl->actionEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_actionEvent(void* self, QActionEvent* event);
+	friend void QFileDialog_virtualbase_actionEvent(VirtualQFileDialog* self, QActionEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragEnterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragEnterEvent(QDragEnterEvent* event) override {
-		if (handle__dragEnterEvent == 0) {
+		if (vtbl->dragEnterEvent == 0) {
 			QFileDialog::dragEnterEvent(event);
 			return;
 		}
 
 		QDragEnterEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_dragEnterEvent(this, handle__dragEnterEvent, sigval1);
-
+		vtbl->dragEnterEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* event);
+	friend void QFileDialog_virtualbase_dragEnterEvent(VirtualQFileDialog* self, QDragEnterEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragMoveEvent(QDragMoveEvent* event) override {
-		if (handle__dragMoveEvent == 0) {
+		if (vtbl->dragMoveEvent == 0) {
 			QFileDialog::dragMoveEvent(event);
 			return;
 		}
 
 		QDragMoveEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_dragMoveEvent(this, handle__dragMoveEvent, sigval1);
-
+		vtbl->dragMoveEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* event);
+	friend void QFileDialog_virtualbase_dragMoveEvent(VirtualQFileDialog* self, QDragMoveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragLeaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragLeaveEvent(QDragLeaveEvent* event) override {
-		if (handle__dragLeaveEvent == 0) {
+		if (vtbl->dragLeaveEvent == 0) {
 			QFileDialog::dragLeaveEvent(event);
 			return;
 		}
 
 		QDragLeaveEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_dragLeaveEvent(this, handle__dragLeaveEvent, sigval1);
-
+		vtbl->dragLeaveEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* event);
+	friend void QFileDialog_virtualbase_dragLeaveEvent(VirtualQFileDialog* self, QDragLeaveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dropEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dropEvent(QDropEvent* event) override {
-		if (handle__dropEvent == 0) {
+		if (vtbl->dropEvent == 0) {
 			QFileDialog::dropEvent(event);
 			return;
 		}
 
 		QDropEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_dropEvent(this, handle__dropEvent, sigval1);
-
+		vtbl->dropEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_dropEvent(void* self, QDropEvent* event);
+	friend void QFileDialog_virtualbase_dropEvent(VirtualQFileDialog* self, QDropEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hideEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void hideEvent(QHideEvent* event) override {
-		if (handle__hideEvent == 0) {
+		if (vtbl->hideEvent == 0) {
 			QFileDialog::hideEvent(event);
 			return;
 		}
 
 		QHideEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_hideEvent(this, handle__hideEvent, sigval1);
-
+		vtbl->hideEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_hideEvent(void* self, QHideEvent* event);
+	friend void QFileDialog_virtualbase_hideEvent(VirtualQFileDialog* self, QHideEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__nativeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool nativeEvent(const QByteArray& eventType, void* message, long* result) override {
-		if (handle__nativeEvent == 0) {
+		if (vtbl->nativeEvent == 0) {
 			return QFileDialog::nativeEvent(eventType, message, result);
 		}
 
@@ -841,184 +599,135 @@ public:
 		struct seaqt_string sigval1 = eventType_ms;
 		void* sigval2 = message;
 		long* sigval3 = result;
-		bool callback_return_value = miqt_exec_callback_QFileDialog_nativeEvent(this, handle__nativeEvent, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->nativeEvent(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QFileDialog_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, long* result);
+	friend bool QFileDialog_virtualbase_nativeEvent(VirtualQFileDialog* self, struct seaqt_string eventType, void* message, long* result);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metric = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int metric(QPaintDevice::PaintDeviceMetric param1) const override {
-		if (handle__metric == 0) {
+		if (vtbl->metric == 0) {
 			return QFileDialog::metric(param1);
 		}
 
 		QPaintDevice::PaintDeviceMetric param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		int callback_return_value = miqt_exec_callback_QFileDialog_metric(this, handle__metric, sigval1);
+		int callback_return_value = vtbl->metric(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QFileDialog_virtualbase_metric(const void* self, int param1);
+	friend int QFileDialog_virtualbase_metric(const VirtualQFileDialog* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__initPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void initPainter(QPainter* painter) const override {
-		if (handle__initPainter == 0) {
+		if (vtbl->initPainter == 0) {
 			QFileDialog::initPainter(painter);
 			return;
 		}
 
 		QPainter* sigval1 = painter;
-		miqt_exec_callback_QFileDialog_initPainter(this, handle__initPainter, sigval1);
-
+		vtbl->initPainter(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_initPainter(const void* self, QPainter* painter);
+	friend void QFileDialog_virtualbase_initPainter(const VirtualQFileDialog* self, QPainter* painter);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__redirected = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintDevice* redirected(QPoint* offset) const override {
-		if (handle__redirected == 0) {
+		if (vtbl->redirected == 0) {
 			return QFileDialog::redirected(offset);
 		}
 
 		QPoint* sigval1 = offset;
-		QPaintDevice* callback_return_value = miqt_exec_callback_QFileDialog_redirected(this, handle__redirected, sigval1);
+		QPaintDevice* callback_return_value = vtbl->redirected(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QPaintDevice* QFileDialog_virtualbase_redirected(const void* self, QPoint* offset);
+	friend QPaintDevice* QFileDialog_virtualbase_redirected(const VirtualQFileDialog* self, QPoint* offset);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sharedPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPainter* sharedPainter() const override {
-		if (handle__sharedPainter == 0) {
+		if (vtbl->sharedPainter == 0) {
 			return QFileDialog::sharedPainter();
 		}
 
-		QPainter* callback_return_value = miqt_exec_callback_QFileDialog_sharedPainter(this, handle__sharedPainter);
+		QPainter* callback_return_value = vtbl->sharedPainter(this);
 		return callback_return_value;
 	}
 
-	friend QPainter* QFileDialog_virtualbase_sharedPainter(const void* self);
+	friend QPainter* QFileDialog_virtualbase_sharedPainter(const VirtualQFileDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void inputMethodEvent(QInputMethodEvent* param1) override {
-		if (handle__inputMethodEvent == 0) {
+		if (vtbl->inputMethodEvent == 0) {
 			QFileDialog::inputMethodEvent(param1);
 			return;
 		}
 
 		QInputMethodEvent* sigval1 = param1;
-		miqt_exec_callback_QFileDialog_inputMethodEvent(this, handle__inputMethodEvent, sigval1);
-
+		vtbl->inputMethodEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1);
+	friend void QFileDialog_virtualbase_inputMethodEvent(VirtualQFileDialog* self, QInputMethodEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodQuery = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant inputMethodQuery(Qt::InputMethodQuery param1) const override {
-		if (handle__inputMethodQuery == 0) {
+		if (vtbl->inputMethodQuery == 0) {
 			return QFileDialog::inputMethodQuery(param1);
 		}
 
 		Qt::InputMethodQuery param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		QVariant* callback_return_value = miqt_exec_callback_QFileDialog_inputMethodQuery(this, handle__inputMethodQuery, sigval1);
+		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QFileDialog_virtualbase_inputMethodQuery(const void* self, int param1);
+	friend QVariant* QFileDialog_virtualbase_inputMethodQuery(const VirtualQFileDialog* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusNextPrevChild = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool focusNextPrevChild(bool next) override {
-		if (handle__focusNextPrevChild == 0) {
+		if (vtbl->focusNextPrevChild == 0) {
 			return QFileDialog::focusNextPrevChild(next);
 		}
 
 		bool sigval1 = next;
-		bool callback_return_value = miqt_exec_callback_QFileDialog_focusNextPrevChild(this, handle__focusNextPrevChild, sigval1);
+		bool callback_return_value = vtbl->focusNextPrevChild(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QFileDialog_virtualbase_focusNextPrevChild(void* self, bool next);
+	friend bool QFileDialog_virtualbase_focusNextPrevChild(VirtualQFileDialog* self, bool next);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QFileDialog::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QFileDialog_virtualbase_timerEvent(VirtualQFileDialog* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QFileDialog::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QFileDialog_virtualbase_childEvent(VirtualQFileDialog* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QFileDialog::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QFileDialog_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QFileDialog_virtualbase_customEvent(VirtualQFileDialog* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QFileDialog::connectNotify(signal);
 			return;
 		}
@@ -1026,18 +735,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QFileDialog_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QFileDialog_virtualbase_connectNotify(VirtualQFileDialog* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QFileDialog::disconnectNotify(signal);
 			return;
 		}
@@ -1045,53 +749,58 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QFileDialog_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QFileDialog_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QFileDialog_virtualbase_disconnectNotify(VirtualQFileDialog* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QFileDialog_protectedbase_adjustPosition(bool* _dynamic_cast_ok, void* self, QWidget* param1);
-	friend void QFileDialog_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self);
-	friend void QFileDialog_protectedbase_create(bool* _dynamic_cast_ok, void* self);
-	friend void QFileDialog_protectedbase_destroy(bool* _dynamic_cast_ok, void* self);
-	friend bool QFileDialog_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self);
-	friend bool QFileDialog_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self);
-	friend QObject* QFileDialog_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QFileDialog_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QFileDialog_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QFileDialog_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QFileDialog_protectedbase_adjustPosition(VirtualQFileDialog* self, QWidget* param1);
+	friend void QFileDialog_protectedbase_updateMicroFocus(VirtualQFileDialog* self);
+	friend void QFileDialog_protectedbase_create(VirtualQFileDialog* self);
+	friend void QFileDialog_protectedbase_destroy(VirtualQFileDialog* self);
+	friend bool QFileDialog_protectedbase_focusNextChild(VirtualQFileDialog* self);
+	friend bool QFileDialog_protectedbase_focusPreviousChild(VirtualQFileDialog* self);
+	friend QObject* QFileDialog_protectedbase_sender(const VirtualQFileDialog* self);
+	friend int QFileDialog_protectedbase_senderSignalIndex(const VirtualQFileDialog* self);
+	friend int QFileDialog_protectedbase_receivers(const VirtualQFileDialog* self, const char* signal);
+	friend bool QFileDialog_protectedbase_isSignalConnected(const VirtualQFileDialog* self, QMetaMethod* signal);
 };
 
-QFileDialog* QFileDialog_new(QWidget* parent, int f) {
-	return new (std::nothrow) VirtualQFileDialog(parent, static_cast<Qt::WindowFlags>(f));
+VirtualQFileDialog* QFileDialog_new(const QFileDialog_VTable* vtbl, size_t vdata, QWidget* parent, int f) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQFileDialog>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQFileDialog(vtbl, parent, static_cast<Qt::WindowFlags>(f)) : nullptr;
 }
 
-QFileDialog* QFileDialog_new2() {
-	return new (std::nothrow) VirtualQFileDialog();
+VirtualQFileDialog* QFileDialog_new2(const QFileDialog_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQFileDialog>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQFileDialog(vtbl) : nullptr;
 }
 
-QFileDialog* QFileDialog_new3(QWidget* parent) {
-	return new (std::nothrow) VirtualQFileDialog(parent);
+VirtualQFileDialog* QFileDialog_new3(const QFileDialog_VTable* vtbl, size_t vdata, QWidget* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQFileDialog>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQFileDialog(vtbl, parent) : nullptr;
 }
 
-QFileDialog* QFileDialog_new4(QWidget* parent, struct seaqt_string caption) {
+VirtualQFileDialog* QFileDialog_new4(const QFileDialog_VTable* vtbl, size_t vdata, QWidget* parent, struct seaqt_string caption) {
 	QString caption_QString = QString::fromUtf8(caption.data, caption.len);
-	return new (std::nothrow) VirtualQFileDialog(parent, caption_QString);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQFileDialog>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQFileDialog(vtbl, parent, caption_QString) : nullptr;
 }
 
-QFileDialog* QFileDialog_new5(QWidget* parent, struct seaqt_string caption, struct seaqt_string directory) {
+VirtualQFileDialog* QFileDialog_new5(const QFileDialog_VTable* vtbl, size_t vdata, QWidget* parent, struct seaqt_string caption, struct seaqt_string directory) {
 	QString caption_QString = QString::fromUtf8(caption.data, caption.len);
 	QString directory_QString = QString::fromUtf8(directory.data, directory.len);
-	return new (std::nothrow) VirtualQFileDialog(parent, caption_QString, directory_QString);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQFileDialog>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQFileDialog(vtbl, parent, caption_QString, directory_QString) : nullptr;
 }
 
-QFileDialog* QFileDialog_new6(QWidget* parent, struct seaqt_string caption, struct seaqt_string directory, struct seaqt_string filter) {
+VirtualQFileDialog* QFileDialog_new6(const QFileDialog_VTable* vtbl, size_t vdata, QWidget* parent, struct seaqt_string caption, struct seaqt_string directory, struct seaqt_string filter) {
 	QString caption_QString = QString::fromUtf8(caption.data, caption.len);
 	QString directory_QString = QString::fromUtf8(directory.data, directory.len);
 	QString filter_QString = QString::fromUtf8(filter.data, filter.len);
-	return new (std::nothrow) VirtualQFileDialog(parent, caption_QString, directory_QString, filter_QString);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQFileDialog>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQFileDialog(vtbl, parent, caption_QString, directory_QString, filter_QString) : nullptr;
 }
 
 void QFileDialog_virtbase(QFileDialog* src, QDialog** outptr_QDialog) {
@@ -2208,885 +1917,323 @@ struct seaqt_array /* of QUrl* */  QFileDialog_getOpenFileUrls4(QWidget* parent,
 }
 
 const QMetaObject* QFileDialog_staticMetaObject() { return &QFileDialog::staticMetaObject; }
-bool QFileDialog_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QFileDialog_vdata(VirtualQFileDialog* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQFileDialog>()); }
+VirtualQFileDialog* vdata_QFileDialog(void* vdata) { return reinterpret_cast<VirtualQFileDialog*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQFileDialog>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
-}
-
-QMetaObject* QFileDialog_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQFileDialog*>(self)->QFileDialog::metaObject();
-}
-
-bool QFileDialog_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__metacast = slot;
-	return true;
-}
+QMetaObject* QFileDialog_virtualbase_metaObject(const VirtualQFileDialog* self) {
 
-void* QFileDialog_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQFileDialog*>(self)->QFileDialog::qt_metacast(param1);
+	return (QMetaObject*) self->QFileDialog::metaObject();
 }
-
-bool QFileDialog_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__metacall = slot;
-	return true;
-}
+void* QFileDialog_virtualbase_metacast(VirtualQFileDialog* self, const char* param1) {
 
-int QFileDialog_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQFileDialog*>(self)->QFileDialog::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+	return self->QFileDialog::qt_metacast(param1);
 }
 
-bool QFileDialog_override_virtual_setVisible(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setVisible = slot;
-	return true;
-}
+int QFileDialog_virtualbase_metacall(VirtualQFileDialog* self, int param1, int param2, void** param3) {
 
-void QFileDialog_virtualbase_setVisible(void* self, bool visible) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::setVisible(visible);
+	return self->QFileDialog::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-bool QFileDialog_override_virtual_done(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileDialog_virtualbase_setVisible(VirtualQFileDialog* self, bool visible) {
 
-	self_cast->handle__done = slot;
-	return true;
+	self->QFileDialog::setVisible(visible);
 }
 
-void QFileDialog_virtualbase_done(void* self, int result) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::done(static_cast<int>(result));
-}
-
-bool QFileDialog_override_virtual_accept(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileDialog_virtualbase_done(VirtualQFileDialog* self, int result) {
 
-	self_cast->handle__accept = slot;
-	return true;
+	self->QFileDialog::done(static_cast<int>(result));
 }
-
-void QFileDialog_virtualbase_accept(void* self) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::accept();
-}
-
-bool QFileDialog_override_virtual_changeEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__changeEvent = slot;
-	return true;
-}
+void QFileDialog_virtualbase_accept(VirtualQFileDialog* self) {
 
-void QFileDialog_virtualbase_changeEvent(void* self, QEvent* e) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::changeEvent(e);
+	self->QFileDialog::accept();
 }
 
-bool QFileDialog_override_virtual_sizeHint(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__sizeHint = slot;
-	return true;
-}
+void QFileDialog_virtualbase_changeEvent(VirtualQFileDialog* self, QEvent* e) {
 
-QSize* QFileDialog_virtualbase_sizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQFileDialog*>(self)->QFileDialog::sizeHint());
+	self->QFileDialog::changeEvent(e);
 }
 
-bool QFileDialog_override_virtual_minimumSizeHint(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QSize* QFileDialog_virtualbase_sizeHint(const VirtualQFileDialog* self) {
 
-	self_cast->handle__minimumSizeHint = slot;
-	return true;
+	return new QSize(self->QFileDialog::sizeHint());
 }
-
-QSize* QFileDialog_virtualbase_minimumSizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQFileDialog*>(self)->QFileDialog::minimumSizeHint());
-}
-
-bool QFileDialog_override_virtual_open(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__open = slot;
-	return true;
-}
+QSize* QFileDialog_virtualbase_minimumSizeHint(const VirtualQFileDialog* self) {
 
-void QFileDialog_virtualbase_open(void* self) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::open();
+	return new QSize(self->QFileDialog::minimumSizeHint());
 }
-
-bool QFileDialog_override_virtual_exec(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__exec = slot;
-	return true;
-}
+void QFileDialog_virtualbase_open(VirtualQFileDialog* self) {
 
-int QFileDialog_virtualbase_exec(void* self) {
-	return static_cast<VirtualQFileDialog*>(self)->QFileDialog::exec();
+	self->QFileDialog::open();
 }
 
-bool QFileDialog_override_virtual_reject(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__reject = slot;
-	return true;
-}
+int QFileDialog_virtualbase_exec(VirtualQFileDialog* self) {
 
-void QFileDialog_virtualbase_reject(void* self) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::reject();
+	return self->QFileDialog::exec();
 }
 
-bool QFileDialog_override_virtual_keyPressEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileDialog_virtualbase_reject(VirtualQFileDialog* self) {
 
-	self_cast->handle__keyPressEvent = slot;
-	return true;
+	self->QFileDialog::reject();
 }
 
-void QFileDialog_virtualbase_keyPressEvent(void* self, QKeyEvent* param1) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::keyPressEvent(param1);
-}
-
-bool QFileDialog_override_virtual_closeEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__closeEvent = slot;
-	return true;
-}
+void QFileDialog_virtualbase_keyPressEvent(VirtualQFileDialog* self, QKeyEvent* param1) {
 
-void QFileDialog_virtualbase_closeEvent(void* self, QCloseEvent* param1) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::closeEvent(param1);
+	self->QFileDialog::keyPressEvent(param1);
 }
 
-bool QFileDialog_override_virtual_showEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__showEvent = slot;
-	return true;
-}
+void QFileDialog_virtualbase_closeEvent(VirtualQFileDialog* self, QCloseEvent* param1) {
 
-void QFileDialog_virtualbase_showEvent(void* self, QShowEvent* param1) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::showEvent(param1);
+	self->QFileDialog::closeEvent(param1);
 }
 
-bool QFileDialog_override_virtual_resizeEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileDialog_virtualbase_showEvent(VirtualQFileDialog* self, QShowEvent* param1) {
 
-	self_cast->handle__resizeEvent = slot;
-	return true;
+	self->QFileDialog::showEvent(param1);
 }
 
-void QFileDialog_virtualbase_resizeEvent(void* self, QResizeEvent* param1) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::resizeEvent(param1);
-}
-
-bool QFileDialog_override_virtual_contextMenuEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileDialog_virtualbase_resizeEvent(VirtualQFileDialog* self, QResizeEvent* param1) {
 
-	self_cast->handle__contextMenuEvent = slot;
-	return true;
+	self->QFileDialog::resizeEvent(param1);
 }
-
-void QFileDialog_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* param1) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::contextMenuEvent(param1);
-}
-
-bool QFileDialog_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__eventFilter = slot;
-	return true;
-}
+void QFileDialog_virtualbase_contextMenuEvent(VirtualQFileDialog* self, QContextMenuEvent* param1) {
 
-bool QFileDialog_virtualbase_eventFilter(void* self, QObject* param1, QEvent* param2) {
-	return static_cast<VirtualQFileDialog*>(self)->QFileDialog::eventFilter(param1, param2);
+	self->QFileDialog::contextMenuEvent(param1);
 }
 
-bool QFileDialog_override_virtual_devType(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__devType = slot;
-	return true;
-}
+bool QFileDialog_virtualbase_eventFilter(VirtualQFileDialog* self, QObject* param1, QEvent* param2) {
 
-int QFileDialog_virtualbase_devType(const void* self) {
-	return static_cast<const VirtualQFileDialog*>(self)->QFileDialog::devType();
+	return self->QFileDialog::eventFilter(param1, param2);
 }
 
-bool QFileDialog_override_virtual_heightForWidth(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QFileDialog_virtualbase_devType(const VirtualQFileDialog* self) {
 
-	self_cast->handle__heightForWidth = slot;
-	return true;
+	return self->QFileDialog::devType();
 }
-
-int QFileDialog_virtualbase_heightForWidth(const void* self, int param1) {
-	return static_cast<const VirtualQFileDialog*>(self)->QFileDialog::heightForWidth(static_cast<int>(param1));
-}
-
-bool QFileDialog_override_virtual_hasHeightForWidth(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__hasHeightForWidth = slot;
-	return true;
-}
+int QFileDialog_virtualbase_heightForWidth(const VirtualQFileDialog* self, int param1) {
 
-bool QFileDialog_virtualbase_hasHeightForWidth(const void* self) {
-	return static_cast<const VirtualQFileDialog*>(self)->QFileDialog::hasHeightForWidth();
+	return self->QFileDialog::heightForWidth(static_cast<int>(param1));
 }
-
-bool QFileDialog_override_virtual_paintEngine(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__paintEngine = slot;
-	return true;
-}
+bool QFileDialog_virtualbase_hasHeightForWidth(const VirtualQFileDialog* self) {
 
-QPaintEngine* QFileDialog_virtualbase_paintEngine(const void* self) {
-	return static_cast<const VirtualQFileDialog*>(self)->QFileDialog::paintEngine();
+	return self->QFileDialog::hasHeightForWidth();
 }
 
-bool QFileDialog_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__event = slot;
-	return true;
-}
+QPaintEngine* QFileDialog_virtualbase_paintEngine(const VirtualQFileDialog* self) {
 
-bool QFileDialog_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQFileDialog*>(self)->QFileDialog::event(event);
+	return self->QFileDialog::paintEngine();
 }
 
-bool QFileDialog_override_virtual_mousePressEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QFileDialog_virtualbase_event(VirtualQFileDialog* self, QEvent* event) {
 
-	self_cast->handle__mousePressEvent = slot;
-	return true;
+	return self->QFileDialog::event(event);
 }
 
-void QFileDialog_virtualbase_mousePressEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::mousePressEvent(event);
-}
-
-bool QFileDialog_override_virtual_mouseReleaseEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileDialog_virtualbase_mousePressEvent(VirtualQFileDialog* self, QMouseEvent* event) {
 
-	self_cast->handle__mouseReleaseEvent = slot;
-	return true;
+	self->QFileDialog::mousePressEvent(event);
 }
-
-void QFileDialog_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::mouseReleaseEvent(event);
-}
-
-bool QFileDialog_override_virtual_mouseDoubleClickEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__mouseDoubleClickEvent = slot;
-	return true;
-}
+void QFileDialog_virtualbase_mouseReleaseEvent(VirtualQFileDialog* self, QMouseEvent* event) {
 
-void QFileDialog_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::mouseDoubleClickEvent(event);
+	self->QFileDialog::mouseReleaseEvent(event);
 }
-
-bool QFileDialog_override_virtual_mouseMoveEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__mouseMoveEvent = slot;
-	return true;
-}
+void QFileDialog_virtualbase_mouseDoubleClickEvent(VirtualQFileDialog* self, QMouseEvent* event) {
 
-void QFileDialog_virtualbase_mouseMoveEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::mouseMoveEvent(event);
+	self->QFileDialog::mouseDoubleClickEvent(event);
 }
 
-bool QFileDialog_override_virtual_wheelEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__wheelEvent = slot;
-	return true;
-}
+void QFileDialog_virtualbase_mouseMoveEvent(VirtualQFileDialog* self, QMouseEvent* event) {
 
-void QFileDialog_virtualbase_wheelEvent(void* self, QWheelEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::wheelEvent(event);
+	self->QFileDialog::mouseMoveEvent(event);
 }
 
-bool QFileDialog_override_virtual_keyReleaseEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileDialog_virtualbase_wheelEvent(VirtualQFileDialog* self, QWheelEvent* event) {
 
-	self_cast->handle__keyReleaseEvent = slot;
-	return true;
+	self->QFileDialog::wheelEvent(event);
 }
 
-void QFileDialog_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::keyReleaseEvent(event);
-}
-
-bool QFileDialog_override_virtual_focusInEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__focusInEvent = slot;
-	return true;
-}
+void QFileDialog_virtualbase_keyReleaseEvent(VirtualQFileDialog* self, QKeyEvent* event) {
 
-void QFileDialog_virtualbase_focusInEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::focusInEvent(event);
+	self->QFileDialog::keyReleaseEvent(event);
 }
 
-bool QFileDialog_override_virtual_focusOutEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__focusOutEvent = slot;
-	return true;
-}
+void QFileDialog_virtualbase_focusInEvent(VirtualQFileDialog* self, QFocusEvent* event) {
 
-void QFileDialog_virtualbase_focusOutEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::focusOutEvent(event);
+	self->QFileDialog::focusInEvent(event);
 }
 
-bool QFileDialog_override_virtual_enterEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileDialog_virtualbase_focusOutEvent(VirtualQFileDialog* self, QFocusEvent* event) {
 
-	self_cast->handle__enterEvent = slot;
-	return true;
+	self->QFileDialog::focusOutEvent(event);
 }
 
-void QFileDialog_virtualbase_enterEvent(void* self, QEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::enterEvent(event);
-}
-
-bool QFileDialog_override_virtual_leaveEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileDialog_virtualbase_enterEvent(VirtualQFileDialog* self, QEvent* event) {
 
-	self_cast->handle__leaveEvent = slot;
-	return true;
+	self->QFileDialog::enterEvent(event);
 }
-
-void QFileDialog_virtualbase_leaveEvent(void* self, QEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::leaveEvent(event);
-}
-
-bool QFileDialog_override_virtual_paintEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__paintEvent = slot;
-	return true;
-}
+void QFileDialog_virtualbase_leaveEvent(VirtualQFileDialog* self, QEvent* event) {
 
-void QFileDialog_virtualbase_paintEvent(void* self, QPaintEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::paintEvent(event);
+	self->QFileDialog::leaveEvent(event);
 }
 
-bool QFileDialog_override_virtual_moveEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__moveEvent = slot;
-	return true;
-}
+void QFileDialog_virtualbase_paintEvent(VirtualQFileDialog* self, QPaintEvent* event) {
 
-void QFileDialog_virtualbase_moveEvent(void* self, QMoveEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::moveEvent(event);
+	self->QFileDialog::paintEvent(event);
 }
 
-bool QFileDialog_override_virtual_tabletEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileDialog_virtualbase_moveEvent(VirtualQFileDialog* self, QMoveEvent* event) {
 
-	self_cast->handle__tabletEvent = slot;
-	return true;
+	self->QFileDialog::moveEvent(event);
 }
-
-void QFileDialog_virtualbase_tabletEvent(void* self, QTabletEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::tabletEvent(event);
-}
-
-bool QFileDialog_override_virtual_actionEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__actionEvent = slot;
-	return true;
-}
+void QFileDialog_virtualbase_tabletEvent(VirtualQFileDialog* self, QTabletEvent* event) {
 
-void QFileDialog_virtualbase_actionEvent(void* self, QActionEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::actionEvent(event);
+	self->QFileDialog::tabletEvent(event);
 }
-
-bool QFileDialog_override_virtual_dragEnterEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__dragEnterEvent = slot;
-	return true;
-}
+void QFileDialog_virtualbase_actionEvent(VirtualQFileDialog* self, QActionEvent* event) {
 
-void QFileDialog_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::dragEnterEvent(event);
+	self->QFileDialog::actionEvent(event);
 }
 
-bool QFileDialog_override_virtual_dragMoveEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__dragMoveEvent = slot;
-	return true;
-}
+void QFileDialog_virtualbase_dragEnterEvent(VirtualQFileDialog* self, QDragEnterEvent* event) {
 
-void QFileDialog_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::dragMoveEvent(event);
+	self->QFileDialog::dragEnterEvent(event);
 }
 
-bool QFileDialog_override_virtual_dragLeaveEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileDialog_virtualbase_dragMoveEvent(VirtualQFileDialog* self, QDragMoveEvent* event) {
 
-	self_cast->handle__dragLeaveEvent = slot;
-	return true;
+	self->QFileDialog::dragMoveEvent(event);
 }
 
-void QFileDialog_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::dragLeaveEvent(event);
-}
-
-bool QFileDialog_override_virtual_dropEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__dropEvent = slot;
-	return true;
-}
+void QFileDialog_virtualbase_dragLeaveEvent(VirtualQFileDialog* self, QDragLeaveEvent* event) {
 
-void QFileDialog_virtualbase_dropEvent(void* self, QDropEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::dropEvent(event);
+	self->QFileDialog::dragLeaveEvent(event);
 }
 
-bool QFileDialog_override_virtual_hideEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__hideEvent = slot;
-	return true;
-}
+void QFileDialog_virtualbase_dropEvent(VirtualQFileDialog* self, QDropEvent* event) {
 
-void QFileDialog_virtualbase_hideEvent(void* self, QHideEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::hideEvent(event);
+	self->QFileDialog::dropEvent(event);
 }
 
-bool QFileDialog_override_virtual_nativeEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileDialog_virtualbase_hideEvent(VirtualQFileDialog* self, QHideEvent* event) {
 
-	self_cast->handle__nativeEvent = slot;
-	return true;
+	self->QFileDialog::hideEvent(event);
 }
 
-bool QFileDialog_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, long* result) {
+bool QFileDialog_virtualbase_nativeEvent(VirtualQFileDialog* self, struct seaqt_string eventType, void* message, long* result) {
 	QByteArray eventType_QByteArray(eventType.data, eventType.len);
-	return static_cast<VirtualQFileDialog*>(self)->QFileDialog::nativeEvent(eventType_QByteArray, message, static_cast<long*>(result));
+
+	return self->QFileDialog::nativeEvent(eventType_QByteArray, message, static_cast<long*>(result));
 }
 
-bool QFileDialog_override_virtual_metric(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QFileDialog_virtualbase_metric(const VirtualQFileDialog* self, int param1) {
 
-	self_cast->handle__metric = slot;
-	return true;
+	return self->QFileDialog::metric(static_cast<VirtualQFileDialog::PaintDeviceMetric>(param1));
 }
 
-int QFileDialog_virtualbase_metric(const void* self, int param1) {
-	return static_cast<const VirtualQFileDialog*>(self)->QFileDialog::metric(static_cast<VirtualQFileDialog::PaintDeviceMetric>(param1));
+void QFileDialog_virtualbase_initPainter(const VirtualQFileDialog* self, QPainter* painter) {
+
+	self->QFileDialog::initPainter(painter);
 }
 
-bool QFileDialog_override_virtual_initPainter(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QPaintDevice* QFileDialog_virtualbase_redirected(const VirtualQFileDialog* self, QPoint* offset) {
 
-	self_cast->handle__initPainter = slot;
-	return true;
+	return self->QFileDialog::redirected(offset);
 }
 
-void QFileDialog_virtualbase_initPainter(const void* self, QPainter* painter) {
-	static_cast<const VirtualQFileDialog*>(self)->QFileDialog::initPainter(painter);
+QPainter* QFileDialog_virtualbase_sharedPainter(const VirtualQFileDialog* self) {
+
+	return self->QFileDialog::sharedPainter();
 }
 
-bool QFileDialog_override_virtual_redirected(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileDialog_virtualbase_inputMethodEvent(VirtualQFileDialog* self, QInputMethodEvent* param1) {
 
-	self_cast->handle__redirected = slot;
-	return true;
+	self->QFileDialog::inputMethodEvent(param1);
 }
 
-QPaintDevice* QFileDialog_virtualbase_redirected(const void* self, QPoint* offset) {
-	return static_cast<const VirtualQFileDialog*>(self)->QFileDialog::redirected(offset);
+QVariant* QFileDialog_virtualbase_inputMethodQuery(const VirtualQFileDialog* self, int param1) {
+
+	return new QVariant(self->QFileDialog::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
 }
 
-bool QFileDialog_override_virtual_sharedPainter(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QFileDialog_virtualbase_focusNextPrevChild(VirtualQFileDialog* self, bool next) {
 
-	self_cast->handle__sharedPainter = slot;
-	return true;
+	return self->QFileDialog::focusNextPrevChild(next);
 }
 
-QPainter* QFileDialog_virtualbase_sharedPainter(const void* self) {
-	return static_cast<const VirtualQFileDialog*>(self)->QFileDialog::sharedPainter();
+void QFileDialog_virtualbase_timerEvent(VirtualQFileDialog* self, QTimerEvent* event) {
+
+	self->QFileDialog::timerEvent(event);
 }
 
-bool QFileDialog_override_virtual_inputMethodEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileDialog_virtualbase_childEvent(VirtualQFileDialog* self, QChildEvent* event) {
 
-	self_cast->handle__inputMethodEvent = slot;
-	return true;
+	self->QFileDialog::childEvent(event);
 }
 
-void QFileDialog_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::inputMethodEvent(param1);
+void QFileDialog_virtualbase_customEvent(VirtualQFileDialog* self, QEvent* event) {
+
+	self->QFileDialog::customEvent(event);
 }
 
-bool QFileDialog_override_virtual_inputMethodQuery(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFileDialog_virtualbase_connectNotify(VirtualQFileDialog* self, QMetaMethod* signal) {
 
-	self_cast->handle__inputMethodQuery = slot;
-	return true;
+	self->QFileDialog::connectNotify(*signal);
 }
 
-QVariant* QFileDialog_virtualbase_inputMethodQuery(const void* self, int param1) {
-	return new QVariant(static_cast<const VirtualQFileDialog*>(self)->QFileDialog::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
+void QFileDialog_virtualbase_disconnectNotify(VirtualQFileDialog* self, QMetaMethod* signal) {
+
+	self->QFileDialog::disconnectNotify(*signal);
 }
 
-bool QFileDialog_override_virtual_focusNextPrevChild(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__focusNextPrevChild = slot;
-	return true;
+void QFileDialog_protectedbase_adjustPosition(VirtualQFileDialog* self, QWidget* param1) {
+	self->adjustPosition(param1);
 }
 
-bool QFileDialog_virtualbase_focusNextPrevChild(void* self, bool next) {
-	return static_cast<VirtualQFileDialog*>(self)->QFileDialog::focusNextPrevChild(next);
+void QFileDialog_protectedbase_updateMicroFocus(VirtualQFileDialog* self) {
+	self->updateMicroFocus();
 }
 
-bool QFileDialog_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+void QFileDialog_protectedbase_create(VirtualQFileDialog* self) {
+	self->create();
 }
 
-void QFileDialog_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::timerEvent(event);
+void QFileDialog_protectedbase_destroy(VirtualQFileDialog* self) {
+	self->destroy();
 }
 
-bool QFileDialog_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+bool QFileDialog_protectedbase_focusNextChild(VirtualQFileDialog* self) {
+	return self->focusNextChild();
 }
 
-void QFileDialog_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::childEvent(event);
+bool QFileDialog_protectedbase_focusPreviousChild(VirtualQFileDialog* self) {
+	return self->focusPreviousChild();
 }
 
-bool QFileDialog_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
+QObject* QFileDialog_protectedbase_sender(const VirtualQFileDialog* self) {
+	return self->sender();
 }
 
-void QFileDialog_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::customEvent(event);
+int QFileDialog_protectedbase_senderSignalIndex(const VirtualQFileDialog* self) {
+	return self->senderSignalIndex();
 }
 
-bool QFileDialog_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
+int QFileDialog_protectedbase_receivers(const VirtualQFileDialog* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QFileDialog_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::connectNotify(*signal);
-}
-
-bool QFileDialog_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QFileDialog_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQFileDialog*>(self)->QFileDialog::disconnectNotify(*signal);
-}
-
-void QFileDialog_protectedbase_adjustPosition(bool* _dynamic_cast_ok, void* self, QWidget* param1) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->adjustPosition(param1);
-}
-
-void QFileDialog_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->updateMicroFocus();
-}
-
-void QFileDialog_protectedbase_create(bool* _dynamic_cast_ok, void* self) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->create();
-}
-
-void QFileDialog_protectedbase_destroy(bool* _dynamic_cast_ok, void* self) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->destroy();
-}
-
-bool QFileDialog_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusNextChild();
-}
-
-bool QFileDialog_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusPreviousChild();
-}
-
-QObject* QFileDialog_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QFileDialog_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QFileDialog_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QFileDialog_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQFileDialog* self_cast = dynamic_cast<VirtualQFileDialog*>( (QFileDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QFileDialog_protectedbase_isSignalConnected(const VirtualQFileDialog* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QFileDialog_delete(QFileDialog* self) {

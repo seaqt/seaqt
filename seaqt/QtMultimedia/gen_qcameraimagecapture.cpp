@@ -19,6 +19,17 @@
 #include <qcameraimagecapture.h>
 #include "gen_qcameraimagecapture.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -32,67 +43,47 @@ void miqt_exec_callback_QCameraImageCapture_imageCaptured(intptr_t, int, QImage*
 void miqt_exec_callback_QCameraImageCapture_imageMetadataAvailable(intptr_t, int, struct seaqt_string, QVariant*);
 void miqt_exec_callback_QCameraImageCapture_imageAvailable(intptr_t, int, QVideoFrame*);
 void miqt_exec_callback_QCameraImageCapture_imageSaved(intptr_t, int, struct seaqt_string);
-QMetaObject* miqt_exec_callback_QCameraImageCapture_metaObject(const QCameraImageCapture*, intptr_t);
-void* miqt_exec_callback_QCameraImageCapture_metacast(QCameraImageCapture*, intptr_t, const char*);
-int miqt_exec_callback_QCameraImageCapture_metacall(QCameraImageCapture*, intptr_t, int, int, void**);
-QMediaObject* miqt_exec_callback_QCameraImageCapture_mediaObject(const QCameraImageCapture*, intptr_t);
-bool miqt_exec_callback_QCameraImageCapture_setMediaObject(QCameraImageCapture*, intptr_t, QMediaObject*);
-bool miqt_exec_callback_QCameraImageCapture_event(QCameraImageCapture*, intptr_t, QEvent*);
-bool miqt_exec_callback_QCameraImageCapture_eventFilter(QCameraImageCapture*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QCameraImageCapture_timerEvent(QCameraImageCapture*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QCameraImageCapture_childEvent(QCameraImageCapture*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QCameraImageCapture_customEvent(QCameraImageCapture*, intptr_t, QEvent*);
-void miqt_exec_callback_QCameraImageCapture_connectNotify(QCameraImageCapture*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QCameraImageCapture_disconnectNotify(QCameraImageCapture*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQCameraImageCapture final : public QCameraImageCapture {
+	const QCameraImageCapture_VTable* vtbl;
 public:
+	friend void* QCameraImageCapture_vdata(VirtualQCameraImageCapture* self);
+	friend VirtualQCameraImageCapture* vdata_QCameraImageCapture(void* vdata);
 
-	VirtualQCameraImageCapture(QMediaObject* mediaObject): QCameraImageCapture(mediaObject) {}
-	VirtualQCameraImageCapture(QMediaObject* mediaObject, QObject* parent): QCameraImageCapture(mediaObject, parent) {}
+	VirtualQCameraImageCapture(const QCameraImageCapture_VTable* vtbl, QMediaObject* mediaObject): QCameraImageCapture(mediaObject), vtbl(vtbl) {}
+	VirtualQCameraImageCapture(const QCameraImageCapture_VTable* vtbl, QMediaObject* mediaObject, QObject* parent): QCameraImageCapture(mediaObject, parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQCameraImageCapture() override = default;
+	virtual ~VirtualQCameraImageCapture() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QCameraImageCapture::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QCameraImageCapture_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QCameraImageCapture_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QCameraImageCapture_virtualbase_metaObject(const VirtualQCameraImageCapture* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QCameraImageCapture::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QCameraImageCapture_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QCameraImageCapture_virtualbase_metacast(void* self, const char* param1);
+	friend void* QCameraImageCapture_virtualbase_metacast(VirtualQCameraImageCapture* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QCameraImageCapture::qt_metacall(param1, param2, param3);
 		}
 
@@ -100,133 +91,98 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QCameraImageCapture_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QCameraImageCapture_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QCameraImageCapture_virtualbase_metacall(VirtualQCameraImageCapture* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mediaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QMediaObject* mediaObject() const override {
-		if (handle__mediaObject == 0) {
+		if (vtbl->mediaObject == 0) {
 			return QCameraImageCapture::mediaObject();
 		}
 
-		QMediaObject* callback_return_value = miqt_exec_callback_QCameraImageCapture_mediaObject(this, handle__mediaObject);
+		QMediaObject* callback_return_value = vtbl->mediaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMediaObject* QCameraImageCapture_virtualbase_mediaObject(const void* self);
+	friend QMediaObject* QCameraImageCapture_virtualbase_mediaObject(const VirtualQCameraImageCapture* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setMediaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool setMediaObject(QMediaObject* mediaObject) override {
-		if (handle__setMediaObject == 0) {
+		if (vtbl->setMediaObject == 0) {
 			return QCameraImageCapture::setMediaObject(mediaObject);
 		}
 
 		QMediaObject* sigval1 = mediaObject;
-		bool callback_return_value = miqt_exec_callback_QCameraImageCapture_setMediaObject(this, handle__setMediaObject, sigval1);
+		bool callback_return_value = vtbl->setMediaObject(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QCameraImageCapture_virtualbase_setMediaObject(void* self, QMediaObject* mediaObject);
+	friend bool QCameraImageCapture_virtualbase_setMediaObject(VirtualQCameraImageCapture* self, QMediaObject* mediaObject);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QCameraImageCapture::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QCameraImageCapture_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QCameraImageCapture_virtualbase_event(void* self, QEvent* event);
+	friend bool QCameraImageCapture_virtualbase_event(VirtualQCameraImageCapture* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QCameraImageCapture::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QCameraImageCapture_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QCameraImageCapture_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QCameraImageCapture_virtualbase_eventFilter(VirtualQCameraImageCapture* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QCameraImageCapture::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QCameraImageCapture_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QCameraImageCapture_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QCameraImageCapture_virtualbase_timerEvent(VirtualQCameraImageCapture* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QCameraImageCapture::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QCameraImageCapture_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QCameraImageCapture_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QCameraImageCapture_virtualbase_childEvent(VirtualQCameraImageCapture* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QCameraImageCapture::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QCameraImageCapture_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QCameraImageCapture_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QCameraImageCapture_virtualbase_customEvent(VirtualQCameraImageCapture* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QCameraImageCapture::connectNotify(signal);
 			return;
 		}
@@ -234,18 +190,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QCameraImageCapture_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QCameraImageCapture_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QCameraImageCapture_virtualbase_connectNotify(VirtualQCameraImageCapture* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QCameraImageCapture::disconnectNotify(signal);
 			return;
 		}
@@ -253,25 +204,26 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QCameraImageCapture_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QCameraImageCapture_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QCameraImageCapture_virtualbase_disconnectNotify(VirtualQCameraImageCapture* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QCameraImageCapture_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QCameraImageCapture_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QCameraImageCapture_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QCameraImageCapture_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QCameraImageCapture_protectedbase_sender(const VirtualQCameraImageCapture* self);
+	friend int QCameraImageCapture_protectedbase_senderSignalIndex(const VirtualQCameraImageCapture* self);
+	friend int QCameraImageCapture_protectedbase_receivers(const VirtualQCameraImageCapture* self, const char* signal);
+	friend bool QCameraImageCapture_protectedbase_isSignalConnected(const VirtualQCameraImageCapture* self, QMetaMethod* signal);
 };
 
-QCameraImageCapture* QCameraImageCapture_new(QMediaObject* mediaObject) {
-	return new (std::nothrow) VirtualQCameraImageCapture(mediaObject);
+VirtualQCameraImageCapture* QCameraImageCapture_new(const QCameraImageCapture_VTable* vtbl, size_t vdata, QMediaObject* mediaObject) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQCameraImageCapture>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQCameraImageCapture(vtbl, mediaObject) : nullptr;
 }
 
-QCameraImageCapture* QCameraImageCapture_new2(QMediaObject* mediaObject, QObject* parent) {
-	return new (std::nothrow) VirtualQCameraImageCapture(mediaObject, parent);
+VirtualQCameraImageCapture* QCameraImageCapture_new2(const QCameraImageCapture_VTable* vtbl, size_t vdata, QMediaObject* mediaObject, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQCameraImageCapture>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQCameraImageCapture(vtbl, mediaObject, parent) : nullptr;
 }
 
 void QCameraImageCapture_virtbase(QCameraImageCapture* src, QObject** outptr_QObject, QMediaBindableInterface** outptr_QMediaBindableInterface) {
@@ -658,216 +610,83 @@ int QCameraImageCapture_captureWithLocation(QCameraImageCapture* self, struct se
 }
 
 const QMetaObject* QCameraImageCapture_staticMetaObject() { return &QCameraImageCapture::staticMetaObject; }
-bool QCameraImageCapture_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QCameraImageCapture_vdata(VirtualQCameraImageCapture* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQCameraImageCapture>()); }
+VirtualQCameraImageCapture* vdata_QCameraImageCapture(void* vdata) { return reinterpret_cast<VirtualQCameraImageCapture*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQCameraImageCapture>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QCameraImageCapture_virtualbase_metaObject(const VirtualQCameraImageCapture* self) {
+
+	return (QMetaObject*) self->QCameraImageCapture::metaObject();
 }
 
-QMetaObject* QCameraImageCapture_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQCameraImageCapture*>(self)->QCameraImageCapture::metaObject();
+void* QCameraImageCapture_virtualbase_metacast(VirtualQCameraImageCapture* self, const char* param1) {
+
+	return self->QCameraImageCapture::qt_metacast(param1);
 }
 
-bool QCameraImageCapture_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QCameraImageCapture_virtualbase_metacall(VirtualQCameraImageCapture* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QCameraImageCapture::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QCameraImageCapture_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQCameraImageCapture*>(self)->QCameraImageCapture::qt_metacast(param1);
+QMediaObject* QCameraImageCapture_virtualbase_mediaObject(const VirtualQCameraImageCapture* self) {
+
+	return self->QCameraImageCapture::mediaObject();
 }
 
-bool QCameraImageCapture_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QCameraImageCapture_virtualbase_setMediaObject(VirtualQCameraImageCapture* self, QMediaObject* mediaObject) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QCameraImageCapture::setMediaObject(mediaObject);
 }
 
-int QCameraImageCapture_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQCameraImageCapture*>(self)->QCameraImageCapture::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+bool QCameraImageCapture_virtualbase_event(VirtualQCameraImageCapture* self, QEvent* event) {
+
+	return self->QCameraImageCapture::event(event);
 }
 
-bool QCameraImageCapture_override_virtual_mediaObject(void* self, intptr_t slot) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QCameraImageCapture_virtualbase_eventFilter(VirtualQCameraImageCapture* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__mediaObject = slot;
-	return true;
+	return self->QCameraImageCapture::eventFilter(watched, event);
 }
 
-QMediaObject* QCameraImageCapture_virtualbase_mediaObject(const void* self) {
-	return static_cast<const VirtualQCameraImageCapture*>(self)->QCameraImageCapture::mediaObject();
+void QCameraImageCapture_virtualbase_timerEvent(VirtualQCameraImageCapture* self, QTimerEvent* event) {
+
+	self->QCameraImageCapture::timerEvent(event);
 }
 
-bool QCameraImageCapture_override_virtual_setMediaObject(void* self, intptr_t slot) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCameraImageCapture_virtualbase_childEvent(VirtualQCameraImageCapture* self, QChildEvent* event) {
 
-	self_cast->handle__setMediaObject = slot;
-	return true;
+	self->QCameraImageCapture::childEvent(event);
 }
 
-bool QCameraImageCapture_virtualbase_setMediaObject(void* self, QMediaObject* mediaObject) {
-	return static_cast<VirtualQCameraImageCapture*>(self)->QCameraImageCapture::setMediaObject(mediaObject);
+void QCameraImageCapture_virtualbase_customEvent(VirtualQCameraImageCapture* self, QEvent* event) {
+
+	self->QCameraImageCapture::customEvent(event);
 }
 
-bool QCameraImageCapture_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QCameraImageCapture_virtualbase_connectNotify(VirtualQCameraImageCapture* self, QMetaMethod* signal) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QCameraImageCapture::connectNotify(*signal);
 }
 
-bool QCameraImageCapture_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQCameraImageCapture*>(self)->QCameraImageCapture::event(event);
+void QCameraImageCapture_virtualbase_disconnectNotify(VirtualQCameraImageCapture* self, QMetaMethod* signal) {
+
+	self->QCameraImageCapture::disconnectNotify(*signal);
 }
 
-bool QCameraImageCapture_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
+QObject* QCameraImageCapture_protectedbase_sender(const VirtualQCameraImageCapture* self) {
+	return self->sender();
 }
 
-bool QCameraImageCapture_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQCameraImageCapture*>(self)->QCameraImageCapture::eventFilter(watched, event);
+int QCameraImageCapture_protectedbase_senderSignalIndex(const VirtualQCameraImageCapture* self) {
+	return self->senderSignalIndex();
 }
 
-bool QCameraImageCapture_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+int QCameraImageCapture_protectedbase_receivers(const VirtualQCameraImageCapture* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QCameraImageCapture_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQCameraImageCapture*>(self)->QCameraImageCapture::timerEvent(event);
-}
-
-bool QCameraImageCapture_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QCameraImageCapture_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQCameraImageCapture*>(self)->QCameraImageCapture::childEvent(event);
-}
-
-bool QCameraImageCapture_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QCameraImageCapture_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQCameraImageCapture*>(self)->QCameraImageCapture::customEvent(event);
-}
-
-bool QCameraImageCapture_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QCameraImageCapture_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQCameraImageCapture*>(self)->QCameraImageCapture::connectNotify(*signal);
-}
-
-bool QCameraImageCapture_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QCameraImageCapture_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQCameraImageCapture*>(self)->QCameraImageCapture::disconnectNotify(*signal);
-}
-
-QObject* QCameraImageCapture_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QCameraImageCapture_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QCameraImageCapture_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QCameraImageCapture_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQCameraImageCapture* self_cast = dynamic_cast<VirtualQCameraImageCapture*>( (QCameraImageCapture*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QCameraImageCapture_protectedbase_isSignalConnected(const VirtualQCameraImageCapture* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QCameraImageCapture_delete(QCameraImageCapture* self) {
