@@ -25,15 +25,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QJsonObject* QJsonObject_new() {
 	return new (std::nothrow) QJsonObject();
 }

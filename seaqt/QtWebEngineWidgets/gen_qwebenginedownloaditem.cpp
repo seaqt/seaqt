@@ -20,19 +20,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QWebEngineDownloadItem_finished(intptr_t);
-void miqt_exec_callback_QWebEngineDownloadItem_stateChanged(intptr_t, int);
-void miqt_exec_callback_QWebEngineDownloadItem_downloadProgress(intptr_t, long long, long long);
-void miqt_exec_callback_QWebEngineDownloadItem_isPausedChanged(intptr_t, bool);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QWebEngineDownloadItem_virtbase(QWebEngineDownloadItem* src, QObject** outptr_QObject) {
 	*outptr_QObject = static_cast<QObject*>(src);
 }
@@ -231,47 +218,67 @@ void QWebEngineDownloadItem_finished(QWebEngineDownloadItem* self) {
 	self->finished();
 }
 
-void QWebEngineDownloadItem_connect_finished(QWebEngineDownloadItem* self, intptr_t slot) {
-	QWebEngineDownloadItem::connect(self, static_cast<void (QWebEngineDownloadItem::*)()>(&QWebEngineDownloadItem::finished), self, [=]() {
-		miqt_exec_callback_QWebEngineDownloadItem_finished(slot);
-	});
+void QWebEngineDownloadItem_connect_finished(QWebEngineDownloadItem* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QWebEngineDownloadItem::connect(self, static_cast<void (QWebEngineDownloadItem::*)()>(&QWebEngineDownloadItem::finished), self, local_caller{slot, callback, release});
 }
 
 void QWebEngineDownloadItem_stateChanged(QWebEngineDownloadItem* self, int state) {
 	self->stateChanged(static_cast<QWebEngineDownloadItem::DownloadState>(state));
 }
 
-void QWebEngineDownloadItem_connect_stateChanged(QWebEngineDownloadItem* self, intptr_t slot) {
-	QWebEngineDownloadItem::connect(self, static_cast<void (QWebEngineDownloadItem::*)(QWebEngineDownloadItem::DownloadState)>(&QWebEngineDownloadItem::stateChanged), self, [=](QWebEngineDownloadItem::DownloadState state) {
-		QWebEngineDownloadItem::DownloadState state_ret = state;
-		int sigval1 = static_cast<int>(state_ret);
-		miqt_exec_callback_QWebEngineDownloadItem_stateChanged(slot, sigval1);
-	});
+void QWebEngineDownloadItem_connect_stateChanged(QWebEngineDownloadItem* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(QWebEngineDownloadItem::DownloadState state) {
+			QWebEngineDownloadItem::DownloadState state_ret = state;
+			int sigval1 = static_cast<int>(state_ret);
+			callback(slot, sigval1);
+		}
+	};
+	QWebEngineDownloadItem::connect(self, static_cast<void (QWebEngineDownloadItem::*)(QWebEngineDownloadItem::DownloadState)>(&QWebEngineDownloadItem::stateChanged), self, local_caller{slot, callback, release});
 }
 
 void QWebEngineDownloadItem_downloadProgress(QWebEngineDownloadItem* self, long long bytesReceived, long long bytesTotal) {
 	self->downloadProgress(static_cast<qint64>(bytesReceived), static_cast<qint64>(bytesTotal));
 }
 
-void QWebEngineDownloadItem_connect_downloadProgress(QWebEngineDownloadItem* self, intptr_t slot) {
-	QWebEngineDownloadItem::connect(self, static_cast<void (QWebEngineDownloadItem::*)(qint64, qint64)>(&QWebEngineDownloadItem::downloadProgress), self, [=](qint64 bytesReceived, qint64 bytesTotal) {
-		qint64 bytesReceived_ret = bytesReceived;
-		long long sigval1 = static_cast<long long>(bytesReceived_ret);
-		qint64 bytesTotal_ret = bytesTotal;
-		long long sigval2 = static_cast<long long>(bytesTotal_ret);
-		miqt_exec_callback_QWebEngineDownloadItem_downloadProgress(slot, sigval1, sigval2);
-	});
+void QWebEngineDownloadItem_connect_downloadProgress(QWebEngineDownloadItem* self, intptr_t slot, void (*callback)(intptr_t, long long, long long), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, long long, long long), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, long long, long long);
+		void operator()(qint64 bytesReceived, qint64 bytesTotal) {
+			qint64 bytesReceived_ret = bytesReceived;
+			long long sigval1 = static_cast<long long>(bytesReceived_ret);
+			qint64 bytesTotal_ret = bytesTotal;
+			long long sigval2 = static_cast<long long>(bytesTotal_ret);
+			callback(slot, sigval1, sigval2);
+		}
+	};
+	QWebEngineDownloadItem::connect(self, static_cast<void (QWebEngineDownloadItem::*)(qint64, qint64)>(&QWebEngineDownloadItem::downloadProgress), self, local_caller{slot, callback, release});
 }
 
 void QWebEngineDownloadItem_isPausedChanged(QWebEngineDownloadItem* self, bool isPaused) {
 	self->isPausedChanged(isPaused);
 }
 
-void QWebEngineDownloadItem_connect_isPausedChanged(QWebEngineDownloadItem* self, intptr_t slot) {
-	QWebEngineDownloadItem::connect(self, static_cast<void (QWebEngineDownloadItem::*)(bool)>(&QWebEngineDownloadItem::isPausedChanged), self, [=](bool isPaused) {
-		bool sigval1 = isPaused;
-		miqt_exec_callback_QWebEngineDownloadItem_isPausedChanged(slot, sigval1);
-	});
+void QWebEngineDownloadItem_connect_isPausedChanged(QWebEngineDownloadItem* self, intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, bool);
+		void operator()(bool isPaused) {
+			bool sigval1 = isPaused;
+			callback(slot, sigval1);
+		}
+	};
+	QWebEngineDownloadItem::connect(self, static_cast<void (QWebEngineDownloadItem::*)(bool)>(&QWebEngineDownloadItem::isPausedChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QWebEngineDownloadItem_tr2(const char* s, const char* c) {

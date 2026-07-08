@@ -17,15 +17,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QScriptContextInfo* QScriptContextInfo_new(QScriptContext* context) {
 	return new (std::nothrow) QScriptContextInfo(context);
 }

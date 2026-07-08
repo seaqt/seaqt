@@ -19,16 +19,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QMediaAvailabilityControl_availabilityChanged(intptr_t, int);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QMediaAvailabilityControl_virtbase(QMediaAvailabilityControl* src, QMediaControl** outptr_QMediaControl) {
 	*outptr_QMediaControl = static_cast<QMediaControl*>(src);
 }
@@ -76,12 +66,17 @@ void QMediaAvailabilityControl_availabilityChanged(QMediaAvailabilityControl* se
 	self->availabilityChanged(static_cast<QMultimedia::AvailabilityStatus>(availability));
 }
 
-void QMediaAvailabilityControl_connect_availabilityChanged(QMediaAvailabilityControl* self, intptr_t slot) {
-	QMediaAvailabilityControl::connect(self, static_cast<void (QMediaAvailabilityControl::*)(QMultimedia::AvailabilityStatus)>(&QMediaAvailabilityControl::availabilityChanged), self, [=](QMultimedia::AvailabilityStatus availability) {
-		QMultimedia::AvailabilityStatus availability_ret = availability;
-		int sigval1 = static_cast<int>(availability_ret);
-		miqt_exec_callback_QMediaAvailabilityControl_availabilityChanged(slot, sigval1);
-	});
+void QMediaAvailabilityControl_connect_availabilityChanged(QMediaAvailabilityControl* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(QMultimedia::AvailabilityStatus availability) {
+			QMultimedia::AvailabilityStatus availability_ret = availability;
+			int sigval1 = static_cast<int>(availability_ret);
+			callback(slot, sigval1);
+		}
+	};
+	QMediaAvailabilityControl::connect(self, static_cast<void (QMediaAvailabilityControl::*)(QMultimedia::AvailabilityStatus)>(&QMediaAvailabilityControl::availabilityChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QMediaAvailabilityControl_tr2(const char* s, const char* c) {

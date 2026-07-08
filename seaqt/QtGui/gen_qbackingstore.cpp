@@ -17,15 +17,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QBackingStore* QBackingStore_new(QWindow* window) {
 	return new (std::nothrow) QBackingStore(window);
 }

@@ -16,15 +16,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 int QCborError_c(const QCborError* self) {
 	QCborError::Code c_ret = self->c;
 	return static_cast<int>(c_ret);
