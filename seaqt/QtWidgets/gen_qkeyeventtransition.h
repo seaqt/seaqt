@@ -45,6 +45,7 @@ QKeyEventTransition* QKeyEventTransition_new4(QObject* object, int type, int key
 void QKeyEventTransition_virtbase(QKeyEventTransition* src, QEventTransition** outptr_QEventTransition);
 QMetaObject* QKeyEventTransition_metaObject(const QKeyEventTransition* self);
 void* QKeyEventTransition_metacast(QKeyEventTransition* self, const char* param1);
+int QKeyEventTransition_metacall(QKeyEventTransition* self, int param1, int param2, void** param3);
 struct seaqt_string QKeyEventTransition_tr(const char* s);
 struct seaqt_string QKeyEventTransition_trUtf8(const char* s);
 int QKeyEventTransition_key(const QKeyEventTransition* self);
@@ -58,6 +59,12 @@ struct seaqt_string QKeyEventTransition_tr3(const char* s, const char* c, int n)
 struct seaqt_string QKeyEventTransition_trUtf82(const char* s, const char* c);
 struct seaqt_string QKeyEventTransition_trUtf83(const char* s, const char* c, int n);
 
+bool QKeyEventTransition_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QKeyEventTransition_virtualbase_metaObject(const void* self);
+bool QKeyEventTransition_override_virtual_metacast(void* self, intptr_t slot);
+void* QKeyEventTransition_virtualbase_metacast(void* self, const char* param1);
+bool QKeyEventTransition_override_virtual_metacall(void* self, intptr_t slot);
+int QKeyEventTransition_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QKeyEventTransition_override_virtual_onTransition(void* self, intptr_t slot);
 void QKeyEventTransition_virtualbase_onTransition(void* self, QEvent* event);
 bool QKeyEventTransition_override_virtual_eventTest(void* self, intptr_t slot);
@@ -82,6 +89,7 @@ int QKeyEventTransition_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, 
 int QKeyEventTransition_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QKeyEventTransition_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QKeyEventTransition_staticMetaObject();
 void QKeyEventTransition_delete(QKeyEventTransition* self);
 
 #ifdef __cplusplus

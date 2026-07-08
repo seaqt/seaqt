@@ -18,12 +18,14 @@ extern "C" {
 class QChildEvent;
 class QDynamicPropertyChangeEvent;
 class QEvent;
+class QMetaObject;
 class QObject;
 class QTimerEvent;
 #else
 typedef struct QChildEvent QChildEvent;
 typedef struct QDynamicPropertyChangeEvent QDynamicPropertyChangeEvent;
 typedef struct QEvent QEvent;
+typedef struct QMetaObject QMetaObject;
 typedef struct QObject QObject;
 typedef struct QTimerEvent QTimerEvent;
 #endif
@@ -40,6 +42,7 @@ void QEvent_ignore(QEvent* self);
 int QEvent_registerEventType();
 int QEvent_registerEventTypeWithHint(int hint);
 
+const QMetaObject* QEvent_staticMetaObject();
 void QEvent_delete(QEvent* self);
 
 QTimerEvent* QTimerEvent_new(int timerId);

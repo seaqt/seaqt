@@ -49,6 +49,7 @@ QMediaPlaylist* QMediaPlaylist_new2(QObject* parent);
 void QMediaPlaylist_virtbase(QMediaPlaylist* src, QObject** outptr_QObject, QMediaBindableInterface** outptr_QMediaBindableInterface);
 QMetaObject* QMediaPlaylist_metaObject(const QMediaPlaylist* self);
 void* QMediaPlaylist_metacast(QMediaPlaylist* self, const char* param1);
+int QMediaPlaylist_metacall(QMediaPlaylist* self, int param1, int param2, void** param3);
 struct seaqt_string QMediaPlaylist_tr(const char* s);
 struct seaqt_string QMediaPlaylist_trUtf8(const char* s);
 QMediaObject* QMediaPlaylist_mediaObject(const QMediaPlaylist* self);
@@ -113,6 +114,12 @@ void QMediaPlaylist_load3(QMediaPlaylist* self, QUrl* location, const char* form
 void QMediaPlaylist_load4(QMediaPlaylist* self, QIODevice* device, const char* format);
 bool QMediaPlaylist_save3(QMediaPlaylist* self, QUrl* location, const char* format);
 
+bool QMediaPlaylist_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QMediaPlaylist_virtualbase_metaObject(const void* self);
+bool QMediaPlaylist_override_virtual_metacast(void* self, intptr_t slot);
+void* QMediaPlaylist_virtualbase_metacast(void* self, const char* param1);
+bool QMediaPlaylist_override_virtual_metacall(void* self, intptr_t slot);
+int QMediaPlaylist_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QMediaPlaylist_override_virtual_mediaObject(void* self, intptr_t slot);
 QMediaObject* QMediaPlaylist_virtualbase_mediaObject(const void* self);
 bool QMediaPlaylist_override_virtual_setMediaObject(void* self, intptr_t slot);
@@ -137,6 +144,7 @@ int QMediaPlaylist_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const
 int QMediaPlaylist_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QMediaPlaylist_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QMediaPlaylist_staticMetaObject();
 void QMediaPlaylist_delete(QMediaPlaylist* self);
 
 #ifdef __cplusplus

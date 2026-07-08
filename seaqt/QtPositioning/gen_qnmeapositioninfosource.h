@@ -43,6 +43,7 @@ QNmeaPositionInfoSource* QNmeaPositionInfoSource_new2(int updateMode, QObject* p
 void QNmeaPositionInfoSource_virtbase(QNmeaPositionInfoSource* src, QGeoPositionInfoSource** outptr_QGeoPositionInfoSource);
 QMetaObject* QNmeaPositionInfoSource_metaObject(const QNmeaPositionInfoSource* self);
 void* QNmeaPositionInfoSource_metacast(QNmeaPositionInfoSource* self, const char* param1);
+int QNmeaPositionInfoSource_metacall(QNmeaPositionInfoSource* self, int param1, int param2, void** param3);
 struct seaqt_string QNmeaPositionInfoSource_tr(const char* s);
 struct seaqt_string QNmeaPositionInfoSource_trUtf8(const char* s);
 void QNmeaPositionInfoSource_setUserEquivalentRangeError(QNmeaPositionInfoSource* self, double uere);
@@ -66,6 +67,12 @@ struct seaqt_string QNmeaPositionInfoSource_trUtf83(const char* s, const char* c
 QGeoPositionInfo* QNmeaPositionInfoSource_lastKnownPositionWithFromSatellitePositioningMethodsOnly(const QNmeaPositionInfoSource* self, bool fromSatellitePositioningMethodsOnly);
 void QNmeaPositionInfoSource_requestUpdateWithTimeout(QNmeaPositionInfoSource* self, int timeout);
 
+bool QNmeaPositionInfoSource_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QNmeaPositionInfoSource_virtualbase_metaObject(const void* self);
+bool QNmeaPositionInfoSource_override_virtual_metacast(void* self, intptr_t slot);
+void* QNmeaPositionInfoSource_virtualbase_metacast(void* self, const char* param1);
+bool QNmeaPositionInfoSource_override_virtual_metacall(void* self, intptr_t slot);
+int QNmeaPositionInfoSource_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QNmeaPositionInfoSource_override_virtual_parsePosInfoFromNmeaData(void* self, intptr_t slot);
 bool QNmeaPositionInfoSource_virtualbase_parsePosInfoFromNmeaData(void* self, const char* data, int size, QGeoPositionInfo* posInfo, bool* hasFix);
 bool QNmeaPositionInfoSource_override_virtual_setUpdateInterval(void* self, intptr_t slot);
@@ -106,6 +113,7 @@ int QNmeaPositionInfoSource_protectedbase_senderSignalIndex(bool* _dynamic_cast_
 int QNmeaPositionInfoSource_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QNmeaPositionInfoSource_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QNmeaPositionInfoSource_staticMetaObject();
 void QNmeaPositionInfoSource_delete(QNmeaPositionInfoSource* self);
 
 #ifdef __cplusplus

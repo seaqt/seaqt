@@ -89,6 +89,7 @@ QProgressBar* QProgressBar_new2(QWidget* parent);
 void QProgressBar_virtbase(QProgressBar* src, QWidget** outptr_QWidget);
 QMetaObject* QProgressBar_metaObject(const QProgressBar* self);
 void* QProgressBar_metacast(QProgressBar* self, const char* param1);
+int QProgressBar_metacall(QProgressBar* self, int param1, int param2, void** param3);
 struct seaqt_string QProgressBar_tr(const char* s);
 struct seaqt_string QProgressBar_trUtf8(const char* s);
 int QProgressBar_minimum(const QProgressBar* self);
@@ -124,6 +125,12 @@ struct seaqt_string QProgressBar_tr3(const char* s, const char* c, int n);
 struct seaqt_string QProgressBar_trUtf82(const char* s, const char* c);
 struct seaqt_string QProgressBar_trUtf83(const char* s, const char* c, int n);
 
+bool QProgressBar_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QProgressBar_virtualbase_metaObject(const void* self);
+bool QProgressBar_override_virtual_metacast(void* self, intptr_t slot);
+void* QProgressBar_virtualbase_metacast(void* self, const char* param1);
+bool QProgressBar_override_virtual_metacall(void* self, intptr_t slot);
+int QProgressBar_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QProgressBar_override_virtual_text(void* self, intptr_t slot);
 struct seaqt_string QProgressBar_virtualbase_text(const void* self);
 bool QProgressBar_override_virtual_sizeHint(void* self, intptr_t slot);
@@ -232,6 +239,7 @@ int QProgressBar_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const v
 int QProgressBar_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QProgressBar_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QProgressBar_staticMetaObject();
 void QProgressBar_delete(QProgressBar* self);
 
 #ifdef __cplusplus

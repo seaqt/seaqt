@@ -18,10 +18,12 @@ extern "C" {
 class QGeoCoordinate;
 class QGeoRectangle;
 class QGeoShape;
+class QMetaObject;
 #else
 typedef struct QGeoCoordinate QGeoCoordinate;
 typedef struct QGeoRectangle QGeoRectangle;
 typedef struct QGeoShape QGeoShape;
+typedef struct QMetaObject QMetaObject;
 #endif
 
 QGeoRectangle* QGeoRectangle_new();
@@ -58,6 +60,7 @@ QGeoRectangle* QGeoRectangle_operatorBitwiseOr(const QGeoRectangle* self, QGeoRe
 void QGeoRectangle_operatorBitwiseOrAssign(QGeoRectangle* self, QGeoRectangle* rectangle);
 struct seaqt_string QGeoRectangle_toString(const QGeoRectangle* self);
 
+const QMetaObject* QGeoRectangle_staticMetaObject();
 void QGeoRectangle_delete(QGeoRectangle* self);
 
 #ifdef __cplusplus

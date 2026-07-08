@@ -45,6 +45,7 @@ QTemporaryFile* QTemporaryFile_new4(struct seaqt_string templateName, QObject* p
 void QTemporaryFile_virtbase(QTemporaryFile* src, QFile** outptr_QFile);
 QMetaObject* QTemporaryFile_metaObject(const QTemporaryFile* self);
 void* QTemporaryFile_metacast(QTemporaryFile* self, const char* param1);
+int QTemporaryFile_metacall(QTemporaryFile* self, int param1, int param2, void** param3);
 struct seaqt_string QTemporaryFile_tr(const char* s);
 struct seaqt_string QTemporaryFile_trUtf8(const char* s);
 bool QTemporaryFile_autoRemove(const QTemporaryFile* self);
@@ -64,6 +65,12 @@ struct seaqt_string QTemporaryFile_tr3(const char* s, const char* c, int n);
 struct seaqt_string QTemporaryFile_trUtf82(const char* s, const char* c);
 struct seaqt_string QTemporaryFile_trUtf83(const char* s, const char* c, int n);
 
+bool QTemporaryFile_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QTemporaryFile_virtualbase_metaObject(const void* self);
+bool QTemporaryFile_override_virtual_metacast(void* self, intptr_t slot);
+void* QTemporaryFile_virtualbase_metacast(void* self, const char* param1);
+bool QTemporaryFile_override_virtual_metacall(void* self, intptr_t slot);
+int QTemporaryFile_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QTemporaryFile_override_virtual_fileName(void* self, intptr_t slot);
 struct seaqt_string QTemporaryFile_virtualbase_fileName(const void* self);
 bool QTemporaryFile_override_virtual_openWithFlags(void* self, intptr_t slot);
@@ -126,6 +133,7 @@ int QTemporaryFile_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const
 int QTemporaryFile_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QTemporaryFile_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QTemporaryFile_staticMetaObject();
 void QTemporaryFile_delete(QTemporaryFile* self);
 
 #ifdef __cplusplus

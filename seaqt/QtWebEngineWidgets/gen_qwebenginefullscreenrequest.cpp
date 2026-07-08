@@ -1,3 +1,4 @@
+#include <QMetaObject>
 #include <QUrl>
 #include <QWebEngineFullScreenRequest>
 #include <qwebenginefullscreenrequest.h>
@@ -33,6 +34,7 @@ QUrl* QWebEngineFullScreenRequest_origin(const QWebEngineFullScreenRequest* self
 	return const_cast<QUrl*>(&_ret);
 }
 
+const QMetaObject* QWebEngineFullScreenRequest_staticMetaObject() { return &QWebEngineFullScreenRequest::staticMetaObject; }
 void QWebEngineFullScreenRequest_delete(QWebEngineFullScreenRequest* self) {
 	delete self;
 }

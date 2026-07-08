@@ -31,6 +31,7 @@ typedef struct QObject QObject;
 void QCameraCaptureDestinationControl_virtbase(QCameraCaptureDestinationControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QCameraCaptureDestinationControl_metaObject(const QCameraCaptureDestinationControl* self);
 void* QCameraCaptureDestinationControl_metacast(QCameraCaptureDestinationControl* self, const char* param1);
+int QCameraCaptureDestinationControl_metacall(QCameraCaptureDestinationControl* self, int param1, int param2, void** param3);
 struct seaqt_string QCameraCaptureDestinationControl_tr(const char* s);
 struct seaqt_string QCameraCaptureDestinationControl_trUtf8(const char* s);
 bool QCameraCaptureDestinationControl_isCaptureDestinationSupported(const QCameraCaptureDestinationControl* self, int destination);
@@ -43,6 +44,7 @@ struct seaqt_string QCameraCaptureDestinationControl_tr3(const char* s, const ch
 struct seaqt_string QCameraCaptureDestinationControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QCameraCaptureDestinationControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QCameraCaptureDestinationControl_staticMetaObject();
 void QCameraCaptureDestinationControl_delete(QCameraCaptureDestinationControl* self);
 
 #ifdef __cplusplus

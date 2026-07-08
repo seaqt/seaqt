@@ -47,6 +47,7 @@ QGraphicsItemAnimation* QGraphicsItemAnimation_new2(QObject* parent);
 void QGraphicsItemAnimation_virtbase(QGraphicsItemAnimation* src, QObject** outptr_QObject);
 QMetaObject* QGraphicsItemAnimation_metaObject(const QGraphicsItemAnimation* self);
 void* QGraphicsItemAnimation_metacast(QGraphicsItemAnimation* self, const char* param1);
+int QGraphicsItemAnimation_metacall(QGraphicsItemAnimation* self, int param1, int param2, void** param3);
 struct seaqt_string QGraphicsItemAnimation_tr(const char* s);
 struct seaqt_string QGraphicsItemAnimation_trUtf8(const char* s);
 QGraphicsItem* QGraphicsItemAnimation_item(const QGraphicsItemAnimation* self);
@@ -83,6 +84,12 @@ struct seaqt_string QGraphicsItemAnimation_tr3(const char* s, const char* c, int
 struct seaqt_string QGraphicsItemAnimation_trUtf82(const char* s, const char* c);
 struct seaqt_string QGraphicsItemAnimation_trUtf83(const char* s, const char* c, int n);
 
+bool QGraphicsItemAnimation_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QGraphicsItemAnimation_virtualbase_metaObject(const void* self);
+bool QGraphicsItemAnimation_override_virtual_metacast(void* self, intptr_t slot);
+void* QGraphicsItemAnimation_virtualbase_metacast(void* self, const char* param1);
+bool QGraphicsItemAnimation_override_virtual_metacall(void* self, intptr_t slot);
+int QGraphicsItemAnimation_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QGraphicsItemAnimation_override_virtual_beforeAnimationStep(void* self, intptr_t slot);
 void QGraphicsItemAnimation_virtualbase_beforeAnimationStep(void* self, double step);
 bool QGraphicsItemAnimation_override_virtual_afterAnimationStep(void* self, intptr_t slot);
@@ -107,6 +114,7 @@ int QGraphicsItemAnimation_protectedbase_senderSignalIndex(bool* _dynamic_cast_o
 int QGraphicsItemAnimation_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QGraphicsItemAnimation_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QGraphicsItemAnimation_staticMetaObject();
 void QGraphicsItemAnimation_delete(QGraphicsItemAnimation* self);
 
 #ifdef __cplusplus

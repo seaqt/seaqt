@@ -47,6 +47,7 @@ QAudioOutput* QAudioOutput_new6(QAudioDeviceInfo* audioDeviceInfo, QAudioFormat*
 void QAudioOutput_virtbase(QAudioOutput* src, QObject** outptr_QObject);
 QMetaObject* QAudioOutput_metaObject(const QAudioOutput* self);
 void* QAudioOutput_metacast(QAudioOutput* self, const char* param1);
+int QAudioOutput_metacall(QAudioOutput* self, int param1, int param2, void** param3);
 struct seaqt_string QAudioOutput_tr(const char* s);
 struct seaqt_string QAudioOutput_trUtf8(const char* s);
 QAudioFormat* QAudioOutput_format(const QAudioOutput* self);
@@ -79,6 +80,12 @@ struct seaqt_string QAudioOutput_tr3(const char* s, const char* c, int n);
 struct seaqt_string QAudioOutput_trUtf82(const char* s, const char* c);
 struct seaqt_string QAudioOutput_trUtf83(const char* s, const char* c, int n);
 
+bool QAudioOutput_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QAudioOutput_virtualbase_metaObject(const void* self);
+bool QAudioOutput_override_virtual_metacast(void* self, intptr_t slot);
+void* QAudioOutput_virtualbase_metacast(void* self, const char* param1);
+bool QAudioOutput_override_virtual_metacall(void* self, intptr_t slot);
+int QAudioOutput_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QAudioOutput_override_virtual_event(void* self, intptr_t slot);
 bool QAudioOutput_virtualbase_event(void* self, QEvent* event);
 bool QAudioOutput_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -99,6 +106,7 @@ int QAudioOutput_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const v
 int QAudioOutput_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QAudioOutput_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QAudioOutput_staticMetaObject();
 void QAudioOutput_delete(QAudioOutput* self);
 
 #ifdef __cplusplus

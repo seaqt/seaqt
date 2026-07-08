@@ -55,6 +55,7 @@ QWebEngineProfile* QWebEngineProfile_new4(struct seaqt_string name, QObject* par
 void QWebEngineProfile_virtbase(QWebEngineProfile* src, QObject** outptr_QObject);
 QMetaObject* QWebEngineProfile_metaObject(const QWebEngineProfile* self);
 void* QWebEngineProfile_metacast(QWebEngineProfile* self, const char* param1);
+int QWebEngineProfile_metacall(QWebEngineProfile* self, int param1, int param2, void** param3);
 struct seaqt_string QWebEngineProfile_tr(const char* s);
 struct seaqt_string QWebEngineProfile_trUtf8(const char* s);
 struct seaqt_string QWebEngineProfile_storageName(const QWebEngineProfile* self);
@@ -105,6 +106,12 @@ struct seaqt_string QWebEngineProfile_trUtf82(const char* s, const char* c);
 struct seaqt_string QWebEngineProfile_trUtf83(const char* s, const char* c, int n);
 void QWebEngineProfile_setUseForGlobalCertificateVerificationWithEnabled(QWebEngineProfile* self, bool enabled);
 
+bool QWebEngineProfile_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QWebEngineProfile_virtualbase_metaObject(const void* self);
+bool QWebEngineProfile_override_virtual_metacast(void* self, intptr_t slot);
+void* QWebEngineProfile_virtualbase_metacast(void* self, const char* param1);
+bool QWebEngineProfile_override_virtual_metacall(void* self, intptr_t slot);
+int QWebEngineProfile_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QWebEngineProfile_override_virtual_event(void* self, intptr_t slot);
 bool QWebEngineProfile_virtualbase_event(void* self, QEvent* event);
 bool QWebEngineProfile_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -125,6 +132,7 @@ int QWebEngineProfile_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, co
 int QWebEngineProfile_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QWebEngineProfile_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QWebEngineProfile_staticMetaObject();
 void QWebEngineProfile_delete(QWebEngineProfile* self);
 
 #ifdef __cplusplus

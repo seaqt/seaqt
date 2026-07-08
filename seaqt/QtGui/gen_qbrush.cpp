@@ -6,6 +6,7 @@
 #include <QImage>
 #include <QLinearGradient>
 #include <QMatrix>
+#include <QMetaObject>
 #include <QPair>
 #include <QPixmap>
 #include <QPointF>
@@ -263,6 +264,7 @@ void QGradient_operatorAssign(QGradient* self, QGradient* param1) {
 	self->operator=(*param1);
 }
 
+const QMetaObject* QGradient_staticMetaObject() { return &QGradient::staticMetaObject; }
 void QGradient_delete(QGradient* self) {
 	delete self;
 }

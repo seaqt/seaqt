@@ -91,6 +91,7 @@ QKeySequenceEdit* QKeySequenceEdit_new4(QKeySequence* keySequence, QWidget* pare
 void QKeySequenceEdit_virtbase(QKeySequenceEdit* src, QWidget** outptr_QWidget);
 QMetaObject* QKeySequenceEdit_metaObject(const QKeySequenceEdit* self);
 void* QKeySequenceEdit_metacast(QKeySequenceEdit* self, const char* param1);
+int QKeySequenceEdit_metacall(QKeySequenceEdit* self, int param1, int param2, void** param3);
 struct seaqt_string QKeySequenceEdit_tr(const char* s);
 struct seaqt_string QKeySequenceEdit_trUtf8(const char* s);
 QKeySequence* QKeySequenceEdit_keySequence(const QKeySequenceEdit* self);
@@ -109,6 +110,12 @@ struct seaqt_string QKeySequenceEdit_tr3(const char* s, const char* c, int n);
 struct seaqt_string QKeySequenceEdit_trUtf82(const char* s, const char* c);
 struct seaqt_string QKeySequenceEdit_trUtf83(const char* s, const char* c, int n);
 
+bool QKeySequenceEdit_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QKeySequenceEdit_virtualbase_metaObject(const void* self);
+bool QKeySequenceEdit_override_virtual_metacast(void* self, intptr_t slot);
+void* QKeySequenceEdit_virtualbase_metacast(void* self, const char* param1);
+bool QKeySequenceEdit_override_virtual_metacall(void* self, intptr_t slot);
+int QKeySequenceEdit_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QKeySequenceEdit_override_virtual_event(void* self, intptr_t slot);
 bool QKeySequenceEdit_virtualbase_event(void* self, QEvent* param1);
 bool QKeySequenceEdit_override_virtual_keyPressEvent(void* self, intptr_t slot);
@@ -214,6 +221,7 @@ int QKeySequenceEdit_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, con
 int QKeySequenceEdit_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QKeySequenceEdit_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QKeySequenceEdit_staticMetaObject();
 void QKeySequenceEdit_delete(QKeySequenceEdit* self);
 
 #ifdef __cplusplus

@@ -37,6 +37,7 @@ QIODevice* QIODevice_new2(QObject* parent);
 void QIODevice_virtbase(QIODevice* src, QObject** outptr_QObject);
 QMetaObject* QIODevice_metaObject(const QIODevice* self);
 void* QIODevice_metacast(QIODevice* self, const char* param1);
+int QIODevice_metacall(QIODevice* self, int param1, int param2, void** param3);
 struct seaqt_string QIODevice_tr(const char* s);
 struct seaqt_string QIODevice_trUtf8(const char* s);
 int QIODevice_openMode(const QIODevice* self);
@@ -104,6 +105,12 @@ struct seaqt_string QIODevice_trUtf82(const char* s, const char* c);
 struct seaqt_string QIODevice_trUtf83(const char* s, const char* c, int n);
 struct seaqt_string QIODevice_readLineWithMaxlen(QIODevice* self, long long maxlen);
 
+bool QIODevice_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QIODevice_virtualbase_metaObject(const void* self);
+bool QIODevice_override_virtual_metacast(void* self, intptr_t slot);
+void* QIODevice_virtualbase_metacast(void* self, const char* param1);
+bool QIODevice_override_virtual_metacall(void* self, intptr_t slot);
+int QIODevice_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QIODevice_override_virtual_isSequential(void* self, intptr_t slot);
 bool QIODevice_virtualbase_isSequential(const void* self);
 bool QIODevice_override_virtual_open(void* self, intptr_t slot);
@@ -158,6 +165,7 @@ int QIODevice_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void
 int QIODevice_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QIODevice_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QIODevice_staticMetaObject();
 void QIODevice_delete(QIODevice* self);
 
 #ifdef __cplusplus

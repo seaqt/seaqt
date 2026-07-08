@@ -24,6 +24,9 @@ void miqt_exec_callback_QGeoAreaMonitorSource_areaEntered(intptr_t, QGeoAreaMoni
 void miqt_exec_callback_QGeoAreaMonitorSource_areaExited(intptr_t, QGeoAreaMonitorInfo*, QGeoPositionInfo*);
 void miqt_exec_callback_QGeoAreaMonitorSource_monitorExpired(intptr_t, QGeoAreaMonitorInfo*);
 void miqt_exec_callback_QGeoAreaMonitorSource_errorWithError(intptr_t, int);
+QMetaObject* miqt_exec_callback_QGeoAreaMonitorSource_metaObject(const QGeoAreaMonitorSource*, intptr_t);
+void* miqt_exec_callback_QGeoAreaMonitorSource_metacast(QGeoAreaMonitorSource*, intptr_t, const char*);
+int miqt_exec_callback_QGeoAreaMonitorSource_metacall(QGeoAreaMonitorSource*, intptr_t, int, int, void**);
 void miqt_exec_callback_QGeoAreaMonitorSource_setPositionInfoSource(QGeoAreaMonitorSource*, intptr_t, QGeoPositionInfoSource*);
 QGeoPositionInfoSource* miqt_exec_callback_QGeoAreaMonitorSource_positionInfoSource(const QGeoAreaMonitorSource*, intptr_t);
 int miqt_exec_callback_QGeoAreaMonitorSource_error(const QGeoAreaMonitorSource*, intptr_t);
@@ -50,6 +53,56 @@ public:
 	VirtualQGeoAreaMonitorSource(QObject* parent): QGeoAreaMonitorSource(parent) {}
 
 	virtual ~VirtualQGeoAreaMonitorSource() override = default;
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metaObject = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual const QMetaObject* metaObject() const override {
+		if (handle__metaObject == 0) {
+			return QGeoAreaMonitorSource::metaObject();
+		}
+
+		QMetaObject* callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_metaObject(this, handle__metaObject);
+		return callback_return_value;
+	}
+
+	friend QMetaObject* QGeoAreaMonitorSource_virtualbase_metaObject(const void* self);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacast = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual void* qt_metacast(const char* param1) override {
+		if (handle__metacast == 0) {
+			return QGeoAreaMonitorSource::qt_metacast(param1);
+		}
+
+		const char* sigval1 = (const char*) param1;
+		void* callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_metacast(this, handle__metacast, sigval1);
+		return callback_return_value;
+	}
+
+	friend void* QGeoAreaMonitorSource_virtualbase_metacast(void* self, const char* param1);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacall = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
+		if (handle__metacall == 0) {
+			return QGeoAreaMonitorSource::qt_metacall(param1, param2, param3);
+		}
+
+		QMetaObject::Call param1_ret = param1;
+		int sigval1 = static_cast<int>(param1_ret);
+		int sigval2 = param2;
+		void** sigval3 = param3;
+		int callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		return static_cast<int>(callback_return_value);
+	}
+
+	friend int QGeoAreaMonitorSource_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 
 	// cgo.Handle value for overwritten implementation
 	intptr_t handle__setPositionInfoSource = 0;
@@ -344,6 +397,10 @@ void* QGeoAreaMonitorSource_metacast(QGeoAreaMonitorSource* self, const char* pa
 	return self->qt_metacast(param1);
 }
 
+int QGeoAreaMonitorSource_metacall(QGeoAreaMonitorSource* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+}
+
 struct seaqt_string QGeoAreaMonitorSource_tr(const char* s) {
 	QString _ret = QGeoAreaMonitorSource::tr(s);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
@@ -561,6 +618,49 @@ struct seaqt_string QGeoAreaMonitorSource_trUtf83(const char* s, const char* c, 
 	_ms.data = static_cast<char*>(malloc(_ms.len));
 	memcpy(_ms.data, _b.data(), _ms.len);
 	return _ms;
+}
+
+const QMetaObject* QGeoAreaMonitorSource_staticMetaObject() { return &QGeoAreaMonitorSource::staticMetaObject; }
+bool QGeoAreaMonitorSource_override_virtual_metaObject(void* self, intptr_t slot) {
+	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metaObject = slot;
+	return true;
+}
+
+QMetaObject* QGeoAreaMonitorSource_virtualbase_metaObject(const void* self) {
+	return (QMetaObject*) static_cast<const VirtualQGeoAreaMonitorSource*>(self)->QGeoAreaMonitorSource::metaObject();
+}
+
+bool QGeoAreaMonitorSource_override_virtual_metacast(void* self, intptr_t slot) {
+	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacast = slot;
+	return true;
+}
+
+void* QGeoAreaMonitorSource_virtualbase_metacast(void* self, const char* param1) {
+	return static_cast<VirtualQGeoAreaMonitorSource*>(self)->QGeoAreaMonitorSource::qt_metacast(param1);
+}
+
+bool QGeoAreaMonitorSource_override_virtual_metacall(void* self, intptr_t slot) {
+	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacall = slot;
+	return true;
+}
+
+int QGeoAreaMonitorSource_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
+	return static_cast<VirtualQGeoAreaMonitorSource*>(self)->QGeoAreaMonitorSource::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 bool QGeoAreaMonitorSource_override_virtual_setPositionInfoSource(void* self, intptr_t slot) {

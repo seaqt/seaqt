@@ -87,6 +87,7 @@ QStatusBar* QStatusBar_new2(QWidget* parent);
 void QStatusBar_virtbase(QStatusBar* src, QWidget** outptr_QWidget);
 QMetaObject* QStatusBar_metaObject(const QStatusBar* self);
 void* QStatusBar_metacast(QStatusBar* self, const char* param1);
+int QStatusBar_metacall(QStatusBar* self, int param1, int param2, void** param3);
 struct seaqt_string QStatusBar_tr(const char* s);
 struct seaqt_string QStatusBar_trUtf8(const char* s);
 void QStatusBar_addWidget(QStatusBar* self, QWidget* widget);
@@ -115,6 +116,12 @@ void QStatusBar_addPermanentWidget2(QStatusBar* self, QWidget* widget, int stret
 int QStatusBar_insertPermanentWidget2(QStatusBar* self, int index, QWidget* widget, int stretch);
 void QStatusBar_showMessage2(QStatusBar* self, struct seaqt_string text, int timeout);
 
+bool QStatusBar_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QStatusBar_virtualbase_metaObject(const void* self);
+bool QStatusBar_override_virtual_metacast(void* self, intptr_t slot);
+void* QStatusBar_virtualbase_metacast(void* self, const char* param1);
+bool QStatusBar_override_virtual_metacall(void* self, intptr_t slot);
+int QStatusBar_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QStatusBar_override_virtual_showEvent(void* self, intptr_t slot);
 void QStatusBar_virtualbase_showEvent(void* self, QShowEvent* param1);
 bool QStatusBar_override_virtual_paintEvent(void* self, intptr_t slot);
@@ -222,6 +229,7 @@ int QStatusBar_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const voi
 int QStatusBar_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QStatusBar_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QStatusBar_staticMetaObject();
 void QStatusBar_delete(QStatusBar* self);
 
 #ifdef __cplusplus

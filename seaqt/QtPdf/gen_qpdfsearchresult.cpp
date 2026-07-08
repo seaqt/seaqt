@@ -1,3 +1,4 @@
+#include <QMetaObject>
 #include <QPdfDestination>
 #include <QPdfSearchResult>
 #include <QRectF>
@@ -67,6 +68,7 @@ void QPdfSearchResult_operatorAssign(QPdfSearchResult* self, QPdfSearchResult* p
 	self->operator=(*param1);
 }
 
+const QMetaObject* QPdfSearchResult_staticMetaObject() { return &QPdfSearchResult::staticMetaObject; }
 void QPdfSearchResult_delete(QPdfSearchResult* self) {
 	delete self;
 }

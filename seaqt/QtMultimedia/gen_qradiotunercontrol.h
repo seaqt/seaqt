@@ -31,6 +31,7 @@ typedef struct QRadioTunerControl QRadioTunerControl;
 void QRadioTunerControl_virtbase(QRadioTunerControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QRadioTunerControl_metaObject(const QRadioTunerControl* self);
 void* QRadioTunerControl_metacast(QRadioTunerControl* self, const char* param1);
+int QRadioTunerControl_metacall(QRadioTunerControl* self, int param1, int param2, void** param3);
 struct seaqt_string QRadioTunerControl_tr(const char* s);
 struct seaqt_string QRadioTunerControl_trUtf8(const char* s);
 int QRadioTunerControl_state(const QRadioTunerControl* self);
@@ -86,6 +87,7 @@ struct seaqt_string QRadioTunerControl_tr3(const char* s, const char* c, int n);
 struct seaqt_string QRadioTunerControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QRadioTunerControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QRadioTunerControl_staticMetaObject();
 void QRadioTunerControl_delete(QRadioTunerControl* self);
 
 #ifdef __cplusplus

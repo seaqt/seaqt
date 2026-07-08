@@ -15,6 +15,7 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
+class QMetaObject;
 class QNetworkConfiguration;
 class QNetworkProxy;
 class QNetworkProxyFactory;
@@ -22,6 +23,7 @@ class QNetworkProxyQuery;
 class QUrl;
 class QVariant;
 #else
+typedef struct QMetaObject QMetaObject;
 typedef struct QNetworkConfiguration QNetworkConfiguration;
 typedef struct QNetworkProxy QNetworkProxy;
 typedef struct QNetworkProxyFactory QNetworkProxyFactory;
@@ -67,6 +69,7 @@ void QNetworkProxyQuery_setUrl(QNetworkProxyQuery* self, QUrl* url);
 QNetworkConfiguration* QNetworkProxyQuery_networkConfiguration(const QNetworkProxyQuery* self);
 void QNetworkProxyQuery_setNetworkConfiguration(QNetworkProxyQuery* self, QNetworkConfiguration* networkConfiguration);
 
+const QMetaObject* QNetworkProxyQuery_staticMetaObject();
 void QNetworkProxyQuery_delete(QNetworkProxyQuery* self);
 
 QNetworkProxy* QNetworkProxy_new();

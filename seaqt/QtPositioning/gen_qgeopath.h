@@ -18,11 +18,13 @@ extern "C" {
 class QGeoCoordinate;
 class QGeoPath;
 class QGeoShape;
+class QMetaObject;
 class QVariant;
 #else
 typedef struct QGeoCoordinate QGeoCoordinate;
 typedef struct QGeoPath QGeoPath;
 typedef struct QGeoShape QGeoShape;
+typedef struct QMetaObject QMetaObject;
 typedef struct QVariant QVariant;
 #endif
 
@@ -57,6 +59,7 @@ struct seaqt_string QGeoPath_toString(const QGeoPath* self);
 double QGeoPath_lengthWithIndexFrom(const QGeoPath* self, int indexFrom);
 double QGeoPath_length2(const QGeoPath* self, int indexFrom, int indexTo);
 
+const QMetaObject* QGeoPath_staticMetaObject();
 void QGeoPath_delete(QGeoPath* self);
 
 #ifdef __cplusplus

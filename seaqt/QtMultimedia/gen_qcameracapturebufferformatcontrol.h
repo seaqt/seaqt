@@ -31,6 +31,7 @@ typedef struct QObject QObject;
 void QCameraCaptureBufferFormatControl_virtbase(QCameraCaptureBufferFormatControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QCameraCaptureBufferFormatControl_metaObject(const QCameraCaptureBufferFormatControl* self);
 void* QCameraCaptureBufferFormatControl_metacast(QCameraCaptureBufferFormatControl* self, const char* param1);
+int QCameraCaptureBufferFormatControl_metacall(QCameraCaptureBufferFormatControl* self, int param1, int param2, void** param3);
 struct seaqt_string QCameraCaptureBufferFormatControl_tr(const char* s);
 struct seaqt_string QCameraCaptureBufferFormatControl_trUtf8(const char* s);
 struct seaqt_array /* of int */  QCameraCaptureBufferFormatControl_supportedBufferFormats(const QCameraCaptureBufferFormatControl* self);
@@ -43,6 +44,7 @@ struct seaqt_string QCameraCaptureBufferFormatControl_tr3(const char* s, const c
 struct seaqt_string QCameraCaptureBufferFormatControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QCameraCaptureBufferFormatControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QCameraCaptureBufferFormatControl_staticMetaObject();
 void QCameraCaptureBufferFormatControl_delete(QCameraCaptureBufferFormatControl* self);
 
 #ifdef __cplusplus

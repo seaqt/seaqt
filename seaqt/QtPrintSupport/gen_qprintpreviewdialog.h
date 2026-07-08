@@ -95,6 +95,7 @@ QPrintPreviewDialog* QPrintPreviewDialog_new6(QPrinter* printer, QWidget* parent
 void QPrintPreviewDialog_virtbase(QPrintPreviewDialog* src, QDialog** outptr_QDialog);
 QMetaObject* QPrintPreviewDialog_metaObject(const QPrintPreviewDialog* self);
 void* QPrintPreviewDialog_metacast(QPrintPreviewDialog* self, const char* param1);
+int QPrintPreviewDialog_metacall(QPrintPreviewDialog* self, int param1, int param2, void** param3);
 struct seaqt_string QPrintPreviewDialog_tr(const char* s);
 struct seaqt_string QPrintPreviewDialog_trUtf8(const char* s);
 QPrinter* QPrintPreviewDialog_printer(QPrintPreviewDialog* self);
@@ -107,6 +108,12 @@ struct seaqt_string QPrintPreviewDialog_tr3(const char* s, const char* c, int n)
 struct seaqt_string QPrintPreviewDialog_trUtf82(const char* s, const char* c);
 struct seaqt_string QPrintPreviewDialog_trUtf83(const char* s, const char* c, int n);
 
+bool QPrintPreviewDialog_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QPrintPreviewDialog_virtualbase_metaObject(const void* self);
+bool QPrintPreviewDialog_override_virtual_metacast(void* self, intptr_t slot);
+void* QPrintPreviewDialog_virtualbase_metacast(void* self, const char* param1);
+bool QPrintPreviewDialog_override_virtual_metacall(void* self, intptr_t slot);
+int QPrintPreviewDialog_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QPrintPreviewDialog_override_virtual_setVisible(void* self, intptr_t slot);
 void QPrintPreviewDialog_virtualbase_setVisible(void* self, bool visible);
 bool QPrintPreviewDialog_override_virtual_done(void* self, intptr_t slot);
@@ -223,6 +230,7 @@ int QPrintPreviewDialog_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, 
 int QPrintPreviewDialog_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QPrintPreviewDialog_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QPrintPreviewDialog_staticMetaObject();
 void QPrintPreviewDialog_delete(QPrintPreviewDialog* self);
 
 #ifdef __cplusplus

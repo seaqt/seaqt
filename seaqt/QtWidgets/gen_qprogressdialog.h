@@ -99,6 +99,7 @@ QProgressDialog* QProgressDialog_new6(struct seaqt_string labelText, struct seaq
 void QProgressDialog_virtbase(QProgressDialog* src, QDialog** outptr_QDialog);
 QMetaObject* QProgressDialog_metaObject(const QProgressDialog* self);
 void* QProgressDialog_metacast(QProgressDialog* self, const char* param1);
+int QProgressDialog_metacall(QProgressDialog* self, int param1, int param2, void** param3);
 struct seaqt_string QProgressDialog_tr(const char* s);
 struct seaqt_string QProgressDialog_trUtf8(const char* s);
 void QProgressDialog_setLabel(QProgressDialog* self, QLabel* label);
@@ -135,6 +136,12 @@ struct seaqt_string QProgressDialog_tr3(const char* s, const char* c, int n);
 struct seaqt_string QProgressDialog_trUtf82(const char* s, const char* c);
 struct seaqt_string QProgressDialog_trUtf83(const char* s, const char* c, int n);
 
+bool QProgressDialog_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QProgressDialog_virtualbase_metaObject(const void* self);
+bool QProgressDialog_override_virtual_metacast(void* self, intptr_t slot);
+void* QProgressDialog_virtualbase_metacast(void* self, const char* param1);
+bool QProgressDialog_override_virtual_metacall(void* self, intptr_t slot);
+int QProgressDialog_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QProgressDialog_override_virtual_sizeHint(void* self, intptr_t slot);
 QSize* QProgressDialog_virtualbase_sizeHint(const void* self);
 bool QProgressDialog_override_virtual_resizeEvent(void* self, intptr_t slot);
@@ -252,6 +259,7 @@ int QProgressDialog_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, cons
 int QProgressDialog_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QProgressDialog_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QProgressDialog_staticMetaObject();
 void QProgressDialog_delete(QProgressDialog* self);
 
 #ifdef __cplusplus

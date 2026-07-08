@@ -54,6 +54,7 @@ QQuickTextureFactory* QQuickTextureFactory_new();
 void QQuickTextureFactory_virtbase(QQuickTextureFactory* src, QObject** outptr_QObject);
 QMetaObject* QQuickTextureFactory_metaObject(const QQuickTextureFactory* self);
 void* QQuickTextureFactory_metacast(QQuickTextureFactory* self, const char* param1);
+int QQuickTextureFactory_metacall(QQuickTextureFactory* self, int param1, int param2, void** param3);
 struct seaqt_string QQuickTextureFactory_tr(const char* s);
 struct seaqt_string QQuickTextureFactory_trUtf8(const char* s);
 QSGTexture* QQuickTextureFactory_createTexture(const QQuickTextureFactory* self, QQuickWindow* window);
@@ -66,6 +67,12 @@ struct seaqt_string QQuickTextureFactory_tr3(const char* s, const char* c, int n
 struct seaqt_string QQuickTextureFactory_trUtf82(const char* s, const char* c);
 struct seaqt_string QQuickTextureFactory_trUtf83(const char* s, const char* c, int n);
 
+bool QQuickTextureFactory_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QQuickTextureFactory_virtualbase_metaObject(const void* self);
+bool QQuickTextureFactory_override_virtual_metacast(void* self, intptr_t slot);
+void* QQuickTextureFactory_virtualbase_metacast(void* self, const char* param1);
+bool QQuickTextureFactory_override_virtual_metacall(void* self, intptr_t slot);
+int QQuickTextureFactory_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QQuickTextureFactory_override_virtual_createTexture(void* self, intptr_t slot);
 QSGTexture* QQuickTextureFactory_virtualbase_createTexture(const void* self, QQuickWindow* window);
 bool QQuickTextureFactory_override_virtual_textureSize(void* self, intptr_t slot);
@@ -94,12 +101,14 @@ int QQuickTextureFactory_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok,
 int QQuickTextureFactory_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QQuickTextureFactory_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QQuickTextureFactory_staticMetaObject();
 void QQuickTextureFactory_delete(QQuickTextureFactory* self);
 
 QQuickImageResponse* QQuickImageResponse_new();
 void QQuickImageResponse_virtbase(QQuickImageResponse* src, QObject** outptr_QObject);
 QMetaObject* QQuickImageResponse_metaObject(const QQuickImageResponse* self);
 void* QQuickImageResponse_metacast(QQuickImageResponse* self, const char* param1);
+int QQuickImageResponse_metacall(QQuickImageResponse* self, int param1, int param2, void** param3);
 struct seaqt_string QQuickImageResponse_tr(const char* s);
 struct seaqt_string QQuickImageResponse_trUtf8(const char* s);
 QQuickTextureFactory* QQuickImageResponse_textureFactory(const QQuickImageResponse* self);
@@ -112,6 +121,12 @@ struct seaqt_string QQuickImageResponse_tr3(const char* s, const char* c, int n)
 struct seaqt_string QQuickImageResponse_trUtf82(const char* s, const char* c);
 struct seaqt_string QQuickImageResponse_trUtf83(const char* s, const char* c, int n);
 
+bool QQuickImageResponse_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QQuickImageResponse_virtualbase_metaObject(const void* self);
+bool QQuickImageResponse_override_virtual_metacast(void* self, intptr_t slot);
+void* QQuickImageResponse_virtualbase_metacast(void* self, const char* param1);
+bool QQuickImageResponse_override_virtual_metacall(void* self, intptr_t slot);
+int QQuickImageResponse_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QQuickImageResponse_override_virtual_textureFactory(void* self, intptr_t slot);
 QQuickTextureFactory* QQuickImageResponse_virtualbase_textureFactory(const void* self);
 bool QQuickImageResponse_override_virtual_errorString(void* self, intptr_t slot);
@@ -138,6 +153,7 @@ int QQuickImageResponse_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, 
 int QQuickImageResponse_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QQuickImageResponse_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QQuickImageResponse_staticMetaObject();
 void QQuickImageResponse_delete(QQuickImageResponse* self);
 
 QQuickImageProvider* QQuickImageProvider_new(int type);

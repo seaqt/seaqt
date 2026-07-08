@@ -31,6 +31,7 @@ typedef struct QObject QObject;
 void QAudioOutputSelectorControl_virtbase(QAudioOutputSelectorControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QAudioOutputSelectorControl_metaObject(const QAudioOutputSelectorControl* self);
 void* QAudioOutputSelectorControl_metacast(QAudioOutputSelectorControl* self, const char* param1);
+int QAudioOutputSelectorControl_metacall(QAudioOutputSelectorControl* self, int param1, int param2, void** param3);
 struct seaqt_string QAudioOutputSelectorControl_tr(const char* s);
 struct seaqt_string QAudioOutputSelectorControl_trUtf8(const char* s);
 struct seaqt_array /* of struct seaqt_string */  QAudioOutputSelectorControl_availableOutputs(const QAudioOutputSelectorControl* self);
@@ -47,6 +48,7 @@ struct seaqt_string QAudioOutputSelectorControl_tr3(const char* s, const char* c
 struct seaqt_string QAudioOutputSelectorControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QAudioOutputSelectorControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QAudioOutputSelectorControl_staticMetaObject();
 void QAudioOutputSelectorControl_delete(QAudioOutputSelectorControl* self);
 
 #ifdef __cplusplus

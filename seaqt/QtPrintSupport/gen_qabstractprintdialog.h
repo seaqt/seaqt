@@ -91,6 +91,7 @@ QAbstractPrintDialog* QAbstractPrintDialog_new2(QPrinter* printer, QWidget* pare
 void QAbstractPrintDialog_virtbase(QAbstractPrintDialog* src, QDialog** outptr_QDialog);
 QMetaObject* QAbstractPrintDialog_metaObject(const QAbstractPrintDialog* self);
 void* QAbstractPrintDialog_metacast(QAbstractPrintDialog* self, const char* param1);
+int QAbstractPrintDialog_metacall(QAbstractPrintDialog* self, int param1, int param2, void** param3);
 struct seaqt_string QAbstractPrintDialog_tr(const char* s);
 struct seaqt_string QAbstractPrintDialog_trUtf8(const char* s);
 void QAbstractPrintDialog_addEnabledOption(QAbstractPrintDialog* self, int option);
@@ -112,6 +113,12 @@ struct seaqt_string QAbstractPrintDialog_tr3(const char* s, const char* c, int n
 struct seaqt_string QAbstractPrintDialog_trUtf82(const char* s, const char* c);
 struct seaqt_string QAbstractPrintDialog_trUtf83(const char* s, const char* c, int n);
 
+bool QAbstractPrintDialog_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QAbstractPrintDialog_virtualbase_metaObject(const void* self);
+bool QAbstractPrintDialog_override_virtual_metacast(void* self, intptr_t slot);
+void* QAbstractPrintDialog_virtualbase_metacast(void* self, const char* param1);
+bool QAbstractPrintDialog_override_virtual_metacall(void* self, intptr_t slot);
+int QAbstractPrintDialog_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QAbstractPrintDialog_override_virtual_setVisible(void* self, intptr_t slot);
 void QAbstractPrintDialog_virtualbase_setVisible(void* self, bool visible);
 bool QAbstractPrintDialog_override_virtual_sizeHint(void* self, intptr_t slot);
@@ -228,6 +235,7 @@ int QAbstractPrintDialog_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok,
 int QAbstractPrintDialog_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QAbstractPrintDialog_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QAbstractPrintDialog_staticMetaObject();
 void QAbstractPrintDialog_delete(QAbstractPrintDialog* self);
 
 #ifdef __cplusplus

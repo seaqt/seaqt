@@ -93,6 +93,7 @@ QVideoWidget* QVideoWidget_new2(QWidget* parent);
 void QVideoWidget_virtbase(QVideoWidget* src, QWidget** outptr_QWidget, QMediaBindableInterface** outptr_QMediaBindableInterface);
 QMetaObject* QVideoWidget_metaObject(const QVideoWidget* self);
 void* QVideoWidget_metacast(QVideoWidget* self, const char* param1);
+int QVideoWidget_metacall(QVideoWidget* self, int param1, int param2, void** param3);
 struct seaqt_string QVideoWidget_tr(const char* s);
 struct seaqt_string QVideoWidget_trUtf8(const char* s);
 QMediaObject* QVideoWidget_mediaObject(const QVideoWidget* self);
@@ -131,6 +132,12 @@ struct seaqt_string QVideoWidget_tr3(const char* s, const char* c, int n);
 struct seaqt_string QVideoWidget_trUtf82(const char* s, const char* c);
 struct seaqt_string QVideoWidget_trUtf83(const char* s, const char* c, int n);
 
+bool QVideoWidget_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QVideoWidget_virtualbase_metaObject(const void* self);
+bool QVideoWidget_override_virtual_metacast(void* self, intptr_t slot);
+void* QVideoWidget_virtualbase_metacast(void* self, const char* param1);
+bool QVideoWidget_override_virtual_metacall(void* self, intptr_t slot);
+int QVideoWidget_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QVideoWidget_override_virtual_mediaObject(void* self, intptr_t slot);
 QMediaObject* QVideoWidget_virtualbase_mediaObject(const void* self);
 bool QVideoWidget_override_virtual_sizeHint(void* self, intptr_t slot);
@@ -240,6 +247,7 @@ int QVideoWidget_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const v
 int QVideoWidget_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QVideoWidget_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QVideoWidget_staticMetaObject();
 void QVideoWidget_delete(QVideoWidget* self);
 
 #ifdef __cplusplus

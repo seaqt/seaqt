@@ -27,6 +27,9 @@ extern "C" {
 #endif
 
 void miqt_exec_callback_QGraphicsEffect_enabledChanged(intptr_t, bool);
+QMetaObject* miqt_exec_callback_QGraphicsEffect_metaObject(const QGraphicsEffect*, intptr_t);
+void* miqt_exec_callback_QGraphicsEffect_metacast(QGraphicsEffect*, intptr_t, const char*);
+int miqt_exec_callback_QGraphicsEffect_metacall(QGraphicsEffect*, intptr_t, int, int, void**);
 QRectF* miqt_exec_callback_QGraphicsEffect_boundingRectFor(const QGraphicsEffect*, intptr_t, QRectF*);
 void miqt_exec_callback_QGraphicsEffect_draw(QGraphicsEffect*, intptr_t, QPainter*);
 void miqt_exec_callback_QGraphicsEffect_sourceChanged(QGraphicsEffect*, intptr_t, int);
@@ -39,6 +42,9 @@ void miqt_exec_callback_QGraphicsEffect_connectNotify(QGraphicsEffect*, intptr_t
 void miqt_exec_callback_QGraphicsEffect_disconnectNotify(QGraphicsEffect*, intptr_t, QMetaMethod*);
 void miqt_exec_callback_QGraphicsColorizeEffect_colorChanged(intptr_t, QColor*);
 void miqt_exec_callback_QGraphicsColorizeEffect_strengthChanged(intptr_t, double);
+QMetaObject* miqt_exec_callback_QGraphicsColorizeEffect_metaObject(const QGraphicsColorizeEffect*, intptr_t);
+void* miqt_exec_callback_QGraphicsColorizeEffect_metacast(QGraphicsColorizeEffect*, intptr_t, const char*);
+int miqt_exec_callback_QGraphicsColorizeEffect_metacall(QGraphicsColorizeEffect*, intptr_t, int, int, void**);
 void miqt_exec_callback_QGraphicsColorizeEffect_draw(QGraphicsColorizeEffect*, intptr_t, QPainter*);
 QRectF* miqt_exec_callback_QGraphicsColorizeEffect_boundingRectFor(const QGraphicsColorizeEffect*, intptr_t, QRectF*);
 void miqt_exec_callback_QGraphicsColorizeEffect_sourceChanged(QGraphicsColorizeEffect*, intptr_t, int);
@@ -51,6 +57,9 @@ void miqt_exec_callback_QGraphicsColorizeEffect_connectNotify(QGraphicsColorizeE
 void miqt_exec_callback_QGraphicsColorizeEffect_disconnectNotify(QGraphicsColorizeEffect*, intptr_t, QMetaMethod*);
 void miqt_exec_callback_QGraphicsBlurEffect_blurRadiusChanged(intptr_t, double);
 void miqt_exec_callback_QGraphicsBlurEffect_blurHintsChanged(intptr_t, int);
+QMetaObject* miqt_exec_callback_QGraphicsBlurEffect_metaObject(const QGraphicsBlurEffect*, intptr_t);
+void* miqt_exec_callback_QGraphicsBlurEffect_metacast(QGraphicsBlurEffect*, intptr_t, const char*);
+int miqt_exec_callback_QGraphicsBlurEffect_metacall(QGraphicsBlurEffect*, intptr_t, int, int, void**);
 QRectF* miqt_exec_callback_QGraphicsBlurEffect_boundingRectFor(const QGraphicsBlurEffect*, intptr_t, QRectF*);
 void miqt_exec_callback_QGraphicsBlurEffect_draw(QGraphicsBlurEffect*, intptr_t, QPainter*);
 void miqt_exec_callback_QGraphicsBlurEffect_sourceChanged(QGraphicsBlurEffect*, intptr_t, int);
@@ -64,6 +73,9 @@ void miqt_exec_callback_QGraphicsBlurEffect_disconnectNotify(QGraphicsBlurEffect
 void miqt_exec_callback_QGraphicsDropShadowEffect_offsetChanged(intptr_t, QPointF*);
 void miqt_exec_callback_QGraphicsDropShadowEffect_blurRadiusChanged(intptr_t, double);
 void miqt_exec_callback_QGraphicsDropShadowEffect_colorChanged(intptr_t, QColor*);
+QMetaObject* miqt_exec_callback_QGraphicsDropShadowEffect_metaObject(const QGraphicsDropShadowEffect*, intptr_t);
+void* miqt_exec_callback_QGraphicsDropShadowEffect_metacast(QGraphicsDropShadowEffect*, intptr_t, const char*);
+int miqt_exec_callback_QGraphicsDropShadowEffect_metacall(QGraphicsDropShadowEffect*, intptr_t, int, int, void**);
 QRectF* miqt_exec_callback_QGraphicsDropShadowEffect_boundingRectFor(const QGraphicsDropShadowEffect*, intptr_t, QRectF*);
 void miqt_exec_callback_QGraphicsDropShadowEffect_draw(QGraphicsDropShadowEffect*, intptr_t, QPainter*);
 void miqt_exec_callback_QGraphicsDropShadowEffect_sourceChanged(QGraphicsDropShadowEffect*, intptr_t, int);
@@ -76,6 +88,9 @@ void miqt_exec_callback_QGraphicsDropShadowEffect_connectNotify(QGraphicsDropSha
 void miqt_exec_callback_QGraphicsDropShadowEffect_disconnectNotify(QGraphicsDropShadowEffect*, intptr_t, QMetaMethod*);
 void miqt_exec_callback_QGraphicsOpacityEffect_opacityChanged(intptr_t, double);
 void miqt_exec_callback_QGraphicsOpacityEffect_opacityMaskChanged(intptr_t, QBrush*);
+QMetaObject* miqt_exec_callback_QGraphicsOpacityEffect_metaObject(const QGraphicsOpacityEffect*, intptr_t);
+void* miqt_exec_callback_QGraphicsOpacityEffect_metacast(QGraphicsOpacityEffect*, intptr_t, const char*);
+int miqt_exec_callback_QGraphicsOpacityEffect_metacall(QGraphicsOpacityEffect*, intptr_t, int, int, void**);
 void miqt_exec_callback_QGraphicsOpacityEffect_draw(QGraphicsOpacityEffect*, intptr_t, QPainter*);
 QRectF* miqt_exec_callback_QGraphicsOpacityEffect_boundingRectFor(const QGraphicsOpacityEffect*, intptr_t, QRectF*);
 void miqt_exec_callback_QGraphicsOpacityEffect_sourceChanged(QGraphicsOpacityEffect*, intptr_t, int);
@@ -97,6 +112,56 @@ public:
 	VirtualQGraphicsEffect(QObject* parent): QGraphicsEffect(parent) {}
 
 	virtual ~VirtualQGraphicsEffect() override = default;
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metaObject = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual const QMetaObject* metaObject() const override {
+		if (handle__metaObject == 0) {
+			return QGraphicsEffect::metaObject();
+		}
+
+		QMetaObject* callback_return_value = miqt_exec_callback_QGraphicsEffect_metaObject(this, handle__metaObject);
+		return callback_return_value;
+	}
+
+	friend QMetaObject* QGraphicsEffect_virtualbase_metaObject(const void* self);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacast = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual void* qt_metacast(const char* param1) override {
+		if (handle__metacast == 0) {
+			return QGraphicsEffect::qt_metacast(param1);
+		}
+
+		const char* sigval1 = (const char*) param1;
+		void* callback_return_value = miqt_exec_callback_QGraphicsEffect_metacast(this, handle__metacast, sigval1);
+		return callback_return_value;
+	}
+
+	friend void* QGraphicsEffect_virtualbase_metacast(void* self, const char* param1);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacall = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
+		if (handle__metacall == 0) {
+			return QGraphicsEffect::qt_metacall(param1, param2, param3);
+		}
+
+		QMetaObject::Call param1_ret = param1;
+		int sigval1 = static_cast<int>(param1_ret);
+		int sigval2 = param2;
+		void** sigval3 = param3;
+		int callback_return_value = miqt_exec_callback_QGraphicsEffect_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		return static_cast<int>(callback_return_value);
+	}
+
+	friend int QGraphicsEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 
 	// cgo.Handle value for overwritten implementation
 	intptr_t handle__boundingRectFor = 0;
@@ -306,6 +371,10 @@ void* QGraphicsEffect_metacast(QGraphicsEffect* self, const char* param1) {
 	return self->qt_metacast(param1);
 }
 
+int QGraphicsEffect_metacall(QGraphicsEffect* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+}
+
 struct seaqt_string QGraphicsEffect_tr(const char* s) {
 	QString _ret = QGraphicsEffect::tr(s);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
@@ -401,6 +470,49 @@ struct seaqt_string QGraphicsEffect_trUtf83(const char* s, const char* c, int n)
 	_ms.data = static_cast<char*>(malloc(_ms.len));
 	memcpy(_ms.data, _b.data(), _ms.len);
 	return _ms;
+}
+
+const QMetaObject* QGraphicsEffect_staticMetaObject() { return &QGraphicsEffect::staticMetaObject; }
+bool QGraphicsEffect_override_virtual_metaObject(void* self, intptr_t slot) {
+	VirtualQGraphicsEffect* self_cast = dynamic_cast<VirtualQGraphicsEffect*>( (QGraphicsEffect*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metaObject = slot;
+	return true;
+}
+
+QMetaObject* QGraphicsEffect_virtualbase_metaObject(const void* self) {
+	return (QMetaObject*) static_cast<const VirtualQGraphicsEffect*>(self)->QGraphicsEffect::metaObject();
+}
+
+bool QGraphicsEffect_override_virtual_metacast(void* self, intptr_t slot) {
+	VirtualQGraphicsEffect* self_cast = dynamic_cast<VirtualQGraphicsEffect*>( (QGraphicsEffect*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacast = slot;
+	return true;
+}
+
+void* QGraphicsEffect_virtualbase_metacast(void* self, const char* param1) {
+	return static_cast<VirtualQGraphicsEffect*>(self)->QGraphicsEffect::qt_metacast(param1);
+}
+
+bool QGraphicsEffect_override_virtual_metacall(void* self, intptr_t slot) {
+	VirtualQGraphicsEffect* self_cast = dynamic_cast<VirtualQGraphicsEffect*>( (QGraphicsEffect*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacall = slot;
+	return true;
+}
+
+int QGraphicsEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
+	return static_cast<VirtualQGraphicsEffect*>(self)->QGraphicsEffect::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 bool QGraphicsEffect_override_virtual_boundingRectFor(void* self, intptr_t slot) {
@@ -695,6 +807,56 @@ public:
 	virtual ~VirtualQGraphicsColorizeEffect() override = default;
 
 	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metaObject = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual const QMetaObject* metaObject() const override {
+		if (handle__metaObject == 0) {
+			return QGraphicsColorizeEffect::metaObject();
+		}
+
+		QMetaObject* callback_return_value = miqt_exec_callback_QGraphicsColorizeEffect_metaObject(this, handle__metaObject);
+		return callback_return_value;
+	}
+
+	friend QMetaObject* QGraphicsColorizeEffect_virtualbase_metaObject(const void* self);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacast = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual void* qt_metacast(const char* param1) override {
+		if (handle__metacast == 0) {
+			return QGraphicsColorizeEffect::qt_metacast(param1);
+		}
+
+		const char* sigval1 = (const char*) param1;
+		void* callback_return_value = miqt_exec_callback_QGraphicsColorizeEffect_metacast(this, handle__metacast, sigval1);
+		return callback_return_value;
+	}
+
+	friend void* QGraphicsColorizeEffect_virtualbase_metacast(void* self, const char* param1);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacall = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
+		if (handle__metacall == 0) {
+			return QGraphicsColorizeEffect::qt_metacall(param1, param2, param3);
+		}
+
+		QMetaObject::Call param1_ret = param1;
+		int sigval1 = static_cast<int>(param1_ret);
+		int sigval2 = param2;
+		void** sigval3 = param3;
+		int callback_return_value = miqt_exec_callback_QGraphicsColorizeEffect_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		return static_cast<int>(callback_return_value);
+	}
+
+	friend int QGraphicsColorizeEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+
+	// cgo.Handle value for overwritten implementation
 	intptr_t handle__draw = 0;
 
 	// Subclass to allow providing a Go implementation
@@ -901,6 +1063,10 @@ void* QGraphicsColorizeEffect_metacast(QGraphicsColorizeEffect* self, const char
 	return self->qt_metacast(param1);
 }
 
+int QGraphicsColorizeEffect_metacall(QGraphicsColorizeEffect* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+}
+
 struct seaqt_string QGraphicsColorizeEffect_tr(const char* s) {
 	QString _ret = QGraphicsColorizeEffect::tr(s);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
@@ -1007,6 +1173,49 @@ struct seaqt_string QGraphicsColorizeEffect_trUtf83(const char* s, const char* c
 	_ms.data = static_cast<char*>(malloc(_ms.len));
 	memcpy(_ms.data, _b.data(), _ms.len);
 	return _ms;
+}
+
+const QMetaObject* QGraphicsColorizeEffect_staticMetaObject() { return &QGraphicsColorizeEffect::staticMetaObject; }
+bool QGraphicsColorizeEffect_override_virtual_metaObject(void* self, intptr_t slot) {
+	VirtualQGraphicsColorizeEffect* self_cast = dynamic_cast<VirtualQGraphicsColorizeEffect*>( (QGraphicsColorizeEffect*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metaObject = slot;
+	return true;
+}
+
+QMetaObject* QGraphicsColorizeEffect_virtualbase_metaObject(const void* self) {
+	return (QMetaObject*) static_cast<const VirtualQGraphicsColorizeEffect*>(self)->QGraphicsColorizeEffect::metaObject();
+}
+
+bool QGraphicsColorizeEffect_override_virtual_metacast(void* self, intptr_t slot) {
+	VirtualQGraphicsColorizeEffect* self_cast = dynamic_cast<VirtualQGraphicsColorizeEffect*>( (QGraphicsColorizeEffect*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacast = slot;
+	return true;
+}
+
+void* QGraphicsColorizeEffect_virtualbase_metacast(void* self, const char* param1) {
+	return static_cast<VirtualQGraphicsColorizeEffect*>(self)->QGraphicsColorizeEffect::qt_metacast(param1);
+}
+
+bool QGraphicsColorizeEffect_override_virtual_metacall(void* self, intptr_t slot) {
+	VirtualQGraphicsColorizeEffect* self_cast = dynamic_cast<VirtualQGraphicsColorizeEffect*>( (QGraphicsColorizeEffect*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacall = slot;
+	return true;
+}
+
+int QGraphicsColorizeEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
+	return static_cast<VirtualQGraphicsColorizeEffect*>(self)->QGraphicsColorizeEffect::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 bool QGraphicsColorizeEffect_override_virtual_draw(void* self, intptr_t slot) {
@@ -1261,6 +1470,56 @@ public:
 	virtual ~VirtualQGraphicsBlurEffect() override = default;
 
 	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metaObject = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual const QMetaObject* metaObject() const override {
+		if (handle__metaObject == 0) {
+			return QGraphicsBlurEffect::metaObject();
+		}
+
+		QMetaObject* callback_return_value = miqt_exec_callback_QGraphicsBlurEffect_metaObject(this, handle__metaObject);
+		return callback_return_value;
+	}
+
+	friend QMetaObject* QGraphicsBlurEffect_virtualbase_metaObject(const void* self);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacast = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual void* qt_metacast(const char* param1) override {
+		if (handle__metacast == 0) {
+			return QGraphicsBlurEffect::qt_metacast(param1);
+		}
+
+		const char* sigval1 = (const char*) param1;
+		void* callback_return_value = miqt_exec_callback_QGraphicsBlurEffect_metacast(this, handle__metacast, sigval1);
+		return callback_return_value;
+	}
+
+	friend void* QGraphicsBlurEffect_virtualbase_metacast(void* self, const char* param1);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacall = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
+		if (handle__metacall == 0) {
+			return QGraphicsBlurEffect::qt_metacall(param1, param2, param3);
+		}
+
+		QMetaObject::Call param1_ret = param1;
+		int sigval1 = static_cast<int>(param1_ret);
+		int sigval2 = param2;
+		void** sigval3 = param3;
+		int callback_return_value = miqt_exec_callback_QGraphicsBlurEffect_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		return static_cast<int>(callback_return_value);
+	}
+
+	friend int QGraphicsBlurEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+
+	// cgo.Handle value for overwritten implementation
 	intptr_t handle__boundingRectFor = 0;
 
 	// Subclass to allow providing a Go implementation
@@ -1467,6 +1726,10 @@ void* QGraphicsBlurEffect_metacast(QGraphicsBlurEffect* self, const char* param1
 	return self->qt_metacast(param1);
 }
 
+int QGraphicsBlurEffect_metacall(QGraphicsBlurEffect* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+}
+
 struct seaqt_string QGraphicsBlurEffect_tr(const char* s) {
 	QString _ret = QGraphicsBlurEffect::tr(s);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
@@ -1577,6 +1840,49 @@ struct seaqt_string QGraphicsBlurEffect_trUtf83(const char* s, const char* c, in
 	_ms.data = static_cast<char*>(malloc(_ms.len));
 	memcpy(_ms.data, _b.data(), _ms.len);
 	return _ms;
+}
+
+const QMetaObject* QGraphicsBlurEffect_staticMetaObject() { return &QGraphicsBlurEffect::staticMetaObject; }
+bool QGraphicsBlurEffect_override_virtual_metaObject(void* self, intptr_t slot) {
+	VirtualQGraphicsBlurEffect* self_cast = dynamic_cast<VirtualQGraphicsBlurEffect*>( (QGraphicsBlurEffect*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metaObject = slot;
+	return true;
+}
+
+QMetaObject* QGraphicsBlurEffect_virtualbase_metaObject(const void* self) {
+	return (QMetaObject*) static_cast<const VirtualQGraphicsBlurEffect*>(self)->QGraphicsBlurEffect::metaObject();
+}
+
+bool QGraphicsBlurEffect_override_virtual_metacast(void* self, intptr_t slot) {
+	VirtualQGraphicsBlurEffect* self_cast = dynamic_cast<VirtualQGraphicsBlurEffect*>( (QGraphicsBlurEffect*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacast = slot;
+	return true;
+}
+
+void* QGraphicsBlurEffect_virtualbase_metacast(void* self, const char* param1) {
+	return static_cast<VirtualQGraphicsBlurEffect*>(self)->QGraphicsBlurEffect::qt_metacast(param1);
+}
+
+bool QGraphicsBlurEffect_override_virtual_metacall(void* self, intptr_t slot) {
+	VirtualQGraphicsBlurEffect* self_cast = dynamic_cast<VirtualQGraphicsBlurEffect*>( (QGraphicsBlurEffect*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacall = slot;
+	return true;
+}
+
+int QGraphicsBlurEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
+	return static_cast<VirtualQGraphicsBlurEffect*>(self)->QGraphicsBlurEffect::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 bool QGraphicsBlurEffect_override_virtual_boundingRectFor(void* self, intptr_t slot) {
@@ -1831,6 +2137,56 @@ public:
 	virtual ~VirtualQGraphicsDropShadowEffect() override = default;
 
 	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metaObject = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual const QMetaObject* metaObject() const override {
+		if (handle__metaObject == 0) {
+			return QGraphicsDropShadowEffect::metaObject();
+		}
+
+		QMetaObject* callback_return_value = miqt_exec_callback_QGraphicsDropShadowEffect_metaObject(this, handle__metaObject);
+		return callback_return_value;
+	}
+
+	friend QMetaObject* QGraphicsDropShadowEffect_virtualbase_metaObject(const void* self);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacast = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual void* qt_metacast(const char* param1) override {
+		if (handle__metacast == 0) {
+			return QGraphicsDropShadowEffect::qt_metacast(param1);
+		}
+
+		const char* sigval1 = (const char*) param1;
+		void* callback_return_value = miqt_exec_callback_QGraphicsDropShadowEffect_metacast(this, handle__metacast, sigval1);
+		return callback_return_value;
+	}
+
+	friend void* QGraphicsDropShadowEffect_virtualbase_metacast(void* self, const char* param1);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacall = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
+		if (handle__metacall == 0) {
+			return QGraphicsDropShadowEffect::qt_metacall(param1, param2, param3);
+		}
+
+		QMetaObject::Call param1_ret = param1;
+		int sigval1 = static_cast<int>(param1_ret);
+		int sigval2 = param2;
+		void** sigval3 = param3;
+		int callback_return_value = miqt_exec_callback_QGraphicsDropShadowEffect_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		return static_cast<int>(callback_return_value);
+	}
+
+	friend int QGraphicsDropShadowEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+
+	// cgo.Handle value for overwritten implementation
 	intptr_t handle__boundingRectFor = 0;
 
 	// Subclass to allow providing a Go implementation
@@ -2037,6 +2393,10 @@ void* QGraphicsDropShadowEffect_metacast(QGraphicsDropShadowEffect* self, const 
 	return self->qt_metacast(param1);
 }
 
+int QGraphicsDropShadowEffect_metacall(QGraphicsDropShadowEffect* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+}
+
 struct seaqt_string QGraphicsDropShadowEffect_tr(const char* s) {
 	QString _ret = QGraphicsDropShadowEffect::tr(s);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
@@ -2194,6 +2554,49 @@ struct seaqt_string QGraphicsDropShadowEffect_trUtf83(const char* s, const char*
 	_ms.data = static_cast<char*>(malloc(_ms.len));
 	memcpy(_ms.data, _b.data(), _ms.len);
 	return _ms;
+}
+
+const QMetaObject* QGraphicsDropShadowEffect_staticMetaObject() { return &QGraphicsDropShadowEffect::staticMetaObject; }
+bool QGraphicsDropShadowEffect_override_virtual_metaObject(void* self, intptr_t slot) {
+	VirtualQGraphicsDropShadowEffect* self_cast = dynamic_cast<VirtualQGraphicsDropShadowEffect*>( (QGraphicsDropShadowEffect*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metaObject = slot;
+	return true;
+}
+
+QMetaObject* QGraphicsDropShadowEffect_virtualbase_metaObject(const void* self) {
+	return (QMetaObject*) static_cast<const VirtualQGraphicsDropShadowEffect*>(self)->QGraphicsDropShadowEffect::metaObject();
+}
+
+bool QGraphicsDropShadowEffect_override_virtual_metacast(void* self, intptr_t slot) {
+	VirtualQGraphicsDropShadowEffect* self_cast = dynamic_cast<VirtualQGraphicsDropShadowEffect*>( (QGraphicsDropShadowEffect*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacast = slot;
+	return true;
+}
+
+void* QGraphicsDropShadowEffect_virtualbase_metacast(void* self, const char* param1) {
+	return static_cast<VirtualQGraphicsDropShadowEffect*>(self)->QGraphicsDropShadowEffect::qt_metacast(param1);
+}
+
+bool QGraphicsDropShadowEffect_override_virtual_metacall(void* self, intptr_t slot) {
+	VirtualQGraphicsDropShadowEffect* self_cast = dynamic_cast<VirtualQGraphicsDropShadowEffect*>( (QGraphicsDropShadowEffect*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacall = slot;
+	return true;
+}
+
+int QGraphicsDropShadowEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
+	return static_cast<VirtualQGraphicsDropShadowEffect*>(self)->QGraphicsDropShadowEffect::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 bool QGraphicsDropShadowEffect_override_virtual_boundingRectFor(void* self, intptr_t slot) {
@@ -2448,6 +2851,56 @@ public:
 	virtual ~VirtualQGraphicsOpacityEffect() override = default;
 
 	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metaObject = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual const QMetaObject* metaObject() const override {
+		if (handle__metaObject == 0) {
+			return QGraphicsOpacityEffect::metaObject();
+		}
+
+		QMetaObject* callback_return_value = miqt_exec_callback_QGraphicsOpacityEffect_metaObject(this, handle__metaObject);
+		return callback_return_value;
+	}
+
+	friend QMetaObject* QGraphicsOpacityEffect_virtualbase_metaObject(const void* self);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacast = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual void* qt_metacast(const char* param1) override {
+		if (handle__metacast == 0) {
+			return QGraphicsOpacityEffect::qt_metacast(param1);
+		}
+
+		const char* sigval1 = (const char*) param1;
+		void* callback_return_value = miqt_exec_callback_QGraphicsOpacityEffect_metacast(this, handle__metacast, sigval1);
+		return callback_return_value;
+	}
+
+	friend void* QGraphicsOpacityEffect_virtualbase_metacast(void* self, const char* param1);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacall = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
+		if (handle__metacall == 0) {
+			return QGraphicsOpacityEffect::qt_metacall(param1, param2, param3);
+		}
+
+		QMetaObject::Call param1_ret = param1;
+		int sigval1 = static_cast<int>(param1_ret);
+		int sigval2 = param2;
+		void** sigval3 = param3;
+		int callback_return_value = miqt_exec_callback_QGraphicsOpacityEffect_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		return static_cast<int>(callback_return_value);
+	}
+
+	friend int QGraphicsOpacityEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+
+	// cgo.Handle value for overwritten implementation
 	intptr_t handle__draw = 0;
 
 	// Subclass to allow providing a Go implementation
@@ -2654,6 +3107,10 @@ void* QGraphicsOpacityEffect_metacast(QGraphicsOpacityEffect* self, const char* 
 	return self->qt_metacast(param1);
 }
 
+int QGraphicsOpacityEffect_metacall(QGraphicsOpacityEffect* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+}
+
 struct seaqt_string QGraphicsOpacityEffect_tr(const char* s) {
 	QString _ret = QGraphicsOpacityEffect::tr(s);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
@@ -2760,6 +3217,49 @@ struct seaqt_string QGraphicsOpacityEffect_trUtf83(const char* s, const char* c,
 	_ms.data = static_cast<char*>(malloc(_ms.len));
 	memcpy(_ms.data, _b.data(), _ms.len);
 	return _ms;
+}
+
+const QMetaObject* QGraphicsOpacityEffect_staticMetaObject() { return &QGraphicsOpacityEffect::staticMetaObject; }
+bool QGraphicsOpacityEffect_override_virtual_metaObject(void* self, intptr_t slot) {
+	VirtualQGraphicsOpacityEffect* self_cast = dynamic_cast<VirtualQGraphicsOpacityEffect*>( (QGraphicsOpacityEffect*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metaObject = slot;
+	return true;
+}
+
+QMetaObject* QGraphicsOpacityEffect_virtualbase_metaObject(const void* self) {
+	return (QMetaObject*) static_cast<const VirtualQGraphicsOpacityEffect*>(self)->QGraphicsOpacityEffect::metaObject();
+}
+
+bool QGraphicsOpacityEffect_override_virtual_metacast(void* self, intptr_t slot) {
+	VirtualQGraphicsOpacityEffect* self_cast = dynamic_cast<VirtualQGraphicsOpacityEffect*>( (QGraphicsOpacityEffect*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacast = slot;
+	return true;
+}
+
+void* QGraphicsOpacityEffect_virtualbase_metacast(void* self, const char* param1) {
+	return static_cast<VirtualQGraphicsOpacityEffect*>(self)->QGraphicsOpacityEffect::qt_metacast(param1);
+}
+
+bool QGraphicsOpacityEffect_override_virtual_metacall(void* self, intptr_t slot) {
+	VirtualQGraphicsOpacityEffect* self_cast = dynamic_cast<VirtualQGraphicsOpacityEffect*>( (QGraphicsOpacityEffect*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacall = slot;
+	return true;
+}
+
+int QGraphicsOpacityEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
+	return static_cast<VirtualQGraphicsOpacityEffect*>(self)->QGraphicsOpacityEffect::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 bool QGraphicsOpacityEffect_override_virtual_draw(void* self, intptr_t slot) {

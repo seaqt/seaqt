@@ -37,6 +37,9 @@ void miqt_exec_callback_QStandardItem_read(QStandardItem*, intptr_t, QDataStream
 void miqt_exec_callback_QStandardItem_write(const QStandardItem*, intptr_t, QDataStream*);
 bool miqt_exec_callback_QStandardItem_operatorLesser(const QStandardItem*, intptr_t, QStandardItem*);
 void miqt_exec_callback_QStandardItemModel_itemChanged(intptr_t, QStandardItem*);
+QMetaObject* miqt_exec_callback_QStandardItemModel_metaObject(const QStandardItemModel*, intptr_t);
+void* miqt_exec_callback_QStandardItemModel_metacast(QStandardItemModel*, intptr_t, const char*);
+int miqt_exec_callback_QStandardItemModel_metacall(QStandardItemModel*, intptr_t, int, int, void**);
 QModelIndex* miqt_exec_callback_QStandardItemModel_index(const QStandardItemModel*, intptr_t, int, int, QModelIndex*);
 QModelIndex* miqt_exec_callback_QStandardItemModel_parent(const QStandardItemModel*, intptr_t, QModelIndex*);
 int miqt_exec_callback_QStandardItemModel_rowCount(const QStandardItemModel*, intptr_t, QModelIndex*);
@@ -820,6 +823,56 @@ public:
 	VirtualQStandardItemModel(int rows, int columns, QObject* parent): QStandardItemModel(rows, columns, parent) {}
 
 	virtual ~VirtualQStandardItemModel() override = default;
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metaObject = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual const QMetaObject* metaObject() const override {
+		if (handle__metaObject == 0) {
+			return QStandardItemModel::metaObject();
+		}
+
+		QMetaObject* callback_return_value = miqt_exec_callback_QStandardItemModel_metaObject(this, handle__metaObject);
+		return callback_return_value;
+	}
+
+	friend QMetaObject* QStandardItemModel_virtualbase_metaObject(const void* self);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacast = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual void* qt_metacast(const char* param1) override {
+		if (handle__metacast == 0) {
+			return QStandardItemModel::qt_metacast(param1);
+		}
+
+		const char* sigval1 = (const char*) param1;
+		void* callback_return_value = miqt_exec_callback_QStandardItemModel_metacast(this, handle__metacast, sigval1);
+		return callback_return_value;
+	}
+
+	friend void* QStandardItemModel_virtualbase_metacast(void* self, const char* param1);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacall = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
+		if (handle__metacall == 0) {
+			return QStandardItemModel::qt_metacall(param1, param2, param3);
+		}
+
+		QMetaObject::Call param1_ret = param1;
+		int sigval1 = static_cast<int>(param1_ret);
+		int sigval2 = param2;
+		void** sigval3 = param3;
+		int callback_return_value = miqt_exec_callback_QStandardItemModel_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		return static_cast<int>(callback_return_value);
+	}
+
+	friend int QStandardItemModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 
 	// cgo.Handle value for overwritten implementation
 	intptr_t handle__index = 0;
@@ -1696,6 +1749,10 @@ void* QStandardItemModel_metacast(QStandardItemModel* self, const char* param1) 
 	return self->qt_metacast(param1);
 }
 
+int QStandardItemModel_metacall(QStandardItemModel* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+}
+
 struct seaqt_string QStandardItemModel_tr(const char* s) {
 	QString _ret = QStandardItemModel::tr(s);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
@@ -2161,6 +2218,49 @@ struct seaqt_array /* of QStandardItem* */  QStandardItemModel_findItems3(const 
 	_out.len = _ret.length();
 	_out.data = static_cast<void*>(_arr);
 	return _out;
+}
+
+const QMetaObject* QStandardItemModel_staticMetaObject() { return &QStandardItemModel::staticMetaObject; }
+bool QStandardItemModel_override_virtual_metaObject(void* self, intptr_t slot) {
+	VirtualQStandardItemModel* self_cast = dynamic_cast<VirtualQStandardItemModel*>( (QStandardItemModel*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metaObject = slot;
+	return true;
+}
+
+QMetaObject* QStandardItemModel_virtualbase_metaObject(const void* self) {
+	return (QMetaObject*) static_cast<const VirtualQStandardItemModel*>(self)->QStandardItemModel::metaObject();
+}
+
+bool QStandardItemModel_override_virtual_metacast(void* self, intptr_t slot) {
+	VirtualQStandardItemModel* self_cast = dynamic_cast<VirtualQStandardItemModel*>( (QStandardItemModel*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacast = slot;
+	return true;
+}
+
+void* QStandardItemModel_virtualbase_metacast(void* self, const char* param1) {
+	return static_cast<VirtualQStandardItemModel*>(self)->QStandardItemModel::qt_metacast(param1);
+}
+
+bool QStandardItemModel_override_virtual_metacall(void* self, intptr_t slot) {
+	VirtualQStandardItemModel* self_cast = dynamic_cast<VirtualQStandardItemModel*>( (QStandardItemModel*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacall = slot;
+	return true;
+}
+
+int QStandardItemModel_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
+	return static_cast<VirtualQStandardItemModel*>(self)->QStandardItemModel::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 bool QStandardItemModel_override_virtual_index(void* self, intptr_t slot) {

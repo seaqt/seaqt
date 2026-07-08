@@ -41,6 +41,9 @@ void miqt_exec_callback_QWebSocket_pong(intptr_t, unsigned long long, struct sea
 void miqt_exec_callback_QWebSocket_bytesWritten(intptr_t, long long);
 void miqt_exec_callback_QWebSocket_sslErrors(intptr_t, struct seaqt_array /* of QSslError* */ );
 void miqt_exec_callback_QWebSocket_preSharedKeyAuthenticationRequired(intptr_t, QSslPreSharedKeyAuthenticator*);
+QMetaObject* miqt_exec_callback_QWebSocket_metaObject(const QWebSocket*, intptr_t);
+void* miqt_exec_callback_QWebSocket_metacast(QWebSocket*, intptr_t, const char*);
+int miqt_exec_callback_QWebSocket_metacall(QWebSocket*, intptr_t, int, int, void**);
 bool miqt_exec_callback_QWebSocket_event(QWebSocket*, intptr_t, QEvent*);
 bool miqt_exec_callback_QWebSocket_eventFilter(QWebSocket*, intptr_t, QObject*, QEvent*);
 void miqt_exec_callback_QWebSocket_timerEvent(QWebSocket*, intptr_t, QTimerEvent*);
@@ -61,6 +64,56 @@ public:
 	VirtualQWebSocket(const QString& origin, QWebSocketProtocol::Version version, QObject* parent): QWebSocket(origin, version, parent) {}
 
 	virtual ~VirtualQWebSocket() override = default;
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metaObject = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual const QMetaObject* metaObject() const override {
+		if (handle__metaObject == 0) {
+			return QWebSocket::metaObject();
+		}
+
+		QMetaObject* callback_return_value = miqt_exec_callback_QWebSocket_metaObject(this, handle__metaObject);
+		return callback_return_value;
+	}
+
+	friend QMetaObject* QWebSocket_virtualbase_metaObject(const void* self);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacast = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual void* qt_metacast(const char* param1) override {
+		if (handle__metacast == 0) {
+			return QWebSocket::qt_metacast(param1);
+		}
+
+		const char* sigval1 = (const char*) param1;
+		void* callback_return_value = miqt_exec_callback_QWebSocket_metacast(this, handle__metacast, sigval1);
+		return callback_return_value;
+	}
+
+	friend void* QWebSocket_virtualbase_metacast(void* self, const char* param1);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacall = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
+		if (handle__metacall == 0) {
+			return QWebSocket::qt_metacall(param1, param2, param3);
+		}
+
+		QMetaObject::Call param1_ret = param1;
+		int sigval1 = static_cast<int>(param1_ret);
+		int sigval2 = param2;
+		void** sigval3 = param3;
+		int callback_return_value = miqt_exec_callback_QWebSocket_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		return static_cast<int>(callback_return_value);
+	}
+
+	friend int QWebSocket_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 
 	// cgo.Handle value for overwritten implementation
 	intptr_t handle__event = 0;
@@ -220,6 +273,10 @@ QMetaObject* QWebSocket_metaObject(const QWebSocket* self) {
 
 void* QWebSocket_metacast(QWebSocket* self, const char* param1) {
 	return self->qt_metacast(param1);
+}
+
+int QWebSocket_metacall(QWebSocket* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 struct seaqt_string QWebSocket_tr(const char* s) {
@@ -768,6 +825,49 @@ void QWebSocket_close2(QWebSocket* self, int closeCode, struct seaqt_string reas
 void QWebSocket_pingWithPayload(QWebSocket* self, struct seaqt_string payload) {
 	QByteArray payload_QByteArray(payload.data, payload.len);
 	self->ping(payload_QByteArray);
+}
+
+const QMetaObject* QWebSocket_staticMetaObject() { return &QWebSocket::staticMetaObject; }
+bool QWebSocket_override_virtual_metaObject(void* self, intptr_t slot) {
+	VirtualQWebSocket* self_cast = dynamic_cast<VirtualQWebSocket*>( (QWebSocket*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metaObject = slot;
+	return true;
+}
+
+QMetaObject* QWebSocket_virtualbase_metaObject(const void* self) {
+	return (QMetaObject*) static_cast<const VirtualQWebSocket*>(self)->QWebSocket::metaObject();
+}
+
+bool QWebSocket_override_virtual_metacast(void* self, intptr_t slot) {
+	VirtualQWebSocket* self_cast = dynamic_cast<VirtualQWebSocket*>( (QWebSocket*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacast = slot;
+	return true;
+}
+
+void* QWebSocket_virtualbase_metacast(void* self, const char* param1) {
+	return static_cast<VirtualQWebSocket*>(self)->QWebSocket::qt_metacast(param1);
+}
+
+bool QWebSocket_override_virtual_metacall(void* self, intptr_t slot) {
+	VirtualQWebSocket* self_cast = dynamic_cast<VirtualQWebSocket*>( (QWebSocket*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacall = slot;
+	return true;
+}
+
+int QWebSocket_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
+	return static_cast<VirtualQWebSocket*>(self)->QWebSocket::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 bool QWebSocket_override_virtual_event(void* self, intptr_t slot) {
