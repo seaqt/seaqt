@@ -22,15 +22,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QImageReader* QImageReader_new() {
 	return new (std::nothrow) QImageReader();
 }

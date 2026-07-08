@@ -25,16 +25,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QDesignerWidgetDataBaseInterface_changed(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQDesignerWidgetDataBaseItemInterface final : public QDesignerWidgetDataBaseItemInterface {
 	const QDesignerWidgetDataBaseItemInterface_VTable* vtbl;
 public:
@@ -859,10 +849,15 @@ void QDesignerWidgetDataBaseInterface_changed(QDesignerWidgetDataBaseInterface* 
 	self->changed();
 }
 
-void QDesignerWidgetDataBaseInterface_connect_changed(QDesignerWidgetDataBaseInterface* self, intptr_t slot) {
-	QDesignerWidgetDataBaseInterface::connect(self, static_cast<void (QDesignerWidgetDataBaseInterface::*)()>(&QDesignerWidgetDataBaseInterface::changed), self, [=]() {
-		miqt_exec_callback_QDesignerWidgetDataBaseInterface_changed(slot);
-	});
+void QDesignerWidgetDataBaseInterface_connect_changed(QDesignerWidgetDataBaseInterface* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QDesignerWidgetDataBaseInterface::connect(self, static_cast<void (QDesignerWidgetDataBaseInterface::*)()>(&QDesignerWidgetDataBaseInterface::changed), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QDesignerWidgetDataBaseInterface_tr2(const char* s, const char* c) {

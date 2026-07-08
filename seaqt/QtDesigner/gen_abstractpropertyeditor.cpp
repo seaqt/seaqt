@@ -48,16 +48,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QDesignerPropertyEditorInterface_propertyChanged(intptr_t, struct seaqt_string, QVariant*);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQDesignerPropertyEditorInterface final : public QDesignerPropertyEditorInterface {
 	const QDesignerPropertyEditorInterface_VTable* vtbl;
 public:
@@ -820,21 +810,26 @@ void QDesignerPropertyEditorInterface_propertyChanged(QDesignerPropertyEditorInt
 	self->propertyChanged(name_QString, *value);
 }
 
-void QDesignerPropertyEditorInterface_connect_propertyChanged(QDesignerPropertyEditorInterface* self, intptr_t slot) {
-	QDesignerPropertyEditorInterface::connect(self, static_cast<void (QDesignerPropertyEditorInterface::*)(const QString&, const QVariant&)>(&QDesignerPropertyEditorInterface::propertyChanged), self, [=](const QString& name, const QVariant& value) {
-		const QString name_ret = name;
-		// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-		QByteArray name_b = name_ret.toUtf8();
-		struct seaqt_string name_ms;
-		name_ms.len = name_b.length();
-		name_ms.data = static_cast<char*>(malloc(name_ms.len));
-		memcpy(name_ms.data, name_b.data(), name_ms.len);
-		struct seaqt_string sigval1 = name_ms;
-		const QVariant& value_ret = value;
-		// Cast returned reference into pointer
-		QVariant* sigval2 = const_cast<QVariant*>(&value_ret);
-		miqt_exec_callback_QDesignerPropertyEditorInterface_propertyChanged(slot, sigval1, sigval2);
-	});
+void QDesignerPropertyEditorInterface_connect_propertyChanged(QDesignerPropertyEditorInterface* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_string, QVariant*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, struct seaqt_string, QVariant*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, struct seaqt_string, QVariant*);
+		void operator()(const QString& name, const QVariant& value) {
+			const QString name_ret = name;
+			// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
+			QByteArray name_b = name_ret.toUtf8();
+			struct seaqt_string name_ms;
+			name_ms.len = name_b.length();
+			name_ms.data = static_cast<char*>(malloc(name_ms.len));
+			memcpy(name_ms.data, name_b.data(), name_ms.len);
+			struct seaqt_string sigval1 = name_ms;
+			const QVariant& value_ret = value;
+			// Cast returned reference into pointer
+			QVariant* sigval2 = const_cast<QVariant*>(&value_ret);
+			callback(slot, sigval1, sigval2);
+		}
+	};
+	QDesignerPropertyEditorInterface::connect(self, static_cast<void (QDesignerPropertyEditorInterface::*)(const QString&, const QVariant&)>(&QDesignerPropertyEditorInterface::propertyChanged), self, local_caller{slot, callback, release});
 }
 
 void QDesignerPropertyEditorInterface_setObject(QDesignerPropertyEditorInterface* self, QObject* object) {

@@ -17,15 +17,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QObject* QAbstractExtensionFactory_extension(const QAbstractExtensionFactory* self, QObject* object, struct seaqt_string iid) {
 	QString iid_QString = QString::fromUtf8(iid.data, iid.len);
 	return self->extension(object, iid_QString);

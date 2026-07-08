@@ -12,15 +12,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QUntypedPropertyData_delete(QUntypedPropertyData* self) {
 	delete self;
 }

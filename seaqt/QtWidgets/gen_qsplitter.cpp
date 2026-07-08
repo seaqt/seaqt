@@ -52,16 +52,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QSplitter_splitterMoved(intptr_t, int, int);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQSplitter final : public QSplitter {
 	const QSplitter_VTable* vtbl;
 public:
@@ -903,12 +893,17 @@ void QSplitter_splitterMoved(QSplitter* self, int pos, int index) {
 	self->splitterMoved(static_cast<int>(pos), static_cast<int>(index));
 }
 
-void QSplitter_connect_splitterMoved(QSplitter* self, intptr_t slot) {
-	QSplitter::connect(self, static_cast<void (QSplitter::*)(int, int)>(&QSplitter::splitterMoved), self, [=](int pos, int index) {
-		int sigval1 = pos;
-		int sigval2 = index;
-		miqt_exec_callback_QSplitter_splitterMoved(slot, sigval1, sigval2);
-	});
+void QSplitter_connect_splitterMoved(QSplitter* self, intptr_t slot, void (*callback)(intptr_t, int, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int, int);
+		void operator()(int pos, int index) {
+			int sigval1 = pos;
+			int sigval2 = index;
+			callback(slot, sigval1, sigval2);
+		}
+	};
+	QSplitter::connect(self, static_cast<void (QSplitter::*)(int, int)>(&QSplitter::splitterMoved), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QSplitter_tr2(const char* s, const char* c) {

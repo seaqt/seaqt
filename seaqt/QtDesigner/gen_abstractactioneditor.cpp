@@ -50,15 +50,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQDesignerActionEditorInterface final : public QDesignerActionEditorInterface {
 	const QDesignerActionEditorInterface_VTable* vtbl;
 public:

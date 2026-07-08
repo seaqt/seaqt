@@ -23,15 +23,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQExtensionManager final : public QExtensionManager {
 	const QExtensionManager_VTable* vtbl;
 public:

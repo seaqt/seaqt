@@ -18,15 +18,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QSGGeometry* QSGGeometry_new(QSGGeometry__AttributeSet* attribs, int vertexCount) {
 	return new (std::nothrow) QSGGeometry(*attribs, static_cast<int>(vertexCount));
 }

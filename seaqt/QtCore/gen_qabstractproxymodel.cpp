@@ -33,16 +33,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QAbstractProxyModel_sourceModelChanged(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQAbstractProxyModel final : public QAbstractProxyModel {
 	const QAbstractProxyModel_VTable* vtbl;
 public:

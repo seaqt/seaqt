@@ -26,20 +26,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QState_finished(intptr_t);
-void miqt_exec_callback_QState_propertiesAssigned(intptr_t);
-void miqt_exec_callback_QState_childModeChanged(intptr_t);
-void miqt_exec_callback_QState_initialStateChanged(intptr_t);
-void miqt_exec_callback_QState_errorStateChanged(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQState final : public QState {
 	const QState_VTable* vtbl;
 public:

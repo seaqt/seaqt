@@ -16,15 +16,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQDesignerSettingsInterface final : public QDesignerSettingsInterface {
 	const QDesignerSettingsInterface_VTable* vtbl;
 public:

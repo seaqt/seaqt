@@ -16,15 +16,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QCryptographicHash* QCryptographicHash_new(int method) {
 	return new (std::nothrow) QCryptographicHash(static_cast<QCryptographicHash::Algorithm>(method));
 }

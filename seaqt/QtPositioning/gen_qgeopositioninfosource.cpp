@@ -25,18 +25,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QGeoPositionInfoSource_positionUpdated(intptr_t, QGeoPositionInfo*);
-void miqt_exec_callback_QGeoPositionInfoSource_errorOccurred(intptr_t, int);
-void miqt_exec_callback_QGeoPositionInfoSource_supportedPositioningMethodsChanged(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQGeoPositionInfoSource final : public QGeoPositionInfoSource {
 	const QGeoPositionInfoSource_VTable* vtbl;
 public:
@@ -466,35 +454,50 @@ void QGeoPositionInfoSource_positionUpdated(QGeoPositionInfoSource* self, QGeoPo
 	self->positionUpdated(*update);
 }
 
-void QGeoPositionInfoSource_connect_positionUpdated(QGeoPositionInfoSource* self, intptr_t slot) {
-	QGeoPositionInfoSource::connect(self, static_cast<void (QGeoPositionInfoSource::*)(const QGeoPositionInfo&)>(&QGeoPositionInfoSource::positionUpdated), self, [=](const QGeoPositionInfo& update) {
-		const QGeoPositionInfo& update_ret = update;
-		// Cast returned reference into pointer
-		QGeoPositionInfo* sigval1 = const_cast<QGeoPositionInfo*>(&update_ret);
-		miqt_exec_callback_QGeoPositionInfoSource_positionUpdated(slot, sigval1);
-	});
+void QGeoPositionInfoSource_connect_positionUpdated(QGeoPositionInfoSource* self, intptr_t slot, void (*callback)(intptr_t, QGeoPositionInfo*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QGeoPositionInfo*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QGeoPositionInfo*);
+		void operator()(const QGeoPositionInfo& update) {
+			const QGeoPositionInfo& update_ret = update;
+			// Cast returned reference into pointer
+			QGeoPositionInfo* sigval1 = const_cast<QGeoPositionInfo*>(&update_ret);
+			callback(slot, sigval1);
+		}
+	};
+	QGeoPositionInfoSource::connect(self, static_cast<void (QGeoPositionInfoSource::*)(const QGeoPositionInfo&)>(&QGeoPositionInfoSource::positionUpdated), self, local_caller{slot, callback, release});
 }
 
 void QGeoPositionInfoSource_errorOccurred(QGeoPositionInfoSource* self, int param1) {
 	self->errorOccurred(static_cast<QGeoPositionInfoSource::Error>(param1));
 }
 
-void QGeoPositionInfoSource_connect_errorOccurred(QGeoPositionInfoSource* self, intptr_t slot) {
-	QGeoPositionInfoSource::connect(self, static_cast<void (QGeoPositionInfoSource::*)(QGeoPositionInfoSource::Error)>(&QGeoPositionInfoSource::errorOccurred), self, [=](QGeoPositionInfoSource::Error param1) {
-		QGeoPositionInfoSource::Error param1_ret = param1;
-		int sigval1 = static_cast<int>(param1_ret);
-		miqt_exec_callback_QGeoPositionInfoSource_errorOccurred(slot, sigval1);
-	});
+void QGeoPositionInfoSource_connect_errorOccurred(QGeoPositionInfoSource* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(QGeoPositionInfoSource::Error param1) {
+			QGeoPositionInfoSource::Error param1_ret = param1;
+			int sigval1 = static_cast<int>(param1_ret);
+			callback(slot, sigval1);
+		}
+	};
+	QGeoPositionInfoSource::connect(self, static_cast<void (QGeoPositionInfoSource::*)(QGeoPositionInfoSource::Error)>(&QGeoPositionInfoSource::errorOccurred), self, local_caller{slot, callback, release});
 }
 
 void QGeoPositionInfoSource_supportedPositioningMethodsChanged(QGeoPositionInfoSource* self) {
 	self->supportedPositioningMethodsChanged();
 }
 
-void QGeoPositionInfoSource_connect_supportedPositioningMethodsChanged(QGeoPositionInfoSource* self, intptr_t slot) {
-	QGeoPositionInfoSource::connect(self, static_cast<void (QGeoPositionInfoSource::*)()>(&QGeoPositionInfoSource::supportedPositioningMethodsChanged), self, [=]() {
-		miqt_exec_callback_QGeoPositionInfoSource_supportedPositioningMethodsChanged(slot);
-	});
+void QGeoPositionInfoSource_connect_supportedPositioningMethodsChanged(QGeoPositionInfoSource* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QGeoPositionInfoSource::connect(self, static_cast<void (QGeoPositionInfoSource::*)()>(&QGeoPositionInfoSource::supportedPositioningMethodsChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QGeoPositionInfoSource_tr2(const char* s, const char* c) {

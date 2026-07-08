@@ -15,15 +15,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QWebEngineClientCertificateStore_add(QWebEngineClientCertificateStore* self, QSslCertificate* certificate, QSslKey* privateKey) {
 	self->add(*certificate, *privateKey);
 }

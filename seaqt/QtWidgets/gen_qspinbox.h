@@ -190,9 +190,9 @@ struct seaqt_string QSpinBox_textFromValue(const QSpinBox* self, int val);
 void QSpinBox_fixup(const QSpinBox* self, struct seaqt_string str);
 void QSpinBox_setValue(QSpinBox* self, int val);
 void QSpinBox_valueChanged(QSpinBox* self, int param1);
-void QSpinBox_connect_valueChanged(QSpinBox* self, intptr_t slot);
+void QSpinBox_connect_valueChanged(QSpinBox* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t));
 void QSpinBox_textChanged(QSpinBox* self, struct seaqt_string param1);
-void QSpinBox_connect_textChanged(QSpinBox* self, intptr_t slot);
+void QSpinBox_connect_textChanged(QSpinBox* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_string), void (*release)(intptr_t));
 struct seaqt_string QSpinBox_tr2(const char* s, const char* c);
 struct seaqt_string QSpinBox_tr3(const char* s, const char* c, int n);
 
@@ -367,9 +367,9 @@ struct seaqt_string QDoubleSpinBox_textFromValue(const QDoubleSpinBox* self, dou
 void QDoubleSpinBox_fixup(const QDoubleSpinBox* self, struct seaqt_string str);
 void QDoubleSpinBox_setValue(QDoubleSpinBox* self, double val);
 void QDoubleSpinBox_valueChanged(QDoubleSpinBox* self, double param1);
-void QDoubleSpinBox_connect_valueChanged(QDoubleSpinBox* self, intptr_t slot);
+void QDoubleSpinBox_connect_valueChanged(QDoubleSpinBox* self, intptr_t slot, void (*callback)(intptr_t, double), void (*release)(intptr_t));
 void QDoubleSpinBox_textChanged(QDoubleSpinBox* self, struct seaqt_string param1);
-void QDoubleSpinBox_connect_textChanged(QDoubleSpinBox* self, intptr_t slot);
+void QDoubleSpinBox_connect_textChanged(QDoubleSpinBox* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_string), void (*release)(intptr_t));
 struct seaqt_string QDoubleSpinBox_tr2(const char* s, const char* c);
 struct seaqt_string QDoubleSpinBox_tr3(const char* s, const char* c, int n);
 

@@ -24,20 +24,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QDesignerIntegrationInterface_propertyChanged(intptr_t, QDesignerFormWindowInterface*, struct seaqt_string, QVariant*);
-void miqt_exec_callback_QDesignerIntegrationInterface_objectNameChanged(intptr_t, QDesignerFormWindowInterface*, QObject*, struct seaqt_string, struct seaqt_string);
-void miqt_exec_callback_QDesignerIntegrationInterface_helpRequested(intptr_t, struct seaqt_string, struct seaqt_string);
-void miqt_exec_callback_QDesignerIntegrationInterface_navigateToSlot(intptr_t, struct seaqt_string, struct seaqt_string, struct seaqt_array /* of struct seaqt_string */ );
-void miqt_exec_callback_QDesignerIntegrationInterface_navigateToSlotWithSlotSignature(intptr_t, struct seaqt_string);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QDesignerIntegrationInterface_virtbase(QDesignerIntegrationInterface* src, QObject** outptr_QObject) {
 	*outptr_QObject = static_cast<QObject*>(src);
 }
@@ -161,22 +147,27 @@ void QDesignerIntegrationInterface_propertyChanged(QDesignerIntegrationInterface
 	self->propertyChanged(formWindow, name_QString, *value);
 }
 
-void QDesignerIntegrationInterface_connect_propertyChanged(QDesignerIntegrationInterface* self, intptr_t slot) {
-	QDesignerIntegrationInterface::connect(self, static_cast<void (QDesignerIntegrationInterface::*)(QDesignerFormWindowInterface*, const QString&, const QVariant&)>(&QDesignerIntegrationInterface::propertyChanged), self, [=](QDesignerFormWindowInterface* formWindow, const QString& name, const QVariant& value) {
-		QDesignerFormWindowInterface* sigval1 = formWindow;
-		const QString name_ret = name;
-		// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-		QByteArray name_b = name_ret.toUtf8();
-		struct seaqt_string name_ms;
-		name_ms.len = name_b.length();
-		name_ms.data = static_cast<char*>(malloc(name_ms.len));
-		memcpy(name_ms.data, name_b.data(), name_ms.len);
-		struct seaqt_string sigval2 = name_ms;
-		const QVariant& value_ret = value;
-		// Cast returned reference into pointer
-		QVariant* sigval3 = const_cast<QVariant*>(&value_ret);
-		miqt_exec_callback_QDesignerIntegrationInterface_propertyChanged(slot, sigval1, sigval2, sigval3);
-	});
+void QDesignerIntegrationInterface_connect_propertyChanged(QDesignerIntegrationInterface* self, intptr_t slot, void (*callback)(intptr_t, QDesignerFormWindowInterface*, struct seaqt_string, QVariant*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QDesignerFormWindowInterface*, struct seaqt_string, QVariant*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QDesignerFormWindowInterface*, struct seaqt_string, QVariant*);
+		void operator()(QDesignerFormWindowInterface* formWindow, const QString& name, const QVariant& value) {
+			QDesignerFormWindowInterface* sigval1 = formWindow;
+			const QString name_ret = name;
+			// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
+			QByteArray name_b = name_ret.toUtf8();
+			struct seaqt_string name_ms;
+			name_ms.len = name_b.length();
+			name_ms.data = static_cast<char*>(malloc(name_ms.len));
+			memcpy(name_ms.data, name_b.data(), name_ms.len);
+			struct seaqt_string sigval2 = name_ms;
+			const QVariant& value_ret = value;
+			// Cast returned reference into pointer
+			QVariant* sigval3 = const_cast<QVariant*>(&value_ret);
+			callback(slot, sigval1, sigval2, sigval3);
+		}
+	};
+	QDesignerIntegrationInterface::connect(self, static_cast<void (QDesignerIntegrationInterface::*)(QDesignerFormWindowInterface*, const QString&, const QVariant&)>(&QDesignerIntegrationInterface::propertyChanged), self, local_caller{slot, callback, release});
 }
 
 void QDesignerIntegrationInterface_objectNameChanged(QDesignerIntegrationInterface* self, QDesignerFormWindowInterface* formWindow, QObject* object, struct seaqt_string newName, struct seaqt_string oldName) {
@@ -185,28 +176,33 @@ void QDesignerIntegrationInterface_objectNameChanged(QDesignerIntegrationInterfa
 	self->objectNameChanged(formWindow, object, newName_QString, oldName_QString);
 }
 
-void QDesignerIntegrationInterface_connect_objectNameChanged(QDesignerIntegrationInterface* self, intptr_t slot) {
-	QDesignerIntegrationInterface::connect(self, static_cast<void (QDesignerIntegrationInterface::*)(QDesignerFormWindowInterface*, QObject*, const QString&, const QString&)>(&QDesignerIntegrationInterface::objectNameChanged), self, [=](QDesignerFormWindowInterface* formWindow, QObject* object, const QString& newName, const QString& oldName) {
-		QDesignerFormWindowInterface* sigval1 = formWindow;
-		QObject* sigval2 = object;
-		const QString newName_ret = newName;
-		// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-		QByteArray newName_b = newName_ret.toUtf8();
-		struct seaqt_string newName_ms;
-		newName_ms.len = newName_b.length();
-		newName_ms.data = static_cast<char*>(malloc(newName_ms.len));
-		memcpy(newName_ms.data, newName_b.data(), newName_ms.len);
-		struct seaqt_string sigval3 = newName_ms;
-		const QString oldName_ret = oldName;
-		// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-		QByteArray oldName_b = oldName_ret.toUtf8();
-		struct seaqt_string oldName_ms;
-		oldName_ms.len = oldName_b.length();
-		oldName_ms.data = static_cast<char*>(malloc(oldName_ms.len));
-		memcpy(oldName_ms.data, oldName_b.data(), oldName_ms.len);
-		struct seaqt_string sigval4 = oldName_ms;
-		miqt_exec_callback_QDesignerIntegrationInterface_objectNameChanged(slot, sigval1, sigval2, sigval3, sigval4);
-	});
+void QDesignerIntegrationInterface_connect_objectNameChanged(QDesignerIntegrationInterface* self, intptr_t slot, void (*callback)(intptr_t, QDesignerFormWindowInterface*, QObject*, struct seaqt_string, struct seaqt_string), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QDesignerFormWindowInterface*, QObject*, struct seaqt_string, struct seaqt_string), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QDesignerFormWindowInterface*, QObject*, struct seaqt_string, struct seaqt_string);
+		void operator()(QDesignerFormWindowInterface* formWindow, QObject* object, const QString& newName, const QString& oldName) {
+			QDesignerFormWindowInterface* sigval1 = formWindow;
+			QObject* sigval2 = object;
+			const QString newName_ret = newName;
+			// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
+			QByteArray newName_b = newName_ret.toUtf8();
+			struct seaqt_string newName_ms;
+			newName_ms.len = newName_b.length();
+			newName_ms.data = static_cast<char*>(malloc(newName_ms.len));
+			memcpy(newName_ms.data, newName_b.data(), newName_ms.len);
+			struct seaqt_string sigval3 = newName_ms;
+			const QString oldName_ret = oldName;
+			// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
+			QByteArray oldName_b = oldName_ret.toUtf8();
+			struct seaqt_string oldName_ms;
+			oldName_ms.len = oldName_b.length();
+			oldName_ms.data = static_cast<char*>(malloc(oldName_ms.len));
+			memcpy(oldName_ms.data, oldName_b.data(), oldName_ms.len);
+			struct seaqt_string sigval4 = oldName_ms;
+			callback(slot, sigval1, sigval2, sigval3, sigval4);
+		}
+	};
+	QDesignerIntegrationInterface::connect(self, static_cast<void (QDesignerIntegrationInterface::*)(QDesignerFormWindowInterface*, QObject*, const QString&, const QString&)>(&QDesignerIntegrationInterface::objectNameChanged), self, local_caller{slot, callback, release});
 }
 
 void QDesignerIntegrationInterface_helpRequested(QDesignerIntegrationInterface* self, struct seaqt_string manual, struct seaqt_string document) {
@@ -215,26 +211,31 @@ void QDesignerIntegrationInterface_helpRequested(QDesignerIntegrationInterface* 
 	self->helpRequested(manual_QString, document_QString);
 }
 
-void QDesignerIntegrationInterface_connect_helpRequested(QDesignerIntegrationInterface* self, intptr_t slot) {
-	QDesignerIntegrationInterface::connect(self, static_cast<void (QDesignerIntegrationInterface::*)(const QString&, const QString&)>(&QDesignerIntegrationInterface::helpRequested), self, [=](const QString& manual, const QString& document) {
-		const QString manual_ret = manual;
-		// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-		QByteArray manual_b = manual_ret.toUtf8();
-		struct seaqt_string manual_ms;
-		manual_ms.len = manual_b.length();
-		manual_ms.data = static_cast<char*>(malloc(manual_ms.len));
-		memcpy(manual_ms.data, manual_b.data(), manual_ms.len);
-		struct seaqt_string sigval1 = manual_ms;
-		const QString document_ret = document;
-		// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-		QByteArray document_b = document_ret.toUtf8();
-		struct seaqt_string document_ms;
-		document_ms.len = document_b.length();
-		document_ms.data = static_cast<char*>(malloc(document_ms.len));
-		memcpy(document_ms.data, document_b.data(), document_ms.len);
-		struct seaqt_string sigval2 = document_ms;
-		miqt_exec_callback_QDesignerIntegrationInterface_helpRequested(slot, sigval1, sigval2);
-	});
+void QDesignerIntegrationInterface_connect_helpRequested(QDesignerIntegrationInterface* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_string, struct seaqt_string), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, struct seaqt_string, struct seaqt_string), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, struct seaqt_string, struct seaqt_string);
+		void operator()(const QString& manual, const QString& document) {
+			const QString manual_ret = manual;
+			// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
+			QByteArray manual_b = manual_ret.toUtf8();
+			struct seaqt_string manual_ms;
+			manual_ms.len = manual_b.length();
+			manual_ms.data = static_cast<char*>(malloc(manual_ms.len));
+			memcpy(manual_ms.data, manual_b.data(), manual_ms.len);
+			struct seaqt_string sigval1 = manual_ms;
+			const QString document_ret = document;
+			// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
+			QByteArray document_b = document_ret.toUtf8();
+			struct seaqt_string document_ms;
+			document_ms.len = document_b.length();
+			document_ms.data = static_cast<char*>(malloc(document_ms.len));
+			memcpy(document_ms.data, document_b.data(), document_ms.len);
+			struct seaqt_string sigval2 = document_ms;
+			callback(slot, sigval1, sigval2);
+		}
+	};
+	QDesignerIntegrationInterface::connect(self, static_cast<void (QDesignerIntegrationInterface::*)(const QString&, const QString&)>(&QDesignerIntegrationInterface::helpRequested), self, local_caller{slot, callback, release});
 }
 
 void QDesignerIntegrationInterface_navigateToSlot(QDesignerIntegrationInterface* self, struct seaqt_string objectName, struct seaqt_string signalSignature, struct seaqt_array /* of struct seaqt_string */  parameterNames) {
@@ -250,43 +251,48 @@ void QDesignerIntegrationInterface_navigateToSlot(QDesignerIntegrationInterface*
 	self->navigateToSlot(objectName_QString, signalSignature_QString, parameterNames_QList);
 }
 
-void QDesignerIntegrationInterface_connect_navigateToSlot(QDesignerIntegrationInterface* self, intptr_t slot) {
-	QDesignerIntegrationInterface::connect(self, static_cast<void (QDesignerIntegrationInterface::*)(const QString&, const QString&, const QStringList&)>(&QDesignerIntegrationInterface::navigateToSlot), self, [=](const QString& objectName, const QString& signalSignature, const QStringList& parameterNames) {
-		const QString objectName_ret = objectName;
-		// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-		QByteArray objectName_b = objectName_ret.toUtf8();
-		struct seaqt_string objectName_ms;
-		objectName_ms.len = objectName_b.length();
-		objectName_ms.data = static_cast<char*>(malloc(objectName_ms.len));
-		memcpy(objectName_ms.data, objectName_b.data(), objectName_ms.len);
-		struct seaqt_string sigval1 = objectName_ms;
-		const QString signalSignature_ret = signalSignature;
-		// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-		QByteArray signalSignature_b = signalSignature_ret.toUtf8();
-		struct seaqt_string signalSignature_ms;
-		signalSignature_ms.len = signalSignature_b.length();
-		signalSignature_ms.data = static_cast<char*>(malloc(signalSignature_ms.len));
-		memcpy(signalSignature_ms.data, signalSignature_b.data(), signalSignature_ms.len);
-		struct seaqt_string sigval2 = signalSignature_ms;
-		const QStringList& parameterNames_ret = parameterNames;
-		// Convert QList<> from C++ memory to manually-managed C memory
-		struct seaqt_string* parameterNames_arr = static_cast<struct seaqt_string*>(malloc(sizeof(struct seaqt_string) * parameterNames_ret.length()));
-		for (size_t i = 0, e = parameterNames_ret.length(); i < e; ++i) {
-			QString parameterNames_lv_ret = parameterNames_ret[i];
+void QDesignerIntegrationInterface_connect_navigateToSlot(QDesignerIntegrationInterface* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_string, struct seaqt_string, struct seaqt_array /* of struct seaqt_string */ ), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, struct seaqt_string, struct seaqt_string, struct seaqt_array /* of struct seaqt_string */ ), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, struct seaqt_string, struct seaqt_string, struct seaqt_array /* of struct seaqt_string */ );
+		void operator()(const QString& objectName, const QString& signalSignature, const QStringList& parameterNames) {
+			const QString objectName_ret = objectName;
 			// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-			QByteArray parameterNames_lv_b = parameterNames_lv_ret.toUtf8();
-			struct seaqt_string parameterNames_lv_ms;
-			parameterNames_lv_ms.len = parameterNames_lv_b.length();
-			parameterNames_lv_ms.data = static_cast<char*>(malloc(parameterNames_lv_ms.len));
-			memcpy(parameterNames_lv_ms.data, parameterNames_lv_b.data(), parameterNames_lv_ms.len);
-			parameterNames_arr[i] = parameterNames_lv_ms;
+			QByteArray objectName_b = objectName_ret.toUtf8();
+			struct seaqt_string objectName_ms;
+			objectName_ms.len = objectName_b.length();
+			objectName_ms.data = static_cast<char*>(malloc(objectName_ms.len));
+			memcpy(objectName_ms.data, objectName_b.data(), objectName_ms.len);
+			struct seaqt_string sigval1 = objectName_ms;
+			const QString signalSignature_ret = signalSignature;
+			// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
+			QByteArray signalSignature_b = signalSignature_ret.toUtf8();
+			struct seaqt_string signalSignature_ms;
+			signalSignature_ms.len = signalSignature_b.length();
+			signalSignature_ms.data = static_cast<char*>(malloc(signalSignature_ms.len));
+			memcpy(signalSignature_ms.data, signalSignature_b.data(), signalSignature_ms.len);
+			struct seaqt_string sigval2 = signalSignature_ms;
+			const QStringList& parameterNames_ret = parameterNames;
+			// Convert QList<> from C++ memory to manually-managed C memory
+			struct seaqt_string* parameterNames_arr = static_cast<struct seaqt_string*>(malloc(sizeof(struct seaqt_string) * parameterNames_ret.length()));
+			for (size_t i = 0, e = parameterNames_ret.length(); i < e; ++i) {
+				QString parameterNames_lv_ret = parameterNames_ret[i];
+				// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
+				QByteArray parameterNames_lv_b = parameterNames_lv_ret.toUtf8();
+				struct seaqt_string parameterNames_lv_ms;
+				parameterNames_lv_ms.len = parameterNames_lv_b.length();
+				parameterNames_lv_ms.data = static_cast<char*>(malloc(parameterNames_lv_ms.len));
+				memcpy(parameterNames_lv_ms.data, parameterNames_lv_b.data(), parameterNames_lv_ms.len);
+				parameterNames_arr[i] = parameterNames_lv_ms;
+			}
+			struct seaqt_array parameterNames_out;
+			parameterNames_out.len = parameterNames_ret.length();
+			parameterNames_out.data = static_cast<void*>(parameterNames_arr);
+			struct seaqt_array /* of struct seaqt_string */  sigval3 = parameterNames_out;
+			callback(slot, sigval1, sigval2, sigval3);
 		}
-		struct seaqt_array parameterNames_out;
-		parameterNames_out.len = parameterNames_ret.length();
-		parameterNames_out.data = static_cast<void*>(parameterNames_arr);
-		struct seaqt_array /* of struct seaqt_string */  sigval3 = parameterNames_out;
-		miqt_exec_callback_QDesignerIntegrationInterface_navigateToSlot(slot, sigval1, sigval2, sigval3);
-	});
+	};
+	QDesignerIntegrationInterface::connect(self, static_cast<void (QDesignerIntegrationInterface::*)(const QString&, const QString&, const QStringList&)>(&QDesignerIntegrationInterface::navigateToSlot), self, local_caller{slot, callback, release});
 }
 
 void QDesignerIntegrationInterface_navigateToSlotWithSlotSignature(QDesignerIntegrationInterface* self, struct seaqt_string slotSignature) {
@@ -294,18 +300,23 @@ void QDesignerIntegrationInterface_navigateToSlotWithSlotSignature(QDesignerInte
 	self->navigateToSlot(slotSignature_QString);
 }
 
-void QDesignerIntegrationInterface_connect_navigateToSlotWithSlotSignature(QDesignerIntegrationInterface* self, intptr_t slot) {
-	QDesignerIntegrationInterface::connect(self, static_cast<void (QDesignerIntegrationInterface::*)(const QString&)>(&QDesignerIntegrationInterface::navigateToSlot), self, [=](const QString& slotSignature) {
-		const QString slotSignature_ret = slotSignature;
-		// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-		QByteArray slotSignature_b = slotSignature_ret.toUtf8();
-		struct seaqt_string slotSignature_ms;
-		slotSignature_ms.len = slotSignature_b.length();
-		slotSignature_ms.data = static_cast<char*>(malloc(slotSignature_ms.len));
-		memcpy(slotSignature_ms.data, slotSignature_b.data(), slotSignature_ms.len);
-		struct seaqt_string sigval1 = slotSignature_ms;
-		miqt_exec_callback_QDesignerIntegrationInterface_navigateToSlotWithSlotSignature(slot, sigval1);
-	});
+void QDesignerIntegrationInterface_connect_navigateToSlotWithSlotSignature(QDesignerIntegrationInterface* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_string), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, struct seaqt_string), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, struct seaqt_string);
+		void operator()(const QString& slotSignature) {
+			const QString slotSignature_ret = slotSignature;
+			// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
+			QByteArray slotSignature_b = slotSignature_ret.toUtf8();
+			struct seaqt_string slotSignature_ms;
+			slotSignature_ms.len = slotSignature_b.length();
+			slotSignature_ms.data = static_cast<char*>(malloc(slotSignature_ms.len));
+			memcpy(slotSignature_ms.data, slotSignature_b.data(), slotSignature_ms.len);
+			struct seaqt_string sigval1 = slotSignature_ms;
+			callback(slot, sigval1);
+		}
+	};
+	QDesignerIntegrationInterface::connect(self, static_cast<void (QDesignerIntegrationInterface::*)(const QString&)>(&QDesignerIntegrationInterface::navigateToSlot), self, local_caller{slot, callback, release});
 }
 
 void QDesignerIntegrationInterface_setFeatures(QDesignerIntegrationInterface* self, int f) {

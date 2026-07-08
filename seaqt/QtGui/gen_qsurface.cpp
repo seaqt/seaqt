@@ -15,15 +15,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 int QSurface_surfaceClass(const QSurface* self) {
 	QSurface::SurfaceClass _ret = self->surfaceClass();
 	return static_cast<int>(_ret);

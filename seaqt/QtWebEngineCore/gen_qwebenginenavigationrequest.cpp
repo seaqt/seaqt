@@ -19,16 +19,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QWebEngineNavigationRequest_actionChanged(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QWebEngineNavigationRequest_virtbase(QWebEngineNavigationRequest* src, QObject** outptr_QObject) {
 	*outptr_QObject = static_cast<QObject*>(src);
 }
@@ -81,10 +71,15 @@ void QWebEngineNavigationRequest_actionChanged(QWebEngineNavigationRequest* self
 	self->actionChanged();
 }
 
-void QWebEngineNavigationRequest_connect_actionChanged(QWebEngineNavigationRequest* self, intptr_t slot) {
-	QWebEngineNavigationRequest::connect(self, static_cast<void (QWebEngineNavigationRequest::*)()>(&QWebEngineNavigationRequest::actionChanged), self, [=]() {
-		miqt_exec_callback_QWebEngineNavigationRequest_actionChanged(slot);
-	});
+void QWebEngineNavigationRequest_connect_actionChanged(QWebEngineNavigationRequest* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QWebEngineNavigationRequest::connect(self, static_cast<void (QWebEngineNavigationRequest::*)()>(&QWebEngineNavigationRequest::actionChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QWebEngineNavigationRequest_tr2(const char* s, const char* c) {
