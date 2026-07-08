@@ -6,33 +6,38 @@
 #include <abstractsettings.h>
 #include "gen_abstractsettings.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void miqt_exec_callback_QDesignerSettingsInterface_beginGroup(QDesignerSettingsInterface*, intptr_t, struct seaqt_string);
-void miqt_exec_callback_QDesignerSettingsInterface_endGroup(QDesignerSettingsInterface*, intptr_t);
-bool miqt_exec_callback_QDesignerSettingsInterface_contains(const QDesignerSettingsInterface*, intptr_t, struct seaqt_string);
-void miqt_exec_callback_QDesignerSettingsInterface_setValue(QDesignerSettingsInterface*, intptr_t, struct seaqt_string, QVariant*);
-QVariant* miqt_exec_callback_QDesignerSettingsInterface_value(const QDesignerSettingsInterface*, intptr_t, struct seaqt_string, QVariant*);
-void miqt_exec_callback_QDesignerSettingsInterface_remove(QDesignerSettingsInterface*, intptr_t, struct seaqt_string);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQDesignerSettingsInterface final : public QDesignerSettingsInterface {
+	const QDesignerSettingsInterface_VTable* vtbl;
 public:
+	friend void* QDesignerSettingsInterface_vdata(VirtualQDesignerSettingsInterface* self);
+	friend VirtualQDesignerSettingsInterface* vdata_QDesignerSettingsInterface(void* vdata);
 
-	VirtualQDesignerSettingsInterface(): QDesignerSettingsInterface() {}
+	VirtualQDesignerSettingsInterface(const QDesignerSettingsInterface_VTable* vtbl): QDesignerSettingsInterface(), vtbl(vtbl) {}
 
-	virtual ~VirtualQDesignerSettingsInterface() override = default;
+	virtual ~VirtualQDesignerSettingsInterface() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__beginGroup = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual void beginGroup(const QString& prefix) override {
-		if (handle__beginGroup == 0) {
+		if (vtbl->beginGroup == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -44,29 +49,19 @@ public:
 		prefix_ms.data = static_cast<char*>(malloc(prefix_ms.len));
 		memcpy(prefix_ms.data, prefix_b.data(), prefix_ms.len);
 		struct seaqt_string sigval1 = prefix_ms;
-		miqt_exec_callback_QDesignerSettingsInterface_beginGroup(this, handle__beginGroup, sigval1);
-
+		vtbl->beginGroup(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__endGroup = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void endGroup() override {
-		if (handle__endGroup == 0) {
+		if (vtbl->endGroup == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
-		miqt_exec_callback_QDesignerSettingsInterface_endGroup(this, handle__endGroup);
-
+		vtbl->endGroup(this);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__contains = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool contains(const QString& key) const override {
-		if (handle__contains == 0) {
+		if (vtbl->contains == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
@@ -78,16 +73,12 @@ public:
 		key_ms.data = static_cast<char*>(malloc(key_ms.len));
 		memcpy(key_ms.data, key_b.data(), key_ms.len);
 		struct seaqt_string sigval1 = key_ms;
-		bool callback_return_value = miqt_exec_callback_QDesignerSettingsInterface_contains(this, handle__contains, sigval1);
+		bool callback_return_value = vtbl->contains(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setValue = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setValue(const QString& key, const QVariant& value) override {
-		if (handle__setValue == 0) {
+		if (vtbl->setValue == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -102,16 +93,11 @@ public:
 		const QVariant& value_ret = value;
 		// Cast returned reference into pointer
 		QVariant* sigval2 = const_cast<QVariant*>(&value_ret);
-		miqt_exec_callback_QDesignerSettingsInterface_setValue(this, handle__setValue, sigval1, sigval2);
-
+		vtbl->setValue(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__value = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant value(const QString& key, const QVariant& defaultValue) const override {
-		if (handle__value == 0) {
+		if (vtbl->value == 0) {
 			return QVariant(); // Pure virtual, there is no base we can call
 		}
 
@@ -126,16 +112,12 @@ public:
 		const QVariant& defaultValue_ret = defaultValue;
 		// Cast returned reference into pointer
 		QVariant* sigval2 = const_cast<QVariant*>(&defaultValue_ret);
-		QVariant* callback_return_value = miqt_exec_callback_QDesignerSettingsInterface_value(this, handle__value, sigval1, sigval2);
+		QVariant* callback_return_value = vtbl->value(this, sigval1, sigval2);
 		return *callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__remove = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void remove(const QString& key) override {
-		if (handle__remove == 0) {
+		if (vtbl->remove == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -147,14 +129,14 @@ public:
 		key_ms.data = static_cast<char*>(malloc(key_ms.len));
 		memcpy(key_ms.data, key_b.data(), key_ms.len);
 		struct seaqt_string sigval1 = key_ms;
-		miqt_exec_callback_QDesignerSettingsInterface_remove(this, handle__remove, sigval1);
-
+		vtbl->remove(this, sigval1);
 	}
 
 };
 
-QDesignerSettingsInterface* QDesignerSettingsInterface_new() {
-	return new (std::nothrow) VirtualQDesignerSettingsInterface();
+VirtualQDesignerSettingsInterface* QDesignerSettingsInterface_new(const QDesignerSettingsInterface_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerSettingsInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerSettingsInterface(vtbl) : nullptr;
 }
 
 void QDesignerSettingsInterface_beginGroup(QDesignerSettingsInterface* self, struct seaqt_string prefix) {
@@ -186,65 +168,8 @@ void QDesignerSettingsInterface_remove(QDesignerSettingsInterface* self, struct 
 	self->remove(key_QString);
 }
 
-bool QDesignerSettingsInterface_override_virtual_beginGroup(void* self, intptr_t slot) {
-	VirtualQDesignerSettingsInterface* self_cast = dynamic_cast<VirtualQDesignerSettingsInterface*>( (QDesignerSettingsInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__beginGroup = slot;
-	return true;
-}
-
-bool QDesignerSettingsInterface_override_virtual_endGroup(void* self, intptr_t slot) {
-	VirtualQDesignerSettingsInterface* self_cast = dynamic_cast<VirtualQDesignerSettingsInterface*>( (QDesignerSettingsInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__endGroup = slot;
-	return true;
-}
-
-bool QDesignerSettingsInterface_override_virtual_contains(void* self, intptr_t slot) {
-	VirtualQDesignerSettingsInterface* self_cast = dynamic_cast<VirtualQDesignerSettingsInterface*>( (QDesignerSettingsInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__contains = slot;
-	return true;
-}
-
-bool QDesignerSettingsInterface_override_virtual_setValue(void* self, intptr_t slot) {
-	VirtualQDesignerSettingsInterface* self_cast = dynamic_cast<VirtualQDesignerSettingsInterface*>( (QDesignerSettingsInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setValue = slot;
-	return true;
-}
-
-bool QDesignerSettingsInterface_override_virtual_value(void* self, intptr_t slot) {
-	VirtualQDesignerSettingsInterface* self_cast = dynamic_cast<VirtualQDesignerSettingsInterface*>( (QDesignerSettingsInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__value = slot;
-	return true;
-}
-
-bool QDesignerSettingsInterface_override_virtual_remove(void* self, intptr_t slot) {
-	VirtualQDesignerSettingsInterface* self_cast = dynamic_cast<VirtualQDesignerSettingsInterface*>( (QDesignerSettingsInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__remove = slot;
-	return true;
-}
+void* QDesignerSettingsInterface_vdata(VirtualQDesignerSettingsInterface* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQDesignerSettingsInterface>()); }
+VirtualQDesignerSettingsInterface* vdata_QDesignerSettingsInterface(void* vdata) { return reinterpret_cast<VirtualQDesignerSettingsInterface*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQDesignerSettingsInterface>()); }
 
 void QDesignerSettingsInterface_delete(QDesignerSettingsInterface* self) {
 	delete self;

@@ -23,105 +23,64 @@
 #include <qstringlistmodel.h>
 #include "gen_qstringlistmodel.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QStringListModel_metaObject(const QStringListModel*, intptr_t);
-void* miqt_exec_callback_QStringListModel_metacast(QStringListModel*, intptr_t, const char*);
-int miqt_exec_callback_QStringListModel_metacall(QStringListModel*, intptr_t, int, int, void**);
-int miqt_exec_callback_QStringListModel_rowCount(const QStringListModel*, intptr_t, QModelIndex*);
-QModelIndex* miqt_exec_callback_QStringListModel_sibling(const QStringListModel*, intptr_t, int, int, QModelIndex*);
-QVariant* miqt_exec_callback_QStringListModel_data(const QStringListModel*, intptr_t, QModelIndex*, int);
-bool miqt_exec_callback_QStringListModel_setData(QStringListModel*, intptr_t, QModelIndex*, QVariant*, int);
-bool miqt_exec_callback_QStringListModel_clearItemData(QStringListModel*, intptr_t, QModelIndex*);
-int miqt_exec_callback_QStringListModel_flags(const QStringListModel*, intptr_t, QModelIndex*);
-bool miqt_exec_callback_QStringListModel_insertRows(QStringListModel*, intptr_t, int, int, QModelIndex*);
-bool miqt_exec_callback_QStringListModel_removeRows(QStringListModel*, intptr_t, int, int, QModelIndex*);
-bool miqt_exec_callback_QStringListModel_moveRows(QStringListModel*, intptr_t, QModelIndex*, int, int, QModelIndex*, int);
-struct seaqt_map /* of int to QVariant* */  miqt_exec_callback_QStringListModel_itemData(const QStringListModel*, intptr_t, QModelIndex*);
-bool miqt_exec_callback_QStringListModel_setItemData(QStringListModel*, intptr_t, QModelIndex*, struct seaqt_map /* of int to QVariant* */ );
-void miqt_exec_callback_QStringListModel_sort(QStringListModel*, intptr_t, int, int);
-int miqt_exec_callback_QStringListModel_supportedDropActions(const QStringListModel*, intptr_t);
-QModelIndex* miqt_exec_callback_QStringListModel_index(const QStringListModel*, intptr_t, int, int, QModelIndex*);
-bool miqt_exec_callback_QStringListModel_dropMimeData(QStringListModel*, intptr_t, QMimeData*, int, int, int, QModelIndex*);
-QVariant* miqt_exec_callback_QStringListModel_headerData(const QStringListModel*, intptr_t, int, int, int);
-bool miqt_exec_callback_QStringListModel_setHeaderData(QStringListModel*, intptr_t, int, int, QVariant*, int);
-struct seaqt_array /* of struct seaqt_string */  miqt_exec_callback_QStringListModel_mimeTypes(const QStringListModel*, intptr_t);
-QMimeData* miqt_exec_callback_QStringListModel_mimeData(const QStringListModel*, intptr_t, struct seaqt_array /* of QModelIndex* */ );
-bool miqt_exec_callback_QStringListModel_canDropMimeData(const QStringListModel*, intptr_t, QMimeData*, int, int, int, QModelIndex*);
-int miqt_exec_callback_QStringListModel_supportedDragActions(const QStringListModel*, intptr_t);
-bool miqt_exec_callback_QStringListModel_insertColumns(QStringListModel*, intptr_t, int, int, QModelIndex*);
-bool miqt_exec_callback_QStringListModel_removeColumns(QStringListModel*, intptr_t, int, int, QModelIndex*);
-bool miqt_exec_callback_QStringListModel_moveColumns(QStringListModel*, intptr_t, QModelIndex*, int, int, QModelIndex*, int);
-void miqt_exec_callback_QStringListModel_fetchMore(QStringListModel*, intptr_t, QModelIndex*);
-bool miqt_exec_callback_QStringListModel_canFetchMore(const QStringListModel*, intptr_t, QModelIndex*);
-QModelIndex* miqt_exec_callback_QStringListModel_buddy(const QStringListModel*, intptr_t, QModelIndex*);
-struct seaqt_array /* of QModelIndex* */  miqt_exec_callback_QStringListModel_match(const QStringListModel*, intptr_t, QModelIndex*, int, QVariant*, int, int);
-QSize* miqt_exec_callback_QStringListModel_span(const QStringListModel*, intptr_t, QModelIndex*);
-struct seaqt_map /* of int to struct seaqt_string */  miqt_exec_callback_QStringListModel_roleNames(const QStringListModel*, intptr_t);
-void miqt_exec_callback_QStringListModel_multiData(const QStringListModel*, intptr_t, QModelIndex*, QModelRoleDataSpan*);
-bool miqt_exec_callback_QStringListModel_submit(QStringListModel*, intptr_t);
-void miqt_exec_callback_QStringListModel_revert(QStringListModel*, intptr_t);
-void miqt_exec_callback_QStringListModel_resetInternalData(QStringListModel*, intptr_t);
-bool miqt_exec_callback_QStringListModel_event(QStringListModel*, intptr_t, QEvent*);
-bool miqt_exec_callback_QStringListModel_eventFilter(QStringListModel*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QStringListModel_timerEvent(QStringListModel*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QStringListModel_childEvent(QStringListModel*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QStringListModel_customEvent(QStringListModel*, intptr_t, QEvent*);
-void miqt_exec_callback_QStringListModel_connectNotify(QStringListModel*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QStringListModel_disconnectNotify(QStringListModel*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQStringListModel final : public QStringListModel {
+	const QStringListModel_VTable* vtbl;
 public:
+	friend void* QStringListModel_vdata(VirtualQStringListModel* self);
+	friend VirtualQStringListModel* vdata_QStringListModel(void* vdata);
 
-	VirtualQStringListModel(): QStringListModel() {}
-	VirtualQStringListModel(const QStringList& strings): QStringListModel(strings) {}
-	VirtualQStringListModel(QObject* parent): QStringListModel(parent) {}
-	VirtualQStringListModel(const QStringList& strings, QObject* parent): QStringListModel(strings, parent) {}
+	VirtualQStringListModel(const QStringListModel_VTable* vtbl): QStringListModel(), vtbl(vtbl) {}
+	VirtualQStringListModel(const QStringListModel_VTable* vtbl, const QStringList& strings): QStringListModel(strings), vtbl(vtbl) {}
+	VirtualQStringListModel(const QStringListModel_VTable* vtbl, QObject* parent): QStringListModel(parent), vtbl(vtbl) {}
+	VirtualQStringListModel(const QStringListModel_VTable* vtbl, const QStringList& strings, QObject* parent): QStringListModel(strings, parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQStringListModel() override = default;
+	virtual ~VirtualQStringListModel() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QStringListModel::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QStringListModel_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QStringListModel_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QStringListModel_virtualbase_metaObject(const VirtualQStringListModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QStringListModel::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QStringListModel_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QStringListModel_virtualbase_metacast(void* self, const char* param1);
+	friend void* QStringListModel_virtualbase_metacast(VirtualQStringListModel* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QStringListModel::qt_metacall(param1, param2, param3);
 		}
 
@@ -129,36 +88,28 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QStringListModel_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QStringListModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QStringListModel_virtualbase_metacall(VirtualQStringListModel* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__rowCount = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int rowCount(const QModelIndex& parent) const override {
-		if (handle__rowCount == 0) {
+		if (vtbl->rowCount == 0) {
 			return QStringListModel::rowCount(parent);
 		}
 
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&parent_ret);
-		int callback_return_value = miqt_exec_callback_QStringListModel_rowCount(this, handle__rowCount, sigval1);
+		int callback_return_value = vtbl->rowCount(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QStringListModel_virtualbase_rowCount(const void* self, QModelIndex* parent);
+	friend int QStringListModel_virtualbase_rowCount(const VirtualQStringListModel* self, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sibling = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QModelIndex sibling(int row, int column, const QModelIndex& idx) const override {
-		if (handle__sibling == 0) {
+		if (vtbl->sibling == 0) {
 			return QStringListModel::sibling(row, column, idx);
 		}
 
@@ -167,18 +118,14 @@ public:
 		const QModelIndex& idx_ret = idx;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&idx_ret);
-		QModelIndex* callback_return_value = miqt_exec_callback_QStringListModel_sibling(this, handle__sibling, sigval1, sigval2, sigval3);
+		QModelIndex* callback_return_value = vtbl->sibling(this, sigval1, sigval2, sigval3);
 		return *callback_return_value;
 	}
 
-	friend QModelIndex* QStringListModel_virtualbase_sibling(const void* self, int row, int column, QModelIndex* idx);
+	friend QModelIndex* QStringListModel_virtualbase_sibling(const VirtualQStringListModel* self, int row, int column, QModelIndex* idx);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__data = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant data(const QModelIndex& index, int role) const override {
-		if (handle__data == 0) {
+		if (vtbl->data == 0) {
 			return QStringListModel::data(index, role);
 		}
 
@@ -186,18 +133,14 @@ public:
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
 		int sigval2 = role;
-		QVariant* callback_return_value = miqt_exec_callback_QStringListModel_data(this, handle__data, sigval1, sigval2);
+		QVariant* callback_return_value = vtbl->data(this, sigval1, sigval2);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QStringListModel_virtualbase_data(const void* self, QModelIndex* index, int role);
+	friend QVariant* QStringListModel_virtualbase_data(const VirtualQStringListModel* self, QModelIndex* index, int role);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool setData(const QModelIndex& index, const QVariant& value, int role) override {
-		if (handle__setData == 0) {
+		if (vtbl->setData == 0) {
 			return QStringListModel::setData(index, value, role);
 		}
 
@@ -208,54 +151,42 @@ public:
 		// Cast returned reference into pointer
 		QVariant* sigval2 = const_cast<QVariant*>(&value_ret);
 		int sigval3 = role;
-		bool callback_return_value = miqt_exec_callback_QStringListModel_setData(this, handle__setData, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->setData(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_setData(void* self, QModelIndex* index, QVariant* value, int role);
+	friend bool QStringListModel_virtualbase_setData(VirtualQStringListModel* self, QModelIndex* index, QVariant* value, int role);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clearItemData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool clearItemData(const QModelIndex& index) override {
-		if (handle__clearItemData == 0) {
+		if (vtbl->clearItemData == 0) {
 			return QStringListModel::clearItemData(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		bool callback_return_value = miqt_exec_callback_QStringListModel_clearItemData(this, handle__clearItemData, sigval1);
+		bool callback_return_value = vtbl->clearItemData(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_clearItemData(void* self, QModelIndex* index);
+	friend bool QStringListModel_virtualbase_clearItemData(VirtualQStringListModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__flags = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual Qt::ItemFlags flags(const QModelIndex& index) const override {
-		if (handle__flags == 0) {
+		if (vtbl->flags == 0) {
 			return QStringListModel::flags(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		int callback_return_value = miqt_exec_callback_QStringListModel_flags(this, handle__flags, sigval1);
+		int callback_return_value = vtbl->flags(this, sigval1);
 		return static_cast<Qt::ItemFlags>(callback_return_value);
 	}
 
-	friend int QStringListModel_virtualbase_flags(const void* self, QModelIndex* index);
+	friend int QStringListModel_virtualbase_flags(const VirtualQStringListModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__insertRows = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool insertRows(int row, int count, const QModelIndex& parent) override {
-		if (handle__insertRows == 0) {
+		if (vtbl->insertRows == 0) {
 			return QStringListModel::insertRows(row, count, parent);
 		}
 
@@ -264,18 +195,14 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QStringListModel_insertRows(this, handle__insertRows, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->insertRows(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_insertRows(void* self, int row, int count, QModelIndex* parent);
+	friend bool QStringListModel_virtualbase_insertRows(VirtualQStringListModel* self, int row, int count, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__removeRows = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool removeRows(int row, int count, const QModelIndex& parent) override {
-		if (handle__removeRows == 0) {
+		if (vtbl->removeRows == 0) {
 			return QStringListModel::removeRows(row, count, parent);
 		}
 
@@ -284,18 +211,14 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QStringListModel_removeRows(this, handle__removeRows, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->removeRows(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_removeRows(void* self, int row, int count, QModelIndex* parent);
+	friend bool QStringListModel_virtualbase_removeRows(VirtualQStringListModel* self, int row, int count, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__moveRows = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool moveRows(const QModelIndex& sourceParent, int sourceRow, int count, const QModelIndex& destinationParent, int destinationChild) override {
-		if (handle__moveRows == 0) {
+		if (vtbl->moveRows == 0) {
 			return QStringListModel::moveRows(sourceParent, sourceRow, count, destinationParent, destinationChild);
 		}
 
@@ -308,25 +231,21 @@ public:
 		// Cast returned reference into pointer
 		QModelIndex* sigval4 = const_cast<QModelIndex*>(&destinationParent_ret);
 		int sigval5 = destinationChild;
-		bool callback_return_value = miqt_exec_callback_QStringListModel_moveRows(this, handle__moveRows, sigval1, sigval2, sigval3, sigval4, sigval5);
+		bool callback_return_value = vtbl->moveRows(this, sigval1, sigval2, sigval3, sigval4, sigval5);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_moveRows(void* self, QModelIndex* sourceParent, int sourceRow, int count, QModelIndex* destinationParent, int destinationChild);
+	friend bool QStringListModel_virtualbase_moveRows(VirtualQStringListModel* self, QModelIndex* sourceParent, int sourceRow, int count, QModelIndex* destinationParent, int destinationChild);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__itemData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QMap<int, QVariant> itemData(const QModelIndex& index) const override {
-		if (handle__itemData == 0) {
+		if (vtbl->itemData == 0) {
 			return QStringListModel::itemData(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		struct seaqt_map /* of int to QVariant* */  callback_return_value = miqt_exec_callback_QStringListModel_itemData(this, handle__itemData, sigval1);
+		struct seaqt_map /* of int to QVariant* */  callback_return_value = vtbl->itemData(this, sigval1);
 		QMap<int, QVariant> callback_return_value_QMap;
 		int* callback_return_value_karr = static_cast<int*>(callback_return_value.keys);
 		QVariant** callback_return_value_varr = static_cast<QVariant**>(callback_return_value.values);
@@ -336,14 +255,10 @@ public:
 		return callback_return_value_QMap;
 	}
 
-	friend struct seaqt_map /* of int to QVariant* */  QStringListModel_virtualbase_itemData(const void* self, QModelIndex* index);
+	friend struct seaqt_map /* of int to QVariant* */  QStringListModel_virtualbase_itemData(const VirtualQStringListModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setItemData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool setItemData(const QModelIndex& index, const QMap<int, QVariant>& roles) override {
-		if (handle__setItemData == 0) {
+		if (vtbl->setItemData == 0) {
 			return QStringListModel::setItemData(index, roles);
 		}
 
@@ -365,18 +280,14 @@ public:
 		roles_out.keys = static_cast<void*>(roles_karr);
 		roles_out.values = static_cast<void*>(roles_varr);
 		struct seaqt_map /* of int to QVariant* */  sigval2 = roles_out;
-		bool callback_return_value = miqt_exec_callback_QStringListModel_setItemData(this, handle__setItemData, sigval1, sigval2);
+		bool callback_return_value = vtbl->setItemData(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_setItemData(void* self, QModelIndex* index, struct seaqt_map /* of int to QVariant* */  roles);
+	friend bool QStringListModel_virtualbase_setItemData(VirtualQStringListModel* self, QModelIndex* index, struct seaqt_map /* of int to QVariant* */  roles);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sort = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void sort(int column, Qt::SortOrder order) override {
-		if (handle__sort == 0) {
+		if (vtbl->sort == 0) {
 			QStringListModel::sort(column, order);
 			return;
 		}
@@ -384,33 +295,24 @@ public:
 		int sigval1 = column;
 		Qt::SortOrder order_ret = order;
 		int sigval2 = static_cast<int>(order_ret);
-		miqt_exec_callback_QStringListModel_sort(this, handle__sort, sigval1, sigval2);
-
+		vtbl->sort(this, sigval1, sigval2);
 	}
 
-	friend void QStringListModel_virtualbase_sort(void* self, int column, int order);
+	friend void QStringListModel_virtualbase_sort(VirtualQStringListModel* self, int column, int order);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__supportedDropActions = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual Qt::DropActions supportedDropActions() const override {
-		if (handle__supportedDropActions == 0) {
+		if (vtbl->supportedDropActions == 0) {
 			return QStringListModel::supportedDropActions();
 		}
 
-		int callback_return_value = miqt_exec_callback_QStringListModel_supportedDropActions(this, handle__supportedDropActions);
+		int callback_return_value = vtbl->supportedDropActions(this);
 		return static_cast<Qt::DropActions>(callback_return_value);
 	}
 
-	friend int QStringListModel_virtualbase_supportedDropActions(const void* self);
+	friend int QStringListModel_virtualbase_supportedDropActions(const VirtualQStringListModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__index = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QModelIndex index(int row, int column, const QModelIndex& parent) const override {
-		if (handle__index == 0) {
+		if (vtbl->index == 0) {
 			return QStringListModel::index(row, column, parent);
 		}
 
@@ -419,18 +321,14 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&parent_ret);
-		QModelIndex* callback_return_value = miqt_exec_callback_QStringListModel_index(this, handle__index, sigval1, sigval2, sigval3);
+		QModelIndex* callback_return_value = vtbl->index(this, sigval1, sigval2, sigval3);
 		return *callback_return_value;
 	}
 
-	friend QModelIndex* QStringListModel_virtualbase_index(const void* self, int row, int column, QModelIndex* parent);
+	friend QModelIndex* QStringListModel_virtualbase_index(const VirtualQStringListModel* self, int row, int column, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dropMimeData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent) override {
-		if (handle__dropMimeData == 0) {
+		if (vtbl->dropMimeData == 0) {
 			return QStringListModel::dropMimeData(data, action, row, column, parent);
 		}
 
@@ -442,18 +340,14 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval5 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QStringListModel_dropMimeData(this, handle__dropMimeData, sigval1, sigval2, sigval3, sigval4, sigval5);
+		bool callback_return_value = vtbl->dropMimeData(this, sigval1, sigval2, sigval3, sigval4, sigval5);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_dropMimeData(void* self, QMimeData* data, int action, int row, int column, QModelIndex* parent);
+	friend bool QStringListModel_virtualbase_dropMimeData(VirtualQStringListModel* self, QMimeData* data, int action, int row, int column, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__headerData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const override {
-		if (handle__headerData == 0) {
+		if (vtbl->headerData == 0) {
 			return QStringListModel::headerData(section, orientation, role);
 		}
 
@@ -461,18 +355,14 @@ public:
 		Qt::Orientation orientation_ret = orientation;
 		int sigval2 = static_cast<int>(orientation_ret);
 		int sigval3 = role;
-		QVariant* callback_return_value = miqt_exec_callback_QStringListModel_headerData(this, handle__headerData, sigval1, sigval2, sigval3);
+		QVariant* callback_return_value = vtbl->headerData(this, sigval1, sigval2, sigval3);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QStringListModel_virtualbase_headerData(const void* self, int section, int orientation, int role);
+	friend QVariant* QStringListModel_virtualbase_headerData(const VirtualQStringListModel* self, int section, int orientation, int role);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setHeaderData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool setHeaderData(int section, Qt::Orientation orientation, const QVariant& value, int role) override {
-		if (handle__setHeaderData == 0) {
+		if (vtbl->setHeaderData == 0) {
 			return QStringListModel::setHeaderData(section, orientation, value, role);
 		}
 
@@ -483,22 +373,18 @@ public:
 		// Cast returned reference into pointer
 		QVariant* sigval3 = const_cast<QVariant*>(&value_ret);
 		int sigval4 = role;
-		bool callback_return_value = miqt_exec_callback_QStringListModel_setHeaderData(this, handle__setHeaderData, sigval1, sigval2, sigval3, sigval4);
+		bool callback_return_value = vtbl->setHeaderData(this, sigval1, sigval2, sigval3, sigval4);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_setHeaderData(void* self, int section, int orientation, QVariant* value, int role);
+	friend bool QStringListModel_virtualbase_setHeaderData(VirtualQStringListModel* self, int section, int orientation, QVariant* value, int role);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mimeTypes = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QStringList mimeTypes() const override {
-		if (handle__mimeTypes == 0) {
+		if (vtbl->mimeTypes == 0) {
 			return QStringListModel::mimeTypes();
 		}
 
-		struct seaqt_array /* of struct seaqt_string */  callback_return_value = miqt_exec_callback_QStringListModel_mimeTypes(this, handle__mimeTypes);
+		struct seaqt_array /* of struct seaqt_string */  callback_return_value = vtbl->mimeTypes(this);
 		QStringList callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		struct seaqt_string* callback_return_value_arr = static_cast<struct seaqt_string*>(callback_return_value.data);
@@ -509,14 +395,10 @@ public:
 		return callback_return_value_QList;
 	}
 
-	friend struct seaqt_array /* of struct seaqt_string */  QStringListModel_virtualbase_mimeTypes(const void* self);
+	friend struct seaqt_array /* of struct seaqt_string */  QStringListModel_virtualbase_mimeTypes(const VirtualQStringListModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mimeData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QMimeData* mimeData(const QModelIndexList& indexes) const override {
-		if (handle__mimeData == 0) {
+		if (vtbl->mimeData == 0) {
 			return QStringListModel::mimeData(indexes);
 		}
 
@@ -530,18 +412,14 @@ public:
 		indexes_out.len = indexes_ret.length();
 		indexes_out.data = static_cast<void*>(indexes_arr);
 		struct seaqt_array /* of QModelIndex* */  sigval1 = indexes_out;
-		QMimeData* callback_return_value = miqt_exec_callback_QStringListModel_mimeData(this, handle__mimeData, sigval1);
+		QMimeData* callback_return_value = vtbl->mimeData(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QMimeData* QStringListModel_virtualbase_mimeData(const void* self, struct seaqt_array /* of QModelIndex* */  indexes);
+	friend QMimeData* QStringListModel_virtualbase_mimeData(const VirtualQStringListModel* self, struct seaqt_array /* of QModelIndex* */  indexes);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__canDropMimeData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool canDropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent) const override {
-		if (handle__canDropMimeData == 0) {
+		if (vtbl->canDropMimeData == 0) {
 			return QStringListModel::canDropMimeData(data, action, row, column, parent);
 		}
 
@@ -553,33 +431,25 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval5 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QStringListModel_canDropMimeData(this, handle__canDropMimeData, sigval1, sigval2, sigval3, sigval4, sigval5);
+		bool callback_return_value = vtbl->canDropMimeData(this, sigval1, sigval2, sigval3, sigval4, sigval5);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_canDropMimeData(const void* self, QMimeData* data, int action, int row, int column, QModelIndex* parent);
+	friend bool QStringListModel_virtualbase_canDropMimeData(const VirtualQStringListModel* self, QMimeData* data, int action, int row, int column, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__supportedDragActions = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual Qt::DropActions supportedDragActions() const override {
-		if (handle__supportedDragActions == 0) {
+		if (vtbl->supportedDragActions == 0) {
 			return QStringListModel::supportedDragActions();
 		}
 
-		int callback_return_value = miqt_exec_callback_QStringListModel_supportedDragActions(this, handle__supportedDragActions);
+		int callback_return_value = vtbl->supportedDragActions(this);
 		return static_cast<Qt::DropActions>(callback_return_value);
 	}
 
-	friend int QStringListModel_virtualbase_supportedDragActions(const void* self);
+	friend int QStringListModel_virtualbase_supportedDragActions(const VirtualQStringListModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__insertColumns = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool insertColumns(int column, int count, const QModelIndex& parent) override {
-		if (handle__insertColumns == 0) {
+		if (vtbl->insertColumns == 0) {
 			return QStringListModel::insertColumns(column, count, parent);
 		}
 
@@ -588,18 +458,14 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QStringListModel_insertColumns(this, handle__insertColumns, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->insertColumns(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_insertColumns(void* self, int column, int count, QModelIndex* parent);
+	friend bool QStringListModel_virtualbase_insertColumns(VirtualQStringListModel* self, int column, int count, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__removeColumns = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool removeColumns(int column, int count, const QModelIndex& parent) override {
-		if (handle__removeColumns == 0) {
+		if (vtbl->removeColumns == 0) {
 			return QStringListModel::removeColumns(column, count, parent);
 		}
 
@@ -608,18 +474,14 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QStringListModel_removeColumns(this, handle__removeColumns, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->removeColumns(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_removeColumns(void* self, int column, int count, QModelIndex* parent);
+	friend bool QStringListModel_virtualbase_removeColumns(VirtualQStringListModel* self, int column, int count, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__moveColumns = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool moveColumns(const QModelIndex& sourceParent, int sourceColumn, int count, const QModelIndex& destinationParent, int destinationChild) override {
-		if (handle__moveColumns == 0) {
+		if (vtbl->moveColumns == 0) {
 			return QStringListModel::moveColumns(sourceParent, sourceColumn, count, destinationParent, destinationChild);
 		}
 
@@ -632,18 +494,14 @@ public:
 		// Cast returned reference into pointer
 		QModelIndex* sigval4 = const_cast<QModelIndex*>(&destinationParent_ret);
 		int sigval5 = destinationChild;
-		bool callback_return_value = miqt_exec_callback_QStringListModel_moveColumns(this, handle__moveColumns, sigval1, sigval2, sigval3, sigval4, sigval5);
+		bool callback_return_value = vtbl->moveColumns(this, sigval1, sigval2, sigval3, sigval4, sigval5);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_moveColumns(void* self, QModelIndex* sourceParent, int sourceColumn, int count, QModelIndex* destinationParent, int destinationChild);
+	friend bool QStringListModel_virtualbase_moveColumns(VirtualQStringListModel* self, QModelIndex* sourceParent, int sourceColumn, int count, QModelIndex* destinationParent, int destinationChild);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__fetchMore = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void fetchMore(const QModelIndex& parent) override {
-		if (handle__fetchMore == 0) {
+		if (vtbl->fetchMore == 0) {
 			QStringListModel::fetchMore(parent);
 			return;
 		}
@@ -651,54 +509,41 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&parent_ret);
-		miqt_exec_callback_QStringListModel_fetchMore(this, handle__fetchMore, sigval1);
-
+		vtbl->fetchMore(this, sigval1);
 	}
 
-	friend void QStringListModel_virtualbase_fetchMore(void* self, QModelIndex* parent);
+	friend void QStringListModel_virtualbase_fetchMore(VirtualQStringListModel* self, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__canFetchMore = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool canFetchMore(const QModelIndex& parent) const override {
-		if (handle__canFetchMore == 0) {
+		if (vtbl->canFetchMore == 0) {
 			return QStringListModel::canFetchMore(parent);
 		}
 
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QStringListModel_canFetchMore(this, handle__canFetchMore, sigval1);
+		bool callback_return_value = vtbl->canFetchMore(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_canFetchMore(const void* self, QModelIndex* parent);
+	friend bool QStringListModel_virtualbase_canFetchMore(const VirtualQStringListModel* self, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__buddy = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QModelIndex buddy(const QModelIndex& index) const override {
-		if (handle__buddy == 0) {
+		if (vtbl->buddy == 0) {
 			return QStringListModel::buddy(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		QModelIndex* callback_return_value = miqt_exec_callback_QStringListModel_buddy(this, handle__buddy, sigval1);
+		QModelIndex* callback_return_value = vtbl->buddy(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QModelIndex* QStringListModel_virtualbase_buddy(const void* self, QModelIndex* index);
+	friend QModelIndex* QStringListModel_virtualbase_buddy(const VirtualQStringListModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__match = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QModelIndexList match(const QModelIndex& start, int role, const QVariant& value, int hits, Qt::MatchFlags flags) const override {
-		if (handle__match == 0) {
+		if (vtbl->match == 0) {
 			return QStringListModel::match(start, role, value, hits, flags);
 		}
 
@@ -712,7 +557,7 @@ public:
 		int sigval4 = hits;
 		Qt::MatchFlags flags_ret = flags;
 		int sigval5 = static_cast<int>(flags_ret);
-		struct seaqt_array /* of QModelIndex* */  callback_return_value = miqt_exec_callback_QStringListModel_match(this, handle__match, sigval1, sigval2, sigval3, sigval4, sigval5);
+		struct seaqt_array /* of QModelIndex* */  callback_return_value = vtbl->match(this, sigval1, sigval2, sigval3, sigval4, sigval5);
 		QModelIndexList callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		QModelIndex** callback_return_value_arr = static_cast<QModelIndex**>(callback_return_value.data);
@@ -722,36 +567,28 @@ public:
 		return callback_return_value_QList;
 	}
 
-	friend struct seaqt_array /* of QModelIndex* */  QStringListModel_virtualbase_match(const void* self, QModelIndex* start, int role, QVariant* value, int hits, int flags);
+	friend struct seaqt_array /* of QModelIndex* */  QStringListModel_virtualbase_match(const VirtualQStringListModel* self, QModelIndex* start, int role, QVariant* value, int hits, int flags);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__span = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize span(const QModelIndex& index) const override {
-		if (handle__span == 0) {
+		if (vtbl->span == 0) {
 			return QStringListModel::span(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		QSize* callback_return_value = miqt_exec_callback_QStringListModel_span(this, handle__span, sigval1);
+		QSize* callback_return_value = vtbl->span(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QSize* QStringListModel_virtualbase_span(const void* self, QModelIndex* index);
+	friend QSize* QStringListModel_virtualbase_span(const VirtualQStringListModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__roleNames = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QHash<int, QByteArray> roleNames() const override {
-		if (handle__roleNames == 0) {
+		if (vtbl->roleNames == 0) {
 			return QStringListModel::roleNames();
 		}
 
-		struct seaqt_map /* of int to struct seaqt_string */  callback_return_value = miqt_exec_callback_QStringListModel_roleNames(this, handle__roleNames);
+		struct seaqt_map /* of int to struct seaqt_string */  callback_return_value = vtbl->roleNames(this);
 		QHash<int, QByteArray> callback_return_value_QMap;
 		callback_return_value_QMap.reserve(callback_return_value.len);
 		int* callback_return_value_karr = static_cast<int*>(callback_return_value.keys);
@@ -763,14 +600,10 @@ public:
 		return callback_return_value_QMap;
 	}
 
-	friend struct seaqt_map /* of int to struct seaqt_string */  QStringListModel_virtualbase_roleNames(const void* self);
+	friend struct seaqt_map /* of int to struct seaqt_string */  QStringListModel_virtualbase_roleNames(const VirtualQStringListModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__multiData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void multiData(const QModelIndex& index, QModelRoleDataSpan roleDataSpan) const override {
-		if (handle__multiData == 0) {
+		if (vtbl->multiData == 0) {
 			QStringListModel::multiData(index, roleDataSpan);
 			return;
 		}
@@ -779,149 +612,107 @@ public:
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
 		QModelRoleDataSpan* sigval2 = new QModelRoleDataSpan(roleDataSpan);
-		miqt_exec_callback_QStringListModel_multiData(this, handle__multiData, sigval1, sigval2);
-
+		vtbl->multiData(this, sigval1, sigval2);
 	}
 
-	friend void QStringListModel_virtualbase_multiData(const void* self, QModelIndex* index, QModelRoleDataSpan* roleDataSpan);
+	friend void QStringListModel_virtualbase_multiData(const VirtualQStringListModel* self, QModelIndex* index, QModelRoleDataSpan* roleDataSpan);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__submit = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool submit() override {
-		if (handle__submit == 0) {
+		if (vtbl->submit == 0) {
 			return QStringListModel::submit();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QStringListModel_submit(this, handle__submit);
+		bool callback_return_value = vtbl->submit(this);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_submit(void* self);
+	friend bool QStringListModel_virtualbase_submit(VirtualQStringListModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__revert = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void revert() override {
-		if (handle__revert == 0) {
+		if (vtbl->revert == 0) {
 			QStringListModel::revert();
 			return;
 		}
 
-		miqt_exec_callback_QStringListModel_revert(this, handle__revert);
-
+		vtbl->revert(this);
 	}
 
-	friend void QStringListModel_virtualbase_revert(void* self);
+	friend void QStringListModel_virtualbase_revert(VirtualQStringListModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__resetInternalData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void resetInternalData() override {
-		if (handle__resetInternalData == 0) {
+		if (vtbl->resetInternalData == 0) {
 			QStringListModel::resetInternalData();
 			return;
 		}
 
-		miqt_exec_callback_QStringListModel_resetInternalData(this, handle__resetInternalData);
-
+		vtbl->resetInternalData(this);
 	}
 
-	friend void QStringListModel_virtualbase_resetInternalData(void* self);
+	friend void QStringListModel_virtualbase_resetInternalData(VirtualQStringListModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QStringListModel::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QStringListModel_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_event(void* self, QEvent* event);
+	friend bool QStringListModel_virtualbase_event(VirtualQStringListModel* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QStringListModel::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QStringListModel_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QStringListModel_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QStringListModel_virtualbase_eventFilter(VirtualQStringListModel* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QStringListModel::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QStringListModel_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QStringListModel_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QStringListModel_virtualbase_timerEvent(VirtualQStringListModel* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QStringListModel::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QStringListModel_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QStringListModel_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QStringListModel_virtualbase_childEvent(VirtualQStringListModel* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QStringListModel::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QStringListModel_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QStringListModel_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QStringListModel_virtualbase_customEvent(VirtualQStringListModel* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QStringListModel::connectNotify(signal);
 			return;
 		}
@@ -929,18 +720,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QStringListModel_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QStringListModel_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QStringListModel_virtualbase_connectNotify(VirtualQStringListModel* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QStringListModel::disconnectNotify(signal);
 			return;
 		}
@@ -948,44 +734,44 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QStringListModel_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QStringListModel_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QStringListModel_virtualbase_disconnectNotify(VirtualQStringListModel* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QModelIndex* QStringListModel_protectedbase_createIndex(bool* _dynamic_cast_ok, const void* self, int row, int column);
-	friend void QStringListModel_protectedbase_encodeData(bool* _dynamic_cast_ok, const void* self, struct seaqt_array /* of QModelIndex* */  indexes, QDataStream* stream);
-	friend bool QStringListModel_protectedbase_decodeData(bool* _dynamic_cast_ok, void* self, int row, int column, QModelIndex* parent, QDataStream* stream);
-	friend void QStringListModel_protectedbase_beginInsertRows(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last);
-	friend void QStringListModel_protectedbase_endInsertRows(bool* _dynamic_cast_ok, void* self);
-	friend void QStringListModel_protectedbase_beginRemoveRows(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last);
-	friend void QStringListModel_protectedbase_endRemoveRows(bool* _dynamic_cast_ok, void* self);
-	friend bool QStringListModel_protectedbase_beginMoveRows(bool* _dynamic_cast_ok, void* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationRow);
-	friend void QStringListModel_protectedbase_endMoveRows(bool* _dynamic_cast_ok, void* self);
-	friend void QStringListModel_protectedbase_beginInsertColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last);
-	friend void QStringListModel_protectedbase_endInsertColumns(bool* _dynamic_cast_ok, void* self);
-	friend void QStringListModel_protectedbase_beginRemoveColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last);
-	friend void QStringListModel_protectedbase_endRemoveColumns(bool* _dynamic_cast_ok, void* self);
-	friend bool QStringListModel_protectedbase_beginMoveColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationColumn);
-	friend void QStringListModel_protectedbase_endMoveColumns(bool* _dynamic_cast_ok, void* self);
-	friend void QStringListModel_protectedbase_beginResetModel(bool* _dynamic_cast_ok, void* self);
-	friend void QStringListModel_protectedbase_endResetModel(bool* _dynamic_cast_ok, void* self);
-	friend void QStringListModel_protectedbase_changePersistentIndex(bool* _dynamic_cast_ok, void* self, QModelIndex* from, QModelIndex* to);
-	friend void QStringListModel_protectedbase_changePersistentIndexList(bool* _dynamic_cast_ok, void* self, struct seaqt_array /* of QModelIndex* */  from, struct seaqt_array /* of QModelIndex* */  to);
-	friend struct seaqt_array /* of QModelIndex* */  QStringListModel_protectedbase_persistentIndexList(bool* _dynamic_cast_ok, const void* self);
-	friend QObject* QStringListModel_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QStringListModel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QStringListModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QStringListModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QModelIndex* QStringListModel_protectedbase_createIndex(const VirtualQStringListModel* self, int row, int column);
+	friend void QStringListModel_protectedbase_encodeData(const VirtualQStringListModel* self, struct seaqt_array /* of QModelIndex* */  indexes, QDataStream* stream);
+	friend bool QStringListModel_protectedbase_decodeData(VirtualQStringListModel* self, int row, int column, QModelIndex* parent, QDataStream* stream);
+	friend void QStringListModel_protectedbase_beginInsertRows(VirtualQStringListModel* self, QModelIndex* parent, int first, int last);
+	friend void QStringListModel_protectedbase_endInsertRows(VirtualQStringListModel* self);
+	friend void QStringListModel_protectedbase_beginRemoveRows(VirtualQStringListModel* self, QModelIndex* parent, int first, int last);
+	friend void QStringListModel_protectedbase_endRemoveRows(VirtualQStringListModel* self);
+	friend bool QStringListModel_protectedbase_beginMoveRows(VirtualQStringListModel* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationRow);
+	friend void QStringListModel_protectedbase_endMoveRows(VirtualQStringListModel* self);
+	friend void QStringListModel_protectedbase_beginInsertColumns(VirtualQStringListModel* self, QModelIndex* parent, int first, int last);
+	friend void QStringListModel_protectedbase_endInsertColumns(VirtualQStringListModel* self);
+	friend void QStringListModel_protectedbase_beginRemoveColumns(VirtualQStringListModel* self, QModelIndex* parent, int first, int last);
+	friend void QStringListModel_protectedbase_endRemoveColumns(VirtualQStringListModel* self);
+	friend bool QStringListModel_protectedbase_beginMoveColumns(VirtualQStringListModel* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationColumn);
+	friend void QStringListModel_protectedbase_endMoveColumns(VirtualQStringListModel* self);
+	friend void QStringListModel_protectedbase_beginResetModel(VirtualQStringListModel* self);
+	friend void QStringListModel_protectedbase_endResetModel(VirtualQStringListModel* self);
+	friend void QStringListModel_protectedbase_changePersistentIndex(VirtualQStringListModel* self, QModelIndex* from, QModelIndex* to);
+	friend void QStringListModel_protectedbase_changePersistentIndexList(VirtualQStringListModel* self, struct seaqt_array /* of QModelIndex* */  from, struct seaqt_array /* of QModelIndex* */  to);
+	friend struct seaqt_array /* of QModelIndex* */  QStringListModel_protectedbase_persistentIndexList(const VirtualQStringListModel* self);
+	friend QObject* QStringListModel_protectedbase_sender(const VirtualQStringListModel* self);
+	friend int QStringListModel_protectedbase_senderSignalIndex(const VirtualQStringListModel* self);
+	friend int QStringListModel_protectedbase_receivers(const VirtualQStringListModel* self, const char* signal);
+	friend bool QStringListModel_protectedbase_isSignalConnected(const VirtualQStringListModel* self, QMetaMethod* signal);
 };
 
-QStringListModel* QStringListModel_new() {
-	return new (std::nothrow) VirtualQStringListModel();
+VirtualQStringListModel* QStringListModel_new(const QStringListModel_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQStringListModel>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQStringListModel(vtbl) : nullptr;
 }
 
-QStringListModel* QStringListModel_new2(struct seaqt_array /* of struct seaqt_string */  strings) {
+VirtualQStringListModel* QStringListModel_new2(const QStringListModel_VTable* vtbl, size_t vdata, struct seaqt_array /* of struct seaqt_string */  strings) {
 	QStringList strings_QList;
 	strings_QList.reserve(strings.len);
 	struct seaqt_string* strings_arr = static_cast<struct seaqt_string*>(strings.data);
@@ -993,14 +779,16 @@ QStringListModel* QStringListModel_new2(struct seaqt_array /* of struct seaqt_st
 		QString strings_arr_i_QString = QString::fromUtf8(strings_arr[i].data, strings_arr[i].len);
 		strings_QList.push_back(strings_arr_i_QString);
 	}
-	return new (std::nothrow) VirtualQStringListModel(strings_QList);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQStringListModel>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQStringListModel(vtbl, strings_QList) : nullptr;
 }
 
-QStringListModel* QStringListModel_new3(QObject* parent) {
-	return new (std::nothrow) VirtualQStringListModel(parent);
+VirtualQStringListModel* QStringListModel_new3(const QStringListModel_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQStringListModel>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQStringListModel(vtbl, parent) : nullptr;
 }
 
-QStringListModel* QStringListModel_new4(struct seaqt_array /* of struct seaqt_string */  strings, QObject* parent) {
+VirtualQStringListModel* QStringListModel_new4(const QStringListModel_VTable* vtbl, size_t vdata, struct seaqt_array /* of struct seaqt_string */  strings, QObject* parent) {
 	QStringList strings_QList;
 	strings_QList.reserve(strings.len);
 	struct seaqt_string* strings_arr = static_cast<struct seaqt_string*>(strings.data);
@@ -1008,7 +796,8 @@ QStringListModel* QStringListModel_new4(struct seaqt_array /* of struct seaqt_st
 		QString strings_arr_i_QString = QString::fromUtf8(strings_arr[i].data, strings_arr[i].len);
 		strings_QList.push_back(strings_arr_i_QString);
 	}
-	return new (std::nothrow) VirtualQStringListModel(strings_QList, parent);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQStringListModel>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQStringListModel(vtbl, strings_QList, parent) : nullptr;
 }
 
 void QStringListModel_virtbase(QStringListModel* src, QAbstractListModel** outptr_QAbstractListModel) {
@@ -1166,187 +955,73 @@ struct seaqt_string QStringListModel_tr3(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QStringListModel_staticMetaObject() { return &QStringListModel::staticMetaObject; }
-bool QStringListModel_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QStringListModel_vdata(VirtualQStringListModel* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQStringListModel>()); }
+VirtualQStringListModel* vdata_QStringListModel(void* vdata) { return reinterpret_cast<VirtualQStringListModel*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQStringListModel>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QStringListModel_virtualbase_metaObject(const VirtualQStringListModel* self) {
+
+	return (QMetaObject*) self->QStringListModel::metaObject();
 }
 
-QMetaObject* QStringListModel_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQStringListModel*>(self)->QStringListModel::metaObject();
+void* QStringListModel_virtualbase_metacast(VirtualQStringListModel* self, const char* param1) {
+
+	return self->QStringListModel::qt_metacast(param1);
 }
 
-bool QStringListModel_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QStringListModel_virtualbase_metacall(VirtualQStringListModel* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QStringListModel::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QStringListModel_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::qt_metacast(param1);
+int QStringListModel_virtualbase_rowCount(const VirtualQStringListModel* self, QModelIndex* parent) {
+
+	return self->QStringListModel::rowCount(*parent);
 }
 
-bool QStringListModel_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QModelIndex* QStringListModel_virtualbase_sibling(const VirtualQStringListModel* self, int row, int column, QModelIndex* idx) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return new QModelIndex(self->QStringListModel::sibling(static_cast<int>(row), static_cast<int>(column), *idx));
 }
 
-int QStringListModel_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+QVariant* QStringListModel_virtualbase_data(const VirtualQStringListModel* self, QModelIndex* index, int role) {
+
+	return new QVariant(self->QStringListModel::data(*index, static_cast<int>(role)));
 }
 
-bool QStringListModel_override_virtual_rowCount(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QStringListModel_virtualbase_setData(VirtualQStringListModel* self, QModelIndex* index, QVariant* value, int role) {
 
-	self_cast->handle__rowCount = slot;
-	return true;
+	return self->QStringListModel::setData(*index, *value, static_cast<int>(role));
 }
 
-int QStringListModel_virtualbase_rowCount(const void* self, QModelIndex* parent) {
-	return static_cast<const VirtualQStringListModel*>(self)->QStringListModel::rowCount(*parent);
+bool QStringListModel_virtualbase_clearItemData(VirtualQStringListModel* self, QModelIndex* index) {
+
+	return self->QStringListModel::clearItemData(*index);
 }
 
-bool QStringListModel_override_virtual_sibling(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QStringListModel_virtualbase_flags(const VirtualQStringListModel* self, QModelIndex* index) {
 
-	self_cast->handle__sibling = slot;
-	return true;
-}
-
-QModelIndex* QStringListModel_virtualbase_sibling(const void* self, int row, int column, QModelIndex* idx) {
-	return new QModelIndex(static_cast<const VirtualQStringListModel*>(self)->QStringListModel::sibling(static_cast<int>(row), static_cast<int>(column), *idx));
-}
-
-bool QStringListModel_override_virtual_data(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__data = slot;
-	return true;
-}
-
-QVariant* QStringListModel_virtualbase_data(const void* self, QModelIndex* index, int role) {
-	return new QVariant(static_cast<const VirtualQStringListModel*>(self)->QStringListModel::data(*index, static_cast<int>(role)));
-}
-
-bool QStringListModel_override_virtual_setData(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setData = slot;
-	return true;
-}
-
-bool QStringListModel_virtualbase_setData(void* self, QModelIndex* index, QVariant* value, int role) {
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::setData(*index, *value, static_cast<int>(role));
-}
-
-bool QStringListModel_override_virtual_clearItemData(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__clearItemData = slot;
-	return true;
-}
-
-bool QStringListModel_virtualbase_clearItemData(void* self, QModelIndex* index) {
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::clearItemData(*index);
-}
-
-bool QStringListModel_override_virtual_flags(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__flags = slot;
-	return true;
-}
-
-int QStringListModel_virtualbase_flags(const void* self, QModelIndex* index) {
-	Qt::ItemFlags _ret = static_cast<const VirtualQStringListModel*>(self)->QStringListModel::flags(*index);
+	Qt::ItemFlags _ret = self->QStringListModel::flags(*index);
 	return static_cast<int>(_ret);
 }
 
-bool QStringListModel_override_virtual_insertRows(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QStringListModel_virtualbase_insertRows(VirtualQStringListModel* self, int row, int count, QModelIndex* parent) {
 
-	self_cast->handle__insertRows = slot;
-	return true;
+	return self->QStringListModel::insertRows(static_cast<int>(row), static_cast<int>(count), *parent);
 }
 
-bool QStringListModel_virtualbase_insertRows(void* self, int row, int count, QModelIndex* parent) {
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::insertRows(static_cast<int>(row), static_cast<int>(count), *parent);
+bool QStringListModel_virtualbase_removeRows(VirtualQStringListModel* self, int row, int count, QModelIndex* parent) {
+
+	return self->QStringListModel::removeRows(static_cast<int>(row), static_cast<int>(count), *parent);
 }
 
-bool QStringListModel_override_virtual_removeRows(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QStringListModel_virtualbase_moveRows(VirtualQStringListModel* self, QModelIndex* sourceParent, int sourceRow, int count, QModelIndex* destinationParent, int destinationChild) {
 
-	self_cast->handle__removeRows = slot;
-	return true;
+	return self->QStringListModel::moveRows(*sourceParent, static_cast<int>(sourceRow), static_cast<int>(count), *destinationParent, static_cast<int>(destinationChild));
 }
 
-bool QStringListModel_virtualbase_removeRows(void* self, int row, int count, QModelIndex* parent) {
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::removeRows(static_cast<int>(row), static_cast<int>(count), *parent);
-}
+struct seaqt_map /* of int to QVariant* */  QStringListModel_virtualbase_itemData(const VirtualQStringListModel* self, QModelIndex* index) {
 
-bool QStringListModel_override_virtual_moveRows(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__moveRows = slot;
-	return true;
-}
-
-bool QStringListModel_virtualbase_moveRows(void* self, QModelIndex* sourceParent, int sourceRow, int count, QModelIndex* destinationParent, int destinationChild) {
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::moveRows(*sourceParent, static_cast<int>(sourceRow), static_cast<int>(count), *destinationParent, static_cast<int>(destinationChild));
-}
-
-bool QStringListModel_override_virtual_itemData(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__itemData = slot;
-	return true;
-}
-
-struct seaqt_map /* of int to QVariant* */  QStringListModel_virtualbase_itemData(const void* self, QModelIndex* index) {
-	QMap<int, QVariant> _ret = static_cast<const VirtualQStringListModel*>(self)->QStringListModel::itemData(*index);
+	QMap<int, QVariant> _ret = self->QStringListModel::itemData(*index);
 	// Convert QMap<> from C++ memory to manually-managed C memory
 	int* _karr = static_cast<int*>(malloc(sizeof(int) * _ret.size()));
 	QVariant** _varr = static_cast<QVariant**>(malloc(sizeof(QVariant*) * _ret.size()));
@@ -1363,123 +1038,51 @@ struct seaqt_map /* of int to QVariant* */  QStringListModel_virtualbase_itemDat
 	return _out;
 }
 
-bool QStringListModel_override_virtual_setItemData(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setItemData = slot;
-	return true;
-}
-
-bool QStringListModel_virtualbase_setItemData(void* self, QModelIndex* index, struct seaqt_map /* of int to QVariant* */  roles) {
+bool QStringListModel_virtualbase_setItemData(VirtualQStringListModel* self, QModelIndex* index, struct seaqt_map /* of int to QVariant* */  roles) {
 	QMap<int, QVariant> roles_QMap;
 	int* roles_karr = static_cast<int*>(roles.keys);
 	QVariant** roles_varr = static_cast<QVariant**>(roles.values);
 	for(size_t i = 0; i < roles.len; ++i) {
 		roles_QMap[static_cast<int>(roles_karr[i])] = *(roles_varr[i]);
 	}
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::setItemData(*index, roles_QMap);
+
+	return self->QStringListModel::setItemData(*index, roles_QMap);
 }
 
-bool QStringListModel_override_virtual_sort(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QStringListModel_virtualbase_sort(VirtualQStringListModel* self, int column, int order) {
 
-	self_cast->handle__sort = slot;
-	return true;
+	self->QStringListModel::sort(static_cast<int>(column), static_cast<Qt::SortOrder>(order));
 }
 
-void QStringListModel_virtualbase_sort(void* self, int column, int order) {
-	static_cast<VirtualQStringListModel*>(self)->QStringListModel::sort(static_cast<int>(column), static_cast<Qt::SortOrder>(order));
-}
+int QStringListModel_virtualbase_supportedDropActions(const VirtualQStringListModel* self) {
 
-bool QStringListModel_override_virtual_supportedDropActions(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__supportedDropActions = slot;
-	return true;
-}
-
-int QStringListModel_virtualbase_supportedDropActions(const void* self) {
-	Qt::DropActions _ret = static_cast<const VirtualQStringListModel*>(self)->QStringListModel::supportedDropActions();
+	Qt::DropActions _ret = self->QStringListModel::supportedDropActions();
 	return static_cast<int>(_ret);
 }
 
-bool QStringListModel_override_virtual_index(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QModelIndex* QStringListModel_virtualbase_index(const VirtualQStringListModel* self, int row, int column, QModelIndex* parent) {
 
-	self_cast->handle__index = slot;
-	return true;
+	return new QModelIndex(self->QStringListModel::index(static_cast<int>(row), static_cast<int>(column), *parent));
 }
 
-QModelIndex* QStringListModel_virtualbase_index(const void* self, int row, int column, QModelIndex* parent) {
-	return new QModelIndex(static_cast<const VirtualQStringListModel*>(self)->QStringListModel::index(static_cast<int>(row), static_cast<int>(column), *parent));
+bool QStringListModel_virtualbase_dropMimeData(VirtualQStringListModel* self, QMimeData* data, int action, int row, int column, QModelIndex* parent) {
+
+	return self->QStringListModel::dropMimeData(data, static_cast<Qt::DropAction>(action), static_cast<int>(row), static_cast<int>(column), *parent);
 }
 
-bool QStringListModel_override_virtual_dropMimeData(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QVariant* QStringListModel_virtualbase_headerData(const VirtualQStringListModel* self, int section, int orientation, int role) {
 
-	self_cast->handle__dropMimeData = slot;
-	return true;
+	return new QVariant(self->QStringListModel::headerData(static_cast<int>(section), static_cast<Qt::Orientation>(orientation), static_cast<int>(role)));
 }
 
-bool QStringListModel_virtualbase_dropMimeData(void* self, QMimeData* data, int action, int row, int column, QModelIndex* parent) {
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::dropMimeData(data, static_cast<Qt::DropAction>(action), static_cast<int>(row), static_cast<int>(column), *parent);
+bool QStringListModel_virtualbase_setHeaderData(VirtualQStringListModel* self, int section, int orientation, QVariant* value, int role) {
+
+	return self->QStringListModel::setHeaderData(static_cast<int>(section), static_cast<Qt::Orientation>(orientation), *value, static_cast<int>(role));
 }
 
-bool QStringListModel_override_virtual_headerData(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+struct seaqt_array /* of struct seaqt_string */  QStringListModel_virtualbase_mimeTypes(const VirtualQStringListModel* self) {
 
-	self_cast->handle__headerData = slot;
-	return true;
-}
-
-QVariant* QStringListModel_virtualbase_headerData(const void* self, int section, int orientation, int role) {
-	return new QVariant(static_cast<const VirtualQStringListModel*>(self)->QStringListModel::headerData(static_cast<int>(section), static_cast<Qt::Orientation>(orientation), static_cast<int>(role)));
-}
-
-bool QStringListModel_override_virtual_setHeaderData(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setHeaderData = slot;
-	return true;
-}
-
-bool QStringListModel_virtualbase_setHeaderData(void* self, int section, int orientation, QVariant* value, int role) {
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::setHeaderData(static_cast<int>(section), static_cast<Qt::Orientation>(orientation), *value, static_cast<int>(role));
-}
-
-bool QStringListModel_override_virtual_mimeTypes(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mimeTypes = slot;
-	return true;
-}
-
-struct seaqt_array /* of struct seaqt_string */  QStringListModel_virtualbase_mimeTypes(const void* self) {
-	QStringList _ret = static_cast<const VirtualQStringListModel*>(self)->QStringListModel::mimeTypes();
+	QStringList _ret = self->QStringListModel::mimeTypes();
 	// Convert QList<> from C++ memory to manually-managed C memory
 	struct seaqt_string* _arr = static_cast<struct seaqt_string*>(malloc(sizeof(struct seaqt_string) * _ret.length()));
 	for (size_t i = 0, e = _ret.length(); i < e; ++i) {
@@ -1498,151 +1101,61 @@ struct seaqt_array /* of struct seaqt_string */  QStringListModel_virtualbase_mi
 	return _out;
 }
 
-bool QStringListModel_override_virtual_mimeData(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mimeData = slot;
-	return true;
-}
-
-QMimeData* QStringListModel_virtualbase_mimeData(const void* self, struct seaqt_array /* of QModelIndex* */  indexes) {
+QMimeData* QStringListModel_virtualbase_mimeData(const VirtualQStringListModel* self, struct seaqt_array /* of QModelIndex* */  indexes) {
 	QModelIndexList indexes_QList;
 	indexes_QList.reserve(indexes.len);
 	QModelIndex** indexes_arr = static_cast<QModelIndex**>(indexes.data);
 	for(size_t i = 0; i < indexes.len; ++i) {
 		indexes_QList.push_back(*(indexes_arr[i]));
 	}
-	return static_cast<const VirtualQStringListModel*>(self)->QStringListModel::mimeData(indexes_QList);
+
+	return self->QStringListModel::mimeData(indexes_QList);
 }
 
-bool QStringListModel_override_virtual_canDropMimeData(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QStringListModel_virtualbase_canDropMimeData(const VirtualQStringListModel* self, QMimeData* data, int action, int row, int column, QModelIndex* parent) {
 
-	self_cast->handle__canDropMimeData = slot;
-	return true;
+	return self->QStringListModel::canDropMimeData(data, static_cast<Qt::DropAction>(action), static_cast<int>(row), static_cast<int>(column), *parent);
 }
 
-bool QStringListModel_virtualbase_canDropMimeData(const void* self, QMimeData* data, int action, int row, int column, QModelIndex* parent) {
-	return static_cast<const VirtualQStringListModel*>(self)->QStringListModel::canDropMimeData(data, static_cast<Qt::DropAction>(action), static_cast<int>(row), static_cast<int>(column), *parent);
-}
+int QStringListModel_virtualbase_supportedDragActions(const VirtualQStringListModel* self) {
 
-bool QStringListModel_override_virtual_supportedDragActions(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__supportedDragActions = slot;
-	return true;
-}
-
-int QStringListModel_virtualbase_supportedDragActions(const void* self) {
-	Qt::DropActions _ret = static_cast<const VirtualQStringListModel*>(self)->QStringListModel::supportedDragActions();
+	Qt::DropActions _ret = self->QStringListModel::supportedDragActions();
 	return static_cast<int>(_ret);
 }
 
-bool QStringListModel_override_virtual_insertColumns(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QStringListModel_virtualbase_insertColumns(VirtualQStringListModel* self, int column, int count, QModelIndex* parent) {
 
-	self_cast->handle__insertColumns = slot;
-	return true;
+	return self->QStringListModel::insertColumns(static_cast<int>(column), static_cast<int>(count), *parent);
 }
 
-bool QStringListModel_virtualbase_insertColumns(void* self, int column, int count, QModelIndex* parent) {
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::insertColumns(static_cast<int>(column), static_cast<int>(count), *parent);
+bool QStringListModel_virtualbase_removeColumns(VirtualQStringListModel* self, int column, int count, QModelIndex* parent) {
+
+	return self->QStringListModel::removeColumns(static_cast<int>(column), static_cast<int>(count), *parent);
 }
 
-bool QStringListModel_override_virtual_removeColumns(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QStringListModel_virtualbase_moveColumns(VirtualQStringListModel* self, QModelIndex* sourceParent, int sourceColumn, int count, QModelIndex* destinationParent, int destinationChild) {
 
-	self_cast->handle__removeColumns = slot;
-	return true;
+	return self->QStringListModel::moveColumns(*sourceParent, static_cast<int>(sourceColumn), static_cast<int>(count), *destinationParent, static_cast<int>(destinationChild));
 }
 
-bool QStringListModel_virtualbase_removeColumns(void* self, int column, int count, QModelIndex* parent) {
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::removeColumns(static_cast<int>(column), static_cast<int>(count), *parent);
+void QStringListModel_virtualbase_fetchMore(VirtualQStringListModel* self, QModelIndex* parent) {
+
+	self->QStringListModel::fetchMore(*parent);
 }
 
-bool QStringListModel_override_virtual_moveColumns(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QStringListModel_virtualbase_canFetchMore(const VirtualQStringListModel* self, QModelIndex* parent) {
 
-	self_cast->handle__moveColumns = slot;
-	return true;
+	return self->QStringListModel::canFetchMore(*parent);
 }
 
-bool QStringListModel_virtualbase_moveColumns(void* self, QModelIndex* sourceParent, int sourceColumn, int count, QModelIndex* destinationParent, int destinationChild) {
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::moveColumns(*sourceParent, static_cast<int>(sourceColumn), static_cast<int>(count), *destinationParent, static_cast<int>(destinationChild));
+QModelIndex* QStringListModel_virtualbase_buddy(const VirtualQStringListModel* self, QModelIndex* index) {
+
+	return new QModelIndex(self->QStringListModel::buddy(*index));
 }
 
-bool QStringListModel_override_virtual_fetchMore(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+struct seaqt_array /* of QModelIndex* */  QStringListModel_virtualbase_match(const VirtualQStringListModel* self, QModelIndex* start, int role, QVariant* value, int hits, int flags) {
 
-	self_cast->handle__fetchMore = slot;
-	return true;
-}
-
-void QStringListModel_virtualbase_fetchMore(void* self, QModelIndex* parent) {
-	static_cast<VirtualQStringListModel*>(self)->QStringListModel::fetchMore(*parent);
-}
-
-bool QStringListModel_override_virtual_canFetchMore(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__canFetchMore = slot;
-	return true;
-}
-
-bool QStringListModel_virtualbase_canFetchMore(const void* self, QModelIndex* parent) {
-	return static_cast<const VirtualQStringListModel*>(self)->QStringListModel::canFetchMore(*parent);
-}
-
-bool QStringListModel_override_virtual_buddy(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__buddy = slot;
-	return true;
-}
-
-QModelIndex* QStringListModel_virtualbase_buddy(const void* self, QModelIndex* index) {
-	return new QModelIndex(static_cast<const VirtualQStringListModel*>(self)->QStringListModel::buddy(*index));
-}
-
-bool QStringListModel_override_virtual_match(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__match = slot;
-	return true;
-}
-
-struct seaqt_array /* of QModelIndex* */  QStringListModel_virtualbase_match(const void* self, QModelIndex* start, int role, QVariant* value, int hits, int flags) {
-	QModelIndexList _ret = static_cast<const VirtualQStringListModel*>(self)->QStringListModel::match(*start, static_cast<int>(role), *value, static_cast<int>(hits), static_cast<Qt::MatchFlags>(flags));
+	QModelIndexList _ret = self->QStringListModel::match(*start, static_cast<int>(role), *value, static_cast<int>(hits), static_cast<Qt::MatchFlags>(flags));
 	// Convert QList<> from C++ memory to manually-managed C memory
 	QModelIndex** _arr = static_cast<QModelIndex**>(malloc(sizeof(QModelIndex*) * _ret.length()));
 	for (size_t i = 0, e = _ret.length(); i < e; ++i) {
@@ -1654,32 +1167,14 @@ struct seaqt_array /* of QModelIndex* */  QStringListModel_virtualbase_match(con
 	return _out;
 }
 
-bool QStringListModel_override_virtual_span(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QSize* QStringListModel_virtualbase_span(const VirtualQStringListModel* self, QModelIndex* index) {
 
-	self_cast->handle__span = slot;
-	return true;
+	return new QSize(self->QStringListModel::span(*index));
 }
 
-QSize* QStringListModel_virtualbase_span(const void* self, QModelIndex* index) {
-	return new QSize(static_cast<const VirtualQStringListModel*>(self)->QStringListModel::span(*index));
-}
+struct seaqt_map /* of int to struct seaqt_string */  QStringListModel_virtualbase_roleNames(const VirtualQStringListModel* self) {
 
-bool QStringListModel_override_virtual_roleNames(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__roleNames = slot;
-	return true;
-}
-
-struct seaqt_map /* of int to struct seaqt_string */  QStringListModel_virtualbase_roleNames(const void* self) {
-	QHash<int, QByteArray> _ret = static_cast<const VirtualQStringListModel*>(self)->QStringListModel::roleNames();
+	QHash<int, QByteArray> _ret = self->QStringListModel::roleNames();
 	// Convert QMap<> from C++ memory to manually-managed C memory
 	int* _karr = static_cast<int*>(malloc(sizeof(int) * _ret.size()));
 	struct seaqt_string* _varr = static_cast<struct seaqt_string*>(malloc(sizeof(struct seaqt_string) * _ret.size()));
@@ -1701,372 +1196,140 @@ struct seaqt_map /* of int to struct seaqt_string */  QStringListModel_virtualba
 	return _out;
 }
 
-bool QStringListModel_override_virtual_multiData(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QStringListModel_virtualbase_multiData(const VirtualQStringListModel* self, QModelIndex* index, QModelRoleDataSpan* roleDataSpan) {
 
-	self_cast->handle__multiData = slot;
-	return true;
+	self->QStringListModel::multiData(*index, *roleDataSpan);
 }
 
-void QStringListModel_virtualbase_multiData(const void* self, QModelIndex* index, QModelRoleDataSpan* roleDataSpan) {
-	static_cast<const VirtualQStringListModel*>(self)->QStringListModel::multiData(*index, *roleDataSpan);
+bool QStringListModel_virtualbase_submit(VirtualQStringListModel* self) {
+
+	return self->QStringListModel::submit();
 }
 
-bool QStringListModel_override_virtual_submit(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QStringListModel_virtualbase_revert(VirtualQStringListModel* self) {
 
-	self_cast->handle__submit = slot;
-	return true;
+	self->QStringListModel::revert();
 }
 
-bool QStringListModel_virtualbase_submit(void* self) {
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::submit();
+void QStringListModel_virtualbase_resetInternalData(VirtualQStringListModel* self) {
+
+	self->QStringListModel::resetInternalData();
 }
 
-bool QStringListModel_override_virtual_revert(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QStringListModel_virtualbase_event(VirtualQStringListModel* self, QEvent* event) {
 
-	self_cast->handle__revert = slot;
-	return true;
+	return self->QStringListModel::event(event);
 }
 
-void QStringListModel_virtualbase_revert(void* self) {
-	static_cast<VirtualQStringListModel*>(self)->QStringListModel::revert();
+bool QStringListModel_virtualbase_eventFilter(VirtualQStringListModel* self, QObject* watched, QEvent* event) {
+
+	return self->QStringListModel::eventFilter(watched, event);
 }
 
-bool QStringListModel_override_virtual_resetInternalData(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QStringListModel_virtualbase_timerEvent(VirtualQStringListModel* self, QTimerEvent* event) {
 
-	self_cast->handle__resetInternalData = slot;
-	return true;
+	self->QStringListModel::timerEvent(event);
 }
 
-void QStringListModel_virtualbase_resetInternalData(void* self) {
-	static_cast<VirtualQStringListModel*>(self)->QStringListModel::resetInternalData();
+void QStringListModel_virtualbase_childEvent(VirtualQStringListModel* self, QChildEvent* event) {
+
+	self->QStringListModel::childEvent(event);
 }
 
-bool QStringListModel_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QStringListModel_virtualbase_customEvent(VirtualQStringListModel* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QStringListModel::customEvent(event);
 }
 
-bool QStringListModel_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::event(event);
+void QStringListModel_virtualbase_connectNotify(VirtualQStringListModel* self, QMetaMethod* signal) {
+
+	self->QStringListModel::connectNotify(*signal);
 }
 
-bool QStringListModel_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QStringListModel_virtualbase_disconnectNotify(VirtualQStringListModel* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QStringListModel::disconnectNotify(*signal);
 }
 
-bool QStringListModel_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQStringListModel*>(self)->QStringListModel::eventFilter(watched, event);
+QModelIndex* QStringListModel_protectedbase_createIndex(const VirtualQStringListModel* self, int row, int column) {
+	return new QModelIndex(self->createIndex(static_cast<int>(row), static_cast<int>(column)));
 }
 
-bool QStringListModel_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
-}
-
-void QStringListModel_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQStringListModel*>(self)->QStringListModel::timerEvent(event);
-}
-
-bool QStringListModel_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QStringListModel_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQStringListModel*>(self)->QStringListModel::childEvent(event);
-}
-
-bool QStringListModel_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QStringListModel_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQStringListModel*>(self)->QStringListModel::customEvent(event);
-}
-
-bool QStringListModel_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QStringListModel_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQStringListModel*>(self)->QStringListModel::connectNotify(*signal);
-}
-
-bool QStringListModel_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QStringListModel_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQStringListModel*>(self)->QStringListModel::disconnectNotify(*signal);
-}
-
-QModelIndex* QStringListModel_protectedbase_createIndex(bool* _dynamic_cast_ok, const void* self, int row, int column) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return new QModelIndex(self_cast->createIndex(static_cast<int>(row), static_cast<int>(column)));
-}
-
-void QStringListModel_protectedbase_encodeData(bool* _dynamic_cast_ok, const void* self, struct seaqt_array /* of QModelIndex* */  indexes, QDataStream* stream) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
+void QStringListModel_protectedbase_encodeData(const VirtualQStringListModel* self, struct seaqt_array /* of QModelIndex* */  indexes, QDataStream* stream) {
 		QModelIndexList indexes_QList;
 		indexes_QList.reserve(indexes.len);
 		QModelIndex** indexes_arr = static_cast<QModelIndex**>(indexes.data);
 		for(size_t i = 0; i < indexes.len; ++i) {
 			indexes_QList.push_back(*(indexes_arr[i]));
 		}
-	self_cast->encodeData(indexes_QList, *stream);
+	self->encodeData(indexes_QList, *stream);
 }
 
-bool QStringListModel_protectedbase_decodeData(bool* _dynamic_cast_ok, void* self, int row, int column, QModelIndex* parent, QDataStream* stream) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->decodeData(static_cast<int>(row), static_cast<int>(column), *parent, *stream);
+bool QStringListModel_protectedbase_decodeData(VirtualQStringListModel* self, int row, int column, QModelIndex* parent, QDataStream* stream) {
+	return self->decodeData(static_cast<int>(row), static_cast<int>(column), *parent, *stream);
 }
 
-void QStringListModel_protectedbase_beginInsertRows(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->beginInsertRows(*parent, static_cast<int>(first), static_cast<int>(last));
+void QStringListModel_protectedbase_beginInsertRows(VirtualQStringListModel* self, QModelIndex* parent, int first, int last) {
+	self->beginInsertRows(*parent, static_cast<int>(first), static_cast<int>(last));
 }
 
-void QStringListModel_protectedbase_endInsertRows(bool* _dynamic_cast_ok, void* self) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endInsertRows();
+void QStringListModel_protectedbase_endInsertRows(VirtualQStringListModel* self) {
+	self->endInsertRows();
 }
 
-void QStringListModel_protectedbase_beginRemoveRows(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->beginRemoveRows(*parent, static_cast<int>(first), static_cast<int>(last));
+void QStringListModel_protectedbase_beginRemoveRows(VirtualQStringListModel* self, QModelIndex* parent, int first, int last) {
+	self->beginRemoveRows(*parent, static_cast<int>(first), static_cast<int>(last));
 }
 
-void QStringListModel_protectedbase_endRemoveRows(bool* _dynamic_cast_ok, void* self) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endRemoveRows();
+void QStringListModel_protectedbase_endRemoveRows(VirtualQStringListModel* self) {
+	self->endRemoveRows();
 }
 
-bool QStringListModel_protectedbase_beginMoveRows(bool* _dynamic_cast_ok, void* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationRow) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->beginMoveRows(*sourceParent, static_cast<int>(sourceFirst), static_cast<int>(sourceLast), *destinationParent, static_cast<int>(destinationRow));
+bool QStringListModel_protectedbase_beginMoveRows(VirtualQStringListModel* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationRow) {
+	return self->beginMoveRows(*sourceParent, static_cast<int>(sourceFirst), static_cast<int>(sourceLast), *destinationParent, static_cast<int>(destinationRow));
 }
 
-void QStringListModel_protectedbase_endMoveRows(bool* _dynamic_cast_ok, void* self) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endMoveRows();
+void QStringListModel_protectedbase_endMoveRows(VirtualQStringListModel* self) {
+	self->endMoveRows();
 }
 
-void QStringListModel_protectedbase_beginInsertColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->beginInsertColumns(*parent, static_cast<int>(first), static_cast<int>(last));
+void QStringListModel_protectedbase_beginInsertColumns(VirtualQStringListModel* self, QModelIndex* parent, int first, int last) {
+	self->beginInsertColumns(*parent, static_cast<int>(first), static_cast<int>(last));
 }
 
-void QStringListModel_protectedbase_endInsertColumns(bool* _dynamic_cast_ok, void* self) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endInsertColumns();
+void QStringListModel_protectedbase_endInsertColumns(VirtualQStringListModel* self) {
+	self->endInsertColumns();
 }
 
-void QStringListModel_protectedbase_beginRemoveColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->beginRemoveColumns(*parent, static_cast<int>(first), static_cast<int>(last));
+void QStringListModel_protectedbase_beginRemoveColumns(VirtualQStringListModel* self, QModelIndex* parent, int first, int last) {
+	self->beginRemoveColumns(*parent, static_cast<int>(first), static_cast<int>(last));
 }
 
-void QStringListModel_protectedbase_endRemoveColumns(bool* _dynamic_cast_ok, void* self) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endRemoveColumns();
+void QStringListModel_protectedbase_endRemoveColumns(VirtualQStringListModel* self) {
+	self->endRemoveColumns();
 }
 
-bool QStringListModel_protectedbase_beginMoveColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationColumn) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->beginMoveColumns(*sourceParent, static_cast<int>(sourceFirst), static_cast<int>(sourceLast), *destinationParent, static_cast<int>(destinationColumn));
+bool QStringListModel_protectedbase_beginMoveColumns(VirtualQStringListModel* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationColumn) {
+	return self->beginMoveColumns(*sourceParent, static_cast<int>(sourceFirst), static_cast<int>(sourceLast), *destinationParent, static_cast<int>(destinationColumn));
 }
 
-void QStringListModel_protectedbase_endMoveColumns(bool* _dynamic_cast_ok, void* self) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endMoveColumns();
+void QStringListModel_protectedbase_endMoveColumns(VirtualQStringListModel* self) {
+	self->endMoveColumns();
 }
 
-void QStringListModel_protectedbase_beginResetModel(bool* _dynamic_cast_ok, void* self) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->beginResetModel();
+void QStringListModel_protectedbase_beginResetModel(VirtualQStringListModel* self) {
+	self->beginResetModel();
 }
 
-void QStringListModel_protectedbase_endResetModel(bool* _dynamic_cast_ok, void* self) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endResetModel();
+void QStringListModel_protectedbase_endResetModel(VirtualQStringListModel* self) {
+	self->endResetModel();
 }
 
-void QStringListModel_protectedbase_changePersistentIndex(bool* _dynamic_cast_ok, void* self, QModelIndex* from, QModelIndex* to) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->changePersistentIndex(*from, *to);
+void QStringListModel_protectedbase_changePersistentIndex(VirtualQStringListModel* self, QModelIndex* from, QModelIndex* to) {
+	self->changePersistentIndex(*from, *to);
 }
 
-void QStringListModel_protectedbase_changePersistentIndexList(bool* _dynamic_cast_ok, void* self, struct seaqt_array /* of QModelIndex* */  from, struct seaqt_array /* of QModelIndex* */  to) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
+void QStringListModel_protectedbase_changePersistentIndexList(VirtualQStringListModel* self, struct seaqt_array /* of QModelIndex* */  from, struct seaqt_array /* of QModelIndex* */  to) {
 		QModelIndexList from_QList;
 		from_QList.reserve(from.len);
 		QModelIndex** from_arr = static_cast<QModelIndex**>(from.data);
@@ -2079,18 +1342,11 @@ void QStringListModel_protectedbase_changePersistentIndexList(bool* _dynamic_cas
 		for(size_t i = 0; i < to.len; ++i) {
 			to_QList.push_back(*(to_arr[i]));
 		}
-	self_cast->changePersistentIndexList(from_QList, to_QList);
+	self->changePersistentIndexList(from_QList, to_QList);
 }
 
-struct seaqt_array /* of QModelIndex* */  QStringListModel_protectedbase_persistentIndexList(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return (struct seaqt_array){};
-	}
-
-	*_dynamic_cast_ok = true;
-	QModelIndexList _ret = self_cast->persistentIndexList();
+struct seaqt_array /* of QModelIndex* */  QStringListModel_protectedbase_persistentIndexList(const VirtualQStringListModel* self) {
+	QModelIndexList _ret = self->persistentIndexList();
 	// Convert QList<> from C++ memory to manually-managed C memory
 	QModelIndex** _arr = static_cast<QModelIndex**>(malloc(sizeof(QModelIndex*) * _ret.length()));
 	for (size_t i = 0, e = _ret.length(); i < e; ++i) {
@@ -2102,48 +1358,20 @@ struct seaqt_array /* of QModelIndex* */  QStringListModel_protectedbase_persist
 	return _out;
 }
 
-QObject* QStringListModel_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
+QObject* QStringListModel_protectedbase_sender(const VirtualQStringListModel* self) {
+	return self->sender();
 }
 
-int QStringListModel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
+int QStringListModel_protectedbase_senderSignalIndex(const VirtualQStringListModel* self) {
+	return self->senderSignalIndex();
 }
 
-int QStringListModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
+int QStringListModel_protectedbase_receivers(const VirtualQStringListModel* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QStringListModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQStringListModel* self_cast = dynamic_cast<VirtualQStringListModel*>( (QStringListModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QStringListModel_protectedbase_isSignalConnected(const VirtualQStringListModel* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QStringListModel_delete(QStringListModel* self) {

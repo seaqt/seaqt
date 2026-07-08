@@ -42,123 +42,63 @@
 #include <abstractwidgetbox.h>
 #include "gen_abstractwidgetbox.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QDesignerWidgetBoxInterface_metaObject(const QDesignerWidgetBoxInterface*, intptr_t);
-void* miqt_exec_callback_QDesignerWidgetBoxInterface_metacast(QDesignerWidgetBoxInterface*, intptr_t, const char*);
-int miqt_exec_callback_QDesignerWidgetBoxInterface_metacall(QDesignerWidgetBoxInterface*, intptr_t, int, int, void**);
-int miqt_exec_callback_QDesignerWidgetBoxInterface_categoryCount(const QDesignerWidgetBoxInterface*, intptr_t);
-QDesignerWidgetBoxInterface__Category* miqt_exec_callback_QDesignerWidgetBoxInterface_category(const QDesignerWidgetBoxInterface*, intptr_t, int);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_addCategory(QDesignerWidgetBoxInterface*, intptr_t, QDesignerWidgetBoxInterface__Category*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_removeCategory(QDesignerWidgetBoxInterface*, intptr_t, int);
-int miqt_exec_callback_QDesignerWidgetBoxInterface_widgetCount(const QDesignerWidgetBoxInterface*, intptr_t, int);
-QDesignerWidgetBoxInterface__Widget* miqt_exec_callback_QDesignerWidgetBoxInterface_widget(const QDesignerWidgetBoxInterface*, intptr_t, int, int);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_addWidget(QDesignerWidgetBoxInterface*, intptr_t, int, QDesignerWidgetBoxInterface__Widget*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_removeWidget(QDesignerWidgetBoxInterface*, intptr_t, int, int);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_dropWidgets(QDesignerWidgetBoxInterface*, intptr_t, struct seaqt_array /* of QDesignerDnDItemInterface* */ , QPoint*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_setFileName(QDesignerWidgetBoxInterface*, intptr_t, struct seaqt_string);
-struct seaqt_string miqt_exec_callback_QDesignerWidgetBoxInterface_fileName(const QDesignerWidgetBoxInterface*, intptr_t);
-bool miqt_exec_callback_QDesignerWidgetBoxInterface_load(QDesignerWidgetBoxInterface*, intptr_t);
-bool miqt_exec_callback_QDesignerWidgetBoxInterface_save(QDesignerWidgetBoxInterface*, intptr_t);
-int miqt_exec_callback_QDesignerWidgetBoxInterface_devType(const QDesignerWidgetBoxInterface*, intptr_t);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_setVisible(QDesignerWidgetBoxInterface*, intptr_t, bool);
-QSize* miqt_exec_callback_QDesignerWidgetBoxInterface_sizeHint(const QDesignerWidgetBoxInterface*, intptr_t);
-QSize* miqt_exec_callback_QDesignerWidgetBoxInterface_minimumSizeHint(const QDesignerWidgetBoxInterface*, intptr_t);
-int miqt_exec_callback_QDesignerWidgetBoxInterface_heightForWidth(const QDesignerWidgetBoxInterface*, intptr_t, int);
-bool miqt_exec_callback_QDesignerWidgetBoxInterface_hasHeightForWidth(const QDesignerWidgetBoxInterface*, intptr_t);
-QPaintEngine* miqt_exec_callback_QDesignerWidgetBoxInterface_paintEngine(const QDesignerWidgetBoxInterface*, intptr_t);
-bool miqt_exec_callback_QDesignerWidgetBoxInterface_event(QDesignerWidgetBoxInterface*, intptr_t, QEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_mousePressEvent(QDesignerWidgetBoxInterface*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_mouseReleaseEvent(QDesignerWidgetBoxInterface*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_mouseDoubleClickEvent(QDesignerWidgetBoxInterface*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_mouseMoveEvent(QDesignerWidgetBoxInterface*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_wheelEvent(QDesignerWidgetBoxInterface*, intptr_t, QWheelEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_keyPressEvent(QDesignerWidgetBoxInterface*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_keyReleaseEvent(QDesignerWidgetBoxInterface*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_focusInEvent(QDesignerWidgetBoxInterface*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_focusOutEvent(QDesignerWidgetBoxInterface*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_enterEvent(QDesignerWidgetBoxInterface*, intptr_t, QEnterEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_leaveEvent(QDesignerWidgetBoxInterface*, intptr_t, QEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_paintEvent(QDesignerWidgetBoxInterface*, intptr_t, QPaintEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_moveEvent(QDesignerWidgetBoxInterface*, intptr_t, QMoveEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_resizeEvent(QDesignerWidgetBoxInterface*, intptr_t, QResizeEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_closeEvent(QDesignerWidgetBoxInterface*, intptr_t, QCloseEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_contextMenuEvent(QDesignerWidgetBoxInterface*, intptr_t, QContextMenuEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_tabletEvent(QDesignerWidgetBoxInterface*, intptr_t, QTabletEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_actionEvent(QDesignerWidgetBoxInterface*, intptr_t, QActionEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_dragEnterEvent(QDesignerWidgetBoxInterface*, intptr_t, QDragEnterEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_dragMoveEvent(QDesignerWidgetBoxInterface*, intptr_t, QDragMoveEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_dragLeaveEvent(QDesignerWidgetBoxInterface*, intptr_t, QDragLeaveEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_dropEvent(QDesignerWidgetBoxInterface*, intptr_t, QDropEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_showEvent(QDesignerWidgetBoxInterface*, intptr_t, QShowEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_hideEvent(QDesignerWidgetBoxInterface*, intptr_t, QHideEvent*);
-bool miqt_exec_callback_QDesignerWidgetBoxInterface_nativeEvent(QDesignerWidgetBoxInterface*, intptr_t, struct seaqt_string, void*, intptr_t*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_changeEvent(QDesignerWidgetBoxInterface*, intptr_t, QEvent*);
-int miqt_exec_callback_QDesignerWidgetBoxInterface_metric(const QDesignerWidgetBoxInterface*, intptr_t, int);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_initPainter(const QDesignerWidgetBoxInterface*, intptr_t, QPainter*);
-QPaintDevice* miqt_exec_callback_QDesignerWidgetBoxInterface_redirected(const QDesignerWidgetBoxInterface*, intptr_t, QPoint*);
-QPainter* miqt_exec_callback_QDesignerWidgetBoxInterface_sharedPainter(const QDesignerWidgetBoxInterface*, intptr_t);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_inputMethodEvent(QDesignerWidgetBoxInterface*, intptr_t, QInputMethodEvent*);
-QVariant* miqt_exec_callback_QDesignerWidgetBoxInterface_inputMethodQuery(const QDesignerWidgetBoxInterface*, intptr_t, int);
-bool miqt_exec_callback_QDesignerWidgetBoxInterface_focusNextPrevChild(QDesignerWidgetBoxInterface*, intptr_t, bool);
-bool miqt_exec_callback_QDesignerWidgetBoxInterface_eventFilter(QDesignerWidgetBoxInterface*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_timerEvent(QDesignerWidgetBoxInterface*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_childEvent(QDesignerWidgetBoxInterface*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_customEvent(QDesignerWidgetBoxInterface*, intptr_t, QEvent*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_connectNotify(QDesignerWidgetBoxInterface*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QDesignerWidgetBoxInterface_disconnectNotify(QDesignerWidgetBoxInterface*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQDesignerWidgetBoxInterface final : public QDesignerWidgetBoxInterface {
+	const QDesignerWidgetBoxInterface_VTable* vtbl;
 public:
+	friend void* QDesignerWidgetBoxInterface_vdata(VirtualQDesignerWidgetBoxInterface* self);
+	friend VirtualQDesignerWidgetBoxInterface* vdata_QDesignerWidgetBoxInterface(void* vdata);
 
-	VirtualQDesignerWidgetBoxInterface(): QDesignerWidgetBoxInterface() {}
-	VirtualQDesignerWidgetBoxInterface(QWidget* parent): QDesignerWidgetBoxInterface(parent) {}
-	VirtualQDesignerWidgetBoxInterface(QWidget* parent, Qt::WindowFlags flags): QDesignerWidgetBoxInterface(parent, flags) {}
+	VirtualQDesignerWidgetBoxInterface(const QDesignerWidgetBoxInterface_VTable* vtbl): QDesignerWidgetBoxInterface(), vtbl(vtbl) {}
+	VirtualQDesignerWidgetBoxInterface(const QDesignerWidgetBoxInterface_VTable* vtbl, QWidget* parent): QDesignerWidgetBoxInterface(parent), vtbl(vtbl) {}
+	VirtualQDesignerWidgetBoxInterface(const QDesignerWidgetBoxInterface_VTable* vtbl, QWidget* parent, Qt::WindowFlags flags): QDesignerWidgetBoxInterface(parent, flags), vtbl(vtbl) {}
 
-	virtual ~VirtualQDesignerWidgetBoxInterface() override = default;
+	virtual ~VirtualQDesignerWidgetBoxInterface() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QDesignerWidgetBoxInterface::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QDesignerWidgetBoxInterface_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QDesignerWidgetBoxInterface_virtualbase_metaObject(const VirtualQDesignerWidgetBoxInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QDesignerWidgetBoxInterface::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QDesignerWidgetBoxInterface_virtualbase_metacast(void* self, const char* param1);
+	friend void* QDesignerWidgetBoxInterface_virtualbase_metacast(VirtualQDesignerWidgetBoxInterface* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QDesignerWidgetBoxInterface::qt_metacall(param1, param2, param3);
 		}
 
@@ -166,104 +106,74 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QDesignerWidgetBoxInterface_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QDesignerWidgetBoxInterface_virtualbase_metacall(VirtualQDesignerWidgetBoxInterface* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__categoryCount = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int categoryCount() const override {
-		if (handle__categoryCount == 0) {
+		if (vtbl->categoryCount == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_categoryCount(this, handle__categoryCount);
+		int callback_return_value = vtbl->categoryCount(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__category = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QDesignerWidgetBoxInterface::Category category(int cat_idx) const override {
-		if (handle__category == 0) {
+		if (vtbl->category == 0) {
 			return QDesignerWidgetBoxInterface::Category(); // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = cat_idx;
-		QDesignerWidgetBoxInterface__Category* callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_category(this, handle__category, sigval1);
+		QDesignerWidgetBoxInterface__Category* callback_return_value = vtbl->category(this, sigval1);
 		return *callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__addCategory = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void addCategory(const QDesignerWidgetBoxInterface::Category& cat) override {
-		if (handle__addCategory == 0) {
+		if (vtbl->addCategory == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		const QDesignerWidgetBoxInterface::Category& cat_ret = cat;
 		// Cast returned reference into pointer
 		QDesignerWidgetBoxInterface__Category* sigval1 = const_cast<QDesignerWidgetBoxInterface::Category*>(&cat_ret);
-		miqt_exec_callback_QDesignerWidgetBoxInterface_addCategory(this, handle__addCategory, sigval1);
-
+		vtbl->addCategory(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__removeCategory = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void removeCategory(int cat_idx) override {
-		if (handle__removeCategory == 0) {
+		if (vtbl->removeCategory == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = cat_idx;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_removeCategory(this, handle__removeCategory, sigval1);
-
+		vtbl->removeCategory(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__widgetCount = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int widgetCount(int cat_idx) const override {
-		if (handle__widgetCount == 0) {
+		if (vtbl->widgetCount == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = cat_idx;
-		int callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_widgetCount(this, handle__widgetCount, sigval1);
+		int callback_return_value = vtbl->widgetCount(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__widget = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QDesignerWidgetBoxInterface::Widget widget(int cat_idx, int wgt_idx) const override {
-		if (handle__widget == 0) {
+		if (vtbl->widget == 0) {
 			return QDesignerWidgetBoxInterface::Widget(); // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = cat_idx;
 		int sigval2 = wgt_idx;
-		QDesignerWidgetBoxInterface__Widget* callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_widget(this, handle__widget, sigval1, sigval2);
+		QDesignerWidgetBoxInterface__Widget* callback_return_value = vtbl->widget(this, sigval1, sigval2);
 		return *callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__addWidget = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void addWidget(int cat_idx, const QDesignerWidgetBoxInterface::Widget& wgt) override {
-		if (handle__addWidget == 0) {
+		if (vtbl->addWidget == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -271,31 +181,21 @@ public:
 		const QDesignerWidgetBoxInterface::Widget& wgt_ret = wgt;
 		// Cast returned reference into pointer
 		QDesignerWidgetBoxInterface__Widget* sigval2 = const_cast<QDesignerWidgetBoxInterface::Widget*>(&wgt_ret);
-		miqt_exec_callback_QDesignerWidgetBoxInterface_addWidget(this, handle__addWidget, sigval1, sigval2);
-
+		vtbl->addWidget(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__removeWidget = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void removeWidget(int cat_idx, int wgt_idx) override {
-		if (handle__removeWidget == 0) {
+		if (vtbl->removeWidget == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = cat_idx;
 		int sigval2 = wgt_idx;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_removeWidget(this, handle__removeWidget, sigval1, sigval2);
-
+		vtbl->removeWidget(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dropWidgets = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dropWidgets(const QList<QDesignerDnDItemInterface *>& item_list, const QPoint& global_mouse_pos) override {
-		if (handle__dropWidgets == 0) {
+		if (vtbl->dropWidgets == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -312,16 +212,11 @@ public:
 		const QPoint& global_mouse_pos_ret = global_mouse_pos;
 		// Cast returned reference into pointer
 		QPoint* sigval2 = const_cast<QPoint*>(&global_mouse_pos_ret);
-		miqt_exec_callback_QDesignerWidgetBoxInterface_dropWidgets(this, handle__dropWidgets, sigval1, sigval2);
-
+		vtbl->dropWidgets(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setFileName = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setFileName(const QString& file_name) override {
-		if (handle__setFileName == 0) {
+		if (vtbl->setFileName == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -333,588 +228,418 @@ public:
 		file_name_ms.data = static_cast<char*>(malloc(file_name_ms.len));
 		memcpy(file_name_ms.data, file_name_b.data(), file_name_ms.len);
 		struct seaqt_string sigval1 = file_name_ms;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_setFileName(this, handle__setFileName, sigval1);
-
+		vtbl->setFileName(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__fileName = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString fileName() const override {
-		if (handle__fileName == 0) {
+		if (vtbl->fileName == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_fileName(this, handle__fileName);
+		struct seaqt_string callback_return_value = vtbl->fileName(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__load = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool load() override {
-		if (handle__load == 0) {
+		if (vtbl->load == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
-		bool callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_load(this, handle__load);
+		bool callback_return_value = vtbl->load(this);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__save = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool save() override {
-		if (handle__save == 0) {
+		if (vtbl->save == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
-		bool callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_save(this, handle__save);
+		bool callback_return_value = vtbl->save(this);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__devType = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int devType() const override {
-		if (handle__devType == 0) {
+		if (vtbl->devType == 0) {
 			return QDesignerWidgetBoxInterface::devType();
 		}
 
-		int callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_devType(this, handle__devType);
+		int callback_return_value = vtbl->devType(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QDesignerWidgetBoxInterface_virtualbase_devType(const void* self);
+	friend int QDesignerWidgetBoxInterface_virtualbase_devType(const VirtualQDesignerWidgetBoxInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setVisible = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setVisible(bool visible) override {
-		if (handle__setVisible == 0) {
+		if (vtbl->setVisible == 0) {
 			QDesignerWidgetBoxInterface::setVisible(visible);
 			return;
 		}
 
 		bool sigval1 = visible;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_setVisible(this, handle__setVisible, sigval1);
-
+		vtbl->setVisible(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_setVisible(void* self, bool visible);
+	friend void QDesignerWidgetBoxInterface_virtualbase_setVisible(VirtualQDesignerWidgetBoxInterface* self, bool visible);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize sizeHint() const override {
-		if (handle__sizeHint == 0) {
+		if (vtbl->sizeHint == 0) {
 			return QDesignerWidgetBoxInterface::sizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_sizeHint(this, handle__sizeHint);
+		QSize* callback_return_value = vtbl->sizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QDesignerWidgetBoxInterface_virtualbase_sizeHint(const void* self);
+	friend QSize* QDesignerWidgetBoxInterface_virtualbase_sizeHint(const VirtualQDesignerWidgetBoxInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__minimumSizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize minimumSizeHint() const override {
-		if (handle__minimumSizeHint == 0) {
+		if (vtbl->minimumSizeHint == 0) {
 			return QDesignerWidgetBoxInterface::minimumSizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_minimumSizeHint(this, handle__minimumSizeHint);
+		QSize* callback_return_value = vtbl->minimumSizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QDesignerWidgetBoxInterface_virtualbase_minimumSizeHint(const void* self);
+	friend QSize* QDesignerWidgetBoxInterface_virtualbase_minimumSizeHint(const VirtualQDesignerWidgetBoxInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__heightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int heightForWidth(int param1) const override {
-		if (handle__heightForWidth == 0) {
+		if (vtbl->heightForWidth == 0) {
 			return QDesignerWidgetBoxInterface::heightForWidth(param1);
 		}
 
 		int sigval1 = param1;
-		int callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_heightForWidth(this, handle__heightForWidth, sigval1);
+		int callback_return_value = vtbl->heightForWidth(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QDesignerWidgetBoxInterface_virtualbase_heightForWidth(const void* self, int param1);
+	friend int QDesignerWidgetBoxInterface_virtualbase_heightForWidth(const VirtualQDesignerWidgetBoxInterface* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hasHeightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool hasHeightForWidth() const override {
-		if (handle__hasHeightForWidth == 0) {
+		if (vtbl->hasHeightForWidth == 0) {
 			return QDesignerWidgetBoxInterface::hasHeightForWidth();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_hasHeightForWidth(this, handle__hasHeightForWidth);
+		bool callback_return_value = vtbl->hasHeightForWidth(this);
 		return callback_return_value;
 	}
 
-	friend bool QDesignerWidgetBoxInterface_virtualbase_hasHeightForWidth(const void* self);
+	friend bool QDesignerWidgetBoxInterface_virtualbase_hasHeightForWidth(const VirtualQDesignerWidgetBoxInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEngine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintEngine* paintEngine() const override {
-		if (handle__paintEngine == 0) {
+		if (vtbl->paintEngine == 0) {
 			return QDesignerWidgetBoxInterface::paintEngine();
 		}
 
-		QPaintEngine* callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_paintEngine(this, handle__paintEngine);
+		QPaintEngine* callback_return_value = vtbl->paintEngine(this);
 		return callback_return_value;
 	}
 
-	friend QPaintEngine* QDesignerWidgetBoxInterface_virtualbase_paintEngine(const void* self);
+	friend QPaintEngine* QDesignerWidgetBoxInterface_virtualbase_paintEngine(const VirtualQDesignerWidgetBoxInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QDesignerWidgetBoxInterface::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QDesignerWidgetBoxInterface_virtualbase_event(void* self, QEvent* event);
+	friend bool QDesignerWidgetBoxInterface_virtualbase_event(VirtualQDesignerWidgetBoxInterface* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mousePressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mousePressEvent(QMouseEvent* event) override {
-		if (handle__mousePressEvent == 0) {
+		if (vtbl->mousePressEvent == 0) {
 			QDesignerWidgetBoxInterface::mousePressEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_mousePressEvent(this, handle__mousePressEvent, sigval1);
-
+		vtbl->mousePressEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_mousePressEvent(void* self, QMouseEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_mousePressEvent(VirtualQDesignerWidgetBoxInterface* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseReleaseEvent(QMouseEvent* event) override {
-		if (handle__mouseReleaseEvent == 0) {
+		if (vtbl->mouseReleaseEvent == 0) {
 			QDesignerWidgetBoxInterface::mouseReleaseEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_mouseReleaseEvent(this, handle__mouseReleaseEvent, sigval1);
-
+		vtbl->mouseReleaseEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_mouseReleaseEvent(VirtualQDesignerWidgetBoxInterface* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseDoubleClickEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseDoubleClickEvent(QMouseEvent* event) override {
-		if (handle__mouseDoubleClickEvent == 0) {
+		if (vtbl->mouseDoubleClickEvent == 0) {
 			QDesignerWidgetBoxInterface::mouseDoubleClickEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_mouseDoubleClickEvent(this, handle__mouseDoubleClickEvent, sigval1);
-
+		vtbl->mouseDoubleClickEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_mouseDoubleClickEvent(VirtualQDesignerWidgetBoxInterface* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseMoveEvent(QMouseEvent* event) override {
-		if (handle__mouseMoveEvent == 0) {
+		if (vtbl->mouseMoveEvent == 0) {
 			QDesignerWidgetBoxInterface::mouseMoveEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_mouseMoveEvent(this, handle__mouseMoveEvent, sigval1);
-
+		vtbl->mouseMoveEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_mouseMoveEvent(void* self, QMouseEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_mouseMoveEvent(VirtualQDesignerWidgetBoxInterface* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__wheelEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void wheelEvent(QWheelEvent* event) override {
-		if (handle__wheelEvent == 0) {
+		if (vtbl->wheelEvent == 0) {
 			QDesignerWidgetBoxInterface::wheelEvent(event);
 			return;
 		}
 
 		QWheelEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_wheelEvent(this, handle__wheelEvent, sigval1);
-
+		vtbl->wheelEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_wheelEvent(void* self, QWheelEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_wheelEvent(VirtualQDesignerWidgetBoxInterface* self, QWheelEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyPressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyPressEvent(QKeyEvent* event) override {
-		if (handle__keyPressEvent == 0) {
+		if (vtbl->keyPressEvent == 0) {
 			QDesignerWidgetBoxInterface::keyPressEvent(event);
 			return;
 		}
 
 		QKeyEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_keyPressEvent(this, handle__keyPressEvent, sigval1);
-
+		vtbl->keyPressEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_keyPressEvent(void* self, QKeyEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_keyPressEvent(VirtualQDesignerWidgetBoxInterface* self, QKeyEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyReleaseEvent(QKeyEvent* event) override {
-		if (handle__keyReleaseEvent == 0) {
+		if (vtbl->keyReleaseEvent == 0) {
 			QDesignerWidgetBoxInterface::keyReleaseEvent(event);
 			return;
 		}
 
 		QKeyEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_keyReleaseEvent(this, handle__keyReleaseEvent, sigval1);
-
+		vtbl->keyReleaseEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_keyReleaseEvent(VirtualQDesignerWidgetBoxInterface* self, QKeyEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusInEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusInEvent(QFocusEvent* event) override {
-		if (handle__focusInEvent == 0) {
+		if (vtbl->focusInEvent == 0) {
 			QDesignerWidgetBoxInterface::focusInEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_focusInEvent(this, handle__focusInEvent, sigval1);
-
+		vtbl->focusInEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_focusInEvent(void* self, QFocusEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_focusInEvent(VirtualQDesignerWidgetBoxInterface* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusOutEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusOutEvent(QFocusEvent* event) override {
-		if (handle__focusOutEvent == 0) {
+		if (vtbl->focusOutEvent == 0) {
 			QDesignerWidgetBoxInterface::focusOutEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_focusOutEvent(this, handle__focusOutEvent, sigval1);
-
+		vtbl->focusOutEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_focusOutEvent(void* self, QFocusEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_focusOutEvent(VirtualQDesignerWidgetBoxInterface* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__enterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void enterEvent(QEnterEvent* event) override {
-		if (handle__enterEvent == 0) {
+		if (vtbl->enterEvent == 0) {
 			QDesignerWidgetBoxInterface::enterEvent(event);
 			return;
 		}
 
 		QEnterEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_enterEvent(this, handle__enterEvent, sigval1);
-
+		vtbl->enterEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_enterEvent(void* self, QEnterEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_enterEvent(VirtualQDesignerWidgetBoxInterface* self, QEnterEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__leaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void leaveEvent(QEvent* event) override {
-		if (handle__leaveEvent == 0) {
+		if (vtbl->leaveEvent == 0) {
 			QDesignerWidgetBoxInterface::leaveEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_leaveEvent(this, handle__leaveEvent, sigval1);
-
+		vtbl->leaveEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_leaveEvent(void* self, QEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_leaveEvent(VirtualQDesignerWidgetBoxInterface* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void paintEvent(QPaintEvent* event) override {
-		if (handle__paintEvent == 0) {
+		if (vtbl->paintEvent == 0) {
 			QDesignerWidgetBoxInterface::paintEvent(event);
 			return;
 		}
 
 		QPaintEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_paintEvent(this, handle__paintEvent, sigval1);
-
+		vtbl->paintEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_paintEvent(void* self, QPaintEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_paintEvent(VirtualQDesignerWidgetBoxInterface* self, QPaintEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__moveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void moveEvent(QMoveEvent* event) override {
-		if (handle__moveEvent == 0) {
+		if (vtbl->moveEvent == 0) {
 			QDesignerWidgetBoxInterface::moveEvent(event);
 			return;
 		}
 
 		QMoveEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_moveEvent(this, handle__moveEvent, sigval1);
-
+		vtbl->moveEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_moveEvent(void* self, QMoveEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_moveEvent(VirtualQDesignerWidgetBoxInterface* self, QMoveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__resizeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void resizeEvent(QResizeEvent* event) override {
-		if (handle__resizeEvent == 0) {
+		if (vtbl->resizeEvent == 0) {
 			QDesignerWidgetBoxInterface::resizeEvent(event);
 			return;
 		}
 
 		QResizeEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_resizeEvent(this, handle__resizeEvent, sigval1);
-
+		vtbl->resizeEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_resizeEvent(void* self, QResizeEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_resizeEvent(VirtualQDesignerWidgetBoxInterface* self, QResizeEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__closeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void closeEvent(QCloseEvent* event) override {
-		if (handle__closeEvent == 0) {
+		if (vtbl->closeEvent == 0) {
 			QDesignerWidgetBoxInterface::closeEvent(event);
 			return;
 		}
 
 		QCloseEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_closeEvent(this, handle__closeEvent, sigval1);
-
+		vtbl->closeEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_closeEvent(void* self, QCloseEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_closeEvent(VirtualQDesignerWidgetBoxInterface* self, QCloseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__contextMenuEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void contextMenuEvent(QContextMenuEvent* event) override {
-		if (handle__contextMenuEvent == 0) {
+		if (vtbl->contextMenuEvent == 0) {
 			QDesignerWidgetBoxInterface::contextMenuEvent(event);
 			return;
 		}
 
 		QContextMenuEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_contextMenuEvent(this, handle__contextMenuEvent, sigval1);
-
+		vtbl->contextMenuEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_contextMenuEvent(VirtualQDesignerWidgetBoxInterface* self, QContextMenuEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__tabletEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void tabletEvent(QTabletEvent* event) override {
-		if (handle__tabletEvent == 0) {
+		if (vtbl->tabletEvent == 0) {
 			QDesignerWidgetBoxInterface::tabletEvent(event);
 			return;
 		}
 
 		QTabletEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_tabletEvent(this, handle__tabletEvent, sigval1);
-
+		vtbl->tabletEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_tabletEvent(void* self, QTabletEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_tabletEvent(VirtualQDesignerWidgetBoxInterface* self, QTabletEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__actionEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void actionEvent(QActionEvent* event) override {
-		if (handle__actionEvent == 0) {
+		if (vtbl->actionEvent == 0) {
 			QDesignerWidgetBoxInterface::actionEvent(event);
 			return;
 		}
 
 		QActionEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_actionEvent(this, handle__actionEvent, sigval1);
-
+		vtbl->actionEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_actionEvent(void* self, QActionEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_actionEvent(VirtualQDesignerWidgetBoxInterface* self, QActionEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragEnterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragEnterEvent(QDragEnterEvent* event) override {
-		if (handle__dragEnterEvent == 0) {
+		if (vtbl->dragEnterEvent == 0) {
 			QDesignerWidgetBoxInterface::dragEnterEvent(event);
 			return;
 		}
 
 		QDragEnterEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_dragEnterEvent(this, handle__dragEnterEvent, sigval1);
-
+		vtbl->dragEnterEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_dragEnterEvent(VirtualQDesignerWidgetBoxInterface* self, QDragEnterEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragMoveEvent(QDragMoveEvent* event) override {
-		if (handle__dragMoveEvent == 0) {
+		if (vtbl->dragMoveEvent == 0) {
 			QDesignerWidgetBoxInterface::dragMoveEvent(event);
 			return;
 		}
 
 		QDragMoveEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_dragMoveEvent(this, handle__dragMoveEvent, sigval1);
-
+		vtbl->dragMoveEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_dragMoveEvent(VirtualQDesignerWidgetBoxInterface* self, QDragMoveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragLeaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragLeaveEvent(QDragLeaveEvent* event) override {
-		if (handle__dragLeaveEvent == 0) {
+		if (vtbl->dragLeaveEvent == 0) {
 			QDesignerWidgetBoxInterface::dragLeaveEvent(event);
 			return;
 		}
 
 		QDragLeaveEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_dragLeaveEvent(this, handle__dragLeaveEvent, sigval1);
-
+		vtbl->dragLeaveEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_dragLeaveEvent(VirtualQDesignerWidgetBoxInterface* self, QDragLeaveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dropEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dropEvent(QDropEvent* event) override {
-		if (handle__dropEvent == 0) {
+		if (vtbl->dropEvent == 0) {
 			QDesignerWidgetBoxInterface::dropEvent(event);
 			return;
 		}
 
 		QDropEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_dropEvent(this, handle__dropEvent, sigval1);
-
+		vtbl->dropEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_dropEvent(void* self, QDropEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_dropEvent(VirtualQDesignerWidgetBoxInterface* self, QDropEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__showEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void showEvent(QShowEvent* event) override {
-		if (handle__showEvent == 0) {
+		if (vtbl->showEvent == 0) {
 			QDesignerWidgetBoxInterface::showEvent(event);
 			return;
 		}
 
 		QShowEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_showEvent(this, handle__showEvent, sigval1);
-
+		vtbl->showEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_showEvent(void* self, QShowEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_showEvent(VirtualQDesignerWidgetBoxInterface* self, QShowEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hideEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void hideEvent(QHideEvent* event) override {
-		if (handle__hideEvent == 0) {
+		if (vtbl->hideEvent == 0) {
 			QDesignerWidgetBoxInterface::hideEvent(event);
 			return;
 		}
 
 		QHideEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_hideEvent(this, handle__hideEvent, sigval1);
-
+		vtbl->hideEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_hideEvent(void* self, QHideEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_hideEvent(VirtualQDesignerWidgetBoxInterface* self, QHideEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__nativeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool nativeEvent(const QByteArray& eventType, void* message, qintptr* result) override {
-		if (handle__nativeEvent == 0) {
+		if (vtbl->nativeEvent == 0) {
 			return QDesignerWidgetBoxInterface::nativeEvent(eventType, message, result);
 		}
 
@@ -927,218 +652,160 @@ public:
 		void* sigval2 = message;
 		qintptr* result_ret = result;
 		intptr_t* sigval3 = (intptr_t*)(result_ret);
-		bool callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_nativeEvent(this, handle__nativeEvent, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->nativeEvent(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QDesignerWidgetBoxInterface_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, intptr_t* result);
+	friend bool QDesignerWidgetBoxInterface_virtualbase_nativeEvent(VirtualQDesignerWidgetBoxInterface* self, struct seaqt_string eventType, void* message, intptr_t* result);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__changeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void changeEvent(QEvent* param1) override {
-		if (handle__changeEvent == 0) {
+		if (vtbl->changeEvent == 0) {
 			QDesignerWidgetBoxInterface::changeEvent(param1);
 			return;
 		}
 
 		QEvent* sigval1 = param1;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_changeEvent(this, handle__changeEvent, sigval1);
-
+		vtbl->changeEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_changeEvent(void* self, QEvent* param1);
+	friend void QDesignerWidgetBoxInterface_virtualbase_changeEvent(VirtualQDesignerWidgetBoxInterface* self, QEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metric = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int metric(QPaintDevice::PaintDeviceMetric param1) const override {
-		if (handle__metric == 0) {
+		if (vtbl->metric == 0) {
 			return QDesignerWidgetBoxInterface::metric(param1);
 		}
 
 		QPaintDevice::PaintDeviceMetric param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		int callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_metric(this, handle__metric, sigval1);
+		int callback_return_value = vtbl->metric(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QDesignerWidgetBoxInterface_virtualbase_metric(const void* self, int param1);
+	friend int QDesignerWidgetBoxInterface_virtualbase_metric(const VirtualQDesignerWidgetBoxInterface* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__initPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void initPainter(QPainter* painter) const override {
-		if (handle__initPainter == 0) {
+		if (vtbl->initPainter == 0) {
 			QDesignerWidgetBoxInterface::initPainter(painter);
 			return;
 		}
 
 		QPainter* sigval1 = painter;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_initPainter(this, handle__initPainter, sigval1);
-
+		vtbl->initPainter(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_initPainter(const void* self, QPainter* painter);
+	friend void QDesignerWidgetBoxInterface_virtualbase_initPainter(const VirtualQDesignerWidgetBoxInterface* self, QPainter* painter);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__redirected = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintDevice* redirected(QPoint* offset) const override {
-		if (handle__redirected == 0) {
+		if (vtbl->redirected == 0) {
 			return QDesignerWidgetBoxInterface::redirected(offset);
 		}
 
 		QPoint* sigval1 = offset;
-		QPaintDevice* callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_redirected(this, handle__redirected, sigval1);
+		QPaintDevice* callback_return_value = vtbl->redirected(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QPaintDevice* QDesignerWidgetBoxInterface_virtualbase_redirected(const void* self, QPoint* offset);
+	friend QPaintDevice* QDesignerWidgetBoxInterface_virtualbase_redirected(const VirtualQDesignerWidgetBoxInterface* self, QPoint* offset);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sharedPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPainter* sharedPainter() const override {
-		if (handle__sharedPainter == 0) {
+		if (vtbl->sharedPainter == 0) {
 			return QDesignerWidgetBoxInterface::sharedPainter();
 		}
 
-		QPainter* callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_sharedPainter(this, handle__sharedPainter);
+		QPainter* callback_return_value = vtbl->sharedPainter(this);
 		return callback_return_value;
 	}
 
-	friend QPainter* QDesignerWidgetBoxInterface_virtualbase_sharedPainter(const void* self);
+	friend QPainter* QDesignerWidgetBoxInterface_virtualbase_sharedPainter(const VirtualQDesignerWidgetBoxInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void inputMethodEvent(QInputMethodEvent* param1) override {
-		if (handle__inputMethodEvent == 0) {
+		if (vtbl->inputMethodEvent == 0) {
 			QDesignerWidgetBoxInterface::inputMethodEvent(param1);
 			return;
 		}
 
 		QInputMethodEvent* sigval1 = param1;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_inputMethodEvent(this, handle__inputMethodEvent, sigval1);
-
+		vtbl->inputMethodEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1);
+	friend void QDesignerWidgetBoxInterface_virtualbase_inputMethodEvent(VirtualQDesignerWidgetBoxInterface* self, QInputMethodEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodQuery = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant inputMethodQuery(Qt::InputMethodQuery param1) const override {
-		if (handle__inputMethodQuery == 0) {
+		if (vtbl->inputMethodQuery == 0) {
 			return QDesignerWidgetBoxInterface::inputMethodQuery(param1);
 		}
 
 		Qt::InputMethodQuery param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		QVariant* callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_inputMethodQuery(this, handle__inputMethodQuery, sigval1);
+		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QDesignerWidgetBoxInterface_virtualbase_inputMethodQuery(const void* self, int param1);
+	friend QVariant* QDesignerWidgetBoxInterface_virtualbase_inputMethodQuery(const VirtualQDesignerWidgetBoxInterface* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusNextPrevChild = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool focusNextPrevChild(bool next) override {
-		if (handle__focusNextPrevChild == 0) {
+		if (vtbl->focusNextPrevChild == 0) {
 			return QDesignerWidgetBoxInterface::focusNextPrevChild(next);
 		}
 
 		bool sigval1 = next;
-		bool callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_focusNextPrevChild(this, handle__focusNextPrevChild, sigval1);
+		bool callback_return_value = vtbl->focusNextPrevChild(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QDesignerWidgetBoxInterface_virtualbase_focusNextPrevChild(void* self, bool next);
+	friend bool QDesignerWidgetBoxInterface_virtualbase_focusNextPrevChild(VirtualQDesignerWidgetBoxInterface* self, bool next);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QDesignerWidgetBoxInterface::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QDesignerWidgetBoxInterface_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QDesignerWidgetBoxInterface_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QDesignerWidgetBoxInterface_virtualbase_eventFilter(VirtualQDesignerWidgetBoxInterface* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QDesignerWidgetBoxInterface::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_timerEvent(VirtualQDesignerWidgetBoxInterface* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QDesignerWidgetBoxInterface::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_childEvent(VirtualQDesignerWidgetBoxInterface* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QDesignerWidgetBoxInterface::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetBoxInterface_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QDesignerWidgetBoxInterface_virtualbase_customEvent(VirtualQDesignerWidgetBoxInterface* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QDesignerWidgetBoxInterface::connectNotify(signal);
 			return;
 		}
@@ -1146,18 +813,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QDesignerWidgetBoxInterface_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QDesignerWidgetBoxInterface_virtualbase_connectNotify(VirtualQDesignerWidgetBoxInterface* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QDesignerWidgetBoxInterface::disconnectNotify(signal);
 			return;
 		}
@@ -1165,34 +827,36 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QDesignerWidgetBoxInterface_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QDesignerWidgetBoxInterface_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QDesignerWidgetBoxInterface_virtualbase_disconnectNotify(VirtualQDesignerWidgetBoxInterface* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QDesignerWidgetBoxInterface_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self);
-	friend void QDesignerWidgetBoxInterface_protectedbase_create(bool* _dynamic_cast_ok, void* self);
-	friend void QDesignerWidgetBoxInterface_protectedbase_destroy(bool* _dynamic_cast_ok, void* self);
-	friend bool QDesignerWidgetBoxInterface_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self);
-	friend bool QDesignerWidgetBoxInterface_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self);
-	friend QObject* QDesignerWidgetBoxInterface_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QDesignerWidgetBoxInterface_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QDesignerWidgetBoxInterface_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QDesignerWidgetBoxInterface_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QDesignerWidgetBoxInterface_protectedbase_updateMicroFocus(VirtualQDesignerWidgetBoxInterface* self);
+	friend void QDesignerWidgetBoxInterface_protectedbase_create(VirtualQDesignerWidgetBoxInterface* self);
+	friend void QDesignerWidgetBoxInterface_protectedbase_destroy(VirtualQDesignerWidgetBoxInterface* self);
+	friend bool QDesignerWidgetBoxInterface_protectedbase_focusNextChild(VirtualQDesignerWidgetBoxInterface* self);
+	friend bool QDesignerWidgetBoxInterface_protectedbase_focusPreviousChild(VirtualQDesignerWidgetBoxInterface* self);
+	friend QObject* QDesignerWidgetBoxInterface_protectedbase_sender(const VirtualQDesignerWidgetBoxInterface* self);
+	friend int QDesignerWidgetBoxInterface_protectedbase_senderSignalIndex(const VirtualQDesignerWidgetBoxInterface* self);
+	friend int QDesignerWidgetBoxInterface_protectedbase_receivers(const VirtualQDesignerWidgetBoxInterface* self, const char* signal);
+	friend bool QDesignerWidgetBoxInterface_protectedbase_isSignalConnected(const VirtualQDesignerWidgetBoxInterface* self, QMetaMethod* signal);
 };
 
-QDesignerWidgetBoxInterface* QDesignerWidgetBoxInterface_new() {
-	return new (std::nothrow) VirtualQDesignerWidgetBoxInterface();
+VirtualQDesignerWidgetBoxInterface* QDesignerWidgetBoxInterface_new(const QDesignerWidgetBoxInterface_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerWidgetBoxInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerWidgetBoxInterface(vtbl) : nullptr;
 }
 
-QDesignerWidgetBoxInterface* QDesignerWidgetBoxInterface_new2(QWidget* parent) {
-	return new (std::nothrow) VirtualQDesignerWidgetBoxInterface(parent);
+VirtualQDesignerWidgetBoxInterface* QDesignerWidgetBoxInterface_new2(const QDesignerWidgetBoxInterface_VTable* vtbl, size_t vdata, QWidget* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerWidgetBoxInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerWidgetBoxInterface(vtbl, parent) : nullptr;
 }
 
-QDesignerWidgetBoxInterface* QDesignerWidgetBoxInterface_new3(QWidget* parent, int flags) {
-	return new (std::nothrow) VirtualQDesignerWidgetBoxInterface(parent, static_cast<Qt::WindowFlags>(flags));
+VirtualQDesignerWidgetBoxInterface* QDesignerWidgetBoxInterface_new3(const QDesignerWidgetBoxInterface_VTable* vtbl, size_t vdata, QWidget* parent, int flags) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerWidgetBoxInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerWidgetBoxInterface(vtbl, parent, static_cast<Qt::WindowFlags>(flags)) : nullptr;
 }
 
 void QDesignerWidgetBoxInterface_virtbase(QDesignerWidgetBoxInterface* src, QWidget** outptr_QWidget) {
@@ -1316,934 +980,294 @@ struct seaqt_string QDesignerWidgetBoxInterface_tr3(const char* s, const char* c
 }
 
 const QMetaObject* QDesignerWidgetBoxInterface_staticMetaObject() { return &QDesignerWidgetBoxInterface::staticMetaObject; }
-bool QDesignerWidgetBoxInterface_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QDesignerWidgetBoxInterface_vdata(VirtualQDesignerWidgetBoxInterface* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQDesignerWidgetBoxInterface>()); }
+VirtualQDesignerWidgetBoxInterface* vdata_QDesignerWidgetBoxInterface(void* vdata) { return reinterpret_cast<VirtualQDesignerWidgetBoxInterface*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQDesignerWidgetBoxInterface>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
-}
-
-QMetaObject* QDesignerWidgetBoxInterface_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::metaObject();
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__metacast = slot;
-	return true;
-}
-
-void* QDesignerWidgetBoxInterface_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::qt_metacast(param1);
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__metacall = slot;
-	return true;
-}
-
-int QDesignerWidgetBoxInterface_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_categoryCount(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__categoryCount = slot;
-	return true;
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_category(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__category = slot;
-	return true;
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_addCategory(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__addCategory = slot;
-	return true;
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_removeCategory(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__removeCategory = slot;
-	return true;
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_widgetCount(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__widgetCount = slot;
-	return true;
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_widget(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__widget = slot;
-	return true;
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_addWidget(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__addWidget = slot;
-	return true;
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_removeWidget(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__removeWidget = slot;
-	return true;
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_dropWidgets(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__dropWidgets = slot;
-	return true;
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_setFileName(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QMetaObject* QDesignerWidgetBoxInterface_virtualbase_metaObject(const VirtualQDesignerWidgetBoxInterface* self) {
 
-	self_cast->handle__setFileName = slot;
-	return true;
+	return (QMetaObject*) self->QDesignerWidgetBoxInterface::metaObject();
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_fileName(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QDesignerWidgetBoxInterface_virtualbase_metacast(VirtualQDesignerWidgetBoxInterface* self, const char* param1) {
 
-	self_cast->handle__fileName = slot;
-	return true;
+	return self->QDesignerWidgetBoxInterface::qt_metacast(param1);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_load(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QDesignerWidgetBoxInterface_virtualbase_metacall(VirtualQDesignerWidgetBoxInterface* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__load = slot;
-	return true;
+	return self->QDesignerWidgetBoxInterface::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_save(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QDesignerWidgetBoxInterface_virtualbase_devType(const VirtualQDesignerWidgetBoxInterface* self) {
 
-	self_cast->handle__save = slot;
-	return true;
+	return self->QDesignerWidgetBoxInterface::devType();
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_devType(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetBoxInterface_virtualbase_setVisible(VirtualQDesignerWidgetBoxInterface* self, bool visible) {
 
-	self_cast->handle__devType = slot;
-	return true;
+	self->QDesignerWidgetBoxInterface::setVisible(visible);
 }
 
-int QDesignerWidgetBoxInterface_virtualbase_devType(const void* self) {
-	return static_cast<const VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::devType();
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_setVisible(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setVisible = slot;
-	return true;
-}
-
-void QDesignerWidgetBoxInterface_virtualbase_setVisible(void* self, bool visible) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::setVisible(visible);
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_sizeHint(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__sizeHint = slot;
-	return true;
-}
-
-QSize* QDesignerWidgetBoxInterface_virtualbase_sizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::sizeHint());
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_minimumSizeHint(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__minimumSizeHint = slot;
-	return true;
-}
+QSize* QDesignerWidgetBoxInterface_virtualbase_sizeHint(const VirtualQDesignerWidgetBoxInterface* self) {
 
-QSize* QDesignerWidgetBoxInterface_virtualbase_minimumSizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::minimumSizeHint());
+	return new QSize(self->QDesignerWidgetBoxInterface::sizeHint());
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_heightForWidth(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QSize* QDesignerWidgetBoxInterface_virtualbase_minimumSizeHint(const VirtualQDesignerWidgetBoxInterface* self) {
 
-	self_cast->handle__heightForWidth = slot;
-	return true;
+	return new QSize(self->QDesignerWidgetBoxInterface::minimumSizeHint());
 }
 
-int QDesignerWidgetBoxInterface_virtualbase_heightForWidth(const void* self, int param1) {
-	return static_cast<const VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::heightForWidth(static_cast<int>(param1));
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_hasHeightForWidth(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__hasHeightForWidth = slot;
-	return true;
-}
+int QDesignerWidgetBoxInterface_virtualbase_heightForWidth(const VirtualQDesignerWidgetBoxInterface* self, int param1) {
 
-bool QDesignerWidgetBoxInterface_virtualbase_hasHeightForWidth(const void* self) {
-	return static_cast<const VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::hasHeightForWidth();
+	return self->QDesignerWidgetBoxInterface::heightForWidth(static_cast<int>(param1));
 }
-
-bool QDesignerWidgetBoxInterface_override_virtual_paintEngine(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__paintEngine = slot;
-	return true;
-}
+bool QDesignerWidgetBoxInterface_virtualbase_hasHeightForWidth(const VirtualQDesignerWidgetBoxInterface* self) {
 
-QPaintEngine* QDesignerWidgetBoxInterface_virtualbase_paintEngine(const void* self) {
-	return static_cast<const VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::paintEngine();
+	return self->QDesignerWidgetBoxInterface::hasHeightForWidth();
 }
-
-bool QDesignerWidgetBoxInterface_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__event = slot;
-	return true;
-}
+QPaintEngine* QDesignerWidgetBoxInterface_virtualbase_paintEngine(const VirtualQDesignerWidgetBoxInterface* self) {
 
-bool QDesignerWidgetBoxInterface_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::event(event);
+	return self->QDesignerWidgetBoxInterface::paintEngine();
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_mousePressEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mousePressEvent = slot;
-	return true;
-}
+bool QDesignerWidgetBoxInterface_virtualbase_event(VirtualQDesignerWidgetBoxInterface* self, QEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_mousePressEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::mousePressEvent(event);
+	return self->QDesignerWidgetBoxInterface::event(event);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_mouseReleaseEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetBoxInterface_virtualbase_mousePressEvent(VirtualQDesignerWidgetBoxInterface* self, QMouseEvent* event) {
 
-	self_cast->handle__mouseReleaseEvent = slot;
-	return true;
+	self->QDesignerWidgetBoxInterface::mousePressEvent(event);
 }
 
-void QDesignerWidgetBoxInterface_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::mouseReleaseEvent(event);
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_mouseDoubleClickEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mouseDoubleClickEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_mouseReleaseEvent(VirtualQDesignerWidgetBoxInterface* self, QMouseEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::mouseDoubleClickEvent(event);
+	self->QDesignerWidgetBoxInterface::mouseReleaseEvent(event);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_mouseMoveEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetBoxInterface_virtualbase_mouseDoubleClickEvent(VirtualQDesignerWidgetBoxInterface* self, QMouseEvent* event) {
 
-	self_cast->handle__mouseMoveEvent = slot;
-	return true;
+	self->QDesignerWidgetBoxInterface::mouseDoubleClickEvent(event);
 }
 
-void QDesignerWidgetBoxInterface_virtualbase_mouseMoveEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::mouseMoveEvent(event);
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_wheelEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__wheelEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_mouseMoveEvent(VirtualQDesignerWidgetBoxInterface* self, QMouseEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_wheelEvent(void* self, QWheelEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::wheelEvent(event);
+	self->QDesignerWidgetBoxInterface::mouseMoveEvent(event);
 }
-
-bool QDesignerWidgetBoxInterface_override_virtual_keyPressEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__keyPressEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_wheelEvent(VirtualQDesignerWidgetBoxInterface* self, QWheelEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_keyPressEvent(void* self, QKeyEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::keyPressEvent(event);
+	self->QDesignerWidgetBoxInterface::wheelEvent(event);
 }
-
-bool QDesignerWidgetBoxInterface_override_virtual_keyReleaseEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__keyReleaseEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_keyPressEvent(VirtualQDesignerWidgetBoxInterface* self, QKeyEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::keyReleaseEvent(event);
+	self->QDesignerWidgetBoxInterface::keyPressEvent(event);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_focusInEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__focusInEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_keyReleaseEvent(VirtualQDesignerWidgetBoxInterface* self, QKeyEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_focusInEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::focusInEvent(event);
+	self->QDesignerWidgetBoxInterface::keyReleaseEvent(event);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_focusOutEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetBoxInterface_virtualbase_focusInEvent(VirtualQDesignerWidgetBoxInterface* self, QFocusEvent* event) {
 
-	self_cast->handle__focusOutEvent = slot;
-	return true;
+	self->QDesignerWidgetBoxInterface::focusInEvent(event);
 }
 
-void QDesignerWidgetBoxInterface_virtualbase_focusOutEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::focusOutEvent(event);
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_enterEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__enterEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_focusOutEvent(VirtualQDesignerWidgetBoxInterface* self, QFocusEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_enterEvent(void* self, QEnterEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::enterEvent(event);
+	self->QDesignerWidgetBoxInterface::focusOutEvent(event);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_leaveEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetBoxInterface_virtualbase_enterEvent(VirtualQDesignerWidgetBoxInterface* self, QEnterEvent* event) {
 
-	self_cast->handle__leaveEvent = slot;
-	return true;
+	self->QDesignerWidgetBoxInterface::enterEvent(event);
 }
 
-void QDesignerWidgetBoxInterface_virtualbase_leaveEvent(void* self, QEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::leaveEvent(event);
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_paintEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__paintEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_leaveEvent(VirtualQDesignerWidgetBoxInterface* self, QEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_paintEvent(void* self, QPaintEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::paintEvent(event);
+	self->QDesignerWidgetBoxInterface::leaveEvent(event);
 }
-
-bool QDesignerWidgetBoxInterface_override_virtual_moveEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__moveEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_paintEvent(VirtualQDesignerWidgetBoxInterface* self, QPaintEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_moveEvent(void* self, QMoveEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::moveEvent(event);
+	self->QDesignerWidgetBoxInterface::paintEvent(event);
 }
-
-bool QDesignerWidgetBoxInterface_override_virtual_resizeEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__resizeEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_moveEvent(VirtualQDesignerWidgetBoxInterface* self, QMoveEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_resizeEvent(void* self, QResizeEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::resizeEvent(event);
+	self->QDesignerWidgetBoxInterface::moveEvent(event);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_closeEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__closeEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_resizeEvent(VirtualQDesignerWidgetBoxInterface* self, QResizeEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_closeEvent(void* self, QCloseEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::closeEvent(event);
+	self->QDesignerWidgetBoxInterface::resizeEvent(event);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_contextMenuEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetBoxInterface_virtualbase_closeEvent(VirtualQDesignerWidgetBoxInterface* self, QCloseEvent* event) {
 
-	self_cast->handle__contextMenuEvent = slot;
-	return true;
+	self->QDesignerWidgetBoxInterface::closeEvent(event);
 }
 
-void QDesignerWidgetBoxInterface_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::contextMenuEvent(event);
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_tabletEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__tabletEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_contextMenuEvent(VirtualQDesignerWidgetBoxInterface* self, QContextMenuEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_tabletEvent(void* self, QTabletEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::tabletEvent(event);
+	self->QDesignerWidgetBoxInterface::contextMenuEvent(event);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_actionEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetBoxInterface_virtualbase_tabletEvent(VirtualQDesignerWidgetBoxInterface* self, QTabletEvent* event) {
 
-	self_cast->handle__actionEvent = slot;
-	return true;
+	self->QDesignerWidgetBoxInterface::tabletEvent(event);
 }
 
-void QDesignerWidgetBoxInterface_virtualbase_actionEvent(void* self, QActionEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::actionEvent(event);
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_dragEnterEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__dragEnterEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_actionEvent(VirtualQDesignerWidgetBoxInterface* self, QActionEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::dragEnterEvent(event);
+	self->QDesignerWidgetBoxInterface::actionEvent(event);
 }
-
-bool QDesignerWidgetBoxInterface_override_virtual_dragMoveEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__dragMoveEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_dragEnterEvent(VirtualQDesignerWidgetBoxInterface* self, QDragEnterEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::dragMoveEvent(event);
+	self->QDesignerWidgetBoxInterface::dragEnterEvent(event);
 }
-
-bool QDesignerWidgetBoxInterface_override_virtual_dragLeaveEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__dragLeaveEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_dragMoveEvent(VirtualQDesignerWidgetBoxInterface* self, QDragMoveEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::dragLeaveEvent(event);
+	self->QDesignerWidgetBoxInterface::dragMoveEvent(event);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_dropEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__dropEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_dragLeaveEvent(VirtualQDesignerWidgetBoxInterface* self, QDragLeaveEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_dropEvent(void* self, QDropEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::dropEvent(event);
+	self->QDesignerWidgetBoxInterface::dragLeaveEvent(event);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_showEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetBoxInterface_virtualbase_dropEvent(VirtualQDesignerWidgetBoxInterface* self, QDropEvent* event) {
 
-	self_cast->handle__showEvent = slot;
-	return true;
+	self->QDesignerWidgetBoxInterface::dropEvent(event);
 }
 
-void QDesignerWidgetBoxInterface_virtualbase_showEvent(void* self, QShowEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::showEvent(event);
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_hideEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__hideEvent = slot;
-	return true;
-}
+void QDesignerWidgetBoxInterface_virtualbase_showEvent(VirtualQDesignerWidgetBoxInterface* self, QShowEvent* event) {
 
-void QDesignerWidgetBoxInterface_virtualbase_hideEvent(void* self, QHideEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::hideEvent(event);
+	self->QDesignerWidgetBoxInterface::showEvent(event);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_nativeEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetBoxInterface_virtualbase_hideEvent(VirtualQDesignerWidgetBoxInterface* self, QHideEvent* event) {
 
-	self_cast->handle__nativeEvent = slot;
-	return true;
+	self->QDesignerWidgetBoxInterface::hideEvent(event);
 }
 
-bool QDesignerWidgetBoxInterface_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, intptr_t* result) {
+bool QDesignerWidgetBoxInterface_virtualbase_nativeEvent(VirtualQDesignerWidgetBoxInterface* self, struct seaqt_string eventType, void* message, intptr_t* result) {
 	QByteArray eventType_QByteArray(eventType.data, eventType.len);
-	return static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::nativeEvent(eventType_QByteArray, message, (qintptr*)(result));
+
+	return self->QDesignerWidgetBoxInterface::nativeEvent(eventType_QByteArray, message, (qintptr*)(result));
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_changeEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetBoxInterface_virtualbase_changeEvent(VirtualQDesignerWidgetBoxInterface* self, QEvent* param1) {
 
-	self_cast->handle__changeEvent = slot;
-	return true;
+	self->QDesignerWidgetBoxInterface::changeEvent(param1);
 }
 
-void QDesignerWidgetBoxInterface_virtualbase_changeEvent(void* self, QEvent* param1) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::changeEvent(param1);
+int QDesignerWidgetBoxInterface_virtualbase_metric(const VirtualQDesignerWidgetBoxInterface* self, int param1) {
+
+	return self->QDesignerWidgetBoxInterface::metric(static_cast<VirtualQDesignerWidgetBoxInterface::PaintDeviceMetric>(param1));
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_metric(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetBoxInterface_virtualbase_initPainter(const VirtualQDesignerWidgetBoxInterface* self, QPainter* painter) {
 
-	self_cast->handle__metric = slot;
-	return true;
+	self->QDesignerWidgetBoxInterface::initPainter(painter);
 }
 
-int QDesignerWidgetBoxInterface_virtualbase_metric(const void* self, int param1) {
-	return static_cast<const VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::metric(static_cast<VirtualQDesignerWidgetBoxInterface::PaintDeviceMetric>(param1));
+QPaintDevice* QDesignerWidgetBoxInterface_virtualbase_redirected(const VirtualQDesignerWidgetBoxInterface* self, QPoint* offset) {
+
+	return self->QDesignerWidgetBoxInterface::redirected(offset);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_initPainter(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QPainter* QDesignerWidgetBoxInterface_virtualbase_sharedPainter(const VirtualQDesignerWidgetBoxInterface* self) {
 
-	self_cast->handle__initPainter = slot;
-	return true;
+	return self->QDesignerWidgetBoxInterface::sharedPainter();
 }
 
-void QDesignerWidgetBoxInterface_virtualbase_initPainter(const void* self, QPainter* painter) {
-	static_cast<const VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::initPainter(painter);
+void QDesignerWidgetBoxInterface_virtualbase_inputMethodEvent(VirtualQDesignerWidgetBoxInterface* self, QInputMethodEvent* param1) {
+
+	self->QDesignerWidgetBoxInterface::inputMethodEvent(param1);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_redirected(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QVariant* QDesignerWidgetBoxInterface_virtualbase_inputMethodQuery(const VirtualQDesignerWidgetBoxInterface* self, int param1) {
 
-	self_cast->handle__redirected = slot;
-	return true;
+	return new QVariant(self->QDesignerWidgetBoxInterface::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
 }
 
-QPaintDevice* QDesignerWidgetBoxInterface_virtualbase_redirected(const void* self, QPoint* offset) {
-	return static_cast<const VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::redirected(offset);
+bool QDesignerWidgetBoxInterface_virtualbase_focusNextPrevChild(VirtualQDesignerWidgetBoxInterface* self, bool next) {
+
+	return self->QDesignerWidgetBoxInterface::focusNextPrevChild(next);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_sharedPainter(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QDesignerWidgetBoxInterface_virtualbase_eventFilter(VirtualQDesignerWidgetBoxInterface* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__sharedPainter = slot;
-	return true;
+	return self->QDesignerWidgetBoxInterface::eventFilter(watched, event);
 }
 
-QPainter* QDesignerWidgetBoxInterface_virtualbase_sharedPainter(const void* self) {
-	return static_cast<const VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::sharedPainter();
+void QDesignerWidgetBoxInterface_virtualbase_timerEvent(VirtualQDesignerWidgetBoxInterface* self, QTimerEvent* event) {
+
+	self->QDesignerWidgetBoxInterface::timerEvent(event);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_inputMethodEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetBoxInterface_virtualbase_childEvent(VirtualQDesignerWidgetBoxInterface* self, QChildEvent* event) {
 
-	self_cast->handle__inputMethodEvent = slot;
-	return true;
+	self->QDesignerWidgetBoxInterface::childEvent(event);
 }
 
-void QDesignerWidgetBoxInterface_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::inputMethodEvent(param1);
+void QDesignerWidgetBoxInterface_virtualbase_customEvent(VirtualQDesignerWidgetBoxInterface* self, QEvent* event) {
+
+	self->QDesignerWidgetBoxInterface::customEvent(event);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_inputMethodQuery(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetBoxInterface_virtualbase_connectNotify(VirtualQDesignerWidgetBoxInterface* self, QMetaMethod* signal) {
 
-	self_cast->handle__inputMethodQuery = slot;
-	return true;
+	self->QDesignerWidgetBoxInterface::connectNotify(*signal);
 }
 
-QVariant* QDesignerWidgetBoxInterface_virtualbase_inputMethodQuery(const void* self, int param1) {
-	return new QVariant(static_cast<const VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
+void QDesignerWidgetBoxInterface_virtualbase_disconnectNotify(VirtualQDesignerWidgetBoxInterface* self, QMetaMethod* signal) {
+
+	self->QDesignerWidgetBoxInterface::disconnectNotify(*signal);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_focusNextPrevChild(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__focusNextPrevChild = slot;
-	return true;
+void QDesignerWidgetBoxInterface_protectedbase_updateMicroFocus(VirtualQDesignerWidgetBoxInterface* self) {
+	self->updateMicroFocus();
 }
 
-bool QDesignerWidgetBoxInterface_virtualbase_focusNextPrevChild(void* self, bool next) {
-	return static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::focusNextPrevChild(next);
+void QDesignerWidgetBoxInterface_protectedbase_create(VirtualQDesignerWidgetBoxInterface* self) {
+	self->create();
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
+void QDesignerWidgetBoxInterface_protectedbase_destroy(VirtualQDesignerWidgetBoxInterface* self) {
+	self->destroy();
 }
 
-bool QDesignerWidgetBoxInterface_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::eventFilter(watched, event);
+bool QDesignerWidgetBoxInterface_protectedbase_focusNextChild(VirtualQDesignerWidgetBoxInterface* self) {
+	return self->focusNextChild();
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+bool QDesignerWidgetBoxInterface_protectedbase_focusPreviousChild(VirtualQDesignerWidgetBoxInterface* self) {
+	return self->focusPreviousChild();
 }
 
-void QDesignerWidgetBoxInterface_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::timerEvent(event);
+QObject* QDesignerWidgetBoxInterface_protectedbase_sender(const VirtualQDesignerWidgetBoxInterface* self) {
+	return self->sender();
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QDesignerWidgetBoxInterface_protectedbase_senderSignalIndex(const VirtualQDesignerWidgetBoxInterface* self) {
+	return self->senderSignalIndex();
 }
 
-void QDesignerWidgetBoxInterface_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::childEvent(event);
+int QDesignerWidgetBoxInterface_protectedbase_receivers(const VirtualQDesignerWidgetBoxInterface* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QDesignerWidgetBoxInterface_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QDesignerWidgetBoxInterface_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::customEvent(event);
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QDesignerWidgetBoxInterface_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::connectNotify(*signal);
-}
-
-bool QDesignerWidgetBoxInterface_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QDesignerWidgetBoxInterface_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQDesignerWidgetBoxInterface*>(self)->QDesignerWidgetBoxInterface::disconnectNotify(*signal);
-}
-
-void QDesignerWidgetBoxInterface_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->updateMicroFocus();
-}
-
-void QDesignerWidgetBoxInterface_protectedbase_create(bool* _dynamic_cast_ok, void* self) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->create();
-}
-
-void QDesignerWidgetBoxInterface_protectedbase_destroy(bool* _dynamic_cast_ok, void* self) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->destroy();
-}
-
-bool QDesignerWidgetBoxInterface_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusNextChild();
-}
-
-bool QDesignerWidgetBoxInterface_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusPreviousChild();
-}
-
-QObject* QDesignerWidgetBoxInterface_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QDesignerWidgetBoxInterface_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QDesignerWidgetBoxInterface_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QDesignerWidgetBoxInterface_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQDesignerWidgetBoxInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetBoxInterface*>( (QDesignerWidgetBoxInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QDesignerWidgetBoxInterface_protectedbase_isSignalConnected(const VirtualQDesignerWidgetBoxInterface* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QDesignerWidgetBoxInterface_delete(QDesignerWidgetBoxInterface* self) {
@@ -2251,36 +1275,36 @@ void QDesignerWidgetBoxInterface_delete(QDesignerWidgetBoxInterface* self) {
 }
 
 QDesignerWidgetBoxInterface__Widget* QDesignerWidgetBoxInterface__Widget_new() {
-	return new (std::nothrow) QDesignerWidgetBoxInterface::Widget();
+	return new (std::nothrow) QDesignerWidgetBoxInterface__Widget();
 }
 
 QDesignerWidgetBoxInterface__Widget* QDesignerWidgetBoxInterface__Widget_new2(QDesignerWidgetBoxInterface__Widget* w) {
-	return new (std::nothrow) QDesignerWidgetBoxInterface::Widget(*w);
+	return new (std::nothrow) QDesignerWidgetBoxInterface__Widget(*w);
 }
 
 QDesignerWidgetBoxInterface__Widget* QDesignerWidgetBoxInterface__Widget_new3(struct seaqt_string aname) {
 	QString aname_QString = QString::fromUtf8(aname.data, aname.len);
-	return new (std::nothrow) QDesignerWidgetBoxInterface::Widget(aname_QString);
+	return new (std::nothrow) QDesignerWidgetBoxInterface__Widget(aname_QString);
 }
 
 QDesignerWidgetBoxInterface__Widget* QDesignerWidgetBoxInterface__Widget_new4(struct seaqt_string aname, struct seaqt_string xml) {
 	QString aname_QString = QString::fromUtf8(aname.data, aname.len);
 	QString xml_QString = QString::fromUtf8(xml.data, xml.len);
-	return new (std::nothrow) QDesignerWidgetBoxInterface::Widget(aname_QString, xml_QString);
+	return new (std::nothrow) QDesignerWidgetBoxInterface__Widget(aname_QString, xml_QString);
 }
 
 QDesignerWidgetBoxInterface__Widget* QDesignerWidgetBoxInterface__Widget_new5(struct seaqt_string aname, struct seaqt_string xml, struct seaqt_string icon_name) {
 	QString aname_QString = QString::fromUtf8(aname.data, aname.len);
 	QString xml_QString = QString::fromUtf8(xml.data, xml.len);
 	QString icon_name_QString = QString::fromUtf8(icon_name.data, icon_name.len);
-	return new (std::nothrow) QDesignerWidgetBoxInterface::Widget(aname_QString, xml_QString, icon_name_QString);
+	return new (std::nothrow) QDesignerWidgetBoxInterface__Widget(aname_QString, xml_QString, icon_name_QString);
 }
 
 QDesignerWidgetBoxInterface__Widget* QDesignerWidgetBoxInterface__Widget_new6(struct seaqt_string aname, struct seaqt_string xml, struct seaqt_string icon_name, int atype) {
 	QString aname_QString = QString::fromUtf8(aname.data, aname.len);
 	QString xml_QString = QString::fromUtf8(xml.data, xml.len);
 	QString icon_name_QString = QString::fromUtf8(icon_name.data, icon_name.len);
-	return new (std::nothrow) QDesignerWidgetBoxInterface::Widget(aname_QString, xml_QString, icon_name_QString, static_cast<QDesignerWidgetBoxInterface::Widget::Type>(atype));
+	return new (std::nothrow) QDesignerWidgetBoxInterface__Widget(aname_QString, xml_QString, icon_name_QString, static_cast<QDesignerWidgetBoxInterface::Widget::Type>(atype));
 }
 
 void QDesignerWidgetBoxInterface__Widget_operatorAssign(QDesignerWidgetBoxInterface__Widget* self, QDesignerWidgetBoxInterface__Widget* w) {
@@ -2353,21 +1377,21 @@ void QDesignerWidgetBoxInterface__Widget_delete(QDesignerWidgetBoxInterface__Wid
 }
 
 QDesignerWidgetBoxInterface__Category* QDesignerWidgetBoxInterface__Category_new() {
-	return new (std::nothrow) QDesignerWidgetBoxInterface::Category();
+	return new (std::nothrow) QDesignerWidgetBoxInterface__Category();
 }
 
 QDesignerWidgetBoxInterface__Category* QDesignerWidgetBoxInterface__Category_new2(QDesignerWidgetBoxInterface__Category* param1) {
-	return new (std::nothrow) QDesignerWidgetBoxInterface::Category(*param1);
+	return new (std::nothrow) QDesignerWidgetBoxInterface__Category(*param1);
 }
 
 QDesignerWidgetBoxInterface__Category* QDesignerWidgetBoxInterface__Category_new3(struct seaqt_string aname) {
 	QString aname_QString = QString::fromUtf8(aname.data, aname.len);
-	return new (std::nothrow) QDesignerWidgetBoxInterface::Category(aname_QString);
+	return new (std::nothrow) QDesignerWidgetBoxInterface__Category(aname_QString);
 }
 
 QDesignerWidgetBoxInterface__Category* QDesignerWidgetBoxInterface__Category_new4(struct seaqt_string aname, int atype) {
 	QString aname_QString = QString::fromUtf8(aname.data, aname.len);
-	return new (std::nothrow) QDesignerWidgetBoxInterface::Category(aname_QString, static_cast<QDesignerWidgetBoxInterface::Category::Type>(atype));
+	return new (std::nothrow) QDesignerWidgetBoxInterface__Category(aname_QString, static_cast<QDesignerWidgetBoxInterface::Category::Type>(atype));
 }
 
 struct seaqt_string QDesignerWidgetBoxInterface__Category_name(const QDesignerWidgetBoxInterface__Category* self) {

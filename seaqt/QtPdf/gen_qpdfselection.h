@@ -25,6 +25,7 @@ typedef struct QRectF QRectF;
 #endif
 
 QPdfSelection* QPdfSelection_new(QPdfSelection* other);
+
 void QPdfSelection_operatorAssign(QPdfSelection* self, QPdfSelection* other);
 void QPdfSelection_swap(QPdfSelection* self, QPdfSelection* other);
 bool QPdfSelection_isValid(const QPdfSelection* self);

@@ -32,6 +32,7 @@ QTextStream* QTextStream_new();
 QTextStream* QTextStream_new2(QIODevice* device);
 QTextStream* QTextStream_new3(struct seaqt_string array);
 QTextStream* QTextStream_new4(struct seaqt_string array, int openMode);
+
 void QTextStream_virtbase(QTextStream* src, QIODeviceBase** outptr_QIODeviceBase);
 void QTextStream_setEncoding(QTextStream* self, int encoding);
 int QTextStream_encoding(const QTextStream* self);

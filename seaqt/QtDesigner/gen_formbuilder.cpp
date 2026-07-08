@@ -14,36 +14,38 @@
 #include <formbuilder.h>
 #include "gen_formbuilder.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QWidget* miqt_exec_callback_QFormBuilder_createWidget(QFormBuilder*, intptr_t, struct seaqt_string, QWidget*, struct seaqt_string);
-QLayout* miqt_exec_callback_QFormBuilder_createLayout(QFormBuilder*, intptr_t, struct seaqt_string, QObject*, struct seaqt_string);
-void miqt_exec_callback_QFormBuilder_updateCustomWidgets(QFormBuilder*, intptr_t);
-QWidget* miqt_exec_callback_QFormBuilder_load(QFormBuilder*, intptr_t, QIODevice*, QWidget*);
-void miqt_exec_callback_QFormBuilder_save(QFormBuilder*, intptr_t, QIODevice*, QWidget*);
-void miqt_exec_callback_QFormBuilder_addMenuAction(QFormBuilder*, intptr_t, QAction*);
-QAction* miqt_exec_callback_QFormBuilder_createAction(QFormBuilder*, intptr_t, QObject*, struct seaqt_string);
-QActionGroup* miqt_exec_callback_QFormBuilder_createActionGroup(QFormBuilder*, intptr_t, QObject*, struct seaqt_string);
-bool miqt_exec_callback_QFormBuilder_checkProperty(const QFormBuilder*, intptr_t, QObject*, struct seaqt_string);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQFormBuilder final : public QFormBuilder {
+	const QFormBuilder_VTable* vtbl;
 public:
+	friend void* QFormBuilder_vdata(VirtualQFormBuilder* self);
+	friend VirtualQFormBuilder* vdata_QFormBuilder(void* vdata);
 
-	VirtualQFormBuilder(): QFormBuilder() {}
+	VirtualQFormBuilder(const QFormBuilder_VTable* vtbl): QFormBuilder(), vtbl(vtbl) {}
 
-	virtual ~VirtualQFormBuilder() override = default;
+	virtual ~VirtualQFormBuilder() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__createWidget = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual QWidget* createWidget(const QString& widgetName, QWidget* parentWidget, const QString& name) override {
-		if (handle__createWidget == 0) {
+		if (vtbl->createWidget == 0) {
 			return QFormBuilder::createWidget(widgetName, parentWidget, name);
 		}
 
@@ -64,18 +66,14 @@ public:
 		name_ms.data = static_cast<char*>(malloc(name_ms.len));
 		memcpy(name_ms.data, name_b.data(), name_ms.len);
 		struct seaqt_string sigval3 = name_ms;
-		QWidget* callback_return_value = miqt_exec_callback_QFormBuilder_createWidget(this, handle__createWidget, sigval1, sigval2, sigval3);
+		QWidget* callback_return_value = vtbl->createWidget(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend QWidget* QFormBuilder_virtualbase_createWidget(void* self, struct seaqt_string widgetName, QWidget* parentWidget, struct seaqt_string name);
+	friend QWidget* QFormBuilder_virtualbase_createWidget(VirtualQFormBuilder* self, struct seaqt_string widgetName, QWidget* parentWidget, struct seaqt_string name);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__createLayout = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QLayout* createLayout(const QString& layoutName, QObject* parent, const QString& name) override {
-		if (handle__createLayout == 0) {
+		if (vtbl->createLayout == 0) {
 			return QFormBuilder::createLayout(layoutName, parent, name);
 		}
 
@@ -96,86 +94,63 @@ public:
 		name_ms.data = static_cast<char*>(malloc(name_ms.len));
 		memcpy(name_ms.data, name_b.data(), name_ms.len);
 		struct seaqt_string sigval3 = name_ms;
-		QLayout* callback_return_value = miqt_exec_callback_QFormBuilder_createLayout(this, handle__createLayout, sigval1, sigval2, sigval3);
+		QLayout* callback_return_value = vtbl->createLayout(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend QLayout* QFormBuilder_virtualbase_createLayout(void* self, struct seaqt_string layoutName, QObject* parent, struct seaqt_string name);
+	friend QLayout* QFormBuilder_virtualbase_createLayout(VirtualQFormBuilder* self, struct seaqt_string layoutName, QObject* parent, struct seaqt_string name);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__updateCustomWidgets = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void updateCustomWidgets() override {
-		if (handle__updateCustomWidgets == 0) {
+		if (vtbl->updateCustomWidgets == 0) {
 			QFormBuilder::updateCustomWidgets();
 			return;
 		}
 
-		miqt_exec_callback_QFormBuilder_updateCustomWidgets(this, handle__updateCustomWidgets);
-
+		vtbl->updateCustomWidgets(this);
 	}
 
-	friend void QFormBuilder_virtualbase_updateCustomWidgets(void* self);
+	friend void QFormBuilder_virtualbase_updateCustomWidgets(VirtualQFormBuilder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__load = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QWidget* load(QIODevice* dev, QWidget* parentWidget) override {
-		if (handle__load == 0) {
+		if (vtbl->load == 0) {
 			return QFormBuilder::load(dev, parentWidget);
 		}
 
 		QIODevice* sigval1 = dev;
 		QWidget* sigval2 = parentWidget;
-		QWidget* callback_return_value = miqt_exec_callback_QFormBuilder_load(this, handle__load, sigval1, sigval2);
+		QWidget* callback_return_value = vtbl->load(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend QWidget* QFormBuilder_virtualbase_load(void* self, QIODevice* dev, QWidget* parentWidget);
+	friend QWidget* QFormBuilder_virtualbase_load(VirtualQFormBuilder* self, QIODevice* dev, QWidget* parentWidget);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__save = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void save(QIODevice* dev, QWidget* widget) override {
-		if (handle__save == 0) {
+		if (vtbl->save == 0) {
 			QFormBuilder::save(dev, widget);
 			return;
 		}
 
 		QIODevice* sigval1 = dev;
 		QWidget* sigval2 = widget;
-		miqt_exec_callback_QFormBuilder_save(this, handle__save, sigval1, sigval2);
-
+		vtbl->save(this, sigval1, sigval2);
 	}
 
-	friend void QFormBuilder_virtualbase_save(void* self, QIODevice* dev, QWidget* widget);
+	friend void QFormBuilder_virtualbase_save(VirtualQFormBuilder* self, QIODevice* dev, QWidget* widget);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__addMenuAction = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void addMenuAction(QAction* action) override {
-		if (handle__addMenuAction == 0) {
+		if (vtbl->addMenuAction == 0) {
 			QFormBuilder::addMenuAction(action);
 			return;
 		}
 
 		QAction* sigval1 = action;
-		miqt_exec_callback_QFormBuilder_addMenuAction(this, handle__addMenuAction, sigval1);
-
+		vtbl->addMenuAction(this, sigval1);
 	}
 
-	friend void QFormBuilder_virtualbase_addMenuAction(void* self, QAction* action);
+	friend void QFormBuilder_virtualbase_addMenuAction(VirtualQFormBuilder* self, QAction* action);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__createAction = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QAction* createAction(QObject* parent, const QString& name) override {
-		if (handle__createAction == 0) {
+		if (vtbl->createAction == 0) {
 			return QFormBuilder::createAction(parent, name);
 		}
 
@@ -188,18 +163,14 @@ public:
 		name_ms.data = static_cast<char*>(malloc(name_ms.len));
 		memcpy(name_ms.data, name_b.data(), name_ms.len);
 		struct seaqt_string sigval2 = name_ms;
-		QAction* callback_return_value = miqt_exec_callback_QFormBuilder_createAction(this, handle__createAction, sigval1, sigval2);
+		QAction* callback_return_value = vtbl->createAction(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend QAction* QFormBuilder_virtualbase_createAction(void* self, QObject* parent, struct seaqt_string name);
+	friend QAction* QFormBuilder_virtualbase_createAction(VirtualQFormBuilder* self, QObject* parent, struct seaqt_string name);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__createActionGroup = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QActionGroup* createActionGroup(QObject* parent, const QString& name) override {
-		if (handle__createActionGroup == 0) {
+		if (vtbl->createActionGroup == 0) {
 			return QFormBuilder::createActionGroup(parent, name);
 		}
 
@@ -212,18 +183,14 @@ public:
 		name_ms.data = static_cast<char*>(malloc(name_ms.len));
 		memcpy(name_ms.data, name_b.data(), name_ms.len);
 		struct seaqt_string sigval2 = name_ms;
-		QActionGroup* callback_return_value = miqt_exec_callback_QFormBuilder_createActionGroup(this, handle__createActionGroup, sigval1, sigval2);
+		QActionGroup* callback_return_value = vtbl->createActionGroup(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend QActionGroup* QFormBuilder_virtualbase_createActionGroup(void* self, QObject* parent, struct seaqt_string name);
+	friend QActionGroup* QFormBuilder_virtualbase_createActionGroup(VirtualQFormBuilder* self, QObject* parent, struct seaqt_string name);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__checkProperty = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool checkProperty(QObject* obj, const QString& prop) const override {
-		if (handle__checkProperty == 0) {
+		if (vtbl->checkProperty == 0) {
 			return QFormBuilder::checkProperty(obj, prop);
 		}
 
@@ -236,19 +203,20 @@ public:
 		prop_ms.data = static_cast<char*>(malloc(prop_ms.len));
 		memcpy(prop_ms.data, prop_b.data(), prop_ms.len);
 		struct seaqt_string sigval2 = prop_ms;
-		bool callback_return_value = miqt_exec_callback_QFormBuilder_checkProperty(this, handle__checkProperty, sigval1, sigval2);
+		bool callback_return_value = vtbl->checkProperty(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QFormBuilder_virtualbase_checkProperty(const void* self, QObject* obj, struct seaqt_string prop);
+	friend bool QFormBuilder_virtualbase_checkProperty(const VirtualQFormBuilder* self, QObject* obj, struct seaqt_string prop);
 
 	// Wrappers to allow calling protected methods:
-	friend bool QFormBuilder_protectedbase_applyPropertyInternally(bool* _dynamic_cast_ok, void* self, QObject* o, struct seaqt_string propertyName, QVariant* value);
-	friend void QFormBuilder_protectedbase_reset(bool* _dynamic_cast_ok, void* self);
+	friend bool QFormBuilder_protectedbase_applyPropertyInternally(VirtualQFormBuilder* self, QObject* o, struct seaqt_string propertyName, QVariant* value);
+	friend void QFormBuilder_protectedbase_reset(VirtualQFormBuilder* self);
 };
 
-QFormBuilder* QFormBuilder_new() {
-	return new (std::nothrow) VirtualQFormBuilder();
+VirtualQFormBuilder* QFormBuilder_new(const QFormBuilder_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQFormBuilder>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQFormBuilder(vtbl) : nullptr;
 }
 
 void QFormBuilder_virtbase(QFormBuilder* src, QAbstractFormBuilder** outptr_QAbstractFormBuilder) {
@@ -295,160 +263,68 @@ void QFormBuilder_setPluginPath(QFormBuilder* self, struct seaqt_array /* of str
 	self->setPluginPath(pluginPaths_QList);
 }
 
-bool QFormBuilder_override_virtual_createWidget(void* self, intptr_t slot) {
-	VirtualQFormBuilder* self_cast = dynamic_cast<VirtualQFormBuilder*>( (QFormBuilder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QFormBuilder_vdata(VirtualQFormBuilder* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQFormBuilder>()); }
+VirtualQFormBuilder* vdata_QFormBuilder(void* vdata) { return reinterpret_cast<VirtualQFormBuilder*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQFormBuilder>()); }
 
-	self_cast->handle__createWidget = slot;
-	return true;
-}
-
-QWidget* QFormBuilder_virtualbase_createWidget(void* self, struct seaqt_string widgetName, QWidget* parentWidget, struct seaqt_string name) {
+QWidget* QFormBuilder_virtualbase_createWidget(VirtualQFormBuilder* self, struct seaqt_string widgetName, QWidget* parentWidget, struct seaqt_string name) {
 	QString widgetName_QString = QString::fromUtf8(widgetName.data, widgetName.len);
 	QString name_QString = QString::fromUtf8(name.data, name.len);
-	return static_cast<VirtualQFormBuilder*>(self)->QFormBuilder::createWidget(widgetName_QString, parentWidget, name_QString);
+
+	return self->QFormBuilder::createWidget(widgetName_QString, parentWidget, name_QString);
 }
 
-bool QFormBuilder_override_virtual_createLayout(void* self, intptr_t slot) {
-	VirtualQFormBuilder* self_cast = dynamic_cast<VirtualQFormBuilder*>( (QFormBuilder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__createLayout = slot;
-	return true;
-}
-
-QLayout* QFormBuilder_virtualbase_createLayout(void* self, struct seaqt_string layoutName, QObject* parent, struct seaqt_string name) {
+QLayout* QFormBuilder_virtualbase_createLayout(VirtualQFormBuilder* self, struct seaqt_string layoutName, QObject* parent, struct seaqt_string name) {
 	QString layoutName_QString = QString::fromUtf8(layoutName.data, layoutName.len);
 	QString name_QString = QString::fromUtf8(name.data, name.len);
-	return static_cast<VirtualQFormBuilder*>(self)->QFormBuilder::createLayout(layoutName_QString, parent, name_QString);
+
+	return self->QFormBuilder::createLayout(layoutName_QString, parent, name_QString);
 }
 
-bool QFormBuilder_override_virtual_updateCustomWidgets(void* self, intptr_t slot) {
-	VirtualQFormBuilder* self_cast = dynamic_cast<VirtualQFormBuilder*>( (QFormBuilder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFormBuilder_virtualbase_updateCustomWidgets(VirtualQFormBuilder* self) {
 
-	self_cast->handle__updateCustomWidgets = slot;
-	return true;
+	self->QFormBuilder::updateCustomWidgets();
 }
 
-void QFormBuilder_virtualbase_updateCustomWidgets(void* self) {
-	static_cast<VirtualQFormBuilder*>(self)->QFormBuilder::updateCustomWidgets();
+QWidget* QFormBuilder_virtualbase_load(VirtualQFormBuilder* self, QIODevice* dev, QWidget* parentWidget) {
+
+	return self->QFormBuilder::load(dev, parentWidget);
 }
 
-bool QFormBuilder_override_virtual_load(void* self, intptr_t slot) {
-	VirtualQFormBuilder* self_cast = dynamic_cast<VirtualQFormBuilder*>( (QFormBuilder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QFormBuilder_virtualbase_save(VirtualQFormBuilder* self, QIODevice* dev, QWidget* widget) {
 
-	self_cast->handle__load = slot;
-	return true;
+	self->QFormBuilder::save(dev, widget);
 }
 
-QWidget* QFormBuilder_virtualbase_load(void* self, QIODevice* dev, QWidget* parentWidget) {
-	return static_cast<VirtualQFormBuilder*>(self)->QFormBuilder::load(dev, parentWidget);
+void QFormBuilder_virtualbase_addMenuAction(VirtualQFormBuilder* self, QAction* action) {
+
+	self->QFormBuilder::addMenuAction(action);
 }
 
-bool QFormBuilder_override_virtual_save(void* self, intptr_t slot) {
-	VirtualQFormBuilder* self_cast = dynamic_cast<VirtualQFormBuilder*>( (QFormBuilder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__save = slot;
-	return true;
-}
-
-void QFormBuilder_virtualbase_save(void* self, QIODevice* dev, QWidget* widget) {
-	static_cast<VirtualQFormBuilder*>(self)->QFormBuilder::save(dev, widget);
-}
-
-bool QFormBuilder_override_virtual_addMenuAction(void* self, intptr_t slot) {
-	VirtualQFormBuilder* self_cast = dynamic_cast<VirtualQFormBuilder*>( (QFormBuilder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__addMenuAction = slot;
-	return true;
-}
-
-void QFormBuilder_virtualbase_addMenuAction(void* self, QAction* action) {
-	static_cast<VirtualQFormBuilder*>(self)->QFormBuilder::addMenuAction(action);
-}
-
-bool QFormBuilder_override_virtual_createAction(void* self, intptr_t slot) {
-	VirtualQFormBuilder* self_cast = dynamic_cast<VirtualQFormBuilder*>( (QFormBuilder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__createAction = slot;
-	return true;
-}
-
-QAction* QFormBuilder_virtualbase_createAction(void* self, QObject* parent, struct seaqt_string name) {
+QAction* QFormBuilder_virtualbase_createAction(VirtualQFormBuilder* self, QObject* parent, struct seaqt_string name) {
 	QString name_QString = QString::fromUtf8(name.data, name.len);
-	return static_cast<VirtualQFormBuilder*>(self)->QFormBuilder::createAction(parent, name_QString);
+
+	return self->QFormBuilder::createAction(parent, name_QString);
 }
 
-bool QFormBuilder_override_virtual_createActionGroup(void* self, intptr_t slot) {
-	VirtualQFormBuilder* self_cast = dynamic_cast<VirtualQFormBuilder*>( (QFormBuilder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__createActionGroup = slot;
-	return true;
-}
-
-QActionGroup* QFormBuilder_virtualbase_createActionGroup(void* self, QObject* parent, struct seaqt_string name) {
+QActionGroup* QFormBuilder_virtualbase_createActionGroup(VirtualQFormBuilder* self, QObject* parent, struct seaqt_string name) {
 	QString name_QString = QString::fromUtf8(name.data, name.len);
-	return static_cast<VirtualQFormBuilder*>(self)->QFormBuilder::createActionGroup(parent, name_QString);
+
+	return self->QFormBuilder::createActionGroup(parent, name_QString);
 }
 
-bool QFormBuilder_override_virtual_checkProperty(void* self, intptr_t slot) {
-	VirtualQFormBuilder* self_cast = dynamic_cast<VirtualQFormBuilder*>( (QFormBuilder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__checkProperty = slot;
-	return true;
-}
-
-bool QFormBuilder_virtualbase_checkProperty(const void* self, QObject* obj, struct seaqt_string prop) {
+bool QFormBuilder_virtualbase_checkProperty(const VirtualQFormBuilder* self, QObject* obj, struct seaqt_string prop) {
 	QString prop_QString = QString::fromUtf8(prop.data, prop.len);
-	return static_cast<const VirtualQFormBuilder*>(self)->QFormBuilder::checkProperty(obj, prop_QString);
+
+	return self->QFormBuilder::checkProperty(obj, prop_QString);
 }
 
-bool QFormBuilder_protectedbase_applyPropertyInternally(bool* _dynamic_cast_ok, void* self, QObject* o, struct seaqt_string propertyName, QVariant* value) {
-	VirtualQFormBuilder* self_cast = dynamic_cast<VirtualQFormBuilder*>( (QFormBuilder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
+bool QFormBuilder_protectedbase_applyPropertyInternally(VirtualQFormBuilder* self, QObject* o, struct seaqt_string propertyName, QVariant* value) {
 		QString propertyName_QString = QString::fromUtf8(propertyName.data, propertyName.len);
-	return self_cast->applyPropertyInternally(o, propertyName_QString, *value);
+	return self->applyPropertyInternally(o, propertyName_QString, *value);
 }
 
-void QFormBuilder_protectedbase_reset(bool* _dynamic_cast_ok, void* self) {
-	VirtualQFormBuilder* self_cast = dynamic_cast<VirtualQFormBuilder*>( (QFormBuilder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->reset();
+void QFormBuilder_protectedbase_reset(VirtualQFormBuilder* self) {
+	self->reset();
 }
 
 void QFormBuilder_delete(QFormBuilder* self) {

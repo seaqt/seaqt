@@ -22,14 +22,23 @@ typedef struct QAction QAction;
 typedef struct QDesignerTaskMenuExtension QDesignerTaskMenuExtension;
 #endif
 
-QDesignerTaskMenuExtension* QDesignerTaskMenuExtension_new();
+typedef struct VirtualQDesignerTaskMenuExtension VirtualQDesignerTaskMenuExtension;
+typedef struct QDesignerTaskMenuExtension_VTable{
+	void (*destructor)(VirtualQDesignerTaskMenuExtension* self);
+	QAction* (*preferredEditAction)(const VirtualQDesignerTaskMenuExtension* self);
+	struct seaqt_array /* of QAction* */  (*taskActions)(const VirtualQDesignerTaskMenuExtension* self);
+}QDesignerTaskMenuExtension_VTable;
+
+void* QDesignerTaskMenuExtension_vdata(VirtualQDesignerTaskMenuExtension* self);
+VirtualQDesignerTaskMenuExtension* vdata_QDesignerTaskMenuExtension(void* vdata);
+
+VirtualQDesignerTaskMenuExtension* QDesignerTaskMenuExtension_new(const QDesignerTaskMenuExtension_VTable* vtbl, size_t vdata);
+
 QAction* QDesignerTaskMenuExtension_preferredEditAction(const QDesignerTaskMenuExtension* self);
 struct seaqt_array /* of QAction* */  QDesignerTaskMenuExtension_taskActions(const QDesignerTaskMenuExtension* self);
 
-bool QDesignerTaskMenuExtension_override_virtual_preferredEditAction(void* self, intptr_t slot);
-QAction* QDesignerTaskMenuExtension_virtualbase_preferredEditAction(const void* self);
-bool QDesignerTaskMenuExtension_override_virtual_taskActions(void* self, intptr_t slot);
-struct seaqt_array /* of QAction* */  QDesignerTaskMenuExtension_virtualbase_taskActions(const void* self);
+QAction* QDesignerTaskMenuExtension_virtualbase_preferredEditAction(const VirtualQDesignerTaskMenuExtension* self);
+struct seaqt_array /* of QAction* */  QDesignerTaskMenuExtension_virtualbase_taskActions(const VirtualQDesignerTaskMenuExtension* self);
 
 void QDesignerTaskMenuExtension_delete(QDesignerTaskMenuExtension* self);
 

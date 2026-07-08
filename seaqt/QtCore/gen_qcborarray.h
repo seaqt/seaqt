@@ -44,6 +44,7 @@ typedef struct QVariant QVariant;
 
 QCborArray* QCborArray_new();
 QCborArray* QCborArray_new2(QCborArray* other);
+
 void QCborArray_operatorAssign(QCborArray* self, QCborArray* other);
 void QCborArray_swap(QCborArray* self, QCborArray* other);
 QCborValue* QCborArray_toCborValue(const QCborArray* self);
@@ -103,6 +104,7 @@ void QCborArray_delete(QCborArray* self);
 
 QCborArray__Iterator* QCborArray__Iterator_new();
 QCborArray__Iterator* QCborArray__Iterator_new2(QCborArray__Iterator* param1);
+
 void QCborArray__Iterator_operatorAssign(QCborArray__Iterator* self, QCborArray__Iterator* other);
 QCborValueRef* QCborArray__Iterator_operatorMultiply(const QCborArray__Iterator* self);
 QCborValueRef* QCborArray__Iterator_operatorMinusGreater(QCborArray__Iterator* self);
@@ -134,6 +136,7 @@ void QCborArray__Iterator_delete(QCborArray__Iterator* self);
 
 QCborArray__ConstIterator* QCborArray__ConstIterator_new();
 QCborArray__ConstIterator* QCborArray__ConstIterator_new2(QCborArray__ConstIterator* param1);
+
 void QCborArray__ConstIterator_operatorAssign(QCborArray__ConstIterator* self, QCborArray__ConstIterator* other);
 QCborValueConstRef* QCborArray__ConstIterator_operatorMultiply(const QCborArray__ConstIterator* self);
 QCborValueConstRef* QCborArray__ConstIterator_operatorMinusGreater(const QCborArray__ConstIterator* self);

@@ -22,6 +22,7 @@ typedef struct QGeoSatelliteInfo QGeoSatelliteInfo;
 
 QGeoSatelliteInfo* QGeoSatelliteInfo_new();
 QGeoSatelliteInfo* QGeoSatelliteInfo_new2(QGeoSatelliteInfo* other);
+
 void QGeoSatelliteInfo_operatorAssign(QGeoSatelliteInfo* self, QGeoSatelliteInfo* other);
 void QGeoSatelliteInfo_swap(QGeoSatelliteInfo* self, QGeoSatelliteInfo* other);
 void QGeoSatelliteInfo_setSatelliteSystem(QGeoSatelliteInfo* self, int system);

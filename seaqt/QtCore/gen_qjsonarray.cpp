@@ -12,6 +12,17 @@
 #include <qjsonarray.h>
 #include "gen_qjsonarray.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -229,15 +240,15 @@ void QJsonArray_delete(QJsonArray* self) {
 }
 
 QJsonArray__iterator* QJsonArray__iterator_new() {
-	return new (std::nothrow) QJsonArray::iterator();
+	return new (std::nothrow) QJsonArray__iterator();
 }
 
 QJsonArray__iterator* QJsonArray__iterator_new2(QJsonArray* array, ptrdiff_t index) {
-	return new (std::nothrow) QJsonArray::iterator(array, (qsizetype)(index));
+	return new (std::nothrow) QJsonArray__iterator(array, (qsizetype)(index));
 }
 
 QJsonArray__iterator* QJsonArray__iterator_new3(QJsonArray__iterator* other) {
-	return new (std::nothrow) QJsonArray::iterator(*other);
+	return new (std::nothrow) QJsonArray__iterator(*other);
 }
 
 void QJsonArray__iterator_operatorAssign(QJsonArray__iterator* self, QJsonArray__iterator* other) {
@@ -358,19 +369,19 @@ void QJsonArray__iterator_delete(QJsonArray__iterator* self) {
 }
 
 QJsonArray__const_iterator* QJsonArray__const_iterator_new() {
-	return new (std::nothrow) QJsonArray::const_iterator();
+	return new (std::nothrow) QJsonArray__const_iterator();
 }
 
 QJsonArray__const_iterator* QJsonArray__const_iterator_new2(QJsonArray* array, ptrdiff_t index) {
-	return new (std::nothrow) QJsonArray::const_iterator(array, (qsizetype)(index));
+	return new (std::nothrow) QJsonArray__const_iterator(array, (qsizetype)(index));
 }
 
 QJsonArray__const_iterator* QJsonArray__const_iterator_new3(QJsonArray__iterator* o) {
-	return new (std::nothrow) QJsonArray::const_iterator(*o);
+	return new (std::nothrow) QJsonArray__const_iterator(*o);
 }
 
 QJsonArray__const_iterator* QJsonArray__const_iterator_new4(QJsonArray__const_iterator* other) {
-	return new (std::nothrow) QJsonArray::const_iterator(*other);
+	return new (std::nothrow) QJsonArray__const_iterator(*other);
 }
 
 void QJsonArray__const_iterator_operatorAssign(QJsonArray__const_iterator* self, QJsonArray__const_iterator* other) {

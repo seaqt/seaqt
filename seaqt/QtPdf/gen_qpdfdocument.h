@@ -50,8 +50,27 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QVariant QVariant;
 #endif
 
-QPdfDocument* QPdfDocument_new();
-QPdfDocument* QPdfDocument_new2(QObject* parent);
+typedef struct VirtualQPdfDocument VirtualQPdfDocument;
+typedef struct QPdfDocument_VTable{
+	void (*destructor)(VirtualQPdfDocument* self);
+	QMetaObject* (*metaObject)(const VirtualQPdfDocument* self);
+	void* (*metacast)(VirtualQPdfDocument* self, const char* param1);
+	int (*metacall)(VirtualQPdfDocument* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQPdfDocument* self, QEvent* event);
+	bool (*eventFilter)(VirtualQPdfDocument* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQPdfDocument* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQPdfDocument* self, QChildEvent* event);
+	void (*customEvent)(VirtualQPdfDocument* self, QEvent* event);
+	void (*connectNotify)(VirtualQPdfDocument* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQPdfDocument* self, QMetaMethod* signal);
+}QPdfDocument_VTable;
+
+void* QPdfDocument_vdata(VirtualQPdfDocument* self);
+VirtualQPdfDocument* vdata_QPdfDocument(void* vdata);
+
+VirtualQPdfDocument* QPdfDocument_new(const QPdfDocument_VTable* vtbl, size_t vdata);
+VirtualQPdfDocument* QPdfDocument_new2(const QPdfDocument_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QPdfDocument_virtbase(QPdfDocument* src, QObject** outptr_QObject);
 QMetaObject* QPdfDocument_metaObject(const QPdfDocument* self);
 void* QPdfDocument_metacast(QPdfDocument* self, const char* param1);
@@ -87,31 +106,21 @@ struct seaqt_string QPdfDocument_tr2(const char* s, const char* c);
 struct seaqt_string QPdfDocument_tr3(const char* s, const char* c, int n);
 QImage* QPdfDocument_render2(QPdfDocument* self, int page, QSize* imageSize, QPdfDocumentRenderOptions* options);
 
-bool QPdfDocument_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QPdfDocument_virtualbase_metaObject(const void* self);
-bool QPdfDocument_override_virtual_metacast(void* self, intptr_t slot);
-void* QPdfDocument_virtualbase_metacast(void* self, const char* param1);
-bool QPdfDocument_override_virtual_metacall(void* self, intptr_t slot);
-int QPdfDocument_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QPdfDocument_override_virtual_event(void* self, intptr_t slot);
-bool QPdfDocument_virtualbase_event(void* self, QEvent* event);
-bool QPdfDocument_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QPdfDocument_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QPdfDocument_override_virtual_timerEvent(void* self, intptr_t slot);
-void QPdfDocument_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QPdfDocument_override_virtual_childEvent(void* self, intptr_t slot);
-void QPdfDocument_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QPdfDocument_override_virtual_customEvent(void* self, intptr_t slot);
-void QPdfDocument_virtualbase_customEvent(void* self, QEvent* event);
-bool QPdfDocument_override_virtual_connectNotify(void* self, intptr_t slot);
-void QPdfDocument_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QPdfDocument_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QPdfDocument_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QPdfDocument_virtualbase_metaObject(const VirtualQPdfDocument* self);
+void* QPdfDocument_virtualbase_metacast(VirtualQPdfDocument* self, const char* param1);
+int QPdfDocument_virtualbase_metacall(VirtualQPdfDocument* self, int param1, int param2, void** param3);
+bool QPdfDocument_virtualbase_event(VirtualQPdfDocument* self, QEvent* event);
+bool QPdfDocument_virtualbase_eventFilter(VirtualQPdfDocument* self, QObject* watched, QEvent* event);
+void QPdfDocument_virtualbase_timerEvent(VirtualQPdfDocument* self, QTimerEvent* event);
+void QPdfDocument_virtualbase_childEvent(VirtualQPdfDocument* self, QChildEvent* event);
+void QPdfDocument_virtualbase_customEvent(VirtualQPdfDocument* self, QEvent* event);
+void QPdfDocument_virtualbase_connectNotify(VirtualQPdfDocument* self, QMetaMethod* signal);
+void QPdfDocument_virtualbase_disconnectNotify(VirtualQPdfDocument* self, QMetaMethod* signal);
 
-QObject* QPdfDocument_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QPdfDocument_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QPdfDocument_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QPdfDocument_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QPdfDocument_protectedbase_sender(const VirtualQPdfDocument* self);
+int QPdfDocument_protectedbase_senderSignalIndex(const VirtualQPdfDocument* self);
+int QPdfDocument_protectedbase_receivers(const VirtualQPdfDocument* self, const char* signal);
+bool QPdfDocument_protectedbase_isSignalConnected(const VirtualQPdfDocument* self, QMetaMethod* signal);
 
 const QMetaObject* QPdfDocument_staticMetaObject();
 void QPdfDocument_delete(QPdfDocument* self);

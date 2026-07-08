@@ -44,8 +44,27 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QVideoSink QVideoSink;
 #endif
 
-QMediaCaptureSession* QMediaCaptureSession_new();
-QMediaCaptureSession* QMediaCaptureSession_new2(QObject* parent);
+typedef struct VirtualQMediaCaptureSession VirtualQMediaCaptureSession;
+typedef struct QMediaCaptureSession_VTable{
+	void (*destructor)(VirtualQMediaCaptureSession* self);
+	QMetaObject* (*metaObject)(const VirtualQMediaCaptureSession* self);
+	void* (*metacast)(VirtualQMediaCaptureSession* self, const char* param1);
+	int (*metacall)(VirtualQMediaCaptureSession* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQMediaCaptureSession* self, QEvent* event);
+	bool (*eventFilter)(VirtualQMediaCaptureSession* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQMediaCaptureSession* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQMediaCaptureSession* self, QChildEvent* event);
+	void (*customEvent)(VirtualQMediaCaptureSession* self, QEvent* event);
+	void (*connectNotify)(VirtualQMediaCaptureSession* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQMediaCaptureSession* self, QMetaMethod* signal);
+}QMediaCaptureSession_VTable;
+
+void* QMediaCaptureSession_vdata(VirtualQMediaCaptureSession* self);
+VirtualQMediaCaptureSession* vdata_QMediaCaptureSession(void* vdata);
+
+VirtualQMediaCaptureSession* QMediaCaptureSession_new(const QMediaCaptureSession_VTable* vtbl, size_t vdata);
+VirtualQMediaCaptureSession* QMediaCaptureSession_new2(const QMediaCaptureSession_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QMediaCaptureSession_virtbase(QMediaCaptureSession* src, QObject** outptr_QObject);
 QMetaObject* QMediaCaptureSession_metaObject(const QMediaCaptureSession* self);
 void* QMediaCaptureSession_metacast(QMediaCaptureSession* self, const char* param1);
@@ -80,31 +99,21 @@ void QMediaCaptureSession_connect_audioOutputChanged(QMediaCaptureSession* self,
 struct seaqt_string QMediaCaptureSession_tr2(const char* s, const char* c);
 struct seaqt_string QMediaCaptureSession_tr3(const char* s, const char* c, int n);
 
-bool QMediaCaptureSession_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QMediaCaptureSession_virtualbase_metaObject(const void* self);
-bool QMediaCaptureSession_override_virtual_metacast(void* self, intptr_t slot);
-void* QMediaCaptureSession_virtualbase_metacast(void* self, const char* param1);
-bool QMediaCaptureSession_override_virtual_metacall(void* self, intptr_t slot);
-int QMediaCaptureSession_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QMediaCaptureSession_override_virtual_event(void* self, intptr_t slot);
-bool QMediaCaptureSession_virtualbase_event(void* self, QEvent* event);
-bool QMediaCaptureSession_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QMediaCaptureSession_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QMediaCaptureSession_override_virtual_timerEvent(void* self, intptr_t slot);
-void QMediaCaptureSession_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QMediaCaptureSession_override_virtual_childEvent(void* self, intptr_t slot);
-void QMediaCaptureSession_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QMediaCaptureSession_override_virtual_customEvent(void* self, intptr_t slot);
-void QMediaCaptureSession_virtualbase_customEvent(void* self, QEvent* event);
-bool QMediaCaptureSession_override_virtual_connectNotify(void* self, intptr_t slot);
-void QMediaCaptureSession_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QMediaCaptureSession_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QMediaCaptureSession_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QMediaCaptureSession_virtualbase_metaObject(const VirtualQMediaCaptureSession* self);
+void* QMediaCaptureSession_virtualbase_metacast(VirtualQMediaCaptureSession* self, const char* param1);
+int QMediaCaptureSession_virtualbase_metacall(VirtualQMediaCaptureSession* self, int param1, int param2, void** param3);
+bool QMediaCaptureSession_virtualbase_event(VirtualQMediaCaptureSession* self, QEvent* event);
+bool QMediaCaptureSession_virtualbase_eventFilter(VirtualQMediaCaptureSession* self, QObject* watched, QEvent* event);
+void QMediaCaptureSession_virtualbase_timerEvent(VirtualQMediaCaptureSession* self, QTimerEvent* event);
+void QMediaCaptureSession_virtualbase_childEvent(VirtualQMediaCaptureSession* self, QChildEvent* event);
+void QMediaCaptureSession_virtualbase_customEvent(VirtualQMediaCaptureSession* self, QEvent* event);
+void QMediaCaptureSession_virtualbase_connectNotify(VirtualQMediaCaptureSession* self, QMetaMethod* signal);
+void QMediaCaptureSession_virtualbase_disconnectNotify(VirtualQMediaCaptureSession* self, QMetaMethod* signal);
 
-QObject* QMediaCaptureSession_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QMediaCaptureSession_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QMediaCaptureSession_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QMediaCaptureSession_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QMediaCaptureSession_protectedbase_sender(const VirtualQMediaCaptureSession* self);
+int QMediaCaptureSession_protectedbase_senderSignalIndex(const VirtualQMediaCaptureSession* self);
+int QMediaCaptureSession_protectedbase_receivers(const VirtualQMediaCaptureSession* self, const char* signal);
+bool QMediaCaptureSession_protectedbase_isSignalConnected(const VirtualQMediaCaptureSession* self, QMetaMethod* signal);
 
 const QMetaObject* QMediaCaptureSession_staticMetaObject();
 void QMediaCaptureSession_delete(QMediaCaptureSession* self);

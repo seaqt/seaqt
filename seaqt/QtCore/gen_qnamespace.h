@@ -27,6 +27,7 @@ QKeyCombination* QKeyCombination_new4(QKeyCombination* param1);
 QKeyCombination* QKeyCombination_new5(int key);
 QKeyCombination* QKeyCombination_new6(int modifiers, int key);
 QKeyCombination* QKeyCombination_new7(int modifiers, int key);
+
 int QKeyCombination_keyboardModifiers(const QKeyCombination* self);
 int QKeyCombination_key(const QKeyCombination* self);
 QKeyCombination* QKeyCombination_fromCombined(int combined);

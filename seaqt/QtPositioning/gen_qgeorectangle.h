@@ -32,6 +32,7 @@ QGeoRectangle* QGeoRectangle_new3(QGeoCoordinate* topLeft, QGeoCoordinate* botto
 QGeoRectangle* QGeoRectangle_new4(struct seaqt_array /* of QGeoCoordinate* */  coordinates);
 QGeoRectangle* QGeoRectangle_new5(QGeoRectangle* other);
 QGeoRectangle* QGeoRectangle_new6(QGeoShape* other);
+
 void QGeoRectangle_virtbase(QGeoRectangle* src, QGeoShape** outptr_QGeoShape);
 void QGeoRectangle_operatorAssign(QGeoRectangle* self, QGeoRectangle* other);
 void QGeoRectangle_setTopLeft(QGeoRectangle* self, QGeoCoordinate* topLeft);

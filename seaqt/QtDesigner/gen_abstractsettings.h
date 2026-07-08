@@ -22,7 +22,22 @@ typedef struct QDesignerSettingsInterface QDesignerSettingsInterface;
 typedef struct QVariant QVariant;
 #endif
 
-QDesignerSettingsInterface* QDesignerSettingsInterface_new();
+typedef struct VirtualQDesignerSettingsInterface VirtualQDesignerSettingsInterface;
+typedef struct QDesignerSettingsInterface_VTable{
+	void (*destructor)(VirtualQDesignerSettingsInterface* self);
+	void (*beginGroup)(VirtualQDesignerSettingsInterface* self, struct seaqt_string prefix);
+	void (*endGroup)(VirtualQDesignerSettingsInterface* self);
+	bool (*contains)(const VirtualQDesignerSettingsInterface* self, struct seaqt_string key);
+	void (*setValue)(VirtualQDesignerSettingsInterface* self, struct seaqt_string key, QVariant* value);
+	QVariant* (*value)(const VirtualQDesignerSettingsInterface* self, struct seaqt_string key, QVariant* defaultValue);
+	void (*remove)(VirtualQDesignerSettingsInterface* self, struct seaqt_string key);
+}QDesignerSettingsInterface_VTable;
+
+void* QDesignerSettingsInterface_vdata(VirtualQDesignerSettingsInterface* self);
+VirtualQDesignerSettingsInterface* vdata_QDesignerSettingsInterface(void* vdata);
+
+VirtualQDesignerSettingsInterface* QDesignerSettingsInterface_new(const QDesignerSettingsInterface_VTable* vtbl, size_t vdata);
+
 void QDesignerSettingsInterface_beginGroup(QDesignerSettingsInterface* self, struct seaqt_string prefix);
 void QDesignerSettingsInterface_endGroup(QDesignerSettingsInterface* self);
 bool QDesignerSettingsInterface_contains(const QDesignerSettingsInterface* self, struct seaqt_string key);
@@ -30,18 +45,12 @@ void QDesignerSettingsInterface_setValue(QDesignerSettingsInterface* self, struc
 QVariant* QDesignerSettingsInterface_value(const QDesignerSettingsInterface* self, struct seaqt_string key, QVariant* defaultValue);
 void QDesignerSettingsInterface_remove(QDesignerSettingsInterface* self, struct seaqt_string key);
 
-bool QDesignerSettingsInterface_override_virtual_beginGroup(void* self, intptr_t slot);
-void QDesignerSettingsInterface_virtualbase_beginGroup(void* self, struct seaqt_string prefix);
-bool QDesignerSettingsInterface_override_virtual_endGroup(void* self, intptr_t slot);
-void QDesignerSettingsInterface_virtualbase_endGroup(void* self);
-bool QDesignerSettingsInterface_override_virtual_contains(void* self, intptr_t slot);
-bool QDesignerSettingsInterface_virtualbase_contains(const void* self, struct seaqt_string key);
-bool QDesignerSettingsInterface_override_virtual_setValue(void* self, intptr_t slot);
-void QDesignerSettingsInterface_virtualbase_setValue(void* self, struct seaqt_string key, QVariant* value);
-bool QDesignerSettingsInterface_override_virtual_value(void* self, intptr_t slot);
-QVariant* QDesignerSettingsInterface_virtualbase_value(const void* self, struct seaqt_string key, QVariant* defaultValue);
-bool QDesignerSettingsInterface_override_virtual_remove(void* self, intptr_t slot);
-void QDesignerSettingsInterface_virtualbase_remove(void* self, struct seaqt_string key);
+void QDesignerSettingsInterface_virtualbase_beginGroup(VirtualQDesignerSettingsInterface* self, struct seaqt_string prefix);
+void QDesignerSettingsInterface_virtualbase_endGroup(VirtualQDesignerSettingsInterface* self);
+bool QDesignerSettingsInterface_virtualbase_contains(const VirtualQDesignerSettingsInterface* self, struct seaqt_string key);
+void QDesignerSettingsInterface_virtualbase_setValue(VirtualQDesignerSettingsInterface* self, struct seaqt_string key, QVariant* value);
+QVariant* QDesignerSettingsInterface_virtualbase_value(const VirtualQDesignerSettingsInterface* self, struct seaqt_string key, QVariant* defaultValue);
+void QDesignerSettingsInterface_virtualbase_remove(VirtualQDesignerSettingsInterface* self, struct seaqt_string key);
 
 void QDesignerSettingsInterface_delete(QDesignerSettingsInterface* self);
 

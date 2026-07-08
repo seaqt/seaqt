@@ -36,8 +36,30 @@ typedef struct QObject QObject;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QExtensionManager* QExtensionManager_new();
-QExtensionManager* QExtensionManager_new2(QObject* parent);
+typedef struct VirtualQExtensionManager VirtualQExtensionManager;
+typedef struct QExtensionManager_VTable{
+	void (*destructor)(VirtualQExtensionManager* self);
+	QMetaObject* (*metaObject)(const VirtualQExtensionManager* self);
+	void* (*metacast)(VirtualQExtensionManager* self, const char* param1);
+	int (*metacall)(VirtualQExtensionManager* self, int param1, int param2, void** param3);
+	void (*registerExtensions)(VirtualQExtensionManager* self, QAbstractExtensionFactory* factory, struct seaqt_string iid);
+	void (*unregisterExtensions)(VirtualQExtensionManager* self, QAbstractExtensionFactory* factory, struct seaqt_string iid);
+	QObject* (*extension)(const VirtualQExtensionManager* self, QObject* object, struct seaqt_string iid);
+	bool (*event)(VirtualQExtensionManager* self, QEvent* event);
+	bool (*eventFilter)(VirtualQExtensionManager* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQExtensionManager* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQExtensionManager* self, QChildEvent* event);
+	void (*customEvent)(VirtualQExtensionManager* self, QEvent* event);
+	void (*connectNotify)(VirtualQExtensionManager* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQExtensionManager* self, QMetaMethod* signal);
+}QExtensionManager_VTable;
+
+void* QExtensionManager_vdata(VirtualQExtensionManager* self);
+VirtualQExtensionManager* vdata_QExtensionManager(void* vdata);
+
+VirtualQExtensionManager* QExtensionManager_new(const QExtensionManager_VTable* vtbl, size_t vdata);
+VirtualQExtensionManager* QExtensionManager_new2(const QExtensionManager_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QExtensionManager_virtbase(QExtensionManager* src, QObject** outptr_QObject, QAbstractExtensionManager** outptr_QAbstractExtensionManager);
 QMetaObject* QExtensionManager_metaObject(const QExtensionManager* self);
 void* QExtensionManager_metacast(QExtensionManager* self, const char* param1);
@@ -49,37 +71,24 @@ QObject* QExtensionManager_extension(const QExtensionManager* self, QObject* obj
 struct seaqt_string QExtensionManager_tr2(const char* s, const char* c);
 struct seaqt_string QExtensionManager_tr3(const char* s, const char* c, int n);
 
-bool QExtensionManager_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QExtensionManager_virtualbase_metaObject(const void* self);
-bool QExtensionManager_override_virtual_metacast(void* self, intptr_t slot);
-void* QExtensionManager_virtualbase_metacast(void* self, const char* param1);
-bool QExtensionManager_override_virtual_metacall(void* self, intptr_t slot);
-int QExtensionManager_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QExtensionManager_override_virtual_registerExtensions(void* self, intptr_t slot);
-void QExtensionManager_virtualbase_registerExtensions(void* self, QAbstractExtensionFactory* factory, struct seaqt_string iid);
-bool QExtensionManager_override_virtual_unregisterExtensions(void* self, intptr_t slot);
-void QExtensionManager_virtualbase_unregisterExtensions(void* self, QAbstractExtensionFactory* factory, struct seaqt_string iid);
-bool QExtensionManager_override_virtual_extension(void* self, intptr_t slot);
-QObject* QExtensionManager_virtualbase_extension(const void* self, QObject* object, struct seaqt_string iid);
-bool QExtensionManager_override_virtual_event(void* self, intptr_t slot);
-bool QExtensionManager_virtualbase_event(void* self, QEvent* event);
-bool QExtensionManager_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QExtensionManager_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QExtensionManager_override_virtual_timerEvent(void* self, intptr_t slot);
-void QExtensionManager_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QExtensionManager_override_virtual_childEvent(void* self, intptr_t slot);
-void QExtensionManager_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QExtensionManager_override_virtual_customEvent(void* self, intptr_t slot);
-void QExtensionManager_virtualbase_customEvent(void* self, QEvent* event);
-bool QExtensionManager_override_virtual_connectNotify(void* self, intptr_t slot);
-void QExtensionManager_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QExtensionManager_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QExtensionManager_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QExtensionManager_virtualbase_metaObject(const VirtualQExtensionManager* self);
+void* QExtensionManager_virtualbase_metacast(VirtualQExtensionManager* self, const char* param1);
+int QExtensionManager_virtualbase_metacall(VirtualQExtensionManager* self, int param1, int param2, void** param3);
+void QExtensionManager_virtualbase_registerExtensions(VirtualQExtensionManager* self, QAbstractExtensionFactory* factory, struct seaqt_string iid);
+void QExtensionManager_virtualbase_unregisterExtensions(VirtualQExtensionManager* self, QAbstractExtensionFactory* factory, struct seaqt_string iid);
+QObject* QExtensionManager_virtualbase_extension(const VirtualQExtensionManager* self, QObject* object, struct seaqt_string iid);
+bool QExtensionManager_virtualbase_event(VirtualQExtensionManager* self, QEvent* event);
+bool QExtensionManager_virtualbase_eventFilter(VirtualQExtensionManager* self, QObject* watched, QEvent* event);
+void QExtensionManager_virtualbase_timerEvent(VirtualQExtensionManager* self, QTimerEvent* event);
+void QExtensionManager_virtualbase_childEvent(VirtualQExtensionManager* self, QChildEvent* event);
+void QExtensionManager_virtualbase_customEvent(VirtualQExtensionManager* self, QEvent* event);
+void QExtensionManager_virtualbase_connectNotify(VirtualQExtensionManager* self, QMetaMethod* signal);
+void QExtensionManager_virtualbase_disconnectNotify(VirtualQExtensionManager* self, QMetaMethod* signal);
 
-QObject* QExtensionManager_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QExtensionManager_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QExtensionManager_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QExtensionManager_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QExtensionManager_protectedbase_sender(const VirtualQExtensionManager* self);
+int QExtensionManager_protectedbase_senderSignalIndex(const VirtualQExtensionManager* self);
+int QExtensionManager_protectedbase_receivers(const VirtualQExtensionManager* self, const char* signal);
+bool QExtensionManager_protectedbase_isSignalConnected(const VirtualQExtensionManager* self, QMetaMethod* signal);
 
 const QMetaObject* QExtensionManager_staticMetaObject();
 void QExtensionManager_delete(QExtensionManager* self);

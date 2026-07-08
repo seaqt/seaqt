@@ -22,6 +22,7 @@ typedef struct QWebSocketHandshakeOptions QWebSocketHandshakeOptions;
 
 QWebSocketHandshakeOptions* QWebSocketHandshakeOptions_new();
 QWebSocketHandshakeOptions* QWebSocketHandshakeOptions_new2(QWebSocketHandshakeOptions* other);
+
 void QWebSocketHandshakeOptions_operatorAssign(QWebSocketHandshakeOptions* self, QWebSocketHandshakeOptions* other);
 void QWebSocketHandshakeOptions_swap(QWebSocketHandshakeOptions* self, QWebSocketHandshakeOptions* other);
 struct seaqt_array /* of struct seaqt_string */  QWebSocketHandshakeOptions_subprotocols(const QWebSocketHandshakeOptions* self);

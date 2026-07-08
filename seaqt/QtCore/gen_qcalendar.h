@@ -44,6 +44,7 @@ QCalendar* QCalendar_new();
 QCalendar* QCalendar_new2(int system);
 QCalendar* QCalendar_new3(QAnyStringView* name);
 QCalendar* QCalendar_new4(QCalendar__SystemId* id);
+
 bool QCalendar_isValid(const QCalendar* self);
 int QCalendar_daysInMonth(const QCalendar* self, int month);
 int QCalendar_daysInYear(const QCalendar* self, int year);
@@ -84,6 +85,7 @@ QCalendar__YearMonthDay* QCalendar__YearMonthDay_new();
 QCalendar__YearMonthDay* QCalendar__YearMonthDay_new2(int y);
 QCalendar__YearMonthDay* QCalendar__YearMonthDay_new3(int y, int m);
 QCalendar__YearMonthDay* QCalendar__YearMonthDay_new4(int y, int m, int d);
+
 bool QCalendar__YearMonthDay_isValid(const QCalendar__YearMonthDay* self);
 int QCalendar__YearMonthDay_year(const QCalendar__YearMonthDay* self);
 void QCalendar__YearMonthDay_setYear(QCalendar__YearMonthDay* self, int year);
@@ -95,6 +97,7 @@ void QCalendar__YearMonthDay_setDay(QCalendar__YearMonthDay* self, int day);
 void QCalendar__YearMonthDay_delete(QCalendar__YearMonthDay* self);
 
 QCalendar__SystemId* QCalendar__SystemId_new();
+
 size_t QCalendar__SystemId_index(const QCalendar__SystemId* self);
 bool QCalendar__SystemId_isValid(const QCalendar__SystemId* self);
 

@@ -15,85 +15,49 @@
 #include <abstractwidgetdatabase.h>
 #include "gen_abstractwidgetdatabase.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-struct seaqt_string miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_name(const QDesignerWidgetDataBaseItemInterface*, intptr_t);
-void miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setName(QDesignerWidgetDataBaseItemInterface*, intptr_t, struct seaqt_string);
-struct seaqt_string miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_group(const QDesignerWidgetDataBaseItemInterface*, intptr_t);
-void miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setGroup(QDesignerWidgetDataBaseItemInterface*, intptr_t, struct seaqt_string);
-struct seaqt_string miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_toolTip(const QDesignerWidgetDataBaseItemInterface*, intptr_t);
-void miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setToolTip(QDesignerWidgetDataBaseItemInterface*, intptr_t, struct seaqt_string);
-struct seaqt_string miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_whatsThis(const QDesignerWidgetDataBaseItemInterface*, intptr_t);
-void miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setWhatsThis(QDesignerWidgetDataBaseItemInterface*, intptr_t, struct seaqt_string);
-struct seaqt_string miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_includeFile(const QDesignerWidgetDataBaseItemInterface*, intptr_t);
-void miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setIncludeFile(QDesignerWidgetDataBaseItemInterface*, intptr_t, struct seaqt_string);
-QIcon* miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_icon(const QDesignerWidgetDataBaseItemInterface*, intptr_t);
-void miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setIcon(QDesignerWidgetDataBaseItemInterface*, intptr_t, QIcon*);
-bool miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_isCompat(const QDesignerWidgetDataBaseItemInterface*, intptr_t);
-void miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setCompat(QDesignerWidgetDataBaseItemInterface*, intptr_t, bool);
-bool miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_isContainer(const QDesignerWidgetDataBaseItemInterface*, intptr_t);
-void miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setContainer(QDesignerWidgetDataBaseItemInterface*, intptr_t, bool);
-bool miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_isCustom(const QDesignerWidgetDataBaseItemInterface*, intptr_t);
-void miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setCustom(QDesignerWidgetDataBaseItemInterface*, intptr_t, bool);
-struct seaqt_string miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_pluginPath(const QDesignerWidgetDataBaseItemInterface*, intptr_t);
-void miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setPluginPath(QDesignerWidgetDataBaseItemInterface*, intptr_t, struct seaqt_string);
-bool miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_isPromoted(const QDesignerWidgetDataBaseItemInterface*, intptr_t);
-void miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setPromoted(QDesignerWidgetDataBaseItemInterface*, intptr_t, bool);
-struct seaqt_string miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_extends(const QDesignerWidgetDataBaseItemInterface*, intptr_t);
-void miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setExtends(QDesignerWidgetDataBaseItemInterface*, intptr_t, struct seaqt_string);
-void miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setDefaultPropertyValues(QDesignerWidgetDataBaseItemInterface*, intptr_t, struct seaqt_array /* of QVariant* */ );
-struct seaqt_array /* of QVariant* */  miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_defaultPropertyValues(const QDesignerWidgetDataBaseItemInterface*, intptr_t);
 void miqt_exec_callback_QDesignerWidgetDataBaseInterface_changed(intptr_t);
-QMetaObject* miqt_exec_callback_QDesignerWidgetDataBaseInterface_metaObject(const QDesignerWidgetDataBaseInterface*, intptr_t);
-void* miqt_exec_callback_QDesignerWidgetDataBaseInterface_metacast(QDesignerWidgetDataBaseInterface*, intptr_t, const char*);
-int miqt_exec_callback_QDesignerWidgetDataBaseInterface_metacall(QDesignerWidgetDataBaseInterface*, intptr_t, int, int, void**);
-int miqt_exec_callback_QDesignerWidgetDataBaseInterface_count(const QDesignerWidgetDataBaseInterface*, intptr_t);
-QDesignerWidgetDataBaseItemInterface* miqt_exec_callback_QDesignerWidgetDataBaseInterface_item(const QDesignerWidgetDataBaseInterface*, intptr_t, int);
-int miqt_exec_callback_QDesignerWidgetDataBaseInterface_indexOf(const QDesignerWidgetDataBaseInterface*, intptr_t, QDesignerWidgetDataBaseItemInterface*);
-void miqt_exec_callback_QDesignerWidgetDataBaseInterface_insert(QDesignerWidgetDataBaseInterface*, intptr_t, int, QDesignerWidgetDataBaseItemInterface*);
-void miqt_exec_callback_QDesignerWidgetDataBaseInterface_append(QDesignerWidgetDataBaseInterface*, intptr_t, QDesignerWidgetDataBaseItemInterface*);
-int miqt_exec_callback_QDesignerWidgetDataBaseInterface_indexOfObject(const QDesignerWidgetDataBaseInterface*, intptr_t, QObject*, bool);
-int miqt_exec_callback_QDesignerWidgetDataBaseInterface_indexOfClassName(const QDesignerWidgetDataBaseInterface*, intptr_t, struct seaqt_string, bool);
-bool miqt_exec_callback_QDesignerWidgetDataBaseInterface_event(QDesignerWidgetDataBaseInterface*, intptr_t, QEvent*);
-bool miqt_exec_callback_QDesignerWidgetDataBaseInterface_eventFilter(QDesignerWidgetDataBaseInterface*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QDesignerWidgetDataBaseInterface_timerEvent(QDesignerWidgetDataBaseInterface*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QDesignerWidgetDataBaseInterface_childEvent(QDesignerWidgetDataBaseInterface*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QDesignerWidgetDataBaseInterface_customEvent(QDesignerWidgetDataBaseInterface*, intptr_t, QEvent*);
-void miqt_exec_callback_QDesignerWidgetDataBaseInterface_connectNotify(QDesignerWidgetDataBaseInterface*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QDesignerWidgetDataBaseInterface_disconnectNotify(QDesignerWidgetDataBaseInterface*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQDesignerWidgetDataBaseItemInterface final : public QDesignerWidgetDataBaseItemInterface {
+	const QDesignerWidgetDataBaseItemInterface_VTable* vtbl;
 public:
+	friend void* QDesignerWidgetDataBaseItemInterface_vdata(VirtualQDesignerWidgetDataBaseItemInterface* self);
+	friend VirtualQDesignerWidgetDataBaseItemInterface* vdata_QDesignerWidgetDataBaseItemInterface(void* vdata);
 
-	VirtualQDesignerWidgetDataBaseItemInterface(): QDesignerWidgetDataBaseItemInterface() {}
+	VirtualQDesignerWidgetDataBaseItemInterface(const QDesignerWidgetDataBaseItemInterface_VTable* vtbl): QDesignerWidgetDataBaseItemInterface(), vtbl(vtbl) {}
 
-	virtual ~VirtualQDesignerWidgetDataBaseItemInterface() override = default;
+	virtual ~VirtualQDesignerWidgetDataBaseItemInterface() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__name = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual QString name() const override {
-		if (handle__name == 0) {
+		if (vtbl->name == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_name(this, handle__name);
+		struct seaqt_string callback_return_value = vtbl->name(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setName = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setName(const QString& name) override {
-		if (handle__setName == 0) {
+		if (vtbl->setName == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -105,30 +69,21 @@ public:
 		name_ms.data = static_cast<char*>(malloc(name_ms.len));
 		memcpy(name_ms.data, name_b.data(), name_ms.len);
 		struct seaqt_string sigval1 = name_ms;
-		miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setName(this, handle__setName, sigval1);
-
+		vtbl->setName(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__group = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString group() const override {
-		if (handle__group == 0) {
+		if (vtbl->group == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_group(this, handle__group);
+		struct seaqt_string callback_return_value = vtbl->group(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setGroup = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setGroup(const QString& group) override {
-		if (handle__setGroup == 0) {
+		if (vtbl->setGroup == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -140,30 +95,21 @@ public:
 		group_ms.data = static_cast<char*>(malloc(group_ms.len));
 		memcpy(group_ms.data, group_b.data(), group_ms.len);
 		struct seaqt_string sigval1 = group_ms;
-		miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setGroup(this, handle__setGroup, sigval1);
-
+		vtbl->setGroup(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__toolTip = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString toolTip() const override {
-		if (handle__toolTip == 0) {
+		if (vtbl->toolTip == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_toolTip(this, handle__toolTip);
+		struct seaqt_string callback_return_value = vtbl->toolTip(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setToolTip = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setToolTip(const QString& toolTip) override {
-		if (handle__setToolTip == 0) {
+		if (vtbl->setToolTip == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -175,30 +121,21 @@ public:
 		toolTip_ms.data = static_cast<char*>(malloc(toolTip_ms.len));
 		memcpy(toolTip_ms.data, toolTip_b.data(), toolTip_ms.len);
 		struct seaqt_string sigval1 = toolTip_ms;
-		miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setToolTip(this, handle__setToolTip, sigval1);
-
+		vtbl->setToolTip(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__whatsThis = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString whatsThis() const override {
-		if (handle__whatsThis == 0) {
+		if (vtbl->whatsThis == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_whatsThis(this, handle__whatsThis);
+		struct seaqt_string callback_return_value = vtbl->whatsThis(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setWhatsThis = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setWhatsThis(const QString& whatsThis) override {
-		if (handle__setWhatsThis == 0) {
+		if (vtbl->setWhatsThis == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -210,30 +147,21 @@ public:
 		whatsThis_ms.data = static_cast<char*>(malloc(whatsThis_ms.len));
 		memcpy(whatsThis_ms.data, whatsThis_b.data(), whatsThis_ms.len);
 		struct seaqt_string sigval1 = whatsThis_ms;
-		miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setWhatsThis(this, handle__setWhatsThis, sigval1);
-
+		vtbl->setWhatsThis(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__includeFile = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString includeFile() const override {
-		if (handle__includeFile == 0) {
+		if (vtbl->includeFile == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_includeFile(this, handle__includeFile);
+		struct seaqt_string callback_return_value = vtbl->includeFile(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setIncludeFile = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setIncludeFile(const QString& includeFile) override {
-		if (handle__setIncludeFile == 0) {
+		if (vtbl->setIncludeFile == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -245,140 +173,95 @@ public:
 		includeFile_ms.data = static_cast<char*>(malloc(includeFile_ms.len));
 		memcpy(includeFile_ms.data, includeFile_b.data(), includeFile_ms.len);
 		struct seaqt_string sigval1 = includeFile_ms;
-		miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setIncludeFile(this, handle__setIncludeFile, sigval1);
-
+		vtbl->setIncludeFile(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__icon = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QIcon icon() const override {
-		if (handle__icon == 0) {
+		if (vtbl->icon == 0) {
 			return QIcon(); // Pure virtual, there is no base we can call
 		}
 
-		QIcon* callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_icon(this, handle__icon);
+		QIcon* callback_return_value = vtbl->icon(this);
 		return *callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setIcon = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setIcon(const QIcon& icon) override {
-		if (handle__setIcon == 0) {
+		if (vtbl->setIcon == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		const QIcon& icon_ret = icon;
 		// Cast returned reference into pointer
 		QIcon* sigval1 = const_cast<QIcon*>(&icon_ret);
-		miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setIcon(this, handle__setIcon, sigval1);
-
+		vtbl->setIcon(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isCompat = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isCompat() const override {
-		if (handle__isCompat == 0) {
+		if (vtbl->isCompat == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
-		bool callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_isCompat(this, handle__isCompat);
+		bool callback_return_value = vtbl->isCompat(this);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setCompat = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setCompat(bool compat) override {
-		if (handle__setCompat == 0) {
+		if (vtbl->setCompat == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		bool sigval1 = compat;
-		miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setCompat(this, handle__setCompat, sigval1);
-
+		vtbl->setCompat(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isContainer = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isContainer() const override {
-		if (handle__isContainer == 0) {
+		if (vtbl->isContainer == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
-		bool callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_isContainer(this, handle__isContainer);
+		bool callback_return_value = vtbl->isContainer(this);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setContainer = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setContainer(bool container) override {
-		if (handle__setContainer == 0) {
+		if (vtbl->setContainer == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		bool sigval1 = container;
-		miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setContainer(this, handle__setContainer, sigval1);
-
+		vtbl->setContainer(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isCustom = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isCustom() const override {
-		if (handle__isCustom == 0) {
+		if (vtbl->isCustom == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
-		bool callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_isCustom(this, handle__isCustom);
+		bool callback_return_value = vtbl->isCustom(this);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setCustom = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setCustom(bool custom) override {
-		if (handle__setCustom == 0) {
+		if (vtbl->setCustom == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		bool sigval1 = custom;
-		miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setCustom(this, handle__setCustom, sigval1);
-
+		vtbl->setCustom(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__pluginPath = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString pluginPath() const override {
-		if (handle__pluginPath == 0) {
+		if (vtbl->pluginPath == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_pluginPath(this, handle__pluginPath);
+		struct seaqt_string callback_return_value = vtbl->pluginPath(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setPluginPath = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setPluginPath(const QString& path) override {
-		if (handle__setPluginPath == 0) {
+		if (vtbl->setPluginPath == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -390,57 +273,39 @@ public:
 		path_ms.data = static_cast<char*>(malloc(path_ms.len));
 		memcpy(path_ms.data, path_b.data(), path_ms.len);
 		struct seaqt_string sigval1 = path_ms;
-		miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setPluginPath(this, handle__setPluginPath, sigval1);
-
+		vtbl->setPluginPath(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isPromoted = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isPromoted() const override {
-		if (handle__isPromoted == 0) {
+		if (vtbl->isPromoted == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
-		bool callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_isPromoted(this, handle__isPromoted);
+		bool callback_return_value = vtbl->isPromoted(this);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setPromoted = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setPromoted(bool b) override {
-		if (handle__setPromoted == 0) {
+		if (vtbl->setPromoted == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		bool sigval1 = b;
-		miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setPromoted(this, handle__setPromoted, sigval1);
-
+		vtbl->setPromoted(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__extends = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString extends() const override {
-		if (handle__extends == 0) {
+		if (vtbl->extends == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_extends(this, handle__extends);
+		struct seaqt_string callback_return_value = vtbl->extends(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setExtends = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setExtends(const QString& s) override {
-		if (handle__setExtends == 0) {
+		if (vtbl->setExtends == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -452,16 +317,11 @@ public:
 		s_ms.data = static_cast<char*>(malloc(s_ms.len));
 		memcpy(s_ms.data, s_b.data(), s_ms.len);
 		struct seaqt_string sigval1 = s_ms;
-		miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setExtends(this, handle__setExtends, sigval1);
-
+		vtbl->setExtends(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setDefaultPropertyValues = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setDefaultPropertyValues(const QList<QVariant>& list) override {
-		if (handle__setDefaultPropertyValues == 0) {
+		if (vtbl->setDefaultPropertyValues == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -475,20 +335,15 @@ public:
 		list_out.len = list_ret.length();
 		list_out.data = static_cast<void*>(list_arr);
 		struct seaqt_array /* of QVariant* */  sigval1 = list_out;
-		miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_setDefaultPropertyValues(this, handle__setDefaultPropertyValues, sigval1);
-
+		vtbl->setDefaultPropertyValues(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__defaultPropertyValues = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QList<QVariant> defaultPropertyValues() const override {
-		if (handle__defaultPropertyValues == 0) {
+		if (vtbl->defaultPropertyValues == 0) {
 			return QList<QVariant>(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_array /* of QVariant* */  callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseItemInterface_defaultPropertyValues(this, handle__defaultPropertyValues);
+		struct seaqt_array /* of QVariant* */  callback_return_value = vtbl->defaultPropertyValues(this);
 		QList<QVariant> callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		QVariant** callback_return_value_arr = static_cast<QVariant**>(callback_return_value.data);
@@ -500,8 +355,9 @@ public:
 
 };
 
-QDesignerWidgetDataBaseItemInterface* QDesignerWidgetDataBaseItemInterface_new() {
-	return new (std::nothrow) VirtualQDesignerWidgetDataBaseItemInterface();
+VirtualQDesignerWidgetDataBaseItemInterface* QDesignerWidgetDataBaseItemInterface_new(const QDesignerWidgetDataBaseItemInterface_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerWidgetDataBaseItemInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerWidgetDataBaseItemInterface(vtbl) : nullptr;
 }
 
 struct seaqt_string QDesignerWidgetDataBaseItemInterface_name(const QDesignerWidgetDataBaseItemInterface* self) {
@@ -679,315 +535,50 @@ struct seaqt_array /* of QVariant* */  QDesignerWidgetDataBaseItemInterface_defa
 	return _out;
 }
 
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_name(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__name = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_setName(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setName = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_group(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__group = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_setGroup(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setGroup = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_toolTip(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__toolTip = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_setToolTip(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setToolTip = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_whatsThis(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__whatsThis = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_setWhatsThis(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setWhatsThis = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_includeFile(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__includeFile = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_setIncludeFile(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setIncludeFile = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_icon(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__icon = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_setIcon(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setIcon = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_isCompat(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__isCompat = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_setCompat(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setCompat = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_isContainer(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__isContainer = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_setContainer(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setContainer = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_isCustom(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__isCustom = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_setCustom(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setCustom = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_pluginPath(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__pluginPath = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_setPluginPath(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setPluginPath = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_isPromoted(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__isPromoted = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_setPromoted(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setPromoted = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_extends(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__extends = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_setExtends(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setExtends = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_setDefaultPropertyValues(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setDefaultPropertyValues = slot;
-	return true;
-}
-
-bool QDesignerWidgetDataBaseItemInterface_override_virtual_defaultPropertyValues(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseItemInterface*>( (QDesignerWidgetDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__defaultPropertyValues = slot;
-	return true;
-}
+void* QDesignerWidgetDataBaseItemInterface_vdata(VirtualQDesignerWidgetDataBaseItemInterface* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQDesignerWidgetDataBaseItemInterface>()); }
+VirtualQDesignerWidgetDataBaseItemInterface* vdata_QDesignerWidgetDataBaseItemInterface(void* vdata) { return reinterpret_cast<VirtualQDesignerWidgetDataBaseItemInterface*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQDesignerWidgetDataBaseItemInterface>()); }
 
 void QDesignerWidgetDataBaseItemInterface_delete(QDesignerWidgetDataBaseItemInterface* self) {
 	delete self;
 }
 
 class VirtualQDesignerWidgetDataBaseInterface final : public QDesignerWidgetDataBaseInterface {
+	const QDesignerWidgetDataBaseInterface_VTable* vtbl;
 public:
+	friend void* QDesignerWidgetDataBaseInterface_vdata(VirtualQDesignerWidgetDataBaseInterface* self);
+	friend VirtualQDesignerWidgetDataBaseInterface* vdata_QDesignerWidgetDataBaseInterface(void* vdata);
 
-	VirtualQDesignerWidgetDataBaseInterface(): QDesignerWidgetDataBaseInterface() {}
-	VirtualQDesignerWidgetDataBaseInterface(QObject* parent): QDesignerWidgetDataBaseInterface(parent) {}
+	VirtualQDesignerWidgetDataBaseInterface(const QDesignerWidgetDataBaseInterface_VTable* vtbl): QDesignerWidgetDataBaseInterface(), vtbl(vtbl) {}
+	VirtualQDesignerWidgetDataBaseInterface(const QDesignerWidgetDataBaseInterface_VTable* vtbl, QObject* parent): QDesignerWidgetDataBaseInterface(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQDesignerWidgetDataBaseInterface() override = default;
+	virtual ~VirtualQDesignerWidgetDataBaseInterface() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QDesignerWidgetDataBaseInterface::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseInterface_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QDesignerWidgetDataBaseInterface_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QDesignerWidgetDataBaseInterface_virtualbase_metaObject(const VirtualQDesignerWidgetDataBaseInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QDesignerWidgetDataBaseInterface::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseInterface_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QDesignerWidgetDataBaseInterface_virtualbase_metacast(void* self, const char* param1);
+	friend void* QDesignerWidgetDataBaseInterface_virtualbase_metacast(VirtualQDesignerWidgetDataBaseInterface* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QDesignerWidgetDataBaseInterface::qt_metacall(param1, param2, param3);
 		}
 
@@ -995,117 +586,87 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseInterface_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QDesignerWidgetDataBaseInterface_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QDesignerWidgetDataBaseInterface_virtualbase_metacall(VirtualQDesignerWidgetDataBaseInterface* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__count = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int count() const override {
-		if (handle__count == 0) {
+		if (vtbl->count == 0) {
 			return QDesignerWidgetDataBaseInterface::count();
 		}
 
-		int callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseInterface_count(this, handle__count);
+		int callback_return_value = vtbl->count(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QDesignerWidgetDataBaseInterface_virtualbase_count(const void* self);
+	friend int QDesignerWidgetDataBaseInterface_virtualbase_count(const VirtualQDesignerWidgetDataBaseInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__item = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QDesignerWidgetDataBaseItemInterface* item(int index) const override {
-		if (handle__item == 0) {
+		if (vtbl->item == 0) {
 			return QDesignerWidgetDataBaseInterface::item(index);
 		}
 
 		int sigval1 = index;
-		QDesignerWidgetDataBaseItemInterface* callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseInterface_item(this, handle__item, sigval1);
+		QDesignerWidgetDataBaseItemInterface* callback_return_value = vtbl->item(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QDesignerWidgetDataBaseItemInterface* QDesignerWidgetDataBaseInterface_virtualbase_item(const void* self, int index);
+	friend QDesignerWidgetDataBaseItemInterface* QDesignerWidgetDataBaseInterface_virtualbase_item(const VirtualQDesignerWidgetDataBaseInterface* self, int index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__indexOf = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int indexOf(QDesignerWidgetDataBaseItemInterface* item) const override {
-		if (handle__indexOf == 0) {
+		if (vtbl->indexOf == 0) {
 			return QDesignerWidgetDataBaseInterface::indexOf(item);
 		}
 
 		QDesignerWidgetDataBaseItemInterface* sigval1 = item;
-		int callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseInterface_indexOf(this, handle__indexOf, sigval1);
+		int callback_return_value = vtbl->indexOf(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QDesignerWidgetDataBaseInterface_virtualbase_indexOf(const void* self, QDesignerWidgetDataBaseItemInterface* item);
+	friend int QDesignerWidgetDataBaseInterface_virtualbase_indexOf(const VirtualQDesignerWidgetDataBaseInterface* self, QDesignerWidgetDataBaseItemInterface* item);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__insert = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void insert(int index, QDesignerWidgetDataBaseItemInterface* item) override {
-		if (handle__insert == 0) {
+		if (vtbl->insert == 0) {
 			QDesignerWidgetDataBaseInterface::insert(index, item);
 			return;
 		}
 
 		int sigval1 = index;
 		QDesignerWidgetDataBaseItemInterface* sigval2 = item;
-		miqt_exec_callback_QDesignerWidgetDataBaseInterface_insert(this, handle__insert, sigval1, sigval2);
-
+		vtbl->insert(this, sigval1, sigval2);
 	}
 
-	friend void QDesignerWidgetDataBaseInterface_virtualbase_insert(void* self, int index, QDesignerWidgetDataBaseItemInterface* item);
+	friend void QDesignerWidgetDataBaseInterface_virtualbase_insert(VirtualQDesignerWidgetDataBaseInterface* self, int index, QDesignerWidgetDataBaseItemInterface* item);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__append = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void append(QDesignerWidgetDataBaseItemInterface* item) override {
-		if (handle__append == 0) {
+		if (vtbl->append == 0) {
 			QDesignerWidgetDataBaseInterface::append(item);
 			return;
 		}
 
 		QDesignerWidgetDataBaseItemInterface* sigval1 = item;
-		miqt_exec_callback_QDesignerWidgetDataBaseInterface_append(this, handle__append, sigval1);
-
+		vtbl->append(this, sigval1);
 	}
 
-	friend void QDesignerWidgetDataBaseInterface_virtualbase_append(void* self, QDesignerWidgetDataBaseItemInterface* item);
+	friend void QDesignerWidgetDataBaseInterface_virtualbase_append(VirtualQDesignerWidgetDataBaseInterface* self, QDesignerWidgetDataBaseItemInterface* item);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__indexOfObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int indexOfObject(QObject* object, bool resolveName) const override {
-		if (handle__indexOfObject == 0) {
+		if (vtbl->indexOfObject == 0) {
 			return QDesignerWidgetDataBaseInterface::indexOfObject(object, resolveName);
 		}
 
 		QObject* sigval1 = object;
 		bool sigval2 = resolveName;
-		int callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseInterface_indexOfObject(this, handle__indexOfObject, sigval1, sigval2);
+		int callback_return_value = vtbl->indexOfObject(this, sigval1, sigval2);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QDesignerWidgetDataBaseInterface_virtualbase_indexOfObject(const void* self, QObject* object, bool resolveName);
+	friend int QDesignerWidgetDataBaseInterface_virtualbase_indexOfObject(const VirtualQDesignerWidgetDataBaseInterface* self, QObject* object, bool resolveName);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__indexOfClassName = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int indexOfClassName(const QString& className, bool resolveName) const override {
-		if (handle__indexOfClassName == 0) {
+		if (vtbl->indexOfClassName == 0) {
 			return QDesignerWidgetDataBaseInterface::indexOfClassName(className, resolveName);
 		}
 
@@ -1118,102 +679,75 @@ public:
 		memcpy(className_ms.data, className_b.data(), className_ms.len);
 		struct seaqt_string sigval1 = className_ms;
 		bool sigval2 = resolveName;
-		int callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseInterface_indexOfClassName(this, handle__indexOfClassName, sigval1, sigval2);
+		int callback_return_value = vtbl->indexOfClassName(this, sigval1, sigval2);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QDesignerWidgetDataBaseInterface_virtualbase_indexOfClassName(const void* self, struct seaqt_string className, bool resolveName);
+	friend int QDesignerWidgetDataBaseInterface_virtualbase_indexOfClassName(const VirtualQDesignerWidgetDataBaseInterface* self, struct seaqt_string className, bool resolveName);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QDesignerWidgetDataBaseInterface::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseInterface_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QDesignerWidgetDataBaseInterface_virtualbase_event(void* self, QEvent* event);
+	friend bool QDesignerWidgetDataBaseInterface_virtualbase_event(VirtualQDesignerWidgetDataBaseInterface* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QDesignerWidgetDataBaseInterface::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseInterface_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QDesignerWidgetDataBaseInterface_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QDesignerWidgetDataBaseInterface_virtualbase_eventFilter(VirtualQDesignerWidgetDataBaseInterface* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QDesignerWidgetDataBaseInterface::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetDataBaseInterface_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetDataBaseInterface_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QDesignerWidgetDataBaseInterface_virtualbase_timerEvent(VirtualQDesignerWidgetDataBaseInterface* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QDesignerWidgetDataBaseInterface::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetDataBaseInterface_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetDataBaseInterface_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QDesignerWidgetDataBaseInterface_virtualbase_childEvent(VirtualQDesignerWidgetDataBaseInterface* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QDesignerWidgetDataBaseInterface::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerWidgetDataBaseInterface_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QDesignerWidgetDataBaseInterface_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QDesignerWidgetDataBaseInterface_virtualbase_customEvent(VirtualQDesignerWidgetDataBaseInterface* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QDesignerWidgetDataBaseInterface::connectNotify(signal);
 			return;
 		}
@@ -1221,18 +755,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QDesignerWidgetDataBaseInterface_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QDesignerWidgetDataBaseInterface_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QDesignerWidgetDataBaseInterface_virtualbase_connectNotify(VirtualQDesignerWidgetDataBaseInterface* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QDesignerWidgetDataBaseInterface::disconnectNotify(signal);
 			return;
 		}
@@ -1240,25 +769,26 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QDesignerWidgetDataBaseInterface_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QDesignerWidgetDataBaseInterface_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QDesignerWidgetDataBaseInterface_virtualbase_disconnectNotify(VirtualQDesignerWidgetDataBaseInterface* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QDesignerWidgetDataBaseInterface_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QDesignerWidgetDataBaseInterface_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QDesignerWidgetDataBaseInterface_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QDesignerWidgetDataBaseInterface_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QDesignerWidgetDataBaseInterface_protectedbase_sender(const VirtualQDesignerWidgetDataBaseInterface* self);
+	friend int QDesignerWidgetDataBaseInterface_protectedbase_senderSignalIndex(const VirtualQDesignerWidgetDataBaseInterface* self);
+	friend int QDesignerWidgetDataBaseInterface_protectedbase_receivers(const VirtualQDesignerWidgetDataBaseInterface* self, const char* signal);
+	friend bool QDesignerWidgetDataBaseInterface_protectedbase_isSignalConnected(const VirtualQDesignerWidgetDataBaseInterface* self, QMetaMethod* signal);
 };
 
-QDesignerWidgetDataBaseInterface* QDesignerWidgetDataBaseInterface_new() {
-	return new (std::nothrow) VirtualQDesignerWidgetDataBaseInterface();
+VirtualQDesignerWidgetDataBaseInterface* QDesignerWidgetDataBaseInterface_new(const QDesignerWidgetDataBaseInterface_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerWidgetDataBaseInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerWidgetDataBaseInterface(vtbl) : nullptr;
 }
 
-QDesignerWidgetDataBaseInterface* QDesignerWidgetDataBaseInterface_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQDesignerWidgetDataBaseInterface(parent);
+VirtualQDesignerWidgetDataBaseInterface* QDesignerWidgetDataBaseInterface_new2(const QDesignerWidgetDataBaseInterface_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerWidgetDataBaseInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerWidgetDataBaseInterface(vtbl, parent) : nullptr;
 }
 
 void QDesignerWidgetDataBaseInterface_virtbase(QDesignerWidgetDataBaseInterface* src, QObject** outptr_QObject) {
@@ -1366,287 +896,109 @@ bool QDesignerWidgetDataBaseInterface_isCustom2(const QDesignerWidgetDataBaseInt
 }
 
 const QMetaObject* QDesignerWidgetDataBaseInterface_staticMetaObject() { return &QDesignerWidgetDataBaseInterface::staticMetaObject; }
-bool QDesignerWidgetDataBaseInterface_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QDesignerWidgetDataBaseInterface_vdata(VirtualQDesignerWidgetDataBaseInterface* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQDesignerWidgetDataBaseInterface>()); }
+VirtualQDesignerWidgetDataBaseInterface* vdata_QDesignerWidgetDataBaseInterface(void* vdata) { return reinterpret_cast<VirtualQDesignerWidgetDataBaseInterface*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQDesignerWidgetDataBaseInterface>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QDesignerWidgetDataBaseInterface_virtualbase_metaObject(const VirtualQDesignerWidgetDataBaseInterface* self) {
+
+	return (QMetaObject*) self->QDesignerWidgetDataBaseInterface::metaObject();
 }
 
-QMetaObject* QDesignerWidgetDataBaseInterface_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::metaObject();
+void* QDesignerWidgetDataBaseInterface_virtualbase_metacast(VirtualQDesignerWidgetDataBaseInterface* self, const char* param1) {
+
+	return self->QDesignerWidgetDataBaseInterface::qt_metacast(param1);
 }
 
-bool QDesignerWidgetDataBaseInterface_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QDesignerWidgetDataBaseInterface_virtualbase_metacall(VirtualQDesignerWidgetDataBaseInterface* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QDesignerWidgetDataBaseInterface::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QDesignerWidgetDataBaseInterface_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::qt_metacast(param1);
+int QDesignerWidgetDataBaseInterface_virtualbase_count(const VirtualQDesignerWidgetDataBaseInterface* self) {
+
+	return self->QDesignerWidgetDataBaseInterface::count();
 }
 
-bool QDesignerWidgetDataBaseInterface_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QDesignerWidgetDataBaseItemInterface* QDesignerWidgetDataBaseInterface_virtualbase_item(const VirtualQDesignerWidgetDataBaseInterface* self, int index) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QDesignerWidgetDataBaseInterface::item(static_cast<int>(index));
 }
 
-int QDesignerWidgetDataBaseInterface_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+int QDesignerWidgetDataBaseInterface_virtualbase_indexOf(const VirtualQDesignerWidgetDataBaseInterface* self, QDesignerWidgetDataBaseItemInterface* item) {
+
+	return self->QDesignerWidgetDataBaseInterface::indexOf(item);
 }
 
-bool QDesignerWidgetDataBaseInterface_override_virtual_count(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetDataBaseInterface_virtualbase_insert(VirtualQDesignerWidgetDataBaseInterface* self, int index, QDesignerWidgetDataBaseItemInterface* item) {
 
-	self_cast->handle__count = slot;
-	return true;
+	self->QDesignerWidgetDataBaseInterface::insert(static_cast<int>(index), item);
 }
 
-int QDesignerWidgetDataBaseInterface_virtualbase_count(const void* self) {
-	return static_cast<const VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::count();
+void QDesignerWidgetDataBaseInterface_virtualbase_append(VirtualQDesignerWidgetDataBaseInterface* self, QDesignerWidgetDataBaseItemInterface* item) {
+
+	self->QDesignerWidgetDataBaseInterface::append(item);
 }
 
-bool QDesignerWidgetDataBaseInterface_override_virtual_item(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QDesignerWidgetDataBaseInterface_virtualbase_indexOfObject(const VirtualQDesignerWidgetDataBaseInterface* self, QObject* object, bool resolveName) {
 
-	self_cast->handle__item = slot;
-	return true;
+	return self->QDesignerWidgetDataBaseInterface::indexOfObject(object, resolveName);
 }
 
-QDesignerWidgetDataBaseItemInterface* QDesignerWidgetDataBaseInterface_virtualbase_item(const void* self, int index) {
-	return static_cast<const VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::item(static_cast<int>(index));
-}
-
-bool QDesignerWidgetDataBaseInterface_override_virtual_indexOf(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__indexOf = slot;
-	return true;
-}
-
-int QDesignerWidgetDataBaseInterface_virtualbase_indexOf(const void* self, QDesignerWidgetDataBaseItemInterface* item) {
-	return static_cast<const VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::indexOf(item);
-}
-
-bool QDesignerWidgetDataBaseInterface_override_virtual_insert(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__insert = slot;
-	return true;
-}
-
-void QDesignerWidgetDataBaseInterface_virtualbase_insert(void* self, int index, QDesignerWidgetDataBaseItemInterface* item) {
-	static_cast<VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::insert(static_cast<int>(index), item);
-}
-
-bool QDesignerWidgetDataBaseInterface_override_virtual_append(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__append = slot;
-	return true;
-}
-
-void QDesignerWidgetDataBaseInterface_virtualbase_append(void* self, QDesignerWidgetDataBaseItemInterface* item) {
-	static_cast<VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::append(item);
-}
-
-bool QDesignerWidgetDataBaseInterface_override_virtual_indexOfObject(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__indexOfObject = slot;
-	return true;
-}
-
-int QDesignerWidgetDataBaseInterface_virtualbase_indexOfObject(const void* self, QObject* object, bool resolveName) {
-	return static_cast<const VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::indexOfObject(object, resolveName);
-}
-
-bool QDesignerWidgetDataBaseInterface_override_virtual_indexOfClassName(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__indexOfClassName = slot;
-	return true;
-}
-
-int QDesignerWidgetDataBaseInterface_virtualbase_indexOfClassName(const void* self, struct seaqt_string className, bool resolveName) {
+int QDesignerWidgetDataBaseInterface_virtualbase_indexOfClassName(const VirtualQDesignerWidgetDataBaseInterface* self, struct seaqt_string className, bool resolveName) {
 	QString className_QString = QString::fromUtf8(className.data, className.len);
-	return static_cast<const VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::indexOfClassName(className_QString, resolveName);
+
+	return self->QDesignerWidgetDataBaseInterface::indexOfClassName(className_QString, resolveName);
 }
 
-bool QDesignerWidgetDataBaseInterface_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QDesignerWidgetDataBaseInterface_virtualbase_event(VirtualQDesignerWidgetDataBaseInterface* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	return self->QDesignerWidgetDataBaseInterface::event(event);
 }
 
-bool QDesignerWidgetDataBaseInterface_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::event(event);
+bool QDesignerWidgetDataBaseInterface_virtualbase_eventFilter(VirtualQDesignerWidgetDataBaseInterface* self, QObject* watched, QEvent* event) {
+
+	return self->QDesignerWidgetDataBaseInterface::eventFilter(watched, event);
 }
 
-bool QDesignerWidgetDataBaseInterface_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetDataBaseInterface_virtualbase_timerEvent(VirtualQDesignerWidgetDataBaseInterface* self, QTimerEvent* event) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QDesignerWidgetDataBaseInterface::timerEvent(event);
 }
 
-bool QDesignerWidgetDataBaseInterface_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::eventFilter(watched, event);
+void QDesignerWidgetDataBaseInterface_virtualbase_childEvent(VirtualQDesignerWidgetDataBaseInterface* self, QChildEvent* event) {
+
+	self->QDesignerWidgetDataBaseInterface::childEvent(event);
 }
 
-bool QDesignerWidgetDataBaseInterface_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetDataBaseInterface_virtualbase_customEvent(VirtualQDesignerWidgetDataBaseInterface* self, QEvent* event) {
 
-	self_cast->handle__timerEvent = slot;
-	return true;
+	self->QDesignerWidgetDataBaseInterface::customEvent(event);
 }
 
-void QDesignerWidgetDataBaseInterface_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::timerEvent(event);
+void QDesignerWidgetDataBaseInterface_virtualbase_connectNotify(VirtualQDesignerWidgetDataBaseInterface* self, QMetaMethod* signal) {
+
+	self->QDesignerWidgetDataBaseInterface::connectNotify(*signal);
 }
 
-bool QDesignerWidgetDataBaseInterface_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerWidgetDataBaseInterface_virtualbase_disconnectNotify(VirtualQDesignerWidgetDataBaseInterface* self, QMetaMethod* signal) {
 
-	self_cast->handle__childEvent = slot;
-	return true;
+	self->QDesignerWidgetDataBaseInterface::disconnectNotify(*signal);
 }
 
-void QDesignerWidgetDataBaseInterface_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::childEvent(event);
+QObject* QDesignerWidgetDataBaseInterface_protectedbase_sender(const VirtualQDesignerWidgetDataBaseInterface* self) {
+	return self->sender();
 }
 
-bool QDesignerWidgetDataBaseInterface_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
+int QDesignerWidgetDataBaseInterface_protectedbase_senderSignalIndex(const VirtualQDesignerWidgetDataBaseInterface* self) {
+	return self->senderSignalIndex();
 }
 
-void QDesignerWidgetDataBaseInterface_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::customEvent(event);
+int QDesignerWidgetDataBaseInterface_protectedbase_receivers(const VirtualQDesignerWidgetDataBaseInterface* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QDesignerWidgetDataBaseInterface_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QDesignerWidgetDataBaseInterface_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::connectNotify(*signal);
-}
-
-bool QDesignerWidgetDataBaseInterface_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QDesignerWidgetDataBaseInterface_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::disconnectNotify(*signal);
-}
-
-QObject* QDesignerWidgetDataBaseInterface_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QDesignerWidgetDataBaseInterface_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QDesignerWidgetDataBaseInterface_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QDesignerWidgetDataBaseInterface_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QDesignerWidgetDataBaseInterface_protectedbase_isSignalConnected(const VirtualQDesignerWidgetDataBaseInterface* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QDesignerWidgetDataBaseInterface_delete(QDesignerWidgetDataBaseInterface* self) {

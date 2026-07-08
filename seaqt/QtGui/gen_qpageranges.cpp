@@ -7,6 +7,17 @@
 #include <qpageranges.h>
 #include "gen_qpageranges.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -97,11 +108,11 @@ void QPageRanges_delete(QPageRanges* self) {
 }
 
 QPageRanges__Range* QPageRanges__Range_new() {
-	return new (std::nothrow) QPageRanges::Range();
+	return new (std::nothrow) QPageRanges__Range();
 }
 
 QPageRanges__Range* QPageRanges__Range_new2(QPageRanges__Range* param1) {
-	return new (std::nothrow) QPageRanges::Range(*param1);
+	return new (std::nothrow) QPageRanges__Range(*param1);
 }
 
 int QPageRanges__Range_from(const QPageRanges__Range* self) {

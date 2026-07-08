@@ -25,6 +25,7 @@ typedef struct QWebEngineUrlScheme QWebEngineUrlScheme;
 QWebEngineUrlScheme* QWebEngineUrlScheme_new();
 QWebEngineUrlScheme* QWebEngineUrlScheme_new2(struct seaqt_string name);
 QWebEngineUrlScheme* QWebEngineUrlScheme_new3(QWebEngineUrlScheme* that);
+
 void QWebEngineUrlScheme_operatorAssign(QWebEngineUrlScheme* self, QWebEngineUrlScheme* that);
 bool QWebEngineUrlScheme_operatorEqual(const QWebEngineUrlScheme* self, QWebEngineUrlScheme* that);
 bool QWebEngineUrlScheme_operatorNotEqual(const QWebEngineUrlScheme* self, QWebEngineUrlScheme* that);

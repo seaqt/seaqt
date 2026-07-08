@@ -40,112 +40,62 @@
 #include <abstractactioneditor.h>
 #include "gen_abstractactioneditor.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QDesignerActionEditorInterface_metaObject(const QDesignerActionEditorInterface*, intptr_t);
-void* miqt_exec_callback_QDesignerActionEditorInterface_metacast(QDesignerActionEditorInterface*, intptr_t, const char*);
-int miqt_exec_callback_QDesignerActionEditorInterface_metacall(QDesignerActionEditorInterface*, intptr_t, int, int, void**);
-void miqt_exec_callback_QDesignerActionEditorInterface_manageAction(QDesignerActionEditorInterface*, intptr_t, QAction*);
-void miqt_exec_callback_QDesignerActionEditorInterface_unmanageAction(QDesignerActionEditorInterface*, intptr_t, QAction*);
-void miqt_exec_callback_QDesignerActionEditorInterface_setFormWindow(QDesignerActionEditorInterface*, intptr_t, QDesignerFormWindowInterface*);
-int miqt_exec_callback_QDesignerActionEditorInterface_devType(const QDesignerActionEditorInterface*, intptr_t);
-void miqt_exec_callback_QDesignerActionEditorInterface_setVisible(QDesignerActionEditorInterface*, intptr_t, bool);
-QSize* miqt_exec_callback_QDesignerActionEditorInterface_sizeHint(const QDesignerActionEditorInterface*, intptr_t);
-QSize* miqt_exec_callback_QDesignerActionEditorInterface_minimumSizeHint(const QDesignerActionEditorInterface*, intptr_t);
-int miqt_exec_callback_QDesignerActionEditorInterface_heightForWidth(const QDesignerActionEditorInterface*, intptr_t, int);
-bool miqt_exec_callback_QDesignerActionEditorInterface_hasHeightForWidth(const QDesignerActionEditorInterface*, intptr_t);
-QPaintEngine* miqt_exec_callback_QDesignerActionEditorInterface_paintEngine(const QDesignerActionEditorInterface*, intptr_t);
-bool miqt_exec_callback_QDesignerActionEditorInterface_event(QDesignerActionEditorInterface*, intptr_t, QEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_mousePressEvent(QDesignerActionEditorInterface*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_mouseReleaseEvent(QDesignerActionEditorInterface*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_mouseDoubleClickEvent(QDesignerActionEditorInterface*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_mouseMoveEvent(QDesignerActionEditorInterface*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_wheelEvent(QDesignerActionEditorInterface*, intptr_t, QWheelEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_keyPressEvent(QDesignerActionEditorInterface*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_keyReleaseEvent(QDesignerActionEditorInterface*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_focusInEvent(QDesignerActionEditorInterface*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_focusOutEvent(QDesignerActionEditorInterface*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_enterEvent(QDesignerActionEditorInterface*, intptr_t, QEnterEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_leaveEvent(QDesignerActionEditorInterface*, intptr_t, QEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_paintEvent(QDesignerActionEditorInterface*, intptr_t, QPaintEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_moveEvent(QDesignerActionEditorInterface*, intptr_t, QMoveEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_resizeEvent(QDesignerActionEditorInterface*, intptr_t, QResizeEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_closeEvent(QDesignerActionEditorInterface*, intptr_t, QCloseEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_contextMenuEvent(QDesignerActionEditorInterface*, intptr_t, QContextMenuEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_tabletEvent(QDesignerActionEditorInterface*, intptr_t, QTabletEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_actionEvent(QDesignerActionEditorInterface*, intptr_t, QActionEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_dragEnterEvent(QDesignerActionEditorInterface*, intptr_t, QDragEnterEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_dragMoveEvent(QDesignerActionEditorInterface*, intptr_t, QDragMoveEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_dragLeaveEvent(QDesignerActionEditorInterface*, intptr_t, QDragLeaveEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_dropEvent(QDesignerActionEditorInterface*, intptr_t, QDropEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_showEvent(QDesignerActionEditorInterface*, intptr_t, QShowEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_hideEvent(QDesignerActionEditorInterface*, intptr_t, QHideEvent*);
-bool miqt_exec_callback_QDesignerActionEditorInterface_nativeEvent(QDesignerActionEditorInterface*, intptr_t, struct seaqt_string, void*, intptr_t*);
-void miqt_exec_callback_QDesignerActionEditorInterface_changeEvent(QDesignerActionEditorInterface*, intptr_t, QEvent*);
-int miqt_exec_callback_QDesignerActionEditorInterface_metric(const QDesignerActionEditorInterface*, intptr_t, int);
-void miqt_exec_callback_QDesignerActionEditorInterface_initPainter(const QDesignerActionEditorInterface*, intptr_t, QPainter*);
-QPaintDevice* miqt_exec_callback_QDesignerActionEditorInterface_redirected(const QDesignerActionEditorInterface*, intptr_t, QPoint*);
-QPainter* miqt_exec_callback_QDesignerActionEditorInterface_sharedPainter(const QDesignerActionEditorInterface*, intptr_t);
-void miqt_exec_callback_QDesignerActionEditorInterface_inputMethodEvent(QDesignerActionEditorInterface*, intptr_t, QInputMethodEvent*);
-QVariant* miqt_exec_callback_QDesignerActionEditorInterface_inputMethodQuery(const QDesignerActionEditorInterface*, intptr_t, int);
-bool miqt_exec_callback_QDesignerActionEditorInterface_focusNextPrevChild(QDesignerActionEditorInterface*, intptr_t, bool);
-bool miqt_exec_callback_QDesignerActionEditorInterface_eventFilter(QDesignerActionEditorInterface*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_timerEvent(QDesignerActionEditorInterface*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_childEvent(QDesignerActionEditorInterface*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_customEvent(QDesignerActionEditorInterface*, intptr_t, QEvent*);
-void miqt_exec_callback_QDesignerActionEditorInterface_connectNotify(QDesignerActionEditorInterface*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QDesignerActionEditorInterface_disconnectNotify(QDesignerActionEditorInterface*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQDesignerActionEditorInterface final : public QDesignerActionEditorInterface {
+	const QDesignerActionEditorInterface_VTable* vtbl;
 public:
+	friend void* QDesignerActionEditorInterface_vdata(VirtualQDesignerActionEditorInterface* self);
+	friend VirtualQDesignerActionEditorInterface* vdata_QDesignerActionEditorInterface(void* vdata);
 
-	VirtualQDesignerActionEditorInterface(QWidget* parent): QDesignerActionEditorInterface(parent) {}
-	VirtualQDesignerActionEditorInterface(QWidget* parent, Qt::WindowFlags flags): QDesignerActionEditorInterface(parent, flags) {}
+	VirtualQDesignerActionEditorInterface(const QDesignerActionEditorInterface_VTable* vtbl, QWidget* parent): QDesignerActionEditorInterface(parent), vtbl(vtbl) {}
+	VirtualQDesignerActionEditorInterface(const QDesignerActionEditorInterface_VTable* vtbl, QWidget* parent, Qt::WindowFlags flags): QDesignerActionEditorInterface(parent, flags), vtbl(vtbl) {}
 
-	virtual ~VirtualQDesignerActionEditorInterface() override = default;
+	virtual ~VirtualQDesignerActionEditorInterface() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QDesignerActionEditorInterface::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QDesignerActionEditorInterface_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QDesignerActionEditorInterface_virtualbase_metaObject(const VirtualQDesignerActionEditorInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QDesignerActionEditorInterface::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QDesignerActionEditorInterface_virtualbase_metacast(void* self, const char* param1);
+	friend void* QDesignerActionEditorInterface_virtualbase_metacast(VirtualQDesignerActionEditorInterface* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QDesignerActionEditorInterface::qt_metacall(param1, param2, param3);
 		}
 
@@ -153,592 +103,420 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QDesignerActionEditorInterface_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QDesignerActionEditorInterface_virtualbase_metacall(VirtualQDesignerActionEditorInterface* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__manageAction = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void manageAction(QAction* action) override {
-		if (handle__manageAction == 0) {
+		if (vtbl->manageAction == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		QAction* sigval1 = action;
-		miqt_exec_callback_QDesignerActionEditorInterface_manageAction(this, handle__manageAction, sigval1);
-
+		vtbl->manageAction(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__unmanageAction = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void unmanageAction(QAction* action) override {
-		if (handle__unmanageAction == 0) {
+		if (vtbl->unmanageAction == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		QAction* sigval1 = action;
-		miqt_exec_callback_QDesignerActionEditorInterface_unmanageAction(this, handle__unmanageAction, sigval1);
-
+		vtbl->unmanageAction(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setFormWindow = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setFormWindow(QDesignerFormWindowInterface* formWindow) override {
-		if (handle__setFormWindow == 0) {
+		if (vtbl->setFormWindow == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		QDesignerFormWindowInterface* sigval1 = formWindow;
-		miqt_exec_callback_QDesignerActionEditorInterface_setFormWindow(this, handle__setFormWindow, sigval1);
-
+		vtbl->setFormWindow(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__devType = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int devType() const override {
-		if (handle__devType == 0) {
+		if (vtbl->devType == 0) {
 			return QDesignerActionEditorInterface::devType();
 		}
 
-		int callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_devType(this, handle__devType);
+		int callback_return_value = vtbl->devType(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QDesignerActionEditorInterface_virtualbase_devType(const void* self);
+	friend int QDesignerActionEditorInterface_virtualbase_devType(const VirtualQDesignerActionEditorInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setVisible = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setVisible(bool visible) override {
-		if (handle__setVisible == 0) {
+		if (vtbl->setVisible == 0) {
 			QDesignerActionEditorInterface::setVisible(visible);
 			return;
 		}
 
 		bool sigval1 = visible;
-		miqt_exec_callback_QDesignerActionEditorInterface_setVisible(this, handle__setVisible, sigval1);
-
+		vtbl->setVisible(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_setVisible(void* self, bool visible);
+	friend void QDesignerActionEditorInterface_virtualbase_setVisible(VirtualQDesignerActionEditorInterface* self, bool visible);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize sizeHint() const override {
-		if (handle__sizeHint == 0) {
+		if (vtbl->sizeHint == 0) {
 			return QDesignerActionEditorInterface::sizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_sizeHint(this, handle__sizeHint);
+		QSize* callback_return_value = vtbl->sizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QDesignerActionEditorInterface_virtualbase_sizeHint(const void* self);
+	friend QSize* QDesignerActionEditorInterface_virtualbase_sizeHint(const VirtualQDesignerActionEditorInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__minimumSizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize minimumSizeHint() const override {
-		if (handle__minimumSizeHint == 0) {
+		if (vtbl->minimumSizeHint == 0) {
 			return QDesignerActionEditorInterface::minimumSizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_minimumSizeHint(this, handle__minimumSizeHint);
+		QSize* callback_return_value = vtbl->minimumSizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QDesignerActionEditorInterface_virtualbase_minimumSizeHint(const void* self);
+	friend QSize* QDesignerActionEditorInterface_virtualbase_minimumSizeHint(const VirtualQDesignerActionEditorInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__heightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int heightForWidth(int param1) const override {
-		if (handle__heightForWidth == 0) {
+		if (vtbl->heightForWidth == 0) {
 			return QDesignerActionEditorInterface::heightForWidth(param1);
 		}
 
 		int sigval1 = param1;
-		int callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_heightForWidth(this, handle__heightForWidth, sigval1);
+		int callback_return_value = vtbl->heightForWidth(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QDesignerActionEditorInterface_virtualbase_heightForWidth(const void* self, int param1);
+	friend int QDesignerActionEditorInterface_virtualbase_heightForWidth(const VirtualQDesignerActionEditorInterface* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hasHeightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool hasHeightForWidth() const override {
-		if (handle__hasHeightForWidth == 0) {
+		if (vtbl->hasHeightForWidth == 0) {
 			return QDesignerActionEditorInterface::hasHeightForWidth();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_hasHeightForWidth(this, handle__hasHeightForWidth);
+		bool callback_return_value = vtbl->hasHeightForWidth(this);
 		return callback_return_value;
 	}
 
-	friend bool QDesignerActionEditorInterface_virtualbase_hasHeightForWidth(const void* self);
+	friend bool QDesignerActionEditorInterface_virtualbase_hasHeightForWidth(const VirtualQDesignerActionEditorInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEngine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintEngine* paintEngine() const override {
-		if (handle__paintEngine == 0) {
+		if (vtbl->paintEngine == 0) {
 			return QDesignerActionEditorInterface::paintEngine();
 		}
 
-		QPaintEngine* callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_paintEngine(this, handle__paintEngine);
+		QPaintEngine* callback_return_value = vtbl->paintEngine(this);
 		return callback_return_value;
 	}
 
-	friend QPaintEngine* QDesignerActionEditorInterface_virtualbase_paintEngine(const void* self);
+	friend QPaintEngine* QDesignerActionEditorInterface_virtualbase_paintEngine(const VirtualQDesignerActionEditorInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QDesignerActionEditorInterface::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QDesignerActionEditorInterface_virtualbase_event(void* self, QEvent* event);
+	friend bool QDesignerActionEditorInterface_virtualbase_event(VirtualQDesignerActionEditorInterface* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mousePressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mousePressEvent(QMouseEvent* event) override {
-		if (handle__mousePressEvent == 0) {
+		if (vtbl->mousePressEvent == 0) {
 			QDesignerActionEditorInterface::mousePressEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_mousePressEvent(this, handle__mousePressEvent, sigval1);
-
+		vtbl->mousePressEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_mousePressEvent(void* self, QMouseEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_mousePressEvent(VirtualQDesignerActionEditorInterface* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseReleaseEvent(QMouseEvent* event) override {
-		if (handle__mouseReleaseEvent == 0) {
+		if (vtbl->mouseReleaseEvent == 0) {
 			QDesignerActionEditorInterface::mouseReleaseEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_mouseReleaseEvent(this, handle__mouseReleaseEvent, sigval1);
-
+		vtbl->mouseReleaseEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_mouseReleaseEvent(VirtualQDesignerActionEditorInterface* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseDoubleClickEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseDoubleClickEvent(QMouseEvent* event) override {
-		if (handle__mouseDoubleClickEvent == 0) {
+		if (vtbl->mouseDoubleClickEvent == 0) {
 			QDesignerActionEditorInterface::mouseDoubleClickEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_mouseDoubleClickEvent(this, handle__mouseDoubleClickEvent, sigval1);
-
+		vtbl->mouseDoubleClickEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_mouseDoubleClickEvent(VirtualQDesignerActionEditorInterface* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseMoveEvent(QMouseEvent* event) override {
-		if (handle__mouseMoveEvent == 0) {
+		if (vtbl->mouseMoveEvent == 0) {
 			QDesignerActionEditorInterface::mouseMoveEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_mouseMoveEvent(this, handle__mouseMoveEvent, sigval1);
-
+		vtbl->mouseMoveEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_mouseMoveEvent(void* self, QMouseEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_mouseMoveEvent(VirtualQDesignerActionEditorInterface* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__wheelEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void wheelEvent(QWheelEvent* event) override {
-		if (handle__wheelEvent == 0) {
+		if (vtbl->wheelEvent == 0) {
 			QDesignerActionEditorInterface::wheelEvent(event);
 			return;
 		}
 
 		QWheelEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_wheelEvent(this, handle__wheelEvent, sigval1);
-
+		vtbl->wheelEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_wheelEvent(void* self, QWheelEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_wheelEvent(VirtualQDesignerActionEditorInterface* self, QWheelEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyPressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyPressEvent(QKeyEvent* event) override {
-		if (handle__keyPressEvent == 0) {
+		if (vtbl->keyPressEvent == 0) {
 			QDesignerActionEditorInterface::keyPressEvent(event);
 			return;
 		}
 
 		QKeyEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_keyPressEvent(this, handle__keyPressEvent, sigval1);
-
+		vtbl->keyPressEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_keyPressEvent(void* self, QKeyEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_keyPressEvent(VirtualQDesignerActionEditorInterface* self, QKeyEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyReleaseEvent(QKeyEvent* event) override {
-		if (handle__keyReleaseEvent == 0) {
+		if (vtbl->keyReleaseEvent == 0) {
 			QDesignerActionEditorInterface::keyReleaseEvent(event);
 			return;
 		}
 
 		QKeyEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_keyReleaseEvent(this, handle__keyReleaseEvent, sigval1);
-
+		vtbl->keyReleaseEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_keyReleaseEvent(VirtualQDesignerActionEditorInterface* self, QKeyEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusInEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusInEvent(QFocusEvent* event) override {
-		if (handle__focusInEvent == 0) {
+		if (vtbl->focusInEvent == 0) {
 			QDesignerActionEditorInterface::focusInEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_focusInEvent(this, handle__focusInEvent, sigval1);
-
+		vtbl->focusInEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_focusInEvent(void* self, QFocusEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_focusInEvent(VirtualQDesignerActionEditorInterface* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusOutEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusOutEvent(QFocusEvent* event) override {
-		if (handle__focusOutEvent == 0) {
+		if (vtbl->focusOutEvent == 0) {
 			QDesignerActionEditorInterface::focusOutEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_focusOutEvent(this, handle__focusOutEvent, sigval1);
-
+		vtbl->focusOutEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_focusOutEvent(void* self, QFocusEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_focusOutEvent(VirtualQDesignerActionEditorInterface* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__enterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void enterEvent(QEnterEvent* event) override {
-		if (handle__enterEvent == 0) {
+		if (vtbl->enterEvent == 0) {
 			QDesignerActionEditorInterface::enterEvent(event);
 			return;
 		}
 
 		QEnterEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_enterEvent(this, handle__enterEvent, sigval1);
-
+		vtbl->enterEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_enterEvent(void* self, QEnterEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_enterEvent(VirtualQDesignerActionEditorInterface* self, QEnterEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__leaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void leaveEvent(QEvent* event) override {
-		if (handle__leaveEvent == 0) {
+		if (vtbl->leaveEvent == 0) {
 			QDesignerActionEditorInterface::leaveEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_leaveEvent(this, handle__leaveEvent, sigval1);
-
+		vtbl->leaveEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_leaveEvent(void* self, QEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_leaveEvent(VirtualQDesignerActionEditorInterface* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void paintEvent(QPaintEvent* event) override {
-		if (handle__paintEvent == 0) {
+		if (vtbl->paintEvent == 0) {
 			QDesignerActionEditorInterface::paintEvent(event);
 			return;
 		}
 
 		QPaintEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_paintEvent(this, handle__paintEvent, sigval1);
-
+		vtbl->paintEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_paintEvent(void* self, QPaintEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_paintEvent(VirtualQDesignerActionEditorInterface* self, QPaintEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__moveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void moveEvent(QMoveEvent* event) override {
-		if (handle__moveEvent == 0) {
+		if (vtbl->moveEvent == 0) {
 			QDesignerActionEditorInterface::moveEvent(event);
 			return;
 		}
 
 		QMoveEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_moveEvent(this, handle__moveEvent, sigval1);
-
+		vtbl->moveEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_moveEvent(void* self, QMoveEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_moveEvent(VirtualQDesignerActionEditorInterface* self, QMoveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__resizeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void resizeEvent(QResizeEvent* event) override {
-		if (handle__resizeEvent == 0) {
+		if (vtbl->resizeEvent == 0) {
 			QDesignerActionEditorInterface::resizeEvent(event);
 			return;
 		}
 
 		QResizeEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_resizeEvent(this, handle__resizeEvent, sigval1);
-
+		vtbl->resizeEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_resizeEvent(void* self, QResizeEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_resizeEvent(VirtualQDesignerActionEditorInterface* self, QResizeEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__closeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void closeEvent(QCloseEvent* event) override {
-		if (handle__closeEvent == 0) {
+		if (vtbl->closeEvent == 0) {
 			QDesignerActionEditorInterface::closeEvent(event);
 			return;
 		}
 
 		QCloseEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_closeEvent(this, handle__closeEvent, sigval1);
-
+		vtbl->closeEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_closeEvent(void* self, QCloseEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_closeEvent(VirtualQDesignerActionEditorInterface* self, QCloseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__contextMenuEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void contextMenuEvent(QContextMenuEvent* event) override {
-		if (handle__contextMenuEvent == 0) {
+		if (vtbl->contextMenuEvent == 0) {
 			QDesignerActionEditorInterface::contextMenuEvent(event);
 			return;
 		}
 
 		QContextMenuEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_contextMenuEvent(this, handle__contextMenuEvent, sigval1);
-
+		vtbl->contextMenuEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_contextMenuEvent(VirtualQDesignerActionEditorInterface* self, QContextMenuEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__tabletEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void tabletEvent(QTabletEvent* event) override {
-		if (handle__tabletEvent == 0) {
+		if (vtbl->tabletEvent == 0) {
 			QDesignerActionEditorInterface::tabletEvent(event);
 			return;
 		}
 
 		QTabletEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_tabletEvent(this, handle__tabletEvent, sigval1);
-
+		vtbl->tabletEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_tabletEvent(void* self, QTabletEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_tabletEvent(VirtualQDesignerActionEditorInterface* self, QTabletEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__actionEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void actionEvent(QActionEvent* event) override {
-		if (handle__actionEvent == 0) {
+		if (vtbl->actionEvent == 0) {
 			QDesignerActionEditorInterface::actionEvent(event);
 			return;
 		}
 
 		QActionEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_actionEvent(this, handle__actionEvent, sigval1);
-
+		vtbl->actionEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_actionEvent(void* self, QActionEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_actionEvent(VirtualQDesignerActionEditorInterface* self, QActionEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragEnterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragEnterEvent(QDragEnterEvent* event) override {
-		if (handle__dragEnterEvent == 0) {
+		if (vtbl->dragEnterEvent == 0) {
 			QDesignerActionEditorInterface::dragEnterEvent(event);
 			return;
 		}
 
 		QDragEnterEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_dragEnterEvent(this, handle__dragEnterEvent, sigval1);
-
+		vtbl->dragEnterEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_dragEnterEvent(VirtualQDesignerActionEditorInterface* self, QDragEnterEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragMoveEvent(QDragMoveEvent* event) override {
-		if (handle__dragMoveEvent == 0) {
+		if (vtbl->dragMoveEvent == 0) {
 			QDesignerActionEditorInterface::dragMoveEvent(event);
 			return;
 		}
 
 		QDragMoveEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_dragMoveEvent(this, handle__dragMoveEvent, sigval1);
-
+		vtbl->dragMoveEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_dragMoveEvent(VirtualQDesignerActionEditorInterface* self, QDragMoveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragLeaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragLeaveEvent(QDragLeaveEvent* event) override {
-		if (handle__dragLeaveEvent == 0) {
+		if (vtbl->dragLeaveEvent == 0) {
 			QDesignerActionEditorInterface::dragLeaveEvent(event);
 			return;
 		}
 
 		QDragLeaveEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_dragLeaveEvent(this, handle__dragLeaveEvent, sigval1);
-
+		vtbl->dragLeaveEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_dragLeaveEvent(VirtualQDesignerActionEditorInterface* self, QDragLeaveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dropEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dropEvent(QDropEvent* event) override {
-		if (handle__dropEvent == 0) {
+		if (vtbl->dropEvent == 0) {
 			QDesignerActionEditorInterface::dropEvent(event);
 			return;
 		}
 
 		QDropEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_dropEvent(this, handle__dropEvent, sigval1);
-
+		vtbl->dropEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_dropEvent(void* self, QDropEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_dropEvent(VirtualQDesignerActionEditorInterface* self, QDropEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__showEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void showEvent(QShowEvent* event) override {
-		if (handle__showEvent == 0) {
+		if (vtbl->showEvent == 0) {
 			QDesignerActionEditorInterface::showEvent(event);
 			return;
 		}
 
 		QShowEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_showEvent(this, handle__showEvent, sigval1);
-
+		vtbl->showEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_showEvent(void* self, QShowEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_showEvent(VirtualQDesignerActionEditorInterface* self, QShowEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hideEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void hideEvent(QHideEvent* event) override {
-		if (handle__hideEvent == 0) {
+		if (vtbl->hideEvent == 0) {
 			QDesignerActionEditorInterface::hideEvent(event);
 			return;
 		}
 
 		QHideEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_hideEvent(this, handle__hideEvent, sigval1);
-
+		vtbl->hideEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_hideEvent(void* self, QHideEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_hideEvent(VirtualQDesignerActionEditorInterface* self, QHideEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__nativeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool nativeEvent(const QByteArray& eventType, void* message, qintptr* result) override {
-		if (handle__nativeEvent == 0) {
+		if (vtbl->nativeEvent == 0) {
 			return QDesignerActionEditorInterface::nativeEvent(eventType, message, result);
 		}
 
@@ -751,218 +529,160 @@ public:
 		void* sigval2 = message;
 		qintptr* result_ret = result;
 		intptr_t* sigval3 = (intptr_t*)(result_ret);
-		bool callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_nativeEvent(this, handle__nativeEvent, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->nativeEvent(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QDesignerActionEditorInterface_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, intptr_t* result);
+	friend bool QDesignerActionEditorInterface_virtualbase_nativeEvent(VirtualQDesignerActionEditorInterface* self, struct seaqt_string eventType, void* message, intptr_t* result);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__changeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void changeEvent(QEvent* param1) override {
-		if (handle__changeEvent == 0) {
+		if (vtbl->changeEvent == 0) {
 			QDesignerActionEditorInterface::changeEvent(param1);
 			return;
 		}
 
 		QEvent* sigval1 = param1;
-		miqt_exec_callback_QDesignerActionEditorInterface_changeEvent(this, handle__changeEvent, sigval1);
-
+		vtbl->changeEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_changeEvent(void* self, QEvent* param1);
+	friend void QDesignerActionEditorInterface_virtualbase_changeEvent(VirtualQDesignerActionEditorInterface* self, QEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metric = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int metric(QPaintDevice::PaintDeviceMetric param1) const override {
-		if (handle__metric == 0) {
+		if (vtbl->metric == 0) {
 			return QDesignerActionEditorInterface::metric(param1);
 		}
 
 		QPaintDevice::PaintDeviceMetric param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		int callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_metric(this, handle__metric, sigval1);
+		int callback_return_value = vtbl->metric(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QDesignerActionEditorInterface_virtualbase_metric(const void* self, int param1);
+	friend int QDesignerActionEditorInterface_virtualbase_metric(const VirtualQDesignerActionEditorInterface* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__initPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void initPainter(QPainter* painter) const override {
-		if (handle__initPainter == 0) {
+		if (vtbl->initPainter == 0) {
 			QDesignerActionEditorInterface::initPainter(painter);
 			return;
 		}
 
 		QPainter* sigval1 = painter;
-		miqt_exec_callback_QDesignerActionEditorInterface_initPainter(this, handle__initPainter, sigval1);
-
+		vtbl->initPainter(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_initPainter(const void* self, QPainter* painter);
+	friend void QDesignerActionEditorInterface_virtualbase_initPainter(const VirtualQDesignerActionEditorInterface* self, QPainter* painter);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__redirected = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintDevice* redirected(QPoint* offset) const override {
-		if (handle__redirected == 0) {
+		if (vtbl->redirected == 0) {
 			return QDesignerActionEditorInterface::redirected(offset);
 		}
 
 		QPoint* sigval1 = offset;
-		QPaintDevice* callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_redirected(this, handle__redirected, sigval1);
+		QPaintDevice* callback_return_value = vtbl->redirected(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QPaintDevice* QDesignerActionEditorInterface_virtualbase_redirected(const void* self, QPoint* offset);
+	friend QPaintDevice* QDesignerActionEditorInterface_virtualbase_redirected(const VirtualQDesignerActionEditorInterface* self, QPoint* offset);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sharedPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPainter* sharedPainter() const override {
-		if (handle__sharedPainter == 0) {
+		if (vtbl->sharedPainter == 0) {
 			return QDesignerActionEditorInterface::sharedPainter();
 		}
 
-		QPainter* callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_sharedPainter(this, handle__sharedPainter);
+		QPainter* callback_return_value = vtbl->sharedPainter(this);
 		return callback_return_value;
 	}
 
-	friend QPainter* QDesignerActionEditorInterface_virtualbase_sharedPainter(const void* self);
+	friend QPainter* QDesignerActionEditorInterface_virtualbase_sharedPainter(const VirtualQDesignerActionEditorInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void inputMethodEvent(QInputMethodEvent* param1) override {
-		if (handle__inputMethodEvent == 0) {
+		if (vtbl->inputMethodEvent == 0) {
 			QDesignerActionEditorInterface::inputMethodEvent(param1);
 			return;
 		}
 
 		QInputMethodEvent* sigval1 = param1;
-		miqt_exec_callback_QDesignerActionEditorInterface_inputMethodEvent(this, handle__inputMethodEvent, sigval1);
-
+		vtbl->inputMethodEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1);
+	friend void QDesignerActionEditorInterface_virtualbase_inputMethodEvent(VirtualQDesignerActionEditorInterface* self, QInputMethodEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodQuery = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant inputMethodQuery(Qt::InputMethodQuery param1) const override {
-		if (handle__inputMethodQuery == 0) {
+		if (vtbl->inputMethodQuery == 0) {
 			return QDesignerActionEditorInterface::inputMethodQuery(param1);
 		}
 
 		Qt::InputMethodQuery param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		QVariant* callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_inputMethodQuery(this, handle__inputMethodQuery, sigval1);
+		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QDesignerActionEditorInterface_virtualbase_inputMethodQuery(const void* self, int param1);
+	friend QVariant* QDesignerActionEditorInterface_virtualbase_inputMethodQuery(const VirtualQDesignerActionEditorInterface* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusNextPrevChild = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool focusNextPrevChild(bool next) override {
-		if (handle__focusNextPrevChild == 0) {
+		if (vtbl->focusNextPrevChild == 0) {
 			return QDesignerActionEditorInterface::focusNextPrevChild(next);
 		}
 
 		bool sigval1 = next;
-		bool callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_focusNextPrevChild(this, handle__focusNextPrevChild, sigval1);
+		bool callback_return_value = vtbl->focusNextPrevChild(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QDesignerActionEditorInterface_virtualbase_focusNextPrevChild(void* self, bool next);
+	friend bool QDesignerActionEditorInterface_virtualbase_focusNextPrevChild(VirtualQDesignerActionEditorInterface* self, bool next);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QDesignerActionEditorInterface::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QDesignerActionEditorInterface_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QDesignerActionEditorInterface_virtualbase_eventFilter(VirtualQDesignerActionEditorInterface* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QDesignerActionEditorInterface::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_timerEvent(VirtualQDesignerActionEditorInterface* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QDesignerActionEditorInterface::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_childEvent(VirtualQDesignerActionEditorInterface* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QDesignerActionEditorInterface::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QDesignerActionEditorInterface_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QDesignerActionEditorInterface_virtualbase_customEvent(VirtualQDesignerActionEditorInterface* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QDesignerActionEditorInterface::connectNotify(signal);
 			return;
 		}
@@ -970,18 +690,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QDesignerActionEditorInterface_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QDesignerActionEditorInterface_virtualbase_connectNotify(VirtualQDesignerActionEditorInterface* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QDesignerActionEditorInterface::disconnectNotify(signal);
 			return;
 		}
@@ -989,30 +704,31 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QDesignerActionEditorInterface_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QDesignerActionEditorInterface_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QDesignerActionEditorInterface_virtualbase_disconnectNotify(VirtualQDesignerActionEditorInterface* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QDesignerActionEditorInterface_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self);
-	friend void QDesignerActionEditorInterface_protectedbase_create(bool* _dynamic_cast_ok, void* self);
-	friend void QDesignerActionEditorInterface_protectedbase_destroy(bool* _dynamic_cast_ok, void* self);
-	friend bool QDesignerActionEditorInterface_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self);
-	friend bool QDesignerActionEditorInterface_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self);
-	friend QObject* QDesignerActionEditorInterface_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QDesignerActionEditorInterface_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QDesignerActionEditorInterface_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QDesignerActionEditorInterface_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QDesignerActionEditorInterface_protectedbase_updateMicroFocus(VirtualQDesignerActionEditorInterface* self);
+	friend void QDesignerActionEditorInterface_protectedbase_create(VirtualQDesignerActionEditorInterface* self);
+	friend void QDesignerActionEditorInterface_protectedbase_destroy(VirtualQDesignerActionEditorInterface* self);
+	friend bool QDesignerActionEditorInterface_protectedbase_focusNextChild(VirtualQDesignerActionEditorInterface* self);
+	friend bool QDesignerActionEditorInterface_protectedbase_focusPreviousChild(VirtualQDesignerActionEditorInterface* self);
+	friend QObject* QDesignerActionEditorInterface_protectedbase_sender(const VirtualQDesignerActionEditorInterface* self);
+	friend int QDesignerActionEditorInterface_protectedbase_senderSignalIndex(const VirtualQDesignerActionEditorInterface* self);
+	friend int QDesignerActionEditorInterface_protectedbase_receivers(const VirtualQDesignerActionEditorInterface* self, const char* signal);
+	friend bool QDesignerActionEditorInterface_protectedbase_isSignalConnected(const VirtualQDesignerActionEditorInterface* self, QMetaMethod* signal);
 };
 
-QDesignerActionEditorInterface* QDesignerActionEditorInterface_new(QWidget* parent) {
-	return new (std::nothrow) VirtualQDesignerActionEditorInterface(parent);
+VirtualQDesignerActionEditorInterface* QDesignerActionEditorInterface_new(const QDesignerActionEditorInterface_VTable* vtbl, size_t vdata, QWidget* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerActionEditorInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerActionEditorInterface(vtbl, parent) : nullptr;
 }
 
-QDesignerActionEditorInterface* QDesignerActionEditorInterface_new2(QWidget* parent, int flags) {
-	return new (std::nothrow) VirtualQDesignerActionEditorInterface(parent, static_cast<Qt::WindowFlags>(flags));
+VirtualQDesignerActionEditorInterface* QDesignerActionEditorInterface_new2(const QDesignerActionEditorInterface_VTable* vtbl, size_t vdata, QWidget* parent, int flags) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerActionEditorInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerActionEditorInterface(vtbl, parent, static_cast<Qt::WindowFlags>(flags)) : nullptr;
 }
 
 void QDesignerActionEditorInterface_virtbase(QDesignerActionEditorInterface* src, QWidget** outptr_QWidget) {
@@ -1077,834 +793,294 @@ struct seaqt_string QDesignerActionEditorInterface_tr3(const char* s, const char
 }
 
 const QMetaObject* QDesignerActionEditorInterface_staticMetaObject() { return &QDesignerActionEditorInterface::staticMetaObject; }
-bool QDesignerActionEditorInterface_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QDesignerActionEditorInterface_vdata(VirtualQDesignerActionEditorInterface* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQDesignerActionEditorInterface>()); }
+VirtualQDesignerActionEditorInterface* vdata_QDesignerActionEditorInterface(void* vdata) { return reinterpret_cast<VirtualQDesignerActionEditorInterface*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQDesignerActionEditorInterface>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
-}
-
-QMetaObject* QDesignerActionEditorInterface_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::metaObject();
-}
-
-bool QDesignerActionEditorInterface_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__metacast = slot;
-	return true;
-}
-
-void* QDesignerActionEditorInterface_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::qt_metacast(param1);
-}
-
-bool QDesignerActionEditorInterface_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__metacall = slot;
-	return true;
-}
-
-int QDesignerActionEditorInterface_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
-}
-
-bool QDesignerActionEditorInterface_override_virtual_manageAction(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__manageAction = slot;
-	return true;
-}
-
-bool QDesignerActionEditorInterface_override_virtual_unmanageAction(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QMetaObject* QDesignerActionEditorInterface_virtualbase_metaObject(const VirtualQDesignerActionEditorInterface* self) {
 
-	self_cast->handle__unmanageAction = slot;
-	return true;
+	return (QMetaObject*) self->QDesignerActionEditorInterface::metaObject();
 }
 
-bool QDesignerActionEditorInterface_override_virtual_setFormWindow(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QDesignerActionEditorInterface_virtualbase_metacast(VirtualQDesignerActionEditorInterface* self, const char* param1) {
 
-	self_cast->handle__setFormWindow = slot;
-	return true;
+	return self->QDesignerActionEditorInterface::qt_metacast(param1);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_devType(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QDesignerActionEditorInterface_virtualbase_metacall(VirtualQDesignerActionEditorInterface* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__devType = slot;
-	return true;
+	return self->QDesignerActionEditorInterface::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
-
-int QDesignerActionEditorInterface_virtualbase_devType(const void* self) {
-	return static_cast<const VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::devType();
-}
-
-bool QDesignerActionEditorInterface_override_virtual_setVisible(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__setVisible = slot;
-	return true;
-}
+int QDesignerActionEditorInterface_virtualbase_devType(const VirtualQDesignerActionEditorInterface* self) {
 
-void QDesignerActionEditorInterface_virtualbase_setVisible(void* self, bool visible) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::setVisible(visible);
+	return self->QDesignerActionEditorInterface::devType();
 }
-
-bool QDesignerActionEditorInterface_override_virtual_sizeHint(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__sizeHint = slot;
-	return true;
-}
+void QDesignerActionEditorInterface_virtualbase_setVisible(VirtualQDesignerActionEditorInterface* self, bool visible) {
 
-QSize* QDesignerActionEditorInterface_virtualbase_sizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::sizeHint());
+	self->QDesignerActionEditorInterface::setVisible(visible);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_minimumSizeHint(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__minimumSizeHint = slot;
-	return true;
-}
+QSize* QDesignerActionEditorInterface_virtualbase_sizeHint(const VirtualQDesignerActionEditorInterface* self) {
 
-QSize* QDesignerActionEditorInterface_virtualbase_minimumSizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::minimumSizeHint());
+	return new QSize(self->QDesignerActionEditorInterface::sizeHint());
 }
 
-bool QDesignerActionEditorInterface_override_virtual_heightForWidth(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QSize* QDesignerActionEditorInterface_virtualbase_minimumSizeHint(const VirtualQDesignerActionEditorInterface* self) {
 
-	self_cast->handle__heightForWidth = slot;
-	return true;
+	return new QSize(self->QDesignerActionEditorInterface::minimumSizeHint());
 }
 
-int QDesignerActionEditorInterface_virtualbase_heightForWidth(const void* self, int param1) {
-	return static_cast<const VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::heightForWidth(static_cast<int>(param1));
-}
-
-bool QDesignerActionEditorInterface_override_virtual_hasHeightForWidth(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QDesignerActionEditorInterface_virtualbase_heightForWidth(const VirtualQDesignerActionEditorInterface* self, int param1) {
 
-	self_cast->handle__hasHeightForWidth = slot;
-	return true;
+	return self->QDesignerActionEditorInterface::heightForWidth(static_cast<int>(param1));
 }
-
-bool QDesignerActionEditorInterface_virtualbase_hasHeightForWidth(const void* self) {
-	return static_cast<const VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::hasHeightForWidth();
-}
-
-bool QDesignerActionEditorInterface_override_virtual_paintEngine(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__paintEngine = slot;
-	return true;
-}
+bool QDesignerActionEditorInterface_virtualbase_hasHeightForWidth(const VirtualQDesignerActionEditorInterface* self) {
 
-QPaintEngine* QDesignerActionEditorInterface_virtualbase_paintEngine(const void* self) {
-	return static_cast<const VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::paintEngine();
+	return self->QDesignerActionEditorInterface::hasHeightForWidth();
 }
-
-bool QDesignerActionEditorInterface_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__event = slot;
-	return true;
-}
+QPaintEngine* QDesignerActionEditorInterface_virtualbase_paintEngine(const VirtualQDesignerActionEditorInterface* self) {
 
-bool QDesignerActionEditorInterface_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::event(event);
+	return self->QDesignerActionEditorInterface::paintEngine();
 }
 
-bool QDesignerActionEditorInterface_override_virtual_mousePressEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mousePressEvent = slot;
-	return true;
-}
+bool QDesignerActionEditorInterface_virtualbase_event(VirtualQDesignerActionEditorInterface* self, QEvent* event) {
 
-void QDesignerActionEditorInterface_virtualbase_mousePressEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::mousePressEvent(event);
+	return self->QDesignerActionEditorInterface::event(event);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_mouseReleaseEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerActionEditorInterface_virtualbase_mousePressEvent(VirtualQDesignerActionEditorInterface* self, QMouseEvent* event) {
 
-	self_cast->handle__mouseReleaseEvent = slot;
-	return true;
+	self->QDesignerActionEditorInterface::mousePressEvent(event);
 }
 
-void QDesignerActionEditorInterface_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::mouseReleaseEvent(event);
-}
-
-bool QDesignerActionEditorInterface_override_virtual_mouseDoubleClickEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerActionEditorInterface_virtualbase_mouseReleaseEvent(VirtualQDesignerActionEditorInterface* self, QMouseEvent* event) {
 
-	self_cast->handle__mouseDoubleClickEvent = slot;
-	return true;
+	self->QDesignerActionEditorInterface::mouseReleaseEvent(event);
 }
-
-void QDesignerActionEditorInterface_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::mouseDoubleClickEvent(event);
-}
-
-bool QDesignerActionEditorInterface_override_virtual_mouseMoveEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__mouseMoveEvent = slot;
-	return true;
-}
+void QDesignerActionEditorInterface_virtualbase_mouseDoubleClickEvent(VirtualQDesignerActionEditorInterface* self, QMouseEvent* event) {
 
-void QDesignerActionEditorInterface_virtualbase_mouseMoveEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::mouseMoveEvent(event);
+	self->QDesignerActionEditorInterface::mouseDoubleClickEvent(event);
 }
-
-bool QDesignerActionEditorInterface_override_virtual_wheelEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__wheelEvent = slot;
-	return true;
-}
+void QDesignerActionEditorInterface_virtualbase_mouseMoveEvent(VirtualQDesignerActionEditorInterface* self, QMouseEvent* event) {
 
-void QDesignerActionEditorInterface_virtualbase_wheelEvent(void* self, QWheelEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::wheelEvent(event);
+	self->QDesignerActionEditorInterface::mouseMoveEvent(event);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_keyPressEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__keyPressEvent = slot;
-	return true;
-}
+void QDesignerActionEditorInterface_virtualbase_wheelEvent(VirtualQDesignerActionEditorInterface* self, QWheelEvent* event) {
 
-void QDesignerActionEditorInterface_virtualbase_keyPressEvent(void* self, QKeyEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::keyPressEvent(event);
+	self->QDesignerActionEditorInterface::wheelEvent(event);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_keyReleaseEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerActionEditorInterface_virtualbase_keyPressEvent(VirtualQDesignerActionEditorInterface* self, QKeyEvent* event) {
 
-	self_cast->handle__keyReleaseEvent = slot;
-	return true;
+	self->QDesignerActionEditorInterface::keyPressEvent(event);
 }
 
-void QDesignerActionEditorInterface_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::keyReleaseEvent(event);
-}
-
-bool QDesignerActionEditorInterface_override_virtual_focusInEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerActionEditorInterface_virtualbase_keyReleaseEvent(VirtualQDesignerActionEditorInterface* self, QKeyEvent* event) {
 
-	self_cast->handle__focusInEvent = slot;
-	return true;
+	self->QDesignerActionEditorInterface::keyReleaseEvent(event);
 }
-
-void QDesignerActionEditorInterface_virtualbase_focusInEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::focusInEvent(event);
-}
-
-bool QDesignerActionEditorInterface_override_virtual_focusOutEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__focusOutEvent = slot;
-	return true;
-}
+void QDesignerActionEditorInterface_virtualbase_focusInEvent(VirtualQDesignerActionEditorInterface* self, QFocusEvent* event) {
 
-void QDesignerActionEditorInterface_virtualbase_focusOutEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::focusOutEvent(event);
+	self->QDesignerActionEditorInterface::focusInEvent(event);
 }
-
-bool QDesignerActionEditorInterface_override_virtual_enterEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__enterEvent = slot;
-	return true;
-}
+void QDesignerActionEditorInterface_virtualbase_focusOutEvent(VirtualQDesignerActionEditorInterface* self, QFocusEvent* event) {
 
-void QDesignerActionEditorInterface_virtualbase_enterEvent(void* self, QEnterEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::enterEvent(event);
+	self->QDesignerActionEditorInterface::focusOutEvent(event);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_leaveEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__leaveEvent = slot;
-	return true;
-}
+void QDesignerActionEditorInterface_virtualbase_enterEvent(VirtualQDesignerActionEditorInterface* self, QEnterEvent* event) {
 
-void QDesignerActionEditorInterface_virtualbase_leaveEvent(void* self, QEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::leaveEvent(event);
+	self->QDesignerActionEditorInterface::enterEvent(event);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_paintEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerActionEditorInterface_virtualbase_leaveEvent(VirtualQDesignerActionEditorInterface* self, QEvent* event) {
 
-	self_cast->handle__paintEvent = slot;
-	return true;
+	self->QDesignerActionEditorInterface::leaveEvent(event);
 }
 
-void QDesignerActionEditorInterface_virtualbase_paintEvent(void* self, QPaintEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::paintEvent(event);
-}
-
-bool QDesignerActionEditorInterface_override_virtual_moveEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerActionEditorInterface_virtualbase_paintEvent(VirtualQDesignerActionEditorInterface* self, QPaintEvent* event) {
 
-	self_cast->handle__moveEvent = slot;
-	return true;
+	self->QDesignerActionEditorInterface::paintEvent(event);
 }
-
-void QDesignerActionEditorInterface_virtualbase_moveEvent(void* self, QMoveEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::moveEvent(event);
-}
-
-bool QDesignerActionEditorInterface_override_virtual_resizeEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__resizeEvent = slot;
-	return true;
-}
+void QDesignerActionEditorInterface_virtualbase_moveEvent(VirtualQDesignerActionEditorInterface* self, QMoveEvent* event) {
 
-void QDesignerActionEditorInterface_virtualbase_resizeEvent(void* self, QResizeEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::resizeEvent(event);
+	self->QDesignerActionEditorInterface::moveEvent(event);
 }
-
-bool QDesignerActionEditorInterface_override_virtual_closeEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__closeEvent = slot;
-	return true;
-}
+void QDesignerActionEditorInterface_virtualbase_resizeEvent(VirtualQDesignerActionEditorInterface* self, QResizeEvent* event) {
 
-void QDesignerActionEditorInterface_virtualbase_closeEvent(void* self, QCloseEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::closeEvent(event);
+	self->QDesignerActionEditorInterface::resizeEvent(event);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_contextMenuEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__contextMenuEvent = slot;
-	return true;
-}
+void QDesignerActionEditorInterface_virtualbase_closeEvent(VirtualQDesignerActionEditorInterface* self, QCloseEvent* event) {
 
-void QDesignerActionEditorInterface_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::contextMenuEvent(event);
+	self->QDesignerActionEditorInterface::closeEvent(event);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_tabletEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerActionEditorInterface_virtualbase_contextMenuEvent(VirtualQDesignerActionEditorInterface* self, QContextMenuEvent* event) {
 
-	self_cast->handle__tabletEvent = slot;
-	return true;
+	self->QDesignerActionEditorInterface::contextMenuEvent(event);
 }
 
-void QDesignerActionEditorInterface_virtualbase_tabletEvent(void* self, QTabletEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::tabletEvent(event);
-}
-
-bool QDesignerActionEditorInterface_override_virtual_actionEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerActionEditorInterface_virtualbase_tabletEvent(VirtualQDesignerActionEditorInterface* self, QTabletEvent* event) {
 
-	self_cast->handle__actionEvent = slot;
-	return true;
+	self->QDesignerActionEditorInterface::tabletEvent(event);
 }
-
-void QDesignerActionEditorInterface_virtualbase_actionEvent(void* self, QActionEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::actionEvent(event);
-}
-
-bool QDesignerActionEditorInterface_override_virtual_dragEnterEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__dragEnterEvent = slot;
-	return true;
-}
+void QDesignerActionEditorInterface_virtualbase_actionEvent(VirtualQDesignerActionEditorInterface* self, QActionEvent* event) {
 
-void QDesignerActionEditorInterface_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::dragEnterEvent(event);
+	self->QDesignerActionEditorInterface::actionEvent(event);
 }
-
-bool QDesignerActionEditorInterface_override_virtual_dragMoveEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__dragMoveEvent = slot;
-	return true;
-}
+void QDesignerActionEditorInterface_virtualbase_dragEnterEvent(VirtualQDesignerActionEditorInterface* self, QDragEnterEvent* event) {
 
-void QDesignerActionEditorInterface_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::dragMoveEvent(event);
+	self->QDesignerActionEditorInterface::dragEnterEvent(event);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_dragLeaveEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__dragLeaveEvent = slot;
-	return true;
-}
+void QDesignerActionEditorInterface_virtualbase_dragMoveEvent(VirtualQDesignerActionEditorInterface* self, QDragMoveEvent* event) {
 
-void QDesignerActionEditorInterface_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::dragLeaveEvent(event);
+	self->QDesignerActionEditorInterface::dragMoveEvent(event);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_dropEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerActionEditorInterface_virtualbase_dragLeaveEvent(VirtualQDesignerActionEditorInterface* self, QDragLeaveEvent* event) {
 
-	self_cast->handle__dropEvent = slot;
-	return true;
+	self->QDesignerActionEditorInterface::dragLeaveEvent(event);
 }
 
-void QDesignerActionEditorInterface_virtualbase_dropEvent(void* self, QDropEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::dropEvent(event);
-}
-
-bool QDesignerActionEditorInterface_override_virtual_showEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__showEvent = slot;
-	return true;
-}
+void QDesignerActionEditorInterface_virtualbase_dropEvent(VirtualQDesignerActionEditorInterface* self, QDropEvent* event) {
 
-void QDesignerActionEditorInterface_virtualbase_showEvent(void* self, QShowEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::showEvent(event);
+	self->QDesignerActionEditorInterface::dropEvent(event);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_hideEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__hideEvent = slot;
-	return true;
-}
+void QDesignerActionEditorInterface_virtualbase_showEvent(VirtualQDesignerActionEditorInterface* self, QShowEvent* event) {
 
-void QDesignerActionEditorInterface_virtualbase_hideEvent(void* self, QHideEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::hideEvent(event);
+	self->QDesignerActionEditorInterface::showEvent(event);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_nativeEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerActionEditorInterface_virtualbase_hideEvent(VirtualQDesignerActionEditorInterface* self, QHideEvent* event) {
 
-	self_cast->handle__nativeEvent = slot;
-	return true;
+	self->QDesignerActionEditorInterface::hideEvent(event);
 }
 
-bool QDesignerActionEditorInterface_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, intptr_t* result) {
+bool QDesignerActionEditorInterface_virtualbase_nativeEvent(VirtualQDesignerActionEditorInterface* self, struct seaqt_string eventType, void* message, intptr_t* result) {
 	QByteArray eventType_QByteArray(eventType.data, eventType.len);
-	return static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::nativeEvent(eventType_QByteArray, message, (qintptr*)(result));
+
+	return self->QDesignerActionEditorInterface::nativeEvent(eventType_QByteArray, message, (qintptr*)(result));
 }
 
-bool QDesignerActionEditorInterface_override_virtual_changeEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerActionEditorInterface_virtualbase_changeEvent(VirtualQDesignerActionEditorInterface* self, QEvent* param1) {
 
-	self_cast->handle__changeEvent = slot;
-	return true;
+	self->QDesignerActionEditorInterface::changeEvent(param1);
 }
 
-void QDesignerActionEditorInterface_virtualbase_changeEvent(void* self, QEvent* param1) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::changeEvent(param1);
+int QDesignerActionEditorInterface_virtualbase_metric(const VirtualQDesignerActionEditorInterface* self, int param1) {
+
+	return self->QDesignerActionEditorInterface::metric(static_cast<VirtualQDesignerActionEditorInterface::PaintDeviceMetric>(param1));
 }
 
-bool QDesignerActionEditorInterface_override_virtual_metric(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerActionEditorInterface_virtualbase_initPainter(const VirtualQDesignerActionEditorInterface* self, QPainter* painter) {
 
-	self_cast->handle__metric = slot;
-	return true;
+	self->QDesignerActionEditorInterface::initPainter(painter);
 }
 
-int QDesignerActionEditorInterface_virtualbase_metric(const void* self, int param1) {
-	return static_cast<const VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::metric(static_cast<VirtualQDesignerActionEditorInterface::PaintDeviceMetric>(param1));
+QPaintDevice* QDesignerActionEditorInterface_virtualbase_redirected(const VirtualQDesignerActionEditorInterface* self, QPoint* offset) {
+
+	return self->QDesignerActionEditorInterface::redirected(offset);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_initPainter(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QPainter* QDesignerActionEditorInterface_virtualbase_sharedPainter(const VirtualQDesignerActionEditorInterface* self) {
 
-	self_cast->handle__initPainter = slot;
-	return true;
+	return self->QDesignerActionEditorInterface::sharedPainter();
 }
 
-void QDesignerActionEditorInterface_virtualbase_initPainter(const void* self, QPainter* painter) {
-	static_cast<const VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::initPainter(painter);
+void QDesignerActionEditorInterface_virtualbase_inputMethodEvent(VirtualQDesignerActionEditorInterface* self, QInputMethodEvent* param1) {
+
+	self->QDesignerActionEditorInterface::inputMethodEvent(param1);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_redirected(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QVariant* QDesignerActionEditorInterface_virtualbase_inputMethodQuery(const VirtualQDesignerActionEditorInterface* self, int param1) {
 
-	self_cast->handle__redirected = slot;
-	return true;
+	return new QVariant(self->QDesignerActionEditorInterface::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
 }
 
-QPaintDevice* QDesignerActionEditorInterface_virtualbase_redirected(const void* self, QPoint* offset) {
-	return static_cast<const VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::redirected(offset);
+bool QDesignerActionEditorInterface_virtualbase_focusNextPrevChild(VirtualQDesignerActionEditorInterface* self, bool next) {
+
+	return self->QDesignerActionEditorInterface::focusNextPrevChild(next);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_sharedPainter(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QDesignerActionEditorInterface_virtualbase_eventFilter(VirtualQDesignerActionEditorInterface* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__sharedPainter = slot;
-	return true;
+	return self->QDesignerActionEditorInterface::eventFilter(watched, event);
 }
 
-QPainter* QDesignerActionEditorInterface_virtualbase_sharedPainter(const void* self) {
-	return static_cast<const VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::sharedPainter();
+void QDesignerActionEditorInterface_virtualbase_timerEvent(VirtualQDesignerActionEditorInterface* self, QTimerEvent* event) {
+
+	self->QDesignerActionEditorInterface::timerEvent(event);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_inputMethodEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerActionEditorInterface_virtualbase_childEvent(VirtualQDesignerActionEditorInterface* self, QChildEvent* event) {
 
-	self_cast->handle__inputMethodEvent = slot;
-	return true;
+	self->QDesignerActionEditorInterface::childEvent(event);
 }
 
-void QDesignerActionEditorInterface_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::inputMethodEvent(param1);
+void QDesignerActionEditorInterface_virtualbase_customEvent(VirtualQDesignerActionEditorInterface* self, QEvent* event) {
+
+	self->QDesignerActionEditorInterface::customEvent(event);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_inputMethodQuery(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QDesignerActionEditorInterface_virtualbase_connectNotify(VirtualQDesignerActionEditorInterface* self, QMetaMethod* signal) {
 
-	self_cast->handle__inputMethodQuery = slot;
-	return true;
+	self->QDesignerActionEditorInterface::connectNotify(*signal);
 }
 
-QVariant* QDesignerActionEditorInterface_virtualbase_inputMethodQuery(const void* self, int param1) {
-	return new QVariant(static_cast<const VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
+void QDesignerActionEditorInterface_virtualbase_disconnectNotify(VirtualQDesignerActionEditorInterface* self, QMetaMethod* signal) {
+
+	self->QDesignerActionEditorInterface::disconnectNotify(*signal);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_focusNextPrevChild(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__focusNextPrevChild = slot;
-	return true;
+void QDesignerActionEditorInterface_protectedbase_updateMicroFocus(VirtualQDesignerActionEditorInterface* self) {
+	self->updateMicroFocus();
 }
 
-bool QDesignerActionEditorInterface_virtualbase_focusNextPrevChild(void* self, bool next) {
-	return static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::focusNextPrevChild(next);
+void QDesignerActionEditorInterface_protectedbase_create(VirtualQDesignerActionEditorInterface* self) {
+	self->create();
 }
 
-bool QDesignerActionEditorInterface_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
+void QDesignerActionEditorInterface_protectedbase_destroy(VirtualQDesignerActionEditorInterface* self) {
+	self->destroy();
 }
 
-bool QDesignerActionEditorInterface_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::eventFilter(watched, event);
+bool QDesignerActionEditorInterface_protectedbase_focusNextChild(VirtualQDesignerActionEditorInterface* self) {
+	return self->focusNextChild();
 }
 
-bool QDesignerActionEditorInterface_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+bool QDesignerActionEditorInterface_protectedbase_focusPreviousChild(VirtualQDesignerActionEditorInterface* self) {
+	return self->focusPreviousChild();
 }
 
-void QDesignerActionEditorInterface_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::timerEvent(event);
+QObject* QDesignerActionEditorInterface_protectedbase_sender(const VirtualQDesignerActionEditorInterface* self) {
+	return self->sender();
 }
 
-bool QDesignerActionEditorInterface_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QDesignerActionEditorInterface_protectedbase_senderSignalIndex(const VirtualQDesignerActionEditorInterface* self) {
+	return self->senderSignalIndex();
 }
 
-void QDesignerActionEditorInterface_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::childEvent(event);
+int QDesignerActionEditorInterface_protectedbase_receivers(const VirtualQDesignerActionEditorInterface* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QDesignerActionEditorInterface_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QDesignerActionEditorInterface_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::customEvent(event);
-}
-
-bool QDesignerActionEditorInterface_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QDesignerActionEditorInterface_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::connectNotify(*signal);
-}
-
-bool QDesignerActionEditorInterface_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QDesignerActionEditorInterface_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::disconnectNotify(*signal);
-}
-
-void QDesignerActionEditorInterface_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->updateMicroFocus();
-}
-
-void QDesignerActionEditorInterface_protectedbase_create(bool* _dynamic_cast_ok, void* self) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->create();
-}
-
-void QDesignerActionEditorInterface_protectedbase_destroy(bool* _dynamic_cast_ok, void* self) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->destroy();
-}
-
-bool QDesignerActionEditorInterface_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusNextChild();
-}
-
-bool QDesignerActionEditorInterface_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusPreviousChild();
-}
-
-QObject* QDesignerActionEditorInterface_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QDesignerActionEditorInterface_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QDesignerActionEditorInterface_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QDesignerActionEditorInterface_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QDesignerActionEditorInterface_protectedbase_isSignalConnected(const VirtualQDesignerActionEditorInterface* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QDesignerActionEditorInterface_delete(QDesignerActionEditorInterface* self) {

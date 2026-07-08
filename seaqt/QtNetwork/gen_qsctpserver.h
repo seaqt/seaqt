@@ -38,8 +38,30 @@ typedef struct QTcpSocket QTcpSocket;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QSctpServer* QSctpServer_new();
-QSctpServer* QSctpServer_new2(QObject* parent);
+typedef struct VirtualQSctpServer VirtualQSctpServer;
+typedef struct QSctpServer_VTable{
+	void (*destructor)(VirtualQSctpServer* self);
+	QMetaObject* (*metaObject)(const VirtualQSctpServer* self);
+	void* (*metacast)(VirtualQSctpServer* self, const char* param1);
+	int (*metacall)(VirtualQSctpServer* self, int param1, int param2, void** param3);
+	void (*incomingConnection)(VirtualQSctpServer* self, intptr_t handle);
+	bool (*hasPendingConnections)(const VirtualQSctpServer* self);
+	QTcpSocket* (*nextPendingConnection)(VirtualQSctpServer* self);
+	bool (*event)(VirtualQSctpServer* self, QEvent* event);
+	bool (*eventFilter)(VirtualQSctpServer* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQSctpServer* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQSctpServer* self, QChildEvent* event);
+	void (*customEvent)(VirtualQSctpServer* self, QEvent* event);
+	void (*connectNotify)(VirtualQSctpServer* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQSctpServer* self, QMetaMethod* signal);
+}QSctpServer_VTable;
+
+void* QSctpServer_vdata(VirtualQSctpServer* self);
+VirtualQSctpServer* vdata_QSctpServer(void* vdata);
+
+VirtualQSctpServer* QSctpServer_new(const QSctpServer_VTable* vtbl, size_t vdata);
+VirtualQSctpServer* QSctpServer_new2(const QSctpServer_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QSctpServer_virtbase(QSctpServer* src, QTcpServer** outptr_QTcpServer);
 QMetaObject* QSctpServer_metaObject(const QSctpServer* self);
 void* QSctpServer_metacast(QSctpServer* self, const char* param1);
@@ -52,38 +74,25 @@ void QSctpServer_incomingConnection(QSctpServer* self, intptr_t handle);
 struct seaqt_string QSctpServer_tr2(const char* s, const char* c);
 struct seaqt_string QSctpServer_tr3(const char* s, const char* c, int n);
 
-bool QSctpServer_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QSctpServer_virtualbase_metaObject(const void* self);
-bool QSctpServer_override_virtual_metacast(void* self, intptr_t slot);
-void* QSctpServer_virtualbase_metacast(void* self, const char* param1);
-bool QSctpServer_override_virtual_metacall(void* self, intptr_t slot);
-int QSctpServer_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QSctpServer_override_virtual_incomingConnection(void* self, intptr_t slot);
-void QSctpServer_virtualbase_incomingConnection(void* self, intptr_t handle);
-bool QSctpServer_override_virtual_hasPendingConnections(void* self, intptr_t slot);
-bool QSctpServer_virtualbase_hasPendingConnections(const void* self);
-bool QSctpServer_override_virtual_nextPendingConnection(void* self, intptr_t slot);
-QTcpSocket* QSctpServer_virtualbase_nextPendingConnection(void* self);
-bool QSctpServer_override_virtual_event(void* self, intptr_t slot);
-bool QSctpServer_virtualbase_event(void* self, QEvent* event);
-bool QSctpServer_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QSctpServer_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QSctpServer_override_virtual_timerEvent(void* self, intptr_t slot);
-void QSctpServer_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QSctpServer_override_virtual_childEvent(void* self, intptr_t slot);
-void QSctpServer_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QSctpServer_override_virtual_customEvent(void* self, intptr_t slot);
-void QSctpServer_virtualbase_customEvent(void* self, QEvent* event);
-bool QSctpServer_override_virtual_connectNotify(void* self, intptr_t slot);
-void QSctpServer_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QSctpServer_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QSctpServer_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QSctpServer_virtualbase_metaObject(const VirtualQSctpServer* self);
+void* QSctpServer_virtualbase_metacast(VirtualQSctpServer* self, const char* param1);
+int QSctpServer_virtualbase_metacall(VirtualQSctpServer* self, int param1, int param2, void** param3);
+void QSctpServer_virtualbase_incomingConnection(VirtualQSctpServer* self, intptr_t handle);
+bool QSctpServer_virtualbase_hasPendingConnections(const VirtualQSctpServer* self);
+QTcpSocket* QSctpServer_virtualbase_nextPendingConnection(VirtualQSctpServer* self);
+bool QSctpServer_virtualbase_event(VirtualQSctpServer* self, QEvent* event);
+bool QSctpServer_virtualbase_eventFilter(VirtualQSctpServer* self, QObject* watched, QEvent* event);
+void QSctpServer_virtualbase_timerEvent(VirtualQSctpServer* self, QTimerEvent* event);
+void QSctpServer_virtualbase_childEvent(VirtualQSctpServer* self, QChildEvent* event);
+void QSctpServer_virtualbase_customEvent(VirtualQSctpServer* self, QEvent* event);
+void QSctpServer_virtualbase_connectNotify(VirtualQSctpServer* self, QMetaMethod* signal);
+void QSctpServer_virtualbase_disconnectNotify(VirtualQSctpServer* self, QMetaMethod* signal);
 
-void QSctpServer_protectedbase_addPendingConnection(bool* _dynamic_cast_ok, void* self, QTcpSocket* socket);
-QObject* QSctpServer_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QSctpServer_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QSctpServer_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QSctpServer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+void QSctpServer_protectedbase_addPendingConnection(VirtualQSctpServer* self, QTcpSocket* socket);
+QObject* QSctpServer_protectedbase_sender(const VirtualQSctpServer* self);
+int QSctpServer_protectedbase_senderSignalIndex(const VirtualQSctpServer* self);
+int QSctpServer_protectedbase_receivers(const VirtualQSctpServer* self, const char* signal);
+bool QSctpServer_protectedbase_isSignalConnected(const VirtualQSctpServer* self, QMetaMethod* signal);
 
 const QMetaObject* QSctpServer_staticMetaObject();
 void QSctpServer_delete(QSctpServer* self);

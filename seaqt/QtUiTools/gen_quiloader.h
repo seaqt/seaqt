@@ -44,8 +44,31 @@ typedef struct QUiLoader QUiLoader;
 typedef struct QWidget QWidget;
 #endif
 
-QUiLoader* QUiLoader_new();
-QUiLoader* QUiLoader_new2(QObject* parent);
+typedef struct VirtualQUiLoader VirtualQUiLoader;
+typedef struct QUiLoader_VTable{
+	void (*destructor)(VirtualQUiLoader* self);
+	QMetaObject* (*metaObject)(const VirtualQUiLoader* self);
+	void* (*metacast)(VirtualQUiLoader* self, const char* param1);
+	int (*metacall)(VirtualQUiLoader* self, int param1, int param2, void** param3);
+	QWidget* (*createWidget)(VirtualQUiLoader* self, struct seaqt_string className, QWidget* parent, struct seaqt_string name);
+	QLayout* (*createLayout)(VirtualQUiLoader* self, struct seaqt_string className, QObject* parent, struct seaqt_string name);
+	QActionGroup* (*createActionGroup)(VirtualQUiLoader* self, QObject* parent, struct seaqt_string name);
+	QAction* (*createAction)(VirtualQUiLoader* self, QObject* parent, struct seaqt_string name);
+	bool (*event)(VirtualQUiLoader* self, QEvent* event);
+	bool (*eventFilter)(VirtualQUiLoader* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQUiLoader* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQUiLoader* self, QChildEvent* event);
+	void (*customEvent)(VirtualQUiLoader* self, QEvent* event);
+	void (*connectNotify)(VirtualQUiLoader* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQUiLoader* self, QMetaMethod* signal);
+}QUiLoader_VTable;
+
+void* QUiLoader_vdata(VirtualQUiLoader* self);
+VirtualQUiLoader* vdata_QUiLoader(void* vdata);
+
+VirtualQUiLoader* QUiLoader_new(const QUiLoader_VTable* vtbl, size_t vdata);
+VirtualQUiLoader* QUiLoader_new2(const QUiLoader_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QUiLoader_virtbase(QUiLoader* src, QObject** outptr_QObject);
 QMetaObject* QUiLoader_metaObject(const QUiLoader* self);
 void* QUiLoader_metacast(QUiLoader* self, const char* param1);
@@ -72,39 +95,25 @@ struct seaqt_string QUiLoader_tr2(const char* s, const char* c);
 struct seaqt_string QUiLoader_tr3(const char* s, const char* c, int n);
 QWidget* QUiLoader_load2(QUiLoader* self, QIODevice* device, QWidget* parentWidget);
 
-bool QUiLoader_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QUiLoader_virtualbase_metaObject(const void* self);
-bool QUiLoader_override_virtual_metacast(void* self, intptr_t slot);
-void* QUiLoader_virtualbase_metacast(void* self, const char* param1);
-bool QUiLoader_override_virtual_metacall(void* self, intptr_t slot);
-int QUiLoader_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QUiLoader_override_virtual_createWidget(void* self, intptr_t slot);
-QWidget* QUiLoader_virtualbase_createWidget(void* self, struct seaqt_string className, QWidget* parent, struct seaqt_string name);
-bool QUiLoader_override_virtual_createLayout(void* self, intptr_t slot);
-QLayout* QUiLoader_virtualbase_createLayout(void* self, struct seaqt_string className, QObject* parent, struct seaqt_string name);
-bool QUiLoader_override_virtual_createActionGroup(void* self, intptr_t slot);
-QActionGroup* QUiLoader_virtualbase_createActionGroup(void* self, QObject* parent, struct seaqt_string name);
-bool QUiLoader_override_virtual_createAction(void* self, intptr_t slot);
-QAction* QUiLoader_virtualbase_createAction(void* self, QObject* parent, struct seaqt_string name);
-bool QUiLoader_override_virtual_event(void* self, intptr_t slot);
-bool QUiLoader_virtualbase_event(void* self, QEvent* event);
-bool QUiLoader_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QUiLoader_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QUiLoader_override_virtual_timerEvent(void* self, intptr_t slot);
-void QUiLoader_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QUiLoader_override_virtual_childEvent(void* self, intptr_t slot);
-void QUiLoader_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QUiLoader_override_virtual_customEvent(void* self, intptr_t slot);
-void QUiLoader_virtualbase_customEvent(void* self, QEvent* event);
-bool QUiLoader_override_virtual_connectNotify(void* self, intptr_t slot);
-void QUiLoader_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QUiLoader_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QUiLoader_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QUiLoader_virtualbase_metaObject(const VirtualQUiLoader* self);
+void* QUiLoader_virtualbase_metacast(VirtualQUiLoader* self, const char* param1);
+int QUiLoader_virtualbase_metacall(VirtualQUiLoader* self, int param1, int param2, void** param3);
+QWidget* QUiLoader_virtualbase_createWidget(VirtualQUiLoader* self, struct seaqt_string className, QWidget* parent, struct seaqt_string name);
+QLayout* QUiLoader_virtualbase_createLayout(VirtualQUiLoader* self, struct seaqt_string className, QObject* parent, struct seaqt_string name);
+QActionGroup* QUiLoader_virtualbase_createActionGroup(VirtualQUiLoader* self, QObject* parent, struct seaqt_string name);
+QAction* QUiLoader_virtualbase_createAction(VirtualQUiLoader* self, QObject* parent, struct seaqt_string name);
+bool QUiLoader_virtualbase_event(VirtualQUiLoader* self, QEvent* event);
+bool QUiLoader_virtualbase_eventFilter(VirtualQUiLoader* self, QObject* watched, QEvent* event);
+void QUiLoader_virtualbase_timerEvent(VirtualQUiLoader* self, QTimerEvent* event);
+void QUiLoader_virtualbase_childEvent(VirtualQUiLoader* self, QChildEvent* event);
+void QUiLoader_virtualbase_customEvent(VirtualQUiLoader* self, QEvent* event);
+void QUiLoader_virtualbase_connectNotify(VirtualQUiLoader* self, QMetaMethod* signal);
+void QUiLoader_virtualbase_disconnectNotify(VirtualQUiLoader* self, QMetaMethod* signal);
 
-QObject* QUiLoader_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QUiLoader_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QUiLoader_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QUiLoader_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QUiLoader_protectedbase_sender(const VirtualQUiLoader* self);
+int QUiLoader_protectedbase_senderSignalIndex(const VirtualQUiLoader* self);
+int QUiLoader_protectedbase_receivers(const VirtualQUiLoader* self, const char* signal);
+bool QUiLoader_protectedbase_isSignalConnected(const VirtualQUiLoader* self, QMetaMethod* signal);
 
 const QMetaObject* QUiLoader_staticMetaObject();
 void QUiLoader_delete(QUiLoader* self);

@@ -9,47 +9,43 @@
 #include <layoutdecoration.h>
 #include "gen_layoutdecoration.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-struct seaqt_array /* of QWidget* */  miqt_exec_callback_QDesignerLayoutDecorationExtension_widgets(const QDesignerLayoutDecorationExtension*, intptr_t, QLayout*);
-QRect* miqt_exec_callback_QDesignerLayoutDecorationExtension_itemInfo(const QDesignerLayoutDecorationExtension*, intptr_t, int);
-int miqt_exec_callback_QDesignerLayoutDecorationExtension_indexOf(const QDesignerLayoutDecorationExtension*, intptr_t, QWidget*);
-int miqt_exec_callback_QDesignerLayoutDecorationExtension_indexOfWithItem(const QDesignerLayoutDecorationExtension*, intptr_t, QLayoutItem*);
-int miqt_exec_callback_QDesignerLayoutDecorationExtension_currentInsertMode(const QDesignerLayoutDecorationExtension*, intptr_t);
-int miqt_exec_callback_QDesignerLayoutDecorationExtension_currentIndex(const QDesignerLayoutDecorationExtension*, intptr_t);
-struct seaqt_map /* tuple of int and int */  miqt_exec_callback_QDesignerLayoutDecorationExtension_currentCell(const QDesignerLayoutDecorationExtension*, intptr_t);
-void miqt_exec_callback_QDesignerLayoutDecorationExtension_insertWidget(QDesignerLayoutDecorationExtension*, intptr_t, QWidget*, struct seaqt_map /* tuple of int and int */ );
-void miqt_exec_callback_QDesignerLayoutDecorationExtension_removeWidget(QDesignerLayoutDecorationExtension*, intptr_t, QWidget*);
-void miqt_exec_callback_QDesignerLayoutDecorationExtension_insertRow(QDesignerLayoutDecorationExtension*, intptr_t, int);
-void miqt_exec_callback_QDesignerLayoutDecorationExtension_insertColumn(QDesignerLayoutDecorationExtension*, intptr_t, int);
-void miqt_exec_callback_QDesignerLayoutDecorationExtension_simplify(QDesignerLayoutDecorationExtension*, intptr_t);
-int miqt_exec_callback_QDesignerLayoutDecorationExtension_findItemAt(const QDesignerLayoutDecorationExtension*, intptr_t, QPoint*);
-int miqt_exec_callback_QDesignerLayoutDecorationExtension_findItemAt2(const QDesignerLayoutDecorationExtension*, intptr_t, int, int);
-void miqt_exec_callback_QDesignerLayoutDecorationExtension_adjustIndicator(QDesignerLayoutDecorationExtension*, intptr_t, QPoint*, int);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQDesignerLayoutDecorationExtension final : public QDesignerLayoutDecorationExtension {
+	const QDesignerLayoutDecorationExtension_VTable* vtbl;
 public:
+	friend void* QDesignerLayoutDecorationExtension_vdata(VirtualQDesignerLayoutDecorationExtension* self);
+	friend VirtualQDesignerLayoutDecorationExtension* vdata_QDesignerLayoutDecorationExtension(void* vdata);
 
-	VirtualQDesignerLayoutDecorationExtension(): QDesignerLayoutDecorationExtension() {}
+	VirtualQDesignerLayoutDecorationExtension(const QDesignerLayoutDecorationExtension_VTable* vtbl): QDesignerLayoutDecorationExtension(), vtbl(vtbl) {}
 
-	virtual ~VirtualQDesignerLayoutDecorationExtension() override = default;
+	virtual ~VirtualQDesignerLayoutDecorationExtension() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__widgets = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual QList<QWidget *> widgets(QLayout* layout) const override {
-		if (handle__widgets == 0) {
+		if (vtbl->widgets == 0) {
 			return QList<QWidget *>(); // Pure virtual, there is no base we can call
 		}
 
 		QLayout* sigval1 = layout;
-		struct seaqt_array /* of QWidget* */  callback_return_value = miqt_exec_callback_QDesignerLayoutDecorationExtension_widgets(this, handle__widgets, sigval1);
+		struct seaqt_array /* of QWidget* */  callback_return_value = vtbl->widgets(this, sigval1);
 		QList<QWidget *> callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		QWidget** callback_return_value_arr = static_cast<QWidget**>(callback_return_value.data);
@@ -59,84 +55,60 @@ public:
 		return callback_return_value_QList;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__itemInfo = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QRect itemInfo(int index) const override {
-		if (handle__itemInfo == 0) {
+		if (vtbl->itemInfo == 0) {
 			return QRect(); // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		QRect* callback_return_value = miqt_exec_callback_QDesignerLayoutDecorationExtension_itemInfo(this, handle__itemInfo, sigval1);
+		QRect* callback_return_value = vtbl->itemInfo(this, sigval1);
 		return *callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__indexOf = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int indexOf(QWidget* widget) const override {
-		if (handle__indexOf == 0) {
+		if (vtbl->indexOf == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
 		QWidget* sigval1 = widget;
-		int callback_return_value = miqt_exec_callback_QDesignerLayoutDecorationExtension_indexOf(this, handle__indexOf, sigval1);
+		int callback_return_value = vtbl->indexOf(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__indexOfWithItem = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int indexOf(QLayoutItem* item) const override {
-		if (handle__indexOfWithItem == 0) {
+		if (vtbl->indexOfWithItem == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
 		QLayoutItem* sigval1 = item;
-		int callback_return_value = miqt_exec_callback_QDesignerLayoutDecorationExtension_indexOfWithItem(this, handle__indexOfWithItem, sigval1);
+		int callback_return_value = vtbl->indexOfWithItem(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__currentInsertMode = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QDesignerLayoutDecorationExtension::InsertMode currentInsertMode() const override {
-		if (handle__currentInsertMode == 0) {
+		if (vtbl->currentInsertMode == 0) {
 			return (QDesignerLayoutDecorationExtension::InsertMode)(0); // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QDesignerLayoutDecorationExtension_currentInsertMode(this, handle__currentInsertMode);
+		int callback_return_value = vtbl->currentInsertMode(this);
 		return static_cast<QDesignerLayoutDecorationExtension::InsertMode>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__currentIndex = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int currentIndex() const override {
-		if (handle__currentIndex == 0) {
+		if (vtbl->currentIndex == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QDesignerLayoutDecorationExtension_currentIndex(this, handle__currentIndex);
+		int callback_return_value = vtbl->currentIndex(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__currentCell = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPair<int, int> currentCell() const override {
-		if (handle__currentCell == 0) {
+		if (vtbl->currentCell == 0) {
 			return QPair<int, int>(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_map /* tuple of int and int */  callback_return_value = miqt_exec_callback_QDesignerLayoutDecorationExtension_currentCell(this, handle__currentCell);
+		struct seaqt_map /* tuple of int and int */  callback_return_value = vtbl->currentCell(this);
 		QPair<int, int> callback_return_value_QPair;
 		int* callback_return_value_first_arr = static_cast<int*>(callback_return_value.keys);
 		int* callback_return_value_second_arr = static_cast<int*>(callback_return_value.values);
@@ -145,12 +117,8 @@ public:
 		return callback_return_value_QPair;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__insertWidget = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void insertWidget(QWidget* widget, const QPair<int, int>& cell) override {
-		if (handle__insertWidget == 0) {
+		if (vtbl->insertWidget == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -166,102 +134,69 @@ public:
 		cell_out.keys = static_cast<void*>(cell_first_arr);
 		cell_out.values = static_cast<void*>(cell_second_arr);
 		struct seaqt_map /* tuple of int and int */  sigval2 = cell_out;
-		miqt_exec_callback_QDesignerLayoutDecorationExtension_insertWidget(this, handle__insertWidget, sigval1, sigval2);
-
+		vtbl->insertWidget(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__removeWidget = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void removeWidget(QWidget* widget) override {
-		if (handle__removeWidget == 0) {
+		if (vtbl->removeWidget == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		QWidget* sigval1 = widget;
-		miqt_exec_callback_QDesignerLayoutDecorationExtension_removeWidget(this, handle__removeWidget, sigval1);
-
+		vtbl->removeWidget(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__insertRow = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void insertRow(int row) override {
-		if (handle__insertRow == 0) {
+		if (vtbl->insertRow == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = row;
-		miqt_exec_callback_QDesignerLayoutDecorationExtension_insertRow(this, handle__insertRow, sigval1);
-
+		vtbl->insertRow(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__insertColumn = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void insertColumn(int column) override {
-		if (handle__insertColumn == 0) {
+		if (vtbl->insertColumn == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = column;
-		miqt_exec_callback_QDesignerLayoutDecorationExtension_insertColumn(this, handle__insertColumn, sigval1);
-
+		vtbl->insertColumn(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__simplify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void simplify() override {
-		if (handle__simplify == 0) {
+		if (vtbl->simplify == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
-		miqt_exec_callback_QDesignerLayoutDecorationExtension_simplify(this, handle__simplify);
-
+		vtbl->simplify(this);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__findItemAt = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int findItemAt(const QPoint& pos) const override {
-		if (handle__findItemAt == 0) {
+		if (vtbl->findItemAt == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
 		const QPoint& pos_ret = pos;
 		// Cast returned reference into pointer
 		QPoint* sigval1 = const_cast<QPoint*>(&pos_ret);
-		int callback_return_value = miqt_exec_callback_QDesignerLayoutDecorationExtension_findItemAt(this, handle__findItemAt, sigval1);
+		int callback_return_value = vtbl->findItemAt(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__findItemAt2 = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int findItemAt(int row, int column) const override {
-		if (handle__findItemAt2 == 0) {
+		if (vtbl->findItemAt2 == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = row;
 		int sigval2 = column;
-		int callback_return_value = miqt_exec_callback_QDesignerLayoutDecorationExtension_findItemAt2(this, handle__findItemAt2, sigval1, sigval2);
+		int callback_return_value = vtbl->findItemAt2(this, sigval1, sigval2);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__adjustIndicator = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void adjustIndicator(const QPoint& pos, int index) override {
-		if (handle__adjustIndicator == 0) {
+		if (vtbl->adjustIndicator == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -269,14 +204,14 @@ public:
 		// Cast returned reference into pointer
 		QPoint* sigval1 = const_cast<QPoint*>(&pos_ret);
 		int sigval2 = index;
-		miqt_exec_callback_QDesignerLayoutDecorationExtension_adjustIndicator(this, handle__adjustIndicator, sigval1, sigval2);
-
+		vtbl->adjustIndicator(this, sigval1, sigval2);
 	}
 
 };
 
-QDesignerLayoutDecorationExtension* QDesignerLayoutDecorationExtension_new() {
-	return new (std::nothrow) VirtualQDesignerLayoutDecorationExtension();
+VirtualQDesignerLayoutDecorationExtension* QDesignerLayoutDecorationExtension_new(const QDesignerLayoutDecorationExtension_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerLayoutDecorationExtension>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerLayoutDecorationExtension(vtbl) : nullptr;
 }
 
 struct seaqt_array /* of QWidget* */  QDesignerLayoutDecorationExtension_widgets(const QDesignerLayoutDecorationExtension* self, QLayout* layout) {
@@ -364,155 +299,8 @@ void QDesignerLayoutDecorationExtension_adjustIndicator(QDesignerLayoutDecoratio
 	self->adjustIndicator(*pos, static_cast<int>(index));
 }
 
-bool QDesignerLayoutDecorationExtension_override_virtual_widgets(void* self, intptr_t slot) {
-	VirtualQDesignerLayoutDecorationExtension* self_cast = dynamic_cast<VirtualQDesignerLayoutDecorationExtension*>( (QDesignerLayoutDecorationExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__widgets = slot;
-	return true;
-}
-
-bool QDesignerLayoutDecorationExtension_override_virtual_itemInfo(void* self, intptr_t slot) {
-	VirtualQDesignerLayoutDecorationExtension* self_cast = dynamic_cast<VirtualQDesignerLayoutDecorationExtension*>( (QDesignerLayoutDecorationExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__itemInfo = slot;
-	return true;
-}
-
-bool QDesignerLayoutDecorationExtension_override_virtual_indexOf(void* self, intptr_t slot) {
-	VirtualQDesignerLayoutDecorationExtension* self_cast = dynamic_cast<VirtualQDesignerLayoutDecorationExtension*>( (QDesignerLayoutDecorationExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__indexOf = slot;
-	return true;
-}
-
-bool QDesignerLayoutDecorationExtension_override_virtual_indexOfWithItem(void* self, intptr_t slot) {
-	VirtualQDesignerLayoutDecorationExtension* self_cast = dynamic_cast<VirtualQDesignerLayoutDecorationExtension*>( (QDesignerLayoutDecorationExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__indexOfWithItem = slot;
-	return true;
-}
-
-bool QDesignerLayoutDecorationExtension_override_virtual_currentInsertMode(void* self, intptr_t slot) {
-	VirtualQDesignerLayoutDecorationExtension* self_cast = dynamic_cast<VirtualQDesignerLayoutDecorationExtension*>( (QDesignerLayoutDecorationExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__currentInsertMode = slot;
-	return true;
-}
-
-bool QDesignerLayoutDecorationExtension_override_virtual_currentIndex(void* self, intptr_t slot) {
-	VirtualQDesignerLayoutDecorationExtension* self_cast = dynamic_cast<VirtualQDesignerLayoutDecorationExtension*>( (QDesignerLayoutDecorationExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__currentIndex = slot;
-	return true;
-}
-
-bool QDesignerLayoutDecorationExtension_override_virtual_currentCell(void* self, intptr_t slot) {
-	VirtualQDesignerLayoutDecorationExtension* self_cast = dynamic_cast<VirtualQDesignerLayoutDecorationExtension*>( (QDesignerLayoutDecorationExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__currentCell = slot;
-	return true;
-}
-
-bool QDesignerLayoutDecorationExtension_override_virtual_insertWidget(void* self, intptr_t slot) {
-	VirtualQDesignerLayoutDecorationExtension* self_cast = dynamic_cast<VirtualQDesignerLayoutDecorationExtension*>( (QDesignerLayoutDecorationExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__insertWidget = slot;
-	return true;
-}
-
-bool QDesignerLayoutDecorationExtension_override_virtual_removeWidget(void* self, intptr_t slot) {
-	VirtualQDesignerLayoutDecorationExtension* self_cast = dynamic_cast<VirtualQDesignerLayoutDecorationExtension*>( (QDesignerLayoutDecorationExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__removeWidget = slot;
-	return true;
-}
-
-bool QDesignerLayoutDecorationExtension_override_virtual_insertRow(void* self, intptr_t slot) {
-	VirtualQDesignerLayoutDecorationExtension* self_cast = dynamic_cast<VirtualQDesignerLayoutDecorationExtension*>( (QDesignerLayoutDecorationExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__insertRow = slot;
-	return true;
-}
-
-bool QDesignerLayoutDecorationExtension_override_virtual_insertColumn(void* self, intptr_t slot) {
-	VirtualQDesignerLayoutDecorationExtension* self_cast = dynamic_cast<VirtualQDesignerLayoutDecorationExtension*>( (QDesignerLayoutDecorationExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__insertColumn = slot;
-	return true;
-}
-
-bool QDesignerLayoutDecorationExtension_override_virtual_simplify(void* self, intptr_t slot) {
-	VirtualQDesignerLayoutDecorationExtension* self_cast = dynamic_cast<VirtualQDesignerLayoutDecorationExtension*>( (QDesignerLayoutDecorationExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__simplify = slot;
-	return true;
-}
-
-bool QDesignerLayoutDecorationExtension_override_virtual_findItemAt(void* self, intptr_t slot) {
-	VirtualQDesignerLayoutDecorationExtension* self_cast = dynamic_cast<VirtualQDesignerLayoutDecorationExtension*>( (QDesignerLayoutDecorationExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__findItemAt = slot;
-	return true;
-}
-
-bool QDesignerLayoutDecorationExtension_override_virtual_findItemAt2(void* self, intptr_t slot) {
-	VirtualQDesignerLayoutDecorationExtension* self_cast = dynamic_cast<VirtualQDesignerLayoutDecorationExtension*>( (QDesignerLayoutDecorationExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__findItemAt2 = slot;
-	return true;
-}
-
-bool QDesignerLayoutDecorationExtension_override_virtual_adjustIndicator(void* self, intptr_t slot) {
-	VirtualQDesignerLayoutDecorationExtension* self_cast = dynamic_cast<VirtualQDesignerLayoutDecorationExtension*>( (QDesignerLayoutDecorationExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__adjustIndicator = slot;
-	return true;
-}
+void* QDesignerLayoutDecorationExtension_vdata(VirtualQDesignerLayoutDecorationExtension* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQDesignerLayoutDecorationExtension>()); }
+VirtualQDesignerLayoutDecorationExtension* vdata_QDesignerLayoutDecorationExtension(void* vdata) { return reinterpret_cast<VirtualQDesignerLayoutDecorationExtension*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQDesignerLayoutDecorationExtension>()); }
 
 void QDesignerLayoutDecorationExtension_delete(QDesignerLayoutDecorationExtension* self) {
 	delete self;

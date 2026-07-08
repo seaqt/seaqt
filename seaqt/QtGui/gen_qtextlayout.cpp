@@ -20,6 +20,17 @@
 #include <qtextlayout.h>
 #include "gen_qtextlayout.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -552,7 +563,7 @@ void QTextLine_delete(QTextLine* self) {
 }
 
 QTextLayout__FormatRange* QTextLayout__FormatRange_new(QTextLayout__FormatRange* param1) {
-	return new (std::nothrow) QTextLayout::FormatRange(*param1);
+	return new (std::nothrow) QTextLayout__FormatRange(*param1);
 }
 
 int QTextLayout__FormatRange_start(const QTextLayout__FormatRange* self) {

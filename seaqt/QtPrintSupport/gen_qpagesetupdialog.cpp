@@ -40,116 +40,64 @@
 #include <qpagesetupdialog.h>
 #include "gen_qpagesetupdialog.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QPageSetupDialog_metaObject(const QPageSetupDialog*, intptr_t);
-void* miqt_exec_callback_QPageSetupDialog_metacast(QPageSetupDialog*, intptr_t, const char*);
-int miqt_exec_callback_QPageSetupDialog_metacall(QPageSetupDialog*, intptr_t, int, int, void**);
-int miqt_exec_callback_QPageSetupDialog_exec(QPageSetupDialog*, intptr_t);
-void miqt_exec_callback_QPageSetupDialog_done(QPageSetupDialog*, intptr_t, int);
-void miqt_exec_callback_QPageSetupDialog_setVisible(QPageSetupDialog*, intptr_t, bool);
-QSize* miqt_exec_callback_QPageSetupDialog_sizeHint(const QPageSetupDialog*, intptr_t);
-QSize* miqt_exec_callback_QPageSetupDialog_minimumSizeHint(const QPageSetupDialog*, intptr_t);
-void miqt_exec_callback_QPageSetupDialog_open(QPageSetupDialog*, intptr_t);
-void miqt_exec_callback_QPageSetupDialog_accept(QPageSetupDialog*, intptr_t);
-void miqt_exec_callback_QPageSetupDialog_reject(QPageSetupDialog*, intptr_t);
-void miqt_exec_callback_QPageSetupDialog_keyPressEvent(QPageSetupDialog*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QPageSetupDialog_closeEvent(QPageSetupDialog*, intptr_t, QCloseEvent*);
-void miqt_exec_callback_QPageSetupDialog_showEvent(QPageSetupDialog*, intptr_t, QShowEvent*);
-void miqt_exec_callback_QPageSetupDialog_resizeEvent(QPageSetupDialog*, intptr_t, QResizeEvent*);
-void miqt_exec_callback_QPageSetupDialog_contextMenuEvent(QPageSetupDialog*, intptr_t, QContextMenuEvent*);
-bool miqt_exec_callback_QPageSetupDialog_eventFilter(QPageSetupDialog*, intptr_t, QObject*, QEvent*);
-int miqt_exec_callback_QPageSetupDialog_devType(const QPageSetupDialog*, intptr_t);
-int miqt_exec_callback_QPageSetupDialog_heightForWidth(const QPageSetupDialog*, intptr_t, int);
-bool miqt_exec_callback_QPageSetupDialog_hasHeightForWidth(const QPageSetupDialog*, intptr_t);
-QPaintEngine* miqt_exec_callback_QPageSetupDialog_paintEngine(const QPageSetupDialog*, intptr_t);
-bool miqt_exec_callback_QPageSetupDialog_event(QPageSetupDialog*, intptr_t, QEvent*);
-void miqt_exec_callback_QPageSetupDialog_mousePressEvent(QPageSetupDialog*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QPageSetupDialog_mouseReleaseEvent(QPageSetupDialog*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QPageSetupDialog_mouseDoubleClickEvent(QPageSetupDialog*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QPageSetupDialog_mouseMoveEvent(QPageSetupDialog*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QPageSetupDialog_wheelEvent(QPageSetupDialog*, intptr_t, QWheelEvent*);
-void miqt_exec_callback_QPageSetupDialog_keyReleaseEvent(QPageSetupDialog*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QPageSetupDialog_focusInEvent(QPageSetupDialog*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QPageSetupDialog_focusOutEvent(QPageSetupDialog*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QPageSetupDialog_enterEvent(QPageSetupDialog*, intptr_t, QEnterEvent*);
-void miqt_exec_callback_QPageSetupDialog_leaveEvent(QPageSetupDialog*, intptr_t, QEvent*);
-void miqt_exec_callback_QPageSetupDialog_paintEvent(QPageSetupDialog*, intptr_t, QPaintEvent*);
-void miqt_exec_callback_QPageSetupDialog_moveEvent(QPageSetupDialog*, intptr_t, QMoveEvent*);
-void miqt_exec_callback_QPageSetupDialog_tabletEvent(QPageSetupDialog*, intptr_t, QTabletEvent*);
-void miqt_exec_callback_QPageSetupDialog_actionEvent(QPageSetupDialog*, intptr_t, QActionEvent*);
-void miqt_exec_callback_QPageSetupDialog_dragEnterEvent(QPageSetupDialog*, intptr_t, QDragEnterEvent*);
-void miqt_exec_callback_QPageSetupDialog_dragMoveEvent(QPageSetupDialog*, intptr_t, QDragMoveEvent*);
-void miqt_exec_callback_QPageSetupDialog_dragLeaveEvent(QPageSetupDialog*, intptr_t, QDragLeaveEvent*);
-void miqt_exec_callback_QPageSetupDialog_dropEvent(QPageSetupDialog*, intptr_t, QDropEvent*);
-void miqt_exec_callback_QPageSetupDialog_hideEvent(QPageSetupDialog*, intptr_t, QHideEvent*);
-bool miqt_exec_callback_QPageSetupDialog_nativeEvent(QPageSetupDialog*, intptr_t, struct seaqt_string, void*, intptr_t*);
-void miqt_exec_callback_QPageSetupDialog_changeEvent(QPageSetupDialog*, intptr_t, QEvent*);
-int miqt_exec_callback_QPageSetupDialog_metric(const QPageSetupDialog*, intptr_t, int);
-void miqt_exec_callback_QPageSetupDialog_initPainter(const QPageSetupDialog*, intptr_t, QPainter*);
-QPaintDevice* miqt_exec_callback_QPageSetupDialog_redirected(const QPageSetupDialog*, intptr_t, QPoint*);
-QPainter* miqt_exec_callback_QPageSetupDialog_sharedPainter(const QPageSetupDialog*, intptr_t);
-void miqt_exec_callback_QPageSetupDialog_inputMethodEvent(QPageSetupDialog*, intptr_t, QInputMethodEvent*);
-QVariant* miqt_exec_callback_QPageSetupDialog_inputMethodQuery(const QPageSetupDialog*, intptr_t, int);
-bool miqt_exec_callback_QPageSetupDialog_focusNextPrevChild(QPageSetupDialog*, intptr_t, bool);
-void miqt_exec_callback_QPageSetupDialog_timerEvent(QPageSetupDialog*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QPageSetupDialog_childEvent(QPageSetupDialog*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QPageSetupDialog_customEvent(QPageSetupDialog*, intptr_t, QEvent*);
-void miqt_exec_callback_QPageSetupDialog_connectNotify(QPageSetupDialog*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QPageSetupDialog_disconnectNotify(QPageSetupDialog*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQPageSetupDialog final : public QPageSetupDialog {
+	const QPageSetupDialog_VTable* vtbl;
 public:
+	friend void* QPageSetupDialog_vdata(VirtualQPageSetupDialog* self);
+	friend VirtualQPageSetupDialog* vdata_QPageSetupDialog(void* vdata);
 
-	VirtualQPageSetupDialog(QPrinter* printer): QPageSetupDialog(printer) {}
-	VirtualQPageSetupDialog(): QPageSetupDialog() {}
-	VirtualQPageSetupDialog(QPrinter* printer, QWidget* parent): QPageSetupDialog(printer, parent) {}
-	VirtualQPageSetupDialog(QWidget* parent): QPageSetupDialog(parent) {}
+	VirtualQPageSetupDialog(const QPageSetupDialog_VTable* vtbl, QPrinter* printer): QPageSetupDialog(printer), vtbl(vtbl) {}
+	VirtualQPageSetupDialog(const QPageSetupDialog_VTable* vtbl): QPageSetupDialog(), vtbl(vtbl) {}
+	VirtualQPageSetupDialog(const QPageSetupDialog_VTable* vtbl, QPrinter* printer, QWidget* parent): QPageSetupDialog(printer, parent), vtbl(vtbl) {}
+	VirtualQPageSetupDialog(const QPageSetupDialog_VTable* vtbl, QWidget* parent): QPageSetupDialog(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQPageSetupDialog() override = default;
+	virtual ~VirtualQPageSetupDialog() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QPageSetupDialog::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QPageSetupDialog_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QPageSetupDialog_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QPageSetupDialog_virtualbase_metaObject(const VirtualQPageSetupDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QPageSetupDialog::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QPageSetupDialog_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QPageSetupDialog_virtualbase_metacast(void* self, const char* param1);
+	friend void* QPageSetupDialog_virtualbase_metacast(VirtualQPageSetupDialog* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QPageSetupDialog::qt_metacall(param1, param2, param3);
 		}
 
@@ -157,647 +105,462 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QPageSetupDialog_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QPageSetupDialog_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QPageSetupDialog_virtualbase_metacall(VirtualQPageSetupDialog* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__exec = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int exec() override {
-		if (handle__exec == 0) {
+		if (vtbl->exec == 0) {
 			return QPageSetupDialog::exec();
 		}
 
-		int callback_return_value = miqt_exec_callback_QPageSetupDialog_exec(this, handle__exec);
+		int callback_return_value = vtbl->exec(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QPageSetupDialog_virtualbase_exec(void* self);
+	friend int QPageSetupDialog_virtualbase_exec(VirtualQPageSetupDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__done = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void done(int result) override {
-		if (handle__done == 0) {
+		if (vtbl->done == 0) {
 			QPageSetupDialog::done(result);
 			return;
 		}
 
 		int sigval1 = result;
-		miqt_exec_callback_QPageSetupDialog_done(this, handle__done, sigval1);
-
+		vtbl->done(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_done(void* self, int result);
+	friend void QPageSetupDialog_virtualbase_done(VirtualQPageSetupDialog* self, int result);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setVisible = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setVisible(bool visible) override {
-		if (handle__setVisible == 0) {
+		if (vtbl->setVisible == 0) {
 			QPageSetupDialog::setVisible(visible);
 			return;
 		}
 
 		bool sigval1 = visible;
-		miqt_exec_callback_QPageSetupDialog_setVisible(this, handle__setVisible, sigval1);
-
+		vtbl->setVisible(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_setVisible(void* self, bool visible);
+	friend void QPageSetupDialog_virtualbase_setVisible(VirtualQPageSetupDialog* self, bool visible);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize sizeHint() const override {
-		if (handle__sizeHint == 0) {
+		if (vtbl->sizeHint == 0) {
 			return QPageSetupDialog::sizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QPageSetupDialog_sizeHint(this, handle__sizeHint);
+		QSize* callback_return_value = vtbl->sizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QPageSetupDialog_virtualbase_sizeHint(const void* self);
+	friend QSize* QPageSetupDialog_virtualbase_sizeHint(const VirtualQPageSetupDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__minimumSizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize minimumSizeHint() const override {
-		if (handle__minimumSizeHint == 0) {
+		if (vtbl->minimumSizeHint == 0) {
 			return QPageSetupDialog::minimumSizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QPageSetupDialog_minimumSizeHint(this, handle__minimumSizeHint);
+		QSize* callback_return_value = vtbl->minimumSizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QPageSetupDialog_virtualbase_minimumSizeHint(const void* self);
+	friend QSize* QPageSetupDialog_virtualbase_minimumSizeHint(const VirtualQPageSetupDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__open = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void open() override {
-		if (handle__open == 0) {
+		if (vtbl->open == 0) {
 			QPageSetupDialog::open();
 			return;
 		}
 
-		miqt_exec_callback_QPageSetupDialog_open(this, handle__open);
-
+		vtbl->open(this);
 	}
 
-	friend void QPageSetupDialog_virtualbase_open(void* self);
+	friend void QPageSetupDialog_virtualbase_open(VirtualQPageSetupDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__accept = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void accept() override {
-		if (handle__accept == 0) {
+		if (vtbl->accept == 0) {
 			QPageSetupDialog::accept();
 			return;
 		}
 
-		miqt_exec_callback_QPageSetupDialog_accept(this, handle__accept);
-
+		vtbl->accept(this);
 	}
 
-	friend void QPageSetupDialog_virtualbase_accept(void* self);
+	friend void QPageSetupDialog_virtualbase_accept(VirtualQPageSetupDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__reject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void reject() override {
-		if (handle__reject == 0) {
+		if (vtbl->reject == 0) {
 			QPageSetupDialog::reject();
 			return;
 		}
 
-		miqt_exec_callback_QPageSetupDialog_reject(this, handle__reject);
-
+		vtbl->reject(this);
 	}
 
-	friend void QPageSetupDialog_virtualbase_reject(void* self);
+	friend void QPageSetupDialog_virtualbase_reject(VirtualQPageSetupDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyPressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyPressEvent(QKeyEvent* param1) override {
-		if (handle__keyPressEvent == 0) {
+		if (vtbl->keyPressEvent == 0) {
 			QPageSetupDialog::keyPressEvent(param1);
 			return;
 		}
 
 		QKeyEvent* sigval1 = param1;
-		miqt_exec_callback_QPageSetupDialog_keyPressEvent(this, handle__keyPressEvent, sigval1);
-
+		vtbl->keyPressEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_keyPressEvent(void* self, QKeyEvent* param1);
+	friend void QPageSetupDialog_virtualbase_keyPressEvent(VirtualQPageSetupDialog* self, QKeyEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__closeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void closeEvent(QCloseEvent* param1) override {
-		if (handle__closeEvent == 0) {
+		if (vtbl->closeEvent == 0) {
 			QPageSetupDialog::closeEvent(param1);
 			return;
 		}
 
 		QCloseEvent* sigval1 = param1;
-		miqt_exec_callback_QPageSetupDialog_closeEvent(this, handle__closeEvent, sigval1);
-
+		vtbl->closeEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_closeEvent(void* self, QCloseEvent* param1);
+	friend void QPageSetupDialog_virtualbase_closeEvent(VirtualQPageSetupDialog* self, QCloseEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__showEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void showEvent(QShowEvent* param1) override {
-		if (handle__showEvent == 0) {
+		if (vtbl->showEvent == 0) {
 			QPageSetupDialog::showEvent(param1);
 			return;
 		}
 
 		QShowEvent* sigval1 = param1;
-		miqt_exec_callback_QPageSetupDialog_showEvent(this, handle__showEvent, sigval1);
-
+		vtbl->showEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_showEvent(void* self, QShowEvent* param1);
+	friend void QPageSetupDialog_virtualbase_showEvent(VirtualQPageSetupDialog* self, QShowEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__resizeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void resizeEvent(QResizeEvent* param1) override {
-		if (handle__resizeEvent == 0) {
+		if (vtbl->resizeEvent == 0) {
 			QPageSetupDialog::resizeEvent(param1);
 			return;
 		}
 
 		QResizeEvent* sigval1 = param1;
-		miqt_exec_callback_QPageSetupDialog_resizeEvent(this, handle__resizeEvent, sigval1);
-
+		vtbl->resizeEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_resizeEvent(void* self, QResizeEvent* param1);
+	friend void QPageSetupDialog_virtualbase_resizeEvent(VirtualQPageSetupDialog* self, QResizeEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__contextMenuEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void contextMenuEvent(QContextMenuEvent* param1) override {
-		if (handle__contextMenuEvent == 0) {
+		if (vtbl->contextMenuEvent == 0) {
 			QPageSetupDialog::contextMenuEvent(param1);
 			return;
 		}
 
 		QContextMenuEvent* sigval1 = param1;
-		miqt_exec_callback_QPageSetupDialog_contextMenuEvent(this, handle__contextMenuEvent, sigval1);
-
+		vtbl->contextMenuEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* param1);
+	friend void QPageSetupDialog_virtualbase_contextMenuEvent(VirtualQPageSetupDialog* self, QContextMenuEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* param1, QEvent* param2) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QPageSetupDialog::eventFilter(param1, param2);
 		}
 
 		QObject* sigval1 = param1;
 		QEvent* sigval2 = param2;
-		bool callback_return_value = miqt_exec_callback_QPageSetupDialog_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QPageSetupDialog_virtualbase_eventFilter(void* self, QObject* param1, QEvent* param2);
+	friend bool QPageSetupDialog_virtualbase_eventFilter(VirtualQPageSetupDialog* self, QObject* param1, QEvent* param2);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__devType = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int devType() const override {
-		if (handle__devType == 0) {
+		if (vtbl->devType == 0) {
 			return QPageSetupDialog::devType();
 		}
 
-		int callback_return_value = miqt_exec_callback_QPageSetupDialog_devType(this, handle__devType);
+		int callback_return_value = vtbl->devType(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QPageSetupDialog_virtualbase_devType(const void* self);
+	friend int QPageSetupDialog_virtualbase_devType(const VirtualQPageSetupDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__heightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int heightForWidth(int param1) const override {
-		if (handle__heightForWidth == 0) {
+		if (vtbl->heightForWidth == 0) {
 			return QPageSetupDialog::heightForWidth(param1);
 		}
 
 		int sigval1 = param1;
-		int callback_return_value = miqt_exec_callback_QPageSetupDialog_heightForWidth(this, handle__heightForWidth, sigval1);
+		int callback_return_value = vtbl->heightForWidth(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QPageSetupDialog_virtualbase_heightForWidth(const void* self, int param1);
+	friend int QPageSetupDialog_virtualbase_heightForWidth(const VirtualQPageSetupDialog* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hasHeightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool hasHeightForWidth() const override {
-		if (handle__hasHeightForWidth == 0) {
+		if (vtbl->hasHeightForWidth == 0) {
 			return QPageSetupDialog::hasHeightForWidth();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QPageSetupDialog_hasHeightForWidth(this, handle__hasHeightForWidth);
+		bool callback_return_value = vtbl->hasHeightForWidth(this);
 		return callback_return_value;
 	}
 
-	friend bool QPageSetupDialog_virtualbase_hasHeightForWidth(const void* self);
+	friend bool QPageSetupDialog_virtualbase_hasHeightForWidth(const VirtualQPageSetupDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEngine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintEngine* paintEngine() const override {
-		if (handle__paintEngine == 0) {
+		if (vtbl->paintEngine == 0) {
 			return QPageSetupDialog::paintEngine();
 		}
 
-		QPaintEngine* callback_return_value = miqt_exec_callback_QPageSetupDialog_paintEngine(this, handle__paintEngine);
+		QPaintEngine* callback_return_value = vtbl->paintEngine(this);
 		return callback_return_value;
 	}
 
-	friend QPaintEngine* QPageSetupDialog_virtualbase_paintEngine(const void* self);
+	friend QPaintEngine* QPageSetupDialog_virtualbase_paintEngine(const VirtualQPageSetupDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QPageSetupDialog::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QPageSetupDialog_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QPageSetupDialog_virtualbase_event(void* self, QEvent* event);
+	friend bool QPageSetupDialog_virtualbase_event(VirtualQPageSetupDialog* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mousePressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mousePressEvent(QMouseEvent* event) override {
-		if (handle__mousePressEvent == 0) {
+		if (vtbl->mousePressEvent == 0) {
 			QPageSetupDialog::mousePressEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_mousePressEvent(this, handle__mousePressEvent, sigval1);
-
+		vtbl->mousePressEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_mousePressEvent(void* self, QMouseEvent* event);
+	friend void QPageSetupDialog_virtualbase_mousePressEvent(VirtualQPageSetupDialog* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseReleaseEvent(QMouseEvent* event) override {
-		if (handle__mouseReleaseEvent == 0) {
+		if (vtbl->mouseReleaseEvent == 0) {
 			QPageSetupDialog::mouseReleaseEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_mouseReleaseEvent(this, handle__mouseReleaseEvent, sigval1);
-
+		vtbl->mouseReleaseEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* event);
+	friend void QPageSetupDialog_virtualbase_mouseReleaseEvent(VirtualQPageSetupDialog* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseDoubleClickEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseDoubleClickEvent(QMouseEvent* event) override {
-		if (handle__mouseDoubleClickEvent == 0) {
+		if (vtbl->mouseDoubleClickEvent == 0) {
 			QPageSetupDialog::mouseDoubleClickEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_mouseDoubleClickEvent(this, handle__mouseDoubleClickEvent, sigval1);
-
+		vtbl->mouseDoubleClickEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* event);
+	friend void QPageSetupDialog_virtualbase_mouseDoubleClickEvent(VirtualQPageSetupDialog* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseMoveEvent(QMouseEvent* event) override {
-		if (handle__mouseMoveEvent == 0) {
+		if (vtbl->mouseMoveEvent == 0) {
 			QPageSetupDialog::mouseMoveEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_mouseMoveEvent(this, handle__mouseMoveEvent, sigval1);
-
+		vtbl->mouseMoveEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_mouseMoveEvent(void* self, QMouseEvent* event);
+	friend void QPageSetupDialog_virtualbase_mouseMoveEvent(VirtualQPageSetupDialog* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__wheelEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void wheelEvent(QWheelEvent* event) override {
-		if (handle__wheelEvent == 0) {
+		if (vtbl->wheelEvent == 0) {
 			QPageSetupDialog::wheelEvent(event);
 			return;
 		}
 
 		QWheelEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_wheelEvent(this, handle__wheelEvent, sigval1);
-
+		vtbl->wheelEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_wheelEvent(void* self, QWheelEvent* event);
+	friend void QPageSetupDialog_virtualbase_wheelEvent(VirtualQPageSetupDialog* self, QWheelEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyReleaseEvent(QKeyEvent* event) override {
-		if (handle__keyReleaseEvent == 0) {
+		if (vtbl->keyReleaseEvent == 0) {
 			QPageSetupDialog::keyReleaseEvent(event);
 			return;
 		}
 
 		QKeyEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_keyReleaseEvent(this, handle__keyReleaseEvent, sigval1);
-
+		vtbl->keyReleaseEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event);
+	friend void QPageSetupDialog_virtualbase_keyReleaseEvent(VirtualQPageSetupDialog* self, QKeyEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusInEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusInEvent(QFocusEvent* event) override {
-		if (handle__focusInEvent == 0) {
+		if (vtbl->focusInEvent == 0) {
 			QPageSetupDialog::focusInEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_focusInEvent(this, handle__focusInEvent, sigval1);
-
+		vtbl->focusInEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_focusInEvent(void* self, QFocusEvent* event);
+	friend void QPageSetupDialog_virtualbase_focusInEvent(VirtualQPageSetupDialog* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusOutEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusOutEvent(QFocusEvent* event) override {
-		if (handle__focusOutEvent == 0) {
+		if (vtbl->focusOutEvent == 0) {
 			QPageSetupDialog::focusOutEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_focusOutEvent(this, handle__focusOutEvent, sigval1);
-
+		vtbl->focusOutEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_focusOutEvent(void* self, QFocusEvent* event);
+	friend void QPageSetupDialog_virtualbase_focusOutEvent(VirtualQPageSetupDialog* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__enterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void enterEvent(QEnterEvent* event) override {
-		if (handle__enterEvent == 0) {
+		if (vtbl->enterEvent == 0) {
 			QPageSetupDialog::enterEvent(event);
 			return;
 		}
 
 		QEnterEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_enterEvent(this, handle__enterEvent, sigval1);
-
+		vtbl->enterEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_enterEvent(void* self, QEnterEvent* event);
+	friend void QPageSetupDialog_virtualbase_enterEvent(VirtualQPageSetupDialog* self, QEnterEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__leaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void leaveEvent(QEvent* event) override {
-		if (handle__leaveEvent == 0) {
+		if (vtbl->leaveEvent == 0) {
 			QPageSetupDialog::leaveEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_leaveEvent(this, handle__leaveEvent, sigval1);
-
+		vtbl->leaveEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_leaveEvent(void* self, QEvent* event);
+	friend void QPageSetupDialog_virtualbase_leaveEvent(VirtualQPageSetupDialog* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void paintEvent(QPaintEvent* event) override {
-		if (handle__paintEvent == 0) {
+		if (vtbl->paintEvent == 0) {
 			QPageSetupDialog::paintEvent(event);
 			return;
 		}
 
 		QPaintEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_paintEvent(this, handle__paintEvent, sigval1);
-
+		vtbl->paintEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_paintEvent(void* self, QPaintEvent* event);
+	friend void QPageSetupDialog_virtualbase_paintEvent(VirtualQPageSetupDialog* self, QPaintEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__moveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void moveEvent(QMoveEvent* event) override {
-		if (handle__moveEvent == 0) {
+		if (vtbl->moveEvent == 0) {
 			QPageSetupDialog::moveEvent(event);
 			return;
 		}
 
 		QMoveEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_moveEvent(this, handle__moveEvent, sigval1);
-
+		vtbl->moveEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_moveEvent(void* self, QMoveEvent* event);
+	friend void QPageSetupDialog_virtualbase_moveEvent(VirtualQPageSetupDialog* self, QMoveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__tabletEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void tabletEvent(QTabletEvent* event) override {
-		if (handle__tabletEvent == 0) {
+		if (vtbl->tabletEvent == 0) {
 			QPageSetupDialog::tabletEvent(event);
 			return;
 		}
 
 		QTabletEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_tabletEvent(this, handle__tabletEvent, sigval1);
-
+		vtbl->tabletEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_tabletEvent(void* self, QTabletEvent* event);
+	friend void QPageSetupDialog_virtualbase_tabletEvent(VirtualQPageSetupDialog* self, QTabletEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__actionEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void actionEvent(QActionEvent* event) override {
-		if (handle__actionEvent == 0) {
+		if (vtbl->actionEvent == 0) {
 			QPageSetupDialog::actionEvent(event);
 			return;
 		}
 
 		QActionEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_actionEvent(this, handle__actionEvent, sigval1);
-
+		vtbl->actionEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_actionEvent(void* self, QActionEvent* event);
+	friend void QPageSetupDialog_virtualbase_actionEvent(VirtualQPageSetupDialog* self, QActionEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragEnterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragEnterEvent(QDragEnterEvent* event) override {
-		if (handle__dragEnterEvent == 0) {
+		if (vtbl->dragEnterEvent == 0) {
 			QPageSetupDialog::dragEnterEvent(event);
 			return;
 		}
 
 		QDragEnterEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_dragEnterEvent(this, handle__dragEnterEvent, sigval1);
-
+		vtbl->dragEnterEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* event);
+	friend void QPageSetupDialog_virtualbase_dragEnterEvent(VirtualQPageSetupDialog* self, QDragEnterEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragMoveEvent(QDragMoveEvent* event) override {
-		if (handle__dragMoveEvent == 0) {
+		if (vtbl->dragMoveEvent == 0) {
 			QPageSetupDialog::dragMoveEvent(event);
 			return;
 		}
 
 		QDragMoveEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_dragMoveEvent(this, handle__dragMoveEvent, sigval1);
-
+		vtbl->dragMoveEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* event);
+	friend void QPageSetupDialog_virtualbase_dragMoveEvent(VirtualQPageSetupDialog* self, QDragMoveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragLeaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragLeaveEvent(QDragLeaveEvent* event) override {
-		if (handle__dragLeaveEvent == 0) {
+		if (vtbl->dragLeaveEvent == 0) {
 			QPageSetupDialog::dragLeaveEvent(event);
 			return;
 		}
 
 		QDragLeaveEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_dragLeaveEvent(this, handle__dragLeaveEvent, sigval1);
-
+		vtbl->dragLeaveEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* event);
+	friend void QPageSetupDialog_virtualbase_dragLeaveEvent(VirtualQPageSetupDialog* self, QDragLeaveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dropEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dropEvent(QDropEvent* event) override {
-		if (handle__dropEvent == 0) {
+		if (vtbl->dropEvent == 0) {
 			QPageSetupDialog::dropEvent(event);
 			return;
 		}
 
 		QDropEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_dropEvent(this, handle__dropEvent, sigval1);
-
+		vtbl->dropEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_dropEvent(void* self, QDropEvent* event);
+	friend void QPageSetupDialog_virtualbase_dropEvent(VirtualQPageSetupDialog* self, QDropEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hideEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void hideEvent(QHideEvent* event) override {
-		if (handle__hideEvent == 0) {
+		if (vtbl->hideEvent == 0) {
 			QPageSetupDialog::hideEvent(event);
 			return;
 		}
 
 		QHideEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_hideEvent(this, handle__hideEvent, sigval1);
-
+		vtbl->hideEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_hideEvent(void* self, QHideEvent* event);
+	friend void QPageSetupDialog_virtualbase_hideEvent(VirtualQPageSetupDialog* self, QHideEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__nativeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool nativeEvent(const QByteArray& eventType, void* message, qintptr* result) override {
-		if (handle__nativeEvent == 0) {
+		if (vtbl->nativeEvent == 0) {
 			return QPageSetupDialog::nativeEvent(eventType, message, result);
 		}
 
@@ -810,201 +573,147 @@ public:
 		void* sigval2 = message;
 		qintptr* result_ret = result;
 		intptr_t* sigval3 = (intptr_t*)(result_ret);
-		bool callback_return_value = miqt_exec_callback_QPageSetupDialog_nativeEvent(this, handle__nativeEvent, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->nativeEvent(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QPageSetupDialog_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, intptr_t* result);
+	friend bool QPageSetupDialog_virtualbase_nativeEvent(VirtualQPageSetupDialog* self, struct seaqt_string eventType, void* message, intptr_t* result);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__changeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void changeEvent(QEvent* param1) override {
-		if (handle__changeEvent == 0) {
+		if (vtbl->changeEvent == 0) {
 			QPageSetupDialog::changeEvent(param1);
 			return;
 		}
 
 		QEvent* sigval1 = param1;
-		miqt_exec_callback_QPageSetupDialog_changeEvent(this, handle__changeEvent, sigval1);
-
+		vtbl->changeEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_changeEvent(void* self, QEvent* param1);
+	friend void QPageSetupDialog_virtualbase_changeEvent(VirtualQPageSetupDialog* self, QEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metric = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int metric(QPaintDevice::PaintDeviceMetric param1) const override {
-		if (handle__metric == 0) {
+		if (vtbl->metric == 0) {
 			return QPageSetupDialog::metric(param1);
 		}
 
 		QPaintDevice::PaintDeviceMetric param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		int callback_return_value = miqt_exec_callback_QPageSetupDialog_metric(this, handle__metric, sigval1);
+		int callback_return_value = vtbl->metric(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QPageSetupDialog_virtualbase_metric(const void* self, int param1);
+	friend int QPageSetupDialog_virtualbase_metric(const VirtualQPageSetupDialog* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__initPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void initPainter(QPainter* painter) const override {
-		if (handle__initPainter == 0) {
+		if (vtbl->initPainter == 0) {
 			QPageSetupDialog::initPainter(painter);
 			return;
 		}
 
 		QPainter* sigval1 = painter;
-		miqt_exec_callback_QPageSetupDialog_initPainter(this, handle__initPainter, sigval1);
-
+		vtbl->initPainter(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_initPainter(const void* self, QPainter* painter);
+	friend void QPageSetupDialog_virtualbase_initPainter(const VirtualQPageSetupDialog* self, QPainter* painter);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__redirected = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintDevice* redirected(QPoint* offset) const override {
-		if (handle__redirected == 0) {
+		if (vtbl->redirected == 0) {
 			return QPageSetupDialog::redirected(offset);
 		}
 
 		QPoint* sigval1 = offset;
-		QPaintDevice* callback_return_value = miqt_exec_callback_QPageSetupDialog_redirected(this, handle__redirected, sigval1);
+		QPaintDevice* callback_return_value = vtbl->redirected(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QPaintDevice* QPageSetupDialog_virtualbase_redirected(const void* self, QPoint* offset);
+	friend QPaintDevice* QPageSetupDialog_virtualbase_redirected(const VirtualQPageSetupDialog* self, QPoint* offset);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sharedPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPainter* sharedPainter() const override {
-		if (handle__sharedPainter == 0) {
+		if (vtbl->sharedPainter == 0) {
 			return QPageSetupDialog::sharedPainter();
 		}
 
-		QPainter* callback_return_value = miqt_exec_callback_QPageSetupDialog_sharedPainter(this, handle__sharedPainter);
+		QPainter* callback_return_value = vtbl->sharedPainter(this);
 		return callback_return_value;
 	}
 
-	friend QPainter* QPageSetupDialog_virtualbase_sharedPainter(const void* self);
+	friend QPainter* QPageSetupDialog_virtualbase_sharedPainter(const VirtualQPageSetupDialog* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void inputMethodEvent(QInputMethodEvent* param1) override {
-		if (handle__inputMethodEvent == 0) {
+		if (vtbl->inputMethodEvent == 0) {
 			QPageSetupDialog::inputMethodEvent(param1);
 			return;
 		}
 
 		QInputMethodEvent* sigval1 = param1;
-		miqt_exec_callback_QPageSetupDialog_inputMethodEvent(this, handle__inputMethodEvent, sigval1);
-
+		vtbl->inputMethodEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1);
+	friend void QPageSetupDialog_virtualbase_inputMethodEvent(VirtualQPageSetupDialog* self, QInputMethodEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodQuery = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant inputMethodQuery(Qt::InputMethodQuery param1) const override {
-		if (handle__inputMethodQuery == 0) {
+		if (vtbl->inputMethodQuery == 0) {
 			return QPageSetupDialog::inputMethodQuery(param1);
 		}
 
 		Qt::InputMethodQuery param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		QVariant* callback_return_value = miqt_exec_callback_QPageSetupDialog_inputMethodQuery(this, handle__inputMethodQuery, sigval1);
+		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QPageSetupDialog_virtualbase_inputMethodQuery(const void* self, int param1);
+	friend QVariant* QPageSetupDialog_virtualbase_inputMethodQuery(const VirtualQPageSetupDialog* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusNextPrevChild = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool focusNextPrevChild(bool next) override {
-		if (handle__focusNextPrevChild == 0) {
+		if (vtbl->focusNextPrevChild == 0) {
 			return QPageSetupDialog::focusNextPrevChild(next);
 		}
 
 		bool sigval1 = next;
-		bool callback_return_value = miqt_exec_callback_QPageSetupDialog_focusNextPrevChild(this, handle__focusNextPrevChild, sigval1);
+		bool callback_return_value = vtbl->focusNextPrevChild(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QPageSetupDialog_virtualbase_focusNextPrevChild(void* self, bool next);
+	friend bool QPageSetupDialog_virtualbase_focusNextPrevChild(VirtualQPageSetupDialog* self, bool next);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QPageSetupDialog::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QPageSetupDialog_virtualbase_timerEvent(VirtualQPageSetupDialog* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QPageSetupDialog::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QPageSetupDialog_virtualbase_childEvent(VirtualQPageSetupDialog* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QPageSetupDialog::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QPageSetupDialog_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QPageSetupDialog_virtualbase_customEvent(VirtualQPageSetupDialog* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QPageSetupDialog::connectNotify(signal);
 			return;
 		}
@@ -1012,18 +721,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QPageSetupDialog_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QPageSetupDialog_virtualbase_connectNotify(VirtualQPageSetupDialog* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QPageSetupDialog::disconnectNotify(signal);
 			return;
 		}
@@ -1031,39 +735,42 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QPageSetupDialog_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QPageSetupDialog_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QPageSetupDialog_virtualbase_disconnectNotify(VirtualQPageSetupDialog* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QPageSetupDialog_protectedbase_adjustPosition(bool* _dynamic_cast_ok, void* self, QWidget* param1);
-	friend void QPageSetupDialog_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self);
-	friend void QPageSetupDialog_protectedbase_create(bool* _dynamic_cast_ok, void* self);
-	friend void QPageSetupDialog_protectedbase_destroy(bool* _dynamic_cast_ok, void* self);
-	friend bool QPageSetupDialog_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self);
-	friend bool QPageSetupDialog_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self);
-	friend QObject* QPageSetupDialog_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QPageSetupDialog_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QPageSetupDialog_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QPageSetupDialog_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QPageSetupDialog_protectedbase_adjustPosition(VirtualQPageSetupDialog* self, QWidget* param1);
+	friend void QPageSetupDialog_protectedbase_updateMicroFocus(VirtualQPageSetupDialog* self);
+	friend void QPageSetupDialog_protectedbase_create(VirtualQPageSetupDialog* self);
+	friend void QPageSetupDialog_protectedbase_destroy(VirtualQPageSetupDialog* self);
+	friend bool QPageSetupDialog_protectedbase_focusNextChild(VirtualQPageSetupDialog* self);
+	friend bool QPageSetupDialog_protectedbase_focusPreviousChild(VirtualQPageSetupDialog* self);
+	friend QObject* QPageSetupDialog_protectedbase_sender(const VirtualQPageSetupDialog* self);
+	friend int QPageSetupDialog_protectedbase_senderSignalIndex(const VirtualQPageSetupDialog* self);
+	friend int QPageSetupDialog_protectedbase_receivers(const VirtualQPageSetupDialog* self, const char* signal);
+	friend bool QPageSetupDialog_protectedbase_isSignalConnected(const VirtualQPageSetupDialog* self, QMetaMethod* signal);
 };
 
-QPageSetupDialog* QPageSetupDialog_new(QPrinter* printer) {
-	return new (std::nothrow) VirtualQPageSetupDialog(printer);
+VirtualQPageSetupDialog* QPageSetupDialog_new(const QPageSetupDialog_VTable* vtbl, size_t vdata, QPrinter* printer) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQPageSetupDialog>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQPageSetupDialog(vtbl, printer) : nullptr;
 }
 
-QPageSetupDialog* QPageSetupDialog_new2() {
-	return new (std::nothrow) VirtualQPageSetupDialog();
+VirtualQPageSetupDialog* QPageSetupDialog_new2(const QPageSetupDialog_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQPageSetupDialog>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQPageSetupDialog(vtbl) : nullptr;
 }
 
-QPageSetupDialog* QPageSetupDialog_new3(QPrinter* printer, QWidget* parent) {
-	return new (std::nothrow) VirtualQPageSetupDialog(printer, parent);
+VirtualQPageSetupDialog* QPageSetupDialog_new3(const QPageSetupDialog_VTable* vtbl, size_t vdata, QPrinter* printer, QWidget* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQPageSetupDialog>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQPageSetupDialog(vtbl, printer, parent) : nullptr;
 }
 
-QPageSetupDialog* QPageSetupDialog_new4(QWidget* parent) {
-	return new (std::nothrow) VirtualQPageSetupDialog(parent);
+VirtualQPageSetupDialog* QPageSetupDialog_new4(const QPageSetupDialog_VTable* vtbl, size_t vdata, QWidget* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQPageSetupDialog>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQPageSetupDialog(vtbl, parent) : nullptr;
 }
 
 void QPageSetupDialog_virtbase(QPageSetupDialog* src, QDialog** outptr_QDialog) {
@@ -1128,885 +835,323 @@ struct seaqt_string QPageSetupDialog_tr3(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QPageSetupDialog_staticMetaObject() { return &QPageSetupDialog::staticMetaObject; }
-bool QPageSetupDialog_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QPageSetupDialog_vdata(VirtualQPageSetupDialog* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQPageSetupDialog>()); }
+VirtualQPageSetupDialog* vdata_QPageSetupDialog(void* vdata) { return reinterpret_cast<VirtualQPageSetupDialog*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQPageSetupDialog>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
-}
-
-QMetaObject* QPageSetupDialog_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQPageSetupDialog*>(self)->QPageSetupDialog::metaObject();
-}
-
-bool QPageSetupDialog_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__metacast = slot;
-	return true;
-}
+QMetaObject* QPageSetupDialog_virtualbase_metaObject(const VirtualQPageSetupDialog* self) {
 
-void* QPageSetupDialog_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::qt_metacast(param1);
+	return (QMetaObject*) self->QPageSetupDialog::metaObject();
 }
-
-bool QPageSetupDialog_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__metacall = slot;
-	return true;
-}
+void* QPageSetupDialog_virtualbase_metacast(VirtualQPageSetupDialog* self, const char* param1) {
 
-int QPageSetupDialog_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+	return self->QPageSetupDialog::qt_metacast(param1);
 }
 
-bool QPageSetupDialog_override_virtual_exec(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__exec = slot;
-	return true;
-}
+int QPageSetupDialog_virtualbase_metacall(VirtualQPageSetupDialog* self, int param1, int param2, void** param3) {
 
-int QPageSetupDialog_virtualbase_exec(void* self) {
-	return static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::exec();
+	return self->QPageSetupDialog::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-bool QPageSetupDialog_override_virtual_done(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QPageSetupDialog_virtualbase_exec(VirtualQPageSetupDialog* self) {
 
-	self_cast->handle__done = slot;
-	return true;
+	return self->QPageSetupDialog::exec();
 }
 
-void QPageSetupDialog_virtualbase_done(void* self, int result) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::done(static_cast<int>(result));
-}
-
-bool QPageSetupDialog_override_virtual_setVisible(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPageSetupDialog_virtualbase_done(VirtualQPageSetupDialog* self, int result) {
 
-	self_cast->handle__setVisible = slot;
-	return true;
+	self->QPageSetupDialog::done(static_cast<int>(result));
 }
-
-void QPageSetupDialog_virtualbase_setVisible(void* self, bool visible) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::setVisible(visible);
-}
-
-bool QPageSetupDialog_override_virtual_sizeHint(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__sizeHint = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_setVisible(VirtualQPageSetupDialog* self, bool visible) {
 
-QSize* QPageSetupDialog_virtualbase_sizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQPageSetupDialog*>(self)->QPageSetupDialog::sizeHint());
+	self->QPageSetupDialog::setVisible(visible);
 }
 
-bool QPageSetupDialog_override_virtual_minimumSizeHint(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__minimumSizeHint = slot;
-	return true;
-}
+QSize* QPageSetupDialog_virtualbase_sizeHint(const VirtualQPageSetupDialog* self) {
 
-QSize* QPageSetupDialog_virtualbase_minimumSizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQPageSetupDialog*>(self)->QPageSetupDialog::minimumSizeHint());
+	return new QSize(self->QPageSetupDialog::sizeHint());
 }
 
-bool QPageSetupDialog_override_virtual_open(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QSize* QPageSetupDialog_virtualbase_minimumSizeHint(const VirtualQPageSetupDialog* self) {
 
-	self_cast->handle__open = slot;
-	return true;
+	return new QSize(self->QPageSetupDialog::minimumSizeHint());
 }
-
-void QPageSetupDialog_virtualbase_open(void* self) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::open();
-}
-
-bool QPageSetupDialog_override_virtual_accept(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__accept = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_open(VirtualQPageSetupDialog* self) {
 
-void QPageSetupDialog_virtualbase_accept(void* self) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::accept();
+	self->QPageSetupDialog::open();
 }
-
-bool QPageSetupDialog_override_virtual_reject(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__reject = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_accept(VirtualQPageSetupDialog* self) {
 
-void QPageSetupDialog_virtualbase_reject(void* self) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::reject();
+	self->QPageSetupDialog::accept();
 }
 
-bool QPageSetupDialog_override_virtual_keyPressEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__keyPressEvent = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_reject(VirtualQPageSetupDialog* self) {
 
-void QPageSetupDialog_virtualbase_keyPressEvent(void* self, QKeyEvent* param1) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::keyPressEvent(param1);
+	self->QPageSetupDialog::reject();
 }
 
-bool QPageSetupDialog_override_virtual_closeEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPageSetupDialog_virtualbase_keyPressEvent(VirtualQPageSetupDialog* self, QKeyEvent* param1) {
 
-	self_cast->handle__closeEvent = slot;
-	return true;
+	self->QPageSetupDialog::keyPressEvent(param1);
 }
 
-void QPageSetupDialog_virtualbase_closeEvent(void* self, QCloseEvent* param1) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::closeEvent(param1);
-}
-
-bool QPageSetupDialog_override_virtual_showEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPageSetupDialog_virtualbase_closeEvent(VirtualQPageSetupDialog* self, QCloseEvent* param1) {
 
-	self_cast->handle__showEvent = slot;
-	return true;
+	self->QPageSetupDialog::closeEvent(param1);
 }
-
-void QPageSetupDialog_virtualbase_showEvent(void* self, QShowEvent* param1) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::showEvent(param1);
-}
-
-bool QPageSetupDialog_override_virtual_resizeEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__resizeEvent = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_showEvent(VirtualQPageSetupDialog* self, QShowEvent* param1) {
 
-void QPageSetupDialog_virtualbase_resizeEvent(void* self, QResizeEvent* param1) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::resizeEvent(param1);
+	self->QPageSetupDialog::showEvent(param1);
 }
-
-bool QPageSetupDialog_override_virtual_contextMenuEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__contextMenuEvent = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_resizeEvent(VirtualQPageSetupDialog* self, QResizeEvent* param1) {
 
-void QPageSetupDialog_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* param1) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::contextMenuEvent(param1);
+	self->QPageSetupDialog::resizeEvent(param1);
 }
 
-bool QPageSetupDialog_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_contextMenuEvent(VirtualQPageSetupDialog* self, QContextMenuEvent* param1) {
 
-bool QPageSetupDialog_virtualbase_eventFilter(void* self, QObject* param1, QEvent* param2) {
-	return static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::eventFilter(param1, param2);
+	self->QPageSetupDialog::contextMenuEvent(param1);
 }
 
-bool QPageSetupDialog_override_virtual_devType(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QPageSetupDialog_virtualbase_eventFilter(VirtualQPageSetupDialog* self, QObject* param1, QEvent* param2) {
 
-	self_cast->handle__devType = slot;
-	return true;
+	return self->QPageSetupDialog::eventFilter(param1, param2);
 }
 
-int QPageSetupDialog_virtualbase_devType(const void* self) {
-	return static_cast<const VirtualQPageSetupDialog*>(self)->QPageSetupDialog::devType();
-}
-
-bool QPageSetupDialog_override_virtual_heightForWidth(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__heightForWidth = slot;
-	return true;
-}
+int QPageSetupDialog_virtualbase_devType(const VirtualQPageSetupDialog* self) {
 
-int QPageSetupDialog_virtualbase_heightForWidth(const void* self, int param1) {
-	return static_cast<const VirtualQPageSetupDialog*>(self)->QPageSetupDialog::heightForWidth(static_cast<int>(param1));
+	return self->QPageSetupDialog::devType();
 }
 
-bool QPageSetupDialog_override_virtual_hasHeightForWidth(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__hasHeightForWidth = slot;
-	return true;
-}
+int QPageSetupDialog_virtualbase_heightForWidth(const VirtualQPageSetupDialog* self, int param1) {
 
-bool QPageSetupDialog_virtualbase_hasHeightForWidth(const void* self) {
-	return static_cast<const VirtualQPageSetupDialog*>(self)->QPageSetupDialog::hasHeightForWidth();
+	return self->QPageSetupDialog::heightForWidth(static_cast<int>(param1));
 }
 
-bool QPageSetupDialog_override_virtual_paintEngine(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QPageSetupDialog_virtualbase_hasHeightForWidth(const VirtualQPageSetupDialog* self) {
 
-	self_cast->handle__paintEngine = slot;
-	return true;
+	return self->QPageSetupDialog::hasHeightForWidth();
 }
 
-QPaintEngine* QPageSetupDialog_virtualbase_paintEngine(const void* self) {
-	return static_cast<const VirtualQPageSetupDialog*>(self)->QPageSetupDialog::paintEngine();
-}
-
-bool QPageSetupDialog_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QPaintEngine* QPageSetupDialog_virtualbase_paintEngine(const VirtualQPageSetupDialog* self) {
 
-	self_cast->handle__event = slot;
-	return true;
+	return self->QPageSetupDialog::paintEngine();
 }
-
-bool QPageSetupDialog_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::event(event);
-}
-
-bool QPageSetupDialog_override_virtual_mousePressEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__mousePressEvent = slot;
-	return true;
-}
+bool QPageSetupDialog_virtualbase_event(VirtualQPageSetupDialog* self, QEvent* event) {
 
-void QPageSetupDialog_virtualbase_mousePressEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::mousePressEvent(event);
+	return self->QPageSetupDialog::event(event);
 }
-
-bool QPageSetupDialog_override_virtual_mouseReleaseEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__mouseReleaseEvent = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_mousePressEvent(VirtualQPageSetupDialog* self, QMouseEvent* event) {
 
-void QPageSetupDialog_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::mouseReleaseEvent(event);
+	self->QPageSetupDialog::mousePressEvent(event);
 }
 
-bool QPageSetupDialog_override_virtual_mouseDoubleClickEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mouseDoubleClickEvent = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_mouseReleaseEvent(VirtualQPageSetupDialog* self, QMouseEvent* event) {
 
-void QPageSetupDialog_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::mouseDoubleClickEvent(event);
+	self->QPageSetupDialog::mouseReleaseEvent(event);
 }
 
-bool QPageSetupDialog_override_virtual_mouseMoveEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPageSetupDialog_virtualbase_mouseDoubleClickEvent(VirtualQPageSetupDialog* self, QMouseEvent* event) {
 
-	self_cast->handle__mouseMoveEvent = slot;
-	return true;
+	self->QPageSetupDialog::mouseDoubleClickEvent(event);
 }
 
-void QPageSetupDialog_virtualbase_mouseMoveEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::mouseMoveEvent(event);
-}
-
-bool QPageSetupDialog_override_virtual_wheelEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPageSetupDialog_virtualbase_mouseMoveEvent(VirtualQPageSetupDialog* self, QMouseEvent* event) {
 
-	self_cast->handle__wheelEvent = slot;
-	return true;
+	self->QPageSetupDialog::mouseMoveEvent(event);
 }
-
-void QPageSetupDialog_virtualbase_wheelEvent(void* self, QWheelEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::wheelEvent(event);
-}
-
-bool QPageSetupDialog_override_virtual_keyReleaseEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__keyReleaseEvent = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_wheelEvent(VirtualQPageSetupDialog* self, QWheelEvent* event) {
 
-void QPageSetupDialog_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::keyReleaseEvent(event);
+	self->QPageSetupDialog::wheelEvent(event);
 }
 
-bool QPageSetupDialog_override_virtual_focusInEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__focusInEvent = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_keyReleaseEvent(VirtualQPageSetupDialog* self, QKeyEvent* event) {
 
-void QPageSetupDialog_virtualbase_focusInEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::focusInEvent(event);
+	self->QPageSetupDialog::keyReleaseEvent(event);
 }
 
-bool QPageSetupDialog_override_virtual_focusOutEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPageSetupDialog_virtualbase_focusInEvent(VirtualQPageSetupDialog* self, QFocusEvent* event) {
 
-	self_cast->handle__focusOutEvent = slot;
-	return true;
+	self->QPageSetupDialog::focusInEvent(event);
 }
-
-void QPageSetupDialog_virtualbase_focusOutEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::focusOutEvent(event);
-}
-
-bool QPageSetupDialog_override_virtual_enterEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__enterEvent = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_focusOutEvent(VirtualQPageSetupDialog* self, QFocusEvent* event) {
 
-void QPageSetupDialog_virtualbase_enterEvent(void* self, QEnterEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::enterEvent(event);
+	self->QPageSetupDialog::focusOutEvent(event);
 }
-
-bool QPageSetupDialog_override_virtual_leaveEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__leaveEvent = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_enterEvent(VirtualQPageSetupDialog* self, QEnterEvent* event) {
 
-void QPageSetupDialog_virtualbase_leaveEvent(void* self, QEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::leaveEvent(event);
+	self->QPageSetupDialog::enterEvent(event);
 }
 
-bool QPageSetupDialog_override_virtual_paintEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__paintEvent = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_leaveEvent(VirtualQPageSetupDialog* self, QEvent* event) {
 
-void QPageSetupDialog_virtualbase_paintEvent(void* self, QPaintEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::paintEvent(event);
+	self->QPageSetupDialog::leaveEvent(event);
 }
 
-bool QPageSetupDialog_override_virtual_moveEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPageSetupDialog_virtualbase_paintEvent(VirtualQPageSetupDialog* self, QPaintEvent* event) {
 
-	self_cast->handle__moveEvent = slot;
-	return true;
+	self->QPageSetupDialog::paintEvent(event);
 }
 
-void QPageSetupDialog_virtualbase_moveEvent(void* self, QMoveEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::moveEvent(event);
-}
-
-bool QPageSetupDialog_override_virtual_tabletEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPageSetupDialog_virtualbase_moveEvent(VirtualQPageSetupDialog* self, QMoveEvent* event) {
 
-	self_cast->handle__tabletEvent = slot;
-	return true;
+	self->QPageSetupDialog::moveEvent(event);
 }
-
-void QPageSetupDialog_virtualbase_tabletEvent(void* self, QTabletEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::tabletEvent(event);
-}
-
-bool QPageSetupDialog_override_virtual_actionEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__actionEvent = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_tabletEvent(VirtualQPageSetupDialog* self, QTabletEvent* event) {
 
-void QPageSetupDialog_virtualbase_actionEvent(void* self, QActionEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::actionEvent(event);
+	self->QPageSetupDialog::tabletEvent(event);
 }
-
-bool QPageSetupDialog_override_virtual_dragEnterEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__dragEnterEvent = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_actionEvent(VirtualQPageSetupDialog* self, QActionEvent* event) {
 
-void QPageSetupDialog_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::dragEnterEvent(event);
+	self->QPageSetupDialog::actionEvent(event);
 }
 
-bool QPageSetupDialog_override_virtual_dragMoveEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__dragMoveEvent = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_dragEnterEvent(VirtualQPageSetupDialog* self, QDragEnterEvent* event) {
 
-void QPageSetupDialog_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::dragMoveEvent(event);
+	self->QPageSetupDialog::dragEnterEvent(event);
 }
 
-bool QPageSetupDialog_override_virtual_dragLeaveEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPageSetupDialog_virtualbase_dragMoveEvent(VirtualQPageSetupDialog* self, QDragMoveEvent* event) {
 
-	self_cast->handle__dragLeaveEvent = slot;
-	return true;
+	self->QPageSetupDialog::dragMoveEvent(event);
 }
 
-void QPageSetupDialog_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::dragLeaveEvent(event);
-}
-
-bool QPageSetupDialog_override_virtual_dropEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__dropEvent = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_dragLeaveEvent(VirtualQPageSetupDialog* self, QDragLeaveEvent* event) {
 
-void QPageSetupDialog_virtualbase_dropEvent(void* self, QDropEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::dropEvent(event);
+	self->QPageSetupDialog::dragLeaveEvent(event);
 }
 
-bool QPageSetupDialog_override_virtual_hideEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__hideEvent = slot;
-	return true;
-}
+void QPageSetupDialog_virtualbase_dropEvent(VirtualQPageSetupDialog* self, QDropEvent* event) {
 
-void QPageSetupDialog_virtualbase_hideEvent(void* self, QHideEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::hideEvent(event);
+	self->QPageSetupDialog::dropEvent(event);
 }
 
-bool QPageSetupDialog_override_virtual_nativeEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPageSetupDialog_virtualbase_hideEvent(VirtualQPageSetupDialog* self, QHideEvent* event) {
 
-	self_cast->handle__nativeEvent = slot;
-	return true;
+	self->QPageSetupDialog::hideEvent(event);
 }
 
-bool QPageSetupDialog_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, intptr_t* result) {
+bool QPageSetupDialog_virtualbase_nativeEvent(VirtualQPageSetupDialog* self, struct seaqt_string eventType, void* message, intptr_t* result) {
 	QByteArray eventType_QByteArray(eventType.data, eventType.len);
-	return static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::nativeEvent(eventType_QByteArray, message, (qintptr*)(result));
+
+	return self->QPageSetupDialog::nativeEvent(eventType_QByteArray, message, (qintptr*)(result));
 }
 
-bool QPageSetupDialog_override_virtual_changeEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPageSetupDialog_virtualbase_changeEvent(VirtualQPageSetupDialog* self, QEvent* param1) {
 
-	self_cast->handle__changeEvent = slot;
-	return true;
+	self->QPageSetupDialog::changeEvent(param1);
 }
 
-void QPageSetupDialog_virtualbase_changeEvent(void* self, QEvent* param1) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::changeEvent(param1);
+int QPageSetupDialog_virtualbase_metric(const VirtualQPageSetupDialog* self, int param1) {
+
+	return self->QPageSetupDialog::metric(static_cast<VirtualQPageSetupDialog::PaintDeviceMetric>(param1));
 }
 
-bool QPageSetupDialog_override_virtual_metric(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPageSetupDialog_virtualbase_initPainter(const VirtualQPageSetupDialog* self, QPainter* painter) {
 
-	self_cast->handle__metric = slot;
-	return true;
+	self->QPageSetupDialog::initPainter(painter);
 }
 
-int QPageSetupDialog_virtualbase_metric(const void* self, int param1) {
-	return static_cast<const VirtualQPageSetupDialog*>(self)->QPageSetupDialog::metric(static_cast<VirtualQPageSetupDialog::PaintDeviceMetric>(param1));
+QPaintDevice* QPageSetupDialog_virtualbase_redirected(const VirtualQPageSetupDialog* self, QPoint* offset) {
+
+	return self->QPageSetupDialog::redirected(offset);
 }
 
-bool QPageSetupDialog_override_virtual_initPainter(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QPainter* QPageSetupDialog_virtualbase_sharedPainter(const VirtualQPageSetupDialog* self) {
 
-	self_cast->handle__initPainter = slot;
-	return true;
+	return self->QPageSetupDialog::sharedPainter();
 }
 
-void QPageSetupDialog_virtualbase_initPainter(const void* self, QPainter* painter) {
-	static_cast<const VirtualQPageSetupDialog*>(self)->QPageSetupDialog::initPainter(painter);
+void QPageSetupDialog_virtualbase_inputMethodEvent(VirtualQPageSetupDialog* self, QInputMethodEvent* param1) {
+
+	self->QPageSetupDialog::inputMethodEvent(param1);
 }
 
-bool QPageSetupDialog_override_virtual_redirected(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QVariant* QPageSetupDialog_virtualbase_inputMethodQuery(const VirtualQPageSetupDialog* self, int param1) {
 
-	self_cast->handle__redirected = slot;
-	return true;
+	return new QVariant(self->QPageSetupDialog::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
 }
 
-QPaintDevice* QPageSetupDialog_virtualbase_redirected(const void* self, QPoint* offset) {
-	return static_cast<const VirtualQPageSetupDialog*>(self)->QPageSetupDialog::redirected(offset);
+bool QPageSetupDialog_virtualbase_focusNextPrevChild(VirtualQPageSetupDialog* self, bool next) {
+
+	return self->QPageSetupDialog::focusNextPrevChild(next);
 }
 
-bool QPageSetupDialog_override_virtual_sharedPainter(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPageSetupDialog_virtualbase_timerEvent(VirtualQPageSetupDialog* self, QTimerEvent* event) {
 
-	self_cast->handle__sharedPainter = slot;
-	return true;
+	self->QPageSetupDialog::timerEvent(event);
 }
 
-QPainter* QPageSetupDialog_virtualbase_sharedPainter(const void* self) {
-	return static_cast<const VirtualQPageSetupDialog*>(self)->QPageSetupDialog::sharedPainter();
+void QPageSetupDialog_virtualbase_childEvent(VirtualQPageSetupDialog* self, QChildEvent* event) {
+
+	self->QPageSetupDialog::childEvent(event);
 }
 
-bool QPageSetupDialog_override_virtual_inputMethodEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPageSetupDialog_virtualbase_customEvent(VirtualQPageSetupDialog* self, QEvent* event) {
 
-	self_cast->handle__inputMethodEvent = slot;
-	return true;
+	self->QPageSetupDialog::customEvent(event);
 }
 
-void QPageSetupDialog_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::inputMethodEvent(param1);
+void QPageSetupDialog_virtualbase_connectNotify(VirtualQPageSetupDialog* self, QMetaMethod* signal) {
+
+	self->QPageSetupDialog::connectNotify(*signal);
 }
 
-bool QPageSetupDialog_override_virtual_inputMethodQuery(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QPageSetupDialog_virtualbase_disconnectNotify(VirtualQPageSetupDialog* self, QMetaMethod* signal) {
 
-	self_cast->handle__inputMethodQuery = slot;
-	return true;
+	self->QPageSetupDialog::disconnectNotify(*signal);
 }
 
-QVariant* QPageSetupDialog_virtualbase_inputMethodQuery(const void* self, int param1) {
-	return new QVariant(static_cast<const VirtualQPageSetupDialog*>(self)->QPageSetupDialog::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
+void QPageSetupDialog_protectedbase_adjustPosition(VirtualQPageSetupDialog* self, QWidget* param1) {
+	self->adjustPosition(param1);
 }
 
-bool QPageSetupDialog_override_virtual_focusNextPrevChild(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__focusNextPrevChild = slot;
-	return true;
+void QPageSetupDialog_protectedbase_updateMicroFocus(VirtualQPageSetupDialog* self) {
+	self->updateMicroFocus();
 }
 
-bool QPageSetupDialog_virtualbase_focusNextPrevChild(void* self, bool next) {
-	return static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::focusNextPrevChild(next);
+void QPageSetupDialog_protectedbase_create(VirtualQPageSetupDialog* self) {
+	self->create();
 }
 
-bool QPageSetupDialog_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+void QPageSetupDialog_protectedbase_destroy(VirtualQPageSetupDialog* self) {
+	self->destroy();
 }
 
-void QPageSetupDialog_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::timerEvent(event);
+bool QPageSetupDialog_protectedbase_focusNextChild(VirtualQPageSetupDialog* self) {
+	return self->focusNextChild();
 }
 
-bool QPageSetupDialog_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+bool QPageSetupDialog_protectedbase_focusPreviousChild(VirtualQPageSetupDialog* self) {
+	return self->focusPreviousChild();
 }
 
-void QPageSetupDialog_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::childEvent(event);
+QObject* QPageSetupDialog_protectedbase_sender(const VirtualQPageSetupDialog* self) {
+	return self->sender();
 }
 
-bool QPageSetupDialog_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
+int QPageSetupDialog_protectedbase_senderSignalIndex(const VirtualQPageSetupDialog* self) {
+	return self->senderSignalIndex();
 }
 
-void QPageSetupDialog_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::customEvent(event);
+int QPageSetupDialog_protectedbase_receivers(const VirtualQPageSetupDialog* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QPageSetupDialog_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QPageSetupDialog_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::connectNotify(*signal);
-}
-
-bool QPageSetupDialog_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QPageSetupDialog_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQPageSetupDialog*>(self)->QPageSetupDialog::disconnectNotify(*signal);
-}
-
-void QPageSetupDialog_protectedbase_adjustPosition(bool* _dynamic_cast_ok, void* self, QWidget* param1) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->adjustPosition(param1);
-}
-
-void QPageSetupDialog_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->updateMicroFocus();
-}
-
-void QPageSetupDialog_protectedbase_create(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->create();
-}
-
-void QPageSetupDialog_protectedbase_destroy(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->destroy();
-}
-
-bool QPageSetupDialog_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusNextChild();
-}
-
-bool QPageSetupDialog_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusPreviousChild();
-}
-
-QObject* QPageSetupDialog_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QPageSetupDialog_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QPageSetupDialog_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QPageSetupDialog_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQPageSetupDialog* self_cast = dynamic_cast<VirtualQPageSetupDialog*>( (QPageSetupDialog*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QPageSetupDialog_protectedbase_isSignalConnected(const VirtualQPageSetupDialog* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QPageSetupDialog_delete(QPageSetupDialog* self) {

@@ -7,54 +7,47 @@
 #include <membersheet.h>
 #include "gen_membersheet.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-int miqt_exec_callback_QDesignerMemberSheetExtension_count(const QDesignerMemberSheetExtension*, intptr_t);
-int miqt_exec_callback_QDesignerMemberSheetExtension_indexOf(const QDesignerMemberSheetExtension*, intptr_t, struct seaqt_string);
-struct seaqt_string miqt_exec_callback_QDesignerMemberSheetExtension_memberName(const QDesignerMemberSheetExtension*, intptr_t, int);
-struct seaqt_string miqt_exec_callback_QDesignerMemberSheetExtension_memberGroup(const QDesignerMemberSheetExtension*, intptr_t, int);
-void miqt_exec_callback_QDesignerMemberSheetExtension_setMemberGroup(QDesignerMemberSheetExtension*, intptr_t, int, struct seaqt_string);
-bool miqt_exec_callback_QDesignerMemberSheetExtension_isVisible(const QDesignerMemberSheetExtension*, intptr_t, int);
-void miqt_exec_callback_QDesignerMemberSheetExtension_setVisible(QDesignerMemberSheetExtension*, intptr_t, int, bool);
-bool miqt_exec_callback_QDesignerMemberSheetExtension_isSignal(const QDesignerMemberSheetExtension*, intptr_t, int);
-bool miqt_exec_callback_QDesignerMemberSheetExtension_isSlot(const QDesignerMemberSheetExtension*, intptr_t, int);
-bool miqt_exec_callback_QDesignerMemberSheetExtension_inheritedFromWidget(const QDesignerMemberSheetExtension*, intptr_t, int);
-struct seaqt_string miqt_exec_callback_QDesignerMemberSheetExtension_declaredInClass(const QDesignerMemberSheetExtension*, intptr_t, int);
-struct seaqt_string miqt_exec_callback_QDesignerMemberSheetExtension_signature(const QDesignerMemberSheetExtension*, intptr_t, int);
-struct seaqt_array /* of struct seaqt_string */  miqt_exec_callback_QDesignerMemberSheetExtension_parameterTypes(const QDesignerMemberSheetExtension*, intptr_t, int);
-struct seaqt_array /* of struct seaqt_string */  miqt_exec_callback_QDesignerMemberSheetExtension_parameterNames(const QDesignerMemberSheetExtension*, intptr_t, int);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQDesignerMemberSheetExtension final : public QDesignerMemberSheetExtension {
+	const QDesignerMemberSheetExtension_VTable* vtbl;
 public:
+	friend void* QDesignerMemberSheetExtension_vdata(VirtualQDesignerMemberSheetExtension* self);
+	friend VirtualQDesignerMemberSheetExtension* vdata_QDesignerMemberSheetExtension(void* vdata);
 
-	VirtualQDesignerMemberSheetExtension(): QDesignerMemberSheetExtension() {}
+	VirtualQDesignerMemberSheetExtension(const QDesignerMemberSheetExtension_VTable* vtbl): QDesignerMemberSheetExtension(), vtbl(vtbl) {}
 
-	virtual ~VirtualQDesignerMemberSheetExtension() override = default;
+	virtual ~VirtualQDesignerMemberSheetExtension() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__count = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual int count() const override {
-		if (handle__count == 0) {
+		if (vtbl->count == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QDesignerMemberSheetExtension_count(this, handle__count);
+		int callback_return_value = vtbl->count(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__indexOf = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int indexOf(const QString& name) const override {
-		if (handle__indexOf == 0) {
+		if (vtbl->indexOf == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
@@ -66,46 +59,34 @@ public:
 		name_ms.data = static_cast<char*>(malloc(name_ms.len));
 		memcpy(name_ms.data, name_b.data(), name_ms.len);
 		struct seaqt_string sigval1 = name_ms;
-		int callback_return_value = miqt_exec_callback_QDesignerMemberSheetExtension_indexOf(this, handle__indexOf, sigval1);
+		int callback_return_value = vtbl->indexOf(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__memberName = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString memberName(int index) const override {
-		if (handle__memberName == 0) {
+		if (vtbl->memberName == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerMemberSheetExtension_memberName(this, handle__memberName, sigval1);
+		struct seaqt_string callback_return_value = vtbl->memberName(this, sigval1);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__memberGroup = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString memberGroup(int index) const override {
-		if (handle__memberGroup == 0) {
+		if (vtbl->memberGroup == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerMemberSheetExtension_memberGroup(this, handle__memberGroup, sigval1);
+		struct seaqt_string callback_return_value = vtbl->memberGroup(this, sigval1);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setMemberGroup = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setMemberGroup(int index, const QString& group) override {
-		if (handle__setMemberGroup == 0) {
+		if (vtbl->setMemberGroup == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -118,122 +99,88 @@ public:
 		group_ms.data = static_cast<char*>(malloc(group_ms.len));
 		memcpy(group_ms.data, group_b.data(), group_ms.len);
 		struct seaqt_string sigval2 = group_ms;
-		miqt_exec_callback_QDesignerMemberSheetExtension_setMemberGroup(this, handle__setMemberGroup, sigval1, sigval2);
-
+		vtbl->setMemberGroup(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isVisible = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isVisible(int index) const override {
-		if (handle__isVisible == 0) {
+		if (vtbl->isVisible == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		bool callback_return_value = miqt_exec_callback_QDesignerMemberSheetExtension_isVisible(this, handle__isVisible, sigval1);
+		bool callback_return_value = vtbl->isVisible(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setVisible = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setVisible(int index, bool b) override {
-		if (handle__setVisible == 0) {
+		if (vtbl->setVisible == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
 		bool sigval2 = b;
-		miqt_exec_callback_QDesignerMemberSheetExtension_setVisible(this, handle__setVisible, sigval1, sigval2);
-
+		vtbl->setVisible(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isSignal = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isSignal(int index) const override {
-		if (handle__isSignal == 0) {
+		if (vtbl->isSignal == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		bool callback_return_value = miqt_exec_callback_QDesignerMemberSheetExtension_isSignal(this, handle__isSignal, sigval1);
+		bool callback_return_value = vtbl->isSignal(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isSlot = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isSlot(int index) const override {
-		if (handle__isSlot == 0) {
+		if (vtbl->isSlot == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		bool callback_return_value = miqt_exec_callback_QDesignerMemberSheetExtension_isSlot(this, handle__isSlot, sigval1);
+		bool callback_return_value = vtbl->isSlot(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inheritedFromWidget = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool inheritedFromWidget(int index) const override {
-		if (handle__inheritedFromWidget == 0) {
+		if (vtbl->inheritedFromWidget == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		bool callback_return_value = miqt_exec_callback_QDesignerMemberSheetExtension_inheritedFromWidget(this, handle__inheritedFromWidget, sigval1);
+		bool callback_return_value = vtbl->inheritedFromWidget(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__declaredInClass = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString declaredInClass(int index) const override {
-		if (handle__declaredInClass == 0) {
+		if (vtbl->declaredInClass == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerMemberSheetExtension_declaredInClass(this, handle__declaredInClass, sigval1);
+		struct seaqt_string callback_return_value = vtbl->declaredInClass(this, sigval1);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__signature = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString signature(int index) const override {
-		if (handle__signature == 0) {
+		if (vtbl->signature == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerMemberSheetExtension_signature(this, handle__signature, sigval1);
+		struct seaqt_string callback_return_value = vtbl->signature(this, sigval1);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__parameterTypes = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QList<QByteArray> parameterTypes(int index) const override {
-		if (handle__parameterTypes == 0) {
+		if (vtbl->parameterTypes == 0) {
 			return QList<QByteArray>(); // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		struct seaqt_array /* of struct seaqt_string */  callback_return_value = miqt_exec_callback_QDesignerMemberSheetExtension_parameterTypes(this, handle__parameterTypes, sigval1);
+		struct seaqt_array /* of struct seaqt_string */  callback_return_value = vtbl->parameterTypes(this, sigval1);
 		QList<QByteArray> callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		struct seaqt_string* callback_return_value_arr = static_cast<struct seaqt_string*>(callback_return_value.data);
@@ -244,17 +191,13 @@ public:
 		return callback_return_value_QList;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__parameterNames = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QList<QByteArray> parameterNames(int index) const override {
-		if (handle__parameterNames == 0) {
+		if (vtbl->parameterNames == 0) {
 			return QList<QByteArray>(); // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		struct seaqt_array /* of struct seaqt_string */  callback_return_value = miqt_exec_callback_QDesignerMemberSheetExtension_parameterNames(this, handle__parameterNames, sigval1);
+		struct seaqt_array /* of struct seaqt_string */  callback_return_value = vtbl->parameterNames(this, sigval1);
 		QList<QByteArray> callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		struct seaqt_string* callback_return_value_arr = static_cast<struct seaqt_string*>(callback_return_value.data);
@@ -267,8 +210,9 @@ public:
 
 };
 
-QDesignerMemberSheetExtension* QDesignerMemberSheetExtension_new() {
-	return new (std::nothrow) VirtualQDesignerMemberSheetExtension();
+VirtualQDesignerMemberSheetExtension* QDesignerMemberSheetExtension_new(const QDesignerMemberSheetExtension_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerMemberSheetExtension>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerMemberSheetExtension(vtbl) : nullptr;
 }
 
 int QDesignerMemberSheetExtension_count(const QDesignerMemberSheetExtension* self) {
@@ -385,145 +329,8 @@ struct seaqt_array /* of struct seaqt_string */  QDesignerMemberSheetExtension_p
 	return _out;
 }
 
-bool QDesignerMemberSheetExtension_override_virtual_count(void* self, intptr_t slot) {
-	VirtualQDesignerMemberSheetExtension* self_cast = dynamic_cast<VirtualQDesignerMemberSheetExtension*>( (QDesignerMemberSheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__count = slot;
-	return true;
-}
-
-bool QDesignerMemberSheetExtension_override_virtual_indexOf(void* self, intptr_t slot) {
-	VirtualQDesignerMemberSheetExtension* self_cast = dynamic_cast<VirtualQDesignerMemberSheetExtension*>( (QDesignerMemberSheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__indexOf = slot;
-	return true;
-}
-
-bool QDesignerMemberSheetExtension_override_virtual_memberName(void* self, intptr_t slot) {
-	VirtualQDesignerMemberSheetExtension* self_cast = dynamic_cast<VirtualQDesignerMemberSheetExtension*>( (QDesignerMemberSheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__memberName = slot;
-	return true;
-}
-
-bool QDesignerMemberSheetExtension_override_virtual_memberGroup(void* self, intptr_t slot) {
-	VirtualQDesignerMemberSheetExtension* self_cast = dynamic_cast<VirtualQDesignerMemberSheetExtension*>( (QDesignerMemberSheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__memberGroup = slot;
-	return true;
-}
-
-bool QDesignerMemberSheetExtension_override_virtual_setMemberGroup(void* self, intptr_t slot) {
-	VirtualQDesignerMemberSheetExtension* self_cast = dynamic_cast<VirtualQDesignerMemberSheetExtension*>( (QDesignerMemberSheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setMemberGroup = slot;
-	return true;
-}
-
-bool QDesignerMemberSheetExtension_override_virtual_isVisible(void* self, intptr_t slot) {
-	VirtualQDesignerMemberSheetExtension* self_cast = dynamic_cast<VirtualQDesignerMemberSheetExtension*>( (QDesignerMemberSheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__isVisible = slot;
-	return true;
-}
-
-bool QDesignerMemberSheetExtension_override_virtual_setVisible(void* self, intptr_t slot) {
-	VirtualQDesignerMemberSheetExtension* self_cast = dynamic_cast<VirtualQDesignerMemberSheetExtension*>( (QDesignerMemberSheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setVisible = slot;
-	return true;
-}
-
-bool QDesignerMemberSheetExtension_override_virtual_isSignal(void* self, intptr_t slot) {
-	VirtualQDesignerMemberSheetExtension* self_cast = dynamic_cast<VirtualQDesignerMemberSheetExtension*>( (QDesignerMemberSheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__isSignal = slot;
-	return true;
-}
-
-bool QDesignerMemberSheetExtension_override_virtual_isSlot(void* self, intptr_t slot) {
-	VirtualQDesignerMemberSheetExtension* self_cast = dynamic_cast<VirtualQDesignerMemberSheetExtension*>( (QDesignerMemberSheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__isSlot = slot;
-	return true;
-}
-
-bool QDesignerMemberSheetExtension_override_virtual_inheritedFromWidget(void* self, intptr_t slot) {
-	VirtualQDesignerMemberSheetExtension* self_cast = dynamic_cast<VirtualQDesignerMemberSheetExtension*>( (QDesignerMemberSheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__inheritedFromWidget = slot;
-	return true;
-}
-
-bool QDesignerMemberSheetExtension_override_virtual_declaredInClass(void* self, intptr_t slot) {
-	VirtualQDesignerMemberSheetExtension* self_cast = dynamic_cast<VirtualQDesignerMemberSheetExtension*>( (QDesignerMemberSheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__declaredInClass = slot;
-	return true;
-}
-
-bool QDesignerMemberSheetExtension_override_virtual_signature(void* self, intptr_t slot) {
-	VirtualQDesignerMemberSheetExtension* self_cast = dynamic_cast<VirtualQDesignerMemberSheetExtension*>( (QDesignerMemberSheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__signature = slot;
-	return true;
-}
-
-bool QDesignerMemberSheetExtension_override_virtual_parameterTypes(void* self, intptr_t slot) {
-	VirtualQDesignerMemberSheetExtension* self_cast = dynamic_cast<VirtualQDesignerMemberSheetExtension*>( (QDesignerMemberSheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__parameterTypes = slot;
-	return true;
-}
-
-bool QDesignerMemberSheetExtension_override_virtual_parameterNames(void* self, intptr_t slot) {
-	VirtualQDesignerMemberSheetExtension* self_cast = dynamic_cast<VirtualQDesignerMemberSheetExtension*>( (QDesignerMemberSheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__parameterNames = slot;
-	return true;
-}
+void* QDesignerMemberSheetExtension_vdata(VirtualQDesignerMemberSheetExtension* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQDesignerMemberSheetExtension>()); }
+VirtualQDesignerMemberSheetExtension* vdata_QDesignerMemberSheetExtension(void* vdata) { return reinterpret_cast<VirtualQDesignerMemberSheetExtension*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQDesignerMemberSheetExtension>()); }
 
 void QDesignerMemberSheetExtension_delete(QDesignerMemberSheetExtension* self) {
 	delete self;

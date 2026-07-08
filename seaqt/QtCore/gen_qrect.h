@@ -39,6 +39,7 @@ QRect* QRect_new2(QPoint* topleft, QPoint* bottomright);
 QRect* QRect_new3(QPoint* topleft, QSize* size);
 QRect* QRect_new4(int left, int top, int width, int height);
 QRect* QRect_new5(QRect* param1);
+
 bool QRect_isNull(const QRect* self);
 bool QRect_isEmpty(const QRect* self);
 bool QRect_isValid(const QRect* self);
@@ -121,6 +122,7 @@ QRectF* QRectF_new3(QPointF* topleft, QPointF* bottomRight);
 QRectF* QRectF_new4(double left, double top, double width, double height);
 QRectF* QRectF_new5(QRect* rect);
 QRectF* QRectF_new6(QRectF* param1);
+
 bool QRectF_isNull(const QRectF* self);
 bool QRectF_isEmpty(const QRectF* self);
 bool QRectF_isValid(const QRectF* self);

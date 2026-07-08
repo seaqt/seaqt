@@ -8,53 +8,47 @@
 #include <abstractformwindowcursor.h>
 #include "gen_abstractformwindowcursor.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QDesignerFormWindowInterface* miqt_exec_callback_QDesignerFormWindowCursorInterface_formWindow(const QDesignerFormWindowCursorInterface*, intptr_t);
-bool miqt_exec_callback_QDesignerFormWindowCursorInterface_movePosition(QDesignerFormWindowCursorInterface*, intptr_t, int, int);
-int miqt_exec_callback_QDesignerFormWindowCursorInterface_position(const QDesignerFormWindowCursorInterface*, intptr_t);
-void miqt_exec_callback_QDesignerFormWindowCursorInterface_setPosition(QDesignerFormWindowCursorInterface*, intptr_t, int, int);
-QWidget* miqt_exec_callback_QDesignerFormWindowCursorInterface_current(const QDesignerFormWindowCursorInterface*, intptr_t);
-int miqt_exec_callback_QDesignerFormWindowCursorInterface_widgetCount(const QDesignerFormWindowCursorInterface*, intptr_t);
-QWidget* miqt_exec_callback_QDesignerFormWindowCursorInterface_widget(const QDesignerFormWindowCursorInterface*, intptr_t, int);
-bool miqt_exec_callback_QDesignerFormWindowCursorInterface_hasSelection(const QDesignerFormWindowCursorInterface*, intptr_t);
-int miqt_exec_callback_QDesignerFormWindowCursorInterface_selectedWidgetCount(const QDesignerFormWindowCursorInterface*, intptr_t);
-QWidget* miqt_exec_callback_QDesignerFormWindowCursorInterface_selectedWidget(const QDesignerFormWindowCursorInterface*, intptr_t, int);
-void miqt_exec_callback_QDesignerFormWindowCursorInterface_setProperty(QDesignerFormWindowCursorInterface*, intptr_t, struct seaqt_string, QVariant*);
-void miqt_exec_callback_QDesignerFormWindowCursorInterface_setWidgetProperty(QDesignerFormWindowCursorInterface*, intptr_t, QWidget*, struct seaqt_string, QVariant*);
-void miqt_exec_callback_QDesignerFormWindowCursorInterface_resetWidgetProperty(QDesignerFormWindowCursorInterface*, intptr_t, QWidget*, struct seaqt_string);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQDesignerFormWindowCursorInterface final : public QDesignerFormWindowCursorInterface {
+	const QDesignerFormWindowCursorInterface_VTable* vtbl;
 public:
+	friend void* QDesignerFormWindowCursorInterface_vdata(VirtualQDesignerFormWindowCursorInterface* self);
+	friend VirtualQDesignerFormWindowCursorInterface* vdata_QDesignerFormWindowCursorInterface(void* vdata);
 
-	VirtualQDesignerFormWindowCursorInterface(): QDesignerFormWindowCursorInterface() {}
+	VirtualQDesignerFormWindowCursorInterface(const QDesignerFormWindowCursorInterface_VTable* vtbl): QDesignerFormWindowCursorInterface(), vtbl(vtbl) {}
 
-	virtual ~VirtualQDesignerFormWindowCursorInterface() override = default;
+	virtual ~VirtualQDesignerFormWindowCursorInterface() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__formWindow = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual QDesignerFormWindowInterface* formWindow() const override {
-		if (handle__formWindow == 0) {
+		if (vtbl->formWindow == 0) {
 			return nullptr; // Pure virtual, there is no base we can call
 		}
 
-		QDesignerFormWindowInterface* callback_return_value = miqt_exec_callback_QDesignerFormWindowCursorInterface_formWindow(this, handle__formWindow);
+		QDesignerFormWindowInterface* callback_return_value = vtbl->formWindow(this);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__movePosition = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool movePosition(QDesignerFormWindowCursorInterface::MoveOperation op, QDesignerFormWindowCursorInterface::MoveMode mode) override {
-		if (handle__movePosition == 0) {
+		if (vtbl->movePosition == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
@@ -62,125 +56,88 @@ public:
 		int sigval1 = static_cast<int>(op_ret);
 		QDesignerFormWindowCursorInterface::MoveMode mode_ret = mode;
 		int sigval2 = static_cast<int>(mode_ret);
-		bool callback_return_value = miqt_exec_callback_QDesignerFormWindowCursorInterface_movePosition(this, handle__movePosition, sigval1, sigval2);
+		bool callback_return_value = vtbl->movePosition(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__position = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int position() const override {
-		if (handle__position == 0) {
+		if (vtbl->position == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QDesignerFormWindowCursorInterface_position(this, handle__position);
+		int callback_return_value = vtbl->position(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setPosition = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setPosition(int pos, QDesignerFormWindowCursorInterface::MoveMode mode) override {
-		if (handle__setPosition == 0) {
+		if (vtbl->setPosition == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = pos;
 		QDesignerFormWindowCursorInterface::MoveMode mode_ret = mode;
 		int sigval2 = static_cast<int>(mode_ret);
-		miqt_exec_callback_QDesignerFormWindowCursorInterface_setPosition(this, handle__setPosition, sigval1, sigval2);
-
+		vtbl->setPosition(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__current = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QWidget* current() const override {
-		if (handle__current == 0) {
+		if (vtbl->current == 0) {
 			return nullptr; // Pure virtual, there is no base we can call
 		}
 
-		QWidget* callback_return_value = miqt_exec_callback_QDesignerFormWindowCursorInterface_current(this, handle__current);
+		QWidget* callback_return_value = vtbl->current(this);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__widgetCount = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int widgetCount() const override {
-		if (handle__widgetCount == 0) {
+		if (vtbl->widgetCount == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QDesignerFormWindowCursorInterface_widgetCount(this, handle__widgetCount);
+		int callback_return_value = vtbl->widgetCount(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__widget = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QWidget* widget(int index) const override {
-		if (handle__widget == 0) {
+		if (vtbl->widget == 0) {
 			return nullptr; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		QWidget* callback_return_value = miqt_exec_callback_QDesignerFormWindowCursorInterface_widget(this, handle__widget, sigval1);
+		QWidget* callback_return_value = vtbl->widget(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hasSelection = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool hasSelection() const override {
-		if (handle__hasSelection == 0) {
+		if (vtbl->hasSelection == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
-		bool callback_return_value = miqt_exec_callback_QDesignerFormWindowCursorInterface_hasSelection(this, handle__hasSelection);
+		bool callback_return_value = vtbl->hasSelection(this);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__selectedWidgetCount = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int selectedWidgetCount() const override {
-		if (handle__selectedWidgetCount == 0) {
+		if (vtbl->selectedWidgetCount == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QDesignerFormWindowCursorInterface_selectedWidgetCount(this, handle__selectedWidgetCount);
+		int callback_return_value = vtbl->selectedWidgetCount(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__selectedWidget = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QWidget* selectedWidget(int index) const override {
-		if (handle__selectedWidget == 0) {
+		if (vtbl->selectedWidget == 0) {
 			return nullptr; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		QWidget* callback_return_value = miqt_exec_callback_QDesignerFormWindowCursorInterface_selectedWidget(this, handle__selectedWidget, sigval1);
+		QWidget* callback_return_value = vtbl->selectedWidget(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setProperty = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setProperty(const QString& name, const QVariant& value) override {
-		if (handle__setProperty == 0) {
+		if (vtbl->setProperty == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -195,16 +152,11 @@ public:
 		const QVariant& value_ret = value;
 		// Cast returned reference into pointer
 		QVariant* sigval2 = const_cast<QVariant*>(&value_ret);
-		miqt_exec_callback_QDesignerFormWindowCursorInterface_setProperty(this, handle__setProperty, sigval1, sigval2);
-
+		vtbl->setProperty(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setWidgetProperty = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setWidgetProperty(QWidget* widget, const QString& name, const QVariant& value) override {
-		if (handle__setWidgetProperty == 0) {
+		if (vtbl->setWidgetProperty == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -220,16 +172,11 @@ public:
 		const QVariant& value_ret = value;
 		// Cast returned reference into pointer
 		QVariant* sigval3 = const_cast<QVariant*>(&value_ret);
-		miqt_exec_callback_QDesignerFormWindowCursorInterface_setWidgetProperty(this, handle__setWidgetProperty, sigval1, sigval2, sigval3);
-
+		vtbl->setWidgetProperty(this, sigval1, sigval2, sigval3);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__resetWidgetProperty = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void resetWidgetProperty(QWidget* widget, const QString& name) override {
-		if (handle__resetWidgetProperty == 0) {
+		if (vtbl->resetWidgetProperty == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -242,14 +189,14 @@ public:
 		name_ms.data = static_cast<char*>(malloc(name_ms.len));
 		memcpy(name_ms.data, name_b.data(), name_ms.len);
 		struct seaqt_string sigval2 = name_ms;
-		miqt_exec_callback_QDesignerFormWindowCursorInterface_resetWidgetProperty(this, handle__resetWidgetProperty, sigval1, sigval2);
-
+		vtbl->resetWidgetProperty(this, sigval1, sigval2);
 	}
 
 };
 
-QDesignerFormWindowCursorInterface* QDesignerFormWindowCursorInterface_new() {
-	return new (std::nothrow) VirtualQDesignerFormWindowCursorInterface();
+VirtualQDesignerFormWindowCursorInterface* QDesignerFormWindowCursorInterface_new(const QDesignerFormWindowCursorInterface_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerFormWindowCursorInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerFormWindowCursorInterface(vtbl) : nullptr;
 }
 
 QDesignerFormWindowInterface* QDesignerFormWindowCursorInterface_formWindow(const QDesignerFormWindowCursorInterface* self) {
@@ -311,135 +258,8 @@ bool QDesignerFormWindowCursorInterface_isWidgetSelected(const QDesignerFormWind
 	return self->isWidgetSelected(widget);
 }
 
-bool QDesignerFormWindowCursorInterface_override_virtual_formWindow(void* self, intptr_t slot) {
-	VirtualQDesignerFormWindowCursorInterface* self_cast = dynamic_cast<VirtualQDesignerFormWindowCursorInterface*>( (QDesignerFormWindowCursorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__formWindow = slot;
-	return true;
-}
-
-bool QDesignerFormWindowCursorInterface_override_virtual_movePosition(void* self, intptr_t slot) {
-	VirtualQDesignerFormWindowCursorInterface* self_cast = dynamic_cast<VirtualQDesignerFormWindowCursorInterface*>( (QDesignerFormWindowCursorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__movePosition = slot;
-	return true;
-}
-
-bool QDesignerFormWindowCursorInterface_override_virtual_position(void* self, intptr_t slot) {
-	VirtualQDesignerFormWindowCursorInterface* self_cast = dynamic_cast<VirtualQDesignerFormWindowCursorInterface*>( (QDesignerFormWindowCursorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__position = slot;
-	return true;
-}
-
-bool QDesignerFormWindowCursorInterface_override_virtual_setPosition(void* self, intptr_t slot) {
-	VirtualQDesignerFormWindowCursorInterface* self_cast = dynamic_cast<VirtualQDesignerFormWindowCursorInterface*>( (QDesignerFormWindowCursorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setPosition = slot;
-	return true;
-}
-
-bool QDesignerFormWindowCursorInterface_override_virtual_current(void* self, intptr_t slot) {
-	VirtualQDesignerFormWindowCursorInterface* self_cast = dynamic_cast<VirtualQDesignerFormWindowCursorInterface*>( (QDesignerFormWindowCursorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__current = slot;
-	return true;
-}
-
-bool QDesignerFormWindowCursorInterface_override_virtual_widgetCount(void* self, intptr_t slot) {
-	VirtualQDesignerFormWindowCursorInterface* self_cast = dynamic_cast<VirtualQDesignerFormWindowCursorInterface*>( (QDesignerFormWindowCursorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__widgetCount = slot;
-	return true;
-}
-
-bool QDesignerFormWindowCursorInterface_override_virtual_widget(void* self, intptr_t slot) {
-	VirtualQDesignerFormWindowCursorInterface* self_cast = dynamic_cast<VirtualQDesignerFormWindowCursorInterface*>( (QDesignerFormWindowCursorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__widget = slot;
-	return true;
-}
-
-bool QDesignerFormWindowCursorInterface_override_virtual_hasSelection(void* self, intptr_t slot) {
-	VirtualQDesignerFormWindowCursorInterface* self_cast = dynamic_cast<VirtualQDesignerFormWindowCursorInterface*>( (QDesignerFormWindowCursorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__hasSelection = slot;
-	return true;
-}
-
-bool QDesignerFormWindowCursorInterface_override_virtual_selectedWidgetCount(void* self, intptr_t slot) {
-	VirtualQDesignerFormWindowCursorInterface* self_cast = dynamic_cast<VirtualQDesignerFormWindowCursorInterface*>( (QDesignerFormWindowCursorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__selectedWidgetCount = slot;
-	return true;
-}
-
-bool QDesignerFormWindowCursorInterface_override_virtual_selectedWidget(void* self, intptr_t slot) {
-	VirtualQDesignerFormWindowCursorInterface* self_cast = dynamic_cast<VirtualQDesignerFormWindowCursorInterface*>( (QDesignerFormWindowCursorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__selectedWidget = slot;
-	return true;
-}
-
-bool QDesignerFormWindowCursorInterface_override_virtual_setProperty(void* self, intptr_t slot) {
-	VirtualQDesignerFormWindowCursorInterface* self_cast = dynamic_cast<VirtualQDesignerFormWindowCursorInterface*>( (QDesignerFormWindowCursorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setProperty = slot;
-	return true;
-}
-
-bool QDesignerFormWindowCursorInterface_override_virtual_setWidgetProperty(void* self, intptr_t slot) {
-	VirtualQDesignerFormWindowCursorInterface* self_cast = dynamic_cast<VirtualQDesignerFormWindowCursorInterface*>( (QDesignerFormWindowCursorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setWidgetProperty = slot;
-	return true;
-}
-
-bool QDesignerFormWindowCursorInterface_override_virtual_resetWidgetProperty(void* self, intptr_t slot) {
-	VirtualQDesignerFormWindowCursorInterface* self_cast = dynamic_cast<VirtualQDesignerFormWindowCursorInterface*>( (QDesignerFormWindowCursorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__resetWidgetProperty = slot;
-	return true;
-}
+void* QDesignerFormWindowCursorInterface_vdata(VirtualQDesignerFormWindowCursorInterface* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQDesignerFormWindowCursorInterface>()); }
+VirtualQDesignerFormWindowCursorInterface* vdata_QDesignerFormWindowCursorInterface(void* vdata) { return reinterpret_cast<VirtualQDesignerFormWindowCursorInterface*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQDesignerFormWindowCursorInterface>()); }
 
 void QDesignerFormWindowCursorInterface_delete(QDesignerFormWindowCursorInterface* self) {
 	delete self;

@@ -23,6 +23,7 @@ typedef struct QSystemSemaphore QSystemSemaphore;
 QSystemSemaphore* QSystemSemaphore_new(struct seaqt_string key);
 QSystemSemaphore* QSystemSemaphore_new2(struct seaqt_string key, int initialValue);
 QSystemSemaphore* QSystemSemaphore_new3(struct seaqt_string key, int initialValue, int mode);
+
 struct seaqt_string QSystemSemaphore_tr(const char* sourceText);
 void QSystemSemaphore_setKey(QSystemSemaphore* self, struct seaqt_string key);
 struct seaqt_string QSystemSemaphore_key(const QSystemSemaphore* self);

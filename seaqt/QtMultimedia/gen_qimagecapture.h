@@ -42,8 +42,27 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QVideoFrame QVideoFrame;
 #endif
 
-QImageCapture* QImageCapture_new();
-QImageCapture* QImageCapture_new2(QObject* parent);
+typedef struct VirtualQImageCapture VirtualQImageCapture;
+typedef struct QImageCapture_VTable{
+	void (*destructor)(VirtualQImageCapture* self);
+	QMetaObject* (*metaObject)(const VirtualQImageCapture* self);
+	void* (*metacast)(VirtualQImageCapture* self, const char* param1);
+	int (*metacall)(VirtualQImageCapture* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQImageCapture* self, QEvent* event);
+	bool (*eventFilter)(VirtualQImageCapture* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQImageCapture* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQImageCapture* self, QChildEvent* event);
+	void (*customEvent)(VirtualQImageCapture* self, QEvent* event);
+	void (*connectNotify)(VirtualQImageCapture* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQImageCapture* self, QMetaMethod* signal);
+}QImageCapture_VTable;
+
+void* QImageCapture_vdata(VirtualQImageCapture* self);
+VirtualQImageCapture* vdata_QImageCapture(void* vdata);
+
+VirtualQImageCapture* QImageCapture_new(const QImageCapture_VTable* vtbl, size_t vdata);
+VirtualQImageCapture* QImageCapture_new2(const QImageCapture_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QImageCapture_virtbase(QImageCapture* src, QObject** outptr_QObject);
 QMetaObject* QImageCapture_metaObject(const QImageCapture* self);
 void* QImageCapture_metacast(QImageCapture* self, const char* param1);
@@ -97,31 +116,21 @@ struct seaqt_string QImageCapture_tr2(const char* s, const char* c);
 struct seaqt_string QImageCapture_tr3(const char* s, const char* c, int n);
 int QImageCapture_captureToFileWithLocation(QImageCapture* self, struct seaqt_string location);
 
-bool QImageCapture_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QImageCapture_virtualbase_metaObject(const void* self);
-bool QImageCapture_override_virtual_metacast(void* self, intptr_t slot);
-void* QImageCapture_virtualbase_metacast(void* self, const char* param1);
-bool QImageCapture_override_virtual_metacall(void* self, intptr_t slot);
-int QImageCapture_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QImageCapture_override_virtual_event(void* self, intptr_t slot);
-bool QImageCapture_virtualbase_event(void* self, QEvent* event);
-bool QImageCapture_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QImageCapture_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QImageCapture_override_virtual_timerEvent(void* self, intptr_t slot);
-void QImageCapture_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QImageCapture_override_virtual_childEvent(void* self, intptr_t slot);
-void QImageCapture_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QImageCapture_override_virtual_customEvent(void* self, intptr_t slot);
-void QImageCapture_virtualbase_customEvent(void* self, QEvent* event);
-bool QImageCapture_override_virtual_connectNotify(void* self, intptr_t slot);
-void QImageCapture_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QImageCapture_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QImageCapture_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QImageCapture_virtualbase_metaObject(const VirtualQImageCapture* self);
+void* QImageCapture_virtualbase_metacast(VirtualQImageCapture* self, const char* param1);
+int QImageCapture_virtualbase_metacall(VirtualQImageCapture* self, int param1, int param2, void** param3);
+bool QImageCapture_virtualbase_event(VirtualQImageCapture* self, QEvent* event);
+bool QImageCapture_virtualbase_eventFilter(VirtualQImageCapture* self, QObject* watched, QEvent* event);
+void QImageCapture_virtualbase_timerEvent(VirtualQImageCapture* self, QTimerEvent* event);
+void QImageCapture_virtualbase_childEvent(VirtualQImageCapture* self, QChildEvent* event);
+void QImageCapture_virtualbase_customEvent(VirtualQImageCapture* self, QEvent* event);
+void QImageCapture_virtualbase_connectNotify(VirtualQImageCapture* self, QMetaMethod* signal);
+void QImageCapture_virtualbase_disconnectNotify(VirtualQImageCapture* self, QMetaMethod* signal);
 
-QObject* QImageCapture_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QImageCapture_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QImageCapture_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QImageCapture_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QImageCapture_protectedbase_sender(const VirtualQImageCapture* self);
+int QImageCapture_protectedbase_senderSignalIndex(const VirtualQImageCapture* self);
+int QImageCapture_protectedbase_receivers(const VirtualQImageCapture* self, const char* signal);
+bool QImageCapture_protectedbase_isSignalConnected(const VirtualQImageCapture* self, QMetaMethod* signal);
 
 const QMetaObject* QImageCapture_staticMetaObject();
 void QImageCapture_delete(QImageCapture* self);

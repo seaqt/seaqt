@@ -32,6 +32,7 @@ QQuaternion* QQuaternion_new3(float scalar, float xpos, float ypos, float zpos);
 QQuaternion* QQuaternion_new4(float scalar, QVector3D* vector);
 QQuaternion* QQuaternion_new5(QVector4D* vector);
 QQuaternion* QQuaternion_new6(QQuaternion* param1);
+
 bool QQuaternion_isNull(const QQuaternion* self);
 bool QQuaternion_isIdentity(const QQuaternion* self);
 QVector3D* QQuaternion_vector(const QQuaternion* self);

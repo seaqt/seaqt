@@ -48,9 +48,6 @@ bool QAbstractState_event(QAbstractState* self, QEvent* e);
 struct seaqt_string QAbstractState_tr2(const char* s, const char* c);
 struct seaqt_string QAbstractState_tr3(const char* s, const char* c, int n);
 
-void QAbstractState_connect_entered(QAbstractState* self, intptr_t slot);
-void QAbstractState_connect_exited(QAbstractState* self, intptr_t slot);
-
 const QMetaObject* QAbstractState_staticMetaObject();
 void QAbstractState_delete(QAbstractState* self);
 

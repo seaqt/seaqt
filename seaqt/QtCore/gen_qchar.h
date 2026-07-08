@@ -24,6 +24,7 @@ typedef struct QLatin1Char QLatin1Char;
 
 QLatin1Char* QLatin1Char_new(char c);
 QLatin1Char* QLatin1Char_new2(QLatin1Char* param1);
+
 char QLatin1Char_toLatin1(const QLatin1Char* self);
 
 void QLatin1Char_delete(QLatin1Char* self);
@@ -39,6 +40,7 @@ QChar* QChar_new8(QLatin1Char* ch);
 QChar* QChar_new9(char c);
 QChar* QChar_new10(unsigned char c);
 QChar* QChar_new11(QChar* param1);
+
 int QChar_category(const QChar* self);
 int QChar_direction(const QChar* self);
 int QChar_joiningType(const QChar* self);

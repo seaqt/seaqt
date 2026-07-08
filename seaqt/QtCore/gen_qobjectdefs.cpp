@@ -18,6 +18,17 @@
 #include <qobjectdefs.h>
 #include "gen_qobjectdefs.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -523,11 +534,11 @@ void QMetaObject_delete(QMetaObject* self) {
 }
 
 QMetaObject__Connection* QMetaObject__Connection_new() {
-	return new (std::nothrow) QMetaObject::Connection();
+	return new (std::nothrow) QMetaObject__Connection();
 }
 
 QMetaObject__Connection* QMetaObject__Connection_new2(QMetaObject__Connection* other) {
-	return new (std::nothrow) QMetaObject::Connection(*other);
+	return new (std::nothrow) QMetaObject__Connection(*other);
 }
 
 void QMetaObject__Connection_operatorAssign(QMetaObject__Connection* self, QMetaObject__Connection* other) {
@@ -543,15 +554,15 @@ void QMetaObject__Connection_delete(QMetaObject__Connection* self) {
 }
 
 QMetaObject__SuperData* QMetaObject__SuperData_new() {
-	return new (std::nothrow) QMetaObject::SuperData();
+	return new (std::nothrow) QMetaObject__SuperData();
 }
 
 QMetaObject__SuperData* QMetaObject__SuperData_new2(QMetaObject* mo) {
-	return new (std::nothrow) QMetaObject::SuperData(mo);
+	return new (std::nothrow) QMetaObject__SuperData(mo);
 }
 
 QMetaObject__SuperData* QMetaObject__SuperData_new3(QMetaObject__SuperData* param1) {
-	return new (std::nothrow) QMetaObject::SuperData(*param1);
+	return new (std::nothrow) QMetaObject__SuperData(*param1);
 }
 
 QMetaObject* QMetaObject__SuperData_direct(const QMetaObject__SuperData* self) {
@@ -579,11 +590,11 @@ void QMetaObject__SuperData_delete(QMetaObject__SuperData* self) {
 }
 
 QMetaObject__Data* QMetaObject__Data_new() {
-	return new (std::nothrow) QMetaObject::Data();
+	return new (std::nothrow) QMetaObject__Data();
 }
 
 QMetaObject__Data* QMetaObject__Data_new2(QMetaObject__Data* param1) {
-	return new (std::nothrow) QMetaObject::Data(*param1);
+	return new (std::nothrow) QMetaObject__Data(*param1);
 }
 
 QMetaObject__SuperData* QMetaObject__Data_superdata(const QMetaObject__Data* self) {

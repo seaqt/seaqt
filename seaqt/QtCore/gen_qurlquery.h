@@ -28,6 +28,7 @@ QUrlQuery* QUrlQuery_new();
 QUrlQuery* QUrlQuery_new2(QUrl* url);
 QUrlQuery* QUrlQuery_new3(struct seaqt_string queryString);
 QUrlQuery* QUrlQuery_new4(QUrlQuery* other);
+
 void QUrlQuery_operatorAssign(QUrlQuery* self, QUrlQuery* other);
 bool QUrlQuery_operatorEqual(const QUrlQuery* self, QUrlQuery* other);
 bool QUrlQuery_operatorNotEqual(const QUrlQuery* self, QUrlQuery* other);
