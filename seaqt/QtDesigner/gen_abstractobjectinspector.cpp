@@ -3,7 +3,6 @@
 #include <QChildEvent>
 #include <QCloseEvent>
 #include <QContextMenuEvent>
-#include <QDesignerFormEditorInterface>
 #include <QDesignerFormWindowInterface>
 #include <QDesignerObjectInspectorInterface>
 #include <QDragEnterEvent>
@@ -44,7 +43,6 @@
 extern "C" {
 #endif
 
-QDesignerFormEditorInterface* miqt_exec_callback_QDesignerObjectInspectorInterface_core(const QDesignerObjectInspectorInterface*, intptr_t);
 void miqt_exec_callback_QDesignerObjectInspectorInterface_setFormWindow(QDesignerObjectInspectorInterface*, intptr_t, QDesignerFormWindowInterface*);
 int miqt_exec_callback_QDesignerObjectInspectorInterface_devType(const QDesignerObjectInspectorInterface*, intptr_t);
 void miqt_exec_callback_QDesignerObjectInspectorInterface_setVisible(QDesignerObjectInspectorInterface*, intptr_t, bool);
@@ -104,21 +102,6 @@ public:
 	VirtualQDesignerObjectInspectorInterface(QWidget* parent, Qt::WindowFlags flags): QDesignerObjectInspectorInterface(parent, flags) {}
 
 	virtual ~VirtualQDesignerObjectInspectorInterface() override = default;
-
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__core = 0;
-
-	// Subclass to allow providing a Go implementation
-	virtual QDesignerFormEditorInterface* core() const override {
-		if (handle__core == 0) {
-			return QDesignerObjectInspectorInterface::core();
-		}
-
-		QDesignerFormEditorInterface* callback_return_value = miqt_exec_callback_QDesignerObjectInspectorInterface_core(this, handle__core);
-		return callback_return_value;
-	}
-
-	friend QDesignerFormEditorInterface* QDesignerObjectInspectorInterface_virtualbase_core(const void* self);
 
 	// cgo.Handle value for overwritten implementation
 	intptr_t handle__setFormWindow = 0;
@@ -971,10 +954,6 @@ struct seaqt_string QDesignerObjectInspectorInterface_tr(const char* s) {
 	return _ms;
 }
 
-QDesignerFormEditorInterface* QDesignerObjectInspectorInterface_core(const QDesignerObjectInspectorInterface* self) {
-	return self->core();
-}
-
 void QDesignerObjectInspectorInterface_setFormWindow(QDesignerObjectInspectorInterface* self, QDesignerFormWindowInterface* formWindow) {
 	self->setFormWindow(formWindow);
 }
@@ -999,20 +978,6 @@ struct seaqt_string QDesignerObjectInspectorInterface_tr3(const char* s, const c
 	_ms.data = static_cast<char*>(malloc(_ms.len));
 	memcpy(_ms.data, _b.data(), _ms.len);
 	return _ms;
-}
-
-bool QDesignerObjectInspectorInterface_override_virtual_core(void* self, intptr_t slot) {
-	VirtualQDesignerObjectInspectorInterface* self_cast = dynamic_cast<VirtualQDesignerObjectInspectorInterface*>( (QDesignerObjectInspectorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__core = slot;
-	return true;
-}
-
-QDesignerFormEditorInterface* QDesignerObjectInspectorInterface_virtualbase_core(const void* self) {
-	return static_cast<const VirtualQDesignerObjectInspectorInterface*>(self)->QDesignerObjectInspectorInterface::core();
 }
 
 bool QDesignerObjectInspectorInterface_override_virtual_setFormWindow(void* self, intptr_t slot) {

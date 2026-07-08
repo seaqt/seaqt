@@ -1,5 +1,4 @@
 #include <QChildEvent>
-#include <QDesignerFormEditorInterface>
 #include <QDesignerWidgetDataBaseInterface>
 #include <QDesignerWidgetDataBaseItemInterface>
 #include <QEvent>
@@ -54,7 +53,6 @@ void miqt_exec_callback_QDesignerWidgetDataBaseInterface_insert(QDesignerWidgetD
 void miqt_exec_callback_QDesignerWidgetDataBaseInterface_append(QDesignerWidgetDataBaseInterface*, intptr_t, QDesignerWidgetDataBaseItemInterface*);
 int miqt_exec_callback_QDesignerWidgetDataBaseInterface_indexOfObject(const QDesignerWidgetDataBaseInterface*, intptr_t, QObject*, bool);
 int miqt_exec_callback_QDesignerWidgetDataBaseInterface_indexOfClassName(const QDesignerWidgetDataBaseInterface*, intptr_t, struct seaqt_string, bool);
-QDesignerFormEditorInterface* miqt_exec_callback_QDesignerWidgetDataBaseInterface_core(const QDesignerWidgetDataBaseInterface*, intptr_t);
 bool miqt_exec_callback_QDesignerWidgetDataBaseInterface_event(QDesignerWidgetDataBaseInterface*, intptr_t, QEvent*);
 bool miqt_exec_callback_QDesignerWidgetDataBaseInterface_eventFilter(QDesignerWidgetDataBaseInterface*, intptr_t, QObject*, QEvent*);
 void miqt_exec_callback_QDesignerWidgetDataBaseInterface_timerEvent(QDesignerWidgetDataBaseInterface*, intptr_t, QTimerEvent*);
@@ -1074,21 +1072,6 @@ public:
 	friend int QDesignerWidgetDataBaseInterface_virtualbase_indexOfClassName(const void* self, struct seaqt_string className, bool resolveName);
 
 	// cgo.Handle value for overwritten implementation
-	intptr_t handle__core = 0;
-
-	// Subclass to allow providing a Go implementation
-	virtual QDesignerFormEditorInterface* core() const override {
-		if (handle__core == 0) {
-			return QDesignerWidgetDataBaseInterface::core();
-		}
-
-		QDesignerFormEditorInterface* callback_return_value = miqt_exec_callback_QDesignerWidgetDataBaseInterface_core(this, handle__core);
-		return callback_return_value;
-	}
-
-	friend QDesignerFormEditorInterface* QDesignerWidgetDataBaseInterface_virtualbase_core(const void* self);
-
-	// cgo.Handle value for overwritten implementation
 	intptr_t handle__event = 0;
 
 	// Subclass to allow providing a Go implementation
@@ -1277,10 +1260,6 @@ int QDesignerWidgetDataBaseInterface_indexOfClassName(const QDesignerWidgetDataB
 	return self->indexOfClassName(className_QString, resolveName);
 }
 
-QDesignerFormEditorInterface* QDesignerWidgetDataBaseInterface_core(const QDesignerWidgetDataBaseInterface* self) {
-	return self->core();
-}
-
 bool QDesignerWidgetDataBaseInterface_isContainer(const QDesignerWidgetDataBaseInterface* self, QObject* object) {
 	return self->isContainer(object);
 }
@@ -1426,20 +1405,6 @@ bool QDesignerWidgetDataBaseInterface_override_virtual_indexOfClassName(void* se
 int QDesignerWidgetDataBaseInterface_virtualbase_indexOfClassName(const void* self, struct seaqt_string className, bool resolveName) {
 	QString className_QString = QString::fromUtf8(className.data, className.len);
 	return static_cast<const VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::indexOfClassName(className_QString, resolveName);
-}
-
-bool QDesignerWidgetDataBaseInterface_override_virtual_core(void* self, intptr_t slot) {
-	VirtualQDesignerWidgetDataBaseInterface* self_cast = dynamic_cast<VirtualQDesignerWidgetDataBaseInterface*>( (QDesignerWidgetDataBaseInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__core = slot;
-	return true;
-}
-
-QDesignerFormEditorInterface* QDesignerWidgetDataBaseInterface_virtualbase_core(const void* self) {
-	return static_cast<const VirtualQDesignerWidgetDataBaseInterface*>(self)->QDesignerWidgetDataBaseInterface::core();
 }
 
 bool QDesignerWidgetDataBaseInterface_override_virtual_event(void* self, intptr_t slot) {

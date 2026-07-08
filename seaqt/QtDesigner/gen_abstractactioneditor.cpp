@@ -5,7 +5,6 @@
 #include <QCloseEvent>
 #include <QContextMenuEvent>
 #include <QDesignerActionEditorInterface>
-#include <QDesignerFormEditorInterface>
 #include <QDesignerFormWindowInterface>
 #include <QDragEnterEvent>
 #include <QDragLeaveEvent>
@@ -45,7 +44,6 @@
 extern "C" {
 #endif
 
-QDesignerFormEditorInterface* miqt_exec_callback_QDesignerActionEditorInterface_core(const QDesignerActionEditorInterface*, intptr_t);
 void miqt_exec_callback_QDesignerActionEditorInterface_manageAction(QDesignerActionEditorInterface*, intptr_t, QAction*);
 void miqt_exec_callback_QDesignerActionEditorInterface_unmanageAction(QDesignerActionEditorInterface*, intptr_t, QAction*);
 void miqt_exec_callback_QDesignerActionEditorInterface_setFormWindow(QDesignerActionEditorInterface*, intptr_t, QDesignerFormWindowInterface*);
@@ -107,21 +105,6 @@ public:
 	VirtualQDesignerActionEditorInterface(QWidget* parent, Qt::WindowFlags flags): QDesignerActionEditorInterface(parent, flags) {}
 
 	virtual ~VirtualQDesignerActionEditorInterface() override = default;
-
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__core = 0;
-
-	// Subclass to allow providing a Go implementation
-	virtual QDesignerFormEditorInterface* core() const override {
-		if (handle__core == 0) {
-			return QDesignerActionEditorInterface::core();
-		}
-
-		QDesignerFormEditorInterface* callback_return_value = miqt_exec_callback_QDesignerActionEditorInterface_core(this, handle__core);
-		return callback_return_value;
-	}
-
-	friend QDesignerFormEditorInterface* QDesignerActionEditorInterface_virtualbase_core(const void* self);
 
 	// cgo.Handle value for overwritten implementation
 	intptr_t handle__manageAction = 0;
@@ -1002,10 +985,6 @@ struct seaqt_string QDesignerActionEditorInterface_tr(const char* s) {
 	return _ms;
 }
 
-QDesignerFormEditorInterface* QDesignerActionEditorInterface_core(const QDesignerActionEditorInterface* self) {
-	return self->core();
-}
-
 void QDesignerActionEditorInterface_manageAction(QDesignerActionEditorInterface* self, QAction* action) {
 	self->manageAction(action);
 }
@@ -1038,20 +1017,6 @@ struct seaqt_string QDesignerActionEditorInterface_tr3(const char* s, const char
 	_ms.data = static_cast<char*>(malloc(_ms.len));
 	memcpy(_ms.data, _b.data(), _ms.len);
 	return _ms;
-}
-
-bool QDesignerActionEditorInterface_override_virtual_core(void* self, intptr_t slot) {
-	VirtualQDesignerActionEditorInterface* self_cast = dynamic_cast<VirtualQDesignerActionEditorInterface*>( (QDesignerActionEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__core = slot;
-	return true;
-}
-
-QDesignerFormEditorInterface* QDesignerActionEditorInterface_virtualbase_core(const void* self) {
-	return static_cast<const VirtualQDesignerActionEditorInterface*>(self)->QDesignerActionEditorInterface::core();
 }
 
 bool QDesignerActionEditorInterface_override_virtual_manageAction(void* self, intptr_t slot) {

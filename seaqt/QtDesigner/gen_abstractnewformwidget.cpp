@@ -1,4 +1,3 @@
-#include <QDesignerFormEditorInterface>
 #include <QDesignerNewFormWidgetInterface>
 #include <QMetaMethod>
 #include <QMetaObject>
@@ -48,10 +47,6 @@ bool QDesignerNewFormWidgetInterface_hasCurrentTemplate(const QDesignerNewFormWi
 	return self->hasCurrentTemplate();
 }
 
-QDesignerNewFormWidgetInterface* QDesignerNewFormWidgetInterface_createNewFormWidget(QDesignerFormEditorInterface* core) {
-	return QDesignerNewFormWidgetInterface::createNewFormWidget(core);
-}
-
 void QDesignerNewFormWidgetInterface_templateActivated(QDesignerNewFormWidgetInterface* self) {
 	self->templateActivated();
 }
@@ -93,10 +88,6 @@ struct seaqt_string QDesignerNewFormWidgetInterface_tr3(const char* s, const cha
 	_ms.data = static_cast<char*>(malloc(_ms.len));
 	memcpy(_ms.data, _b.data(), _ms.len);
 	return _ms;
-}
-
-QDesignerNewFormWidgetInterface* QDesignerNewFormWidgetInterface_createNewFormWidget2(QDesignerFormEditorInterface* core, QWidget* parent) {
-	return QDesignerNewFormWidgetInterface::createNewFormWidget(core, parent);
 }
 
 void QDesignerNewFormWidgetInterface_delete(QDesignerNewFormWidgetInterface* self) {

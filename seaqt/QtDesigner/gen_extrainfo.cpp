@@ -1,5 +1,4 @@
 #include <QDesignerExtraInfoExtension>
-#include <QDesignerFormEditorInterface>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -14,10 +13,6 @@ extern "C" {
 #ifdef __cplusplus
 } /* extern C */
 #endif
-
-QDesignerFormEditorInterface* QDesignerExtraInfoExtension_core(const QDesignerExtraInfoExtension* self) {
-	return self->core();
-}
 
 QWidget* QDesignerExtraInfoExtension_widget(const QDesignerExtraInfoExtension* self) {
 	return self->widget();

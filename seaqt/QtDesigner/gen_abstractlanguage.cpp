@@ -1,4 +1,3 @@
-#include <QDesignerFormEditorInterface>
 #include <QDesignerFormWindowInterface>
 #include <QDesignerLanguageExtension>
 #include <QDesignerResourceBrowserInterface>
@@ -36,10 +35,6 @@ QDialog* QDesignerLanguageExtension_createFormWindowSettingsDialog(QDesignerLang
 
 QDesignerResourceBrowserInterface* QDesignerLanguageExtension_createResourceBrowser(QDesignerLanguageExtension* self, QWidget* parentWidget) {
 	return self->createResourceBrowser(parentWidget);
-}
-
-QDialog* QDesignerLanguageExtension_createPromotionDialog(QDesignerLanguageExtension* self, QDesignerFormEditorInterface* formEditor, QWidget* parentWidget) {
-	return self->createPromotionDialog(formEditor, parentWidget);
 }
 
 bool QDesignerLanguageExtension_isLanguageResource(const QDesignerLanguageExtension* self, struct seaqt_string path) {

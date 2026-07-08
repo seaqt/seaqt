@@ -3,7 +3,6 @@
 #include <QChildEvent>
 #include <QCloseEvent>
 #include <QContextMenuEvent>
-#include <QDesignerFormEditorInterface>
 #include <QDesignerPropertyEditorInterface>
 #include <QDragEnterEvent>
 #include <QDragLeaveEvent>
@@ -44,7 +43,6 @@ extern "C" {
 #endif
 
 void miqt_exec_callback_QDesignerPropertyEditorInterface_propertyChanged(intptr_t, struct seaqt_string, QVariant*);
-QDesignerFormEditorInterface* miqt_exec_callback_QDesignerPropertyEditorInterface_core(const QDesignerPropertyEditorInterface*, intptr_t);
 bool miqt_exec_callback_QDesignerPropertyEditorInterface_isReadOnly(const QDesignerPropertyEditorInterface*, intptr_t);
 QObject* miqt_exec_callback_QDesignerPropertyEditorInterface_object(const QDesignerPropertyEditorInterface*, intptr_t);
 struct seaqt_string miqt_exec_callback_QDesignerPropertyEditorInterface_currentPropertyName(const QDesignerPropertyEditorInterface*, intptr_t);
@@ -109,21 +107,6 @@ public:
 	VirtualQDesignerPropertyEditorInterface(QWidget* parent, Qt::WindowFlags flags): QDesignerPropertyEditorInterface(parent, flags) {}
 
 	virtual ~VirtualQDesignerPropertyEditorInterface() override = default;
-
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__core = 0;
-
-	// Subclass to allow providing a Go implementation
-	virtual QDesignerFormEditorInterface* core() const override {
-		if (handle__core == 0) {
-			return QDesignerPropertyEditorInterface::core();
-		}
-
-		QDesignerFormEditorInterface* callback_return_value = miqt_exec_callback_QDesignerPropertyEditorInterface_core(this, handle__core);
-		return callback_return_value;
-	}
-
-	friend QDesignerFormEditorInterface* QDesignerPropertyEditorInterface_virtualbase_core(const void* self);
 
 	// cgo.Handle value for overwritten implementation
 	intptr_t handle__isReadOnly = 0;
@@ -1055,10 +1038,6 @@ struct seaqt_string QDesignerPropertyEditorInterface_tr(const char* s) {
 	return _ms;
 }
 
-QDesignerFormEditorInterface* QDesignerPropertyEditorInterface_core(const QDesignerPropertyEditorInterface* self) {
-	return self->core();
-}
-
 bool QDesignerPropertyEditorInterface_isReadOnly(const QDesignerPropertyEditorInterface* self) {
 	return self->isReadOnly();
 }
@@ -1133,20 +1112,6 @@ struct seaqt_string QDesignerPropertyEditorInterface_tr3(const char* s, const ch
 	_ms.data = static_cast<char*>(malloc(_ms.len));
 	memcpy(_ms.data, _b.data(), _ms.len);
 	return _ms;
-}
-
-bool QDesignerPropertyEditorInterface_override_virtual_core(void* self, intptr_t slot) {
-	VirtualQDesignerPropertyEditorInterface* self_cast = dynamic_cast<VirtualQDesignerPropertyEditorInterface*>( (QDesignerPropertyEditorInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__core = slot;
-	return true;
-}
-
-QDesignerFormEditorInterface* QDesignerPropertyEditorInterface_virtualbase_core(const void* self) {
-	return static_cast<const VirtualQDesignerPropertyEditorInterface*>(self)->QDesignerPropertyEditorInterface::core();
 }
 
 bool QDesignerPropertyEditorInterface_override_virtual_isReadOnly(void* self, intptr_t slot) {
