@@ -61,6 +61,7 @@ public:
 		int sigval1 = index;
 		struct seaqt_string callback_return_value = vtbl->propertyName(this, sigval1);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -72,6 +73,7 @@ public:
 		int sigval1 = index;
 		struct seaqt_string callback_return_value = vtbl->propertyGroup(this, sigval1);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -159,7 +161,9 @@ public:
 
 		int sigval1 = index;
 		QVariant* callback_return_value = vtbl->property(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	virtual void setProperty(int index, const QVariant& value) override {

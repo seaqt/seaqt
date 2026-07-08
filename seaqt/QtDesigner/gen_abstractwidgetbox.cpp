@@ -119,7 +119,9 @@ public:
 
 		int sigval1 = cat_idx;
 		QDesignerWidgetBoxInterface__Category* callback_return_value = vtbl->category(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	virtual void addCategory(const QDesignerWidgetBoxInterface::Category& cat) override {
@@ -160,7 +162,9 @@ public:
 		int sigval1 = cat_idx;
 		int sigval2 = wgt_idx;
 		QDesignerWidgetBoxInterface__Widget* callback_return_value = vtbl->widget(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	virtual void addWidget(int cat_idx, const QDesignerWidgetBoxInterface::Widget& wgt) override {
@@ -229,6 +233,7 @@ public:
 
 		struct seaqt_string callback_return_value = vtbl->fileName(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -279,7 +284,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->sizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QDesignerWidgetBoxInterface_virtualbase_sizeHint(const VirtualQDesignerWidgetBoxInterface* self);
@@ -290,7 +297,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->minimumSizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QDesignerWidgetBoxInterface_virtualbase_minimumSizeHint(const VirtualQDesignerWidgetBoxInterface* self);
@@ -729,7 +738,9 @@ public:
 		Qt::InputMethodQuery param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
 		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QDesignerWidgetBoxInterface_virtualbase_inputMethodQuery(const VirtualQDesignerWidgetBoxInterface* self, int param1);

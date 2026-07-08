@@ -197,7 +197,9 @@ public:
 		QSize* sigval3 = const_cast<QSize*>(&size_ret);
 		QWidget* sigval4 = (QWidget*) widget;
 		QSize* callback_return_value = vtbl->sizeFromContents(this, sigval1, sigval2, sigval3, sigval4);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QProxyStyle_virtualbase_sizeFromContents(const VirtualQProxyStyle* self, int type, QStyleOption* option, QSize* size, QWidget* widget);
@@ -212,7 +214,9 @@ public:
 		QStyleOption* sigval2 = (QStyleOption*) option;
 		QWidget* sigval3 = (QWidget*) widget;
 		QRect* callback_return_value = vtbl->subElementRect(this, sigval1, sigval2, sigval3);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRect* QProxyStyle_virtualbase_subElementRect(const VirtualQProxyStyle* self, int element, QStyleOption* option, QWidget* widget);
@@ -229,7 +233,9 @@ public:
 		int sigval3 = static_cast<int>(sc_ret);
 		QWidget* sigval4 = (QWidget*) widget;
 		QRect* callback_return_value = vtbl->subControlRect(this, sigval1, sigval2, sigval3, sigval4);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRect* QProxyStyle_virtualbase_subControlRect(const VirtualQProxyStyle* self, int cc, QStyleOptionComplex* opt, int sc, QWidget* widget);
@@ -256,7 +262,9 @@ public:
 		memcpy(text_ms.data, text_b.data(), text_ms.len);
 		struct seaqt_string sigval5 = text_ms;
 		QRect* callback_return_value = vtbl->itemTextRect(this, sigval1, sigval2, sigval3, sigval4, sigval5);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRect* QProxyStyle_virtualbase_itemTextRect(const VirtualQProxyStyle* self, QFontMetrics* fm, QRect* r, int flags, bool enabled, struct seaqt_string text);
@@ -274,7 +282,9 @@ public:
 		// Cast returned reference into pointer
 		QPixmap* sigval3 = const_cast<QPixmap*>(&pixmap_ret);
 		QRect* callback_return_value = vtbl->itemPixmapRect(this, sigval1, sigval2, sigval3);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRect* QProxyStyle_virtualbase_itemPixmapRect(const VirtualQProxyStyle* self, QRect* r, int flags, QPixmap* pixmap);
@@ -357,7 +367,9 @@ public:
 		QStyleOption* sigval2 = (QStyleOption*) option;
 		QWidget* sigval3 = (QWidget*) widget;
 		QIcon* callback_return_value = vtbl->standardIcon(this, sigval1, sigval2, sigval3);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QIcon* QProxyStyle_virtualbase_standardIcon(const VirtualQProxyStyle* self, int standardIcon, QStyleOption* option, QWidget* widget);
@@ -372,7 +384,9 @@ public:
 		QStyleOption* sigval2 = (QStyleOption*) opt;
 		QWidget* sigval3 = (QWidget*) widget;
 		QPixmap* callback_return_value = vtbl->standardPixmap(this, sigval1, sigval2, sigval3);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QPixmap* QProxyStyle_virtualbase_standardPixmap(const VirtualQProxyStyle* self, int standardPixmap, QStyleOption* opt, QWidget* widget);
@@ -389,7 +403,9 @@ public:
 		QPixmap* sigval2 = const_cast<QPixmap*>(&pixmap_ret);
 		QStyleOption* sigval3 = (QStyleOption*) opt;
 		QPixmap* callback_return_value = vtbl->generatedIconPixmap(this, sigval1, sigval2, sigval3);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QPixmap* QProxyStyle_virtualbase_generatedIconPixmap(const VirtualQProxyStyle* self, int iconMode, QPixmap* pixmap, QStyleOption* opt);
@@ -400,7 +416,9 @@ public:
 		}
 
 		QPalette* callback_return_value = vtbl->standardPalette(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QPalette* QProxyStyle_virtualbase_standardPalette(const VirtualQProxyStyle* self);

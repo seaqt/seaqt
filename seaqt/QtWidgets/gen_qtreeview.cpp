@@ -179,7 +179,9 @@ public:
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
 		QRect* callback_return_value = vtbl->visualRect(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRect* QTreeView_virtualbase_visualRect(const VirtualQTreeView* self, QModelIndex* index);
@@ -209,7 +211,9 @@ public:
 		// Cast returned reference into pointer
 		QPoint* sigval1 = const_cast<QPoint*>(&p_ret);
 		QModelIndex* callback_return_value = vtbl->indexAt(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QModelIndex* QTreeView_virtualbase_indexAt(const VirtualQTreeView* self, QPoint* p);
@@ -341,7 +345,9 @@ public:
 		Qt::KeyboardModifiers modifiers_ret = modifiers;
 		int sigval2 = static_cast<int>(modifiers_ret);
 		QModelIndex* callback_return_value = vtbl->moveCursor(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QModelIndex* QTreeView_virtualbase_moveCursor(VirtualQTreeView* self, int cursorAction, int modifiers);
@@ -393,7 +399,9 @@ public:
 		// Cast returned reference into pointer
 		QItemSelection* sigval1 = const_cast<QItemSelection*>(&selection_ret);
 		QRegion* callback_return_value = vtbl->visualRegionForSelection(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRegion* QTreeView_virtualbase_visualRegionForSelection(const VirtualQTreeView* self, QItemSelection* selection);
@@ -410,6 +418,7 @@ public:
 		for(size_t i = 0; i < callback_return_value.len; ++i) {
 			callback_return_value_QList.push_back(*(callback_return_value_arr[i]));
 		}
+		free(callback_return_value.data);
 		return callback_return_value_QList;
 	}
 
@@ -588,7 +597,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->viewportSizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QTreeView_virtualbase_viewportSizeHint(const VirtualQTreeView* self);
@@ -699,7 +710,9 @@ public:
 		Qt::InputMethodQuery query_ret = query;
 		int sigval1 = static_cast<int>(query_ret);
 		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QTreeView_virtualbase_inputMethodQuery(const VirtualQTreeView* self, int query);
@@ -972,7 +985,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->minimumSizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QTreeView_virtualbase_minimumSizeHint(const VirtualQTreeView* self);
@@ -983,7 +998,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->sizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QTreeView_virtualbase_sizeHint(const VirtualQTreeView* self);

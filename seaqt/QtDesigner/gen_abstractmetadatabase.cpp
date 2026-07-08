@@ -39,6 +39,7 @@ public:
 
 		struct seaqt_string callback_return_value = vtbl->name(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -70,6 +71,7 @@ public:
 		for(size_t i = 0; i < callback_return_value.len; ++i) {
 			callback_return_value_QList.push_back(callback_return_value_arr[i]);
 		}
+		free(callback_return_value.data);
 		return callback_return_value_QList;
 	}
 
