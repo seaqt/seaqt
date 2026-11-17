@@ -1,0 +1,8 @@
+#include "gen_qabstractprintdialog.cpp"
+#include "gen_qpagesetupdialog.cpp"
+#include "gen_qprintdialog.cpp"
+#include "gen_qprintengine.cpp"
+#include "gen_qprinter.cpp"
+#include "gen_qprinterinfo.cpp"
+#include "gen_qprintpreviewdialog.cpp"
+#include "gen_qprintpreviewwidget.cpp"

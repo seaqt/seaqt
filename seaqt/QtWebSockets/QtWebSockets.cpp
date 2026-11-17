@@ -1,0 +1,5 @@
+#include "gen_qmaskgenerator.cpp"
+#include "gen_qwebsocket.cpp"
+#include "gen_qwebsocketcorsauthenticator.cpp"
+#include "gen_qwebsocketprotocol.cpp"
+#include "gen_qwebsocketserver.cpp"
