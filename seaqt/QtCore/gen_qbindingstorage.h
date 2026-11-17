@@ -24,6 +24,10 @@ typedef struct QBindingStorage QBindingStorage;
 typedef struct QUntypedPropertyData QUntypedPropertyData;
 #endif
 
+void* QBindingStatus_currentlyEvaluatingBinding(const QBindingStatus* self);
+void QBindingStatus_setCurrentlyEvaluatingBinding(QBindingStatus* self, void* currentlyEvaluatingBinding);
+void* QBindingStatus_currentCompatProperty(const QBindingStatus* self);
+void QBindingStatus_setCurrentCompatProperty(QBindingStatus* self, void* currentCompatProperty);
 void* QBindingStatus_threadId(const QBindingStatus* self);
 void QBindingStatus_setThreadId(QBindingStatus* self, void* threadId);
 
@@ -34,6 +38,8 @@ QBindingStorage* QBindingStorage_new();
 bool QBindingStorage_isEmpty(QBindingStorage* self);
 bool QBindingStorage_isValid(const QBindingStorage* self);
 void QBindingStorage_registerDependency(const QBindingStorage* self, QUntypedPropertyData* data);
+void* QBindingStorage_bindingData(const QBindingStorage* self, QUntypedPropertyData* data);
+void* QBindingStorage_bindingData2(QBindingStorage* self, QUntypedPropertyData* data, bool create);
 
 void QBindingStorage_delete(QBindingStorage* self);
 

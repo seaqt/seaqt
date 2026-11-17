@@ -136,6 +136,8 @@ QTextCursor* QTextFrame_firstCursorPosition(const QTextFrame* self);
 QTextCursor* QTextFrame_lastCursorPosition(const QTextFrame* self);
 int QTextFrame_firstPosition(const QTextFrame* self);
 int QTextFrame_lastPosition(const QTextFrame* self);
+void* QTextFrame_layoutData(const QTextFrame* self);
+void QTextFrame_setLayoutData(QTextFrame* self, void* data);
 struct seaqt_array /* of QTextFrame* */  QTextFrame_childFrames(const QTextFrame* self);
 QTextFrame* QTextFrame_parentFrame(const QTextFrame* self);
 QTextFrame__iterator* QTextFrame_begin(const QTextFrame* self);
