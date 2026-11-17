@@ -44,14 +44,33 @@ typedef struct QSize QSize;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QMovie* QMovie_new();
-QMovie* QMovie_new2(QIODevice* device);
-QMovie* QMovie_new3(struct seaqt_string fileName);
-QMovie* QMovie_new4(QObject* parent);
-QMovie* QMovie_new5(QIODevice* device, struct seaqt_string format);
-QMovie* QMovie_new6(QIODevice* device, struct seaqt_string format, QObject* parent);
-QMovie* QMovie_new7(struct seaqt_string fileName, struct seaqt_string format);
-QMovie* QMovie_new8(struct seaqt_string fileName, struct seaqt_string format, QObject* parent);
+typedef struct VirtualQMovie VirtualQMovie;
+typedef struct QMovie_VTable{
+	void (*destructor)(VirtualQMovie* self);
+	QMetaObject* (*metaObject)(const VirtualQMovie* self);
+	void* (*metacast)(VirtualQMovie* self, const char* param1);
+	int (*metacall)(VirtualQMovie* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQMovie* self, QEvent* event);
+	bool (*eventFilter)(VirtualQMovie* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQMovie* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQMovie* self, QChildEvent* event);
+	void (*customEvent)(VirtualQMovie* self, QEvent* event);
+	void (*connectNotify)(VirtualQMovie* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQMovie* self, QMetaMethod* signal);
+}QMovie_VTable;
+
+void* QMovie_vdata(VirtualQMovie* self);
+VirtualQMovie* vdata_QMovie(void* vdata);
+
+VirtualQMovie* QMovie_new(const QMovie_VTable* vtbl, size_t vdata);
+VirtualQMovie* QMovie_new2(const QMovie_VTable* vtbl, size_t vdata, QIODevice* device);
+VirtualQMovie* QMovie_new3(const QMovie_VTable* vtbl, size_t vdata, struct seaqt_string fileName);
+VirtualQMovie* QMovie_new4(const QMovie_VTable* vtbl, size_t vdata, QObject* parent);
+VirtualQMovie* QMovie_new5(const QMovie_VTable* vtbl, size_t vdata, QIODevice* device, struct seaqt_string format);
+VirtualQMovie* QMovie_new6(const QMovie_VTable* vtbl, size_t vdata, QIODevice* device, struct seaqt_string format, QObject* parent);
+VirtualQMovie* QMovie_new7(const QMovie_VTable* vtbl, size_t vdata, struct seaqt_string fileName, struct seaqt_string format);
+VirtualQMovie* QMovie_new8(const QMovie_VTable* vtbl, size_t vdata, struct seaqt_string fileName, struct seaqt_string format, QObject* parent);
+
 void QMovie_virtbase(QMovie* src, QObject** outptr_QObject);
 QMetaObject* QMovie_metaObject(const QMovie* self);
 void* QMovie_metacast(QMovie* self, const char* param1);
@@ -105,31 +124,21 @@ void QMovie_setSpeed(QMovie* self, int percentSpeed);
 struct seaqt_string QMovie_tr2(const char* s, const char* c);
 struct seaqt_string QMovie_tr3(const char* s, const char* c, int n);
 
-bool QMovie_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QMovie_virtualbase_metaObject(const void* self);
-bool QMovie_override_virtual_metacast(void* self, intptr_t slot);
-void* QMovie_virtualbase_metacast(void* self, const char* param1);
-bool QMovie_override_virtual_metacall(void* self, intptr_t slot);
-int QMovie_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QMovie_override_virtual_event(void* self, intptr_t slot);
-bool QMovie_virtualbase_event(void* self, QEvent* event);
-bool QMovie_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QMovie_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QMovie_override_virtual_timerEvent(void* self, intptr_t slot);
-void QMovie_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QMovie_override_virtual_childEvent(void* self, intptr_t slot);
-void QMovie_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QMovie_override_virtual_customEvent(void* self, intptr_t slot);
-void QMovie_virtualbase_customEvent(void* self, QEvent* event);
-bool QMovie_override_virtual_connectNotify(void* self, intptr_t slot);
-void QMovie_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QMovie_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QMovie_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QMovie_virtualbase_metaObject(const VirtualQMovie* self);
+void* QMovie_virtualbase_metacast(VirtualQMovie* self, const char* param1);
+int QMovie_virtualbase_metacall(VirtualQMovie* self, int param1, int param2, void** param3);
+bool QMovie_virtualbase_event(VirtualQMovie* self, QEvent* event);
+bool QMovie_virtualbase_eventFilter(VirtualQMovie* self, QObject* watched, QEvent* event);
+void QMovie_virtualbase_timerEvent(VirtualQMovie* self, QTimerEvent* event);
+void QMovie_virtualbase_childEvent(VirtualQMovie* self, QChildEvent* event);
+void QMovie_virtualbase_customEvent(VirtualQMovie* self, QEvent* event);
+void QMovie_virtualbase_connectNotify(VirtualQMovie* self, QMetaMethod* signal);
+void QMovie_virtualbase_disconnectNotify(VirtualQMovie* self, QMetaMethod* signal);
 
-QObject* QMovie_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QMovie_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QMovie_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QMovie_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QMovie_protectedbase_sender(const VirtualQMovie* self);
+int QMovie_protectedbase_senderSignalIndex(const VirtualQMovie* self);
+int QMovie_protectedbase_receivers(const VirtualQMovie* self, const char* signal);
+bool QMovie_protectedbase_isSignalConnected(const VirtualQMovie* self, QMetaMethod* signal);
 
 const QMetaObject* QMovie_staticMetaObject();
 void QMovie_delete(QMovie* self);

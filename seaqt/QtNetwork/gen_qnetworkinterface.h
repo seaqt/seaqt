@@ -30,6 +30,7 @@ typedef struct QNetworkInterface QNetworkInterface;
 
 QNetworkAddressEntry* QNetworkAddressEntry_new();
 QNetworkAddressEntry* QNetworkAddressEntry_new2(QNetworkAddressEntry* other);
+
 void QNetworkAddressEntry_operatorAssign(QNetworkAddressEntry* self, QNetworkAddressEntry* other);
 void QNetworkAddressEntry_swap(QNetworkAddressEntry* self, QNetworkAddressEntry* other);
 bool QNetworkAddressEntry_operatorEqual(const QNetworkAddressEntry* self, QNetworkAddressEntry* other);
@@ -56,6 +57,7 @@ void QNetworkAddressEntry_delete(QNetworkAddressEntry* self);
 
 QNetworkInterface* QNetworkInterface_new();
 QNetworkInterface* QNetworkInterface_new2(QNetworkInterface* other);
+
 void QNetworkInterface_operatorAssign(QNetworkInterface* self, QNetworkInterface* other);
 void QNetworkInterface_swap(QNetworkInterface* self, QNetworkInterface* other);
 bool QNetworkInterface_isValid(const QNetworkInterface* self);

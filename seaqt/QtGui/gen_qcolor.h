@@ -38,6 +38,7 @@ QColor* QColor_new9(int spec, unsigned short a1, unsigned short a2, unsigned sho
 QColor* QColor_new10(QColor* param1);
 QColor* QColor_new11(int r, int g, int b, int a);
 QColor* QColor_new12(int spec, unsigned short a1, unsigned short a2, unsigned short a3, unsigned short a4, unsigned short a5);
+
 QColor* QColor_fromString(QAnyStringView* name);
 void QColor_operatorAssign(QColor* self, int color);
 bool QColor_isValid(const QColor* self);

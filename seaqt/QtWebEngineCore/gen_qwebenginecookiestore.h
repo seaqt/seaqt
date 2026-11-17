@@ -59,6 +59,7 @@ const QMetaObject* QWebEngineCookieStore_staticMetaObject();
 void QWebEngineCookieStore_delete(QWebEngineCookieStore* self);
 
 QWebEngineCookieStore__FilterRequest* QWebEngineCookieStore__FilterRequest_new(QWebEngineCookieStore__FilterRequest* param1);
+
 QUrl* QWebEngineCookieStore__FilterRequest_firstPartyUrl(const QWebEngineCookieStore__FilterRequest* self);
 void QWebEngineCookieStore__FilterRequest_setFirstPartyUrl(QWebEngineCookieStore__FilterRequest* self, QUrl* firstPartyUrl);
 QUrl* QWebEngineCookieStore__FilterRequest_origin(const QWebEngineCookieStore__FilterRequest* self);

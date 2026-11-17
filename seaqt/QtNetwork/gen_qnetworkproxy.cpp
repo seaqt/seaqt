@@ -12,11 +12,21 @@
 #include <qnetworkproxy.h>
 #include "gen_qnetworkproxy.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-struct seaqt_array /* of QNetworkProxy* */  miqt_exec_callback_QNetworkProxyFactory_queryProxy(QNetworkProxyFactory*, intptr_t, QNetworkProxyQuery*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
@@ -348,25 +358,25 @@ void QNetworkProxy_delete(QNetworkProxy* self) {
 }
 
 class VirtualQNetworkProxyFactory final : public QNetworkProxyFactory {
+	const QNetworkProxyFactory_VTable* vtbl;
 public:
+	friend void* QNetworkProxyFactory_vdata(VirtualQNetworkProxyFactory* self);
+	friend VirtualQNetworkProxyFactory* vdata_QNetworkProxyFactory(void* vdata);
 
-	VirtualQNetworkProxyFactory(): QNetworkProxyFactory() {}
+	VirtualQNetworkProxyFactory(const QNetworkProxyFactory_VTable* vtbl): QNetworkProxyFactory(), vtbl(vtbl) {}
 
-	virtual ~VirtualQNetworkProxyFactory() override = default;
+	virtual ~VirtualQNetworkProxyFactory() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__queryProxy = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual QList<QNetworkProxy> queryProxy(const QNetworkProxyQuery& query) override {
-		if (handle__queryProxy == 0) {
+		if (vtbl->queryProxy == 0) {
 			return QList<QNetworkProxy>(); // Pure virtual, there is no base we can call
 		}
 
 		const QNetworkProxyQuery& query_ret = query;
 		// Cast returned reference into pointer
 		QNetworkProxyQuery* sigval1 = const_cast<QNetworkProxyQuery*>(&query_ret);
-		struct seaqt_array /* of QNetworkProxy* */  callback_return_value = miqt_exec_callback_QNetworkProxyFactory_queryProxy(this, handle__queryProxy, sigval1);
+		struct seaqt_array /* of QNetworkProxy* */  callback_return_value = vtbl->queryProxy(this, sigval1);
 		QList<QNetworkProxy> callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		QNetworkProxy** callback_return_value_arr = static_cast<QNetworkProxy**>(callback_return_value.data);
@@ -378,8 +388,9 @@ public:
 
 };
 
-QNetworkProxyFactory* QNetworkProxyFactory_new() {
-	return new (std::nothrow) VirtualQNetworkProxyFactory();
+VirtualQNetworkProxyFactory* QNetworkProxyFactory_new(const QNetworkProxyFactory_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQNetworkProxyFactory>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQNetworkProxyFactory(vtbl) : nullptr;
 }
 
 struct seaqt_array /* of QNetworkProxy* */  QNetworkProxyFactory_queryProxy(QNetworkProxyFactory* self, QNetworkProxyQuery* query) {
@@ -450,15 +461,8 @@ struct seaqt_array /* of QNetworkProxy* */  QNetworkProxyFactory_systemProxyForQ
 	return _out;
 }
 
-bool QNetworkProxyFactory_override_virtual_queryProxy(void* self, intptr_t slot) {
-	VirtualQNetworkProxyFactory* self_cast = dynamic_cast<VirtualQNetworkProxyFactory*>( (QNetworkProxyFactory*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__queryProxy = slot;
-	return true;
-}
+void* QNetworkProxyFactory_vdata(VirtualQNetworkProxyFactory* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQNetworkProxyFactory>()); }
+VirtualQNetworkProxyFactory* vdata_QNetworkProxyFactory(void* vdata) { return reinterpret_cast<VirtualQNetworkProxyFactory*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQNetworkProxyFactory>()); }
 
 void QNetworkProxyFactory_delete(QNetworkProxyFactory* self) {
 	delete self;

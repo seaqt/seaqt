@@ -25,6 +25,7 @@ typedef struct QWebEngineClientCertificateSelection QWebEngineClientCertificateS
 #endif
 
 QWebEngineClientCertificateSelection* QWebEngineClientCertificateSelection_new(QWebEngineClientCertificateSelection* param1);
+
 void QWebEngineClientCertificateSelection_operatorAssign(QWebEngineClientCertificateSelection* self, QWebEngineClientCertificateSelection* param1);
 QUrl* QWebEngineClientCertificateSelection_host(const QWebEngineClientCertificateSelection* self);
 void QWebEngineClientCertificateSelection_select(QWebEngineClientCertificateSelection* self, QSslCertificate* certificate);

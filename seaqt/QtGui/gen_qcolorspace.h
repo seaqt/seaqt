@@ -39,6 +39,7 @@ QColorSpace* QColorSpace_new8(QPointF* whitePoint, QPointF* redPoint, QPointF* g
 QColorSpace* QColorSpace_new9(QColorSpace* colorSpace);
 QColorSpace* QColorSpace_new10(int primaries, int transferFunction, float gamma);
 QColorSpace* QColorSpace_new11(QPointF* whitePoint, QPointF* redPoint, QPointF* greenPoint, QPointF* bluePoint, int transferFunction, float gamma);
+
 void QColorSpace_operatorAssign(QColorSpace* self, QColorSpace* colorSpace);
 void QColorSpace_swap(QColorSpace* self, QColorSpace* colorSpace);
 int QColorSpace_primaries(const QColorSpace* self);

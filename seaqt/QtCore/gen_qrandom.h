@@ -27,6 +27,7 @@ QRandomGenerator* QRandomGenerator_new2(const unsigned int* seedBuffer, ptrdiff_
 QRandomGenerator* QRandomGenerator_new3(const unsigned int* begin, const unsigned int* end);
 QRandomGenerator* QRandomGenerator_new4(QRandomGenerator* other);
 QRandomGenerator* QRandomGenerator_new5(unsigned int seedValue);
+
 void QRandomGenerator_operatorAssign(QRandomGenerator* self, QRandomGenerator* other);
 unsigned int QRandomGenerator_generate(QRandomGenerator* self);
 unsigned long long QRandomGenerator_generate64(QRandomGenerator* self);
@@ -63,6 +64,7 @@ QRandomGenerator64* QRandomGenerator64_new3(const unsigned int* begin, const uns
 QRandomGenerator64* QRandomGenerator64_new4(QRandomGenerator* other);
 QRandomGenerator64* QRandomGenerator64_new5(QRandomGenerator64* param1);
 QRandomGenerator64* QRandomGenerator64_new6(unsigned int seedValue);
+
 void QRandomGenerator64_virtbase(QRandomGenerator64* src, QRandomGenerator** outptr_QRandomGenerator);
 unsigned long long QRandomGenerator64_generate(QRandomGenerator64* self);
 unsigned long long QRandomGenerator64_operatorCall(QRandomGenerator64* self);

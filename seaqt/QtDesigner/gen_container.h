@@ -22,7 +22,25 @@ typedef struct QDesignerContainerExtension QDesignerContainerExtension;
 typedef struct QWidget QWidget;
 #endif
 
-QDesignerContainerExtension* QDesignerContainerExtension_new();
+typedef struct VirtualQDesignerContainerExtension VirtualQDesignerContainerExtension;
+typedef struct QDesignerContainerExtension_VTable{
+	void (*destructor)(VirtualQDesignerContainerExtension* self);
+	int (*count)(const VirtualQDesignerContainerExtension* self);
+	QWidget* (*widget)(const VirtualQDesignerContainerExtension* self, int index);
+	int (*currentIndex)(const VirtualQDesignerContainerExtension* self);
+	void (*setCurrentIndex)(VirtualQDesignerContainerExtension* self, int index);
+	bool (*canAddWidget)(const VirtualQDesignerContainerExtension* self);
+	void (*addWidget)(VirtualQDesignerContainerExtension* self, QWidget* widget);
+	void (*insertWidget)(VirtualQDesignerContainerExtension* self, int index, QWidget* widget);
+	bool (*canRemove)(const VirtualQDesignerContainerExtension* self, int index);
+	void (*remove)(VirtualQDesignerContainerExtension* self, int index);
+}QDesignerContainerExtension_VTable;
+
+void* QDesignerContainerExtension_vdata(VirtualQDesignerContainerExtension* self);
+VirtualQDesignerContainerExtension* vdata_QDesignerContainerExtension(void* vdata);
+
+VirtualQDesignerContainerExtension* QDesignerContainerExtension_new(const QDesignerContainerExtension_VTable* vtbl, size_t vdata);
+
 int QDesignerContainerExtension_count(const QDesignerContainerExtension* self);
 QWidget* QDesignerContainerExtension_widget(const QDesignerContainerExtension* self, int index);
 int QDesignerContainerExtension_currentIndex(const QDesignerContainerExtension* self);
@@ -33,24 +51,15 @@ void QDesignerContainerExtension_insertWidget(QDesignerContainerExtension* self,
 bool QDesignerContainerExtension_canRemove(const QDesignerContainerExtension* self, int index);
 void QDesignerContainerExtension_remove(QDesignerContainerExtension* self, int index);
 
-bool QDesignerContainerExtension_override_virtual_count(void* self, intptr_t slot);
-int QDesignerContainerExtension_virtualbase_count(const void* self);
-bool QDesignerContainerExtension_override_virtual_widget(void* self, intptr_t slot);
-QWidget* QDesignerContainerExtension_virtualbase_widget(const void* self, int index);
-bool QDesignerContainerExtension_override_virtual_currentIndex(void* self, intptr_t slot);
-int QDesignerContainerExtension_virtualbase_currentIndex(const void* self);
-bool QDesignerContainerExtension_override_virtual_setCurrentIndex(void* self, intptr_t slot);
-void QDesignerContainerExtension_virtualbase_setCurrentIndex(void* self, int index);
-bool QDesignerContainerExtension_override_virtual_canAddWidget(void* self, intptr_t slot);
-bool QDesignerContainerExtension_virtualbase_canAddWidget(const void* self);
-bool QDesignerContainerExtension_override_virtual_addWidget(void* self, intptr_t slot);
-void QDesignerContainerExtension_virtualbase_addWidget(void* self, QWidget* widget);
-bool QDesignerContainerExtension_override_virtual_insertWidget(void* self, intptr_t slot);
-void QDesignerContainerExtension_virtualbase_insertWidget(void* self, int index, QWidget* widget);
-bool QDesignerContainerExtension_override_virtual_canRemove(void* self, intptr_t slot);
-bool QDesignerContainerExtension_virtualbase_canRemove(const void* self, int index);
-bool QDesignerContainerExtension_override_virtual_remove(void* self, intptr_t slot);
-void QDesignerContainerExtension_virtualbase_remove(void* self, int index);
+int QDesignerContainerExtension_virtualbase_count(const VirtualQDesignerContainerExtension* self);
+QWidget* QDesignerContainerExtension_virtualbase_widget(const VirtualQDesignerContainerExtension* self, int index);
+int QDesignerContainerExtension_virtualbase_currentIndex(const VirtualQDesignerContainerExtension* self);
+void QDesignerContainerExtension_virtualbase_setCurrentIndex(VirtualQDesignerContainerExtension* self, int index);
+bool QDesignerContainerExtension_virtualbase_canAddWidget(const VirtualQDesignerContainerExtension* self);
+void QDesignerContainerExtension_virtualbase_addWidget(VirtualQDesignerContainerExtension* self, QWidget* widget);
+void QDesignerContainerExtension_virtualbase_insertWidget(VirtualQDesignerContainerExtension* self, int index, QWidget* widget);
+bool QDesignerContainerExtension_virtualbase_canRemove(const VirtualQDesignerContainerExtension* self, int index);
+void QDesignerContainerExtension_virtualbase_remove(VirtualQDesignerContainerExtension* self, int index);
 
 void QDesignerContainerExtension_delete(QDesignerContainerExtension* self);
 

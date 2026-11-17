@@ -38,8 +38,28 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QTranslator QTranslator;
 #endif
 
-QCoreApplication* QCoreApplication_new(int* argc, char** argv);
-QCoreApplication* QCoreApplication_new2(int* argc, char** argv, int param3);
+typedef struct VirtualQCoreApplication VirtualQCoreApplication;
+typedef struct QCoreApplication_VTable{
+	void (*destructor)(VirtualQCoreApplication* self);
+	QMetaObject* (*metaObject)(const VirtualQCoreApplication* self);
+	void* (*metacast)(VirtualQCoreApplication* self, const char* param1);
+	int (*metacall)(VirtualQCoreApplication* self, int param1, int param2, void** param3);
+	bool (*notify)(VirtualQCoreApplication* self, QObject* param1, QEvent* param2);
+	bool (*event)(VirtualQCoreApplication* self, QEvent* param1);
+	bool (*eventFilter)(VirtualQCoreApplication* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQCoreApplication* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQCoreApplication* self, QChildEvent* event);
+	void (*customEvent)(VirtualQCoreApplication* self, QEvent* event);
+	void (*connectNotify)(VirtualQCoreApplication* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQCoreApplication* self, QMetaMethod* signal);
+}QCoreApplication_VTable;
+
+void* QCoreApplication_vdata(VirtualQCoreApplication* self);
+VirtualQCoreApplication* vdata_QCoreApplication(void* vdata);
+
+VirtualQCoreApplication* QCoreApplication_new(const QCoreApplication_VTable* vtbl, size_t vdata, int* argc, char** argv);
+VirtualQCoreApplication* QCoreApplication_new2(const QCoreApplication_VTable* vtbl, size_t vdata, int* argc, char** argv, int param3);
+
 void QCoreApplication_virtbase(QCoreApplication* src, QObject** outptr_QObject);
 QMetaObject* QCoreApplication_metaObject(const QCoreApplication* self);
 void* QCoreApplication_metacast(QCoreApplication* self, const char* param1);
@@ -110,36 +130,23 @@ struct seaqt_string QCoreApplication_translate2(const char* context, const char*
 struct seaqt_string QCoreApplication_translate3(const char* context, const char* key, const char* disambiguation, int n);
 void QCoreApplication_exitWithRetcode(int retcode);
 
-bool QCoreApplication_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QCoreApplication_virtualbase_metaObject(const void* self);
-bool QCoreApplication_override_virtual_metacast(void* self, intptr_t slot);
-void* QCoreApplication_virtualbase_metacast(void* self, const char* param1);
-bool QCoreApplication_override_virtual_metacall(void* self, intptr_t slot);
-int QCoreApplication_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QCoreApplication_override_virtual_notify(void* self, intptr_t slot);
-bool QCoreApplication_virtualbase_notify(void* self, QObject* param1, QEvent* param2);
-bool QCoreApplication_override_virtual_event(void* self, intptr_t slot);
-bool QCoreApplication_virtualbase_event(void* self, QEvent* param1);
-bool QCoreApplication_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QCoreApplication_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QCoreApplication_override_virtual_timerEvent(void* self, intptr_t slot);
-void QCoreApplication_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QCoreApplication_override_virtual_childEvent(void* self, intptr_t slot);
-void QCoreApplication_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QCoreApplication_override_virtual_customEvent(void* self, intptr_t slot);
-void QCoreApplication_virtualbase_customEvent(void* self, QEvent* event);
-bool QCoreApplication_override_virtual_connectNotify(void* self, intptr_t slot);
-void QCoreApplication_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QCoreApplication_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QCoreApplication_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QCoreApplication_virtualbase_metaObject(const VirtualQCoreApplication* self);
+void* QCoreApplication_virtualbase_metacast(VirtualQCoreApplication* self, const char* param1);
+int QCoreApplication_virtualbase_metacall(VirtualQCoreApplication* self, int param1, int param2, void** param3);
+bool QCoreApplication_virtualbase_notify(VirtualQCoreApplication* self, QObject* param1, QEvent* param2);
+bool QCoreApplication_virtualbase_event(VirtualQCoreApplication* self, QEvent* param1);
+bool QCoreApplication_virtualbase_eventFilter(VirtualQCoreApplication* self, QObject* watched, QEvent* event);
+void QCoreApplication_virtualbase_timerEvent(VirtualQCoreApplication* self, QTimerEvent* event);
+void QCoreApplication_virtualbase_childEvent(VirtualQCoreApplication* self, QChildEvent* event);
+void QCoreApplication_virtualbase_customEvent(VirtualQCoreApplication* self, QEvent* event);
+void QCoreApplication_virtualbase_connectNotify(VirtualQCoreApplication* self, QMetaMethod* signal);
+void QCoreApplication_virtualbase_disconnectNotify(VirtualQCoreApplication* self, QMetaMethod* signal);
 
-void* QCoreApplication_protectedbase_resolveInterface(bool* _dynamic_cast_ok, const void* self, const char* name, int revision);
-QObject* QCoreApplication_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QCoreApplication_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QCoreApplication_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QCoreApplication_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
-
-void QCoreApplication_connect_aboutToQuit(QCoreApplication* self, intptr_t slot);
+void* QCoreApplication_protectedbase_resolveInterface(const VirtualQCoreApplication* self, const char* name, int revision);
+QObject* QCoreApplication_protectedbase_sender(const VirtualQCoreApplication* self);
+int QCoreApplication_protectedbase_senderSignalIndex(const VirtualQCoreApplication* self);
+int QCoreApplication_protectedbase_receivers(const VirtualQCoreApplication* self, const char* signal);
+bool QCoreApplication_protectedbase_isSignalConnected(const VirtualQCoreApplication* self, QMetaMethod* signal);
 
 const QMetaObject* QCoreApplication_staticMetaObject();
 void QCoreApplication_delete(QCoreApplication* self);

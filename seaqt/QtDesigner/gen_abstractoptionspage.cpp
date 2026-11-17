@@ -6,83 +6,77 @@
 #include <abstractoptionspage.h>
 #include "gen_abstractoptionspage.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-struct seaqt_string miqt_exec_callback_QDesignerOptionsPageInterface_name(const QDesignerOptionsPageInterface*, intptr_t);
-QWidget* miqt_exec_callback_QDesignerOptionsPageInterface_createPage(QDesignerOptionsPageInterface*, intptr_t, QWidget*);
-void miqt_exec_callback_QDesignerOptionsPageInterface_apply(QDesignerOptionsPageInterface*, intptr_t);
-void miqt_exec_callback_QDesignerOptionsPageInterface_finish(QDesignerOptionsPageInterface*, intptr_t);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQDesignerOptionsPageInterface final : public QDesignerOptionsPageInterface {
+	const QDesignerOptionsPageInterface_VTable* vtbl;
 public:
+	friend void* QDesignerOptionsPageInterface_vdata(VirtualQDesignerOptionsPageInterface* self);
+	friend VirtualQDesignerOptionsPageInterface* vdata_QDesignerOptionsPageInterface(void* vdata);
 
-	VirtualQDesignerOptionsPageInterface(): QDesignerOptionsPageInterface() {}
+	VirtualQDesignerOptionsPageInterface(const QDesignerOptionsPageInterface_VTable* vtbl): QDesignerOptionsPageInterface(), vtbl(vtbl) {}
 
-	virtual ~VirtualQDesignerOptionsPageInterface() override = default;
+	virtual ~VirtualQDesignerOptionsPageInterface() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__name = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual QString name() const override {
-		if (handle__name == 0) {
+		if (vtbl->name == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerOptionsPageInterface_name(this, handle__name);
+		struct seaqt_string callback_return_value = vtbl->name(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__createPage = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QWidget* createPage(QWidget* parent) override {
-		if (handle__createPage == 0) {
+		if (vtbl->createPage == 0) {
 			return nullptr; // Pure virtual, there is no base we can call
 		}
 
 		QWidget* sigval1 = parent;
-		QWidget* callback_return_value = miqt_exec_callback_QDesignerOptionsPageInterface_createPage(this, handle__createPage, sigval1);
+		QWidget* callback_return_value = vtbl->createPage(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__apply = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void apply() override {
-		if (handle__apply == 0) {
+		if (vtbl->apply == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
-		miqt_exec_callback_QDesignerOptionsPageInterface_apply(this, handle__apply);
-
+		vtbl->apply(this);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__finish = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void finish() override {
-		if (handle__finish == 0) {
+		if (vtbl->finish == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
-		miqt_exec_callback_QDesignerOptionsPageInterface_finish(this, handle__finish);
-
+		vtbl->finish(this);
 	}
 
 };
 
-QDesignerOptionsPageInterface* QDesignerOptionsPageInterface_new() {
-	return new (std::nothrow) VirtualQDesignerOptionsPageInterface();
+VirtualQDesignerOptionsPageInterface* QDesignerOptionsPageInterface_new(const QDesignerOptionsPageInterface_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerOptionsPageInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerOptionsPageInterface(vtbl) : nullptr;
 }
 
 struct seaqt_string QDesignerOptionsPageInterface_name(const QDesignerOptionsPageInterface* self) {
@@ -108,45 +102,8 @@ void QDesignerOptionsPageInterface_finish(QDesignerOptionsPageInterface* self) {
 	self->finish();
 }
 
-bool QDesignerOptionsPageInterface_override_virtual_name(void* self, intptr_t slot) {
-	VirtualQDesignerOptionsPageInterface* self_cast = dynamic_cast<VirtualQDesignerOptionsPageInterface*>( (QDesignerOptionsPageInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__name = slot;
-	return true;
-}
-
-bool QDesignerOptionsPageInterface_override_virtual_createPage(void* self, intptr_t slot) {
-	VirtualQDesignerOptionsPageInterface* self_cast = dynamic_cast<VirtualQDesignerOptionsPageInterface*>( (QDesignerOptionsPageInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__createPage = slot;
-	return true;
-}
-
-bool QDesignerOptionsPageInterface_override_virtual_apply(void* self, intptr_t slot) {
-	VirtualQDesignerOptionsPageInterface* self_cast = dynamic_cast<VirtualQDesignerOptionsPageInterface*>( (QDesignerOptionsPageInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__apply = slot;
-	return true;
-}
-
-bool QDesignerOptionsPageInterface_override_virtual_finish(void* self, intptr_t slot) {
-	VirtualQDesignerOptionsPageInterface* self_cast = dynamic_cast<VirtualQDesignerOptionsPageInterface*>( (QDesignerOptionsPageInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__finish = slot;
-	return true;
-}
+void* QDesignerOptionsPageInterface_vdata(VirtualQDesignerOptionsPageInterface* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQDesignerOptionsPageInterface>()); }
+VirtualQDesignerOptionsPageInterface* vdata_QDesignerOptionsPageInterface(void* vdata) { return reinterpret_cast<VirtualQDesignerOptionsPageInterface*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQDesignerOptionsPageInterface>()); }
 
 void QDesignerOptionsPageInterface_delete(QDesignerOptionsPageInterface* self) {
 	delete self;

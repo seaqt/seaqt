@@ -15,100 +15,70 @@
 #include <qgraphicstransform.h>
 #include "gen_qgraphicstransform.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QGraphicsTransform_metaObject(const QGraphicsTransform*, intptr_t);
-void* miqt_exec_callback_QGraphicsTransform_metacast(QGraphicsTransform*, intptr_t, const char*);
-int miqt_exec_callback_QGraphicsTransform_metacall(QGraphicsTransform*, intptr_t, int, int, void**);
-void miqt_exec_callback_QGraphicsTransform_applyTo(const QGraphicsTransform*, intptr_t, QMatrix4x4*);
-bool miqt_exec_callback_QGraphicsTransform_event(QGraphicsTransform*, intptr_t, QEvent*);
-bool miqt_exec_callback_QGraphicsTransform_eventFilter(QGraphicsTransform*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QGraphicsTransform_timerEvent(QGraphicsTransform*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QGraphicsTransform_childEvent(QGraphicsTransform*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QGraphicsTransform_customEvent(QGraphicsTransform*, intptr_t, QEvent*);
-void miqt_exec_callback_QGraphicsTransform_connectNotify(QGraphicsTransform*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QGraphicsTransform_disconnectNotify(QGraphicsTransform*, intptr_t, QMetaMethod*);
 void miqt_exec_callback_QGraphicsScale_originChanged(intptr_t);
 void miqt_exec_callback_QGraphicsScale_xScaleChanged(intptr_t);
 void miqt_exec_callback_QGraphicsScale_yScaleChanged(intptr_t);
 void miqt_exec_callback_QGraphicsScale_zScaleChanged(intptr_t);
 void miqt_exec_callback_QGraphicsScale_scaleChanged(intptr_t);
-QMetaObject* miqt_exec_callback_QGraphicsScale_metaObject(const QGraphicsScale*, intptr_t);
-void* miqt_exec_callback_QGraphicsScale_metacast(QGraphicsScale*, intptr_t, const char*);
-int miqt_exec_callback_QGraphicsScale_metacall(QGraphicsScale*, intptr_t, int, int, void**);
-void miqt_exec_callback_QGraphicsScale_applyTo(const QGraphicsScale*, intptr_t, QMatrix4x4*);
-bool miqt_exec_callback_QGraphicsScale_event(QGraphicsScale*, intptr_t, QEvent*);
-bool miqt_exec_callback_QGraphicsScale_eventFilter(QGraphicsScale*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QGraphicsScale_timerEvent(QGraphicsScale*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QGraphicsScale_childEvent(QGraphicsScale*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QGraphicsScale_customEvent(QGraphicsScale*, intptr_t, QEvent*);
-void miqt_exec_callback_QGraphicsScale_connectNotify(QGraphicsScale*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QGraphicsScale_disconnectNotify(QGraphicsScale*, intptr_t, QMetaMethod*);
 void miqt_exec_callback_QGraphicsRotation_originChanged(intptr_t);
 void miqt_exec_callback_QGraphicsRotation_angleChanged(intptr_t);
 void miqt_exec_callback_QGraphicsRotation_axisChanged(intptr_t);
-QMetaObject* miqt_exec_callback_QGraphicsRotation_metaObject(const QGraphicsRotation*, intptr_t);
-void* miqt_exec_callback_QGraphicsRotation_metacast(QGraphicsRotation*, intptr_t, const char*);
-int miqt_exec_callback_QGraphicsRotation_metacall(QGraphicsRotation*, intptr_t, int, int, void**);
-void miqt_exec_callback_QGraphicsRotation_applyTo(const QGraphicsRotation*, intptr_t, QMatrix4x4*);
-bool miqt_exec_callback_QGraphicsRotation_event(QGraphicsRotation*, intptr_t, QEvent*);
-bool miqt_exec_callback_QGraphicsRotation_eventFilter(QGraphicsRotation*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QGraphicsRotation_timerEvent(QGraphicsRotation*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QGraphicsRotation_childEvent(QGraphicsRotation*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QGraphicsRotation_customEvent(QGraphicsRotation*, intptr_t, QEvent*);
-void miqt_exec_callback_QGraphicsRotation_connectNotify(QGraphicsRotation*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QGraphicsRotation_disconnectNotify(QGraphicsRotation*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQGraphicsTransform final : public QGraphicsTransform {
+	const QGraphicsTransform_VTable* vtbl;
 public:
+	friend void* QGraphicsTransform_vdata(VirtualQGraphicsTransform* self);
+	friend VirtualQGraphicsTransform* vdata_QGraphicsTransform(void* vdata);
 
-	VirtualQGraphicsTransform(): QGraphicsTransform() {}
-	VirtualQGraphicsTransform(QObject* parent): QGraphicsTransform(parent) {}
+	VirtualQGraphicsTransform(const QGraphicsTransform_VTable* vtbl): QGraphicsTransform(), vtbl(vtbl) {}
+	VirtualQGraphicsTransform(const QGraphicsTransform_VTable* vtbl, QObject* parent): QGraphicsTransform(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQGraphicsTransform() override = default;
+	virtual ~VirtualQGraphicsTransform() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QGraphicsTransform::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QGraphicsTransform_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QGraphicsTransform_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QGraphicsTransform_virtualbase_metaObject(const VirtualQGraphicsTransform* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QGraphicsTransform::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QGraphicsTransform_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QGraphicsTransform_virtualbase_metacast(void* self, const char* param1);
+	friend void* QGraphicsTransform_virtualbase_metacast(VirtualQGraphicsTransform* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QGraphicsTransform::qt_metacall(param1, param2, param3);
 		}
 
@@ -116,116 +86,84 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QGraphicsTransform_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QGraphicsTransform_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QGraphicsTransform_virtualbase_metacall(VirtualQGraphicsTransform* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__applyTo = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void applyTo(QMatrix4x4* matrix) const override {
-		if (handle__applyTo == 0) {
+		if (vtbl->applyTo == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		QMatrix4x4* sigval1 = matrix;
-		miqt_exec_callback_QGraphicsTransform_applyTo(this, handle__applyTo, sigval1);
-
+		vtbl->applyTo(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QGraphicsTransform::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QGraphicsTransform_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QGraphicsTransform_virtualbase_event(void* self, QEvent* event);
+	friend bool QGraphicsTransform_virtualbase_event(VirtualQGraphicsTransform* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QGraphicsTransform::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QGraphicsTransform_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QGraphicsTransform_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QGraphicsTransform_virtualbase_eventFilter(VirtualQGraphicsTransform* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QGraphicsTransform::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QGraphicsTransform_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QGraphicsTransform_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QGraphicsTransform_virtualbase_timerEvent(VirtualQGraphicsTransform* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QGraphicsTransform::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QGraphicsTransform_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QGraphicsTransform_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QGraphicsTransform_virtualbase_childEvent(VirtualQGraphicsTransform* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QGraphicsTransform::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QGraphicsTransform_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QGraphicsTransform_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QGraphicsTransform_virtualbase_customEvent(VirtualQGraphicsTransform* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QGraphicsTransform::connectNotify(signal);
 			return;
 		}
@@ -233,18 +171,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGraphicsTransform_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QGraphicsTransform_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QGraphicsTransform_virtualbase_connectNotify(VirtualQGraphicsTransform* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QGraphicsTransform::disconnectNotify(signal);
 			return;
 		}
@@ -252,26 +185,27 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGraphicsTransform_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QGraphicsTransform_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QGraphicsTransform_virtualbase_disconnectNotify(VirtualQGraphicsTransform* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QGraphicsTransform_protectedbase_update(bool* _dynamic_cast_ok, void* self);
-	friend QObject* QGraphicsTransform_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QGraphicsTransform_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QGraphicsTransform_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QGraphicsTransform_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QGraphicsTransform_protectedbase_update(VirtualQGraphicsTransform* self);
+	friend QObject* QGraphicsTransform_protectedbase_sender(const VirtualQGraphicsTransform* self);
+	friend int QGraphicsTransform_protectedbase_senderSignalIndex(const VirtualQGraphicsTransform* self);
+	friend int QGraphicsTransform_protectedbase_receivers(const VirtualQGraphicsTransform* self, const char* signal);
+	friend bool QGraphicsTransform_protectedbase_isSignalConnected(const VirtualQGraphicsTransform* self, QMetaMethod* signal);
 };
 
-QGraphicsTransform* QGraphicsTransform_new() {
-	return new (std::nothrow) VirtualQGraphicsTransform();
+VirtualQGraphicsTransform* QGraphicsTransform_new(const QGraphicsTransform_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsTransform>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsTransform(vtbl) : nullptr;
 }
 
-QGraphicsTransform* QGraphicsTransform_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQGraphicsTransform(parent);
+VirtualQGraphicsTransform* QGraphicsTransform_new2(const QGraphicsTransform_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsTransform>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsTransform(vtbl, parent) : nullptr;
 }
 
 void QGraphicsTransform_virtbase(QGraphicsTransform* src, QObject** outptr_QObject) {
@@ -328,209 +262,77 @@ struct seaqt_string QGraphicsTransform_tr3(const char* s, const char* c, int n) 
 }
 
 const QMetaObject* QGraphicsTransform_staticMetaObject() { return &QGraphicsTransform::staticMetaObject; }
-bool QGraphicsTransform_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGraphicsTransform_vdata(VirtualQGraphicsTransform* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGraphicsTransform>()); }
+VirtualQGraphicsTransform* vdata_QGraphicsTransform(void* vdata) { return reinterpret_cast<VirtualQGraphicsTransform*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGraphicsTransform>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QGraphicsTransform_virtualbase_metaObject(const VirtualQGraphicsTransform* self) {
+
+	return (QMetaObject*) self->QGraphicsTransform::metaObject();
 }
 
-QMetaObject* QGraphicsTransform_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQGraphicsTransform*>(self)->QGraphicsTransform::metaObject();
+void* QGraphicsTransform_virtualbase_metacast(VirtualQGraphicsTransform* self, const char* param1) {
+
+	return self->QGraphicsTransform::qt_metacast(param1);
 }
 
-bool QGraphicsTransform_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QGraphicsTransform_virtualbase_metacall(VirtualQGraphicsTransform* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QGraphicsTransform::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QGraphicsTransform_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQGraphicsTransform*>(self)->QGraphicsTransform::qt_metacast(param1);
+bool QGraphicsTransform_virtualbase_event(VirtualQGraphicsTransform* self, QEvent* event) {
+
+	return self->QGraphicsTransform::event(event);
 }
 
-bool QGraphicsTransform_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QGraphicsTransform_virtualbase_eventFilter(VirtualQGraphicsTransform* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QGraphicsTransform::eventFilter(watched, event);
 }
 
-int QGraphicsTransform_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQGraphicsTransform*>(self)->QGraphicsTransform::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+void QGraphicsTransform_virtualbase_timerEvent(VirtualQGraphicsTransform* self, QTimerEvent* event) {
+
+	self->QGraphicsTransform::timerEvent(event);
 }
 
-bool QGraphicsTransform_override_virtual_applyTo(void* self, intptr_t slot) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGraphicsTransform_virtualbase_childEvent(VirtualQGraphicsTransform* self, QChildEvent* event) {
 
-	self_cast->handle__applyTo = slot;
-	return true;
+	self->QGraphicsTransform::childEvent(event);
 }
 
-bool QGraphicsTransform_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGraphicsTransform_virtualbase_customEvent(VirtualQGraphicsTransform* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QGraphicsTransform::customEvent(event);
 }
 
-bool QGraphicsTransform_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQGraphicsTransform*>(self)->QGraphicsTransform::event(event);
+void QGraphicsTransform_virtualbase_connectNotify(VirtualQGraphicsTransform* self, QMetaMethod* signal) {
+
+	self->QGraphicsTransform::connectNotify(*signal);
 }
 
-bool QGraphicsTransform_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGraphicsTransform_virtualbase_disconnectNotify(VirtualQGraphicsTransform* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QGraphicsTransform::disconnectNotify(*signal);
 }
 
-bool QGraphicsTransform_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQGraphicsTransform*>(self)->QGraphicsTransform::eventFilter(watched, event);
+void QGraphicsTransform_protectedbase_update(VirtualQGraphicsTransform* self) {
+	self->update();
 }
 
-bool QGraphicsTransform_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+QObject* QGraphicsTransform_protectedbase_sender(const VirtualQGraphicsTransform* self) {
+	return self->sender();
 }
 
-void QGraphicsTransform_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQGraphicsTransform*>(self)->QGraphicsTransform::timerEvent(event);
+int QGraphicsTransform_protectedbase_senderSignalIndex(const VirtualQGraphicsTransform* self) {
+	return self->senderSignalIndex();
 }
 
-bool QGraphicsTransform_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QGraphicsTransform_protectedbase_receivers(const VirtualQGraphicsTransform* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QGraphicsTransform_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQGraphicsTransform*>(self)->QGraphicsTransform::childEvent(event);
-}
-
-bool QGraphicsTransform_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QGraphicsTransform_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQGraphicsTransform*>(self)->QGraphicsTransform::customEvent(event);
-}
-
-bool QGraphicsTransform_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QGraphicsTransform_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGraphicsTransform*>(self)->QGraphicsTransform::connectNotify(*signal);
-}
-
-bool QGraphicsTransform_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QGraphicsTransform_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGraphicsTransform*>(self)->QGraphicsTransform::disconnectNotify(*signal);
-}
-
-void QGraphicsTransform_protectedbase_update(bool* _dynamic_cast_ok, void* self) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->update();
-}
-
-QObject* QGraphicsTransform_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QGraphicsTransform_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QGraphicsTransform_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QGraphicsTransform_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQGraphicsTransform* self_cast = dynamic_cast<VirtualQGraphicsTransform*>( (QGraphicsTransform*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QGraphicsTransform_protectedbase_isSignalConnected(const VirtualQGraphicsTransform* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QGraphicsTransform_delete(QGraphicsTransform* self) {
@@ -538,50 +340,42 @@ void QGraphicsTransform_delete(QGraphicsTransform* self) {
 }
 
 class VirtualQGraphicsScale final : public QGraphicsScale {
+	const QGraphicsScale_VTable* vtbl;
 public:
+	friend void* QGraphicsScale_vdata(VirtualQGraphicsScale* self);
+	friend VirtualQGraphicsScale* vdata_QGraphicsScale(void* vdata);
 
-	VirtualQGraphicsScale(): QGraphicsScale() {}
-	VirtualQGraphicsScale(QObject* parent): QGraphicsScale(parent) {}
+	VirtualQGraphicsScale(const QGraphicsScale_VTable* vtbl): QGraphicsScale(), vtbl(vtbl) {}
+	VirtualQGraphicsScale(const QGraphicsScale_VTable* vtbl, QObject* parent): QGraphicsScale(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQGraphicsScale() override = default;
+	virtual ~VirtualQGraphicsScale() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QGraphicsScale::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QGraphicsScale_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QGraphicsScale_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QGraphicsScale_virtualbase_metaObject(const VirtualQGraphicsScale* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QGraphicsScale::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QGraphicsScale_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QGraphicsScale_virtualbase_metacast(void* self, const char* param1);
+	friend void* QGraphicsScale_virtualbase_metacast(VirtualQGraphicsScale* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QGraphicsScale::qt_metacall(param1, param2, param3);
 		}
 
@@ -589,119 +383,87 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QGraphicsScale_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QGraphicsScale_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QGraphicsScale_virtualbase_metacall(VirtualQGraphicsScale* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__applyTo = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void applyTo(QMatrix4x4* matrix) const override {
-		if (handle__applyTo == 0) {
+		if (vtbl->applyTo == 0) {
 			QGraphicsScale::applyTo(matrix);
 			return;
 		}
 
 		QMatrix4x4* sigval1 = matrix;
-		miqt_exec_callback_QGraphicsScale_applyTo(this, handle__applyTo, sigval1);
-
+		vtbl->applyTo(this, sigval1);
 	}
 
-	friend void QGraphicsScale_virtualbase_applyTo(const void* self, QMatrix4x4* matrix);
+	friend void QGraphicsScale_virtualbase_applyTo(const VirtualQGraphicsScale* self, QMatrix4x4* matrix);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QGraphicsScale::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QGraphicsScale_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QGraphicsScale_virtualbase_event(void* self, QEvent* event);
+	friend bool QGraphicsScale_virtualbase_event(VirtualQGraphicsScale* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QGraphicsScale::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QGraphicsScale_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QGraphicsScale_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QGraphicsScale_virtualbase_eventFilter(VirtualQGraphicsScale* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QGraphicsScale::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QGraphicsScale_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QGraphicsScale_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QGraphicsScale_virtualbase_timerEvent(VirtualQGraphicsScale* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QGraphicsScale::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QGraphicsScale_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QGraphicsScale_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QGraphicsScale_virtualbase_childEvent(VirtualQGraphicsScale* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QGraphicsScale::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QGraphicsScale_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QGraphicsScale_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QGraphicsScale_virtualbase_customEvent(VirtualQGraphicsScale* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QGraphicsScale::connectNotify(signal);
 			return;
 		}
@@ -709,18 +471,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGraphicsScale_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QGraphicsScale_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QGraphicsScale_virtualbase_connectNotify(VirtualQGraphicsScale* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QGraphicsScale::disconnectNotify(signal);
 			return;
 		}
@@ -728,26 +485,27 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGraphicsScale_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QGraphicsScale_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QGraphicsScale_virtualbase_disconnectNotify(VirtualQGraphicsScale* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QGraphicsScale_protectedbase_update(bool* _dynamic_cast_ok, void* self);
-	friend QObject* QGraphicsScale_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QGraphicsScale_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QGraphicsScale_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QGraphicsScale_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QGraphicsScale_protectedbase_update(VirtualQGraphicsScale* self);
+	friend QObject* QGraphicsScale_protectedbase_sender(const VirtualQGraphicsScale* self);
+	friend int QGraphicsScale_protectedbase_senderSignalIndex(const VirtualQGraphicsScale* self);
+	friend int QGraphicsScale_protectedbase_receivers(const VirtualQGraphicsScale* self, const char* signal);
+	friend bool QGraphicsScale_protectedbase_isSignalConnected(const VirtualQGraphicsScale* self, QMetaMethod* signal);
 };
 
-QGraphicsScale* QGraphicsScale_new() {
-	return new (std::nothrow) VirtualQGraphicsScale();
+VirtualQGraphicsScale* QGraphicsScale_new(const QGraphicsScale_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsScale>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsScale(vtbl) : nullptr;
 }
 
-QGraphicsScale* QGraphicsScale_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQGraphicsScale(parent);
+VirtualQGraphicsScale* QGraphicsScale_new2(const QGraphicsScale_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsScale>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsScale(vtbl, parent) : nullptr;
 }
 
 void QGraphicsScale_virtbase(QGraphicsScale* src, QGraphicsTransform** outptr_QGraphicsTransform) {
@@ -889,213 +647,82 @@ struct seaqt_string QGraphicsScale_tr3(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QGraphicsScale_staticMetaObject() { return &QGraphicsScale::staticMetaObject; }
-bool QGraphicsScale_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGraphicsScale_vdata(VirtualQGraphicsScale* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGraphicsScale>()); }
+VirtualQGraphicsScale* vdata_QGraphicsScale(void* vdata) { return reinterpret_cast<VirtualQGraphicsScale*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGraphicsScale>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QGraphicsScale_virtualbase_metaObject(const VirtualQGraphicsScale* self) {
+
+	return (QMetaObject*) self->QGraphicsScale::metaObject();
 }
 
-QMetaObject* QGraphicsScale_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQGraphicsScale*>(self)->QGraphicsScale::metaObject();
+void* QGraphicsScale_virtualbase_metacast(VirtualQGraphicsScale* self, const char* param1) {
+
+	return self->QGraphicsScale::qt_metacast(param1);
 }
 
-bool QGraphicsScale_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QGraphicsScale_virtualbase_metacall(VirtualQGraphicsScale* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QGraphicsScale::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QGraphicsScale_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQGraphicsScale*>(self)->QGraphicsScale::qt_metacast(param1);
+void QGraphicsScale_virtualbase_applyTo(const VirtualQGraphicsScale* self, QMatrix4x4* matrix) {
+
+	self->QGraphicsScale::applyTo(matrix);
 }
 
-bool QGraphicsScale_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QGraphicsScale_virtualbase_event(VirtualQGraphicsScale* self, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QGraphicsScale::event(event);
 }
 
-int QGraphicsScale_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQGraphicsScale*>(self)->QGraphicsScale::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+bool QGraphicsScale_virtualbase_eventFilter(VirtualQGraphicsScale* self, QObject* watched, QEvent* event) {
+
+	return self->QGraphicsScale::eventFilter(watched, event);
 }
 
-bool QGraphicsScale_override_virtual_applyTo(void* self, intptr_t slot) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGraphicsScale_virtualbase_timerEvent(VirtualQGraphicsScale* self, QTimerEvent* event) {
 
-	self_cast->handle__applyTo = slot;
-	return true;
+	self->QGraphicsScale::timerEvent(event);
 }
 
-void QGraphicsScale_virtualbase_applyTo(const void* self, QMatrix4x4* matrix) {
-	static_cast<const VirtualQGraphicsScale*>(self)->QGraphicsScale::applyTo(matrix);
+void QGraphicsScale_virtualbase_childEvent(VirtualQGraphicsScale* self, QChildEvent* event) {
+
+	self->QGraphicsScale::childEvent(event);
 }
 
-bool QGraphicsScale_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGraphicsScale_virtualbase_customEvent(VirtualQGraphicsScale* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QGraphicsScale::customEvent(event);
 }
 
-bool QGraphicsScale_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQGraphicsScale*>(self)->QGraphicsScale::event(event);
+void QGraphicsScale_virtualbase_connectNotify(VirtualQGraphicsScale* self, QMetaMethod* signal) {
+
+	self->QGraphicsScale::connectNotify(*signal);
 }
 
-bool QGraphicsScale_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGraphicsScale_virtualbase_disconnectNotify(VirtualQGraphicsScale* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QGraphicsScale::disconnectNotify(*signal);
 }
 
-bool QGraphicsScale_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQGraphicsScale*>(self)->QGraphicsScale::eventFilter(watched, event);
+void QGraphicsScale_protectedbase_update(VirtualQGraphicsScale* self) {
+	self->update();
 }
 
-bool QGraphicsScale_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+QObject* QGraphicsScale_protectedbase_sender(const VirtualQGraphicsScale* self) {
+	return self->sender();
 }
 
-void QGraphicsScale_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQGraphicsScale*>(self)->QGraphicsScale::timerEvent(event);
+int QGraphicsScale_protectedbase_senderSignalIndex(const VirtualQGraphicsScale* self) {
+	return self->senderSignalIndex();
 }
 
-bool QGraphicsScale_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QGraphicsScale_protectedbase_receivers(const VirtualQGraphicsScale* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QGraphicsScale_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQGraphicsScale*>(self)->QGraphicsScale::childEvent(event);
-}
-
-bool QGraphicsScale_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QGraphicsScale_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQGraphicsScale*>(self)->QGraphicsScale::customEvent(event);
-}
-
-bool QGraphicsScale_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QGraphicsScale_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGraphicsScale*>(self)->QGraphicsScale::connectNotify(*signal);
-}
-
-bool QGraphicsScale_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QGraphicsScale_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGraphicsScale*>(self)->QGraphicsScale::disconnectNotify(*signal);
-}
-
-void QGraphicsScale_protectedbase_update(bool* _dynamic_cast_ok, void* self) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->update();
-}
-
-QObject* QGraphicsScale_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QGraphicsScale_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QGraphicsScale_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QGraphicsScale_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQGraphicsScale* self_cast = dynamic_cast<VirtualQGraphicsScale*>( (QGraphicsScale*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QGraphicsScale_protectedbase_isSignalConnected(const VirtualQGraphicsScale* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QGraphicsScale_delete(QGraphicsScale* self) {
@@ -1103,50 +730,42 @@ void QGraphicsScale_delete(QGraphicsScale* self) {
 }
 
 class VirtualQGraphicsRotation final : public QGraphicsRotation {
+	const QGraphicsRotation_VTable* vtbl;
 public:
+	friend void* QGraphicsRotation_vdata(VirtualQGraphicsRotation* self);
+	friend VirtualQGraphicsRotation* vdata_QGraphicsRotation(void* vdata);
 
-	VirtualQGraphicsRotation(): QGraphicsRotation() {}
-	VirtualQGraphicsRotation(QObject* parent): QGraphicsRotation(parent) {}
+	VirtualQGraphicsRotation(const QGraphicsRotation_VTable* vtbl): QGraphicsRotation(), vtbl(vtbl) {}
+	VirtualQGraphicsRotation(const QGraphicsRotation_VTable* vtbl, QObject* parent): QGraphicsRotation(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQGraphicsRotation() override = default;
+	virtual ~VirtualQGraphicsRotation() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QGraphicsRotation::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QGraphicsRotation_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QGraphicsRotation_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QGraphicsRotation_virtualbase_metaObject(const VirtualQGraphicsRotation* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QGraphicsRotation::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QGraphicsRotation_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QGraphicsRotation_virtualbase_metacast(void* self, const char* param1);
+	friend void* QGraphicsRotation_virtualbase_metacast(VirtualQGraphicsRotation* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QGraphicsRotation::qt_metacall(param1, param2, param3);
 		}
 
@@ -1154,119 +773,87 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QGraphicsRotation_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QGraphicsRotation_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QGraphicsRotation_virtualbase_metacall(VirtualQGraphicsRotation* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__applyTo = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void applyTo(QMatrix4x4* matrix) const override {
-		if (handle__applyTo == 0) {
+		if (vtbl->applyTo == 0) {
 			QGraphicsRotation::applyTo(matrix);
 			return;
 		}
 
 		QMatrix4x4* sigval1 = matrix;
-		miqt_exec_callback_QGraphicsRotation_applyTo(this, handle__applyTo, sigval1);
-
+		vtbl->applyTo(this, sigval1);
 	}
 
-	friend void QGraphicsRotation_virtualbase_applyTo(const void* self, QMatrix4x4* matrix);
+	friend void QGraphicsRotation_virtualbase_applyTo(const VirtualQGraphicsRotation* self, QMatrix4x4* matrix);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QGraphicsRotation::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QGraphicsRotation_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QGraphicsRotation_virtualbase_event(void* self, QEvent* event);
+	friend bool QGraphicsRotation_virtualbase_event(VirtualQGraphicsRotation* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QGraphicsRotation::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QGraphicsRotation_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QGraphicsRotation_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QGraphicsRotation_virtualbase_eventFilter(VirtualQGraphicsRotation* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QGraphicsRotation::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QGraphicsRotation_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QGraphicsRotation_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QGraphicsRotation_virtualbase_timerEvent(VirtualQGraphicsRotation* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QGraphicsRotation::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QGraphicsRotation_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QGraphicsRotation_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QGraphicsRotation_virtualbase_childEvent(VirtualQGraphicsRotation* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QGraphicsRotation::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QGraphicsRotation_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QGraphicsRotation_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QGraphicsRotation_virtualbase_customEvent(VirtualQGraphicsRotation* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QGraphicsRotation::connectNotify(signal);
 			return;
 		}
@@ -1274,18 +861,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGraphicsRotation_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QGraphicsRotation_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QGraphicsRotation_virtualbase_connectNotify(VirtualQGraphicsRotation* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QGraphicsRotation::disconnectNotify(signal);
 			return;
 		}
@@ -1293,26 +875,27 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGraphicsRotation_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QGraphicsRotation_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QGraphicsRotation_virtualbase_disconnectNotify(VirtualQGraphicsRotation* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QGraphicsRotation_protectedbase_update(bool* _dynamic_cast_ok, void* self);
-	friend QObject* QGraphicsRotation_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QGraphicsRotation_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QGraphicsRotation_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QGraphicsRotation_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QGraphicsRotation_protectedbase_update(VirtualQGraphicsRotation* self);
+	friend QObject* QGraphicsRotation_protectedbase_sender(const VirtualQGraphicsRotation* self);
+	friend int QGraphicsRotation_protectedbase_senderSignalIndex(const VirtualQGraphicsRotation* self);
+	friend int QGraphicsRotation_protectedbase_receivers(const VirtualQGraphicsRotation* self, const char* signal);
+	friend bool QGraphicsRotation_protectedbase_isSignalConnected(const VirtualQGraphicsRotation* self, QMetaMethod* signal);
 };
 
-QGraphicsRotation* QGraphicsRotation_new() {
-	return new (std::nothrow) VirtualQGraphicsRotation();
+VirtualQGraphicsRotation* QGraphicsRotation_new(const QGraphicsRotation_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsRotation>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsRotation(vtbl) : nullptr;
 }
 
-QGraphicsRotation* QGraphicsRotation_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQGraphicsRotation(parent);
+VirtualQGraphicsRotation* QGraphicsRotation_new2(const QGraphicsRotation_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsRotation>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsRotation(vtbl, parent) : nullptr;
 }
 
 void QGraphicsRotation_virtbase(QGraphicsRotation* src, QGraphicsTransform** outptr_QGraphicsTransform) {
@@ -1428,213 +1011,82 @@ struct seaqt_string QGraphicsRotation_tr3(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QGraphicsRotation_staticMetaObject() { return &QGraphicsRotation::staticMetaObject; }
-bool QGraphicsRotation_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGraphicsRotation_vdata(VirtualQGraphicsRotation* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGraphicsRotation>()); }
+VirtualQGraphicsRotation* vdata_QGraphicsRotation(void* vdata) { return reinterpret_cast<VirtualQGraphicsRotation*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGraphicsRotation>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QGraphicsRotation_virtualbase_metaObject(const VirtualQGraphicsRotation* self) {
+
+	return (QMetaObject*) self->QGraphicsRotation::metaObject();
 }
 
-QMetaObject* QGraphicsRotation_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQGraphicsRotation*>(self)->QGraphicsRotation::metaObject();
+void* QGraphicsRotation_virtualbase_metacast(VirtualQGraphicsRotation* self, const char* param1) {
+
+	return self->QGraphicsRotation::qt_metacast(param1);
 }
 
-bool QGraphicsRotation_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QGraphicsRotation_virtualbase_metacall(VirtualQGraphicsRotation* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QGraphicsRotation::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QGraphicsRotation_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQGraphicsRotation*>(self)->QGraphicsRotation::qt_metacast(param1);
+void QGraphicsRotation_virtualbase_applyTo(const VirtualQGraphicsRotation* self, QMatrix4x4* matrix) {
+
+	self->QGraphicsRotation::applyTo(matrix);
 }
 
-bool QGraphicsRotation_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QGraphicsRotation_virtualbase_event(VirtualQGraphicsRotation* self, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QGraphicsRotation::event(event);
 }
 
-int QGraphicsRotation_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQGraphicsRotation*>(self)->QGraphicsRotation::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+bool QGraphicsRotation_virtualbase_eventFilter(VirtualQGraphicsRotation* self, QObject* watched, QEvent* event) {
+
+	return self->QGraphicsRotation::eventFilter(watched, event);
 }
 
-bool QGraphicsRotation_override_virtual_applyTo(void* self, intptr_t slot) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGraphicsRotation_virtualbase_timerEvent(VirtualQGraphicsRotation* self, QTimerEvent* event) {
 
-	self_cast->handle__applyTo = slot;
-	return true;
+	self->QGraphicsRotation::timerEvent(event);
 }
 
-void QGraphicsRotation_virtualbase_applyTo(const void* self, QMatrix4x4* matrix) {
-	static_cast<const VirtualQGraphicsRotation*>(self)->QGraphicsRotation::applyTo(matrix);
+void QGraphicsRotation_virtualbase_childEvent(VirtualQGraphicsRotation* self, QChildEvent* event) {
+
+	self->QGraphicsRotation::childEvent(event);
 }
 
-bool QGraphicsRotation_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGraphicsRotation_virtualbase_customEvent(VirtualQGraphicsRotation* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QGraphicsRotation::customEvent(event);
 }
 
-bool QGraphicsRotation_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQGraphicsRotation*>(self)->QGraphicsRotation::event(event);
+void QGraphicsRotation_virtualbase_connectNotify(VirtualQGraphicsRotation* self, QMetaMethod* signal) {
+
+	self->QGraphicsRotation::connectNotify(*signal);
 }
 
-bool QGraphicsRotation_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGraphicsRotation_virtualbase_disconnectNotify(VirtualQGraphicsRotation* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QGraphicsRotation::disconnectNotify(*signal);
 }
 
-bool QGraphicsRotation_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQGraphicsRotation*>(self)->QGraphicsRotation::eventFilter(watched, event);
+void QGraphicsRotation_protectedbase_update(VirtualQGraphicsRotation* self) {
+	self->update();
 }
 
-bool QGraphicsRotation_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+QObject* QGraphicsRotation_protectedbase_sender(const VirtualQGraphicsRotation* self) {
+	return self->sender();
 }
 
-void QGraphicsRotation_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQGraphicsRotation*>(self)->QGraphicsRotation::timerEvent(event);
+int QGraphicsRotation_protectedbase_senderSignalIndex(const VirtualQGraphicsRotation* self) {
+	return self->senderSignalIndex();
 }
 
-bool QGraphicsRotation_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QGraphicsRotation_protectedbase_receivers(const VirtualQGraphicsRotation* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QGraphicsRotation_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQGraphicsRotation*>(self)->QGraphicsRotation::childEvent(event);
-}
-
-bool QGraphicsRotation_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QGraphicsRotation_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQGraphicsRotation*>(self)->QGraphicsRotation::customEvent(event);
-}
-
-bool QGraphicsRotation_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QGraphicsRotation_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGraphicsRotation*>(self)->QGraphicsRotation::connectNotify(*signal);
-}
-
-bool QGraphicsRotation_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QGraphicsRotation_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGraphicsRotation*>(self)->QGraphicsRotation::disconnectNotify(*signal);
-}
-
-void QGraphicsRotation_protectedbase_update(bool* _dynamic_cast_ok, void* self) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->update();
-}
-
-QObject* QGraphicsRotation_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QGraphicsRotation_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QGraphicsRotation_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QGraphicsRotation_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQGraphicsRotation* self_cast = dynamic_cast<VirtualQGraphicsRotation*>( (QGraphicsRotation*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QGraphicsRotation_protectedbase_isSignalConnected(const VirtualQGraphicsRotation* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QGraphicsRotation_delete(QGraphicsRotation* self) {

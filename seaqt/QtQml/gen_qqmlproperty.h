@@ -44,6 +44,7 @@ QQmlProperty* QQmlProperty_new5(QObject* param1, struct seaqt_string param2);
 QQmlProperty* QQmlProperty_new6(QObject* param1, struct seaqt_string param2, QQmlContext* param3);
 QQmlProperty* QQmlProperty_new7(QObject* param1, struct seaqt_string param2, QQmlEngine* param3);
 QQmlProperty* QQmlProperty_new8(QQmlProperty* param1);
+
 void QQmlProperty_operatorAssign(QQmlProperty* self, QQmlProperty* param1);
 void QQmlProperty_swap(QQmlProperty* self, QQmlProperty* other);
 bool QQmlProperty_operatorEqual(const QQmlProperty* self, QQmlProperty* param1);

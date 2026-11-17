@@ -34,11 +34,30 @@ typedef struct QRect QRect;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QInputDevice* QInputDevice_new();
-QInputDevice* QInputDevice_new2(struct seaqt_string name, long long systemId, int type);
-QInputDevice* QInputDevice_new3(QObject* parent);
-QInputDevice* QInputDevice_new4(struct seaqt_string name, long long systemId, int type, struct seaqt_string seatName);
-QInputDevice* QInputDevice_new5(struct seaqt_string name, long long systemId, int type, struct seaqt_string seatName, QObject* parent);
+typedef struct VirtualQInputDevice VirtualQInputDevice;
+typedef struct QInputDevice_VTable{
+	void (*destructor)(VirtualQInputDevice* self);
+	QMetaObject* (*metaObject)(const VirtualQInputDevice* self);
+	void* (*metacast)(VirtualQInputDevice* self, const char* param1);
+	int (*metacall)(VirtualQInputDevice* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQInputDevice* self, QEvent* event);
+	bool (*eventFilter)(VirtualQInputDevice* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQInputDevice* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQInputDevice* self, QChildEvent* event);
+	void (*customEvent)(VirtualQInputDevice* self, QEvent* event);
+	void (*connectNotify)(VirtualQInputDevice* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQInputDevice* self, QMetaMethod* signal);
+}QInputDevice_VTable;
+
+void* QInputDevice_vdata(VirtualQInputDevice* self);
+VirtualQInputDevice* vdata_QInputDevice(void* vdata);
+
+VirtualQInputDevice* QInputDevice_new(const QInputDevice_VTable* vtbl, size_t vdata);
+VirtualQInputDevice* QInputDevice_new2(const QInputDevice_VTable* vtbl, size_t vdata, struct seaqt_string name, long long systemId, int type);
+VirtualQInputDevice* QInputDevice_new3(const QInputDevice_VTable* vtbl, size_t vdata, QObject* parent);
+VirtualQInputDevice* QInputDevice_new4(const QInputDevice_VTable* vtbl, size_t vdata, struct seaqt_string name, long long systemId, int type, struct seaqt_string seatName);
+VirtualQInputDevice* QInputDevice_new5(const QInputDevice_VTable* vtbl, size_t vdata, struct seaqt_string name, long long systemId, int type, struct seaqt_string seatName, QObject* parent);
+
 void QInputDevice_virtbase(QInputDevice* src, QObject** outptr_QObject);
 QMetaObject* QInputDevice_metaObject(const QInputDevice* self);
 void* QInputDevice_metacast(QInputDevice* self, const char* param1);
@@ -61,31 +80,21 @@ struct seaqt_string QInputDevice_tr2(const char* s, const char* c);
 struct seaqt_string QInputDevice_tr3(const char* s, const char* c, int n);
 QInputDevice* QInputDevice_primaryKeyboardWithSeatName(struct seaqt_string seatName);
 
-bool QInputDevice_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QInputDevice_virtualbase_metaObject(const void* self);
-bool QInputDevice_override_virtual_metacast(void* self, intptr_t slot);
-void* QInputDevice_virtualbase_metacast(void* self, const char* param1);
-bool QInputDevice_override_virtual_metacall(void* self, intptr_t slot);
-int QInputDevice_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QInputDevice_override_virtual_event(void* self, intptr_t slot);
-bool QInputDevice_virtualbase_event(void* self, QEvent* event);
-bool QInputDevice_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QInputDevice_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QInputDevice_override_virtual_timerEvent(void* self, intptr_t slot);
-void QInputDevice_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QInputDevice_override_virtual_childEvent(void* self, intptr_t slot);
-void QInputDevice_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QInputDevice_override_virtual_customEvent(void* self, intptr_t slot);
-void QInputDevice_virtualbase_customEvent(void* self, QEvent* event);
-bool QInputDevice_override_virtual_connectNotify(void* self, intptr_t slot);
-void QInputDevice_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QInputDevice_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QInputDevice_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QInputDevice_virtualbase_metaObject(const VirtualQInputDevice* self);
+void* QInputDevice_virtualbase_metacast(VirtualQInputDevice* self, const char* param1);
+int QInputDevice_virtualbase_metacall(VirtualQInputDevice* self, int param1, int param2, void** param3);
+bool QInputDevice_virtualbase_event(VirtualQInputDevice* self, QEvent* event);
+bool QInputDevice_virtualbase_eventFilter(VirtualQInputDevice* self, QObject* watched, QEvent* event);
+void QInputDevice_virtualbase_timerEvent(VirtualQInputDevice* self, QTimerEvent* event);
+void QInputDevice_virtualbase_childEvent(VirtualQInputDevice* self, QChildEvent* event);
+void QInputDevice_virtualbase_customEvent(VirtualQInputDevice* self, QEvent* event);
+void QInputDevice_virtualbase_connectNotify(VirtualQInputDevice* self, QMetaMethod* signal);
+void QInputDevice_virtualbase_disconnectNotify(VirtualQInputDevice* self, QMetaMethod* signal);
 
-QObject* QInputDevice_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QInputDevice_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QInputDevice_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QInputDevice_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QInputDevice_protectedbase_sender(const VirtualQInputDevice* self);
+int QInputDevice_protectedbase_senderSignalIndex(const VirtualQInputDevice* self);
+int QInputDevice_protectedbase_receivers(const VirtualQInputDevice* self, const char* signal);
+bool QInputDevice_protectedbase_isSignalConnected(const VirtualQInputDevice* self, QMetaMethod* signal);
 
 const QMetaObject* QInputDevice_staticMetaObject();
 void QInputDevice_delete(QInputDevice* self);

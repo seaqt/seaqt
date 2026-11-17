@@ -15,6 +15,17 @@
 #include <qgeopositioninfosource.h>
 #include "gen_qgeopositioninfosource.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -22,75 +33,46 @@ extern "C" {
 void miqt_exec_callback_QGeoPositionInfoSource_positionUpdated(intptr_t, QGeoPositionInfo*);
 void miqt_exec_callback_QGeoPositionInfoSource_errorOccurred(intptr_t, int);
 void miqt_exec_callback_QGeoPositionInfoSource_supportedPositioningMethodsChanged(intptr_t);
-QMetaObject* miqt_exec_callback_QGeoPositionInfoSource_metaObject(const QGeoPositionInfoSource*, intptr_t);
-void* miqt_exec_callback_QGeoPositionInfoSource_metacast(QGeoPositionInfoSource*, intptr_t, const char*);
-int miqt_exec_callback_QGeoPositionInfoSource_metacall(QGeoPositionInfoSource*, intptr_t, int, int, void**);
-void miqt_exec_callback_QGeoPositionInfoSource_setUpdateInterval(QGeoPositionInfoSource*, intptr_t, int);
-void miqt_exec_callback_QGeoPositionInfoSource_setPreferredPositioningMethods(QGeoPositionInfoSource*, intptr_t, int);
-QGeoPositionInfo* miqt_exec_callback_QGeoPositionInfoSource_lastKnownPosition(const QGeoPositionInfoSource*, intptr_t, bool);
-int miqt_exec_callback_QGeoPositionInfoSource_supportedPositioningMethods(const QGeoPositionInfoSource*, intptr_t);
-int miqt_exec_callback_QGeoPositionInfoSource_minimumUpdateInterval(const QGeoPositionInfoSource*, intptr_t);
-bool miqt_exec_callback_QGeoPositionInfoSource_setBackendProperty(QGeoPositionInfoSource*, intptr_t, struct seaqt_string, QVariant*);
-QVariant* miqt_exec_callback_QGeoPositionInfoSource_backendProperty(const QGeoPositionInfoSource*, intptr_t, struct seaqt_string);
-int miqt_exec_callback_QGeoPositionInfoSource_error(const QGeoPositionInfoSource*, intptr_t);
-void miqt_exec_callback_QGeoPositionInfoSource_startUpdates(QGeoPositionInfoSource*, intptr_t);
-void miqt_exec_callback_QGeoPositionInfoSource_stopUpdates(QGeoPositionInfoSource*, intptr_t);
-void miqt_exec_callback_QGeoPositionInfoSource_requestUpdate(QGeoPositionInfoSource*, intptr_t, int);
-bool miqt_exec_callback_QGeoPositionInfoSource_event(QGeoPositionInfoSource*, intptr_t, QEvent*);
-bool miqt_exec_callback_QGeoPositionInfoSource_eventFilter(QGeoPositionInfoSource*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QGeoPositionInfoSource_timerEvent(QGeoPositionInfoSource*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QGeoPositionInfoSource_childEvent(QGeoPositionInfoSource*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QGeoPositionInfoSource_customEvent(QGeoPositionInfoSource*, intptr_t, QEvent*);
-void miqt_exec_callback_QGeoPositionInfoSource_connectNotify(QGeoPositionInfoSource*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QGeoPositionInfoSource_disconnectNotify(QGeoPositionInfoSource*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQGeoPositionInfoSource final : public QGeoPositionInfoSource {
+	const QGeoPositionInfoSource_VTable* vtbl;
 public:
+	friend void* QGeoPositionInfoSource_vdata(VirtualQGeoPositionInfoSource* self);
+	friend VirtualQGeoPositionInfoSource* vdata_QGeoPositionInfoSource(void* vdata);
 
-	VirtualQGeoPositionInfoSource(QObject* parent): QGeoPositionInfoSource(parent) {}
+	VirtualQGeoPositionInfoSource(const QGeoPositionInfoSource_VTable* vtbl, QObject* parent): QGeoPositionInfoSource(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQGeoPositionInfoSource() override = default;
+	virtual ~VirtualQGeoPositionInfoSource() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QGeoPositionInfoSource::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QGeoPositionInfoSource_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QGeoPositionInfoSource_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QGeoPositionInfoSource_virtualbase_metaObject(const VirtualQGeoPositionInfoSource* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QGeoPositionInfoSource::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QGeoPositionInfoSource_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QGeoPositionInfoSource_virtualbase_metacast(void* self, const char* param1);
+	friend void* QGeoPositionInfoSource_virtualbase_metacast(VirtualQGeoPositionInfoSource* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QGeoPositionInfoSource::qt_metacall(param1, param2, param3);
 		}
 
@@ -98,93 +80,67 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QGeoPositionInfoSource_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QGeoPositionInfoSource_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QGeoPositionInfoSource_virtualbase_metacall(VirtualQGeoPositionInfoSource* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setUpdateInterval = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setUpdateInterval(int msec) override {
-		if (handle__setUpdateInterval == 0) {
+		if (vtbl->setUpdateInterval == 0) {
 			QGeoPositionInfoSource::setUpdateInterval(msec);
 			return;
 		}
 
 		int sigval1 = msec;
-		miqt_exec_callback_QGeoPositionInfoSource_setUpdateInterval(this, handle__setUpdateInterval, sigval1);
-
+		vtbl->setUpdateInterval(this, sigval1);
 	}
 
-	friend void QGeoPositionInfoSource_virtualbase_setUpdateInterval(void* self, int msec);
+	friend void QGeoPositionInfoSource_virtualbase_setUpdateInterval(VirtualQGeoPositionInfoSource* self, int msec);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setPreferredPositioningMethods = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setPreferredPositioningMethods(QGeoPositionInfoSource::PositioningMethods methods) override {
-		if (handle__setPreferredPositioningMethods == 0) {
+		if (vtbl->setPreferredPositioningMethods == 0) {
 			QGeoPositionInfoSource::setPreferredPositioningMethods(methods);
 			return;
 		}
 
 		QGeoPositionInfoSource::PositioningMethods methods_ret = methods;
 		int sigval1 = static_cast<int>(methods_ret);
-		miqt_exec_callback_QGeoPositionInfoSource_setPreferredPositioningMethods(this, handle__setPreferredPositioningMethods, sigval1);
-
+		vtbl->setPreferredPositioningMethods(this, sigval1);
 	}
 
-	friend void QGeoPositionInfoSource_virtualbase_setPreferredPositioningMethods(void* self, int methods);
+	friend void QGeoPositionInfoSource_virtualbase_setPreferredPositioningMethods(VirtualQGeoPositionInfoSource* self, int methods);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__lastKnownPosition = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QGeoPositionInfo lastKnownPosition(bool fromSatellitePositioningMethodsOnly) const override {
-		if (handle__lastKnownPosition == 0) {
+		if (vtbl->lastKnownPosition == 0) {
 			return QGeoPositionInfo(); // Pure virtual, there is no base we can call
 		}
 
 		bool sigval1 = fromSatellitePositioningMethodsOnly;
-		QGeoPositionInfo* callback_return_value = miqt_exec_callback_QGeoPositionInfoSource_lastKnownPosition(this, handle__lastKnownPosition, sigval1);
+		QGeoPositionInfo* callback_return_value = vtbl->lastKnownPosition(this, sigval1);
 		return *callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__supportedPositioningMethods = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QGeoPositionInfoSource::PositioningMethods supportedPositioningMethods() const override {
-		if (handle__supportedPositioningMethods == 0) {
+		if (vtbl->supportedPositioningMethods == 0) {
 			return QGeoPositionInfoSource::PositioningMethods(); // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QGeoPositionInfoSource_supportedPositioningMethods(this, handle__supportedPositioningMethods);
+		int callback_return_value = vtbl->supportedPositioningMethods(this);
 		return static_cast<QGeoPositionInfoSource::PositioningMethods>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__minimumUpdateInterval = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int minimumUpdateInterval() const override {
-		if (handle__minimumUpdateInterval == 0) {
+		if (vtbl->minimumUpdateInterval == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QGeoPositionInfoSource_minimumUpdateInterval(this, handle__minimumUpdateInterval);
+		int callback_return_value = vtbl->minimumUpdateInterval(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setBackendProperty = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool setBackendProperty(const QString& name, const QVariant& value) override {
-		if (handle__setBackendProperty == 0) {
+		if (vtbl->setBackendProperty == 0) {
 			return QGeoPositionInfoSource::setBackendProperty(name, value);
 		}
 
@@ -199,18 +155,14 @@ public:
 		const QVariant& value_ret = value;
 		// Cast returned reference into pointer
 		QVariant* sigval2 = const_cast<QVariant*>(&value_ret);
-		bool callback_return_value = miqt_exec_callback_QGeoPositionInfoSource_setBackendProperty(this, handle__setBackendProperty, sigval1, sigval2);
+		bool callback_return_value = vtbl->setBackendProperty(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QGeoPositionInfoSource_virtualbase_setBackendProperty(void* self, struct seaqt_string name, QVariant* value);
+	friend bool QGeoPositionInfoSource_virtualbase_setBackendProperty(VirtualQGeoPositionInfoSource* self, struct seaqt_string name, QVariant* value);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__backendProperty = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant backendProperty(const QString& name) const override {
-		if (handle__backendProperty == 0) {
+		if (vtbl->backendProperty == 0) {
 			return QGeoPositionInfoSource::backendProperty(name);
 		}
 
@@ -222,155 +174,109 @@ public:
 		name_ms.data = static_cast<char*>(malloc(name_ms.len));
 		memcpy(name_ms.data, name_b.data(), name_ms.len);
 		struct seaqt_string sigval1 = name_ms;
-		QVariant* callback_return_value = miqt_exec_callback_QGeoPositionInfoSource_backendProperty(this, handle__backendProperty, sigval1);
+		QVariant* callback_return_value = vtbl->backendProperty(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QGeoPositionInfoSource_virtualbase_backendProperty(const void* self, struct seaqt_string name);
+	friend QVariant* QGeoPositionInfoSource_virtualbase_backendProperty(const VirtualQGeoPositionInfoSource* self, struct seaqt_string name);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__error = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QGeoPositionInfoSource::Error error() const override {
-		if (handle__error == 0) {
+		if (vtbl->error == 0) {
 			return (QGeoPositionInfoSource::Error)(0); // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QGeoPositionInfoSource_error(this, handle__error);
+		int callback_return_value = vtbl->error(this);
 		return static_cast<QGeoPositionInfoSource::Error>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__startUpdates = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void startUpdates() override {
-		if (handle__startUpdates == 0) {
+		if (vtbl->startUpdates == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
-		miqt_exec_callback_QGeoPositionInfoSource_startUpdates(this, handle__startUpdates);
-
+		vtbl->startUpdates(this);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__stopUpdates = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void stopUpdates() override {
-		if (handle__stopUpdates == 0) {
+		if (vtbl->stopUpdates == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
-		miqt_exec_callback_QGeoPositionInfoSource_stopUpdates(this, handle__stopUpdates);
-
+		vtbl->stopUpdates(this);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__requestUpdate = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void requestUpdate(int timeout) override {
-		if (handle__requestUpdate == 0) {
+		if (vtbl->requestUpdate == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = timeout;
-		miqt_exec_callback_QGeoPositionInfoSource_requestUpdate(this, handle__requestUpdate, sigval1);
-
+		vtbl->requestUpdate(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QGeoPositionInfoSource::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QGeoPositionInfoSource_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QGeoPositionInfoSource_virtualbase_event(void* self, QEvent* event);
+	friend bool QGeoPositionInfoSource_virtualbase_event(VirtualQGeoPositionInfoSource* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QGeoPositionInfoSource::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QGeoPositionInfoSource_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QGeoPositionInfoSource_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QGeoPositionInfoSource_virtualbase_eventFilter(VirtualQGeoPositionInfoSource* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QGeoPositionInfoSource::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QGeoPositionInfoSource_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QGeoPositionInfoSource_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QGeoPositionInfoSource_virtualbase_timerEvent(VirtualQGeoPositionInfoSource* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QGeoPositionInfoSource::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QGeoPositionInfoSource_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QGeoPositionInfoSource_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QGeoPositionInfoSource_virtualbase_childEvent(VirtualQGeoPositionInfoSource* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QGeoPositionInfoSource::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QGeoPositionInfoSource_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QGeoPositionInfoSource_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QGeoPositionInfoSource_virtualbase_customEvent(VirtualQGeoPositionInfoSource* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QGeoPositionInfoSource::connectNotify(signal);
 			return;
 		}
@@ -378,18 +284,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGeoPositionInfoSource_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QGeoPositionInfoSource_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QGeoPositionInfoSource_virtualbase_connectNotify(VirtualQGeoPositionInfoSource* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QGeoPositionInfoSource::disconnectNotify(signal);
 			return;
 		}
@@ -397,21 +298,21 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGeoPositionInfoSource_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QGeoPositionInfoSource_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QGeoPositionInfoSource_virtualbase_disconnectNotify(VirtualQGeoPositionInfoSource* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QGeoPositionInfoSource_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QGeoPositionInfoSource_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QGeoPositionInfoSource_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QGeoPositionInfoSource_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QGeoPositionInfoSource_protectedbase_sender(const VirtualQGeoPositionInfoSource* self);
+	friend int QGeoPositionInfoSource_protectedbase_senderSignalIndex(const VirtualQGeoPositionInfoSource* self);
+	friend int QGeoPositionInfoSource_protectedbase_receivers(const VirtualQGeoPositionInfoSource* self, const char* signal);
+	friend bool QGeoPositionInfoSource_protectedbase_isSignalConnected(const VirtualQGeoPositionInfoSource* self, QMetaMethod* signal);
 };
 
-QGeoPositionInfoSource* QGeoPositionInfoSource_new(QObject* parent) {
-	return new (std::nothrow) VirtualQGeoPositionInfoSource(parent);
+VirtualQGeoPositionInfoSource* QGeoPositionInfoSource_new(const QGeoPositionInfoSource_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGeoPositionInfoSource>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGeoPositionInfoSource(vtbl, parent) : nullptr;
 }
 
 void QGeoPositionInfoSource_virtbase(QGeoPositionInfoSource* src, QObject** outptr_QObject) {
@@ -619,316 +520,95 @@ struct seaqt_string QGeoPositionInfoSource_tr3(const char* s, const char* c, int
 }
 
 const QMetaObject* QGeoPositionInfoSource_staticMetaObject() { return &QGeoPositionInfoSource::staticMetaObject; }
-bool QGeoPositionInfoSource_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGeoPositionInfoSource_vdata(VirtualQGeoPositionInfoSource* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGeoPositionInfoSource>()); }
+VirtualQGeoPositionInfoSource* vdata_QGeoPositionInfoSource(void* vdata) { return reinterpret_cast<VirtualQGeoPositionInfoSource*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGeoPositionInfoSource>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QGeoPositionInfoSource_virtualbase_metaObject(const VirtualQGeoPositionInfoSource* self) {
+
+	return (QMetaObject*) self->QGeoPositionInfoSource::metaObject();
 }
 
-QMetaObject* QGeoPositionInfoSource_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQGeoPositionInfoSource*>(self)->QGeoPositionInfoSource::metaObject();
+void* QGeoPositionInfoSource_virtualbase_metacast(VirtualQGeoPositionInfoSource* self, const char* param1) {
+
+	return self->QGeoPositionInfoSource::qt_metacast(param1);
 }
 
-bool QGeoPositionInfoSource_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QGeoPositionInfoSource_virtualbase_metacall(VirtualQGeoPositionInfoSource* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QGeoPositionInfoSource::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QGeoPositionInfoSource_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQGeoPositionInfoSource*>(self)->QGeoPositionInfoSource::qt_metacast(param1);
+void QGeoPositionInfoSource_virtualbase_setUpdateInterval(VirtualQGeoPositionInfoSource* self, int msec) {
+
+	self->QGeoPositionInfoSource::setUpdateInterval(static_cast<int>(msec));
 }
 
-bool QGeoPositionInfoSource_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGeoPositionInfoSource_virtualbase_setPreferredPositioningMethods(VirtualQGeoPositionInfoSource* self, int methods) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	self->QGeoPositionInfoSource::setPreferredPositioningMethods(static_cast<VirtualQGeoPositionInfoSource::PositioningMethods>(methods));
 }
 
-int QGeoPositionInfoSource_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQGeoPositionInfoSource*>(self)->QGeoPositionInfoSource::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
-}
-
-bool QGeoPositionInfoSource_override_virtual_setUpdateInterval(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setUpdateInterval = slot;
-	return true;
-}
-
-void QGeoPositionInfoSource_virtualbase_setUpdateInterval(void* self, int msec) {
-	static_cast<VirtualQGeoPositionInfoSource*>(self)->QGeoPositionInfoSource::setUpdateInterval(static_cast<int>(msec));
-}
-
-bool QGeoPositionInfoSource_override_virtual_setPreferredPositioningMethods(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setPreferredPositioningMethods = slot;
-	return true;
-}
-
-void QGeoPositionInfoSource_virtualbase_setPreferredPositioningMethods(void* self, int methods) {
-	static_cast<VirtualQGeoPositionInfoSource*>(self)->QGeoPositionInfoSource::setPreferredPositioningMethods(static_cast<VirtualQGeoPositionInfoSource::PositioningMethods>(methods));
-}
-
-bool QGeoPositionInfoSource_override_virtual_lastKnownPosition(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__lastKnownPosition = slot;
-	return true;
-}
-
-bool QGeoPositionInfoSource_override_virtual_supportedPositioningMethods(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__supportedPositioningMethods = slot;
-	return true;
-}
-
-bool QGeoPositionInfoSource_override_virtual_minimumUpdateInterval(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__minimumUpdateInterval = slot;
-	return true;
-}
-
-bool QGeoPositionInfoSource_override_virtual_setBackendProperty(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setBackendProperty = slot;
-	return true;
-}
-
-bool QGeoPositionInfoSource_virtualbase_setBackendProperty(void* self, struct seaqt_string name, QVariant* value) {
+bool QGeoPositionInfoSource_virtualbase_setBackendProperty(VirtualQGeoPositionInfoSource* self, struct seaqt_string name, QVariant* value) {
 	QString name_QString = QString::fromUtf8(name.data, name.len);
-	return static_cast<VirtualQGeoPositionInfoSource*>(self)->QGeoPositionInfoSource::setBackendProperty(name_QString, *value);
+
+	return self->QGeoPositionInfoSource::setBackendProperty(name_QString, *value);
 }
 
-bool QGeoPositionInfoSource_override_virtual_backendProperty(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__backendProperty = slot;
-	return true;
-}
-
-QVariant* QGeoPositionInfoSource_virtualbase_backendProperty(const void* self, struct seaqt_string name) {
+QVariant* QGeoPositionInfoSource_virtualbase_backendProperty(const VirtualQGeoPositionInfoSource* self, struct seaqt_string name) {
 	QString name_QString = QString::fromUtf8(name.data, name.len);
-	return new QVariant(static_cast<const VirtualQGeoPositionInfoSource*>(self)->QGeoPositionInfoSource::backendProperty(name_QString));
+
+	return new QVariant(self->QGeoPositionInfoSource::backendProperty(name_QString));
 }
 
-bool QGeoPositionInfoSource_override_virtual_error(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QGeoPositionInfoSource_virtualbase_event(VirtualQGeoPositionInfoSource* self, QEvent* event) {
 
-	self_cast->handle__error = slot;
-	return true;
+	return self->QGeoPositionInfoSource::event(event);
 }
 
-bool QGeoPositionInfoSource_override_virtual_startUpdates(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QGeoPositionInfoSource_virtualbase_eventFilter(VirtualQGeoPositionInfoSource* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__startUpdates = slot;
-	return true;
+	return self->QGeoPositionInfoSource::eventFilter(watched, event);
 }
 
-bool QGeoPositionInfoSource_override_virtual_stopUpdates(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGeoPositionInfoSource_virtualbase_timerEvent(VirtualQGeoPositionInfoSource* self, QTimerEvent* event) {
 
-	self_cast->handle__stopUpdates = slot;
-	return true;
+	self->QGeoPositionInfoSource::timerEvent(event);
 }
 
-bool QGeoPositionInfoSource_override_virtual_requestUpdate(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGeoPositionInfoSource_virtualbase_childEvent(VirtualQGeoPositionInfoSource* self, QChildEvent* event) {
 
-	self_cast->handle__requestUpdate = slot;
-	return true;
+	self->QGeoPositionInfoSource::childEvent(event);
 }
 
-bool QGeoPositionInfoSource_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGeoPositionInfoSource_virtualbase_customEvent(VirtualQGeoPositionInfoSource* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QGeoPositionInfoSource::customEvent(event);
 }
 
-bool QGeoPositionInfoSource_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQGeoPositionInfoSource*>(self)->QGeoPositionInfoSource::event(event);
+void QGeoPositionInfoSource_virtualbase_connectNotify(VirtualQGeoPositionInfoSource* self, QMetaMethod* signal) {
+
+	self->QGeoPositionInfoSource::connectNotify(*signal);
 }
 
-bool QGeoPositionInfoSource_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGeoPositionInfoSource_virtualbase_disconnectNotify(VirtualQGeoPositionInfoSource* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QGeoPositionInfoSource::disconnectNotify(*signal);
 }
 
-bool QGeoPositionInfoSource_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQGeoPositionInfoSource*>(self)->QGeoPositionInfoSource::eventFilter(watched, event);
+QObject* QGeoPositionInfoSource_protectedbase_sender(const VirtualQGeoPositionInfoSource* self) {
+	return self->sender();
 }
 
-bool QGeoPositionInfoSource_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+int QGeoPositionInfoSource_protectedbase_senderSignalIndex(const VirtualQGeoPositionInfoSource* self) {
+	return self->senderSignalIndex();
 }
 
-void QGeoPositionInfoSource_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQGeoPositionInfoSource*>(self)->QGeoPositionInfoSource::timerEvent(event);
+int QGeoPositionInfoSource_protectedbase_receivers(const VirtualQGeoPositionInfoSource* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QGeoPositionInfoSource_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QGeoPositionInfoSource_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQGeoPositionInfoSource*>(self)->QGeoPositionInfoSource::childEvent(event);
-}
-
-bool QGeoPositionInfoSource_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QGeoPositionInfoSource_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQGeoPositionInfoSource*>(self)->QGeoPositionInfoSource::customEvent(event);
-}
-
-bool QGeoPositionInfoSource_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QGeoPositionInfoSource_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGeoPositionInfoSource*>(self)->QGeoPositionInfoSource::connectNotify(*signal);
-}
-
-bool QGeoPositionInfoSource_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QGeoPositionInfoSource_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGeoPositionInfoSource*>(self)->QGeoPositionInfoSource::disconnectNotify(*signal);
-}
-
-QObject* QGeoPositionInfoSource_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QGeoPositionInfoSource_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QGeoPositionInfoSource_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QGeoPositionInfoSource_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQGeoPositionInfoSource* self_cast = dynamic_cast<VirtualQGeoPositionInfoSource*>( (QGeoPositionInfoSource*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QGeoPositionInfoSource_protectedbase_isSignalConnected(const VirtualQGeoPositionInfoSource* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QGeoPositionInfoSource_delete(QGeoPositionInfoSource* self) {

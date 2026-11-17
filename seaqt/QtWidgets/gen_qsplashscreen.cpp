@@ -41,115 +41,67 @@
 #include <qsplashscreen.h>
 #include "gen_qsplashscreen.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void miqt_exec_callback_QSplashScreen_messageChanged(intptr_t, struct seaqt_string);
-QMetaObject* miqt_exec_callback_QSplashScreen_metaObject(const QSplashScreen*, intptr_t);
-void* miqt_exec_callback_QSplashScreen_metacast(QSplashScreen*, intptr_t, const char*);
-int miqt_exec_callback_QSplashScreen_metacall(QSplashScreen*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QSplashScreen_event(QSplashScreen*, intptr_t, QEvent*);
-void miqt_exec_callback_QSplashScreen_drawContents(QSplashScreen*, intptr_t, QPainter*);
-void miqt_exec_callback_QSplashScreen_mousePressEvent(QSplashScreen*, intptr_t, QMouseEvent*);
-int miqt_exec_callback_QSplashScreen_devType(const QSplashScreen*, intptr_t);
-void miqt_exec_callback_QSplashScreen_setVisible(QSplashScreen*, intptr_t, bool);
-QSize* miqt_exec_callback_QSplashScreen_sizeHint(const QSplashScreen*, intptr_t);
-QSize* miqt_exec_callback_QSplashScreen_minimumSizeHint(const QSplashScreen*, intptr_t);
-int miqt_exec_callback_QSplashScreen_heightForWidth(const QSplashScreen*, intptr_t, int);
-bool miqt_exec_callback_QSplashScreen_hasHeightForWidth(const QSplashScreen*, intptr_t);
-QPaintEngine* miqt_exec_callback_QSplashScreen_paintEngine(const QSplashScreen*, intptr_t);
-void miqt_exec_callback_QSplashScreen_mouseReleaseEvent(QSplashScreen*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QSplashScreen_mouseDoubleClickEvent(QSplashScreen*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QSplashScreen_mouseMoveEvent(QSplashScreen*, intptr_t, QMouseEvent*);
-void miqt_exec_callback_QSplashScreen_wheelEvent(QSplashScreen*, intptr_t, QWheelEvent*);
-void miqt_exec_callback_QSplashScreen_keyPressEvent(QSplashScreen*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QSplashScreen_keyReleaseEvent(QSplashScreen*, intptr_t, QKeyEvent*);
-void miqt_exec_callback_QSplashScreen_focusInEvent(QSplashScreen*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QSplashScreen_focusOutEvent(QSplashScreen*, intptr_t, QFocusEvent*);
-void miqt_exec_callback_QSplashScreen_enterEvent(QSplashScreen*, intptr_t, QEnterEvent*);
-void miqt_exec_callback_QSplashScreen_leaveEvent(QSplashScreen*, intptr_t, QEvent*);
-void miqt_exec_callback_QSplashScreen_paintEvent(QSplashScreen*, intptr_t, QPaintEvent*);
-void miqt_exec_callback_QSplashScreen_moveEvent(QSplashScreen*, intptr_t, QMoveEvent*);
-void miqt_exec_callback_QSplashScreen_resizeEvent(QSplashScreen*, intptr_t, QResizeEvent*);
-void miqt_exec_callback_QSplashScreen_closeEvent(QSplashScreen*, intptr_t, QCloseEvent*);
-void miqt_exec_callback_QSplashScreen_contextMenuEvent(QSplashScreen*, intptr_t, QContextMenuEvent*);
-void miqt_exec_callback_QSplashScreen_tabletEvent(QSplashScreen*, intptr_t, QTabletEvent*);
-void miqt_exec_callback_QSplashScreen_actionEvent(QSplashScreen*, intptr_t, QActionEvent*);
-void miqt_exec_callback_QSplashScreen_dragEnterEvent(QSplashScreen*, intptr_t, QDragEnterEvent*);
-void miqt_exec_callback_QSplashScreen_dragMoveEvent(QSplashScreen*, intptr_t, QDragMoveEvent*);
-void miqt_exec_callback_QSplashScreen_dragLeaveEvent(QSplashScreen*, intptr_t, QDragLeaveEvent*);
-void miqt_exec_callback_QSplashScreen_dropEvent(QSplashScreen*, intptr_t, QDropEvent*);
-void miqt_exec_callback_QSplashScreen_showEvent(QSplashScreen*, intptr_t, QShowEvent*);
-void miqt_exec_callback_QSplashScreen_hideEvent(QSplashScreen*, intptr_t, QHideEvent*);
-bool miqt_exec_callback_QSplashScreen_nativeEvent(QSplashScreen*, intptr_t, struct seaqt_string, void*, intptr_t*);
-void miqt_exec_callback_QSplashScreen_changeEvent(QSplashScreen*, intptr_t, QEvent*);
-int miqt_exec_callback_QSplashScreen_metric(const QSplashScreen*, intptr_t, int);
-void miqt_exec_callback_QSplashScreen_initPainter(const QSplashScreen*, intptr_t, QPainter*);
-QPaintDevice* miqt_exec_callback_QSplashScreen_redirected(const QSplashScreen*, intptr_t, QPoint*);
-QPainter* miqt_exec_callback_QSplashScreen_sharedPainter(const QSplashScreen*, intptr_t);
-void miqt_exec_callback_QSplashScreen_inputMethodEvent(QSplashScreen*, intptr_t, QInputMethodEvent*);
-QVariant* miqt_exec_callback_QSplashScreen_inputMethodQuery(const QSplashScreen*, intptr_t, int);
-bool miqt_exec_callback_QSplashScreen_focusNextPrevChild(QSplashScreen*, intptr_t, bool);
-bool miqt_exec_callback_QSplashScreen_eventFilter(QSplashScreen*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QSplashScreen_timerEvent(QSplashScreen*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QSplashScreen_childEvent(QSplashScreen*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QSplashScreen_customEvent(QSplashScreen*, intptr_t, QEvent*);
-void miqt_exec_callback_QSplashScreen_connectNotify(QSplashScreen*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QSplashScreen_disconnectNotify(QSplashScreen*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQSplashScreen final : public QSplashScreen {
+	const QSplashScreen_VTable* vtbl;
 public:
+	friend void* QSplashScreen_vdata(VirtualQSplashScreen* self);
+	friend VirtualQSplashScreen* vdata_QSplashScreen(void* vdata);
 
-	VirtualQSplashScreen(): QSplashScreen() {}
-	VirtualQSplashScreen(QScreen* screen): QSplashScreen(screen) {}
-	VirtualQSplashScreen(const QPixmap& pixmap): QSplashScreen(pixmap) {}
-	VirtualQSplashScreen(const QPixmap& pixmap, Qt::WindowFlags f): QSplashScreen(pixmap, f) {}
-	VirtualQSplashScreen(QScreen* screen, const QPixmap& pixmap): QSplashScreen(screen, pixmap) {}
-	VirtualQSplashScreen(QScreen* screen, const QPixmap& pixmap, Qt::WindowFlags f): QSplashScreen(screen, pixmap, f) {}
+	VirtualQSplashScreen(const QSplashScreen_VTable* vtbl): QSplashScreen(), vtbl(vtbl) {}
+	VirtualQSplashScreen(const QSplashScreen_VTable* vtbl, QScreen* screen): QSplashScreen(screen), vtbl(vtbl) {}
+	VirtualQSplashScreen(const QSplashScreen_VTable* vtbl, const QPixmap& pixmap): QSplashScreen(pixmap), vtbl(vtbl) {}
+	VirtualQSplashScreen(const QSplashScreen_VTable* vtbl, const QPixmap& pixmap, Qt::WindowFlags f): QSplashScreen(pixmap, f), vtbl(vtbl) {}
+	VirtualQSplashScreen(const QSplashScreen_VTable* vtbl, QScreen* screen, const QPixmap& pixmap): QSplashScreen(screen, pixmap), vtbl(vtbl) {}
+	VirtualQSplashScreen(const QSplashScreen_VTable* vtbl, QScreen* screen, const QPixmap& pixmap, Qt::WindowFlags f): QSplashScreen(screen, pixmap, f), vtbl(vtbl) {}
 
-	virtual ~VirtualQSplashScreen() override = default;
+	virtual ~VirtualQSplashScreen() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QSplashScreen::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QSplashScreen_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QSplashScreen_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QSplashScreen_virtualbase_metaObject(const VirtualQSplashScreen* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QSplashScreen::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QSplashScreen_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QSplashScreen_virtualbase_metacast(void* self, const char* param1);
+	friend void* QSplashScreen_virtualbase_metacast(VirtualQSplashScreen* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QSplashScreen::qt_metacall(param1, param2, param3);
 		}
 
@@ -157,567 +109,405 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QSplashScreen_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QSplashScreen_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QSplashScreen_virtualbase_metacall(VirtualQSplashScreen* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* e) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QSplashScreen::event(e);
 		}
 
 		QEvent* sigval1 = e;
-		bool callback_return_value = miqt_exec_callback_QSplashScreen_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSplashScreen_virtualbase_event(void* self, QEvent* e);
+	friend bool QSplashScreen_virtualbase_event(VirtualQSplashScreen* self, QEvent* e);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__drawContents = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void drawContents(QPainter* painter) override {
-		if (handle__drawContents == 0) {
+		if (vtbl->drawContents == 0) {
 			QSplashScreen::drawContents(painter);
 			return;
 		}
 
 		QPainter* sigval1 = painter;
-		miqt_exec_callback_QSplashScreen_drawContents(this, handle__drawContents, sigval1);
-
+		vtbl->drawContents(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_drawContents(void* self, QPainter* painter);
+	friend void QSplashScreen_virtualbase_drawContents(VirtualQSplashScreen* self, QPainter* painter);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mousePressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mousePressEvent(QMouseEvent* param1) override {
-		if (handle__mousePressEvent == 0) {
+		if (vtbl->mousePressEvent == 0) {
 			QSplashScreen::mousePressEvent(param1);
 			return;
 		}
 
 		QMouseEvent* sigval1 = param1;
-		miqt_exec_callback_QSplashScreen_mousePressEvent(this, handle__mousePressEvent, sigval1);
-
+		vtbl->mousePressEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_mousePressEvent(void* self, QMouseEvent* param1);
+	friend void QSplashScreen_virtualbase_mousePressEvent(VirtualQSplashScreen* self, QMouseEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__devType = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int devType() const override {
-		if (handle__devType == 0) {
+		if (vtbl->devType == 0) {
 			return QSplashScreen::devType();
 		}
 
-		int callback_return_value = miqt_exec_callback_QSplashScreen_devType(this, handle__devType);
+		int callback_return_value = vtbl->devType(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QSplashScreen_virtualbase_devType(const void* self);
+	friend int QSplashScreen_virtualbase_devType(const VirtualQSplashScreen* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setVisible = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setVisible(bool visible) override {
-		if (handle__setVisible == 0) {
+		if (vtbl->setVisible == 0) {
 			QSplashScreen::setVisible(visible);
 			return;
 		}
 
 		bool sigval1 = visible;
-		miqt_exec_callback_QSplashScreen_setVisible(this, handle__setVisible, sigval1);
-
+		vtbl->setVisible(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_setVisible(void* self, bool visible);
+	friend void QSplashScreen_virtualbase_setVisible(VirtualQSplashScreen* self, bool visible);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize sizeHint() const override {
-		if (handle__sizeHint == 0) {
+		if (vtbl->sizeHint == 0) {
 			return QSplashScreen::sizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QSplashScreen_sizeHint(this, handle__sizeHint);
+		QSize* callback_return_value = vtbl->sizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QSplashScreen_virtualbase_sizeHint(const void* self);
+	friend QSize* QSplashScreen_virtualbase_sizeHint(const VirtualQSplashScreen* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__minimumSizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize minimumSizeHint() const override {
-		if (handle__minimumSizeHint == 0) {
+		if (vtbl->minimumSizeHint == 0) {
 			return QSplashScreen::minimumSizeHint();
 		}
 
-		QSize* callback_return_value = miqt_exec_callback_QSplashScreen_minimumSizeHint(this, handle__minimumSizeHint);
+		QSize* callback_return_value = vtbl->minimumSizeHint(this);
 		return *callback_return_value;
 	}
 
-	friend QSize* QSplashScreen_virtualbase_minimumSizeHint(const void* self);
+	friend QSize* QSplashScreen_virtualbase_minimumSizeHint(const VirtualQSplashScreen* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__heightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int heightForWidth(int param1) const override {
-		if (handle__heightForWidth == 0) {
+		if (vtbl->heightForWidth == 0) {
 			return QSplashScreen::heightForWidth(param1);
 		}
 
 		int sigval1 = param1;
-		int callback_return_value = miqt_exec_callback_QSplashScreen_heightForWidth(this, handle__heightForWidth, sigval1);
+		int callback_return_value = vtbl->heightForWidth(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QSplashScreen_virtualbase_heightForWidth(const void* self, int param1);
+	friend int QSplashScreen_virtualbase_heightForWidth(const VirtualQSplashScreen* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hasHeightForWidth = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool hasHeightForWidth() const override {
-		if (handle__hasHeightForWidth == 0) {
+		if (vtbl->hasHeightForWidth == 0) {
 			return QSplashScreen::hasHeightForWidth();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QSplashScreen_hasHeightForWidth(this, handle__hasHeightForWidth);
+		bool callback_return_value = vtbl->hasHeightForWidth(this);
 		return callback_return_value;
 	}
 
-	friend bool QSplashScreen_virtualbase_hasHeightForWidth(const void* self);
+	friend bool QSplashScreen_virtualbase_hasHeightForWidth(const VirtualQSplashScreen* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEngine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintEngine* paintEngine() const override {
-		if (handle__paintEngine == 0) {
+		if (vtbl->paintEngine == 0) {
 			return QSplashScreen::paintEngine();
 		}
 
-		QPaintEngine* callback_return_value = miqt_exec_callback_QSplashScreen_paintEngine(this, handle__paintEngine);
+		QPaintEngine* callback_return_value = vtbl->paintEngine(this);
 		return callback_return_value;
 	}
 
-	friend QPaintEngine* QSplashScreen_virtualbase_paintEngine(const void* self);
+	friend QPaintEngine* QSplashScreen_virtualbase_paintEngine(const VirtualQSplashScreen* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseReleaseEvent(QMouseEvent* event) override {
-		if (handle__mouseReleaseEvent == 0) {
+		if (vtbl->mouseReleaseEvent == 0) {
 			QSplashScreen::mouseReleaseEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_mouseReleaseEvent(this, handle__mouseReleaseEvent, sigval1);
-
+		vtbl->mouseReleaseEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* event);
+	friend void QSplashScreen_virtualbase_mouseReleaseEvent(VirtualQSplashScreen* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseDoubleClickEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseDoubleClickEvent(QMouseEvent* event) override {
-		if (handle__mouseDoubleClickEvent == 0) {
+		if (vtbl->mouseDoubleClickEvent == 0) {
 			QSplashScreen::mouseDoubleClickEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_mouseDoubleClickEvent(this, handle__mouseDoubleClickEvent, sigval1);
-
+		vtbl->mouseDoubleClickEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* event);
+	friend void QSplashScreen_virtualbase_mouseDoubleClickEvent(VirtualQSplashScreen* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mouseMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void mouseMoveEvent(QMouseEvent* event) override {
-		if (handle__mouseMoveEvent == 0) {
+		if (vtbl->mouseMoveEvent == 0) {
 			QSplashScreen::mouseMoveEvent(event);
 			return;
 		}
 
 		QMouseEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_mouseMoveEvent(this, handle__mouseMoveEvent, sigval1);
-
+		vtbl->mouseMoveEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_mouseMoveEvent(void* self, QMouseEvent* event);
+	friend void QSplashScreen_virtualbase_mouseMoveEvent(VirtualQSplashScreen* self, QMouseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__wheelEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void wheelEvent(QWheelEvent* event) override {
-		if (handle__wheelEvent == 0) {
+		if (vtbl->wheelEvent == 0) {
 			QSplashScreen::wheelEvent(event);
 			return;
 		}
 
 		QWheelEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_wheelEvent(this, handle__wheelEvent, sigval1);
-
+		vtbl->wheelEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_wheelEvent(void* self, QWheelEvent* event);
+	friend void QSplashScreen_virtualbase_wheelEvent(VirtualQSplashScreen* self, QWheelEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyPressEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyPressEvent(QKeyEvent* event) override {
-		if (handle__keyPressEvent == 0) {
+		if (vtbl->keyPressEvent == 0) {
 			QSplashScreen::keyPressEvent(event);
 			return;
 		}
 
 		QKeyEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_keyPressEvent(this, handle__keyPressEvent, sigval1);
-
+		vtbl->keyPressEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_keyPressEvent(void* self, QKeyEvent* event);
+	friend void QSplashScreen_virtualbase_keyPressEvent(VirtualQSplashScreen* self, QKeyEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__keyReleaseEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void keyReleaseEvent(QKeyEvent* event) override {
-		if (handle__keyReleaseEvent == 0) {
+		if (vtbl->keyReleaseEvent == 0) {
 			QSplashScreen::keyReleaseEvent(event);
 			return;
 		}
 
 		QKeyEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_keyReleaseEvent(this, handle__keyReleaseEvent, sigval1);
-
+		vtbl->keyReleaseEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event);
+	friend void QSplashScreen_virtualbase_keyReleaseEvent(VirtualQSplashScreen* self, QKeyEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusInEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusInEvent(QFocusEvent* event) override {
-		if (handle__focusInEvent == 0) {
+		if (vtbl->focusInEvent == 0) {
 			QSplashScreen::focusInEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_focusInEvent(this, handle__focusInEvent, sigval1);
-
+		vtbl->focusInEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_focusInEvent(void* self, QFocusEvent* event);
+	friend void QSplashScreen_virtualbase_focusInEvent(VirtualQSplashScreen* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusOutEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void focusOutEvent(QFocusEvent* event) override {
-		if (handle__focusOutEvent == 0) {
+		if (vtbl->focusOutEvent == 0) {
 			QSplashScreen::focusOutEvent(event);
 			return;
 		}
 
 		QFocusEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_focusOutEvent(this, handle__focusOutEvent, sigval1);
-
+		vtbl->focusOutEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_focusOutEvent(void* self, QFocusEvent* event);
+	friend void QSplashScreen_virtualbase_focusOutEvent(VirtualQSplashScreen* self, QFocusEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__enterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void enterEvent(QEnterEvent* event) override {
-		if (handle__enterEvent == 0) {
+		if (vtbl->enterEvent == 0) {
 			QSplashScreen::enterEvent(event);
 			return;
 		}
 
 		QEnterEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_enterEvent(this, handle__enterEvent, sigval1);
-
+		vtbl->enterEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_enterEvent(void* self, QEnterEvent* event);
+	friend void QSplashScreen_virtualbase_enterEvent(VirtualQSplashScreen* self, QEnterEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__leaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void leaveEvent(QEvent* event) override {
-		if (handle__leaveEvent == 0) {
+		if (vtbl->leaveEvent == 0) {
 			QSplashScreen::leaveEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_leaveEvent(this, handle__leaveEvent, sigval1);
-
+		vtbl->leaveEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_leaveEvent(void* self, QEvent* event);
+	friend void QSplashScreen_virtualbase_leaveEvent(VirtualQSplashScreen* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void paintEvent(QPaintEvent* event) override {
-		if (handle__paintEvent == 0) {
+		if (vtbl->paintEvent == 0) {
 			QSplashScreen::paintEvent(event);
 			return;
 		}
 
 		QPaintEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_paintEvent(this, handle__paintEvent, sigval1);
-
+		vtbl->paintEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_paintEvent(void* self, QPaintEvent* event);
+	friend void QSplashScreen_virtualbase_paintEvent(VirtualQSplashScreen* self, QPaintEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__moveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void moveEvent(QMoveEvent* event) override {
-		if (handle__moveEvent == 0) {
+		if (vtbl->moveEvent == 0) {
 			QSplashScreen::moveEvent(event);
 			return;
 		}
 
 		QMoveEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_moveEvent(this, handle__moveEvent, sigval1);
-
+		vtbl->moveEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_moveEvent(void* self, QMoveEvent* event);
+	friend void QSplashScreen_virtualbase_moveEvent(VirtualQSplashScreen* self, QMoveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__resizeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void resizeEvent(QResizeEvent* event) override {
-		if (handle__resizeEvent == 0) {
+		if (vtbl->resizeEvent == 0) {
 			QSplashScreen::resizeEvent(event);
 			return;
 		}
 
 		QResizeEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_resizeEvent(this, handle__resizeEvent, sigval1);
-
+		vtbl->resizeEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_resizeEvent(void* self, QResizeEvent* event);
+	friend void QSplashScreen_virtualbase_resizeEvent(VirtualQSplashScreen* self, QResizeEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__closeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void closeEvent(QCloseEvent* event) override {
-		if (handle__closeEvent == 0) {
+		if (vtbl->closeEvent == 0) {
 			QSplashScreen::closeEvent(event);
 			return;
 		}
 
 		QCloseEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_closeEvent(this, handle__closeEvent, sigval1);
-
+		vtbl->closeEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_closeEvent(void* self, QCloseEvent* event);
+	friend void QSplashScreen_virtualbase_closeEvent(VirtualQSplashScreen* self, QCloseEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__contextMenuEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void contextMenuEvent(QContextMenuEvent* event) override {
-		if (handle__contextMenuEvent == 0) {
+		if (vtbl->contextMenuEvent == 0) {
 			QSplashScreen::contextMenuEvent(event);
 			return;
 		}
 
 		QContextMenuEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_contextMenuEvent(this, handle__contextMenuEvent, sigval1);
-
+		vtbl->contextMenuEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* event);
+	friend void QSplashScreen_virtualbase_contextMenuEvent(VirtualQSplashScreen* self, QContextMenuEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__tabletEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void tabletEvent(QTabletEvent* event) override {
-		if (handle__tabletEvent == 0) {
+		if (vtbl->tabletEvent == 0) {
 			QSplashScreen::tabletEvent(event);
 			return;
 		}
 
 		QTabletEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_tabletEvent(this, handle__tabletEvent, sigval1);
-
+		vtbl->tabletEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_tabletEvent(void* self, QTabletEvent* event);
+	friend void QSplashScreen_virtualbase_tabletEvent(VirtualQSplashScreen* self, QTabletEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__actionEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void actionEvent(QActionEvent* event) override {
-		if (handle__actionEvent == 0) {
+		if (vtbl->actionEvent == 0) {
 			QSplashScreen::actionEvent(event);
 			return;
 		}
 
 		QActionEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_actionEvent(this, handle__actionEvent, sigval1);
-
+		vtbl->actionEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_actionEvent(void* self, QActionEvent* event);
+	friend void QSplashScreen_virtualbase_actionEvent(VirtualQSplashScreen* self, QActionEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragEnterEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragEnterEvent(QDragEnterEvent* event) override {
-		if (handle__dragEnterEvent == 0) {
+		if (vtbl->dragEnterEvent == 0) {
 			QSplashScreen::dragEnterEvent(event);
 			return;
 		}
 
 		QDragEnterEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_dragEnterEvent(this, handle__dragEnterEvent, sigval1);
-
+		vtbl->dragEnterEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* event);
+	friend void QSplashScreen_virtualbase_dragEnterEvent(VirtualQSplashScreen* self, QDragEnterEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragMoveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragMoveEvent(QDragMoveEvent* event) override {
-		if (handle__dragMoveEvent == 0) {
+		if (vtbl->dragMoveEvent == 0) {
 			QSplashScreen::dragMoveEvent(event);
 			return;
 		}
 
 		QDragMoveEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_dragMoveEvent(this, handle__dragMoveEvent, sigval1);
-
+		vtbl->dragMoveEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* event);
+	friend void QSplashScreen_virtualbase_dragMoveEvent(VirtualQSplashScreen* self, QDragMoveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dragLeaveEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dragLeaveEvent(QDragLeaveEvent* event) override {
-		if (handle__dragLeaveEvent == 0) {
+		if (vtbl->dragLeaveEvent == 0) {
 			QSplashScreen::dragLeaveEvent(event);
 			return;
 		}
 
 		QDragLeaveEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_dragLeaveEvent(this, handle__dragLeaveEvent, sigval1);
-
+		vtbl->dragLeaveEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* event);
+	friend void QSplashScreen_virtualbase_dragLeaveEvent(VirtualQSplashScreen* self, QDragLeaveEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dropEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void dropEvent(QDropEvent* event) override {
-		if (handle__dropEvent == 0) {
+		if (vtbl->dropEvent == 0) {
 			QSplashScreen::dropEvent(event);
 			return;
 		}
 
 		QDropEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_dropEvent(this, handle__dropEvent, sigval1);
-
+		vtbl->dropEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_dropEvent(void* self, QDropEvent* event);
+	friend void QSplashScreen_virtualbase_dropEvent(VirtualQSplashScreen* self, QDropEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__showEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void showEvent(QShowEvent* event) override {
-		if (handle__showEvent == 0) {
+		if (vtbl->showEvent == 0) {
 			QSplashScreen::showEvent(event);
 			return;
 		}
 
 		QShowEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_showEvent(this, handle__showEvent, sigval1);
-
+		vtbl->showEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_showEvent(void* self, QShowEvent* event);
+	friend void QSplashScreen_virtualbase_showEvent(VirtualQSplashScreen* self, QShowEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hideEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void hideEvent(QHideEvent* event) override {
-		if (handle__hideEvent == 0) {
+		if (vtbl->hideEvent == 0) {
 			QSplashScreen::hideEvent(event);
 			return;
 		}
 
 		QHideEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_hideEvent(this, handle__hideEvent, sigval1);
-
+		vtbl->hideEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_hideEvent(void* self, QHideEvent* event);
+	friend void QSplashScreen_virtualbase_hideEvent(VirtualQSplashScreen* self, QHideEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__nativeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool nativeEvent(const QByteArray& eventType, void* message, qintptr* result) override {
-		if (handle__nativeEvent == 0) {
+		if (vtbl->nativeEvent == 0) {
 			return QSplashScreen::nativeEvent(eventType, message, result);
 		}
 
@@ -730,218 +520,160 @@ public:
 		void* sigval2 = message;
 		qintptr* result_ret = result;
 		intptr_t* sigval3 = (intptr_t*)(result_ret);
-		bool callback_return_value = miqt_exec_callback_QSplashScreen_nativeEvent(this, handle__nativeEvent, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->nativeEvent(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QSplashScreen_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, intptr_t* result);
+	friend bool QSplashScreen_virtualbase_nativeEvent(VirtualQSplashScreen* self, struct seaqt_string eventType, void* message, intptr_t* result);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__changeEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void changeEvent(QEvent* param1) override {
-		if (handle__changeEvent == 0) {
+		if (vtbl->changeEvent == 0) {
 			QSplashScreen::changeEvent(param1);
 			return;
 		}
 
 		QEvent* sigval1 = param1;
-		miqt_exec_callback_QSplashScreen_changeEvent(this, handle__changeEvent, sigval1);
-
+		vtbl->changeEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_changeEvent(void* self, QEvent* param1);
+	friend void QSplashScreen_virtualbase_changeEvent(VirtualQSplashScreen* self, QEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metric = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int metric(QPaintDevice::PaintDeviceMetric param1) const override {
-		if (handle__metric == 0) {
+		if (vtbl->metric == 0) {
 			return QSplashScreen::metric(param1);
 		}
 
 		QPaintDevice::PaintDeviceMetric param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		int callback_return_value = miqt_exec_callback_QSplashScreen_metric(this, handle__metric, sigval1);
+		int callback_return_value = vtbl->metric(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QSplashScreen_virtualbase_metric(const void* self, int param1);
+	friend int QSplashScreen_virtualbase_metric(const VirtualQSplashScreen* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__initPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void initPainter(QPainter* painter) const override {
-		if (handle__initPainter == 0) {
+		if (vtbl->initPainter == 0) {
 			QSplashScreen::initPainter(painter);
 			return;
 		}
 
 		QPainter* sigval1 = painter;
-		miqt_exec_callback_QSplashScreen_initPainter(this, handle__initPainter, sigval1);
-
+		vtbl->initPainter(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_initPainter(const void* self, QPainter* painter);
+	friend void QSplashScreen_virtualbase_initPainter(const VirtualQSplashScreen* self, QPainter* painter);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__redirected = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintDevice* redirected(QPoint* offset) const override {
-		if (handle__redirected == 0) {
+		if (vtbl->redirected == 0) {
 			return QSplashScreen::redirected(offset);
 		}
 
 		QPoint* sigval1 = offset;
-		QPaintDevice* callback_return_value = miqt_exec_callback_QSplashScreen_redirected(this, handle__redirected, sigval1);
+		QPaintDevice* callback_return_value = vtbl->redirected(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QPaintDevice* QSplashScreen_virtualbase_redirected(const void* self, QPoint* offset);
+	friend QPaintDevice* QSplashScreen_virtualbase_redirected(const VirtualQSplashScreen* self, QPoint* offset);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sharedPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPainter* sharedPainter() const override {
-		if (handle__sharedPainter == 0) {
+		if (vtbl->sharedPainter == 0) {
 			return QSplashScreen::sharedPainter();
 		}
 
-		QPainter* callback_return_value = miqt_exec_callback_QSplashScreen_sharedPainter(this, handle__sharedPainter);
+		QPainter* callback_return_value = vtbl->sharedPainter(this);
 		return callback_return_value;
 	}
 
-	friend QPainter* QSplashScreen_virtualbase_sharedPainter(const void* self);
+	friend QPainter* QSplashScreen_virtualbase_sharedPainter(const VirtualQSplashScreen* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void inputMethodEvent(QInputMethodEvent* param1) override {
-		if (handle__inputMethodEvent == 0) {
+		if (vtbl->inputMethodEvent == 0) {
 			QSplashScreen::inputMethodEvent(param1);
 			return;
 		}
 
 		QInputMethodEvent* sigval1 = param1;
-		miqt_exec_callback_QSplashScreen_inputMethodEvent(this, handle__inputMethodEvent, sigval1);
-
+		vtbl->inputMethodEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1);
+	friend void QSplashScreen_virtualbase_inputMethodEvent(VirtualQSplashScreen* self, QInputMethodEvent* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__inputMethodQuery = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant inputMethodQuery(Qt::InputMethodQuery param1) const override {
-		if (handle__inputMethodQuery == 0) {
+		if (vtbl->inputMethodQuery == 0) {
 			return QSplashScreen::inputMethodQuery(param1);
 		}
 
 		Qt::InputMethodQuery param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		QVariant* callback_return_value = miqt_exec_callback_QSplashScreen_inputMethodQuery(this, handle__inputMethodQuery, sigval1);
+		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QSplashScreen_virtualbase_inputMethodQuery(const void* self, int param1);
+	friend QVariant* QSplashScreen_virtualbase_inputMethodQuery(const VirtualQSplashScreen* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__focusNextPrevChild = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool focusNextPrevChild(bool next) override {
-		if (handle__focusNextPrevChild == 0) {
+		if (vtbl->focusNextPrevChild == 0) {
 			return QSplashScreen::focusNextPrevChild(next);
 		}
 
 		bool sigval1 = next;
-		bool callback_return_value = miqt_exec_callback_QSplashScreen_focusNextPrevChild(this, handle__focusNextPrevChild, sigval1);
+		bool callback_return_value = vtbl->focusNextPrevChild(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSplashScreen_virtualbase_focusNextPrevChild(void* self, bool next);
+	friend bool QSplashScreen_virtualbase_focusNextPrevChild(VirtualQSplashScreen* self, bool next);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QSplashScreen::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QSplashScreen_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QSplashScreen_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QSplashScreen_virtualbase_eventFilter(VirtualQSplashScreen* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QSplashScreen::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QSplashScreen_virtualbase_timerEvent(VirtualQSplashScreen* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QSplashScreen::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QSplashScreen_virtualbase_childEvent(VirtualQSplashScreen* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QSplashScreen::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QSplashScreen_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QSplashScreen_virtualbase_customEvent(VirtualQSplashScreen* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QSplashScreen::connectNotify(signal);
 			return;
 		}
@@ -949,18 +681,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSplashScreen_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QSplashScreen_virtualbase_connectNotify(VirtualQSplashScreen* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QSplashScreen::disconnectNotify(signal);
 			return;
 		}
@@ -968,46 +695,51 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSplashScreen_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QSplashScreen_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QSplashScreen_virtualbase_disconnectNotify(VirtualQSplashScreen* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QSplashScreen_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self);
-	friend void QSplashScreen_protectedbase_create(bool* _dynamic_cast_ok, void* self);
-	friend void QSplashScreen_protectedbase_destroy(bool* _dynamic_cast_ok, void* self);
-	friend bool QSplashScreen_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self);
-	friend bool QSplashScreen_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self);
-	friend QObject* QSplashScreen_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QSplashScreen_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QSplashScreen_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QSplashScreen_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QSplashScreen_protectedbase_updateMicroFocus(VirtualQSplashScreen* self);
+	friend void QSplashScreen_protectedbase_create(VirtualQSplashScreen* self);
+	friend void QSplashScreen_protectedbase_destroy(VirtualQSplashScreen* self);
+	friend bool QSplashScreen_protectedbase_focusNextChild(VirtualQSplashScreen* self);
+	friend bool QSplashScreen_protectedbase_focusPreviousChild(VirtualQSplashScreen* self);
+	friend QObject* QSplashScreen_protectedbase_sender(const VirtualQSplashScreen* self);
+	friend int QSplashScreen_protectedbase_senderSignalIndex(const VirtualQSplashScreen* self);
+	friend int QSplashScreen_protectedbase_receivers(const VirtualQSplashScreen* self, const char* signal);
+	friend bool QSplashScreen_protectedbase_isSignalConnected(const VirtualQSplashScreen* self, QMetaMethod* signal);
 };
 
-QSplashScreen* QSplashScreen_new() {
-	return new (std::nothrow) VirtualQSplashScreen();
+VirtualQSplashScreen* QSplashScreen_new(const QSplashScreen_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSplashScreen>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSplashScreen(vtbl) : nullptr;
 }
 
-QSplashScreen* QSplashScreen_new2(QScreen* screen) {
-	return new (std::nothrow) VirtualQSplashScreen(screen);
+VirtualQSplashScreen* QSplashScreen_new2(const QSplashScreen_VTable* vtbl, size_t vdata, QScreen* screen) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSplashScreen>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSplashScreen(vtbl, screen) : nullptr;
 }
 
-QSplashScreen* QSplashScreen_new3(QPixmap* pixmap) {
-	return new (std::nothrow) VirtualQSplashScreen(*pixmap);
+VirtualQSplashScreen* QSplashScreen_new3(const QSplashScreen_VTable* vtbl, size_t vdata, QPixmap* pixmap) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSplashScreen>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSplashScreen(vtbl, *pixmap) : nullptr;
 }
 
-QSplashScreen* QSplashScreen_new4(QPixmap* pixmap, int f) {
-	return new (std::nothrow) VirtualQSplashScreen(*pixmap, static_cast<Qt::WindowFlags>(f));
+VirtualQSplashScreen* QSplashScreen_new4(const QSplashScreen_VTable* vtbl, size_t vdata, QPixmap* pixmap, int f) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSplashScreen>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSplashScreen(vtbl, *pixmap, static_cast<Qt::WindowFlags>(f)) : nullptr;
 }
 
-QSplashScreen* QSplashScreen_new5(QScreen* screen, QPixmap* pixmap) {
-	return new (std::nothrow) VirtualQSplashScreen(screen, *pixmap);
+VirtualQSplashScreen* QSplashScreen_new5(const QSplashScreen_VTable* vtbl, size_t vdata, QScreen* screen, QPixmap* pixmap) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSplashScreen>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSplashScreen(vtbl, screen, *pixmap) : nullptr;
 }
 
-QSplashScreen* QSplashScreen_new6(QScreen* screen, QPixmap* pixmap, int f) {
-	return new (std::nothrow) VirtualQSplashScreen(screen, *pixmap, static_cast<Qt::WindowFlags>(f));
+VirtualQSplashScreen* QSplashScreen_new6(const QSplashScreen_VTable* vtbl, size_t vdata, QScreen* screen, QPixmap* pixmap, int f) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSplashScreen>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSplashScreen(vtbl, screen, *pixmap, static_cast<Qt::WindowFlags>(f)) : nullptr;
 }
 
 void QSplashScreen_virtbase(QSplashScreen* src, QWidget** outptr_QWidget) {
@@ -1125,818 +857,299 @@ void QSplashScreen_showMessage3(QSplashScreen* self, struct seaqt_string message
 }
 
 const QMetaObject* QSplashScreen_staticMetaObject() { return &QSplashScreen::staticMetaObject; }
-bool QSplashScreen_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QSplashScreen_vdata(VirtualQSplashScreen* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQSplashScreen>()); }
+VirtualQSplashScreen* vdata_QSplashScreen(void* vdata) { return reinterpret_cast<VirtualQSplashScreen*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQSplashScreen>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
-}
-
-QMetaObject* QSplashScreen_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQSplashScreen*>(self)->QSplashScreen::metaObject();
-}
-
-bool QSplashScreen_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QMetaObject* QSplashScreen_virtualbase_metaObject(const VirtualQSplashScreen* self) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return (QMetaObject*) self->QSplashScreen::metaObject();
 }
 
-void* QSplashScreen_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::qt_metacast(param1);
-}
-
-bool QSplashScreen_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QSplashScreen_virtualbase_metacast(VirtualQSplashScreen* self, const char* param1) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QSplashScreen::qt_metacast(param1);
 }
-
-int QSplashScreen_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
-}
-
-bool QSplashScreen_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__event = slot;
-	return true;
-}
+int QSplashScreen_virtualbase_metacall(VirtualQSplashScreen* self, int param1, int param2, void** param3) {
 
-bool QSplashScreen_virtualbase_event(void* self, QEvent* e) {
-	return static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::event(e);
+	return self->QSplashScreen::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
-
-bool QSplashScreen_override_virtual_drawContents(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__drawContents = slot;
-	return true;
-}
+bool QSplashScreen_virtualbase_event(VirtualQSplashScreen* self, QEvent* e) {
 
-void QSplashScreen_virtualbase_drawContents(void* self, QPainter* painter) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::drawContents(painter);
+	return self->QSplashScreen::event(e);
 }
-
-bool QSplashScreen_override_virtual_mousePressEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__mousePressEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_drawContents(VirtualQSplashScreen* self, QPainter* painter) {
 
-void QSplashScreen_virtualbase_mousePressEvent(void* self, QMouseEvent* param1) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::mousePressEvent(param1);
+	self->QSplashScreen::drawContents(painter);
 }
-
-bool QSplashScreen_override_virtual_devType(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__devType = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_mousePressEvent(VirtualQSplashScreen* self, QMouseEvent* param1) {
 
-int QSplashScreen_virtualbase_devType(const void* self) {
-	return static_cast<const VirtualQSplashScreen*>(self)->QSplashScreen::devType();
+	self->QSplashScreen::mousePressEvent(param1);
 }
 
-bool QSplashScreen_override_virtual_setVisible(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setVisible = slot;
-	return true;
-}
+int QSplashScreen_virtualbase_devType(const VirtualQSplashScreen* self) {
 
-void QSplashScreen_virtualbase_setVisible(void* self, bool visible) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::setVisible(visible);
+	return self->QSplashScreen::devType();
 }
 
-bool QSplashScreen_override_virtual_sizeHint(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSplashScreen_virtualbase_setVisible(VirtualQSplashScreen* self, bool visible) {
 
-	self_cast->handle__sizeHint = slot;
-	return true;
+	self->QSplashScreen::setVisible(visible);
 }
 
-QSize* QSplashScreen_virtualbase_sizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQSplashScreen*>(self)->QSplashScreen::sizeHint());
-}
-
-bool QSplashScreen_override_virtual_minimumSizeHint(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__minimumSizeHint = slot;
-	return true;
-}
+QSize* QSplashScreen_virtualbase_sizeHint(const VirtualQSplashScreen* self) {
 
-QSize* QSplashScreen_virtualbase_minimumSizeHint(const void* self) {
-	return new QSize(static_cast<const VirtualQSplashScreen*>(self)->QSplashScreen::minimumSizeHint());
+	return new QSize(self->QSplashScreen::sizeHint());
 }
 
-bool QSplashScreen_override_virtual_heightForWidth(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QSize* QSplashScreen_virtualbase_minimumSizeHint(const VirtualQSplashScreen* self) {
 
-	self_cast->handle__heightForWidth = slot;
-	return true;
+	return new QSize(self->QSplashScreen::minimumSizeHint());
 }
 
-int QSplashScreen_virtualbase_heightForWidth(const void* self, int param1) {
-	return static_cast<const VirtualQSplashScreen*>(self)->QSplashScreen::heightForWidth(static_cast<int>(param1));
-}
-
-bool QSplashScreen_override_virtual_hasHeightForWidth(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QSplashScreen_virtualbase_heightForWidth(const VirtualQSplashScreen* self, int param1) {
 
-	self_cast->handle__hasHeightForWidth = slot;
-	return true;
+	return self->QSplashScreen::heightForWidth(static_cast<int>(param1));
 }
-
-bool QSplashScreen_virtualbase_hasHeightForWidth(const void* self) {
-	return static_cast<const VirtualQSplashScreen*>(self)->QSplashScreen::hasHeightForWidth();
-}
-
-bool QSplashScreen_override_virtual_paintEngine(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__paintEngine = slot;
-	return true;
-}
+bool QSplashScreen_virtualbase_hasHeightForWidth(const VirtualQSplashScreen* self) {
 
-QPaintEngine* QSplashScreen_virtualbase_paintEngine(const void* self) {
-	return static_cast<const VirtualQSplashScreen*>(self)->QSplashScreen::paintEngine();
+	return self->QSplashScreen::hasHeightForWidth();
 }
-
-bool QSplashScreen_override_virtual_mouseReleaseEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__mouseReleaseEvent = slot;
-	return true;
-}
+QPaintEngine* QSplashScreen_virtualbase_paintEngine(const VirtualQSplashScreen* self) {
 
-void QSplashScreen_virtualbase_mouseReleaseEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::mouseReleaseEvent(event);
+	return self->QSplashScreen::paintEngine();
 }
 
-bool QSplashScreen_override_virtual_mouseDoubleClickEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mouseDoubleClickEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_mouseReleaseEvent(VirtualQSplashScreen* self, QMouseEvent* event) {
 
-void QSplashScreen_virtualbase_mouseDoubleClickEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::mouseDoubleClickEvent(event);
+	self->QSplashScreen::mouseReleaseEvent(event);
 }
 
-bool QSplashScreen_override_virtual_mouseMoveEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSplashScreen_virtualbase_mouseDoubleClickEvent(VirtualQSplashScreen* self, QMouseEvent* event) {
 
-	self_cast->handle__mouseMoveEvent = slot;
-	return true;
+	self->QSplashScreen::mouseDoubleClickEvent(event);
 }
 
-void QSplashScreen_virtualbase_mouseMoveEvent(void* self, QMouseEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::mouseMoveEvent(event);
-}
-
-bool QSplashScreen_override_virtual_wheelEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSplashScreen_virtualbase_mouseMoveEvent(VirtualQSplashScreen* self, QMouseEvent* event) {
 
-	self_cast->handle__wheelEvent = slot;
-	return true;
+	self->QSplashScreen::mouseMoveEvent(event);
 }
-
-void QSplashScreen_virtualbase_wheelEvent(void* self, QWheelEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::wheelEvent(event);
-}
-
-bool QSplashScreen_override_virtual_keyPressEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__keyPressEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_wheelEvent(VirtualQSplashScreen* self, QWheelEvent* event) {
 
-void QSplashScreen_virtualbase_keyPressEvent(void* self, QKeyEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::keyPressEvent(event);
+	self->QSplashScreen::wheelEvent(event);
 }
-
-bool QSplashScreen_override_virtual_keyReleaseEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__keyReleaseEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_keyPressEvent(VirtualQSplashScreen* self, QKeyEvent* event) {
 
-void QSplashScreen_virtualbase_keyReleaseEvent(void* self, QKeyEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::keyReleaseEvent(event);
+	self->QSplashScreen::keyPressEvent(event);
 }
-
-bool QSplashScreen_override_virtual_focusInEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__focusInEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_keyReleaseEvent(VirtualQSplashScreen* self, QKeyEvent* event) {
 
-void QSplashScreen_virtualbase_focusInEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::focusInEvent(event);
+	self->QSplashScreen::keyReleaseEvent(event);
 }
-
-bool QSplashScreen_override_virtual_focusOutEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__focusOutEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_focusInEvent(VirtualQSplashScreen* self, QFocusEvent* event) {
 
-void QSplashScreen_virtualbase_focusOutEvent(void* self, QFocusEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::focusOutEvent(event);
+	self->QSplashScreen::focusInEvent(event);
 }
 
-bool QSplashScreen_override_virtual_enterEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__enterEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_focusOutEvent(VirtualQSplashScreen* self, QFocusEvent* event) {
 
-void QSplashScreen_virtualbase_enterEvent(void* self, QEnterEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::enterEvent(event);
+	self->QSplashScreen::focusOutEvent(event);
 }
 
-bool QSplashScreen_override_virtual_leaveEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSplashScreen_virtualbase_enterEvent(VirtualQSplashScreen* self, QEnterEvent* event) {
 
-	self_cast->handle__leaveEvent = slot;
-	return true;
+	self->QSplashScreen::enterEvent(event);
 }
 
-void QSplashScreen_virtualbase_leaveEvent(void* self, QEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::leaveEvent(event);
-}
-
-bool QSplashScreen_override_virtual_paintEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__paintEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_leaveEvent(VirtualQSplashScreen* self, QEvent* event) {
 
-void QSplashScreen_virtualbase_paintEvent(void* self, QPaintEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::paintEvent(event);
+	self->QSplashScreen::leaveEvent(event);
 }
 
-bool QSplashScreen_override_virtual_moveEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSplashScreen_virtualbase_paintEvent(VirtualQSplashScreen* self, QPaintEvent* event) {
 
-	self_cast->handle__moveEvent = slot;
-	return true;
+	self->QSplashScreen::paintEvent(event);
 }
 
-void QSplashScreen_virtualbase_moveEvent(void* self, QMoveEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::moveEvent(event);
-}
-
-bool QSplashScreen_override_virtual_resizeEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSplashScreen_virtualbase_moveEvent(VirtualQSplashScreen* self, QMoveEvent* event) {
 
-	self_cast->handle__resizeEvent = slot;
-	return true;
+	self->QSplashScreen::moveEvent(event);
 }
-
-void QSplashScreen_virtualbase_resizeEvent(void* self, QResizeEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::resizeEvent(event);
-}
-
-bool QSplashScreen_override_virtual_closeEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__closeEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_resizeEvent(VirtualQSplashScreen* self, QResizeEvent* event) {
 
-void QSplashScreen_virtualbase_closeEvent(void* self, QCloseEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::closeEvent(event);
+	self->QSplashScreen::resizeEvent(event);
 }
-
-bool QSplashScreen_override_virtual_contextMenuEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__contextMenuEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_closeEvent(VirtualQSplashScreen* self, QCloseEvent* event) {
 
-void QSplashScreen_virtualbase_contextMenuEvent(void* self, QContextMenuEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::contextMenuEvent(event);
+	self->QSplashScreen::closeEvent(event);
 }
-
-bool QSplashScreen_override_virtual_tabletEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__tabletEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_contextMenuEvent(VirtualQSplashScreen* self, QContextMenuEvent* event) {
 
-void QSplashScreen_virtualbase_tabletEvent(void* self, QTabletEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::tabletEvent(event);
+	self->QSplashScreen::contextMenuEvent(event);
 }
-
-bool QSplashScreen_override_virtual_actionEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__actionEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_tabletEvent(VirtualQSplashScreen* self, QTabletEvent* event) {
 
-void QSplashScreen_virtualbase_actionEvent(void* self, QActionEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::actionEvent(event);
+	self->QSplashScreen::tabletEvent(event);
 }
 
-bool QSplashScreen_override_virtual_dragEnterEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__dragEnterEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_actionEvent(VirtualQSplashScreen* self, QActionEvent* event) {
 
-void QSplashScreen_virtualbase_dragEnterEvent(void* self, QDragEnterEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::dragEnterEvent(event);
+	self->QSplashScreen::actionEvent(event);
 }
 
-bool QSplashScreen_override_virtual_dragMoveEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSplashScreen_virtualbase_dragEnterEvent(VirtualQSplashScreen* self, QDragEnterEvent* event) {
 
-	self_cast->handle__dragMoveEvent = slot;
-	return true;
+	self->QSplashScreen::dragEnterEvent(event);
 }
 
-void QSplashScreen_virtualbase_dragMoveEvent(void* self, QDragMoveEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::dragMoveEvent(event);
-}
-
-bool QSplashScreen_override_virtual_dragLeaveEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSplashScreen_virtualbase_dragMoveEvent(VirtualQSplashScreen* self, QDragMoveEvent* event) {
 
-	self_cast->handle__dragLeaveEvent = slot;
-	return true;
+	self->QSplashScreen::dragMoveEvent(event);
 }
-
-void QSplashScreen_virtualbase_dragLeaveEvent(void* self, QDragLeaveEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::dragLeaveEvent(event);
-}
-
-bool QSplashScreen_override_virtual_dropEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__dropEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_dragLeaveEvent(VirtualQSplashScreen* self, QDragLeaveEvent* event) {
 
-void QSplashScreen_virtualbase_dropEvent(void* self, QDropEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::dropEvent(event);
+	self->QSplashScreen::dragLeaveEvent(event);
 }
-
-bool QSplashScreen_override_virtual_showEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
 
-	self_cast->handle__showEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_dropEvent(VirtualQSplashScreen* self, QDropEvent* event) {
 
-void QSplashScreen_virtualbase_showEvent(void* self, QShowEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::showEvent(event);
+	self->QSplashScreen::dropEvent(event);
 }
 
-bool QSplashScreen_override_virtual_hideEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__hideEvent = slot;
-	return true;
-}
+void QSplashScreen_virtualbase_showEvent(VirtualQSplashScreen* self, QShowEvent* event) {
 
-void QSplashScreen_virtualbase_hideEvent(void* self, QHideEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::hideEvent(event);
+	self->QSplashScreen::showEvent(event);
 }
 
-bool QSplashScreen_override_virtual_nativeEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSplashScreen_virtualbase_hideEvent(VirtualQSplashScreen* self, QHideEvent* event) {
 
-	self_cast->handle__nativeEvent = slot;
-	return true;
+	self->QSplashScreen::hideEvent(event);
 }
 
-bool QSplashScreen_virtualbase_nativeEvent(void* self, struct seaqt_string eventType, void* message, intptr_t* result) {
+bool QSplashScreen_virtualbase_nativeEvent(VirtualQSplashScreen* self, struct seaqt_string eventType, void* message, intptr_t* result) {
 	QByteArray eventType_QByteArray(eventType.data, eventType.len);
-	return static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::nativeEvent(eventType_QByteArray, message, (qintptr*)(result));
+
+	return self->QSplashScreen::nativeEvent(eventType_QByteArray, message, (qintptr*)(result));
 }
 
-bool QSplashScreen_override_virtual_changeEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSplashScreen_virtualbase_changeEvent(VirtualQSplashScreen* self, QEvent* param1) {
 
-	self_cast->handle__changeEvent = slot;
-	return true;
+	self->QSplashScreen::changeEvent(param1);
 }
 
-void QSplashScreen_virtualbase_changeEvent(void* self, QEvent* param1) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::changeEvent(param1);
+int QSplashScreen_virtualbase_metric(const VirtualQSplashScreen* self, int param1) {
+
+	return self->QSplashScreen::metric(static_cast<VirtualQSplashScreen::PaintDeviceMetric>(param1));
 }
 
-bool QSplashScreen_override_virtual_metric(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSplashScreen_virtualbase_initPainter(const VirtualQSplashScreen* self, QPainter* painter) {
 
-	self_cast->handle__metric = slot;
-	return true;
+	self->QSplashScreen::initPainter(painter);
 }
 
-int QSplashScreen_virtualbase_metric(const void* self, int param1) {
-	return static_cast<const VirtualQSplashScreen*>(self)->QSplashScreen::metric(static_cast<VirtualQSplashScreen::PaintDeviceMetric>(param1));
+QPaintDevice* QSplashScreen_virtualbase_redirected(const VirtualQSplashScreen* self, QPoint* offset) {
+
+	return self->QSplashScreen::redirected(offset);
 }
 
-bool QSplashScreen_override_virtual_initPainter(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QPainter* QSplashScreen_virtualbase_sharedPainter(const VirtualQSplashScreen* self) {
 
-	self_cast->handle__initPainter = slot;
-	return true;
+	return self->QSplashScreen::sharedPainter();
 }
 
-void QSplashScreen_virtualbase_initPainter(const void* self, QPainter* painter) {
-	static_cast<const VirtualQSplashScreen*>(self)->QSplashScreen::initPainter(painter);
+void QSplashScreen_virtualbase_inputMethodEvent(VirtualQSplashScreen* self, QInputMethodEvent* param1) {
+
+	self->QSplashScreen::inputMethodEvent(param1);
 }
 
-bool QSplashScreen_override_virtual_redirected(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QVariant* QSplashScreen_virtualbase_inputMethodQuery(const VirtualQSplashScreen* self, int param1) {
 
-	self_cast->handle__redirected = slot;
-	return true;
+	return new QVariant(self->QSplashScreen::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
 }
 
-QPaintDevice* QSplashScreen_virtualbase_redirected(const void* self, QPoint* offset) {
-	return static_cast<const VirtualQSplashScreen*>(self)->QSplashScreen::redirected(offset);
+bool QSplashScreen_virtualbase_focusNextPrevChild(VirtualQSplashScreen* self, bool next) {
+
+	return self->QSplashScreen::focusNextPrevChild(next);
 }
 
-bool QSplashScreen_override_virtual_sharedPainter(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSplashScreen_virtualbase_eventFilter(VirtualQSplashScreen* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__sharedPainter = slot;
-	return true;
+	return self->QSplashScreen::eventFilter(watched, event);
 }
 
-QPainter* QSplashScreen_virtualbase_sharedPainter(const void* self) {
-	return static_cast<const VirtualQSplashScreen*>(self)->QSplashScreen::sharedPainter();
+void QSplashScreen_virtualbase_timerEvent(VirtualQSplashScreen* self, QTimerEvent* event) {
+
+	self->QSplashScreen::timerEvent(event);
 }
 
-bool QSplashScreen_override_virtual_inputMethodEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSplashScreen_virtualbase_childEvent(VirtualQSplashScreen* self, QChildEvent* event) {
 
-	self_cast->handle__inputMethodEvent = slot;
-	return true;
+	self->QSplashScreen::childEvent(event);
 }
 
-void QSplashScreen_virtualbase_inputMethodEvent(void* self, QInputMethodEvent* param1) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::inputMethodEvent(param1);
+void QSplashScreen_virtualbase_customEvent(VirtualQSplashScreen* self, QEvent* event) {
+
+	self->QSplashScreen::customEvent(event);
 }
 
-bool QSplashScreen_override_virtual_inputMethodQuery(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSplashScreen_virtualbase_connectNotify(VirtualQSplashScreen* self, QMetaMethod* signal) {
 
-	self_cast->handle__inputMethodQuery = slot;
-	return true;
+	self->QSplashScreen::connectNotify(*signal);
 }
 
-QVariant* QSplashScreen_virtualbase_inputMethodQuery(const void* self, int param1) {
-	return new QVariant(static_cast<const VirtualQSplashScreen*>(self)->QSplashScreen::inputMethodQuery(static_cast<Qt::InputMethodQuery>(param1)));
+void QSplashScreen_virtualbase_disconnectNotify(VirtualQSplashScreen* self, QMetaMethod* signal) {
+
+	self->QSplashScreen::disconnectNotify(*signal);
 }
 
-bool QSplashScreen_override_virtual_focusNextPrevChild(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__focusNextPrevChild = slot;
-	return true;
+void QSplashScreen_protectedbase_updateMicroFocus(VirtualQSplashScreen* self) {
+	self->updateMicroFocus();
 }
 
-bool QSplashScreen_virtualbase_focusNextPrevChild(void* self, bool next) {
-	return static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::focusNextPrevChild(next);
+void QSplashScreen_protectedbase_create(VirtualQSplashScreen* self) {
+	self->create();
 }
 
-bool QSplashScreen_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
+void QSplashScreen_protectedbase_destroy(VirtualQSplashScreen* self) {
+	self->destroy();
 }
 
-bool QSplashScreen_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::eventFilter(watched, event);
+bool QSplashScreen_protectedbase_focusNextChild(VirtualQSplashScreen* self) {
+	return self->focusNextChild();
 }
 
-bool QSplashScreen_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+bool QSplashScreen_protectedbase_focusPreviousChild(VirtualQSplashScreen* self) {
+	return self->focusPreviousChild();
 }
 
-void QSplashScreen_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::timerEvent(event);
+QObject* QSplashScreen_protectedbase_sender(const VirtualQSplashScreen* self) {
+	return self->sender();
 }
 
-bool QSplashScreen_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QSplashScreen_protectedbase_senderSignalIndex(const VirtualQSplashScreen* self) {
+	return self->senderSignalIndex();
 }
 
-void QSplashScreen_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::childEvent(event);
+int QSplashScreen_protectedbase_receivers(const VirtualQSplashScreen* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QSplashScreen_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QSplashScreen_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::customEvent(event);
-}
-
-bool QSplashScreen_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QSplashScreen_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::connectNotify(*signal);
-}
-
-bool QSplashScreen_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QSplashScreen_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSplashScreen*>(self)->QSplashScreen::disconnectNotify(*signal);
-}
-
-void QSplashScreen_protectedbase_updateMicroFocus(bool* _dynamic_cast_ok, void* self) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->updateMicroFocus();
-}
-
-void QSplashScreen_protectedbase_create(bool* _dynamic_cast_ok, void* self) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->create();
-}
-
-void QSplashScreen_protectedbase_destroy(bool* _dynamic_cast_ok, void* self) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->destroy();
-}
-
-bool QSplashScreen_protectedbase_focusNextChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusNextChild();
-}
-
-bool QSplashScreen_protectedbase_focusPreviousChild(bool* _dynamic_cast_ok, void* self) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->focusPreviousChild();
-}
-
-QObject* QSplashScreen_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QSplashScreen_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QSplashScreen_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QSplashScreen_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQSplashScreen* self_cast = dynamic_cast<VirtualQSplashScreen*>( (QSplashScreen*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QSplashScreen_protectedbase_isSignalConnected(const VirtualQSplashScreen* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QSplashScreen_delete(QSplashScreen* self) {

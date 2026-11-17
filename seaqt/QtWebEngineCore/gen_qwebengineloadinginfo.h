@@ -25,6 +25,7 @@ typedef struct QWebEngineLoadingInfo QWebEngineLoadingInfo;
 #endif
 
 QWebEngineLoadingInfo* QWebEngineLoadingInfo_new(QWebEngineLoadingInfo* other);
+
 void QWebEngineLoadingInfo_operatorAssign(QWebEngineLoadingInfo* self, QWebEngineLoadingInfo* other);
 QUrl* QWebEngineLoadingInfo_url(const QWebEngineLoadingInfo* self);
 bool QWebEngineLoadingInfo_isErrorPage(const QWebEngineLoadingInfo* self);

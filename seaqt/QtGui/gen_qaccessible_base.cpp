@@ -10,6 +10,17 @@
 #include <qaccessible_base.h>
 #include "gen_qaccessible_base.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -88,7 +99,7 @@ void QAccessible_delete(QAccessible* self) {
 }
 
 QAccessible__State* QAccessible__State_new() {
-	return new (std::nothrow) QAccessible::State();
+	return new (std::nothrow) QAccessible__State();
 }
 
 unsigned long long QAccessible__State_disabled(const QAccessible__State* self) {

@@ -44,8 +44,30 @@ typedef struct QTcpSocket QTcpSocket;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QSslServer* QSslServer_new();
-QSslServer* QSslServer_new2(QObject* parent);
+typedef struct VirtualQSslServer VirtualQSslServer;
+typedef struct QSslServer_VTable{
+	void (*destructor)(VirtualQSslServer* self);
+	QMetaObject* (*metaObject)(const VirtualQSslServer* self);
+	void* (*metacast)(VirtualQSslServer* self, const char* param1);
+	int (*metacall)(VirtualQSslServer* self, int param1, int param2, void** param3);
+	void (*incomingConnection)(VirtualQSslServer* self, intptr_t socket);
+	bool (*hasPendingConnections)(const VirtualQSslServer* self);
+	QTcpSocket* (*nextPendingConnection)(VirtualQSslServer* self);
+	bool (*event)(VirtualQSslServer* self, QEvent* event);
+	bool (*eventFilter)(VirtualQSslServer* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQSslServer* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQSslServer* self, QChildEvent* event);
+	void (*customEvent)(VirtualQSslServer* self, QEvent* event);
+	void (*connectNotify)(VirtualQSslServer* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQSslServer* self, QMetaMethod* signal);
+}QSslServer_VTable;
+
+void* QSslServer_vdata(VirtualQSslServer* self);
+VirtualQSslServer* vdata_QSslServer(void* vdata);
+
+VirtualQSslServer* QSslServer_new(const QSslServer_VTable* vtbl, size_t vdata);
+VirtualQSslServer* QSslServer_new2(const QSslServer_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QSslServer_virtbase(QSslServer* src, QTcpServer** outptr_QTcpServer);
 QMetaObject* QSslServer_metaObject(const QSslServer* self);
 void* QSslServer_metacast(QSslServer* self, const char* param1);
@@ -75,38 +97,25 @@ void QSslServer_incomingConnection(QSslServer* self, intptr_t socket);
 struct seaqt_string QSslServer_tr2(const char* s, const char* c);
 struct seaqt_string QSslServer_tr3(const char* s, const char* c, int n);
 
-bool QSslServer_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QSslServer_virtualbase_metaObject(const void* self);
-bool QSslServer_override_virtual_metacast(void* self, intptr_t slot);
-void* QSslServer_virtualbase_metacast(void* self, const char* param1);
-bool QSslServer_override_virtual_metacall(void* self, intptr_t slot);
-int QSslServer_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QSslServer_override_virtual_incomingConnection(void* self, intptr_t slot);
-void QSslServer_virtualbase_incomingConnection(void* self, intptr_t socket);
-bool QSslServer_override_virtual_hasPendingConnections(void* self, intptr_t slot);
-bool QSslServer_virtualbase_hasPendingConnections(const void* self);
-bool QSslServer_override_virtual_nextPendingConnection(void* self, intptr_t slot);
-QTcpSocket* QSslServer_virtualbase_nextPendingConnection(void* self);
-bool QSslServer_override_virtual_event(void* self, intptr_t slot);
-bool QSslServer_virtualbase_event(void* self, QEvent* event);
-bool QSslServer_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QSslServer_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QSslServer_override_virtual_timerEvent(void* self, intptr_t slot);
-void QSslServer_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QSslServer_override_virtual_childEvent(void* self, intptr_t slot);
-void QSslServer_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QSslServer_override_virtual_customEvent(void* self, intptr_t slot);
-void QSslServer_virtualbase_customEvent(void* self, QEvent* event);
-bool QSslServer_override_virtual_connectNotify(void* self, intptr_t slot);
-void QSslServer_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QSslServer_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QSslServer_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QSslServer_virtualbase_metaObject(const VirtualQSslServer* self);
+void* QSslServer_virtualbase_metacast(VirtualQSslServer* self, const char* param1);
+int QSslServer_virtualbase_metacall(VirtualQSslServer* self, int param1, int param2, void** param3);
+void QSslServer_virtualbase_incomingConnection(VirtualQSslServer* self, intptr_t socket);
+bool QSslServer_virtualbase_hasPendingConnections(const VirtualQSslServer* self);
+QTcpSocket* QSslServer_virtualbase_nextPendingConnection(VirtualQSslServer* self);
+bool QSslServer_virtualbase_event(VirtualQSslServer* self, QEvent* event);
+bool QSslServer_virtualbase_eventFilter(VirtualQSslServer* self, QObject* watched, QEvent* event);
+void QSslServer_virtualbase_timerEvent(VirtualQSslServer* self, QTimerEvent* event);
+void QSslServer_virtualbase_childEvent(VirtualQSslServer* self, QChildEvent* event);
+void QSslServer_virtualbase_customEvent(VirtualQSslServer* self, QEvent* event);
+void QSslServer_virtualbase_connectNotify(VirtualQSslServer* self, QMetaMethod* signal);
+void QSslServer_virtualbase_disconnectNotify(VirtualQSslServer* self, QMetaMethod* signal);
 
-void QSslServer_protectedbase_addPendingConnection(bool* _dynamic_cast_ok, void* self, QTcpSocket* socket);
-QObject* QSslServer_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QSslServer_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QSslServer_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QSslServer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+void QSslServer_protectedbase_addPendingConnection(VirtualQSslServer* self, QTcpSocket* socket);
+QObject* QSslServer_protectedbase_sender(const VirtualQSslServer* self);
+int QSslServer_protectedbase_senderSignalIndex(const VirtualQSslServer* self);
+int QSslServer_protectedbase_receivers(const VirtualQSslServer* self, const char* signal);
+bool QSslServer_protectedbase_isSignalConnected(const VirtualQSslServer* self, QMetaMethod* signal);
 
 const QMetaObject* QSslServer_staticMetaObject();
 void QSslServer_delete(QSslServer* self);

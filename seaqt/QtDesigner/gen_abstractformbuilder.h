@@ -36,7 +36,24 @@ typedef struct QVariant QVariant;
 typedef struct QWidget QWidget;
 #endif
 
-QAbstractFormBuilder* QAbstractFormBuilder_new();
+typedef struct VirtualQAbstractFormBuilder VirtualQAbstractFormBuilder;
+typedef struct QAbstractFormBuilder_VTable{
+	void (*destructor)(VirtualQAbstractFormBuilder* self);
+	QWidget* (*load)(VirtualQAbstractFormBuilder* self, QIODevice* dev, QWidget* parentWidget);
+	void (*save)(VirtualQAbstractFormBuilder* self, QIODevice* dev, QWidget* widget);
+	void (*addMenuAction)(VirtualQAbstractFormBuilder* self, QAction* action);
+	QWidget* (*createWidget)(VirtualQAbstractFormBuilder* self, struct seaqt_string widgetName, QWidget* parentWidget, struct seaqt_string name);
+	QLayout* (*createLayout)(VirtualQAbstractFormBuilder* self, struct seaqt_string layoutName, QObject* parent, struct seaqt_string name);
+	QAction* (*createAction)(VirtualQAbstractFormBuilder* self, QObject* parent, struct seaqt_string name);
+	QActionGroup* (*createActionGroup)(VirtualQAbstractFormBuilder* self, QObject* parent, struct seaqt_string name);
+	bool (*checkProperty)(const VirtualQAbstractFormBuilder* self, QObject* obj, struct seaqt_string prop);
+}QAbstractFormBuilder_VTable;
+
+void* QAbstractFormBuilder_vdata(VirtualQAbstractFormBuilder* self);
+VirtualQAbstractFormBuilder* vdata_QAbstractFormBuilder(void* vdata);
+
+VirtualQAbstractFormBuilder* QAbstractFormBuilder_new(const QAbstractFormBuilder_VTable* vtbl, size_t vdata);
+
 QDir* QAbstractFormBuilder_workingDirectory(const QAbstractFormBuilder* self);
 void QAbstractFormBuilder_setWorkingDirectory(QAbstractFormBuilder* self, QDir* directory);
 QWidget* QAbstractFormBuilder_load(QAbstractFormBuilder* self, QIODevice* dev, QWidget* parentWidget);
@@ -49,25 +66,17 @@ QAction* QAbstractFormBuilder_createAction(QAbstractFormBuilder* self, QObject* 
 QActionGroup* QAbstractFormBuilder_createActionGroup(QAbstractFormBuilder* self, QObject* parent, struct seaqt_string name);
 bool QAbstractFormBuilder_checkProperty(const QAbstractFormBuilder* self, QObject* obj, struct seaqt_string prop);
 
-bool QAbstractFormBuilder_override_virtual_load(void* self, intptr_t slot);
-QWidget* QAbstractFormBuilder_virtualbase_load(void* self, QIODevice* dev, QWidget* parentWidget);
-bool QAbstractFormBuilder_override_virtual_save(void* self, intptr_t slot);
-void QAbstractFormBuilder_virtualbase_save(void* self, QIODevice* dev, QWidget* widget);
-bool QAbstractFormBuilder_override_virtual_addMenuAction(void* self, intptr_t slot);
-void QAbstractFormBuilder_virtualbase_addMenuAction(void* self, QAction* action);
-bool QAbstractFormBuilder_override_virtual_createWidget(void* self, intptr_t slot);
-QWidget* QAbstractFormBuilder_virtualbase_createWidget(void* self, struct seaqt_string widgetName, QWidget* parentWidget, struct seaqt_string name);
-bool QAbstractFormBuilder_override_virtual_createLayout(void* self, intptr_t slot);
-QLayout* QAbstractFormBuilder_virtualbase_createLayout(void* self, struct seaqt_string layoutName, QObject* parent, struct seaqt_string name);
-bool QAbstractFormBuilder_override_virtual_createAction(void* self, intptr_t slot);
-QAction* QAbstractFormBuilder_virtualbase_createAction(void* self, QObject* parent, struct seaqt_string name);
-bool QAbstractFormBuilder_override_virtual_createActionGroup(void* self, intptr_t slot);
-QActionGroup* QAbstractFormBuilder_virtualbase_createActionGroup(void* self, QObject* parent, struct seaqt_string name);
-bool QAbstractFormBuilder_override_virtual_checkProperty(void* self, intptr_t slot);
-bool QAbstractFormBuilder_virtualbase_checkProperty(const void* self, QObject* obj, struct seaqt_string prop);
+QWidget* QAbstractFormBuilder_virtualbase_load(VirtualQAbstractFormBuilder* self, QIODevice* dev, QWidget* parentWidget);
+void QAbstractFormBuilder_virtualbase_save(VirtualQAbstractFormBuilder* self, QIODevice* dev, QWidget* widget);
+void QAbstractFormBuilder_virtualbase_addMenuAction(VirtualQAbstractFormBuilder* self, QAction* action);
+QWidget* QAbstractFormBuilder_virtualbase_createWidget(VirtualQAbstractFormBuilder* self, struct seaqt_string widgetName, QWidget* parentWidget, struct seaqt_string name);
+QLayout* QAbstractFormBuilder_virtualbase_createLayout(VirtualQAbstractFormBuilder* self, struct seaqt_string layoutName, QObject* parent, struct seaqt_string name);
+QAction* QAbstractFormBuilder_virtualbase_createAction(VirtualQAbstractFormBuilder* self, QObject* parent, struct seaqt_string name);
+QActionGroup* QAbstractFormBuilder_virtualbase_createActionGroup(VirtualQAbstractFormBuilder* self, QObject* parent, struct seaqt_string name);
+bool QAbstractFormBuilder_virtualbase_checkProperty(const VirtualQAbstractFormBuilder* self, QObject* obj, struct seaqt_string prop);
 
-bool QAbstractFormBuilder_protectedbase_applyPropertyInternally(bool* _dynamic_cast_ok, void* self, QObject* o, struct seaqt_string propertyName, QVariant* value);
-void QAbstractFormBuilder_protectedbase_reset(bool* _dynamic_cast_ok, void* self);
+bool QAbstractFormBuilder_protectedbase_applyPropertyInternally(VirtualQAbstractFormBuilder* self, QObject* o, struct seaqt_string propertyName, QVariant* value);
+void QAbstractFormBuilder_protectedbase_reset(VirtualQAbstractFormBuilder* self);
 
 void QAbstractFormBuilder_delete(QAbstractFormBuilder* self);
 

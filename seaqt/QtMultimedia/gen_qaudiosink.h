@@ -38,12 +38,31 @@ typedef struct QObject QObject;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QAudioSink* QAudioSink_new();
-QAudioSink* QAudioSink_new2(QAudioDevice* audioDeviceInfo);
-QAudioSink* QAudioSink_new3(QAudioFormat* format);
-QAudioSink* QAudioSink_new4(QAudioFormat* format, QObject* parent);
-QAudioSink* QAudioSink_new5(QAudioDevice* audioDeviceInfo, QAudioFormat* format);
-QAudioSink* QAudioSink_new6(QAudioDevice* audioDeviceInfo, QAudioFormat* format, QObject* parent);
+typedef struct VirtualQAudioSink VirtualQAudioSink;
+typedef struct QAudioSink_VTable{
+	void (*destructor)(VirtualQAudioSink* self);
+	QMetaObject* (*metaObject)(const VirtualQAudioSink* self);
+	void* (*metacast)(VirtualQAudioSink* self, const char* param1);
+	int (*metacall)(VirtualQAudioSink* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQAudioSink* self, QEvent* event);
+	bool (*eventFilter)(VirtualQAudioSink* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQAudioSink* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQAudioSink* self, QChildEvent* event);
+	void (*customEvent)(VirtualQAudioSink* self, QEvent* event);
+	void (*connectNotify)(VirtualQAudioSink* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQAudioSink* self, QMetaMethod* signal);
+}QAudioSink_VTable;
+
+void* QAudioSink_vdata(VirtualQAudioSink* self);
+VirtualQAudioSink* vdata_QAudioSink(void* vdata);
+
+VirtualQAudioSink* QAudioSink_new(const QAudioSink_VTable* vtbl, size_t vdata);
+VirtualQAudioSink* QAudioSink_new2(const QAudioSink_VTable* vtbl, size_t vdata, QAudioDevice* audioDeviceInfo);
+VirtualQAudioSink* QAudioSink_new3(const QAudioSink_VTable* vtbl, size_t vdata, QAudioFormat* format);
+VirtualQAudioSink* QAudioSink_new4(const QAudioSink_VTable* vtbl, size_t vdata, QAudioFormat* format, QObject* parent);
+VirtualQAudioSink* QAudioSink_new5(const QAudioSink_VTable* vtbl, size_t vdata, QAudioDevice* audioDeviceInfo, QAudioFormat* format);
+VirtualQAudioSink* QAudioSink_new6(const QAudioSink_VTable* vtbl, size_t vdata, QAudioDevice* audioDeviceInfo, QAudioFormat* format, QObject* parent);
+
 void QAudioSink_virtbase(QAudioSink* src, QObject** outptr_QObject);
 QMetaObject* QAudioSink_metaObject(const QAudioSink* self);
 void* QAudioSink_metacast(QAudioSink* self, const char* param1);
@@ -71,31 +90,21 @@ void QAudioSink_connect_stateChanged(QAudioSink* self, intptr_t slot);
 struct seaqt_string QAudioSink_tr2(const char* s, const char* c);
 struct seaqt_string QAudioSink_tr3(const char* s, const char* c, int n);
 
-bool QAudioSink_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QAudioSink_virtualbase_metaObject(const void* self);
-bool QAudioSink_override_virtual_metacast(void* self, intptr_t slot);
-void* QAudioSink_virtualbase_metacast(void* self, const char* param1);
-bool QAudioSink_override_virtual_metacall(void* self, intptr_t slot);
-int QAudioSink_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QAudioSink_override_virtual_event(void* self, intptr_t slot);
-bool QAudioSink_virtualbase_event(void* self, QEvent* event);
-bool QAudioSink_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QAudioSink_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QAudioSink_override_virtual_timerEvent(void* self, intptr_t slot);
-void QAudioSink_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QAudioSink_override_virtual_childEvent(void* self, intptr_t slot);
-void QAudioSink_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QAudioSink_override_virtual_customEvent(void* self, intptr_t slot);
-void QAudioSink_virtualbase_customEvent(void* self, QEvent* event);
-bool QAudioSink_override_virtual_connectNotify(void* self, intptr_t slot);
-void QAudioSink_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QAudioSink_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QAudioSink_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QAudioSink_virtualbase_metaObject(const VirtualQAudioSink* self);
+void* QAudioSink_virtualbase_metacast(VirtualQAudioSink* self, const char* param1);
+int QAudioSink_virtualbase_metacall(VirtualQAudioSink* self, int param1, int param2, void** param3);
+bool QAudioSink_virtualbase_event(VirtualQAudioSink* self, QEvent* event);
+bool QAudioSink_virtualbase_eventFilter(VirtualQAudioSink* self, QObject* watched, QEvent* event);
+void QAudioSink_virtualbase_timerEvent(VirtualQAudioSink* self, QTimerEvent* event);
+void QAudioSink_virtualbase_childEvent(VirtualQAudioSink* self, QChildEvent* event);
+void QAudioSink_virtualbase_customEvent(VirtualQAudioSink* self, QEvent* event);
+void QAudioSink_virtualbase_connectNotify(VirtualQAudioSink* self, QMetaMethod* signal);
+void QAudioSink_virtualbase_disconnectNotify(VirtualQAudioSink* self, QMetaMethod* signal);
 
-QObject* QAudioSink_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QAudioSink_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QAudioSink_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QAudioSink_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QAudioSink_protectedbase_sender(const VirtualQAudioSink* self);
+int QAudioSink_protectedbase_senderSignalIndex(const VirtualQAudioSink* self);
+int QAudioSink_protectedbase_receivers(const VirtualQAudioSink* self, const char* signal);
+bool QAudioSink_protectedbase_isSignalConnected(const VirtualQAudioSink* self, QMetaMethod* signal);
 
 const QMetaObject* QAudioSink_staticMetaObject();
 void QAudioSink_delete(QAudioSink* self);

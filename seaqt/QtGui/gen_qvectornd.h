@@ -42,6 +42,7 @@ QVector2D* QVector2D_new5(QPointF* point);
 QVector2D* QVector2D_new6(QVector3D* vector);
 QVector2D* QVector2D_new7(QVector4D* vector);
 QVector2D* QVector2D_new8(QVector2D* param1);
+
 bool QVector2D_isNull(const QVector2D* self);
 float QVector2D_x(const QVector2D* self);
 float QVector2D_y(const QVector2D* self);
@@ -78,6 +79,7 @@ QVector3D* QVector3D_new6(QVector2D* vector);
 QVector3D* QVector3D_new7(QVector2D* vector, float zpos);
 QVector3D* QVector3D_new8(QVector4D* vector);
 QVector3D* QVector3D_new9(QVector3D* param1);
+
 bool QVector3D_isNull(const QVector3D* self);
 float QVector3D_x(const QVector3D* self);
 float QVector3D_y(const QVector3D* self);
@@ -124,6 +126,7 @@ QVector4D* QVector4D_new7(QVector2D* vector, float zpos, float wpos);
 QVector4D* QVector4D_new8(QVector3D* vector);
 QVector4D* QVector4D_new9(QVector3D* vector, float wpos);
 QVector4D* QVector4D_new10(QVector4D* param1);
+
 bool QVector4D_isNull(const QVector4D* self);
 float QVector4D_x(const QVector4D* self);
 float QVector4D_y(const QVector4D* self);

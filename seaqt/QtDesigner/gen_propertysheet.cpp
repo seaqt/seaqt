@@ -6,56 +6,47 @@
 #include <propertysheet.h>
 #include "gen_propertysheet.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-int miqt_exec_callback_QDesignerPropertySheetExtension_count(const QDesignerPropertySheetExtension*, intptr_t);
-int miqt_exec_callback_QDesignerPropertySheetExtension_indexOf(const QDesignerPropertySheetExtension*, intptr_t, struct seaqt_string);
-struct seaqt_string miqt_exec_callback_QDesignerPropertySheetExtension_propertyName(const QDesignerPropertySheetExtension*, intptr_t, int);
-struct seaqt_string miqt_exec_callback_QDesignerPropertySheetExtension_propertyGroup(const QDesignerPropertySheetExtension*, intptr_t, int);
-void miqt_exec_callback_QDesignerPropertySheetExtension_setPropertyGroup(QDesignerPropertySheetExtension*, intptr_t, int, struct seaqt_string);
-bool miqt_exec_callback_QDesignerPropertySheetExtension_hasReset(const QDesignerPropertySheetExtension*, intptr_t, int);
-bool miqt_exec_callback_QDesignerPropertySheetExtension_reset(QDesignerPropertySheetExtension*, intptr_t, int);
-bool miqt_exec_callback_QDesignerPropertySheetExtension_isVisible(const QDesignerPropertySheetExtension*, intptr_t, int);
-void miqt_exec_callback_QDesignerPropertySheetExtension_setVisible(QDesignerPropertySheetExtension*, intptr_t, int, bool);
-bool miqt_exec_callback_QDesignerPropertySheetExtension_isAttribute(const QDesignerPropertySheetExtension*, intptr_t, int);
-void miqt_exec_callback_QDesignerPropertySheetExtension_setAttribute(QDesignerPropertySheetExtension*, intptr_t, int, bool);
-QVariant* miqt_exec_callback_QDesignerPropertySheetExtension_property(const QDesignerPropertySheetExtension*, intptr_t, int);
-void miqt_exec_callback_QDesignerPropertySheetExtension_setProperty(QDesignerPropertySheetExtension*, intptr_t, int, QVariant*);
-bool miqt_exec_callback_QDesignerPropertySheetExtension_isChanged(const QDesignerPropertySheetExtension*, intptr_t, int);
-void miqt_exec_callback_QDesignerPropertySheetExtension_setChanged(QDesignerPropertySheetExtension*, intptr_t, int, bool);
-bool miqt_exec_callback_QDesignerPropertySheetExtension_isEnabled(const QDesignerPropertySheetExtension*, intptr_t, int);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQDesignerPropertySheetExtension final : public QDesignerPropertySheetExtension {
+	const QDesignerPropertySheetExtension_VTable* vtbl;
 public:
+	friend void* QDesignerPropertySheetExtension_vdata(VirtualQDesignerPropertySheetExtension* self);
+	friend VirtualQDesignerPropertySheetExtension* vdata_QDesignerPropertySheetExtension(void* vdata);
 
-	VirtualQDesignerPropertySheetExtension(): QDesignerPropertySheetExtension() {}
+	VirtualQDesignerPropertySheetExtension(const QDesignerPropertySheetExtension_VTable* vtbl): QDesignerPropertySheetExtension(), vtbl(vtbl) {}
 
-	virtual ~VirtualQDesignerPropertySheetExtension() override = default;
+	virtual ~VirtualQDesignerPropertySheetExtension() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__count = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual int count() const override {
-		if (handle__count == 0) {
+		if (vtbl->count == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QDesignerPropertySheetExtension_count(this, handle__count);
+		int callback_return_value = vtbl->count(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__indexOf = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int indexOf(const QString& name) const override {
-		if (handle__indexOf == 0) {
+		if (vtbl->indexOf == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
@@ -67,46 +58,34 @@ public:
 		name_ms.data = static_cast<char*>(malloc(name_ms.len));
 		memcpy(name_ms.data, name_b.data(), name_ms.len);
 		struct seaqt_string sigval1 = name_ms;
-		int callback_return_value = miqt_exec_callback_QDesignerPropertySheetExtension_indexOf(this, handle__indexOf, sigval1);
+		int callback_return_value = vtbl->indexOf(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__propertyName = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString propertyName(int index) const override {
-		if (handle__propertyName == 0) {
+		if (vtbl->propertyName == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerPropertySheetExtension_propertyName(this, handle__propertyName, sigval1);
+		struct seaqt_string callback_return_value = vtbl->propertyName(this, sigval1);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__propertyGroup = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString propertyGroup(int index) const override {
-		if (handle__propertyGroup == 0) {
+		if (vtbl->propertyGroup == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerPropertySheetExtension_propertyGroup(this, handle__propertyGroup, sigval1);
+		struct seaqt_string callback_return_value = vtbl->propertyGroup(this, sigval1);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setPropertyGroup = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setPropertyGroup(int index, const QString& group) override {
-		if (handle__setPropertyGroup == 0) {
+		if (vtbl->setPropertyGroup == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -119,116 +98,81 @@ public:
 		group_ms.data = static_cast<char*>(malloc(group_ms.len));
 		memcpy(group_ms.data, group_b.data(), group_ms.len);
 		struct seaqt_string sigval2 = group_ms;
-		miqt_exec_callback_QDesignerPropertySheetExtension_setPropertyGroup(this, handle__setPropertyGroup, sigval1, sigval2);
-
+		vtbl->setPropertyGroup(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__hasReset = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool hasReset(int index) const override {
-		if (handle__hasReset == 0) {
+		if (vtbl->hasReset == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		bool callback_return_value = miqt_exec_callback_QDesignerPropertySheetExtension_hasReset(this, handle__hasReset, sigval1);
+		bool callback_return_value = vtbl->hasReset(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__reset = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool reset(int index) override {
-		if (handle__reset == 0) {
+		if (vtbl->reset == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		bool callback_return_value = miqt_exec_callback_QDesignerPropertySheetExtension_reset(this, handle__reset, sigval1);
+		bool callback_return_value = vtbl->reset(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isVisible = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isVisible(int index) const override {
-		if (handle__isVisible == 0) {
+		if (vtbl->isVisible == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		bool callback_return_value = miqt_exec_callback_QDesignerPropertySheetExtension_isVisible(this, handle__isVisible, sigval1);
+		bool callback_return_value = vtbl->isVisible(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setVisible = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setVisible(int index, bool b) override {
-		if (handle__setVisible == 0) {
+		if (vtbl->setVisible == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
 		bool sigval2 = b;
-		miqt_exec_callback_QDesignerPropertySheetExtension_setVisible(this, handle__setVisible, sigval1, sigval2);
-
+		vtbl->setVisible(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isAttribute = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isAttribute(int index) const override {
-		if (handle__isAttribute == 0) {
+		if (vtbl->isAttribute == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		bool callback_return_value = miqt_exec_callback_QDesignerPropertySheetExtension_isAttribute(this, handle__isAttribute, sigval1);
+		bool callback_return_value = vtbl->isAttribute(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setAttribute = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setAttribute(int index, bool b) override {
-		if (handle__setAttribute == 0) {
+		if (vtbl->setAttribute == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
 		bool sigval2 = b;
-		miqt_exec_callback_QDesignerPropertySheetExtension_setAttribute(this, handle__setAttribute, sigval1, sigval2);
-
+		vtbl->setAttribute(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__property = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant property(int index) const override {
-		if (handle__property == 0) {
+		if (vtbl->property == 0) {
 			return QVariant(); // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		QVariant* callback_return_value = miqt_exec_callback_QDesignerPropertySheetExtension_property(this, handle__property, sigval1);
+		QVariant* callback_return_value = vtbl->property(this, sigval1);
 		return *callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setProperty = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setProperty(int index, const QVariant& value) override {
-		if (handle__setProperty == 0) {
+		if (vtbl->setProperty == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -236,57 +180,44 @@ public:
 		const QVariant& value_ret = value;
 		// Cast returned reference into pointer
 		QVariant* sigval2 = const_cast<QVariant*>(&value_ret);
-		miqt_exec_callback_QDesignerPropertySheetExtension_setProperty(this, handle__setProperty, sigval1, sigval2);
-
+		vtbl->setProperty(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isChanged = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isChanged(int index) const override {
-		if (handle__isChanged == 0) {
+		if (vtbl->isChanged == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		bool callback_return_value = miqt_exec_callback_QDesignerPropertySheetExtension_isChanged(this, handle__isChanged, sigval1);
+		bool callback_return_value = vtbl->isChanged(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setChanged = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setChanged(int index, bool changed) override {
-		if (handle__setChanged == 0) {
+		if (vtbl->setChanged == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
 		bool sigval2 = changed;
-		miqt_exec_callback_QDesignerPropertySheetExtension_setChanged(this, handle__setChanged, sigval1, sigval2);
-
+		vtbl->setChanged(this, sigval1, sigval2);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isEnabled = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isEnabled(int index) const override {
-		if (handle__isEnabled == 0) {
+		if (vtbl->isEnabled == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
 		int sigval1 = index;
-		bool callback_return_value = miqt_exec_callback_QDesignerPropertySheetExtension_isEnabled(this, handle__isEnabled, sigval1);
+		bool callback_return_value = vtbl->isEnabled(this, sigval1);
 		return callback_return_value;
 	}
 
 };
 
-QDesignerPropertySheetExtension* QDesignerPropertySheetExtension_new() {
-	return new (std::nothrow) VirtualQDesignerPropertySheetExtension();
+VirtualQDesignerPropertySheetExtension* QDesignerPropertySheetExtension_new(const QDesignerPropertySheetExtension_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerPropertySheetExtension>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerPropertySheetExtension(vtbl) : nullptr;
 }
 
 int QDesignerPropertySheetExtension_count(const QDesignerPropertySheetExtension* self) {
@@ -369,165 +300,8 @@ bool QDesignerPropertySheetExtension_isEnabled(const QDesignerPropertySheetExten
 	return self->isEnabled(static_cast<int>(index));
 }
 
-bool QDesignerPropertySheetExtension_override_virtual_count(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__count = slot;
-	return true;
-}
-
-bool QDesignerPropertySheetExtension_override_virtual_indexOf(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__indexOf = slot;
-	return true;
-}
-
-bool QDesignerPropertySheetExtension_override_virtual_propertyName(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__propertyName = slot;
-	return true;
-}
-
-bool QDesignerPropertySheetExtension_override_virtual_propertyGroup(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__propertyGroup = slot;
-	return true;
-}
-
-bool QDesignerPropertySheetExtension_override_virtual_setPropertyGroup(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setPropertyGroup = slot;
-	return true;
-}
-
-bool QDesignerPropertySheetExtension_override_virtual_hasReset(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__hasReset = slot;
-	return true;
-}
-
-bool QDesignerPropertySheetExtension_override_virtual_reset(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__reset = slot;
-	return true;
-}
-
-bool QDesignerPropertySheetExtension_override_virtual_isVisible(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__isVisible = slot;
-	return true;
-}
-
-bool QDesignerPropertySheetExtension_override_virtual_setVisible(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setVisible = slot;
-	return true;
-}
-
-bool QDesignerPropertySheetExtension_override_virtual_isAttribute(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__isAttribute = slot;
-	return true;
-}
-
-bool QDesignerPropertySheetExtension_override_virtual_setAttribute(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setAttribute = slot;
-	return true;
-}
-
-bool QDesignerPropertySheetExtension_override_virtual_property(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__property = slot;
-	return true;
-}
-
-bool QDesignerPropertySheetExtension_override_virtual_setProperty(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setProperty = slot;
-	return true;
-}
-
-bool QDesignerPropertySheetExtension_override_virtual_isChanged(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__isChanged = slot;
-	return true;
-}
-
-bool QDesignerPropertySheetExtension_override_virtual_setChanged(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setChanged = slot;
-	return true;
-}
-
-bool QDesignerPropertySheetExtension_override_virtual_isEnabled(void* self, intptr_t slot) {
-	VirtualQDesignerPropertySheetExtension* self_cast = dynamic_cast<VirtualQDesignerPropertySheetExtension*>( (QDesignerPropertySheetExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__isEnabled = slot;
-	return true;
-}
+void* QDesignerPropertySheetExtension_vdata(VirtualQDesignerPropertySheetExtension* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQDesignerPropertySheetExtension>()); }
+VirtualQDesignerPropertySheetExtension* vdata_QDesignerPropertySheetExtension(void* vdata) { return reinterpret_cast<VirtualQDesignerPropertySheetExtension*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQDesignerPropertySheetExtension>()); }
 
 void QDesignerPropertySheetExtension_delete(QDesignerPropertySheetExtension* self) {
 	delete self;

@@ -2,39 +2,49 @@
 #include <qrunnable.h>
 #include "gen_qrunnable.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void miqt_exec_callback_QRunnable_run(QRunnable*, intptr_t);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQRunnable final : public QRunnable {
+	const QRunnable_VTable* vtbl;
 public:
+	friend void* QRunnable_vdata(VirtualQRunnable* self);
+	friend VirtualQRunnable* vdata_QRunnable(void* vdata);
 
-	VirtualQRunnable(): QRunnable() {}
+	VirtualQRunnable(const QRunnable_VTable* vtbl): QRunnable(), vtbl(vtbl) {}
 
-	virtual ~VirtualQRunnable() override = default;
+	virtual ~VirtualQRunnable() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__run = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual void run() override {
-		if (handle__run == 0) {
+		if (vtbl->run == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
-		miqt_exec_callback_QRunnable_run(this, handle__run);
-
+		vtbl->run(this);
 	}
 
 };
 
-QRunnable* QRunnable_new() {
-	return new (std::nothrow) VirtualQRunnable();
+VirtualQRunnable* QRunnable_new(const QRunnable_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQRunnable>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQRunnable(vtbl) : nullptr;
 }
 
 void QRunnable_run(QRunnable* self) {
@@ -49,15 +59,8 @@ void QRunnable_setAutoDelete(QRunnable* self, bool autoDelete) {
 	self->setAutoDelete(autoDelete);
 }
 
-bool QRunnable_override_virtual_run(void* self, intptr_t slot) {
-	VirtualQRunnable* self_cast = dynamic_cast<VirtualQRunnable*>( (QRunnable*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__run = slot;
-	return true;
-}
+void* QRunnable_vdata(VirtualQRunnable* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQRunnable>()); }
+VirtualQRunnable* vdata_QRunnable(void* vdata) { return reinterpret_cast<VirtualQRunnable*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQRunnable>()); }
 
 void QRunnable_delete(QRunnable* self) {
 	delete self;

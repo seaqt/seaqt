@@ -36,8 +36,27 @@ typedef struct QObject QObject;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QMediaDevices* QMediaDevices_new();
-QMediaDevices* QMediaDevices_new2(QObject* parent);
+typedef struct VirtualQMediaDevices VirtualQMediaDevices;
+typedef struct QMediaDevices_VTable{
+	void (*destructor)(VirtualQMediaDevices* self);
+	QMetaObject* (*metaObject)(const VirtualQMediaDevices* self);
+	void* (*metacast)(VirtualQMediaDevices* self, const char* param1);
+	int (*metacall)(VirtualQMediaDevices* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQMediaDevices* self, QEvent* event);
+	bool (*eventFilter)(VirtualQMediaDevices* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQMediaDevices* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQMediaDevices* self, QChildEvent* event);
+	void (*customEvent)(VirtualQMediaDevices* self, QEvent* event);
+	void (*connectNotify)(VirtualQMediaDevices* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQMediaDevices* self, QMetaMethod* signal);
+}QMediaDevices_VTable;
+
+void* QMediaDevices_vdata(VirtualQMediaDevices* self);
+VirtualQMediaDevices* vdata_QMediaDevices(void* vdata);
+
+VirtualQMediaDevices* QMediaDevices_new(const QMediaDevices_VTable* vtbl, size_t vdata);
+VirtualQMediaDevices* QMediaDevices_new2(const QMediaDevices_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QMediaDevices_virtbase(QMediaDevices* src, QObject** outptr_QObject);
 QMetaObject* QMediaDevices_metaObject(const QMediaDevices* self);
 void* QMediaDevices_metacast(QMediaDevices* self, const char* param1);
@@ -58,31 +77,21 @@ void QMediaDevices_connect_videoInputsChanged(QMediaDevices* self, intptr_t slot
 struct seaqt_string QMediaDevices_tr2(const char* s, const char* c);
 struct seaqt_string QMediaDevices_tr3(const char* s, const char* c, int n);
 
-bool QMediaDevices_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QMediaDevices_virtualbase_metaObject(const void* self);
-bool QMediaDevices_override_virtual_metacast(void* self, intptr_t slot);
-void* QMediaDevices_virtualbase_metacast(void* self, const char* param1);
-bool QMediaDevices_override_virtual_metacall(void* self, intptr_t slot);
-int QMediaDevices_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QMediaDevices_override_virtual_event(void* self, intptr_t slot);
-bool QMediaDevices_virtualbase_event(void* self, QEvent* event);
-bool QMediaDevices_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QMediaDevices_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QMediaDevices_override_virtual_timerEvent(void* self, intptr_t slot);
-void QMediaDevices_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QMediaDevices_override_virtual_childEvent(void* self, intptr_t slot);
-void QMediaDevices_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QMediaDevices_override_virtual_customEvent(void* self, intptr_t slot);
-void QMediaDevices_virtualbase_customEvent(void* self, QEvent* event);
-bool QMediaDevices_override_virtual_connectNotify(void* self, intptr_t slot);
-void QMediaDevices_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QMediaDevices_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QMediaDevices_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QMediaDevices_virtualbase_metaObject(const VirtualQMediaDevices* self);
+void* QMediaDevices_virtualbase_metacast(VirtualQMediaDevices* self, const char* param1);
+int QMediaDevices_virtualbase_metacall(VirtualQMediaDevices* self, int param1, int param2, void** param3);
+bool QMediaDevices_virtualbase_event(VirtualQMediaDevices* self, QEvent* event);
+bool QMediaDevices_virtualbase_eventFilter(VirtualQMediaDevices* self, QObject* watched, QEvent* event);
+void QMediaDevices_virtualbase_timerEvent(VirtualQMediaDevices* self, QTimerEvent* event);
+void QMediaDevices_virtualbase_childEvent(VirtualQMediaDevices* self, QChildEvent* event);
+void QMediaDevices_virtualbase_customEvent(VirtualQMediaDevices* self, QEvent* event);
+void QMediaDevices_virtualbase_connectNotify(VirtualQMediaDevices* self, QMetaMethod* signal);
+void QMediaDevices_virtualbase_disconnectNotify(VirtualQMediaDevices* self, QMetaMethod* signal);
 
-QObject* QMediaDevices_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QMediaDevices_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QMediaDevices_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QMediaDevices_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QMediaDevices_protectedbase_sender(const VirtualQMediaDevices* self);
+int QMediaDevices_protectedbase_senderSignalIndex(const VirtualQMediaDevices* self);
+int QMediaDevices_protectedbase_receivers(const VirtualQMediaDevices* self, const char* signal);
+bool QMediaDevices_protectedbase_isSignalConnected(const VirtualQMediaDevices* self, QMetaMethod* signal);
 
 const QMetaObject* QMediaDevices_staticMetaObject();
 void QMediaDevices_delete(QMediaDevices* self);

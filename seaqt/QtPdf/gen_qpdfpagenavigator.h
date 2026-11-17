@@ -36,8 +36,27 @@ typedef struct QPointF QPointF;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QPdfPageNavigator* QPdfPageNavigator_new();
-QPdfPageNavigator* QPdfPageNavigator_new2(QObject* parent);
+typedef struct VirtualQPdfPageNavigator VirtualQPdfPageNavigator;
+typedef struct QPdfPageNavigator_VTable{
+	void (*destructor)(VirtualQPdfPageNavigator* self);
+	QMetaObject* (*metaObject)(const VirtualQPdfPageNavigator* self);
+	void* (*metacast)(VirtualQPdfPageNavigator* self, const char* param1);
+	int (*metacall)(VirtualQPdfPageNavigator* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQPdfPageNavigator* self, QEvent* event);
+	bool (*eventFilter)(VirtualQPdfPageNavigator* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQPdfPageNavigator* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQPdfPageNavigator* self, QChildEvent* event);
+	void (*customEvent)(VirtualQPdfPageNavigator* self, QEvent* event);
+	void (*connectNotify)(VirtualQPdfPageNavigator* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQPdfPageNavigator* self, QMetaMethod* signal);
+}QPdfPageNavigator_VTable;
+
+void* QPdfPageNavigator_vdata(VirtualQPdfPageNavigator* self);
+VirtualQPdfPageNavigator* vdata_QPdfPageNavigator(void* vdata);
+
+VirtualQPdfPageNavigator* QPdfPageNavigator_new(const QPdfPageNavigator_VTable* vtbl, size_t vdata);
+VirtualQPdfPageNavigator* QPdfPageNavigator_new2(const QPdfPageNavigator_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QPdfPageNavigator_virtbase(QPdfPageNavigator* src, QObject** outptr_QObject);
 QMetaObject* QPdfPageNavigator_metaObject(const QPdfPageNavigator* self);
 void* QPdfPageNavigator_metacast(QPdfPageNavigator* self, const char* param1);
@@ -70,32 +89,22 @@ struct seaqt_string QPdfPageNavigator_tr2(const char* s, const char* c);
 struct seaqt_string QPdfPageNavigator_tr3(const char* s, const char* c, int n);
 void QPdfPageNavigator_jump3(QPdfPageNavigator* self, int page, QPointF* location, double zoom);
 
-bool QPdfPageNavigator_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QPdfPageNavigator_virtualbase_metaObject(const void* self);
-bool QPdfPageNavigator_override_virtual_metacast(void* self, intptr_t slot);
-void* QPdfPageNavigator_virtualbase_metacast(void* self, const char* param1);
-bool QPdfPageNavigator_override_virtual_metacall(void* self, intptr_t slot);
-int QPdfPageNavigator_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QPdfPageNavigator_override_virtual_event(void* self, intptr_t slot);
-bool QPdfPageNavigator_virtualbase_event(void* self, QEvent* event);
-bool QPdfPageNavigator_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QPdfPageNavigator_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QPdfPageNavigator_override_virtual_timerEvent(void* self, intptr_t slot);
-void QPdfPageNavigator_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QPdfPageNavigator_override_virtual_childEvent(void* self, intptr_t slot);
-void QPdfPageNavigator_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QPdfPageNavigator_override_virtual_customEvent(void* self, intptr_t slot);
-void QPdfPageNavigator_virtualbase_customEvent(void* self, QEvent* event);
-bool QPdfPageNavigator_override_virtual_connectNotify(void* self, intptr_t slot);
-void QPdfPageNavigator_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QPdfPageNavigator_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QPdfPageNavigator_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QPdfPageNavigator_virtualbase_metaObject(const VirtualQPdfPageNavigator* self);
+void* QPdfPageNavigator_virtualbase_metacast(VirtualQPdfPageNavigator* self, const char* param1);
+int QPdfPageNavigator_virtualbase_metacall(VirtualQPdfPageNavigator* self, int param1, int param2, void** param3);
+bool QPdfPageNavigator_virtualbase_event(VirtualQPdfPageNavigator* self, QEvent* event);
+bool QPdfPageNavigator_virtualbase_eventFilter(VirtualQPdfPageNavigator* self, QObject* watched, QEvent* event);
+void QPdfPageNavigator_virtualbase_timerEvent(VirtualQPdfPageNavigator* self, QTimerEvent* event);
+void QPdfPageNavigator_virtualbase_childEvent(VirtualQPdfPageNavigator* self, QChildEvent* event);
+void QPdfPageNavigator_virtualbase_customEvent(VirtualQPdfPageNavigator* self, QEvent* event);
+void QPdfPageNavigator_virtualbase_connectNotify(VirtualQPdfPageNavigator* self, QMetaMethod* signal);
+void QPdfPageNavigator_virtualbase_disconnectNotify(VirtualQPdfPageNavigator* self, QMetaMethod* signal);
 
-QPdfLink* QPdfPageNavigator_protectedbase_currentLink(bool* _dynamic_cast_ok, const void* self);
-QObject* QPdfPageNavigator_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QPdfPageNavigator_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QPdfPageNavigator_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QPdfPageNavigator_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QPdfLink* QPdfPageNavigator_protectedbase_currentLink(const VirtualQPdfPageNavigator* self);
+QObject* QPdfPageNavigator_protectedbase_sender(const VirtualQPdfPageNavigator* self);
+int QPdfPageNavigator_protectedbase_senderSignalIndex(const VirtualQPdfPageNavigator* self);
+int QPdfPageNavigator_protectedbase_receivers(const VirtualQPdfPageNavigator* self, const char* signal);
+bool QPdfPageNavigator_protectedbase_isSignalConnected(const VirtualQPdfPageNavigator* self, QMetaMethod* signal);
 
 const QMetaObject* QPdfPageNavigator_staticMetaObject();
 void QPdfPageNavigator_delete(QPdfPageNavigator* self);

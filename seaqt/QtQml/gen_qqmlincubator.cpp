@@ -12,68 +12,72 @@
 #include <qqmlincubator.h>
 #include "gen_qqmlincubator.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void miqt_exec_callback_QQmlIncubator_statusChanged(QQmlIncubator*, intptr_t, int);
-void miqt_exec_callback_QQmlIncubator_setInitialState(QQmlIncubator*, intptr_t, QObject*);
-void miqt_exec_callback_QQmlIncubationController_incubatingObjectCountChanged(QQmlIncubationController*, intptr_t, int);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQQmlIncubator final : public QQmlIncubator {
+	const QQmlIncubator_VTable* vtbl;
 public:
+	friend void* QQmlIncubator_vdata(VirtualQQmlIncubator* self);
+	friend VirtualQQmlIncubator* vdata_QQmlIncubator(void* vdata);
 
-	VirtualQQmlIncubator(): QQmlIncubator() {}
-	VirtualQQmlIncubator(QQmlIncubator::IncubationMode param1): QQmlIncubator(param1) {}
+	VirtualQQmlIncubator(const QQmlIncubator_VTable* vtbl): QQmlIncubator(), vtbl(vtbl) {}
+	VirtualQQmlIncubator(const QQmlIncubator_VTable* vtbl, QQmlIncubator::IncubationMode param1): QQmlIncubator(param1), vtbl(vtbl) {}
 
-	virtual ~VirtualQQmlIncubator() override = default;
+	virtual ~VirtualQQmlIncubator() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__statusChanged = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual void statusChanged(QQmlIncubator::Status param1) override {
-		if (handle__statusChanged == 0) {
+		if (vtbl->statusChanged == 0) {
 			QQmlIncubator::statusChanged(param1);
 			return;
 		}
 
 		QQmlIncubator::Status param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
-		miqt_exec_callback_QQmlIncubator_statusChanged(this, handle__statusChanged, sigval1);
-
+		vtbl->statusChanged(this, sigval1);
 	}
 
-	friend void QQmlIncubator_virtualbase_statusChanged(void* self, int param1);
+	friend void QQmlIncubator_virtualbase_statusChanged(VirtualQQmlIncubator* self, int param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setInitialState = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setInitialState(QObject* initialState) override {
-		if (handle__setInitialState == 0) {
+		if (vtbl->setInitialState == 0) {
 			QQmlIncubator::setInitialState(initialState);
 			return;
 		}
 
 		QObject* sigval1 = initialState;
-		miqt_exec_callback_QQmlIncubator_setInitialState(this, handle__setInitialState, sigval1);
-
+		vtbl->setInitialState(this, sigval1);
 	}
 
-	friend void QQmlIncubator_virtualbase_setInitialState(void* self, QObject* initialState);
+	friend void QQmlIncubator_virtualbase_setInitialState(VirtualQQmlIncubator* self, QObject* initialState);
 
 };
 
-QQmlIncubator* QQmlIncubator_new() {
-	return new (std::nothrow) VirtualQQmlIncubator();
+VirtualQQmlIncubator* QQmlIncubator_new(const QQmlIncubator_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlIncubator>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlIncubator(vtbl) : nullptr;
 }
 
-QQmlIncubator* QQmlIncubator_new2(int param1) {
-	return new (std::nothrow) VirtualQQmlIncubator(static_cast<QQmlIncubator::IncubationMode>(param1));
+VirtualQQmlIncubator* QQmlIncubator_new2(const QQmlIncubator_VTable* vtbl, size_t vdata, int param1) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlIncubator>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlIncubator(vtbl, static_cast<QQmlIncubator::IncubationMode>(param1)) : nullptr;
 }
 
 void QQmlIncubator_clear(QQmlIncubator* self) {
@@ -138,32 +142,17 @@ void QQmlIncubator_setInitialProperties(QQmlIncubator* self, struct seaqt_map /*
 	self->setInitialProperties(initialProperties_QMap);
 }
 
-bool QQmlIncubator_override_virtual_statusChanged(void* self, intptr_t slot) {
-	VirtualQQmlIncubator* self_cast = dynamic_cast<VirtualQQmlIncubator*>( (QQmlIncubator*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QQmlIncubator_vdata(VirtualQQmlIncubator* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQQmlIncubator>()); }
+VirtualQQmlIncubator* vdata_QQmlIncubator(void* vdata) { return reinterpret_cast<VirtualQQmlIncubator*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQQmlIncubator>()); }
 
-	self_cast->handle__statusChanged = slot;
-	return true;
+void QQmlIncubator_virtualbase_statusChanged(VirtualQQmlIncubator* self, int param1) {
+
+	self->QQmlIncubator::statusChanged(static_cast<VirtualQQmlIncubator::Status>(param1));
 }
 
-void QQmlIncubator_virtualbase_statusChanged(void* self, int param1) {
-	static_cast<VirtualQQmlIncubator*>(self)->QQmlIncubator::statusChanged(static_cast<VirtualQQmlIncubator::Status>(param1));
-}
+void QQmlIncubator_virtualbase_setInitialState(VirtualQQmlIncubator* self, QObject* initialState) {
 
-bool QQmlIncubator_override_virtual_setInitialState(void* self, intptr_t slot) {
-	VirtualQQmlIncubator* self_cast = dynamic_cast<VirtualQQmlIncubator*>( (QQmlIncubator*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setInitialState = slot;
-	return true;
-}
-
-void QQmlIncubator_virtualbase_setInitialState(void* self, QObject* initialState) {
-	static_cast<VirtualQQmlIncubator*>(self)->QQmlIncubator::setInitialState(initialState);
+	self->QQmlIncubator::setInitialState(initialState);
 }
 
 void QQmlIncubator_delete(QQmlIncubator* self) {
@@ -171,33 +160,33 @@ void QQmlIncubator_delete(QQmlIncubator* self) {
 }
 
 class VirtualQQmlIncubationController final : public QQmlIncubationController {
+	const QQmlIncubationController_VTable* vtbl;
 public:
+	friend void* QQmlIncubationController_vdata(VirtualQQmlIncubationController* self);
+	friend VirtualQQmlIncubationController* vdata_QQmlIncubationController(void* vdata);
 
-	VirtualQQmlIncubationController(): QQmlIncubationController() {}
+	VirtualQQmlIncubationController(const QQmlIncubationController_VTable* vtbl): QQmlIncubationController(), vtbl(vtbl) {}
 
-	virtual ~VirtualQQmlIncubationController() override = default;
+	virtual ~VirtualQQmlIncubationController() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__incubatingObjectCountChanged = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual void incubatingObjectCountChanged(int param1) override {
-		if (handle__incubatingObjectCountChanged == 0) {
+		if (vtbl->incubatingObjectCountChanged == 0) {
 			QQmlIncubationController::incubatingObjectCountChanged(param1);
 			return;
 		}
 
 		int sigval1 = param1;
-		miqt_exec_callback_QQmlIncubationController_incubatingObjectCountChanged(this, handle__incubatingObjectCountChanged, sigval1);
-
+		vtbl->incubatingObjectCountChanged(this, sigval1);
 	}
 
-	friend void QQmlIncubationController_virtualbase_incubatingObjectCountChanged(void* self, int param1);
+	friend void QQmlIncubationController_virtualbase_incubatingObjectCountChanged(VirtualQQmlIncubationController* self, int param1);
 
 };
 
-QQmlIncubationController* QQmlIncubationController_new() {
-	return new (std::nothrow) VirtualQQmlIncubationController();
+VirtualQQmlIncubationController* QQmlIncubationController_new(const QQmlIncubationController_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlIncubationController>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlIncubationController(vtbl) : nullptr;
 }
 
 QQmlEngine* QQmlIncubationController_engine(const QQmlIncubationController* self) {
@@ -212,18 +201,12 @@ void QQmlIncubationController_incubateFor(QQmlIncubationController* self, int ms
 	self->incubateFor(static_cast<int>(msecs));
 }
 
-bool QQmlIncubationController_override_virtual_incubatingObjectCountChanged(void* self, intptr_t slot) {
-	VirtualQQmlIncubationController* self_cast = dynamic_cast<VirtualQQmlIncubationController*>( (QQmlIncubationController*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QQmlIncubationController_vdata(VirtualQQmlIncubationController* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQQmlIncubationController>()); }
+VirtualQQmlIncubationController* vdata_QQmlIncubationController(void* vdata) { return reinterpret_cast<VirtualQQmlIncubationController*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQQmlIncubationController>()); }
 
-	self_cast->handle__incubatingObjectCountChanged = slot;
-	return true;
-}
+void QQmlIncubationController_virtualbase_incubatingObjectCountChanged(VirtualQQmlIncubationController* self, int param1) {
 
-void QQmlIncubationController_virtualbase_incubatingObjectCountChanged(void* self, int param1) {
-	static_cast<VirtualQQmlIncubationController*>(self)->QQmlIncubationController::incubatingObjectCountChanged(static_cast<int>(param1));
+	self->QQmlIncubationController::incubatingObjectCountChanged(static_cast<int>(param1));
 }
 
 void QQmlIncubationController_delete(QQmlIncubationController* self) {

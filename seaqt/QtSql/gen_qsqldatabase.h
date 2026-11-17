@@ -39,6 +39,7 @@ void QSqlDriverCreatorBase_delete(QSqlDriverCreatorBase* self);
 
 QSqlDatabase* QSqlDatabase_new();
 QSqlDatabase* QSqlDatabase_new2(QSqlDatabase* other);
+
 void QSqlDatabase_operatorAssign(QSqlDatabase* self, QSqlDatabase* other);
 bool QSqlDatabase_open(QSqlDatabase* self);
 bool QSqlDatabase_open2(QSqlDatabase* self, struct seaqt_string user, struct seaqt_string password);

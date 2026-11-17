@@ -40,12 +40,31 @@ typedef struct QUrl QUrl;
 typedef struct QVariant QVariant;
 #endif
 
-QQmlApplicationEngine* QQmlApplicationEngine_new();
-QQmlApplicationEngine* QQmlApplicationEngine_new2(QUrl* url);
-QQmlApplicationEngine* QQmlApplicationEngine_new3(struct seaqt_string filePath);
-QQmlApplicationEngine* QQmlApplicationEngine_new4(QObject* parent);
-QQmlApplicationEngine* QQmlApplicationEngine_new5(QUrl* url, QObject* parent);
-QQmlApplicationEngine* QQmlApplicationEngine_new6(struct seaqt_string filePath, QObject* parent);
+typedef struct VirtualQQmlApplicationEngine VirtualQQmlApplicationEngine;
+typedef struct QQmlApplicationEngine_VTable{
+	void (*destructor)(VirtualQQmlApplicationEngine* self);
+	QMetaObject* (*metaObject)(const VirtualQQmlApplicationEngine* self);
+	void* (*metacast)(VirtualQQmlApplicationEngine* self, const char* param1);
+	int (*metacall)(VirtualQQmlApplicationEngine* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQQmlApplicationEngine* self, QEvent* param1);
+	bool (*eventFilter)(VirtualQQmlApplicationEngine* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQQmlApplicationEngine* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQQmlApplicationEngine* self, QChildEvent* event);
+	void (*customEvent)(VirtualQQmlApplicationEngine* self, QEvent* event);
+	void (*connectNotify)(VirtualQQmlApplicationEngine* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQQmlApplicationEngine* self, QMetaMethod* signal);
+}QQmlApplicationEngine_VTable;
+
+void* QQmlApplicationEngine_vdata(VirtualQQmlApplicationEngine* self);
+VirtualQQmlApplicationEngine* vdata_QQmlApplicationEngine(void* vdata);
+
+VirtualQQmlApplicationEngine* QQmlApplicationEngine_new(const QQmlApplicationEngine_VTable* vtbl, size_t vdata);
+VirtualQQmlApplicationEngine* QQmlApplicationEngine_new2(const QQmlApplicationEngine_VTable* vtbl, size_t vdata, QUrl* url);
+VirtualQQmlApplicationEngine* QQmlApplicationEngine_new3(const QQmlApplicationEngine_VTable* vtbl, size_t vdata, struct seaqt_string filePath);
+VirtualQQmlApplicationEngine* QQmlApplicationEngine_new4(const QQmlApplicationEngine_VTable* vtbl, size_t vdata, QObject* parent);
+VirtualQQmlApplicationEngine* QQmlApplicationEngine_new5(const QQmlApplicationEngine_VTable* vtbl, size_t vdata, QUrl* url, QObject* parent);
+VirtualQQmlApplicationEngine* QQmlApplicationEngine_new6(const QQmlApplicationEngine_VTable* vtbl, size_t vdata, struct seaqt_string filePath, QObject* parent);
+
 void QQmlApplicationEngine_virtbase(QQmlApplicationEngine* src, QQmlEngine** outptr_QQmlEngine);
 QMetaObject* QQmlApplicationEngine_metaObject(const QQmlApplicationEngine* self);
 void* QQmlApplicationEngine_metacast(QQmlApplicationEngine* self, const char* param1);
@@ -65,31 +84,21 @@ struct seaqt_string QQmlApplicationEngine_tr2(const char* s, const char* c);
 struct seaqt_string QQmlApplicationEngine_tr3(const char* s, const char* c, int n);
 void QQmlApplicationEngine_loadData2(QQmlApplicationEngine* self, struct seaqt_string data, QUrl* url);
 
-bool QQmlApplicationEngine_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QQmlApplicationEngine_virtualbase_metaObject(const void* self);
-bool QQmlApplicationEngine_override_virtual_metacast(void* self, intptr_t slot);
-void* QQmlApplicationEngine_virtualbase_metacast(void* self, const char* param1);
-bool QQmlApplicationEngine_override_virtual_metacall(void* self, intptr_t slot);
-int QQmlApplicationEngine_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QQmlApplicationEngine_override_virtual_event(void* self, intptr_t slot);
-bool QQmlApplicationEngine_virtualbase_event(void* self, QEvent* param1);
-bool QQmlApplicationEngine_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QQmlApplicationEngine_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QQmlApplicationEngine_override_virtual_timerEvent(void* self, intptr_t slot);
-void QQmlApplicationEngine_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QQmlApplicationEngine_override_virtual_childEvent(void* self, intptr_t slot);
-void QQmlApplicationEngine_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QQmlApplicationEngine_override_virtual_customEvent(void* self, intptr_t slot);
-void QQmlApplicationEngine_virtualbase_customEvent(void* self, QEvent* event);
-bool QQmlApplicationEngine_override_virtual_connectNotify(void* self, intptr_t slot);
-void QQmlApplicationEngine_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QQmlApplicationEngine_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QQmlApplicationEngine_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QQmlApplicationEngine_virtualbase_metaObject(const VirtualQQmlApplicationEngine* self);
+void* QQmlApplicationEngine_virtualbase_metacast(VirtualQQmlApplicationEngine* self, const char* param1);
+int QQmlApplicationEngine_virtualbase_metacall(VirtualQQmlApplicationEngine* self, int param1, int param2, void** param3);
+bool QQmlApplicationEngine_virtualbase_event(VirtualQQmlApplicationEngine* self, QEvent* param1);
+bool QQmlApplicationEngine_virtualbase_eventFilter(VirtualQQmlApplicationEngine* self, QObject* watched, QEvent* event);
+void QQmlApplicationEngine_virtualbase_timerEvent(VirtualQQmlApplicationEngine* self, QTimerEvent* event);
+void QQmlApplicationEngine_virtualbase_childEvent(VirtualQQmlApplicationEngine* self, QChildEvent* event);
+void QQmlApplicationEngine_virtualbase_customEvent(VirtualQQmlApplicationEngine* self, QEvent* event);
+void QQmlApplicationEngine_virtualbase_connectNotify(VirtualQQmlApplicationEngine* self, QMetaMethod* signal);
+void QQmlApplicationEngine_virtualbase_disconnectNotify(VirtualQQmlApplicationEngine* self, QMetaMethod* signal);
 
-QObject* QQmlApplicationEngine_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QQmlApplicationEngine_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QQmlApplicationEngine_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QQmlApplicationEngine_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QQmlApplicationEngine_protectedbase_sender(const VirtualQQmlApplicationEngine* self);
+int QQmlApplicationEngine_protectedbase_senderSignalIndex(const VirtualQQmlApplicationEngine* self);
+int QQmlApplicationEngine_protectedbase_receivers(const VirtualQQmlApplicationEngine* self, const char* signal);
+bool QQmlApplicationEngine_protectedbase_isSignalConnected(const VirtualQQmlApplicationEngine* self, QMetaMethod* signal);
 
 const QMetaObject* QQmlApplicationEngine_staticMetaObject();
 void QQmlApplicationEngine_delete(QQmlApplicationEngine* self);

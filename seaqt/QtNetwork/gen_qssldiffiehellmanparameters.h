@@ -24,6 +24,7 @@ typedef struct QSslDiffieHellmanParameters QSslDiffieHellmanParameters;
 
 QSslDiffieHellmanParameters* QSslDiffieHellmanParameters_new();
 QSslDiffieHellmanParameters* QSslDiffieHellmanParameters_new2(QSslDiffieHellmanParameters* other);
+
 QSslDiffieHellmanParameters* QSslDiffieHellmanParameters_defaultParameters();
 void QSslDiffieHellmanParameters_operatorAssign(QSslDiffieHellmanParameters* self, QSslDiffieHellmanParameters* other);
 void QSslDiffieHellmanParameters_swap(QSslDiffieHellmanParameters* self, QSslDiffieHellmanParameters* other);

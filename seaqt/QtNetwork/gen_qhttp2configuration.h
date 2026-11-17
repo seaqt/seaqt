@@ -22,6 +22,7 @@ typedef struct QHttp2Configuration QHttp2Configuration;
 
 QHttp2Configuration* QHttp2Configuration_new();
 QHttp2Configuration* QHttp2Configuration_new2(QHttp2Configuration* other);
+
 void QHttp2Configuration_operatorAssign(QHttp2Configuration* self, QHttp2Configuration* other);
 void QHttp2Configuration_setServerPushEnabled(QHttp2Configuration* self, bool enable);
 bool QHttp2Configuration_serverPushEnabled(const QHttp2Configuration* self);

@@ -23,183 +23,177 @@
 #include <qimage.h>
 #include "gen_qimage.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-int miqt_exec_callback_QImage_devType(const QImage*, intptr_t);
-QPaintEngine* miqt_exec_callback_QImage_paintEngine(const QImage*, intptr_t);
-int miqt_exec_callback_QImage_metric(const QImage*, intptr_t, int);
-void miqt_exec_callback_QImage_initPainter(const QImage*, intptr_t, QPainter*);
-QPaintDevice* miqt_exec_callback_QImage_redirected(const QImage*, intptr_t, QPoint*);
-QPainter* miqt_exec_callback_QImage_sharedPainter(const QImage*, intptr_t);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQImage final : public QImage {
+	const QImage_VTable* vtbl;
 public:
+	friend void* QImage_vdata(VirtualQImage* self);
+	friend VirtualQImage* vdata_QImage(void* vdata);
 
-	VirtualQImage(): QImage() {}
-	VirtualQImage(const QSize& size, QImage::Format format): QImage(size, format) {}
-	VirtualQImage(int width, int height, QImage::Format format): QImage(width, height, format) {}
-	VirtualQImage(uchar* data, int width, int height, QImage::Format format): QImage(data, width, height, format) {}
-	VirtualQImage(const uchar* data, int width, int height, QImage::Format format): QImage(data, width, height, format) {}
-	VirtualQImage(uchar* data, int width, int height, qsizetype bytesPerLine, QImage::Format format): QImage(data, width, height, bytesPerLine, format) {}
-	VirtualQImage(const uchar* data, int width, int height, qsizetype bytesPerLine, QImage::Format format): QImage(data, width, height, bytesPerLine, format) {}
-	VirtualQImage(const QString& fileName): QImage(fileName) {}
-	VirtualQImage(const QImage& param1): QImage(param1) {}
-	VirtualQImage(const QString& fileName, const char* format): QImage(fileName, format) {}
+	VirtualQImage(const QImage_VTable* vtbl): QImage(), vtbl(vtbl) {}
+	VirtualQImage(const QImage_VTable* vtbl, const QSize& size, QImage::Format format): QImage(size, format), vtbl(vtbl) {}
+	VirtualQImage(const QImage_VTable* vtbl, int width, int height, QImage::Format format): QImage(width, height, format), vtbl(vtbl) {}
+	VirtualQImage(const QImage_VTable* vtbl, uchar* data, int width, int height, QImage::Format format): QImage(data, width, height, format), vtbl(vtbl) {}
+	VirtualQImage(const QImage_VTable* vtbl, const uchar* data, int width, int height, QImage::Format format): QImage(data, width, height, format), vtbl(vtbl) {}
+	VirtualQImage(const QImage_VTable* vtbl, uchar* data, int width, int height, qsizetype bytesPerLine, QImage::Format format): QImage(data, width, height, bytesPerLine, format), vtbl(vtbl) {}
+	VirtualQImage(const QImage_VTable* vtbl, const uchar* data, int width, int height, qsizetype bytesPerLine, QImage::Format format): QImage(data, width, height, bytesPerLine, format), vtbl(vtbl) {}
+	VirtualQImage(const QImage_VTable* vtbl, const QString& fileName): QImage(fileName), vtbl(vtbl) {}
+	VirtualQImage(const QImage_VTable* vtbl, const QImage& param1): QImage(param1), vtbl(vtbl) {}
+	VirtualQImage(const QImage_VTable* vtbl, const QString& fileName, const char* format): QImage(fileName, format), vtbl(vtbl) {}
 
-	virtual ~VirtualQImage() override = default;
+	virtual ~VirtualQImage() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__devType = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual int devType() const override {
-		if (handle__devType == 0) {
+		if (vtbl->devType == 0) {
 			return QImage::devType();
 		}
 
-		int callback_return_value = miqt_exec_callback_QImage_devType(this, handle__devType);
+		int callback_return_value = vtbl->devType(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QImage_virtualbase_devType(const void* self);
+	friend int QImage_virtualbase_devType(const VirtualQImage* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__paintEngine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintEngine* paintEngine() const override {
-		if (handle__paintEngine == 0) {
+		if (vtbl->paintEngine == 0) {
 			return QImage::paintEngine();
 		}
 
-		QPaintEngine* callback_return_value = miqt_exec_callback_QImage_paintEngine(this, handle__paintEngine);
+		QPaintEngine* callback_return_value = vtbl->paintEngine(this);
 		return callback_return_value;
 	}
 
-	friend QPaintEngine* QImage_virtualbase_paintEngine(const void* self);
+	friend QPaintEngine* QImage_virtualbase_paintEngine(const VirtualQImage* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metric = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int metric(QPaintDevice::PaintDeviceMetric metric) const override {
-		if (handle__metric == 0) {
+		if (vtbl->metric == 0) {
 			return QImage::metric(metric);
 		}
 
 		QPaintDevice::PaintDeviceMetric metric_ret = metric;
 		int sigval1 = static_cast<int>(metric_ret);
-		int callback_return_value = miqt_exec_callback_QImage_metric(this, handle__metric, sigval1);
+		int callback_return_value = vtbl->metric(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QImage_virtualbase_metric(const void* self, int metric);
+	friend int QImage_virtualbase_metric(const VirtualQImage* self, int metric);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__initPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void initPainter(QPainter* painter) const override {
-		if (handle__initPainter == 0) {
+		if (vtbl->initPainter == 0) {
 			QImage::initPainter(painter);
 			return;
 		}
 
 		QPainter* sigval1 = painter;
-		miqt_exec_callback_QImage_initPainter(this, handle__initPainter, sigval1);
-
+		vtbl->initPainter(this, sigval1);
 	}
 
-	friend void QImage_virtualbase_initPainter(const void* self, QPainter* painter);
+	friend void QImage_virtualbase_initPainter(const VirtualQImage* self, QPainter* painter);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__redirected = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPaintDevice* redirected(QPoint* offset) const override {
-		if (handle__redirected == 0) {
+		if (vtbl->redirected == 0) {
 			return QImage::redirected(offset);
 		}
 
 		QPoint* sigval1 = offset;
-		QPaintDevice* callback_return_value = miqt_exec_callback_QImage_redirected(this, handle__redirected, sigval1);
+		QPaintDevice* callback_return_value = vtbl->redirected(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QPaintDevice* QImage_virtualbase_redirected(const void* self, QPoint* offset);
+	friend QPaintDevice* QImage_virtualbase_redirected(const VirtualQImage* self, QPoint* offset);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sharedPainter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QPainter* sharedPainter() const override {
-		if (handle__sharedPainter == 0) {
+		if (vtbl->sharedPainter == 0) {
 			return QImage::sharedPainter();
 		}
 
-		QPainter* callback_return_value = miqt_exec_callback_QImage_sharedPainter(this, handle__sharedPainter);
+		QPainter* callback_return_value = vtbl->sharedPainter(this);
 		return callback_return_value;
 	}
 
-	friend QPainter* QImage_virtualbase_sharedPainter(const void* self);
+	friend QPainter* QImage_virtualbase_sharedPainter(const VirtualQImage* self);
 
 	// Wrappers to allow calling protected methods:
-	friend QImage* QImage_protectedbase_mirroredHelper(bool* _dynamic_cast_ok, const void* self, bool horizontal, bool vertical);
-	friend QImage* QImage_protectedbase_rgbSwappedHelper(bool* _dynamic_cast_ok, const void* self);
-	friend void QImage_protectedbase_mirroredInplace(bool* _dynamic_cast_ok, void* self, bool horizontal, bool vertical);
-	friend void QImage_protectedbase_rgbSwappedInplace(bool* _dynamic_cast_ok, void* self);
-	friend QImage* QImage_protectedbase_convertToFormatHelper(bool* _dynamic_cast_ok, const void* self, int format, int flags);
-	friend bool QImage_protectedbase_convertToFormatInplace(bool* _dynamic_cast_ok, void* self, int format, int flags);
-	friend QImage* QImage_protectedbase_smoothScaled(bool* _dynamic_cast_ok, const void* self, int w, int h);
-	friend void QImage_protectedbase_detachMetadata(bool* _dynamic_cast_ok, void* self);
-	friend void QImage_protectedbase_detachMetadataWithInvalidateCache(bool* _dynamic_cast_ok, void* self, bool invalidateCache);
+	friend QImage* QImage_protectedbase_mirroredHelper(const VirtualQImage* self, bool horizontal, bool vertical);
+	friend QImage* QImage_protectedbase_rgbSwappedHelper(const VirtualQImage* self);
+	friend void QImage_protectedbase_mirroredInplace(VirtualQImage* self, bool horizontal, bool vertical);
+	friend void QImage_protectedbase_rgbSwappedInplace(VirtualQImage* self);
+	friend QImage* QImage_protectedbase_convertToFormatHelper(const VirtualQImage* self, int format, int flags);
+	friend bool QImage_protectedbase_convertToFormatInplace(VirtualQImage* self, int format, int flags);
+	friend QImage* QImage_protectedbase_smoothScaled(const VirtualQImage* self, int w, int h);
+	friend void QImage_protectedbase_detachMetadata(VirtualQImage* self);
+	friend void QImage_protectedbase_detachMetadataWithInvalidateCache(VirtualQImage* self, bool invalidateCache);
 };
 
-QImage* QImage_new() {
-	return new (std::nothrow) VirtualQImage();
+VirtualQImage* QImage_new(const QImage_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQImage>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQImage(vtbl) : nullptr;
 }
 
-QImage* QImage_new2(QSize* size, int format) {
-	return new (std::nothrow) VirtualQImage(*size, static_cast<QImage::Format>(format));
+VirtualQImage* QImage_new2(const QImage_VTable* vtbl, size_t vdata, QSize* size, int format) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQImage>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQImage(vtbl, *size, static_cast<QImage::Format>(format)) : nullptr;
 }
 
-QImage* QImage_new3(int width, int height, int format) {
-	return new (std::nothrow) VirtualQImage(static_cast<int>(width), static_cast<int>(height), static_cast<QImage::Format>(format));
+VirtualQImage* QImage_new3(const QImage_VTable* vtbl, size_t vdata, int width, int height, int format) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQImage>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQImage(vtbl, static_cast<int>(width), static_cast<int>(height), static_cast<QImage::Format>(format)) : nullptr;
 }
 
-QImage* QImage_new4(unsigned char* data, int width, int height, int format) {
-	return new (std::nothrow) VirtualQImage(static_cast<uchar*>(data), static_cast<int>(width), static_cast<int>(height), static_cast<QImage::Format>(format));
+VirtualQImage* QImage_new4(const QImage_VTable* vtbl, size_t vdata, unsigned char* data, int width, int height, int format) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQImage>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQImage(vtbl, static_cast<uchar*>(data), static_cast<int>(width), static_cast<int>(height), static_cast<QImage::Format>(format)) : nullptr;
 }
 
-QImage* QImage_new5(const unsigned char* data, int width, int height, int format) {
-	return new (std::nothrow) VirtualQImage(static_cast<const uchar*>(data), static_cast<int>(width), static_cast<int>(height), static_cast<QImage::Format>(format));
+VirtualQImage* QImage_new5(const QImage_VTable* vtbl, size_t vdata, const unsigned char* data, int width, int height, int format) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQImage>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQImage(vtbl, static_cast<const uchar*>(data), static_cast<int>(width), static_cast<int>(height), static_cast<QImage::Format>(format)) : nullptr;
 }
 
-QImage* QImage_new6(unsigned char* data, int width, int height, ptrdiff_t bytesPerLine, int format) {
-	return new (std::nothrow) VirtualQImage(static_cast<uchar*>(data), static_cast<int>(width), static_cast<int>(height), (qsizetype)(bytesPerLine), static_cast<QImage::Format>(format));
+VirtualQImage* QImage_new6(const QImage_VTable* vtbl, size_t vdata, unsigned char* data, int width, int height, ptrdiff_t bytesPerLine, int format) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQImage>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQImage(vtbl, static_cast<uchar*>(data), static_cast<int>(width), static_cast<int>(height), (qsizetype)(bytesPerLine), static_cast<QImage::Format>(format)) : nullptr;
 }
 
-QImage* QImage_new7(const unsigned char* data, int width, int height, ptrdiff_t bytesPerLine, int format) {
-	return new (std::nothrow) VirtualQImage(static_cast<const uchar*>(data), static_cast<int>(width), static_cast<int>(height), (qsizetype)(bytesPerLine), static_cast<QImage::Format>(format));
+VirtualQImage* QImage_new7(const QImage_VTable* vtbl, size_t vdata, const unsigned char* data, int width, int height, ptrdiff_t bytesPerLine, int format) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQImage>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQImage(vtbl, static_cast<const uchar*>(data), static_cast<int>(width), static_cast<int>(height), (qsizetype)(bytesPerLine), static_cast<QImage::Format>(format)) : nullptr;
 }
 
-QImage* QImage_new8(struct seaqt_string fileName) {
+VirtualQImage* QImage_new8(const QImage_VTable* vtbl, size_t vdata, struct seaqt_string fileName) {
 	QString fileName_QString = QString::fromUtf8(fileName.data, fileName.len);
-	return new (std::nothrow) VirtualQImage(fileName_QString);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQImage>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQImage(vtbl, fileName_QString) : nullptr;
 }
 
-QImage* QImage_new9(QImage* param1) {
-	return new (std::nothrow) VirtualQImage(*param1);
+VirtualQImage* QImage_new9(const QImage_VTable* vtbl, size_t vdata, QImage* param1) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQImage>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQImage(vtbl, *param1) : nullptr;
 }
 
-QImage* QImage_new10(struct seaqt_string fileName, const char* format) {
+VirtualQImage* QImage_new10(const QImage_VTable* vtbl, size_t vdata, struct seaqt_string fileName, const char* format) {
 	QString fileName_QString = QString::fromUtf8(fileName.data, fileName.len);
-	return new (std::nothrow) VirtualQImage(fileName_QString, format);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQImage>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQImage(vtbl, fileName_QString, format) : nullptr;
 }
 
 void QImage_virtbase(QImage* src, QPaintDevice** outptr_QPaintDevice) {
@@ -831,187 +825,73 @@ struct seaqt_string QImage_textWithKey(const QImage* self, struct seaqt_string k
 }
 
 const QMetaObject* QImage_staticMetaObject() { return &QImage::staticMetaObject; }
-bool QImage_override_virtual_devType(void* self, intptr_t slot) {
-	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QImage_vdata(VirtualQImage* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQImage>()); }
+VirtualQImage* vdata_QImage(void* vdata) { return reinterpret_cast<VirtualQImage*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQImage>()); }
 
-	self_cast->handle__devType = slot;
-	return true;
+int QImage_virtualbase_devType(const VirtualQImage* self) {
+
+	return self->QImage::devType();
 }
 
-int QImage_virtualbase_devType(const void* self) {
-	return static_cast<const VirtualQImage*>(self)->QImage::devType();
+QPaintEngine* QImage_virtualbase_paintEngine(const VirtualQImage* self) {
+
+	return self->QImage::paintEngine();
 }
 
-bool QImage_override_virtual_paintEngine(void* self, intptr_t slot) {
-	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QImage_virtualbase_metric(const VirtualQImage* self, int metric) {
 
-	self_cast->handle__paintEngine = slot;
-	return true;
+	return self->QImage::metric(static_cast<VirtualQImage::PaintDeviceMetric>(metric));
 }
 
-QPaintEngine* QImage_virtualbase_paintEngine(const void* self) {
-	return static_cast<const VirtualQImage*>(self)->QImage::paintEngine();
+void QImage_virtualbase_initPainter(const VirtualQImage* self, QPainter* painter) {
+
+	self->QImage::initPainter(painter);
 }
 
-bool QImage_override_virtual_metric(void* self, intptr_t slot) {
-	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QPaintDevice* QImage_virtualbase_redirected(const VirtualQImage* self, QPoint* offset) {
 
-	self_cast->handle__metric = slot;
-	return true;
+	return self->QImage::redirected(offset);
 }
 
-int QImage_virtualbase_metric(const void* self, int metric) {
-	return static_cast<const VirtualQImage*>(self)->QImage::metric(static_cast<VirtualQImage::PaintDeviceMetric>(metric));
+QPainter* QImage_virtualbase_sharedPainter(const VirtualQImage* self) {
+
+	return self->QImage::sharedPainter();
 }
 
-bool QImage_override_virtual_initPainter(void* self, intptr_t slot) {
-	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__initPainter = slot;
-	return true;
+QImage* QImage_protectedbase_mirroredHelper(const VirtualQImage* self, bool horizontal, bool vertical) {
+	return new QImage(self->mirrored_helper(horizontal, vertical));
 }
 
-void QImage_virtualbase_initPainter(const void* self, QPainter* painter) {
-	static_cast<const VirtualQImage*>(self)->QImage::initPainter(painter);
+QImage* QImage_protectedbase_rgbSwappedHelper(const VirtualQImage* self) {
+	return new QImage(self->rgbSwapped_helper());
 }
 
-bool QImage_override_virtual_redirected(void* self, intptr_t slot) {
-	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__redirected = slot;
-	return true;
+void QImage_protectedbase_mirroredInplace(VirtualQImage* self, bool horizontal, bool vertical) {
+	self->mirrored_inplace(horizontal, vertical);
 }
 
-QPaintDevice* QImage_virtualbase_redirected(const void* self, QPoint* offset) {
-	return static_cast<const VirtualQImage*>(self)->QImage::redirected(offset);
+void QImage_protectedbase_rgbSwappedInplace(VirtualQImage* self) {
+	self->rgbSwapped_inplace();
 }
 
-bool QImage_override_virtual_sharedPainter(void* self, intptr_t slot) {
-	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__sharedPainter = slot;
-	return true;
+QImage* QImage_protectedbase_convertToFormatHelper(const VirtualQImage* self, int format, int flags) {
+	return new QImage(self->convertToFormat_helper(static_cast<VirtualQImage::Format>(format), static_cast<Qt::ImageConversionFlags>(flags)));
 }
 
-QPainter* QImage_virtualbase_sharedPainter(const void* self) {
-	return static_cast<const VirtualQImage*>(self)->QImage::sharedPainter();
+bool QImage_protectedbase_convertToFormatInplace(VirtualQImage* self, int format, int flags) {
+	return self->convertToFormat_inplace(static_cast<VirtualQImage::Format>(format), static_cast<Qt::ImageConversionFlags>(flags));
 }
 
-QImage* QImage_protectedbase_mirroredHelper(bool* _dynamic_cast_ok, const void* self, bool horizontal, bool vertical) {
-	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return new QImage(self_cast->mirrored_helper(horizontal, vertical));
+QImage* QImage_protectedbase_smoothScaled(const VirtualQImage* self, int w, int h) {
+	return new QImage(self->smoothScaled(static_cast<int>(w), static_cast<int>(h)));
 }
 
-QImage* QImage_protectedbase_rgbSwappedHelper(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return new QImage(self_cast->rgbSwapped_helper());
+void QImage_protectedbase_detachMetadata(VirtualQImage* self) {
+	self->detachMetadata();
 }
 
-void QImage_protectedbase_mirroredInplace(bool* _dynamic_cast_ok, void* self, bool horizontal, bool vertical) {
-	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->mirrored_inplace(horizontal, vertical);
-}
-
-void QImage_protectedbase_rgbSwappedInplace(bool* _dynamic_cast_ok, void* self) {
-	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->rgbSwapped_inplace();
-}
-
-QImage* QImage_protectedbase_convertToFormatHelper(bool* _dynamic_cast_ok, const void* self, int format, int flags) {
-	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return new QImage(self_cast->convertToFormat_helper(static_cast<VirtualQImage::Format>(format), static_cast<Qt::ImageConversionFlags>(flags)));
-}
-
-bool QImage_protectedbase_convertToFormatInplace(bool* _dynamic_cast_ok, void* self, int format, int flags) {
-	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->convertToFormat_inplace(static_cast<VirtualQImage::Format>(format), static_cast<Qt::ImageConversionFlags>(flags));
-}
-
-QImage* QImage_protectedbase_smoothScaled(bool* _dynamic_cast_ok, const void* self, int w, int h) {
-	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return new QImage(self_cast->smoothScaled(static_cast<int>(w), static_cast<int>(h)));
-}
-
-void QImage_protectedbase_detachMetadata(bool* _dynamic_cast_ok, void* self) {
-	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->detachMetadata();
-}
-
-void QImage_protectedbase_detachMetadataWithInvalidateCache(bool* _dynamic_cast_ok, void* self, bool invalidateCache) {
-	VirtualQImage* self_cast = dynamic_cast<VirtualQImage*>( (QImage*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->detachMetadata(invalidateCache);
+void QImage_protectedbase_detachMetadataWithInvalidateCache(VirtualQImage* self, bool invalidateCache) {
+	self->detachMetadata(invalidateCache);
 }
 
 void QImage_delete(QImage* self) {

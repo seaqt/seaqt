@@ -34,8 +34,28 @@ typedef struct QSqlDriverPlugin QSqlDriverPlugin;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QSqlDriverPlugin* QSqlDriverPlugin_new();
-QSqlDriverPlugin* QSqlDriverPlugin_new2(QObject* parent);
+typedef struct VirtualQSqlDriverPlugin VirtualQSqlDriverPlugin;
+typedef struct QSqlDriverPlugin_VTable{
+	void (*destructor)(VirtualQSqlDriverPlugin* self);
+	QMetaObject* (*metaObject)(const VirtualQSqlDriverPlugin* self);
+	void* (*metacast)(VirtualQSqlDriverPlugin* self, const char* param1);
+	int (*metacall)(VirtualQSqlDriverPlugin* self, int param1, int param2, void** param3);
+	QSqlDriver* (*create)(VirtualQSqlDriverPlugin* self, struct seaqt_string key);
+	bool (*event)(VirtualQSqlDriverPlugin* self, QEvent* event);
+	bool (*eventFilter)(VirtualQSqlDriverPlugin* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQSqlDriverPlugin* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQSqlDriverPlugin* self, QChildEvent* event);
+	void (*customEvent)(VirtualQSqlDriverPlugin* self, QEvent* event);
+	void (*connectNotify)(VirtualQSqlDriverPlugin* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQSqlDriverPlugin* self, QMetaMethod* signal);
+}QSqlDriverPlugin_VTable;
+
+void* QSqlDriverPlugin_vdata(VirtualQSqlDriverPlugin* self);
+VirtualQSqlDriverPlugin* vdata_QSqlDriverPlugin(void* vdata);
+
+VirtualQSqlDriverPlugin* QSqlDriverPlugin_new(const QSqlDriverPlugin_VTable* vtbl, size_t vdata);
+VirtualQSqlDriverPlugin* QSqlDriverPlugin_new2(const QSqlDriverPlugin_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QSqlDriverPlugin_virtbase(QSqlDriverPlugin* src, QObject** outptr_QObject);
 QMetaObject* QSqlDriverPlugin_metaObject(const QSqlDriverPlugin* self);
 void* QSqlDriverPlugin_metacast(QSqlDriverPlugin* self, const char* param1);
@@ -45,33 +65,22 @@ QSqlDriver* QSqlDriverPlugin_create(QSqlDriverPlugin* self, struct seaqt_string 
 struct seaqt_string QSqlDriverPlugin_tr2(const char* s, const char* c);
 struct seaqt_string QSqlDriverPlugin_tr3(const char* s, const char* c, int n);
 
-bool QSqlDriverPlugin_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QSqlDriverPlugin_virtualbase_metaObject(const void* self);
-bool QSqlDriverPlugin_override_virtual_metacast(void* self, intptr_t slot);
-void* QSqlDriverPlugin_virtualbase_metacast(void* self, const char* param1);
-bool QSqlDriverPlugin_override_virtual_metacall(void* self, intptr_t slot);
-int QSqlDriverPlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QSqlDriverPlugin_override_virtual_create(void* self, intptr_t slot);
-QSqlDriver* QSqlDriverPlugin_virtualbase_create(void* self, struct seaqt_string key);
-bool QSqlDriverPlugin_override_virtual_event(void* self, intptr_t slot);
-bool QSqlDriverPlugin_virtualbase_event(void* self, QEvent* event);
-bool QSqlDriverPlugin_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QSqlDriverPlugin_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QSqlDriverPlugin_override_virtual_timerEvent(void* self, intptr_t slot);
-void QSqlDriverPlugin_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QSqlDriverPlugin_override_virtual_childEvent(void* self, intptr_t slot);
-void QSqlDriverPlugin_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QSqlDriverPlugin_override_virtual_customEvent(void* self, intptr_t slot);
-void QSqlDriverPlugin_virtualbase_customEvent(void* self, QEvent* event);
-bool QSqlDriverPlugin_override_virtual_connectNotify(void* self, intptr_t slot);
-void QSqlDriverPlugin_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QSqlDriverPlugin_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QSqlDriverPlugin_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QSqlDriverPlugin_virtualbase_metaObject(const VirtualQSqlDriverPlugin* self);
+void* QSqlDriverPlugin_virtualbase_metacast(VirtualQSqlDriverPlugin* self, const char* param1);
+int QSqlDriverPlugin_virtualbase_metacall(VirtualQSqlDriverPlugin* self, int param1, int param2, void** param3);
+QSqlDriver* QSqlDriverPlugin_virtualbase_create(VirtualQSqlDriverPlugin* self, struct seaqt_string key);
+bool QSqlDriverPlugin_virtualbase_event(VirtualQSqlDriverPlugin* self, QEvent* event);
+bool QSqlDriverPlugin_virtualbase_eventFilter(VirtualQSqlDriverPlugin* self, QObject* watched, QEvent* event);
+void QSqlDriverPlugin_virtualbase_timerEvent(VirtualQSqlDriverPlugin* self, QTimerEvent* event);
+void QSqlDriverPlugin_virtualbase_childEvent(VirtualQSqlDriverPlugin* self, QChildEvent* event);
+void QSqlDriverPlugin_virtualbase_customEvent(VirtualQSqlDriverPlugin* self, QEvent* event);
+void QSqlDriverPlugin_virtualbase_connectNotify(VirtualQSqlDriverPlugin* self, QMetaMethod* signal);
+void QSqlDriverPlugin_virtualbase_disconnectNotify(VirtualQSqlDriverPlugin* self, QMetaMethod* signal);
 
-QObject* QSqlDriverPlugin_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QSqlDriverPlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QSqlDriverPlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QSqlDriverPlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QSqlDriverPlugin_protectedbase_sender(const VirtualQSqlDriverPlugin* self);
+int QSqlDriverPlugin_protectedbase_senderSignalIndex(const VirtualQSqlDriverPlugin* self);
+int QSqlDriverPlugin_protectedbase_receivers(const VirtualQSqlDriverPlugin* self, const char* signal);
+bool QSqlDriverPlugin_protectedbase_isSignalConnected(const VirtualQSqlDriverPlugin* self, QMetaMethod* signal);
 
 const QMetaObject* QSqlDriverPlugin_staticMetaObject();
 void QSqlDriverPlugin_delete(QSqlDriverPlugin* self);

@@ -38,7 +38,26 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QVector3D QVector3D;
 #endif
 
-QAudioRoom* QAudioRoom_new(QAudioEngine* engine);
+typedef struct VirtualQAudioRoom VirtualQAudioRoom;
+typedef struct QAudioRoom_VTable{
+	void (*destructor)(VirtualQAudioRoom* self);
+	QMetaObject* (*metaObject)(const VirtualQAudioRoom* self);
+	void* (*metacast)(VirtualQAudioRoom* self, const char* param1);
+	int (*metacall)(VirtualQAudioRoom* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQAudioRoom* self, QEvent* event);
+	bool (*eventFilter)(VirtualQAudioRoom* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQAudioRoom* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQAudioRoom* self, QChildEvent* event);
+	void (*customEvent)(VirtualQAudioRoom* self, QEvent* event);
+	void (*connectNotify)(VirtualQAudioRoom* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQAudioRoom* self, QMetaMethod* signal);
+}QAudioRoom_VTable;
+
+void* QAudioRoom_vdata(VirtualQAudioRoom* self);
+VirtualQAudioRoom* vdata_QAudioRoom(void* vdata);
+
+VirtualQAudioRoom* QAudioRoom_new(const QAudioRoom_VTable* vtbl, size_t vdata, QAudioEngine* engine);
+
 void QAudioRoom_virtbase(QAudioRoom* src, QObject** outptr_QObject);
 QMetaObject* QAudioRoom_metaObject(const QAudioRoom* self);
 void* QAudioRoom_metacast(QAudioRoom* self, const char* param1);
@@ -79,31 +98,21 @@ void QAudioRoom_connect_reverbBrightnessChanged(QAudioRoom* self, intptr_t slot)
 struct seaqt_string QAudioRoom_tr2(const char* s, const char* c);
 struct seaqt_string QAudioRoom_tr3(const char* s, const char* c, int n);
 
-bool QAudioRoom_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QAudioRoom_virtualbase_metaObject(const void* self);
-bool QAudioRoom_override_virtual_metacast(void* self, intptr_t slot);
-void* QAudioRoom_virtualbase_metacast(void* self, const char* param1);
-bool QAudioRoom_override_virtual_metacall(void* self, intptr_t slot);
-int QAudioRoom_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QAudioRoom_override_virtual_event(void* self, intptr_t slot);
-bool QAudioRoom_virtualbase_event(void* self, QEvent* event);
-bool QAudioRoom_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QAudioRoom_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QAudioRoom_override_virtual_timerEvent(void* self, intptr_t slot);
-void QAudioRoom_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QAudioRoom_override_virtual_childEvent(void* self, intptr_t slot);
-void QAudioRoom_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QAudioRoom_override_virtual_customEvent(void* self, intptr_t slot);
-void QAudioRoom_virtualbase_customEvent(void* self, QEvent* event);
-bool QAudioRoom_override_virtual_connectNotify(void* self, intptr_t slot);
-void QAudioRoom_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QAudioRoom_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QAudioRoom_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QAudioRoom_virtualbase_metaObject(const VirtualQAudioRoom* self);
+void* QAudioRoom_virtualbase_metacast(VirtualQAudioRoom* self, const char* param1);
+int QAudioRoom_virtualbase_metacall(VirtualQAudioRoom* self, int param1, int param2, void** param3);
+bool QAudioRoom_virtualbase_event(VirtualQAudioRoom* self, QEvent* event);
+bool QAudioRoom_virtualbase_eventFilter(VirtualQAudioRoom* self, QObject* watched, QEvent* event);
+void QAudioRoom_virtualbase_timerEvent(VirtualQAudioRoom* self, QTimerEvent* event);
+void QAudioRoom_virtualbase_childEvent(VirtualQAudioRoom* self, QChildEvent* event);
+void QAudioRoom_virtualbase_customEvent(VirtualQAudioRoom* self, QEvent* event);
+void QAudioRoom_virtualbase_connectNotify(VirtualQAudioRoom* self, QMetaMethod* signal);
+void QAudioRoom_virtualbase_disconnectNotify(VirtualQAudioRoom* self, QMetaMethod* signal);
 
-QObject* QAudioRoom_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QAudioRoom_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QAudioRoom_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QAudioRoom_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QAudioRoom_protectedbase_sender(const VirtualQAudioRoom* self);
+int QAudioRoom_protectedbase_senderSignalIndex(const VirtualQAudioRoom* self);
+int QAudioRoom_protectedbase_receivers(const VirtualQAudioRoom* self, const char* signal);
+bool QAudioRoom_protectedbase_isSignalConnected(const VirtualQAudioRoom* self, QMetaMethod* signal);
 
 const QMetaObject* QAudioRoom_staticMetaObject();
 void QAudioRoom_delete(QAudioRoom* self);

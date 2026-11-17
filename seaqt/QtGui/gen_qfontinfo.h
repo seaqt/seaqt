@@ -24,6 +24,7 @@ typedef struct QFontInfo QFontInfo;
 
 QFontInfo* QFontInfo_new(QFont* param1);
 QFontInfo* QFontInfo_new2(QFontInfo* param1);
+
 void QFontInfo_operatorAssign(QFontInfo* self, QFontInfo* param1);
 void QFontInfo_swap(QFontInfo* self, QFontInfo* other);
 struct seaqt_string QFontInfo_family(const QFontInfo* self);

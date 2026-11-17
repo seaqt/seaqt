@@ -28,6 +28,7 @@ QUuid* QUuid_new();
 QUuid* QUuid_new2(unsigned int l, unsigned short w1, unsigned short w2, unsigned char b1, unsigned char b2, unsigned char b3, unsigned char b4, unsigned char b5, unsigned char b6, unsigned char b7, unsigned char b8);
 QUuid* QUuid_new3(QAnyStringView* string);
 QUuid* QUuid_new4(QUuid* param1);
+
 QUuid* QUuid_fromString(QAnyStringView* string);
 struct seaqt_string QUuid_toString(const QUuid* self);
 struct seaqt_string QUuid_toByteArray(const QUuid* self);

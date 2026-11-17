@@ -26,6 +26,7 @@ QUrl* QUrl_new();
 QUrl* QUrl_new2(QUrl* copy);
 QUrl* QUrl_new3(struct seaqt_string url);
 QUrl* QUrl_new4(struct seaqt_string url, int mode);
+
 void QUrl_operatorAssign(QUrl* self, QUrl* copy);
 void QUrl_operatorAssignWithUrl(QUrl* self, struct seaqt_string url);
 void QUrl_swap(QUrl* self, QUrl* other);

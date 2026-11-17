@@ -41,6 +41,7 @@ typedef struct QRegion QRegion;
 QPainterPath* QPainterPath_new();
 QPainterPath* QPainterPath_new2(QPointF* startPoint);
 QPainterPath* QPainterPath_new3(QPainterPath* other);
+
 void QPainterPath_operatorAssign(QPainterPath* self, QPainterPath* other);
 void QPainterPath_swap(QPainterPath* self, QPainterPath* other);
 void QPainterPath_clear(QPainterPath* self);
@@ -116,6 +117,7 @@ void QPainterPath_delete(QPainterPath* self);
 
 QPainterPathStroker* QPainterPathStroker_new();
 QPainterPathStroker* QPainterPathStroker_new2(QPen* pen);
+
 void QPainterPathStroker_setWidth(QPainterPathStroker* self, double width);
 double QPainterPathStroker_width(const QPainterPathStroker* self);
 void QPainterPathStroker_setCapStyle(QPainterPathStroker* self, int style);

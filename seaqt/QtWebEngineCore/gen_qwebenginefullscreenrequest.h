@@ -25,6 +25,7 @@ typedef struct QWebEngineFullScreenRequest QWebEngineFullScreenRequest;
 #endif
 
 QWebEngineFullScreenRequest* QWebEngineFullScreenRequest_new(QWebEngineFullScreenRequest* other);
+
 void QWebEngineFullScreenRequest_operatorAssign(QWebEngineFullScreenRequest* self, QWebEngineFullScreenRequest* other);
 void QWebEngineFullScreenRequest_reject(QWebEngineFullScreenRequest* self);
 void QWebEngineFullScreenRequest_accept(QWebEngineFullScreenRequest* self);

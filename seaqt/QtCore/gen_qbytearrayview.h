@@ -22,6 +22,7 @@ typedef struct QByteArrayView QByteArrayView;
 
 QByteArrayView* QByteArrayView_new();
 QByteArrayView* QByteArrayView_new2(QByteArrayView* param1);
+
 struct seaqt_string QByteArrayView_toByteArray(const QByteArrayView* self);
 ptrdiff_t QByteArrayView_size(const QByteArrayView* self);
 const char* QByteArrayView_data(const QByteArrayView* self);

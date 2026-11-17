@@ -22,6 +22,7 @@ typedef struct QWebSocketCorsAuthenticator QWebSocketCorsAuthenticator;
 
 QWebSocketCorsAuthenticator* QWebSocketCorsAuthenticator_new(struct seaqt_string origin);
 QWebSocketCorsAuthenticator* QWebSocketCorsAuthenticator_new2(QWebSocketCorsAuthenticator* other);
+
 void QWebSocketCorsAuthenticator_swap(QWebSocketCorsAuthenticator* self, QWebSocketCorsAuthenticator* other);
 void QWebSocketCorsAuthenticator_operatorAssign(QWebSocketCorsAuthenticator* self, QWebSocketCorsAuthenticator* other);
 struct seaqt_string QWebSocketCorsAuthenticator_origin(const QWebSocketCorsAuthenticator* self);

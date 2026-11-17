@@ -4,48 +4,53 @@
 #include <taskmenu.h>
 #include "gen_taskmenu.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QAction* miqt_exec_callback_QDesignerTaskMenuExtension_preferredEditAction(const QDesignerTaskMenuExtension*, intptr_t);
-struct seaqt_array /* of QAction* */  miqt_exec_callback_QDesignerTaskMenuExtension_taskActions(const QDesignerTaskMenuExtension*, intptr_t);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQDesignerTaskMenuExtension final : public QDesignerTaskMenuExtension {
+	const QDesignerTaskMenuExtension_VTable* vtbl;
 public:
+	friend void* QDesignerTaskMenuExtension_vdata(VirtualQDesignerTaskMenuExtension* self);
+	friend VirtualQDesignerTaskMenuExtension* vdata_QDesignerTaskMenuExtension(void* vdata);
 
-	VirtualQDesignerTaskMenuExtension(): QDesignerTaskMenuExtension() {}
+	VirtualQDesignerTaskMenuExtension(const QDesignerTaskMenuExtension_VTable* vtbl): QDesignerTaskMenuExtension(), vtbl(vtbl) {}
 
-	virtual ~VirtualQDesignerTaskMenuExtension() override = default;
+	virtual ~VirtualQDesignerTaskMenuExtension() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__preferredEditAction = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual QAction* preferredEditAction() const override {
-		if (handle__preferredEditAction == 0) {
+		if (vtbl->preferredEditAction == 0) {
 			return QDesignerTaskMenuExtension::preferredEditAction();
 		}
 
-		QAction* callback_return_value = miqt_exec_callback_QDesignerTaskMenuExtension_preferredEditAction(this, handle__preferredEditAction);
+		QAction* callback_return_value = vtbl->preferredEditAction(this);
 		return callback_return_value;
 	}
 
-	friend QAction* QDesignerTaskMenuExtension_virtualbase_preferredEditAction(const void* self);
+	friend QAction* QDesignerTaskMenuExtension_virtualbase_preferredEditAction(const VirtualQDesignerTaskMenuExtension* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__taskActions = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QList<QAction *> taskActions() const override {
-		if (handle__taskActions == 0) {
+		if (vtbl->taskActions == 0) {
 			return QList<QAction *>(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_array /* of QAction* */  callback_return_value = miqt_exec_callback_QDesignerTaskMenuExtension_taskActions(this, handle__taskActions);
+		struct seaqt_array /* of QAction* */  callback_return_value = vtbl->taskActions(this);
 		QList<QAction *> callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		QAction** callback_return_value_arr = static_cast<QAction**>(callback_return_value.data);
@@ -57,8 +62,9 @@ public:
 
 };
 
-QDesignerTaskMenuExtension* QDesignerTaskMenuExtension_new() {
-	return new (std::nothrow) VirtualQDesignerTaskMenuExtension();
+VirtualQDesignerTaskMenuExtension* QDesignerTaskMenuExtension_new(const QDesignerTaskMenuExtension_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerTaskMenuExtension>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerTaskMenuExtension(vtbl) : nullptr;
 }
 
 QAction* QDesignerTaskMenuExtension_preferredEditAction(const QDesignerTaskMenuExtension* self) {
@@ -78,28 +84,12 @@ struct seaqt_array /* of QAction* */  QDesignerTaskMenuExtension_taskActions(con
 	return _out;
 }
 
-bool QDesignerTaskMenuExtension_override_virtual_preferredEditAction(void* self, intptr_t slot) {
-	VirtualQDesignerTaskMenuExtension* self_cast = dynamic_cast<VirtualQDesignerTaskMenuExtension*>( (QDesignerTaskMenuExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QDesignerTaskMenuExtension_vdata(VirtualQDesignerTaskMenuExtension* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQDesignerTaskMenuExtension>()); }
+VirtualQDesignerTaskMenuExtension* vdata_QDesignerTaskMenuExtension(void* vdata) { return reinterpret_cast<VirtualQDesignerTaskMenuExtension*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQDesignerTaskMenuExtension>()); }
 
-	self_cast->handle__preferredEditAction = slot;
-	return true;
-}
+QAction* QDesignerTaskMenuExtension_virtualbase_preferredEditAction(const VirtualQDesignerTaskMenuExtension* self) {
 
-QAction* QDesignerTaskMenuExtension_virtualbase_preferredEditAction(const void* self) {
-	return static_cast<const VirtualQDesignerTaskMenuExtension*>(self)->QDesignerTaskMenuExtension::preferredEditAction();
-}
-
-bool QDesignerTaskMenuExtension_override_virtual_taskActions(void* self, intptr_t slot) {
-	VirtualQDesignerTaskMenuExtension* self_cast = dynamic_cast<VirtualQDesignerTaskMenuExtension*>( (QDesignerTaskMenuExtension*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__taskActions = slot;
-	return true;
+	return self->QDesignerTaskMenuExtension::preferredEditAction();
 }
 
 void QDesignerTaskMenuExtension_delete(QDesignerTaskMenuExtension* self) {

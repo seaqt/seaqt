@@ -34,6 +34,7 @@ typedef struct QVariant QVariant;
 
 QSslConfiguration* QSslConfiguration_new();
 QSslConfiguration* QSslConfiguration_new2(QSslConfiguration* other);
+
 void QSslConfiguration_operatorAssign(QSslConfiguration* self, QSslConfiguration* other);
 void QSslConfiguration_swap(QSslConfiguration* self, QSslConfiguration* other);
 bool QSslConfiguration_operatorEqual(const QSslConfiguration* self, QSslConfiguration* other);

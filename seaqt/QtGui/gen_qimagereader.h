@@ -35,6 +35,7 @@ QImageReader* QImageReader_new2(QIODevice* device);
 QImageReader* QImageReader_new3(struct seaqt_string fileName);
 QImageReader* QImageReader_new4(QIODevice* device, struct seaqt_string format);
 QImageReader* QImageReader_new5(struct seaqt_string fileName, struct seaqt_string format);
+
 struct seaqt_string QImageReader_tr(const char* sourceText);
 void QImageReader_setFormat(QImageReader* self, struct seaqt_string format);
 struct seaqt_string QImageReader_format(const QImageReader* self);

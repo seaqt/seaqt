@@ -36,8 +36,29 @@ typedef struct QState QState;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QFinalState* QFinalState_new();
-QFinalState* QFinalState_new2(QState* parent);
+typedef struct VirtualQFinalState VirtualQFinalState;
+typedef struct QFinalState_VTable{
+	void (*destructor)(VirtualQFinalState* self);
+	QMetaObject* (*metaObject)(const VirtualQFinalState* self);
+	void* (*metacast)(VirtualQFinalState* self, const char* param1);
+	int (*metacall)(VirtualQFinalState* self, int param1, int param2, void** param3);
+	void (*onEntry)(VirtualQFinalState* self, QEvent* event);
+	void (*onExit)(VirtualQFinalState* self, QEvent* event);
+	bool (*event)(VirtualQFinalState* self, QEvent* e);
+	bool (*eventFilter)(VirtualQFinalState* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQFinalState* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQFinalState* self, QChildEvent* event);
+	void (*customEvent)(VirtualQFinalState* self, QEvent* event);
+	void (*connectNotify)(VirtualQFinalState* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQFinalState* self, QMetaMethod* signal);
+}QFinalState_VTable;
+
+void* QFinalState_vdata(VirtualQFinalState* self);
+VirtualQFinalState* vdata_QFinalState(void* vdata);
+
+VirtualQFinalState* QFinalState_new(const QFinalState_VTable* vtbl, size_t vdata);
+VirtualQFinalState* QFinalState_new2(const QFinalState_VTable* vtbl, size_t vdata, QState* parent);
+
 void QFinalState_virtbase(QFinalState* src, QAbstractState** outptr_QAbstractState);
 QMetaObject* QFinalState_metaObject(const QFinalState* self);
 void* QFinalState_metacast(QFinalState* self, const char* param1);
@@ -49,35 +70,23 @@ bool QFinalState_event(QFinalState* self, QEvent* e);
 struct seaqt_string QFinalState_tr2(const char* s, const char* c);
 struct seaqt_string QFinalState_tr3(const char* s, const char* c, int n);
 
-bool QFinalState_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QFinalState_virtualbase_metaObject(const void* self);
-bool QFinalState_override_virtual_metacast(void* self, intptr_t slot);
-void* QFinalState_virtualbase_metacast(void* self, const char* param1);
-bool QFinalState_override_virtual_metacall(void* self, intptr_t slot);
-int QFinalState_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QFinalState_override_virtual_onEntry(void* self, intptr_t slot);
-void QFinalState_virtualbase_onEntry(void* self, QEvent* event);
-bool QFinalState_override_virtual_onExit(void* self, intptr_t slot);
-void QFinalState_virtualbase_onExit(void* self, QEvent* event);
-bool QFinalState_override_virtual_event(void* self, intptr_t slot);
-bool QFinalState_virtualbase_event(void* self, QEvent* e);
-bool QFinalState_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QFinalState_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QFinalState_override_virtual_timerEvent(void* self, intptr_t slot);
-void QFinalState_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QFinalState_override_virtual_childEvent(void* self, intptr_t slot);
-void QFinalState_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QFinalState_override_virtual_customEvent(void* self, intptr_t slot);
-void QFinalState_virtualbase_customEvent(void* self, QEvent* event);
-bool QFinalState_override_virtual_connectNotify(void* self, intptr_t slot);
-void QFinalState_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QFinalState_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QFinalState_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QFinalState_virtualbase_metaObject(const VirtualQFinalState* self);
+void* QFinalState_virtualbase_metacast(VirtualQFinalState* self, const char* param1);
+int QFinalState_virtualbase_metacall(VirtualQFinalState* self, int param1, int param2, void** param3);
+void QFinalState_virtualbase_onEntry(VirtualQFinalState* self, QEvent* event);
+void QFinalState_virtualbase_onExit(VirtualQFinalState* self, QEvent* event);
+bool QFinalState_virtualbase_event(VirtualQFinalState* self, QEvent* e);
+bool QFinalState_virtualbase_eventFilter(VirtualQFinalState* self, QObject* watched, QEvent* event);
+void QFinalState_virtualbase_timerEvent(VirtualQFinalState* self, QTimerEvent* event);
+void QFinalState_virtualbase_childEvent(VirtualQFinalState* self, QChildEvent* event);
+void QFinalState_virtualbase_customEvent(VirtualQFinalState* self, QEvent* event);
+void QFinalState_virtualbase_connectNotify(VirtualQFinalState* self, QMetaMethod* signal);
+void QFinalState_virtualbase_disconnectNotify(VirtualQFinalState* self, QMetaMethod* signal);
 
-QObject* QFinalState_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QFinalState_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QFinalState_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QFinalState_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QFinalState_protectedbase_sender(const VirtualQFinalState* self);
+int QFinalState_protectedbase_senderSignalIndex(const VirtualQFinalState* self);
+int QFinalState_protectedbase_receivers(const VirtualQFinalState* self, const char* signal);
+bool QFinalState_protectedbase_isSignalConnected(const VirtualQFinalState* self, QMetaMethod* signal);
 
 const QMetaObject* QFinalState_staticMetaObject();
 void QFinalState_delete(QFinalState* self);

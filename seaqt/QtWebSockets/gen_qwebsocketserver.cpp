@@ -21,6 +21,17 @@
 #include <qwebsocketserver.h>
 #include "gen_qwebsocketserver.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -36,66 +47,47 @@ void miqt_exec_callback_QWebSocketServer_alertSent(intptr_t, int, int, struct se
 void miqt_exec_callback_QWebSocketServer_alertReceived(intptr_t, int, int, struct seaqt_string);
 void miqt_exec_callback_QWebSocketServer_handshakeInterruptedOnError(intptr_t, QSslError*);
 void miqt_exec_callback_QWebSocketServer_closed(intptr_t);
-QMetaObject* miqt_exec_callback_QWebSocketServer_metaObject(const QWebSocketServer*, intptr_t);
-void* miqt_exec_callback_QWebSocketServer_metacast(QWebSocketServer*, intptr_t, const char*);
-int miqt_exec_callback_QWebSocketServer_metacall(QWebSocketServer*, intptr_t, int, int, void**);
-QWebSocket* miqt_exec_callback_QWebSocketServer_nextPendingConnection(QWebSocketServer*, intptr_t);
-bool miqt_exec_callback_QWebSocketServer_event(QWebSocketServer*, intptr_t, QEvent*);
-bool miqt_exec_callback_QWebSocketServer_eventFilter(QWebSocketServer*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QWebSocketServer_timerEvent(QWebSocketServer*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QWebSocketServer_childEvent(QWebSocketServer*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QWebSocketServer_customEvent(QWebSocketServer*, intptr_t, QEvent*);
-void miqt_exec_callback_QWebSocketServer_connectNotify(QWebSocketServer*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QWebSocketServer_disconnectNotify(QWebSocketServer*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQWebSocketServer final : public QWebSocketServer {
+	const QWebSocketServer_VTable* vtbl;
 public:
+	friend void* QWebSocketServer_vdata(VirtualQWebSocketServer* self);
+	friend VirtualQWebSocketServer* vdata_QWebSocketServer(void* vdata);
 
-	VirtualQWebSocketServer(const QString& serverName, QWebSocketServer::SslMode secureMode): QWebSocketServer(serverName, secureMode) {}
-	VirtualQWebSocketServer(const QString& serverName, QWebSocketServer::SslMode secureMode, QObject* parent): QWebSocketServer(serverName, secureMode, parent) {}
+	VirtualQWebSocketServer(const QWebSocketServer_VTable* vtbl, const QString& serverName, QWebSocketServer::SslMode secureMode): QWebSocketServer(serverName, secureMode), vtbl(vtbl) {}
+	VirtualQWebSocketServer(const QWebSocketServer_VTable* vtbl, const QString& serverName, QWebSocketServer::SslMode secureMode, QObject* parent): QWebSocketServer(serverName, secureMode, parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQWebSocketServer() override = default;
+	virtual ~VirtualQWebSocketServer() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QWebSocketServer::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QWebSocketServer_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QWebSocketServer_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QWebSocketServer_virtualbase_metaObject(const VirtualQWebSocketServer* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QWebSocketServer::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QWebSocketServer_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QWebSocketServer_virtualbase_metacast(void* self, const char* param1);
+	friend void* QWebSocketServer_virtualbase_metacast(VirtualQWebSocketServer* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QWebSocketServer::qt_metacall(param1, param2, param3);
 		}
 
@@ -103,117 +95,86 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QWebSocketServer_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QWebSocketServer_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QWebSocketServer_virtualbase_metacall(VirtualQWebSocketServer* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__nextPendingConnection = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QWebSocket* nextPendingConnection() override {
-		if (handle__nextPendingConnection == 0) {
+		if (vtbl->nextPendingConnection == 0) {
 			return QWebSocketServer::nextPendingConnection();
 		}
 
-		QWebSocket* callback_return_value = miqt_exec_callback_QWebSocketServer_nextPendingConnection(this, handle__nextPendingConnection);
+		QWebSocket* callback_return_value = vtbl->nextPendingConnection(this);
 		return callback_return_value;
 	}
 
-	friend QWebSocket* QWebSocketServer_virtualbase_nextPendingConnection(void* self);
+	friend QWebSocket* QWebSocketServer_virtualbase_nextPendingConnection(VirtualQWebSocketServer* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QWebSocketServer::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QWebSocketServer_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QWebSocketServer_virtualbase_event(void* self, QEvent* event);
+	friend bool QWebSocketServer_virtualbase_event(VirtualQWebSocketServer* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QWebSocketServer::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QWebSocketServer_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QWebSocketServer_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QWebSocketServer_virtualbase_eventFilter(VirtualQWebSocketServer* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QWebSocketServer::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QWebSocketServer_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QWebSocketServer_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QWebSocketServer_virtualbase_timerEvent(VirtualQWebSocketServer* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QWebSocketServer::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QWebSocketServer_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QWebSocketServer_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QWebSocketServer_virtualbase_childEvent(VirtualQWebSocketServer* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QWebSocketServer::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QWebSocketServer_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QWebSocketServer_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QWebSocketServer_virtualbase_customEvent(VirtualQWebSocketServer* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QWebSocketServer::connectNotify(signal);
 			return;
 		}
@@ -221,18 +182,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QWebSocketServer_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QWebSocketServer_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QWebSocketServer_virtualbase_connectNotify(VirtualQWebSocketServer* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QWebSocketServer::disconnectNotify(signal);
 			return;
 		}
@@ -240,27 +196,28 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QWebSocketServer_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QWebSocketServer_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QWebSocketServer_virtualbase_disconnectNotify(VirtualQWebSocketServer* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QWebSocketServer_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QWebSocketServer_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QWebSocketServer_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QWebSocketServer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QWebSocketServer_protectedbase_sender(const VirtualQWebSocketServer* self);
+	friend int QWebSocketServer_protectedbase_senderSignalIndex(const VirtualQWebSocketServer* self);
+	friend int QWebSocketServer_protectedbase_receivers(const VirtualQWebSocketServer* self, const char* signal);
+	friend bool QWebSocketServer_protectedbase_isSignalConnected(const VirtualQWebSocketServer* self, QMetaMethod* signal);
 };
 
-QWebSocketServer* QWebSocketServer_new(struct seaqt_string serverName, int secureMode) {
+VirtualQWebSocketServer* QWebSocketServer_new(const QWebSocketServer_VTable* vtbl, size_t vdata, struct seaqt_string serverName, int secureMode) {
 	QString serverName_QString = QString::fromUtf8(serverName.data, serverName.len);
-	return new (std::nothrow) VirtualQWebSocketServer(serverName_QString, static_cast<QWebSocketServer::SslMode>(secureMode));
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWebSocketServer>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWebSocketServer(vtbl, serverName_QString, static_cast<QWebSocketServer::SslMode>(secureMode)) : nullptr;
 }
 
-QWebSocketServer* QWebSocketServer_new2(struct seaqt_string serverName, int secureMode, QObject* parent) {
+VirtualQWebSocketServer* QWebSocketServer_new2(const QWebSocketServer_VTable* vtbl, size_t vdata, struct seaqt_string serverName, int secureMode, QObject* parent) {
 	QString serverName_QString = QString::fromUtf8(serverName.data, serverName.len);
-	return new (std::nothrow) VirtualQWebSocketServer(serverName_QString, static_cast<QWebSocketServer::SslMode>(secureMode), parent);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWebSocketServer>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWebSocketServer(vtbl, serverName_QString, static_cast<QWebSocketServer::SslMode>(secureMode), parent) : nullptr;
 }
 
 void QWebSocketServer_virtbase(QWebSocketServer* src, QObject** outptr_QObject) {
@@ -662,202 +619,78 @@ bool QWebSocketServer_listen2(QWebSocketServer* self, QHostAddress* address, uns
 }
 
 const QMetaObject* QWebSocketServer_staticMetaObject() { return &QWebSocketServer::staticMetaObject; }
-bool QWebSocketServer_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQWebSocketServer* self_cast = dynamic_cast<VirtualQWebSocketServer*>( (QWebSocketServer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QWebSocketServer_vdata(VirtualQWebSocketServer* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQWebSocketServer>()); }
+VirtualQWebSocketServer* vdata_QWebSocketServer(void* vdata) { return reinterpret_cast<VirtualQWebSocketServer*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQWebSocketServer>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QWebSocketServer_virtualbase_metaObject(const VirtualQWebSocketServer* self) {
+
+	return (QMetaObject*) self->QWebSocketServer::metaObject();
 }
 
-QMetaObject* QWebSocketServer_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQWebSocketServer*>(self)->QWebSocketServer::metaObject();
+void* QWebSocketServer_virtualbase_metacast(VirtualQWebSocketServer* self, const char* param1) {
+
+	return self->QWebSocketServer::qt_metacast(param1);
 }
 
-bool QWebSocketServer_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQWebSocketServer* self_cast = dynamic_cast<VirtualQWebSocketServer*>( (QWebSocketServer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QWebSocketServer_virtualbase_metacall(VirtualQWebSocketServer* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QWebSocketServer::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QWebSocketServer_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQWebSocketServer*>(self)->QWebSocketServer::qt_metacast(param1);
+QWebSocket* QWebSocketServer_virtualbase_nextPendingConnection(VirtualQWebSocketServer* self) {
+
+	return self->QWebSocketServer::nextPendingConnection();
 }
 
-bool QWebSocketServer_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQWebSocketServer* self_cast = dynamic_cast<VirtualQWebSocketServer*>( (QWebSocketServer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QWebSocketServer_virtualbase_event(VirtualQWebSocketServer* self, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QWebSocketServer::event(event);
 }
 
-int QWebSocketServer_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQWebSocketServer*>(self)->QWebSocketServer::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+bool QWebSocketServer_virtualbase_eventFilter(VirtualQWebSocketServer* self, QObject* watched, QEvent* event) {
+
+	return self->QWebSocketServer::eventFilter(watched, event);
 }
 
-bool QWebSocketServer_override_virtual_nextPendingConnection(void* self, intptr_t slot) {
-	VirtualQWebSocketServer* self_cast = dynamic_cast<VirtualQWebSocketServer*>( (QWebSocketServer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebSocketServer_virtualbase_timerEvent(VirtualQWebSocketServer* self, QTimerEvent* event) {
 
-	self_cast->handle__nextPendingConnection = slot;
-	return true;
+	self->QWebSocketServer::timerEvent(event);
 }
 
-QWebSocket* QWebSocketServer_virtualbase_nextPendingConnection(void* self) {
-	return static_cast<VirtualQWebSocketServer*>(self)->QWebSocketServer::nextPendingConnection();
+void QWebSocketServer_virtualbase_childEvent(VirtualQWebSocketServer* self, QChildEvent* event) {
+
+	self->QWebSocketServer::childEvent(event);
 }
 
-bool QWebSocketServer_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQWebSocketServer* self_cast = dynamic_cast<VirtualQWebSocketServer*>( (QWebSocketServer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebSocketServer_virtualbase_customEvent(VirtualQWebSocketServer* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QWebSocketServer::customEvent(event);
 }
 
-bool QWebSocketServer_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQWebSocketServer*>(self)->QWebSocketServer::event(event);
+void QWebSocketServer_virtualbase_connectNotify(VirtualQWebSocketServer* self, QMetaMethod* signal) {
+
+	self->QWebSocketServer::connectNotify(*signal);
 }
 
-bool QWebSocketServer_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQWebSocketServer* self_cast = dynamic_cast<VirtualQWebSocketServer*>( (QWebSocketServer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebSocketServer_virtualbase_disconnectNotify(VirtualQWebSocketServer* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QWebSocketServer::disconnectNotify(*signal);
 }
 
-bool QWebSocketServer_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQWebSocketServer*>(self)->QWebSocketServer::eventFilter(watched, event);
+QObject* QWebSocketServer_protectedbase_sender(const VirtualQWebSocketServer* self) {
+	return self->sender();
 }
 
-bool QWebSocketServer_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQWebSocketServer* self_cast = dynamic_cast<VirtualQWebSocketServer*>( (QWebSocketServer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+int QWebSocketServer_protectedbase_senderSignalIndex(const VirtualQWebSocketServer* self) {
+	return self->senderSignalIndex();
 }
 
-void QWebSocketServer_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQWebSocketServer*>(self)->QWebSocketServer::timerEvent(event);
+int QWebSocketServer_protectedbase_receivers(const VirtualQWebSocketServer* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QWebSocketServer_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQWebSocketServer* self_cast = dynamic_cast<VirtualQWebSocketServer*>( (QWebSocketServer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QWebSocketServer_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQWebSocketServer*>(self)->QWebSocketServer::childEvent(event);
-}
-
-bool QWebSocketServer_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQWebSocketServer* self_cast = dynamic_cast<VirtualQWebSocketServer*>( (QWebSocketServer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QWebSocketServer_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQWebSocketServer*>(self)->QWebSocketServer::customEvent(event);
-}
-
-bool QWebSocketServer_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQWebSocketServer* self_cast = dynamic_cast<VirtualQWebSocketServer*>( (QWebSocketServer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QWebSocketServer_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQWebSocketServer*>(self)->QWebSocketServer::connectNotify(*signal);
-}
-
-bool QWebSocketServer_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQWebSocketServer* self_cast = dynamic_cast<VirtualQWebSocketServer*>( (QWebSocketServer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QWebSocketServer_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQWebSocketServer*>(self)->QWebSocketServer::disconnectNotify(*signal);
-}
-
-QObject* QWebSocketServer_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQWebSocketServer* self_cast = dynamic_cast<VirtualQWebSocketServer*>( (QWebSocketServer*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QWebSocketServer_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQWebSocketServer* self_cast = dynamic_cast<VirtualQWebSocketServer*>( (QWebSocketServer*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QWebSocketServer_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQWebSocketServer* self_cast = dynamic_cast<VirtualQWebSocketServer*>( (QWebSocketServer*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QWebSocketServer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQWebSocketServer* self_cast = dynamic_cast<VirtualQWebSocketServer*>( (QWebSocketServer*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QWebSocketServer_protectedbase_isSignalConnected(const VirtualQWebSocketServer* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QWebSocketServer_delete(QWebSocketServer* self) {

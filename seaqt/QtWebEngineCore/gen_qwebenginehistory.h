@@ -45,6 +45,7 @@ typedef struct QWebEngineHistoryModel QWebEngineHistoryModel;
 #endif
 
 QWebEngineHistoryItem* QWebEngineHistoryItem_new(QWebEngineHistoryItem* other);
+
 void QWebEngineHistoryItem_operatorAssign(QWebEngineHistoryItem* self, QWebEngineHistoryItem* other);
 QUrl* QWebEngineHistoryItem_originalUrl(const QWebEngineHistoryItem* self);
 QUrl* QWebEngineHistoryItem_url(const QWebEngineHistoryItem* self);

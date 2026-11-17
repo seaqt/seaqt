@@ -32,6 +32,7 @@ QDate* QDate_new();
 QDate* QDate_new2(int y, int m, int d);
 QDate* QDate_new3(int y, int m, int d, QCalendar* cal);
 QDate* QDate_new4(QDate* param1);
+
 bool QDate_isNull(const QDate* self);
 bool QDate_isValid(const QDate* self);
 int QDate_year(const QDate* self);
@@ -88,6 +89,7 @@ QTime* QTime_new2(int h, int m);
 QTime* QTime_new3(QTime* param1);
 QTime* QTime_new4(int h, int m, int s);
 QTime* QTime_new5(int h, int m, int s, int ms);
+
 bool QTime_isNull(const QTime* self);
 bool QTime_isValid(const QTime* self);
 int QTime_hour(const QTime* self);
@@ -120,6 +122,7 @@ QDateTime* QDateTime_new3(QDate* date, QTime* time, QTimeZone* timeZone);
 QDateTime* QDateTime_new4(QDateTime* other);
 QDateTime* QDateTime_new5(QDate* date, QTime* time, int spec);
 QDateTime* QDateTime_new6(QDate* date, QTime* time, int spec, int offsetSeconds);
+
 void QDateTime_operatorAssign(QDateTime* self, QDateTime* other);
 void QDateTime_swap(QDateTime* self, QDateTime* other);
 bool QDateTime_isNull(const QDateTime* self);

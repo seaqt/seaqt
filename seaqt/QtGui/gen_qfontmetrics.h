@@ -41,6 +41,7 @@ typedef struct QTextOption QTextOption;
 QFontMetrics* QFontMetrics_new(QFont* param1);
 QFontMetrics* QFontMetrics_new2(QFont* font, QPaintDevice* pd);
 QFontMetrics* QFontMetrics_new3(QFontMetrics* param1);
+
 void QFontMetrics_operatorAssign(QFontMetrics* self, QFontMetrics* param1);
 void QFontMetrics_swap(QFontMetrics* self, QFontMetrics* other);
 int QFontMetrics_ascent(const QFontMetrics* self);
@@ -92,6 +93,7 @@ QFontMetricsF* QFontMetricsF_new(QFont* font);
 QFontMetricsF* QFontMetricsF_new2(QFont* font, QPaintDevice* pd);
 QFontMetricsF* QFontMetricsF_new3(QFontMetrics* param1);
 QFontMetricsF* QFontMetricsF_new4(QFontMetricsF* param1);
+
 void QFontMetricsF_operatorAssign(QFontMetricsF* self, QFontMetricsF* param1);
 void QFontMetricsF_operatorAssignWithQFontMetrics(QFontMetricsF* self, QFontMetrics* param1);
 void QFontMetricsF_swap(QFontMetricsF* self, QFontMetricsF* other);

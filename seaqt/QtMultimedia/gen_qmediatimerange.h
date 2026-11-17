@@ -30,6 +30,7 @@ QMediaTimeRange* QMediaTimeRange_new();
 QMediaTimeRange* QMediaTimeRange_new2(long long start, long long end);
 QMediaTimeRange* QMediaTimeRange_new3(QMediaTimeRange__Interval* param1);
 QMediaTimeRange* QMediaTimeRange_new4(QMediaTimeRange* range);
+
 void QMediaTimeRange_operatorAssign(QMediaTimeRange* self, QMediaTimeRange* param1);
 void QMediaTimeRange_swap(QMediaTimeRange* self, QMediaTimeRange* other);
 void QMediaTimeRange_detach(QMediaTimeRange* self);
@@ -57,6 +58,7 @@ void QMediaTimeRange_delete(QMediaTimeRange* self);
 QMediaTimeRange__Interval* QMediaTimeRange__Interval_new();
 QMediaTimeRange__Interval* QMediaTimeRange__Interval_new2(long long start, long long end);
 QMediaTimeRange__Interval* QMediaTimeRange__Interval_new3(QMediaTimeRange__Interval* param1);
+
 long long QMediaTimeRange__Interval_start(const QMediaTimeRange__Interval* self);
 long long QMediaTimeRange__Interval_end(const QMediaTimeRange__Interval* self);
 bool QMediaTimeRange__Interval_contains(const QMediaTimeRange__Interval* self, long long time);

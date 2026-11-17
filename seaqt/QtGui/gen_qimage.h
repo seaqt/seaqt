@@ -52,16 +52,31 @@ typedef struct QTransform QTransform;
 typedef struct QVariant QVariant;
 #endif
 
-QImage* QImage_new();
-QImage* QImage_new2(QSize* size, int format);
-QImage* QImage_new3(int width, int height, int format);
-QImage* QImage_new4(unsigned char* data, int width, int height, int format);
-QImage* QImage_new5(const unsigned char* data, int width, int height, int format);
-QImage* QImage_new6(unsigned char* data, int width, int height, ptrdiff_t bytesPerLine, int format);
-QImage* QImage_new7(const unsigned char* data, int width, int height, ptrdiff_t bytesPerLine, int format);
-QImage* QImage_new8(struct seaqt_string fileName);
-QImage* QImage_new9(QImage* param1);
-QImage* QImage_new10(struct seaqt_string fileName, const char* format);
+typedef struct VirtualQImage VirtualQImage;
+typedef struct QImage_VTable{
+	void (*destructor)(VirtualQImage* self);
+	int (*devType)(const VirtualQImage* self);
+	QPaintEngine* (*paintEngine)(const VirtualQImage* self);
+	int (*metric)(const VirtualQImage* self, int metric);
+	void (*initPainter)(const VirtualQImage* self, QPainter* painter);
+	QPaintDevice* (*redirected)(const VirtualQImage* self, QPoint* offset);
+	QPainter* (*sharedPainter)(const VirtualQImage* self);
+}QImage_VTable;
+
+void* QImage_vdata(VirtualQImage* self);
+VirtualQImage* vdata_QImage(void* vdata);
+
+VirtualQImage* QImage_new(const QImage_VTable* vtbl, size_t vdata);
+VirtualQImage* QImage_new2(const QImage_VTable* vtbl, size_t vdata, QSize* size, int format);
+VirtualQImage* QImage_new3(const QImage_VTable* vtbl, size_t vdata, int width, int height, int format);
+VirtualQImage* QImage_new4(const QImage_VTable* vtbl, size_t vdata, unsigned char* data, int width, int height, int format);
+VirtualQImage* QImage_new5(const QImage_VTable* vtbl, size_t vdata, const unsigned char* data, int width, int height, int format);
+VirtualQImage* QImage_new6(const QImage_VTable* vtbl, size_t vdata, unsigned char* data, int width, int height, ptrdiff_t bytesPerLine, int format);
+VirtualQImage* QImage_new7(const QImage_VTable* vtbl, size_t vdata, const unsigned char* data, int width, int height, ptrdiff_t bytesPerLine, int format);
+VirtualQImage* QImage_new8(const QImage_VTable* vtbl, size_t vdata, struct seaqt_string fileName);
+VirtualQImage* QImage_new9(const QImage_VTable* vtbl, size_t vdata, QImage* param1);
+VirtualQImage* QImage_new10(const QImage_VTable* vtbl, size_t vdata, struct seaqt_string fileName, const char* format);
+
 void QImage_virtbase(QImage* src, QPaintDevice** outptr_QPaintDevice);
 void QImage_operatorAssign(QImage* self, QImage* param1);
 void QImage_swap(QImage* self, QImage* other);
@@ -200,28 +215,22 @@ QImage* QImage_fromData4(const unsigned char* data, int size, const char* format
 QImage* QImage_fromData5(struct seaqt_string data, const char* format);
 struct seaqt_string QImage_textWithKey(const QImage* self, struct seaqt_string key);
 
-bool QImage_override_virtual_devType(void* self, intptr_t slot);
-int QImage_virtualbase_devType(const void* self);
-bool QImage_override_virtual_paintEngine(void* self, intptr_t slot);
-QPaintEngine* QImage_virtualbase_paintEngine(const void* self);
-bool QImage_override_virtual_metric(void* self, intptr_t slot);
-int QImage_virtualbase_metric(const void* self, int metric);
-bool QImage_override_virtual_initPainter(void* self, intptr_t slot);
-void QImage_virtualbase_initPainter(const void* self, QPainter* painter);
-bool QImage_override_virtual_redirected(void* self, intptr_t slot);
-QPaintDevice* QImage_virtualbase_redirected(const void* self, QPoint* offset);
-bool QImage_override_virtual_sharedPainter(void* self, intptr_t slot);
-QPainter* QImage_virtualbase_sharedPainter(const void* self);
+int QImage_virtualbase_devType(const VirtualQImage* self);
+QPaintEngine* QImage_virtualbase_paintEngine(const VirtualQImage* self);
+int QImage_virtualbase_metric(const VirtualQImage* self, int metric);
+void QImage_virtualbase_initPainter(const VirtualQImage* self, QPainter* painter);
+QPaintDevice* QImage_virtualbase_redirected(const VirtualQImage* self, QPoint* offset);
+QPainter* QImage_virtualbase_sharedPainter(const VirtualQImage* self);
 
-QImage* QImage_protectedbase_mirroredHelper(bool* _dynamic_cast_ok, const void* self, bool horizontal, bool vertical);
-QImage* QImage_protectedbase_rgbSwappedHelper(bool* _dynamic_cast_ok, const void* self);
-void QImage_protectedbase_mirroredInplace(bool* _dynamic_cast_ok, void* self, bool horizontal, bool vertical);
-void QImage_protectedbase_rgbSwappedInplace(bool* _dynamic_cast_ok, void* self);
-QImage* QImage_protectedbase_convertToFormatHelper(bool* _dynamic_cast_ok, const void* self, int format, int flags);
-bool QImage_protectedbase_convertToFormatInplace(bool* _dynamic_cast_ok, void* self, int format, int flags);
-QImage* QImage_protectedbase_smoothScaled(bool* _dynamic_cast_ok, const void* self, int w, int h);
-void QImage_protectedbase_detachMetadata(bool* _dynamic_cast_ok, void* self);
-void QImage_protectedbase_detachMetadataWithInvalidateCache(bool* _dynamic_cast_ok, void* self, bool invalidateCache);
+QImage* QImage_protectedbase_mirroredHelper(const VirtualQImage* self, bool horizontal, bool vertical);
+QImage* QImage_protectedbase_rgbSwappedHelper(const VirtualQImage* self);
+void QImage_protectedbase_mirroredInplace(VirtualQImage* self, bool horizontal, bool vertical);
+void QImage_protectedbase_rgbSwappedInplace(VirtualQImage* self);
+QImage* QImage_protectedbase_convertToFormatHelper(const VirtualQImage* self, int format, int flags);
+bool QImage_protectedbase_convertToFormatInplace(VirtualQImage* self, int format, int flags);
+QImage* QImage_protectedbase_smoothScaled(const VirtualQImage* self, int w, int h);
+void QImage_protectedbase_detachMetadata(VirtualQImage* self);
+void QImage_protectedbase_detachMetadataWithInvalidateCache(VirtualQImage* self, bool invalidateCache);
 
 const QMetaObject* QImage_staticMetaObject();
 void QImage_delete(QImage* self);

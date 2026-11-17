@@ -27,6 +27,7 @@ typedef struct QPrinterInfo QPrinterInfo;
 QPrinterInfo* QPrinterInfo_new();
 QPrinterInfo* QPrinterInfo_new2(QPrinterInfo* other);
 QPrinterInfo* QPrinterInfo_new3(QPrinter* printer);
+
 void QPrinterInfo_operatorAssign(QPrinterInfo* self, QPrinterInfo* other);
 struct seaqt_string QPrinterInfo_printerName(const QPrinterInfo* self);
 struct seaqt_string QPrinterInfo_description(const QPrinterInfo* self);

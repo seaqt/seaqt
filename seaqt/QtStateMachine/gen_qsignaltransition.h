@@ -36,10 +36,31 @@ typedef struct QState QState;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QSignalTransition* QSignalTransition_new();
-QSignalTransition* QSignalTransition_new2(QObject* sender, const char* signal);
-QSignalTransition* QSignalTransition_new3(QState* sourceState);
-QSignalTransition* QSignalTransition_new4(QObject* sender, const char* signal, QState* sourceState);
+typedef struct VirtualQSignalTransition VirtualQSignalTransition;
+typedef struct QSignalTransition_VTable{
+	void (*destructor)(VirtualQSignalTransition* self);
+	QMetaObject* (*metaObject)(const VirtualQSignalTransition* self);
+	void* (*metacast)(VirtualQSignalTransition* self, const char* param1);
+	int (*metacall)(VirtualQSignalTransition* self, int param1, int param2, void** param3);
+	bool (*eventTest)(VirtualQSignalTransition* self, QEvent* event);
+	void (*onTransition)(VirtualQSignalTransition* self, QEvent* event);
+	bool (*event)(VirtualQSignalTransition* self, QEvent* e);
+	bool (*eventFilter)(VirtualQSignalTransition* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQSignalTransition* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQSignalTransition* self, QChildEvent* event);
+	void (*customEvent)(VirtualQSignalTransition* self, QEvent* event);
+	void (*connectNotify)(VirtualQSignalTransition* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQSignalTransition* self, QMetaMethod* signal);
+}QSignalTransition_VTable;
+
+void* QSignalTransition_vdata(VirtualQSignalTransition* self);
+VirtualQSignalTransition* vdata_QSignalTransition(void* vdata);
+
+VirtualQSignalTransition* QSignalTransition_new(const QSignalTransition_VTable* vtbl, size_t vdata);
+VirtualQSignalTransition* QSignalTransition_new2(const QSignalTransition_VTable* vtbl, size_t vdata, QObject* sender, const char* signal);
+VirtualQSignalTransition* QSignalTransition_new3(const QSignalTransition_VTable* vtbl, size_t vdata, QState* sourceState);
+VirtualQSignalTransition* QSignalTransition_new4(const QSignalTransition_VTable* vtbl, size_t vdata, QObject* sender, const char* signal, QState* sourceState);
+
 void QSignalTransition_virtbase(QSignalTransition* src, QAbstractTransition** outptr_QAbstractTransition);
 QMetaObject* QSignalTransition_metaObject(const QSignalTransition* self);
 void* QSignalTransition_metacast(QSignalTransition* self, const char* param1);
@@ -55,38 +76,23 @@ bool QSignalTransition_event(QSignalTransition* self, QEvent* e);
 struct seaqt_string QSignalTransition_tr2(const char* s, const char* c);
 struct seaqt_string QSignalTransition_tr3(const char* s, const char* c, int n);
 
-bool QSignalTransition_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QSignalTransition_virtualbase_metaObject(const void* self);
-bool QSignalTransition_override_virtual_metacast(void* self, intptr_t slot);
-void* QSignalTransition_virtualbase_metacast(void* self, const char* param1);
-bool QSignalTransition_override_virtual_metacall(void* self, intptr_t slot);
-int QSignalTransition_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QSignalTransition_override_virtual_eventTest(void* self, intptr_t slot);
-bool QSignalTransition_virtualbase_eventTest(void* self, QEvent* event);
-bool QSignalTransition_override_virtual_onTransition(void* self, intptr_t slot);
-void QSignalTransition_virtualbase_onTransition(void* self, QEvent* event);
-bool QSignalTransition_override_virtual_event(void* self, intptr_t slot);
-bool QSignalTransition_virtualbase_event(void* self, QEvent* e);
-bool QSignalTransition_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QSignalTransition_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QSignalTransition_override_virtual_timerEvent(void* self, intptr_t slot);
-void QSignalTransition_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QSignalTransition_override_virtual_childEvent(void* self, intptr_t slot);
-void QSignalTransition_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QSignalTransition_override_virtual_customEvent(void* self, intptr_t slot);
-void QSignalTransition_virtualbase_customEvent(void* self, QEvent* event);
-bool QSignalTransition_override_virtual_connectNotify(void* self, intptr_t slot);
-void QSignalTransition_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QSignalTransition_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QSignalTransition_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QSignalTransition_virtualbase_metaObject(const VirtualQSignalTransition* self);
+void* QSignalTransition_virtualbase_metacast(VirtualQSignalTransition* self, const char* param1);
+int QSignalTransition_virtualbase_metacall(VirtualQSignalTransition* self, int param1, int param2, void** param3);
+bool QSignalTransition_virtualbase_eventTest(VirtualQSignalTransition* self, QEvent* event);
+void QSignalTransition_virtualbase_onTransition(VirtualQSignalTransition* self, QEvent* event);
+bool QSignalTransition_virtualbase_event(VirtualQSignalTransition* self, QEvent* e);
+bool QSignalTransition_virtualbase_eventFilter(VirtualQSignalTransition* self, QObject* watched, QEvent* event);
+void QSignalTransition_virtualbase_timerEvent(VirtualQSignalTransition* self, QTimerEvent* event);
+void QSignalTransition_virtualbase_childEvent(VirtualQSignalTransition* self, QChildEvent* event);
+void QSignalTransition_virtualbase_customEvent(VirtualQSignalTransition* self, QEvent* event);
+void QSignalTransition_virtualbase_connectNotify(VirtualQSignalTransition* self, QMetaMethod* signal);
+void QSignalTransition_virtualbase_disconnectNotify(VirtualQSignalTransition* self, QMetaMethod* signal);
 
-QObject* QSignalTransition_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QSignalTransition_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QSignalTransition_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QSignalTransition_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
-
-void QSignalTransition_connect_senderObjectChanged(QSignalTransition* self, intptr_t slot);
-void QSignalTransition_connect_signalChanged(QSignalTransition* self, intptr_t slot);
+QObject* QSignalTransition_protectedbase_sender(const VirtualQSignalTransition* self);
+int QSignalTransition_protectedbase_senderSignalIndex(const VirtualQSignalTransition* self);
+int QSignalTransition_protectedbase_receivers(const VirtualQSignalTransition* self, const char* signal);
+bool QSignalTransition_protectedbase_isSignalConnected(const VirtualQSignalTransition* self, QMetaMethod* signal);
 
 const QMetaObject* QSignalTransition_staticMetaObject();
 void QSignalTransition_delete(QSignalTransition* self);

@@ -13,72 +13,62 @@
 #include <qextensionmanager.h>
 #include "gen_qextensionmanager.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QExtensionManager_metaObject(const QExtensionManager*, intptr_t);
-void* miqt_exec_callback_QExtensionManager_metacast(QExtensionManager*, intptr_t, const char*);
-int miqt_exec_callback_QExtensionManager_metacall(QExtensionManager*, intptr_t, int, int, void**);
-void miqt_exec_callback_QExtensionManager_registerExtensions(QExtensionManager*, intptr_t, QAbstractExtensionFactory*, struct seaqt_string);
-void miqt_exec_callback_QExtensionManager_unregisterExtensions(QExtensionManager*, intptr_t, QAbstractExtensionFactory*, struct seaqt_string);
-QObject* miqt_exec_callback_QExtensionManager_extension(const QExtensionManager*, intptr_t, QObject*, struct seaqt_string);
-bool miqt_exec_callback_QExtensionManager_event(QExtensionManager*, intptr_t, QEvent*);
-bool miqt_exec_callback_QExtensionManager_eventFilter(QExtensionManager*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QExtensionManager_timerEvent(QExtensionManager*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QExtensionManager_childEvent(QExtensionManager*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QExtensionManager_customEvent(QExtensionManager*, intptr_t, QEvent*);
-void miqt_exec_callback_QExtensionManager_connectNotify(QExtensionManager*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QExtensionManager_disconnectNotify(QExtensionManager*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQExtensionManager final : public QExtensionManager {
+	const QExtensionManager_VTable* vtbl;
 public:
+	friend void* QExtensionManager_vdata(VirtualQExtensionManager* self);
+	friend VirtualQExtensionManager* vdata_QExtensionManager(void* vdata);
 
-	VirtualQExtensionManager(): QExtensionManager() {}
-	VirtualQExtensionManager(QObject* parent): QExtensionManager(parent) {}
+	VirtualQExtensionManager(const QExtensionManager_VTable* vtbl): QExtensionManager(), vtbl(vtbl) {}
+	VirtualQExtensionManager(const QExtensionManager_VTable* vtbl, QObject* parent): QExtensionManager(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQExtensionManager() override = default;
+	virtual ~VirtualQExtensionManager() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QExtensionManager::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QExtensionManager_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QExtensionManager_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QExtensionManager_virtualbase_metaObject(const VirtualQExtensionManager* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QExtensionManager::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QExtensionManager_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QExtensionManager_virtualbase_metacast(void* self, const char* param1);
+	friend void* QExtensionManager_virtualbase_metacast(VirtualQExtensionManager* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QExtensionManager::qt_metacall(param1, param2, param3);
 		}
 
@@ -86,18 +76,14 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QExtensionManager_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QExtensionManager_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QExtensionManager_virtualbase_metacall(VirtualQExtensionManager* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__registerExtensions = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void registerExtensions(QAbstractExtensionFactory* factory, const QString& iid) override {
-		if (handle__registerExtensions == 0) {
+		if (vtbl->registerExtensions == 0) {
 			QExtensionManager::registerExtensions(factory, iid);
 			return;
 		}
@@ -111,18 +97,13 @@ public:
 		iid_ms.data = static_cast<char*>(malloc(iid_ms.len));
 		memcpy(iid_ms.data, iid_b.data(), iid_ms.len);
 		struct seaqt_string sigval2 = iid_ms;
-		miqt_exec_callback_QExtensionManager_registerExtensions(this, handle__registerExtensions, sigval1, sigval2);
-
+		vtbl->registerExtensions(this, sigval1, sigval2);
 	}
 
-	friend void QExtensionManager_virtualbase_registerExtensions(void* self, QAbstractExtensionFactory* factory, struct seaqt_string iid);
+	friend void QExtensionManager_virtualbase_registerExtensions(VirtualQExtensionManager* self, QAbstractExtensionFactory* factory, struct seaqt_string iid);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__unregisterExtensions = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void unregisterExtensions(QAbstractExtensionFactory* factory, const QString& iid) override {
-		if (handle__unregisterExtensions == 0) {
+		if (vtbl->unregisterExtensions == 0) {
 			QExtensionManager::unregisterExtensions(factory, iid);
 			return;
 		}
@@ -136,18 +117,13 @@ public:
 		iid_ms.data = static_cast<char*>(malloc(iid_ms.len));
 		memcpy(iid_ms.data, iid_b.data(), iid_ms.len);
 		struct seaqt_string sigval2 = iid_ms;
-		miqt_exec_callback_QExtensionManager_unregisterExtensions(this, handle__unregisterExtensions, sigval1, sigval2);
-
+		vtbl->unregisterExtensions(this, sigval1, sigval2);
 	}
 
-	friend void QExtensionManager_virtualbase_unregisterExtensions(void* self, QAbstractExtensionFactory* factory, struct seaqt_string iid);
+	friend void QExtensionManager_virtualbase_unregisterExtensions(VirtualQExtensionManager* self, QAbstractExtensionFactory* factory, struct seaqt_string iid);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__extension = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QObject* extension(QObject* object, const QString& iid) const override {
-		if (handle__extension == 0) {
+		if (vtbl->extension == 0) {
 			return QExtensionManager::extension(object, iid);
 		}
 
@@ -160,102 +136,75 @@ public:
 		iid_ms.data = static_cast<char*>(malloc(iid_ms.len));
 		memcpy(iid_ms.data, iid_b.data(), iid_ms.len);
 		struct seaqt_string sigval2 = iid_ms;
-		QObject* callback_return_value = miqt_exec_callback_QExtensionManager_extension(this, handle__extension, sigval1, sigval2);
+		QObject* callback_return_value = vtbl->extension(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend QObject* QExtensionManager_virtualbase_extension(const void* self, QObject* object, struct seaqt_string iid);
+	friend QObject* QExtensionManager_virtualbase_extension(const VirtualQExtensionManager* self, QObject* object, struct seaqt_string iid);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QExtensionManager::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QExtensionManager_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QExtensionManager_virtualbase_event(void* self, QEvent* event);
+	friend bool QExtensionManager_virtualbase_event(VirtualQExtensionManager* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QExtensionManager::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QExtensionManager_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QExtensionManager_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QExtensionManager_virtualbase_eventFilter(VirtualQExtensionManager* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QExtensionManager::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QExtensionManager_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QExtensionManager_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QExtensionManager_virtualbase_timerEvent(VirtualQExtensionManager* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QExtensionManager::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QExtensionManager_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QExtensionManager_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QExtensionManager_virtualbase_childEvent(VirtualQExtensionManager* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QExtensionManager::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QExtensionManager_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QExtensionManager_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QExtensionManager_virtualbase_customEvent(VirtualQExtensionManager* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QExtensionManager::connectNotify(signal);
 			return;
 		}
@@ -263,18 +212,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QExtensionManager_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QExtensionManager_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QExtensionManager_virtualbase_connectNotify(VirtualQExtensionManager* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QExtensionManager::disconnectNotify(signal);
 			return;
 		}
@@ -282,25 +226,26 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QExtensionManager_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QExtensionManager_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QExtensionManager_virtualbase_disconnectNotify(VirtualQExtensionManager* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QExtensionManager_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QExtensionManager_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QExtensionManager_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QExtensionManager_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QExtensionManager_protectedbase_sender(const VirtualQExtensionManager* self);
+	friend int QExtensionManager_protectedbase_senderSignalIndex(const VirtualQExtensionManager* self);
+	friend int QExtensionManager_protectedbase_receivers(const VirtualQExtensionManager* self, const char* signal);
+	friend bool QExtensionManager_protectedbase_isSignalConnected(const VirtualQExtensionManager* self, QMetaMethod* signal);
 };
 
-QExtensionManager* QExtensionManager_new() {
-	return new (std::nothrow) VirtualQExtensionManager();
+VirtualQExtensionManager* QExtensionManager_new(const QExtensionManager_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQExtensionManager>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQExtensionManager(vtbl) : nullptr;
 }
 
-QExtensionManager* QExtensionManager_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQExtensionManager(parent);
+VirtualQExtensionManager* QExtensionManager_new2(const QExtensionManager_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQExtensionManager>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQExtensionManager(vtbl, parent) : nullptr;
 }
 
 void QExtensionManager_virtbase(QExtensionManager* src, QObject** outptr_QObject, QAbstractExtensionManager** outptr_QAbstractExtensionManager) {
@@ -369,233 +314,91 @@ struct seaqt_string QExtensionManager_tr3(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QExtensionManager_staticMetaObject() { return &QExtensionManager::staticMetaObject; }
-bool QExtensionManager_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QExtensionManager_vdata(VirtualQExtensionManager* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQExtensionManager>()); }
+VirtualQExtensionManager* vdata_QExtensionManager(void* vdata) { return reinterpret_cast<VirtualQExtensionManager*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQExtensionManager>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QExtensionManager_virtualbase_metaObject(const VirtualQExtensionManager* self) {
+
+	return (QMetaObject*) self->QExtensionManager::metaObject();
 }
 
-QMetaObject* QExtensionManager_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQExtensionManager*>(self)->QExtensionManager::metaObject();
+void* QExtensionManager_virtualbase_metacast(VirtualQExtensionManager* self, const char* param1) {
+
+	return self->QExtensionManager::qt_metacast(param1);
 }
 
-bool QExtensionManager_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QExtensionManager_virtualbase_metacall(VirtualQExtensionManager* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QExtensionManager::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QExtensionManager_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQExtensionManager*>(self)->QExtensionManager::qt_metacast(param1);
-}
-
-bool QExtensionManager_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__metacall = slot;
-	return true;
-}
-
-int QExtensionManager_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQExtensionManager*>(self)->QExtensionManager::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
-}
-
-bool QExtensionManager_override_virtual_registerExtensions(void* self, intptr_t slot) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__registerExtensions = slot;
-	return true;
-}
-
-void QExtensionManager_virtualbase_registerExtensions(void* self, QAbstractExtensionFactory* factory, struct seaqt_string iid) {
+void QExtensionManager_virtualbase_registerExtensions(VirtualQExtensionManager* self, QAbstractExtensionFactory* factory, struct seaqt_string iid) {
 	QString iid_QString = QString::fromUtf8(iid.data, iid.len);
-	static_cast<VirtualQExtensionManager*>(self)->QExtensionManager::registerExtensions(factory, iid_QString);
+
+	self->QExtensionManager::registerExtensions(factory, iid_QString);
 }
 
-bool QExtensionManager_override_virtual_unregisterExtensions(void* self, intptr_t slot) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__unregisterExtensions = slot;
-	return true;
-}
-
-void QExtensionManager_virtualbase_unregisterExtensions(void* self, QAbstractExtensionFactory* factory, struct seaqt_string iid) {
+void QExtensionManager_virtualbase_unregisterExtensions(VirtualQExtensionManager* self, QAbstractExtensionFactory* factory, struct seaqt_string iid) {
 	QString iid_QString = QString::fromUtf8(iid.data, iid.len);
-	static_cast<VirtualQExtensionManager*>(self)->QExtensionManager::unregisterExtensions(factory, iid_QString);
+
+	self->QExtensionManager::unregisterExtensions(factory, iid_QString);
 }
 
-bool QExtensionManager_override_virtual_extension(void* self, intptr_t slot) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__extension = slot;
-	return true;
-}
-
-QObject* QExtensionManager_virtualbase_extension(const void* self, QObject* object, struct seaqt_string iid) {
+QObject* QExtensionManager_virtualbase_extension(const VirtualQExtensionManager* self, QObject* object, struct seaqt_string iid) {
 	QString iid_QString = QString::fromUtf8(iid.data, iid.len);
-	return static_cast<const VirtualQExtensionManager*>(self)->QExtensionManager::extension(object, iid_QString);
+
+	return self->QExtensionManager::extension(object, iid_QString);
 }
 
-bool QExtensionManager_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QExtensionManager_virtualbase_event(VirtualQExtensionManager* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	return self->QExtensionManager::event(event);
 }
 
-bool QExtensionManager_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQExtensionManager*>(self)->QExtensionManager::event(event);
+bool QExtensionManager_virtualbase_eventFilter(VirtualQExtensionManager* self, QObject* watched, QEvent* event) {
+
+	return self->QExtensionManager::eventFilter(watched, event);
 }
 
-bool QExtensionManager_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QExtensionManager_virtualbase_timerEvent(VirtualQExtensionManager* self, QTimerEvent* event) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QExtensionManager::timerEvent(event);
 }
 
-bool QExtensionManager_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQExtensionManager*>(self)->QExtensionManager::eventFilter(watched, event);
+void QExtensionManager_virtualbase_childEvent(VirtualQExtensionManager* self, QChildEvent* event) {
+
+	self->QExtensionManager::childEvent(event);
 }
 
-bool QExtensionManager_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QExtensionManager_virtualbase_customEvent(VirtualQExtensionManager* self, QEvent* event) {
 
-	self_cast->handle__timerEvent = slot;
-	return true;
+	self->QExtensionManager::customEvent(event);
 }
 
-void QExtensionManager_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQExtensionManager*>(self)->QExtensionManager::timerEvent(event);
+void QExtensionManager_virtualbase_connectNotify(VirtualQExtensionManager* self, QMetaMethod* signal) {
+
+	self->QExtensionManager::connectNotify(*signal);
 }
 
-bool QExtensionManager_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QExtensionManager_virtualbase_disconnectNotify(VirtualQExtensionManager* self, QMetaMethod* signal) {
 
-	self_cast->handle__childEvent = slot;
-	return true;
+	self->QExtensionManager::disconnectNotify(*signal);
 }
 
-void QExtensionManager_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQExtensionManager*>(self)->QExtensionManager::childEvent(event);
+QObject* QExtensionManager_protectedbase_sender(const VirtualQExtensionManager* self) {
+	return self->sender();
 }
 
-bool QExtensionManager_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
+int QExtensionManager_protectedbase_senderSignalIndex(const VirtualQExtensionManager* self) {
+	return self->senderSignalIndex();
 }
 
-void QExtensionManager_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQExtensionManager*>(self)->QExtensionManager::customEvent(event);
+int QExtensionManager_protectedbase_receivers(const VirtualQExtensionManager* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QExtensionManager_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QExtensionManager_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQExtensionManager*>(self)->QExtensionManager::connectNotify(*signal);
-}
-
-bool QExtensionManager_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QExtensionManager_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQExtensionManager*>(self)->QExtensionManager::disconnectNotify(*signal);
-}
-
-QObject* QExtensionManager_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QExtensionManager_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QExtensionManager_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QExtensionManager_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQExtensionManager* self_cast = dynamic_cast<VirtualQExtensionManager*>( (QExtensionManager*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QExtensionManager_protectedbase_isSignalConnected(const VirtualQExtensionManager* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QExtensionManager_delete(QExtensionManager* self) {

@@ -28,6 +28,7 @@ QImageWriter* QImageWriter_new();
 QImageWriter* QImageWriter_new2(QIODevice* device, struct seaqt_string format);
 QImageWriter* QImageWriter_new3(struct seaqt_string fileName);
 QImageWriter* QImageWriter_new4(struct seaqt_string fileName, struct seaqt_string format);
+
 struct seaqt_string QImageWriter_tr(const char* sourceText);
 void QImageWriter_setFormat(QImageWriter* self, struct seaqt_string format);
 struct seaqt_string QImageWriter_format(const QImageWriter* self);

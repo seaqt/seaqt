@@ -29,6 +29,7 @@ QCommandLineOption* QCommandLineOption_new6(struct seaqt_string name, struct sea
 QCommandLineOption* QCommandLineOption_new7(struct seaqt_string name, struct seaqt_string description, struct seaqt_string valueName, struct seaqt_string defaultValue);
 QCommandLineOption* QCommandLineOption_new8(struct seaqt_array /* of struct seaqt_string */  names, struct seaqt_string description, struct seaqt_string valueName);
 QCommandLineOption* QCommandLineOption_new9(struct seaqt_array /* of struct seaqt_string */  names, struct seaqt_string description, struct seaqt_string valueName, struct seaqt_string defaultValue);
+
 void QCommandLineOption_operatorAssign(QCommandLineOption* self, QCommandLineOption* other);
 void QCommandLineOption_swap(QCommandLineOption* self, QCommandLineOption* other);
 struct seaqt_array /* of struct seaqt_string */  QCommandLineOption_names(const QCommandLineOption* self);

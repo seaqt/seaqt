@@ -34,10 +34,33 @@ typedef struct QPauseAnimation QPauseAnimation;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QPauseAnimation* QPauseAnimation_new();
-QPauseAnimation* QPauseAnimation_new2(int msecs);
-QPauseAnimation* QPauseAnimation_new3(QObject* parent);
-QPauseAnimation* QPauseAnimation_new4(int msecs, QObject* parent);
+typedef struct VirtualQPauseAnimation VirtualQPauseAnimation;
+typedef struct QPauseAnimation_VTable{
+	void (*destructor)(VirtualQPauseAnimation* self);
+	QMetaObject* (*metaObject)(const VirtualQPauseAnimation* self);
+	void* (*metacast)(VirtualQPauseAnimation* self, const char* param1);
+	int (*metacall)(VirtualQPauseAnimation* self, int param1, int param2, void** param3);
+	int (*duration)(const VirtualQPauseAnimation* self);
+	bool (*event)(VirtualQPauseAnimation* self, QEvent* e);
+	void (*updateCurrentTime)(VirtualQPauseAnimation* self, int param1);
+	void (*updateState)(VirtualQPauseAnimation* self, int newState, int oldState);
+	void (*updateDirection)(VirtualQPauseAnimation* self, int direction);
+	bool (*eventFilter)(VirtualQPauseAnimation* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQPauseAnimation* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQPauseAnimation* self, QChildEvent* event);
+	void (*customEvent)(VirtualQPauseAnimation* self, QEvent* event);
+	void (*connectNotify)(VirtualQPauseAnimation* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQPauseAnimation* self, QMetaMethod* signal);
+}QPauseAnimation_VTable;
+
+void* QPauseAnimation_vdata(VirtualQPauseAnimation* self);
+VirtualQPauseAnimation* vdata_QPauseAnimation(void* vdata);
+
+VirtualQPauseAnimation* QPauseAnimation_new(const QPauseAnimation_VTable* vtbl, size_t vdata);
+VirtualQPauseAnimation* QPauseAnimation_new2(const QPauseAnimation_VTable* vtbl, size_t vdata, int msecs);
+VirtualQPauseAnimation* QPauseAnimation_new3(const QPauseAnimation_VTable* vtbl, size_t vdata, QObject* parent);
+VirtualQPauseAnimation* QPauseAnimation_new4(const QPauseAnimation_VTable* vtbl, size_t vdata, int msecs, QObject* parent);
+
 void QPauseAnimation_virtbase(QPauseAnimation* src, QAbstractAnimation** outptr_QAbstractAnimation);
 QMetaObject* QPauseAnimation_metaObject(const QPauseAnimation* self);
 void* QPauseAnimation_metacast(QPauseAnimation* self, const char* param1);
@@ -50,39 +73,25 @@ void QPauseAnimation_updateCurrentTime(QPauseAnimation* self, int param1);
 struct seaqt_string QPauseAnimation_tr2(const char* s, const char* c);
 struct seaqt_string QPauseAnimation_tr3(const char* s, const char* c, int n);
 
-bool QPauseAnimation_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QPauseAnimation_virtualbase_metaObject(const void* self);
-bool QPauseAnimation_override_virtual_metacast(void* self, intptr_t slot);
-void* QPauseAnimation_virtualbase_metacast(void* self, const char* param1);
-bool QPauseAnimation_override_virtual_metacall(void* self, intptr_t slot);
-int QPauseAnimation_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QPauseAnimation_override_virtual_duration(void* self, intptr_t slot);
-int QPauseAnimation_virtualbase_duration(const void* self);
-bool QPauseAnimation_override_virtual_event(void* self, intptr_t slot);
-bool QPauseAnimation_virtualbase_event(void* self, QEvent* e);
-bool QPauseAnimation_override_virtual_updateCurrentTime(void* self, intptr_t slot);
-void QPauseAnimation_virtualbase_updateCurrentTime(void* self, int param1);
-bool QPauseAnimation_override_virtual_updateState(void* self, intptr_t slot);
-void QPauseAnimation_virtualbase_updateState(void* self, int newState, int oldState);
-bool QPauseAnimation_override_virtual_updateDirection(void* self, intptr_t slot);
-void QPauseAnimation_virtualbase_updateDirection(void* self, int direction);
-bool QPauseAnimation_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QPauseAnimation_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QPauseAnimation_override_virtual_timerEvent(void* self, intptr_t slot);
-void QPauseAnimation_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QPauseAnimation_override_virtual_childEvent(void* self, intptr_t slot);
-void QPauseAnimation_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QPauseAnimation_override_virtual_customEvent(void* self, intptr_t slot);
-void QPauseAnimation_virtualbase_customEvent(void* self, QEvent* event);
-bool QPauseAnimation_override_virtual_connectNotify(void* self, intptr_t slot);
-void QPauseAnimation_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QPauseAnimation_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QPauseAnimation_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QPauseAnimation_virtualbase_metaObject(const VirtualQPauseAnimation* self);
+void* QPauseAnimation_virtualbase_metacast(VirtualQPauseAnimation* self, const char* param1);
+int QPauseAnimation_virtualbase_metacall(VirtualQPauseAnimation* self, int param1, int param2, void** param3);
+int QPauseAnimation_virtualbase_duration(const VirtualQPauseAnimation* self);
+bool QPauseAnimation_virtualbase_event(VirtualQPauseAnimation* self, QEvent* e);
+void QPauseAnimation_virtualbase_updateCurrentTime(VirtualQPauseAnimation* self, int param1);
+void QPauseAnimation_virtualbase_updateState(VirtualQPauseAnimation* self, int newState, int oldState);
+void QPauseAnimation_virtualbase_updateDirection(VirtualQPauseAnimation* self, int direction);
+bool QPauseAnimation_virtualbase_eventFilter(VirtualQPauseAnimation* self, QObject* watched, QEvent* event);
+void QPauseAnimation_virtualbase_timerEvent(VirtualQPauseAnimation* self, QTimerEvent* event);
+void QPauseAnimation_virtualbase_childEvent(VirtualQPauseAnimation* self, QChildEvent* event);
+void QPauseAnimation_virtualbase_customEvent(VirtualQPauseAnimation* self, QEvent* event);
+void QPauseAnimation_virtualbase_connectNotify(VirtualQPauseAnimation* self, QMetaMethod* signal);
+void QPauseAnimation_virtualbase_disconnectNotify(VirtualQPauseAnimation* self, QMetaMethod* signal);
 
-QObject* QPauseAnimation_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QPauseAnimation_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QPauseAnimation_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QPauseAnimation_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QPauseAnimation_protectedbase_sender(const VirtualQPauseAnimation* self);
+int QPauseAnimation_protectedbase_senderSignalIndex(const VirtualQPauseAnimation* self);
+int QPauseAnimation_protectedbase_receivers(const VirtualQPauseAnimation* self, const char* signal);
+bool QPauseAnimation_protectedbase_isSignalConnected(const VirtualQPauseAnimation* self, QMetaMethod* signal);
 
 const QMetaObject* QPauseAnimation_staticMetaObject();
 void QPauseAnimation_delete(QPauseAnimation* self);

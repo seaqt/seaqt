@@ -27,6 +27,7 @@ typedef struct QResource QResource;
 QResource* QResource_new();
 QResource* QResource_new2(struct seaqt_string file);
 QResource* QResource_new3(struct seaqt_string file, QLocale* locale);
+
 void QResource_setFileName(QResource* self, struct seaqt_string file);
 struct seaqt_string QResource_fileName(const QResource* self);
 struct seaqt_string QResource_absoluteFilePath(const QResource* self);

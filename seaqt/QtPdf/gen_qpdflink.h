@@ -30,6 +30,7 @@ typedef struct QUrl QUrl;
 
 QPdfLink* QPdfLink_new();
 QPdfLink* QPdfLink_new2(QPdfLink* other);
+
 void QPdfLink_operatorAssign(QPdfLink* self, QPdfLink* other);
 void QPdfLink_swap(QPdfLink* self, QPdfLink* other);
 bool QPdfLink_isValid(const QPdfLink* self);

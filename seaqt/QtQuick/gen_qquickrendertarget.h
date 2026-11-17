@@ -26,6 +26,7 @@ typedef struct QSize QSize;
 
 QQuickRenderTarget* QQuickRenderTarget_new();
 QQuickRenderTarget* QQuickRenderTarget_new2(QQuickRenderTarget* other);
+
 void QQuickRenderTarget_operatorAssign(QQuickRenderTarget* self, QQuickRenderTarget* other);
 bool QQuickRenderTarget_isNull(const QQuickRenderTarget* self);
 double QQuickRenderTarget_devicePixelRatio(const QQuickRenderTarget* self);

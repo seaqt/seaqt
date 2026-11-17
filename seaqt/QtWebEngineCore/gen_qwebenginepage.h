@@ -84,10 +84,36 @@ typedef struct QWebEngineSettings QWebEngineSettings;
 typedef struct QWebEngineUrlRequestInterceptor QWebEngineUrlRequestInterceptor;
 #endif
 
-QWebEnginePage* QWebEnginePage_new();
-QWebEnginePage* QWebEnginePage_new2(QWebEngineProfile* profile);
-QWebEnginePage* QWebEnginePage_new3(QObject* parent);
-QWebEnginePage* QWebEnginePage_new4(QWebEngineProfile* profile, QObject* parent);
+typedef struct VirtualQWebEnginePage VirtualQWebEnginePage;
+typedef struct QWebEnginePage_VTable{
+	void (*destructor)(VirtualQWebEnginePage* self);
+	QMetaObject* (*metaObject)(const VirtualQWebEnginePage* self);
+	void* (*metacast)(VirtualQWebEnginePage* self, const char* param1);
+	int (*metacall)(VirtualQWebEnginePage* self, int param1, int param2, void** param3);
+	void (*triggerAction)(VirtualQWebEnginePage* self, int action, bool checked);
+	bool (*event)(VirtualQWebEnginePage* self, QEvent* param1);
+	QWebEnginePage* (*createWindow)(VirtualQWebEnginePage* self, int type);
+	struct seaqt_array /* of struct seaqt_string */  (*chooseFiles)(VirtualQWebEnginePage* self, int mode, struct seaqt_array /* of struct seaqt_string */  oldFiles, struct seaqt_array /* of struct seaqt_string */  acceptedMimeTypes);
+	void (*javaScriptAlert)(VirtualQWebEnginePage* self, QUrl* securityOrigin, struct seaqt_string msg);
+	bool (*javaScriptConfirm)(VirtualQWebEnginePage* self, QUrl* securityOrigin, struct seaqt_string msg);
+	void (*javaScriptConsoleMessage)(VirtualQWebEnginePage* self, int level, struct seaqt_string message, int lineNumber, struct seaqt_string sourceID);
+	bool (*acceptNavigationRequest)(VirtualQWebEnginePage* self, QUrl* url, int type, bool isMainFrame);
+	bool (*eventFilter)(VirtualQWebEnginePage* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQWebEnginePage* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQWebEnginePage* self, QChildEvent* event);
+	void (*customEvent)(VirtualQWebEnginePage* self, QEvent* event);
+	void (*connectNotify)(VirtualQWebEnginePage* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQWebEnginePage* self, QMetaMethod* signal);
+}QWebEnginePage_VTable;
+
+void* QWebEnginePage_vdata(VirtualQWebEnginePage* self);
+VirtualQWebEnginePage* vdata_QWebEnginePage(void* vdata);
+
+VirtualQWebEnginePage* QWebEnginePage_new(const QWebEnginePage_VTable* vtbl, size_t vdata);
+VirtualQWebEnginePage* QWebEnginePage_new2(const QWebEnginePage_VTable* vtbl, size_t vdata, QWebEngineProfile* profile);
+VirtualQWebEnginePage* QWebEnginePage_new3(const QWebEnginePage_VTable* vtbl, size_t vdata, QObject* parent);
+VirtualQWebEnginePage* QWebEnginePage_new4(const QWebEnginePage_VTable* vtbl, size_t vdata, QWebEngineProfile* profile, QObject* parent);
+
 void QWebEnginePage_virtbase(QWebEnginePage* src, QObject** outptr_QObject);
 QMetaObject* QWebEnginePage_metaObject(const QWebEnginePage* self);
 void* QWebEnginePage_metacast(QWebEnginePage* self, const char* param1);
@@ -234,45 +260,28 @@ void QWebEnginePage_save2(const QWebEnginePage* self, struct seaqt_string filePa
 void QWebEnginePage_printToPdf2(QWebEnginePage* self, struct seaqt_string filePath, QPageLayout* layout);
 void QWebEnginePage_printToPdf3(QWebEnginePage* self, struct seaqt_string filePath, QPageLayout* layout, QPageRanges* ranges);
 
-bool QWebEnginePage_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QWebEnginePage_virtualbase_metaObject(const void* self);
-bool QWebEnginePage_override_virtual_metacast(void* self, intptr_t slot);
-void* QWebEnginePage_virtualbase_metacast(void* self, const char* param1);
-bool QWebEnginePage_override_virtual_metacall(void* self, intptr_t slot);
-int QWebEnginePage_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QWebEnginePage_override_virtual_triggerAction(void* self, intptr_t slot);
-void QWebEnginePage_virtualbase_triggerAction(void* self, int action, bool checked);
-bool QWebEnginePage_override_virtual_event(void* self, intptr_t slot);
-bool QWebEnginePage_virtualbase_event(void* self, QEvent* param1);
-bool QWebEnginePage_override_virtual_createWindow(void* self, intptr_t slot);
-QWebEnginePage* QWebEnginePage_virtualbase_createWindow(void* self, int type);
-bool QWebEnginePage_override_virtual_chooseFiles(void* self, intptr_t slot);
-struct seaqt_array /* of struct seaqt_string */  QWebEnginePage_virtualbase_chooseFiles(void* self, int mode, struct seaqt_array /* of struct seaqt_string */  oldFiles, struct seaqt_array /* of struct seaqt_string */  acceptedMimeTypes);
-bool QWebEnginePage_override_virtual_javaScriptAlert(void* self, intptr_t slot);
-void QWebEnginePage_virtualbase_javaScriptAlert(void* self, QUrl* securityOrigin, struct seaqt_string msg);
-bool QWebEnginePage_override_virtual_javaScriptConfirm(void* self, intptr_t slot);
-bool QWebEnginePage_virtualbase_javaScriptConfirm(void* self, QUrl* securityOrigin, struct seaqt_string msg);
-bool QWebEnginePage_override_virtual_javaScriptConsoleMessage(void* self, intptr_t slot);
-void QWebEnginePage_virtualbase_javaScriptConsoleMessage(void* self, int level, struct seaqt_string message, int lineNumber, struct seaqt_string sourceID);
-bool QWebEnginePage_override_virtual_acceptNavigationRequest(void* self, intptr_t slot);
-bool QWebEnginePage_virtualbase_acceptNavigationRequest(void* self, QUrl* url, int type, bool isMainFrame);
-bool QWebEnginePage_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QWebEnginePage_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QWebEnginePage_override_virtual_timerEvent(void* self, intptr_t slot);
-void QWebEnginePage_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QWebEnginePage_override_virtual_childEvent(void* self, intptr_t slot);
-void QWebEnginePage_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QWebEnginePage_override_virtual_customEvent(void* self, intptr_t slot);
-void QWebEnginePage_virtualbase_customEvent(void* self, QEvent* event);
-bool QWebEnginePage_override_virtual_connectNotify(void* self, intptr_t slot);
-void QWebEnginePage_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QWebEnginePage_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QWebEnginePage_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QWebEnginePage_virtualbase_metaObject(const VirtualQWebEnginePage* self);
+void* QWebEnginePage_virtualbase_metacast(VirtualQWebEnginePage* self, const char* param1);
+int QWebEnginePage_virtualbase_metacall(VirtualQWebEnginePage* self, int param1, int param2, void** param3);
+void QWebEnginePage_virtualbase_triggerAction(VirtualQWebEnginePage* self, int action, bool checked);
+bool QWebEnginePage_virtualbase_event(VirtualQWebEnginePage* self, QEvent* param1);
+QWebEnginePage* QWebEnginePage_virtualbase_createWindow(VirtualQWebEnginePage* self, int type);
+struct seaqt_array /* of struct seaqt_string */  QWebEnginePage_virtualbase_chooseFiles(VirtualQWebEnginePage* self, int mode, struct seaqt_array /* of struct seaqt_string */  oldFiles, struct seaqt_array /* of struct seaqt_string */  acceptedMimeTypes);
+void QWebEnginePage_virtualbase_javaScriptAlert(VirtualQWebEnginePage* self, QUrl* securityOrigin, struct seaqt_string msg);
+bool QWebEnginePage_virtualbase_javaScriptConfirm(VirtualQWebEnginePage* self, QUrl* securityOrigin, struct seaqt_string msg);
+void QWebEnginePage_virtualbase_javaScriptConsoleMessage(VirtualQWebEnginePage* self, int level, struct seaqt_string message, int lineNumber, struct seaqt_string sourceID);
+bool QWebEnginePage_virtualbase_acceptNavigationRequest(VirtualQWebEnginePage* self, QUrl* url, int type, bool isMainFrame);
+bool QWebEnginePage_virtualbase_eventFilter(VirtualQWebEnginePage* self, QObject* watched, QEvent* event);
+void QWebEnginePage_virtualbase_timerEvent(VirtualQWebEnginePage* self, QTimerEvent* event);
+void QWebEnginePage_virtualbase_childEvent(VirtualQWebEnginePage* self, QChildEvent* event);
+void QWebEnginePage_virtualbase_customEvent(VirtualQWebEnginePage* self, QEvent* event);
+void QWebEnginePage_virtualbase_connectNotify(VirtualQWebEnginePage* self, QMetaMethod* signal);
+void QWebEnginePage_virtualbase_disconnectNotify(VirtualQWebEnginePage* self, QMetaMethod* signal);
 
-QObject* QWebEnginePage_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QWebEnginePage_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QWebEnginePage_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QWebEnginePage_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QWebEnginePage_protectedbase_sender(const VirtualQWebEnginePage* self);
+int QWebEnginePage_protectedbase_senderSignalIndex(const VirtualQWebEnginePage* self);
+int QWebEnginePage_protectedbase_receivers(const VirtualQWebEnginePage* self, const char* signal);
+bool QWebEnginePage_protectedbase_isSignalConnected(const VirtualQWebEnginePage* self, QMetaMethod* signal);
 
 const QMetaObject* QWebEnginePage_staticMetaObject();
 void QWebEnginePage_delete(QWebEnginePage* self);

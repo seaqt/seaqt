@@ -117,6 +117,7 @@ QVariant* QVariant_new40(QModelIndex* modelIndex);
 QVariant* QVariant_new41(QPersistentModelIndex* modelIndex);
 QVariant* QVariant_new42(int type);
 QVariant* QVariant_new43(QMetaType* type, const void* copy);
+
 void QVariant_operatorAssign(QVariant* self, QVariant* other);
 void QVariant_swap(QVariant* self, QVariant* other);
 int QVariant_userType(const QVariant* self);

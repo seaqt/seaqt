@@ -30,7 +30,22 @@ typedef struct QObject QObject;
 typedef struct QWidget QWidget;
 #endif
 
-QDesignerMetaDataBaseItemInterface* QDesignerMetaDataBaseItemInterface_new();
+typedef struct VirtualQDesignerMetaDataBaseItemInterface VirtualQDesignerMetaDataBaseItemInterface;
+typedef struct QDesignerMetaDataBaseItemInterface_VTable{
+	void (*destructor)(VirtualQDesignerMetaDataBaseItemInterface* self);
+	struct seaqt_string (*name)(const VirtualQDesignerMetaDataBaseItemInterface* self);
+	void (*setName)(VirtualQDesignerMetaDataBaseItemInterface* self, struct seaqt_string name);
+	struct seaqt_array /* of QWidget* */  (*tabOrder)(const VirtualQDesignerMetaDataBaseItemInterface* self);
+	void (*setTabOrder)(VirtualQDesignerMetaDataBaseItemInterface* self, struct seaqt_array /* of QWidget* */  tabOrder);
+	bool (*enabled)(const VirtualQDesignerMetaDataBaseItemInterface* self);
+	void (*setEnabled)(VirtualQDesignerMetaDataBaseItemInterface* self, bool b);
+}QDesignerMetaDataBaseItemInterface_VTable;
+
+void* QDesignerMetaDataBaseItemInterface_vdata(VirtualQDesignerMetaDataBaseItemInterface* self);
+VirtualQDesignerMetaDataBaseItemInterface* vdata_QDesignerMetaDataBaseItemInterface(void* vdata);
+
+VirtualQDesignerMetaDataBaseItemInterface* QDesignerMetaDataBaseItemInterface_new(const QDesignerMetaDataBaseItemInterface_VTable* vtbl, size_t vdata);
+
 struct seaqt_string QDesignerMetaDataBaseItemInterface_name(const QDesignerMetaDataBaseItemInterface* self);
 void QDesignerMetaDataBaseItemInterface_setName(QDesignerMetaDataBaseItemInterface* self, struct seaqt_string name);
 struct seaqt_array /* of QWidget* */  QDesignerMetaDataBaseItemInterface_tabOrder(const QDesignerMetaDataBaseItemInterface* self);
@@ -38,18 +53,12 @@ void QDesignerMetaDataBaseItemInterface_setTabOrder(QDesignerMetaDataBaseItemInt
 bool QDesignerMetaDataBaseItemInterface_enabled(const QDesignerMetaDataBaseItemInterface* self);
 void QDesignerMetaDataBaseItemInterface_setEnabled(QDesignerMetaDataBaseItemInterface* self, bool b);
 
-bool QDesignerMetaDataBaseItemInterface_override_virtual_name(void* self, intptr_t slot);
-struct seaqt_string QDesignerMetaDataBaseItemInterface_virtualbase_name(const void* self);
-bool QDesignerMetaDataBaseItemInterface_override_virtual_setName(void* self, intptr_t slot);
-void QDesignerMetaDataBaseItemInterface_virtualbase_setName(void* self, struct seaqt_string name);
-bool QDesignerMetaDataBaseItemInterface_override_virtual_tabOrder(void* self, intptr_t slot);
-struct seaqt_array /* of QWidget* */  QDesignerMetaDataBaseItemInterface_virtualbase_tabOrder(const void* self);
-bool QDesignerMetaDataBaseItemInterface_override_virtual_setTabOrder(void* self, intptr_t slot);
-void QDesignerMetaDataBaseItemInterface_virtualbase_setTabOrder(void* self, struct seaqt_array /* of QWidget* */  tabOrder);
-bool QDesignerMetaDataBaseItemInterface_override_virtual_enabled(void* self, intptr_t slot);
-bool QDesignerMetaDataBaseItemInterface_virtualbase_enabled(const void* self);
-bool QDesignerMetaDataBaseItemInterface_override_virtual_setEnabled(void* self, intptr_t slot);
-void QDesignerMetaDataBaseItemInterface_virtualbase_setEnabled(void* self, bool b);
+struct seaqt_string QDesignerMetaDataBaseItemInterface_virtualbase_name(const VirtualQDesignerMetaDataBaseItemInterface* self);
+void QDesignerMetaDataBaseItemInterface_virtualbase_setName(VirtualQDesignerMetaDataBaseItemInterface* self, struct seaqt_string name);
+struct seaqt_array /* of QWidget* */  QDesignerMetaDataBaseItemInterface_virtualbase_tabOrder(const VirtualQDesignerMetaDataBaseItemInterface* self);
+void QDesignerMetaDataBaseItemInterface_virtualbase_setTabOrder(VirtualQDesignerMetaDataBaseItemInterface* self, struct seaqt_array /* of QWidget* */  tabOrder);
+bool QDesignerMetaDataBaseItemInterface_virtualbase_enabled(const VirtualQDesignerMetaDataBaseItemInterface* self);
+void QDesignerMetaDataBaseItemInterface_virtualbase_setEnabled(VirtualQDesignerMetaDataBaseItemInterface* self, bool b);
 
 void QDesignerMetaDataBaseItemInterface_delete(QDesignerMetaDataBaseItemInterface* self);
 

@@ -24,6 +24,7 @@ typedef struct QSslCertificate QSslCertificate;
 
 QOcspResponse* QOcspResponse_new();
 QOcspResponse* QOcspResponse_new2(QOcspResponse* other);
+
 void QOcspResponse_operatorAssign(QOcspResponse* self, QOcspResponse* other);
 int QOcspResponse_certificateStatus(const QOcspResponse* self);
 int QOcspResponse_revocationReason(const QOcspResponse* self);

@@ -60,6 +60,7 @@ const QMetaObject* QAccessible_staticMetaObject();
 void QAccessible_delete(QAccessible* self);
 
 QAccessible__State* QAccessible__State_new();
+
 unsigned long long QAccessible__State_disabled(const QAccessible__State* self);
 void QAccessible__State_setDisabled(QAccessible__State* self, unsigned long long disabled);
 unsigned long long QAccessible__State_selected(const QAccessible__State* self);

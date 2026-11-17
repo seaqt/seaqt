@@ -28,6 +28,7 @@ QSqlIndex* QSqlIndex_new();
 QSqlIndex* QSqlIndex_new2(QSqlIndex* other);
 QSqlIndex* QSqlIndex_new3(struct seaqt_string cursorName);
 QSqlIndex* QSqlIndex_new4(struct seaqt_string cursorName, struct seaqt_string name);
+
 void QSqlIndex_virtbase(QSqlIndex* src, QSqlRecord** outptr_QSqlRecord);
 void QSqlIndex_operatorAssign(QSqlIndex* self, QSqlIndex* other);
 void QSqlIndex_setCursorName(QSqlIndex* self, struct seaqt_string cursorName);

@@ -44,8 +44,27 @@ typedef struct QUrl QUrl;
 typedef struct QVideoSink QVideoSink;
 #endif
 
-QMediaPlayer* QMediaPlayer_new();
-QMediaPlayer* QMediaPlayer_new2(QObject* parent);
+typedef struct VirtualQMediaPlayer VirtualQMediaPlayer;
+typedef struct QMediaPlayer_VTable{
+	void (*destructor)(VirtualQMediaPlayer* self);
+	QMetaObject* (*metaObject)(const VirtualQMediaPlayer* self);
+	void* (*metacast)(VirtualQMediaPlayer* self, const char* param1);
+	int (*metacall)(VirtualQMediaPlayer* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQMediaPlayer* self, QEvent* event);
+	bool (*eventFilter)(VirtualQMediaPlayer* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQMediaPlayer* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQMediaPlayer* self, QChildEvent* event);
+	void (*customEvent)(VirtualQMediaPlayer* self, QEvent* event);
+	void (*connectNotify)(VirtualQMediaPlayer* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQMediaPlayer* self, QMetaMethod* signal);
+}QMediaPlayer_VTable;
+
+void* QMediaPlayer_vdata(VirtualQMediaPlayer* self);
+VirtualQMediaPlayer* vdata_QMediaPlayer(void* vdata);
+
+VirtualQMediaPlayer* QMediaPlayer_new(const QMediaPlayer_VTable* vtbl, size_t vdata);
+VirtualQMediaPlayer* QMediaPlayer_new2(const QMediaPlayer_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QMediaPlayer_virtbase(QMediaPlayer* src, QObject** outptr_QObject);
 QMetaObject* QMediaPlayer_metaObject(const QMediaPlayer* self);
 void* QMediaPlayer_metacast(QMediaPlayer* self, const char* param1);
@@ -131,31 +150,21 @@ struct seaqt_string QMediaPlayer_tr2(const char* s, const char* c);
 struct seaqt_string QMediaPlayer_tr3(const char* s, const char* c, int n);
 void QMediaPlayer_setSourceDevice2(QMediaPlayer* self, QIODevice* device, QUrl* sourceUrl);
 
-bool QMediaPlayer_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QMediaPlayer_virtualbase_metaObject(const void* self);
-bool QMediaPlayer_override_virtual_metacast(void* self, intptr_t slot);
-void* QMediaPlayer_virtualbase_metacast(void* self, const char* param1);
-bool QMediaPlayer_override_virtual_metacall(void* self, intptr_t slot);
-int QMediaPlayer_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QMediaPlayer_override_virtual_event(void* self, intptr_t slot);
-bool QMediaPlayer_virtualbase_event(void* self, QEvent* event);
-bool QMediaPlayer_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QMediaPlayer_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QMediaPlayer_override_virtual_timerEvent(void* self, intptr_t slot);
-void QMediaPlayer_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QMediaPlayer_override_virtual_childEvent(void* self, intptr_t slot);
-void QMediaPlayer_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QMediaPlayer_override_virtual_customEvent(void* self, intptr_t slot);
-void QMediaPlayer_virtualbase_customEvent(void* self, QEvent* event);
-bool QMediaPlayer_override_virtual_connectNotify(void* self, intptr_t slot);
-void QMediaPlayer_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QMediaPlayer_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QMediaPlayer_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QMediaPlayer_virtualbase_metaObject(const VirtualQMediaPlayer* self);
+void* QMediaPlayer_virtualbase_metacast(VirtualQMediaPlayer* self, const char* param1);
+int QMediaPlayer_virtualbase_metacall(VirtualQMediaPlayer* self, int param1, int param2, void** param3);
+bool QMediaPlayer_virtualbase_event(VirtualQMediaPlayer* self, QEvent* event);
+bool QMediaPlayer_virtualbase_eventFilter(VirtualQMediaPlayer* self, QObject* watched, QEvent* event);
+void QMediaPlayer_virtualbase_timerEvent(VirtualQMediaPlayer* self, QTimerEvent* event);
+void QMediaPlayer_virtualbase_childEvent(VirtualQMediaPlayer* self, QChildEvent* event);
+void QMediaPlayer_virtualbase_customEvent(VirtualQMediaPlayer* self, QEvent* event);
+void QMediaPlayer_virtualbase_connectNotify(VirtualQMediaPlayer* self, QMetaMethod* signal);
+void QMediaPlayer_virtualbase_disconnectNotify(VirtualQMediaPlayer* self, QMetaMethod* signal);
 
-QObject* QMediaPlayer_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QMediaPlayer_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QMediaPlayer_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QMediaPlayer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QMediaPlayer_protectedbase_sender(const VirtualQMediaPlayer* self);
+int QMediaPlayer_protectedbase_senderSignalIndex(const VirtualQMediaPlayer* self);
+int QMediaPlayer_protectedbase_receivers(const VirtualQMediaPlayer* self, const char* signal);
+bool QMediaPlayer_protectedbase_isSignalConnected(const VirtualQMediaPlayer* self, QMetaMethod* signal);
 
 const QMetaObject* QMediaPlayer_staticMetaObject();
 void QMediaPlayer_delete(QMediaPlayer* self);

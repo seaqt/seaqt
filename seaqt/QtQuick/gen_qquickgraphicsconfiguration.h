@@ -22,6 +22,7 @@ typedef struct QQuickGraphicsConfiguration QQuickGraphicsConfiguration;
 
 QQuickGraphicsConfiguration* QQuickGraphicsConfiguration_new();
 QQuickGraphicsConfiguration* QQuickGraphicsConfiguration_new2(QQuickGraphicsConfiguration* other);
+
 void QQuickGraphicsConfiguration_operatorAssign(QQuickGraphicsConfiguration* self, QQuickGraphicsConfiguration* other);
 struct seaqt_array /* of struct seaqt_string */  QQuickGraphicsConfiguration_preferredInstanceExtensions();
 void QQuickGraphicsConfiguration_setDeviceExtensions(QQuickGraphicsConfiguration* self, struct seaqt_array /* of struct seaqt_string */  extensions);

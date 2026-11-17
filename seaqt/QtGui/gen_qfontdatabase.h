@@ -27,6 +27,7 @@ typedef struct QMetaObject QMetaObject;
 #endif
 
 QFontDatabase* QFontDatabase_new();
+
 struct seaqt_array /* of int */  QFontDatabase_standardSizes();
 struct seaqt_array /* of int */  QFontDatabase_writingSystems();
 struct seaqt_array /* of int */  QFontDatabase_writingSystemsWithFamily(struct seaqt_string family);

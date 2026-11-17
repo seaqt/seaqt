@@ -27,6 +27,7 @@ QAnyStringView* QAnyStringView_new2(struct seaqt_string str);
 QAnyStringView* QAnyStringView_new3(struct seaqt_string str);
 QAnyStringView* QAnyStringView_new4(QChar* c);
 QAnyStringView* QAnyStringView_new5(QAnyStringView* param1);
+
 struct seaqt_string QAnyStringView_toString(const QAnyStringView* self);
 ptrdiff_t QAnyStringView_size(const QAnyStringView* self);
 const void* QAnyStringView_data(const QAnyStringView* self);

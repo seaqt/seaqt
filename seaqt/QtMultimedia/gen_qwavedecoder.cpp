@@ -14,88 +14,66 @@
 #include <qwavedecoder.h>
 #include "gen_qwavedecoder.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void miqt_exec_callback_QWaveDecoder_formatKnown(intptr_t);
 void miqt_exec_callback_QWaveDecoder_parsingError(intptr_t);
-QMetaObject* miqt_exec_callback_QWaveDecoder_metaObject(const QWaveDecoder*, intptr_t);
-void* miqt_exec_callback_QWaveDecoder_metacast(QWaveDecoder*, intptr_t, const char*);
-int miqt_exec_callback_QWaveDecoder_metacall(QWaveDecoder*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QWaveDecoder_open(QWaveDecoder*, intptr_t, int);
-void miqt_exec_callback_QWaveDecoder_close(QWaveDecoder*, intptr_t);
-bool miqt_exec_callback_QWaveDecoder_seek(QWaveDecoder*, intptr_t, long long);
-long long miqt_exec_callback_QWaveDecoder_pos(const QWaveDecoder*, intptr_t);
-long long miqt_exec_callback_QWaveDecoder_size(const QWaveDecoder*, intptr_t);
-bool miqt_exec_callback_QWaveDecoder_isSequential(const QWaveDecoder*, intptr_t);
-long long miqt_exec_callback_QWaveDecoder_bytesAvailable(const QWaveDecoder*, intptr_t);
-bool miqt_exec_callback_QWaveDecoder_atEnd(const QWaveDecoder*, intptr_t);
-bool miqt_exec_callback_QWaveDecoder_reset(QWaveDecoder*, intptr_t);
-long long miqt_exec_callback_QWaveDecoder_bytesToWrite(const QWaveDecoder*, intptr_t);
-bool miqt_exec_callback_QWaveDecoder_canReadLine(const QWaveDecoder*, intptr_t);
-bool miqt_exec_callback_QWaveDecoder_waitForReadyRead(QWaveDecoder*, intptr_t, int);
-bool miqt_exec_callback_QWaveDecoder_waitForBytesWritten(QWaveDecoder*, intptr_t, int);
-long long miqt_exec_callback_QWaveDecoder_readLineData(QWaveDecoder*, intptr_t, char*, long long);
-long long miqt_exec_callback_QWaveDecoder_skipData(QWaveDecoder*, intptr_t, long long);
-bool miqt_exec_callback_QWaveDecoder_event(QWaveDecoder*, intptr_t, QEvent*);
-bool miqt_exec_callback_QWaveDecoder_eventFilter(QWaveDecoder*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QWaveDecoder_timerEvent(QWaveDecoder*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QWaveDecoder_childEvent(QWaveDecoder*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QWaveDecoder_customEvent(QWaveDecoder*, intptr_t, QEvent*);
-void miqt_exec_callback_QWaveDecoder_connectNotify(QWaveDecoder*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QWaveDecoder_disconnectNotify(QWaveDecoder*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQWaveDecoder final : public QWaveDecoder {
+	const QWaveDecoder_VTable* vtbl;
 public:
+	friend void* QWaveDecoder_vdata(VirtualQWaveDecoder* self);
+	friend VirtualQWaveDecoder* vdata_QWaveDecoder(void* vdata);
 
-	VirtualQWaveDecoder(QIODevice* device): QWaveDecoder(device) {}
-	VirtualQWaveDecoder(QIODevice* device, const QAudioFormat& format): QWaveDecoder(device, format) {}
-	VirtualQWaveDecoder(QIODevice* device, QObject* parent): QWaveDecoder(device, parent) {}
-	VirtualQWaveDecoder(QIODevice* device, const QAudioFormat& format, QObject* parent): QWaveDecoder(device, format, parent) {}
+	VirtualQWaveDecoder(const QWaveDecoder_VTable* vtbl, QIODevice* device): QWaveDecoder(device), vtbl(vtbl) {}
+	VirtualQWaveDecoder(const QWaveDecoder_VTable* vtbl, QIODevice* device, const QAudioFormat& format): QWaveDecoder(device, format), vtbl(vtbl) {}
+	VirtualQWaveDecoder(const QWaveDecoder_VTable* vtbl, QIODevice* device, QObject* parent): QWaveDecoder(device, parent), vtbl(vtbl) {}
+	VirtualQWaveDecoder(const QWaveDecoder_VTable* vtbl, QIODevice* device, const QAudioFormat& format, QObject* parent): QWaveDecoder(device, format, parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQWaveDecoder() override = default;
+	virtual ~VirtualQWaveDecoder() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QWaveDecoder::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QWaveDecoder_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QWaveDecoder_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QWaveDecoder_virtualbase_metaObject(const VirtualQWaveDecoder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QWaveDecoder::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QWaveDecoder_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QWaveDecoder_virtualbase_metacast(void* self, const char* param1);
+	friend void* QWaveDecoder_virtualbase_metacast(VirtualQWaveDecoder* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QWaveDecoder::qt_metacall(param1, param2, param3);
 		}
 
@@ -103,339 +81,251 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QWaveDecoder_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QWaveDecoder_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QWaveDecoder_virtualbase_metacall(VirtualQWaveDecoder* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__open = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool open(QIODevice::OpenMode mode) override {
-		if (handle__open == 0) {
+		if (vtbl->open == 0) {
 			return QWaveDecoder::open(mode);
 		}
 
 		QIODevice::OpenMode mode_ret = mode;
 		int sigval1 = static_cast<int>(mode_ret);
-		bool callback_return_value = miqt_exec_callback_QWaveDecoder_open(this, handle__open, sigval1);
+		bool callback_return_value = vtbl->open(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QWaveDecoder_virtualbase_open(void* self, int mode);
+	friend bool QWaveDecoder_virtualbase_open(VirtualQWaveDecoder* self, int mode);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__close = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void close() override {
-		if (handle__close == 0) {
+		if (vtbl->close == 0) {
 			QWaveDecoder::close();
 			return;
 		}
 
-		miqt_exec_callback_QWaveDecoder_close(this, handle__close);
-
+		vtbl->close(this);
 	}
 
-	friend void QWaveDecoder_virtualbase_close(void* self);
+	friend void QWaveDecoder_virtualbase_close(VirtualQWaveDecoder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__seek = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool seek(qint64 pos) override {
-		if (handle__seek == 0) {
+		if (vtbl->seek == 0) {
 			return QWaveDecoder::seek(pos);
 		}
 
 		qint64 pos_ret = pos;
 		long long sigval1 = static_cast<long long>(pos_ret);
-		bool callback_return_value = miqt_exec_callback_QWaveDecoder_seek(this, handle__seek, sigval1);
+		bool callback_return_value = vtbl->seek(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QWaveDecoder_virtualbase_seek(void* self, long long pos);
+	friend bool QWaveDecoder_virtualbase_seek(VirtualQWaveDecoder* self, long long pos);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__pos = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 pos() const override {
-		if (handle__pos == 0) {
+		if (vtbl->pos == 0) {
 			return QWaveDecoder::pos();
 		}
 
-		long long callback_return_value = miqt_exec_callback_QWaveDecoder_pos(this, handle__pos);
+		long long callback_return_value = vtbl->pos(this);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QWaveDecoder_virtualbase_pos(const void* self);
+	friend long long QWaveDecoder_virtualbase_pos(const VirtualQWaveDecoder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__size = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 size() const override {
-		if (handle__size == 0) {
+		if (vtbl->size == 0) {
 			return QWaveDecoder::size();
 		}
 
-		long long callback_return_value = miqt_exec_callback_QWaveDecoder_size(this, handle__size);
+		long long callback_return_value = vtbl->size(this);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QWaveDecoder_virtualbase_size(const void* self);
+	friend long long QWaveDecoder_virtualbase_size(const VirtualQWaveDecoder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isSequential = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isSequential() const override {
-		if (handle__isSequential == 0) {
+		if (vtbl->isSequential == 0) {
 			return QWaveDecoder::isSequential();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QWaveDecoder_isSequential(this, handle__isSequential);
+		bool callback_return_value = vtbl->isSequential(this);
 		return callback_return_value;
 	}
 
-	friend bool QWaveDecoder_virtualbase_isSequential(const void* self);
+	friend bool QWaveDecoder_virtualbase_isSequential(const VirtualQWaveDecoder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__bytesAvailable = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 bytesAvailable() const override {
-		if (handle__bytesAvailable == 0) {
+		if (vtbl->bytesAvailable == 0) {
 			return QWaveDecoder::bytesAvailable();
 		}
 
-		long long callback_return_value = miqt_exec_callback_QWaveDecoder_bytesAvailable(this, handle__bytesAvailable);
+		long long callback_return_value = vtbl->bytesAvailable(this);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QWaveDecoder_virtualbase_bytesAvailable(const void* self);
+	friend long long QWaveDecoder_virtualbase_bytesAvailable(const VirtualQWaveDecoder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__atEnd = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool atEnd() const override {
-		if (handle__atEnd == 0) {
+		if (vtbl->atEnd == 0) {
 			return QWaveDecoder::atEnd();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QWaveDecoder_atEnd(this, handle__atEnd);
+		bool callback_return_value = vtbl->atEnd(this);
 		return callback_return_value;
 	}
 
-	friend bool QWaveDecoder_virtualbase_atEnd(const void* self);
+	friend bool QWaveDecoder_virtualbase_atEnd(const VirtualQWaveDecoder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__reset = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool reset() override {
-		if (handle__reset == 0) {
+		if (vtbl->reset == 0) {
 			return QWaveDecoder::reset();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QWaveDecoder_reset(this, handle__reset);
+		bool callback_return_value = vtbl->reset(this);
 		return callback_return_value;
 	}
 
-	friend bool QWaveDecoder_virtualbase_reset(void* self);
+	friend bool QWaveDecoder_virtualbase_reset(VirtualQWaveDecoder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__bytesToWrite = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 bytesToWrite() const override {
-		if (handle__bytesToWrite == 0) {
+		if (vtbl->bytesToWrite == 0) {
 			return QWaveDecoder::bytesToWrite();
 		}
 
-		long long callback_return_value = miqt_exec_callback_QWaveDecoder_bytesToWrite(this, handle__bytesToWrite);
+		long long callback_return_value = vtbl->bytesToWrite(this);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QWaveDecoder_virtualbase_bytesToWrite(const void* self);
+	friend long long QWaveDecoder_virtualbase_bytesToWrite(const VirtualQWaveDecoder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__canReadLine = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool canReadLine() const override {
-		if (handle__canReadLine == 0) {
+		if (vtbl->canReadLine == 0) {
 			return QWaveDecoder::canReadLine();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QWaveDecoder_canReadLine(this, handle__canReadLine);
+		bool callback_return_value = vtbl->canReadLine(this);
 		return callback_return_value;
 	}
 
-	friend bool QWaveDecoder_virtualbase_canReadLine(const void* self);
+	friend bool QWaveDecoder_virtualbase_canReadLine(const VirtualQWaveDecoder* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__waitForReadyRead = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool waitForReadyRead(int msecs) override {
-		if (handle__waitForReadyRead == 0) {
+		if (vtbl->waitForReadyRead == 0) {
 			return QWaveDecoder::waitForReadyRead(msecs);
 		}
 
 		int sigval1 = msecs;
-		bool callback_return_value = miqt_exec_callback_QWaveDecoder_waitForReadyRead(this, handle__waitForReadyRead, sigval1);
+		bool callback_return_value = vtbl->waitForReadyRead(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QWaveDecoder_virtualbase_waitForReadyRead(void* self, int msecs);
+	friend bool QWaveDecoder_virtualbase_waitForReadyRead(VirtualQWaveDecoder* self, int msecs);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__waitForBytesWritten = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool waitForBytesWritten(int msecs) override {
-		if (handle__waitForBytesWritten == 0) {
+		if (vtbl->waitForBytesWritten == 0) {
 			return QWaveDecoder::waitForBytesWritten(msecs);
 		}
 
 		int sigval1 = msecs;
-		bool callback_return_value = miqt_exec_callback_QWaveDecoder_waitForBytesWritten(this, handle__waitForBytesWritten, sigval1);
+		bool callback_return_value = vtbl->waitForBytesWritten(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QWaveDecoder_virtualbase_waitForBytesWritten(void* self, int msecs);
+	friend bool QWaveDecoder_virtualbase_waitForBytesWritten(VirtualQWaveDecoder* self, int msecs);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__readLineData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 readLineData(char* data, qint64 maxlen) override {
-		if (handle__readLineData == 0) {
+		if (vtbl->readLineData == 0) {
 			return QWaveDecoder::readLineData(data, maxlen);
 		}
 
 		char* sigval1 = data;
 		qint64 maxlen_ret = maxlen;
 		long long sigval2 = static_cast<long long>(maxlen_ret);
-		long long callback_return_value = miqt_exec_callback_QWaveDecoder_readLineData(this, handle__readLineData, sigval1, sigval2);
+		long long callback_return_value = vtbl->readLineData(this, sigval1, sigval2);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QWaveDecoder_virtualbase_readLineData(void* self, char* data, long long maxlen);
+	friend long long QWaveDecoder_virtualbase_readLineData(VirtualQWaveDecoder* self, char* data, long long maxlen);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__skipData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 skipData(qint64 maxSize) override {
-		if (handle__skipData == 0) {
+		if (vtbl->skipData == 0) {
 			return QWaveDecoder::skipData(maxSize);
 		}
 
 		qint64 maxSize_ret = maxSize;
 		long long sigval1 = static_cast<long long>(maxSize_ret);
-		long long callback_return_value = miqt_exec_callback_QWaveDecoder_skipData(this, handle__skipData, sigval1);
+		long long callback_return_value = vtbl->skipData(this, sigval1);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QWaveDecoder_virtualbase_skipData(void* self, long long maxSize);
+	friend long long QWaveDecoder_virtualbase_skipData(VirtualQWaveDecoder* self, long long maxSize);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QWaveDecoder::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QWaveDecoder_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QWaveDecoder_virtualbase_event(void* self, QEvent* event);
+	friend bool QWaveDecoder_virtualbase_event(VirtualQWaveDecoder* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QWaveDecoder::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QWaveDecoder_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QWaveDecoder_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QWaveDecoder_virtualbase_eventFilter(VirtualQWaveDecoder* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QWaveDecoder::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QWaveDecoder_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QWaveDecoder_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QWaveDecoder_virtualbase_timerEvent(VirtualQWaveDecoder* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QWaveDecoder::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QWaveDecoder_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QWaveDecoder_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QWaveDecoder_virtualbase_childEvent(VirtualQWaveDecoder* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QWaveDecoder::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QWaveDecoder_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QWaveDecoder_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QWaveDecoder_virtualbase_customEvent(VirtualQWaveDecoder* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QWaveDecoder::connectNotify(signal);
 			return;
 		}
@@ -443,18 +333,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QWaveDecoder_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QWaveDecoder_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QWaveDecoder_virtualbase_connectNotify(VirtualQWaveDecoder* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QWaveDecoder::disconnectNotify(signal);
 			return;
 		}
@@ -462,35 +347,38 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QWaveDecoder_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QWaveDecoder_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QWaveDecoder_virtualbase_disconnectNotify(VirtualQWaveDecoder* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QWaveDecoder_protectedbase_setOpenMode(bool* _dynamic_cast_ok, void* self, int openMode);
-	friend void QWaveDecoder_protectedbase_setErrorString(bool* _dynamic_cast_ok, void* self, struct seaqt_string errorString);
-	friend QObject* QWaveDecoder_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QWaveDecoder_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QWaveDecoder_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QWaveDecoder_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QWaveDecoder_protectedbase_setOpenMode(VirtualQWaveDecoder* self, int openMode);
+	friend void QWaveDecoder_protectedbase_setErrorString(VirtualQWaveDecoder* self, struct seaqt_string errorString);
+	friend QObject* QWaveDecoder_protectedbase_sender(const VirtualQWaveDecoder* self);
+	friend int QWaveDecoder_protectedbase_senderSignalIndex(const VirtualQWaveDecoder* self);
+	friend int QWaveDecoder_protectedbase_receivers(const VirtualQWaveDecoder* self, const char* signal);
+	friend bool QWaveDecoder_protectedbase_isSignalConnected(const VirtualQWaveDecoder* self, QMetaMethod* signal);
 };
 
-QWaveDecoder* QWaveDecoder_new(QIODevice* device) {
-	return new (std::nothrow) VirtualQWaveDecoder(device);
+VirtualQWaveDecoder* QWaveDecoder_new(const QWaveDecoder_VTable* vtbl, size_t vdata, QIODevice* device) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWaveDecoder>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWaveDecoder(vtbl, device) : nullptr;
 }
 
-QWaveDecoder* QWaveDecoder_new2(QIODevice* device, QAudioFormat* format) {
-	return new (std::nothrow) VirtualQWaveDecoder(device, *format);
+VirtualQWaveDecoder* QWaveDecoder_new2(const QWaveDecoder_VTable* vtbl, size_t vdata, QIODevice* device, QAudioFormat* format) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWaveDecoder>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWaveDecoder(vtbl, device, *format) : nullptr;
 }
 
-QWaveDecoder* QWaveDecoder_new3(QIODevice* device, QObject* parent) {
-	return new (std::nothrow) VirtualQWaveDecoder(device, parent);
+VirtualQWaveDecoder* QWaveDecoder_new3(const QWaveDecoder_VTable* vtbl, size_t vdata, QIODevice* device, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWaveDecoder>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWaveDecoder(vtbl, device, parent) : nullptr;
 }
 
-QWaveDecoder* QWaveDecoder_new4(QIODevice* device, QAudioFormat* format, QObject* parent) {
-	return new (std::nothrow) VirtualQWaveDecoder(device, *format, parent);
+VirtualQWaveDecoder* QWaveDecoder_new4(const QWaveDecoder_VTable* vtbl, size_t vdata, QIODevice* device, QAudioFormat* format, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWaveDecoder>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWaveDecoder(vtbl, device, *format, parent) : nullptr;
 }
 
 void QWaveDecoder_virtbase(QWaveDecoder* src, QIODevice** outptr_QIODevice) {
@@ -611,427 +499,163 @@ struct seaqt_string QWaveDecoder_tr3(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QWaveDecoder_staticMetaObject() { return &QWaveDecoder::staticMetaObject; }
-bool QWaveDecoder_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QWaveDecoder_vdata(VirtualQWaveDecoder* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQWaveDecoder>()); }
+VirtualQWaveDecoder* vdata_QWaveDecoder(void* vdata) { return reinterpret_cast<VirtualQWaveDecoder*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQWaveDecoder>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QWaveDecoder_virtualbase_metaObject(const VirtualQWaveDecoder* self) {
+
+	return (QMetaObject*) self->QWaveDecoder::metaObject();
 }
 
-QMetaObject* QWaveDecoder_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQWaveDecoder*>(self)->QWaveDecoder::metaObject();
+void* QWaveDecoder_virtualbase_metacast(VirtualQWaveDecoder* self, const char* param1) {
+
+	return self->QWaveDecoder::qt_metacast(param1);
 }
 
-bool QWaveDecoder_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QWaveDecoder_virtualbase_metacall(VirtualQWaveDecoder* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QWaveDecoder::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QWaveDecoder_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::qt_metacast(param1);
+bool QWaveDecoder_virtualbase_open(VirtualQWaveDecoder* self, int mode) {
+
+	return self->QWaveDecoder::open(static_cast<VirtualQWaveDecoder::OpenMode>(mode));
 }
 
-bool QWaveDecoder_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWaveDecoder_virtualbase_close(VirtualQWaveDecoder* self) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	self->QWaveDecoder::close();
 }
 
-int QWaveDecoder_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+bool QWaveDecoder_virtualbase_seek(VirtualQWaveDecoder* self, long long pos) {
+
+	return self->QWaveDecoder::seek(static_cast<qint64>(pos));
 }
 
-bool QWaveDecoder_override_virtual_open(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+long long QWaveDecoder_virtualbase_pos(const VirtualQWaveDecoder* self) {
 
-	self_cast->handle__open = slot;
-	return true;
-}
-
-bool QWaveDecoder_virtualbase_open(void* self, int mode) {
-	return static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::open(static_cast<VirtualQWaveDecoder::OpenMode>(mode));
-}
-
-bool QWaveDecoder_override_virtual_close(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__close = slot;
-	return true;
-}
-
-void QWaveDecoder_virtualbase_close(void* self) {
-	static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::close();
-}
-
-bool QWaveDecoder_override_virtual_seek(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__seek = slot;
-	return true;
-}
-
-bool QWaveDecoder_virtualbase_seek(void* self, long long pos) {
-	return static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::seek(static_cast<qint64>(pos));
-}
-
-bool QWaveDecoder_override_virtual_pos(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__pos = slot;
-	return true;
-}
-
-long long QWaveDecoder_virtualbase_pos(const void* self) {
-	qint64 _ret = static_cast<const VirtualQWaveDecoder*>(self)->QWaveDecoder::pos();
+	qint64 _ret = self->QWaveDecoder::pos();
 	return static_cast<long long>(_ret);
 }
 
-bool QWaveDecoder_override_virtual_size(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+long long QWaveDecoder_virtualbase_size(const VirtualQWaveDecoder* self) {
 
-	self_cast->handle__size = slot;
-	return true;
-}
-
-long long QWaveDecoder_virtualbase_size(const void* self) {
-	qint64 _ret = static_cast<const VirtualQWaveDecoder*>(self)->QWaveDecoder::size();
+	qint64 _ret = self->QWaveDecoder::size();
 	return static_cast<long long>(_ret);
 }
 
-bool QWaveDecoder_override_virtual_isSequential(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QWaveDecoder_virtualbase_isSequential(const VirtualQWaveDecoder* self) {
 
-	self_cast->handle__isSequential = slot;
-	return true;
+	return self->QWaveDecoder::isSequential();
 }
 
-bool QWaveDecoder_virtualbase_isSequential(const void* self) {
-	return static_cast<const VirtualQWaveDecoder*>(self)->QWaveDecoder::isSequential();
-}
+long long QWaveDecoder_virtualbase_bytesAvailable(const VirtualQWaveDecoder* self) {
 
-bool QWaveDecoder_override_virtual_bytesAvailable(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__bytesAvailable = slot;
-	return true;
-}
-
-long long QWaveDecoder_virtualbase_bytesAvailable(const void* self) {
-	qint64 _ret = static_cast<const VirtualQWaveDecoder*>(self)->QWaveDecoder::bytesAvailable();
+	qint64 _ret = self->QWaveDecoder::bytesAvailable();
 	return static_cast<long long>(_ret);
 }
 
-bool QWaveDecoder_override_virtual_atEnd(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QWaveDecoder_virtualbase_atEnd(const VirtualQWaveDecoder* self) {
 
-	self_cast->handle__atEnd = slot;
-	return true;
+	return self->QWaveDecoder::atEnd();
 }
 
-bool QWaveDecoder_virtualbase_atEnd(const void* self) {
-	return static_cast<const VirtualQWaveDecoder*>(self)->QWaveDecoder::atEnd();
+bool QWaveDecoder_virtualbase_reset(VirtualQWaveDecoder* self) {
+
+	return self->QWaveDecoder::reset();
 }
 
-bool QWaveDecoder_override_virtual_reset(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+long long QWaveDecoder_virtualbase_bytesToWrite(const VirtualQWaveDecoder* self) {
 
-	self_cast->handle__reset = slot;
-	return true;
-}
-
-bool QWaveDecoder_virtualbase_reset(void* self) {
-	return static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::reset();
-}
-
-bool QWaveDecoder_override_virtual_bytesToWrite(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__bytesToWrite = slot;
-	return true;
-}
-
-long long QWaveDecoder_virtualbase_bytesToWrite(const void* self) {
-	qint64 _ret = static_cast<const VirtualQWaveDecoder*>(self)->QWaveDecoder::bytesToWrite();
+	qint64 _ret = self->QWaveDecoder::bytesToWrite();
 	return static_cast<long long>(_ret);
 }
 
-bool QWaveDecoder_override_virtual_canReadLine(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QWaveDecoder_virtualbase_canReadLine(const VirtualQWaveDecoder* self) {
 
-	self_cast->handle__canReadLine = slot;
-	return true;
+	return self->QWaveDecoder::canReadLine();
 }
 
-bool QWaveDecoder_virtualbase_canReadLine(const void* self) {
-	return static_cast<const VirtualQWaveDecoder*>(self)->QWaveDecoder::canReadLine();
+bool QWaveDecoder_virtualbase_waitForReadyRead(VirtualQWaveDecoder* self, int msecs) {
+
+	return self->QWaveDecoder::waitForReadyRead(static_cast<int>(msecs));
 }
 
-bool QWaveDecoder_override_virtual_waitForReadyRead(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QWaveDecoder_virtualbase_waitForBytesWritten(VirtualQWaveDecoder* self, int msecs) {
 
-	self_cast->handle__waitForReadyRead = slot;
-	return true;
+	return self->QWaveDecoder::waitForBytesWritten(static_cast<int>(msecs));
 }
 
-bool QWaveDecoder_virtualbase_waitForReadyRead(void* self, int msecs) {
-	return static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::waitForReadyRead(static_cast<int>(msecs));
-}
+long long QWaveDecoder_virtualbase_readLineData(VirtualQWaveDecoder* self, char* data, long long maxlen) {
 
-bool QWaveDecoder_override_virtual_waitForBytesWritten(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__waitForBytesWritten = slot;
-	return true;
-}
-
-bool QWaveDecoder_virtualbase_waitForBytesWritten(void* self, int msecs) {
-	return static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::waitForBytesWritten(static_cast<int>(msecs));
-}
-
-bool QWaveDecoder_override_virtual_readLineData(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__readLineData = slot;
-	return true;
-}
-
-long long QWaveDecoder_virtualbase_readLineData(void* self, char* data, long long maxlen) {
-	qint64 _ret = static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::readLineData(data, static_cast<qint64>(maxlen));
+	qint64 _ret = self->QWaveDecoder::readLineData(data, static_cast<qint64>(maxlen));
 	return static_cast<long long>(_ret);
 }
 
-bool QWaveDecoder_override_virtual_skipData(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+long long QWaveDecoder_virtualbase_skipData(VirtualQWaveDecoder* self, long long maxSize) {
 
-	self_cast->handle__skipData = slot;
-	return true;
-}
-
-long long QWaveDecoder_virtualbase_skipData(void* self, long long maxSize) {
-	qint64 _ret = static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::skipData(static_cast<qint64>(maxSize));
+	qint64 _ret = self->QWaveDecoder::skipData(static_cast<qint64>(maxSize));
 	return static_cast<long long>(_ret);
 }
 
-bool QWaveDecoder_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QWaveDecoder_virtualbase_event(VirtualQWaveDecoder* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	return self->QWaveDecoder::event(event);
 }
 
-bool QWaveDecoder_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::event(event);
+bool QWaveDecoder_virtualbase_eventFilter(VirtualQWaveDecoder* self, QObject* watched, QEvent* event) {
+
+	return self->QWaveDecoder::eventFilter(watched, event);
 }
 
-bool QWaveDecoder_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWaveDecoder_virtualbase_timerEvent(VirtualQWaveDecoder* self, QTimerEvent* event) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QWaveDecoder::timerEvent(event);
 }
 
-bool QWaveDecoder_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::eventFilter(watched, event);
+void QWaveDecoder_virtualbase_childEvent(VirtualQWaveDecoder* self, QChildEvent* event) {
+
+	self->QWaveDecoder::childEvent(event);
 }
 
-bool QWaveDecoder_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWaveDecoder_virtualbase_customEvent(VirtualQWaveDecoder* self, QEvent* event) {
 
-	self_cast->handle__timerEvent = slot;
-	return true;
+	self->QWaveDecoder::customEvent(event);
 }
 
-void QWaveDecoder_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::timerEvent(event);
+void QWaveDecoder_virtualbase_connectNotify(VirtualQWaveDecoder* self, QMetaMethod* signal) {
+
+	self->QWaveDecoder::connectNotify(*signal);
 }
 
-bool QWaveDecoder_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWaveDecoder_virtualbase_disconnectNotify(VirtualQWaveDecoder* self, QMetaMethod* signal) {
 
-	self_cast->handle__childEvent = slot;
-	return true;
+	self->QWaveDecoder::disconnectNotify(*signal);
 }
 
-void QWaveDecoder_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::childEvent(event);
+void QWaveDecoder_protectedbase_setOpenMode(VirtualQWaveDecoder* self, int openMode) {
+	self->setOpenMode(static_cast<VirtualQWaveDecoder::OpenMode>(openMode));
 }
 
-bool QWaveDecoder_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QWaveDecoder_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::customEvent(event);
-}
-
-bool QWaveDecoder_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QWaveDecoder_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::connectNotify(*signal);
-}
-
-bool QWaveDecoder_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QWaveDecoder_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQWaveDecoder*>(self)->QWaveDecoder::disconnectNotify(*signal);
-}
-
-void QWaveDecoder_protectedbase_setOpenMode(bool* _dynamic_cast_ok, void* self, int openMode) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setOpenMode(static_cast<VirtualQWaveDecoder::OpenMode>(openMode));
-}
-
-void QWaveDecoder_protectedbase_setErrorString(bool* _dynamic_cast_ok, void* self, struct seaqt_string errorString) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
+void QWaveDecoder_protectedbase_setErrorString(VirtualQWaveDecoder* self, struct seaqt_string errorString) {
 		QString errorString_QString = QString::fromUtf8(errorString.data, errorString.len);
-	self_cast->setErrorString(errorString_QString);
+	self->setErrorString(errorString_QString);
 }
 
-QObject* QWaveDecoder_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
+QObject* QWaveDecoder_protectedbase_sender(const VirtualQWaveDecoder* self) {
+	return self->sender();
 }
 
-int QWaveDecoder_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
+int QWaveDecoder_protectedbase_senderSignalIndex(const VirtualQWaveDecoder* self) {
+	return self->senderSignalIndex();
 }
 
-int QWaveDecoder_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
+int QWaveDecoder_protectedbase_receivers(const VirtualQWaveDecoder* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QWaveDecoder_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQWaveDecoder* self_cast = dynamic_cast<VirtualQWaveDecoder*>( (QWaveDecoder*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QWaveDecoder_protectedbase_isSignalConnected(const VirtualQWaveDecoder* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QWaveDecoder_delete(QWaveDecoder* self) {

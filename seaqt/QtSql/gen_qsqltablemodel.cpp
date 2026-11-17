@@ -29,6 +29,17 @@
 #include <qsqltablemodel.h>
 #include "gen_qsqltablemodel.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -37,116 +48,48 @@ void miqt_exec_callback_QSqlTableModel_primeInsert(intptr_t, int, QSqlRecord*);
 void miqt_exec_callback_QSqlTableModel_beforeInsert(intptr_t, QSqlRecord*);
 void miqt_exec_callback_QSqlTableModel_beforeUpdate(intptr_t, int, QSqlRecord*);
 void miqt_exec_callback_QSqlTableModel_beforeDelete(intptr_t, int);
-QMetaObject* miqt_exec_callback_QSqlTableModel_metaObject(const QSqlTableModel*, intptr_t);
-void* miqt_exec_callback_QSqlTableModel_metacast(QSqlTableModel*, intptr_t, const char*);
-int miqt_exec_callback_QSqlTableModel_metacall(QSqlTableModel*, intptr_t, int, int, void**);
-void miqt_exec_callback_QSqlTableModel_setTable(QSqlTableModel*, intptr_t, struct seaqt_string);
-int miqt_exec_callback_QSqlTableModel_flags(const QSqlTableModel*, intptr_t, QModelIndex*);
-QVariant* miqt_exec_callback_QSqlTableModel_data(const QSqlTableModel*, intptr_t, QModelIndex*, int);
-bool miqt_exec_callback_QSqlTableModel_setData(QSqlTableModel*, intptr_t, QModelIndex*, QVariant*, int);
-bool miqt_exec_callback_QSqlTableModel_clearItemData(QSqlTableModel*, intptr_t, QModelIndex*);
-QVariant* miqt_exec_callback_QSqlTableModel_headerData(const QSqlTableModel*, intptr_t, int, int, int);
-void miqt_exec_callback_QSqlTableModel_clear(QSqlTableModel*, intptr_t);
-void miqt_exec_callback_QSqlTableModel_setEditStrategy(QSqlTableModel*, intptr_t, int);
-void miqt_exec_callback_QSqlTableModel_sort(QSqlTableModel*, intptr_t, int, int);
-void miqt_exec_callback_QSqlTableModel_setSort(QSqlTableModel*, intptr_t, int, int);
-void miqt_exec_callback_QSqlTableModel_setFilter(QSqlTableModel*, intptr_t, struct seaqt_string);
-int miqt_exec_callback_QSqlTableModel_rowCount(const QSqlTableModel*, intptr_t, QModelIndex*);
-bool miqt_exec_callback_QSqlTableModel_removeColumns(QSqlTableModel*, intptr_t, int, int, QModelIndex*);
-bool miqt_exec_callback_QSqlTableModel_removeRows(QSqlTableModel*, intptr_t, int, int, QModelIndex*);
-bool miqt_exec_callback_QSqlTableModel_insertRows(QSqlTableModel*, intptr_t, int, int, QModelIndex*);
-void miqt_exec_callback_QSqlTableModel_revertRow(QSqlTableModel*, intptr_t, int);
-bool miqt_exec_callback_QSqlTableModel_select(QSqlTableModel*, intptr_t);
-bool miqt_exec_callback_QSqlTableModel_selectRow(QSqlTableModel*, intptr_t, int);
-bool miqt_exec_callback_QSqlTableModel_submit(QSqlTableModel*, intptr_t);
-void miqt_exec_callback_QSqlTableModel_revert(QSqlTableModel*, intptr_t);
-bool miqt_exec_callback_QSqlTableModel_updateRowInTable(QSqlTableModel*, intptr_t, int, QSqlRecord*);
-bool miqt_exec_callback_QSqlTableModel_insertRowIntoTable(QSqlTableModel*, intptr_t, QSqlRecord*);
-bool miqt_exec_callback_QSqlTableModel_deleteRowFromTable(QSqlTableModel*, intptr_t, int);
-struct seaqt_string miqt_exec_callback_QSqlTableModel_orderByClause(const QSqlTableModel*, intptr_t);
-struct seaqt_string miqt_exec_callback_QSqlTableModel_selectStatement(const QSqlTableModel*, intptr_t);
-QModelIndex* miqt_exec_callback_QSqlTableModel_indexInQuery(const QSqlTableModel*, intptr_t, QModelIndex*);
-int miqt_exec_callback_QSqlTableModel_columnCount(const QSqlTableModel*, intptr_t, QModelIndex*);
-bool miqt_exec_callback_QSqlTableModel_setHeaderData(QSqlTableModel*, intptr_t, int, int, QVariant*, int);
-bool miqt_exec_callback_QSqlTableModel_insertColumns(QSqlTableModel*, intptr_t, int, int, QModelIndex*);
-void miqt_exec_callback_QSqlTableModel_fetchMore(QSqlTableModel*, intptr_t, QModelIndex*);
-bool miqt_exec_callback_QSqlTableModel_canFetchMore(const QSqlTableModel*, intptr_t, QModelIndex*);
-struct seaqt_map /* of int to struct seaqt_string */  miqt_exec_callback_QSqlTableModel_roleNames(const QSqlTableModel*, intptr_t);
-void miqt_exec_callback_QSqlTableModel_queryChange(QSqlTableModel*, intptr_t);
-QModelIndex* miqt_exec_callback_QSqlTableModel_index(const QSqlTableModel*, intptr_t, int, int, QModelIndex*);
-QModelIndex* miqt_exec_callback_QSqlTableModel_sibling(const QSqlTableModel*, intptr_t, int, int, QModelIndex*);
-bool miqt_exec_callback_QSqlTableModel_dropMimeData(QSqlTableModel*, intptr_t, QMimeData*, int, int, int, QModelIndex*);
-struct seaqt_map /* of int to QVariant* */  miqt_exec_callback_QSqlTableModel_itemData(const QSqlTableModel*, intptr_t, QModelIndex*);
-bool miqt_exec_callback_QSqlTableModel_setItemData(QSqlTableModel*, intptr_t, QModelIndex*, struct seaqt_map /* of int to QVariant* */ );
-struct seaqt_array /* of struct seaqt_string */  miqt_exec_callback_QSqlTableModel_mimeTypes(const QSqlTableModel*, intptr_t);
-QMimeData* miqt_exec_callback_QSqlTableModel_mimeData(const QSqlTableModel*, intptr_t, struct seaqt_array /* of QModelIndex* */ );
-bool miqt_exec_callback_QSqlTableModel_canDropMimeData(const QSqlTableModel*, intptr_t, QMimeData*, int, int, int, QModelIndex*);
-int miqt_exec_callback_QSqlTableModel_supportedDropActions(const QSqlTableModel*, intptr_t);
-int miqt_exec_callback_QSqlTableModel_supportedDragActions(const QSqlTableModel*, intptr_t);
-bool miqt_exec_callback_QSqlTableModel_moveRows(QSqlTableModel*, intptr_t, QModelIndex*, int, int, QModelIndex*, int);
-bool miqt_exec_callback_QSqlTableModel_moveColumns(QSqlTableModel*, intptr_t, QModelIndex*, int, int, QModelIndex*, int);
-QModelIndex* miqt_exec_callback_QSqlTableModel_buddy(const QSqlTableModel*, intptr_t, QModelIndex*);
-struct seaqt_array /* of QModelIndex* */  miqt_exec_callback_QSqlTableModel_match(const QSqlTableModel*, intptr_t, QModelIndex*, int, QVariant*, int, int);
-QSize* miqt_exec_callback_QSqlTableModel_span(const QSqlTableModel*, intptr_t, QModelIndex*);
-void miqt_exec_callback_QSqlTableModel_multiData(const QSqlTableModel*, intptr_t, QModelIndex*, QModelRoleDataSpan*);
-void miqt_exec_callback_QSqlTableModel_resetInternalData(QSqlTableModel*, intptr_t);
-bool miqt_exec_callback_QSqlTableModel_event(QSqlTableModel*, intptr_t, QEvent*);
-bool miqt_exec_callback_QSqlTableModel_eventFilter(QSqlTableModel*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QSqlTableModel_timerEvent(QSqlTableModel*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QSqlTableModel_childEvent(QSqlTableModel*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QSqlTableModel_customEvent(QSqlTableModel*, intptr_t, QEvent*);
-void miqt_exec_callback_QSqlTableModel_connectNotify(QSqlTableModel*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QSqlTableModel_disconnectNotify(QSqlTableModel*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQSqlTableModel final : public QSqlTableModel {
+	const QSqlTableModel_VTable* vtbl;
 public:
+	friend void* QSqlTableModel_vdata(VirtualQSqlTableModel* self);
+	friend VirtualQSqlTableModel* vdata_QSqlTableModel(void* vdata);
 
-	VirtualQSqlTableModel(): QSqlTableModel() {}
-	VirtualQSqlTableModel(QObject* parent): QSqlTableModel(parent) {}
-	VirtualQSqlTableModel(QObject* parent, const QSqlDatabase& db): QSqlTableModel(parent, db) {}
+	VirtualQSqlTableModel(const QSqlTableModel_VTable* vtbl): QSqlTableModel(), vtbl(vtbl) {}
+	VirtualQSqlTableModel(const QSqlTableModel_VTable* vtbl, QObject* parent): QSqlTableModel(parent), vtbl(vtbl) {}
+	VirtualQSqlTableModel(const QSqlTableModel_VTable* vtbl, QObject* parent, const QSqlDatabase& db): QSqlTableModel(parent, db), vtbl(vtbl) {}
 
-	virtual ~VirtualQSqlTableModel() override = default;
+	virtual ~VirtualQSqlTableModel() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QSqlTableModel::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QSqlTableModel_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QSqlTableModel_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QSqlTableModel_virtualbase_metaObject(const VirtualQSqlTableModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QSqlTableModel::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QSqlTableModel_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QSqlTableModel_virtualbase_metacast(void* self, const char* param1);
+	friend void* QSqlTableModel_virtualbase_metacast(VirtualQSqlTableModel* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QSqlTableModel::qt_metacall(param1, param2, param3);
 		}
 
@@ -154,18 +97,14 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QSqlTableModel_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QSqlTableModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QSqlTableModel_virtualbase_metacall(VirtualQSqlTableModel* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setTable = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setTable(const QString& tableName) override {
-		if (handle__setTable == 0) {
+		if (vtbl->setTable == 0) {
 			QSqlTableModel::setTable(tableName);
 			return;
 		}
@@ -178,36 +117,27 @@ public:
 		tableName_ms.data = static_cast<char*>(malloc(tableName_ms.len));
 		memcpy(tableName_ms.data, tableName_b.data(), tableName_ms.len);
 		struct seaqt_string sigval1 = tableName_ms;
-		miqt_exec_callback_QSqlTableModel_setTable(this, handle__setTable, sigval1);
-
+		vtbl->setTable(this, sigval1);
 	}
 
-	friend void QSqlTableModel_virtualbase_setTable(void* self, struct seaqt_string tableName);
+	friend void QSqlTableModel_virtualbase_setTable(VirtualQSqlTableModel* self, struct seaqt_string tableName);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__flags = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual Qt::ItemFlags flags(const QModelIndex& index) const override {
-		if (handle__flags == 0) {
+		if (vtbl->flags == 0) {
 			return QSqlTableModel::flags(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		int callback_return_value = miqt_exec_callback_QSqlTableModel_flags(this, handle__flags, sigval1);
+		int callback_return_value = vtbl->flags(this, sigval1);
 		return static_cast<Qt::ItemFlags>(callback_return_value);
 	}
 
-	friend int QSqlTableModel_virtualbase_flags(const void* self, QModelIndex* index);
+	friend int QSqlTableModel_virtualbase_flags(const VirtualQSqlTableModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__data = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant data(const QModelIndex& idx, int role) const override {
-		if (handle__data == 0) {
+		if (vtbl->data == 0) {
 			return QSqlTableModel::data(idx, role);
 		}
 
@@ -215,18 +145,14 @@ public:
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&idx_ret);
 		int sigval2 = role;
-		QVariant* callback_return_value = miqt_exec_callback_QSqlTableModel_data(this, handle__data, sigval1, sigval2);
+		QVariant* callback_return_value = vtbl->data(this, sigval1, sigval2);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QSqlTableModel_virtualbase_data(const void* self, QModelIndex* idx, int role);
+	friend QVariant* QSqlTableModel_virtualbase_data(const VirtualQSqlTableModel* self, QModelIndex* idx, int role);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool setData(const QModelIndex& index, const QVariant& value, int role) override {
-		if (handle__setData == 0) {
+		if (vtbl->setData == 0) {
 			return QSqlTableModel::setData(index, value, role);
 		}
 
@@ -237,36 +163,28 @@ public:
 		// Cast returned reference into pointer
 		QVariant* sigval2 = const_cast<QVariant*>(&value_ret);
 		int sigval3 = role;
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_setData(this, handle__setData, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->setData(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_setData(void* self, QModelIndex* index, QVariant* value, int role);
+	friend bool QSqlTableModel_virtualbase_setData(VirtualQSqlTableModel* self, QModelIndex* index, QVariant* value, int role);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clearItemData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool clearItemData(const QModelIndex& index) override {
-		if (handle__clearItemData == 0) {
+		if (vtbl->clearItemData == 0) {
 			return QSqlTableModel::clearItemData(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_clearItemData(this, handle__clearItemData, sigval1);
+		bool callback_return_value = vtbl->clearItemData(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_clearItemData(void* self, QModelIndex* index);
+	friend bool QSqlTableModel_virtualbase_clearItemData(VirtualQSqlTableModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__headerData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const override {
-		if (handle__headerData == 0) {
+		if (vtbl->headerData == 0) {
 			return QSqlTableModel::headerData(section, orientation, role);
 		}
 
@@ -274,52 +192,38 @@ public:
 		Qt::Orientation orientation_ret = orientation;
 		int sigval2 = static_cast<int>(orientation_ret);
 		int sigval3 = role;
-		QVariant* callback_return_value = miqt_exec_callback_QSqlTableModel_headerData(this, handle__headerData, sigval1, sigval2, sigval3);
+		QVariant* callback_return_value = vtbl->headerData(this, sigval1, sigval2, sigval3);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QSqlTableModel_virtualbase_headerData(const void* self, int section, int orientation, int role);
+	friend QVariant* QSqlTableModel_virtualbase_headerData(const VirtualQSqlTableModel* self, int section, int orientation, int role);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clear = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void clear() override {
-		if (handle__clear == 0) {
+		if (vtbl->clear == 0) {
 			QSqlTableModel::clear();
 			return;
 		}
 
-		miqt_exec_callback_QSqlTableModel_clear(this, handle__clear);
-
+		vtbl->clear(this);
 	}
 
-	friend void QSqlTableModel_virtualbase_clear(void* self);
+	friend void QSqlTableModel_virtualbase_clear(VirtualQSqlTableModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setEditStrategy = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setEditStrategy(QSqlTableModel::EditStrategy strategy) override {
-		if (handle__setEditStrategy == 0) {
+		if (vtbl->setEditStrategy == 0) {
 			QSqlTableModel::setEditStrategy(strategy);
 			return;
 		}
 
 		QSqlTableModel::EditStrategy strategy_ret = strategy;
 		int sigval1 = static_cast<int>(strategy_ret);
-		miqt_exec_callback_QSqlTableModel_setEditStrategy(this, handle__setEditStrategy, sigval1);
-
+		vtbl->setEditStrategy(this, sigval1);
 	}
 
-	friend void QSqlTableModel_virtualbase_setEditStrategy(void* self, int strategy);
+	friend void QSqlTableModel_virtualbase_setEditStrategy(VirtualQSqlTableModel* self, int strategy);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sort = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void sort(int column, Qt::SortOrder order) override {
-		if (handle__sort == 0) {
+		if (vtbl->sort == 0) {
 			QSqlTableModel::sort(column, order);
 			return;
 		}
@@ -327,18 +231,13 @@ public:
 		int sigval1 = column;
 		Qt::SortOrder order_ret = order;
 		int sigval2 = static_cast<int>(order_ret);
-		miqt_exec_callback_QSqlTableModel_sort(this, handle__sort, sigval1, sigval2);
-
+		vtbl->sort(this, sigval1, sigval2);
 	}
 
-	friend void QSqlTableModel_virtualbase_sort(void* self, int column, int order);
+	friend void QSqlTableModel_virtualbase_sort(VirtualQSqlTableModel* self, int column, int order);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setSort = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setSort(int column, Qt::SortOrder order) override {
-		if (handle__setSort == 0) {
+		if (vtbl->setSort == 0) {
 			QSqlTableModel::setSort(column, order);
 			return;
 		}
@@ -346,18 +245,13 @@ public:
 		int sigval1 = column;
 		Qt::SortOrder order_ret = order;
 		int sigval2 = static_cast<int>(order_ret);
-		miqt_exec_callback_QSqlTableModel_setSort(this, handle__setSort, sigval1, sigval2);
-
+		vtbl->setSort(this, sigval1, sigval2);
 	}
 
-	friend void QSqlTableModel_virtualbase_setSort(void* self, int column, int order);
+	friend void QSqlTableModel_virtualbase_setSort(VirtualQSqlTableModel* self, int column, int order);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setFilter(const QString& filter) override {
-		if (handle__setFilter == 0) {
+		if (vtbl->setFilter == 0) {
 			QSqlTableModel::setFilter(filter);
 			return;
 		}
@@ -370,36 +264,27 @@ public:
 		filter_ms.data = static_cast<char*>(malloc(filter_ms.len));
 		memcpy(filter_ms.data, filter_b.data(), filter_ms.len);
 		struct seaqt_string sigval1 = filter_ms;
-		miqt_exec_callback_QSqlTableModel_setFilter(this, handle__setFilter, sigval1);
-
+		vtbl->setFilter(this, sigval1);
 	}
 
-	friend void QSqlTableModel_virtualbase_setFilter(void* self, struct seaqt_string filter);
+	friend void QSqlTableModel_virtualbase_setFilter(VirtualQSqlTableModel* self, struct seaqt_string filter);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__rowCount = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int rowCount(const QModelIndex& parent) const override {
-		if (handle__rowCount == 0) {
+		if (vtbl->rowCount == 0) {
 			return QSqlTableModel::rowCount(parent);
 		}
 
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&parent_ret);
-		int callback_return_value = miqt_exec_callback_QSqlTableModel_rowCount(this, handle__rowCount, sigval1);
+		int callback_return_value = vtbl->rowCount(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QSqlTableModel_virtualbase_rowCount(const void* self, QModelIndex* parent);
+	friend int QSqlTableModel_virtualbase_rowCount(const VirtualQSqlTableModel* self, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__removeColumns = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool removeColumns(int column, int count, const QModelIndex& parent) override {
-		if (handle__removeColumns == 0) {
+		if (vtbl->removeColumns == 0) {
 			return QSqlTableModel::removeColumns(column, count, parent);
 		}
 
@@ -408,18 +293,14 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_removeColumns(this, handle__removeColumns, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->removeColumns(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_removeColumns(void* self, int column, int count, QModelIndex* parent);
+	friend bool QSqlTableModel_virtualbase_removeColumns(VirtualQSqlTableModel* self, int column, int count, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__removeRows = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool removeRows(int row, int count, const QModelIndex& parent) override {
-		if (handle__removeRows == 0) {
+		if (vtbl->removeRows == 0) {
 			return QSqlTableModel::removeRows(row, count, parent);
 		}
 
@@ -428,18 +309,14 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_removeRows(this, handle__removeRows, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->removeRows(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_removeRows(void* self, int row, int count, QModelIndex* parent);
+	friend bool QSqlTableModel_virtualbase_removeRows(VirtualQSqlTableModel* self, int row, int count, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__insertRows = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool insertRows(int row, int count, const QModelIndex& parent) override {
-		if (handle__insertRows == 0) {
+		if (vtbl->insertRows == 0) {
 			return QSqlTableModel::insertRows(row, count, parent);
 		}
 
@@ -448,97 +325,71 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_insertRows(this, handle__insertRows, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->insertRows(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_insertRows(void* self, int row, int count, QModelIndex* parent);
+	friend bool QSqlTableModel_virtualbase_insertRows(VirtualQSqlTableModel* self, int row, int count, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__revertRow = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void revertRow(int row) override {
-		if (handle__revertRow == 0) {
+		if (vtbl->revertRow == 0) {
 			QSqlTableModel::revertRow(row);
 			return;
 		}
 
 		int sigval1 = row;
-		miqt_exec_callback_QSqlTableModel_revertRow(this, handle__revertRow, sigval1);
-
+		vtbl->revertRow(this, sigval1);
 	}
 
-	friend void QSqlTableModel_virtualbase_revertRow(void* self, int row);
+	friend void QSqlTableModel_virtualbase_revertRow(VirtualQSqlTableModel* self, int row);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__select = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool select() override {
-		if (handle__select == 0) {
+		if (vtbl->select == 0) {
 			return QSqlTableModel::select();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_select(this, handle__select);
+		bool callback_return_value = vtbl->select(this);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_select(void* self);
+	friend bool QSqlTableModel_virtualbase_select(VirtualQSqlTableModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__selectRow = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool selectRow(int row) override {
-		if (handle__selectRow == 0) {
+		if (vtbl->selectRow == 0) {
 			return QSqlTableModel::selectRow(row);
 		}
 
 		int sigval1 = row;
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_selectRow(this, handle__selectRow, sigval1);
+		bool callback_return_value = vtbl->selectRow(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_selectRow(void* self, int row);
+	friend bool QSqlTableModel_virtualbase_selectRow(VirtualQSqlTableModel* self, int row);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__submit = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool submit() override {
-		if (handle__submit == 0) {
+		if (vtbl->submit == 0) {
 			return QSqlTableModel::submit();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_submit(this, handle__submit);
+		bool callback_return_value = vtbl->submit(this);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_submit(void* self);
+	friend bool QSqlTableModel_virtualbase_submit(VirtualQSqlTableModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__revert = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void revert() override {
-		if (handle__revert == 0) {
+		if (vtbl->revert == 0) {
 			QSqlTableModel::revert();
 			return;
 		}
 
-		miqt_exec_callback_QSqlTableModel_revert(this, handle__revert);
-
+		vtbl->revert(this);
 	}
 
-	friend void QSqlTableModel_virtualbase_revert(void* self);
+	friend void QSqlTableModel_virtualbase_revert(VirtualQSqlTableModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__updateRowInTable = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool updateRowInTable(int row, const QSqlRecord& values) override {
-		if (handle__updateRowInTable == 0) {
+		if (vtbl->updateRowInTable == 0) {
 			return QSqlTableModel::updateRowInTable(row, values);
 		}
 
@@ -546,120 +397,92 @@ public:
 		const QSqlRecord& values_ret = values;
 		// Cast returned reference into pointer
 		QSqlRecord* sigval2 = const_cast<QSqlRecord*>(&values_ret);
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_updateRowInTable(this, handle__updateRowInTable, sigval1, sigval2);
+		bool callback_return_value = vtbl->updateRowInTable(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_updateRowInTable(void* self, int row, QSqlRecord* values);
+	friend bool QSqlTableModel_virtualbase_updateRowInTable(VirtualQSqlTableModel* self, int row, QSqlRecord* values);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__insertRowIntoTable = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool insertRowIntoTable(const QSqlRecord& values) override {
-		if (handle__insertRowIntoTable == 0) {
+		if (vtbl->insertRowIntoTable == 0) {
 			return QSqlTableModel::insertRowIntoTable(values);
 		}
 
 		const QSqlRecord& values_ret = values;
 		// Cast returned reference into pointer
 		QSqlRecord* sigval1 = const_cast<QSqlRecord*>(&values_ret);
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_insertRowIntoTable(this, handle__insertRowIntoTable, sigval1);
+		bool callback_return_value = vtbl->insertRowIntoTable(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_insertRowIntoTable(void* self, QSqlRecord* values);
+	friend bool QSqlTableModel_virtualbase_insertRowIntoTable(VirtualQSqlTableModel* self, QSqlRecord* values);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__deleteRowFromTable = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool deleteRowFromTable(int row) override {
-		if (handle__deleteRowFromTable == 0) {
+		if (vtbl->deleteRowFromTable == 0) {
 			return QSqlTableModel::deleteRowFromTable(row);
 		}
 
 		int sigval1 = row;
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_deleteRowFromTable(this, handle__deleteRowFromTable, sigval1);
+		bool callback_return_value = vtbl->deleteRowFromTable(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_deleteRowFromTable(void* self, int row);
+	friend bool QSqlTableModel_virtualbase_deleteRowFromTable(VirtualQSqlTableModel* self, int row);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__orderByClause = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString orderByClause() const override {
-		if (handle__orderByClause == 0) {
+		if (vtbl->orderByClause == 0) {
 			return QSqlTableModel::orderByClause();
 		}
 
-		struct seaqt_string callback_return_value = miqt_exec_callback_QSqlTableModel_orderByClause(this, handle__orderByClause);
+		struct seaqt_string callback_return_value = vtbl->orderByClause(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	friend struct seaqt_string QSqlTableModel_virtualbase_orderByClause(const void* self);
+	friend struct seaqt_string QSqlTableModel_virtualbase_orderByClause(const VirtualQSqlTableModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__selectStatement = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QString selectStatement() const override {
-		if (handle__selectStatement == 0) {
+		if (vtbl->selectStatement == 0) {
 			return QSqlTableModel::selectStatement();
 		}
 
-		struct seaqt_string callback_return_value = miqt_exec_callback_QSqlTableModel_selectStatement(this, handle__selectStatement);
+		struct seaqt_string callback_return_value = vtbl->selectStatement(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	friend struct seaqt_string QSqlTableModel_virtualbase_selectStatement(const void* self);
+	friend struct seaqt_string QSqlTableModel_virtualbase_selectStatement(const VirtualQSqlTableModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__indexInQuery = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QModelIndex indexInQuery(const QModelIndex& item) const override {
-		if (handle__indexInQuery == 0) {
+		if (vtbl->indexInQuery == 0) {
 			return QSqlTableModel::indexInQuery(item);
 		}
 
 		const QModelIndex& item_ret = item;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&item_ret);
-		QModelIndex* callback_return_value = miqt_exec_callback_QSqlTableModel_indexInQuery(this, handle__indexInQuery, sigval1);
+		QModelIndex* callback_return_value = vtbl->indexInQuery(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QModelIndex* QSqlTableModel_virtualbase_indexInQuery(const void* self, QModelIndex* item);
+	friend QModelIndex* QSqlTableModel_virtualbase_indexInQuery(const VirtualQSqlTableModel* self, QModelIndex* item);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__columnCount = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int columnCount(const QModelIndex& parent) const override {
-		if (handle__columnCount == 0) {
+		if (vtbl->columnCount == 0) {
 			return QSqlTableModel::columnCount(parent);
 		}
 
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&parent_ret);
-		int callback_return_value = miqt_exec_callback_QSqlTableModel_columnCount(this, handle__columnCount, sigval1);
+		int callback_return_value = vtbl->columnCount(this, sigval1);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QSqlTableModel_virtualbase_columnCount(const void* self, QModelIndex* parent);
+	friend int QSqlTableModel_virtualbase_columnCount(const VirtualQSqlTableModel* self, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setHeaderData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool setHeaderData(int section, Qt::Orientation orientation, const QVariant& value, int role) override {
-		if (handle__setHeaderData == 0) {
+		if (vtbl->setHeaderData == 0) {
 			return QSqlTableModel::setHeaderData(section, orientation, value, role);
 		}
 
@@ -670,18 +493,14 @@ public:
 		// Cast returned reference into pointer
 		QVariant* sigval3 = const_cast<QVariant*>(&value_ret);
 		int sigval4 = role;
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_setHeaderData(this, handle__setHeaderData, sigval1, sigval2, sigval3, sigval4);
+		bool callback_return_value = vtbl->setHeaderData(this, sigval1, sigval2, sigval3, sigval4);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_setHeaderData(void* self, int section, int orientation, QVariant* value, int role);
+	friend bool QSqlTableModel_virtualbase_setHeaderData(VirtualQSqlTableModel* self, int section, int orientation, QVariant* value, int role);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__insertColumns = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool insertColumns(int column, int count, const QModelIndex& parent) override {
-		if (handle__insertColumns == 0) {
+		if (vtbl->insertColumns == 0) {
 			return QSqlTableModel::insertColumns(column, count, parent);
 		}
 
@@ -690,18 +509,14 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_insertColumns(this, handle__insertColumns, sigval1, sigval2, sigval3);
+		bool callback_return_value = vtbl->insertColumns(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_insertColumns(void* self, int column, int count, QModelIndex* parent);
+	friend bool QSqlTableModel_virtualbase_insertColumns(VirtualQSqlTableModel* self, int column, int count, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__fetchMore = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void fetchMore(const QModelIndex& parent) override {
-		if (handle__fetchMore == 0) {
+		if (vtbl->fetchMore == 0) {
 			QSqlTableModel::fetchMore(parent);
 			return;
 		}
@@ -709,40 +524,31 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&parent_ret);
-		miqt_exec_callback_QSqlTableModel_fetchMore(this, handle__fetchMore, sigval1);
-
+		vtbl->fetchMore(this, sigval1);
 	}
 
-	friend void QSqlTableModel_virtualbase_fetchMore(void* self, QModelIndex* parent);
+	friend void QSqlTableModel_virtualbase_fetchMore(VirtualQSqlTableModel* self, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__canFetchMore = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool canFetchMore(const QModelIndex& parent) const override {
-		if (handle__canFetchMore == 0) {
+		if (vtbl->canFetchMore == 0) {
 			return QSqlTableModel::canFetchMore(parent);
 		}
 
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_canFetchMore(this, handle__canFetchMore, sigval1);
+		bool callback_return_value = vtbl->canFetchMore(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_canFetchMore(const void* self, QModelIndex* parent);
+	friend bool QSqlTableModel_virtualbase_canFetchMore(const VirtualQSqlTableModel* self, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__roleNames = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QHash<int, QByteArray> roleNames() const override {
-		if (handle__roleNames == 0) {
+		if (vtbl->roleNames == 0) {
 			return QSqlTableModel::roleNames();
 		}
 
-		struct seaqt_map /* of int to struct seaqt_string */  callback_return_value = miqt_exec_callback_QSqlTableModel_roleNames(this, handle__roleNames);
+		struct seaqt_map /* of int to struct seaqt_string */  callback_return_value = vtbl->roleNames(this);
 		QHash<int, QByteArray> callback_return_value_QMap;
 		callback_return_value_QMap.reserve(callback_return_value.len);
 		int* callback_return_value_karr = static_cast<int*>(callback_return_value.keys);
@@ -754,30 +560,21 @@ public:
 		return callback_return_value_QMap;
 	}
 
-	friend struct seaqt_map /* of int to struct seaqt_string */  QSqlTableModel_virtualbase_roleNames(const void* self);
+	friend struct seaqt_map /* of int to struct seaqt_string */  QSqlTableModel_virtualbase_roleNames(const VirtualQSqlTableModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__queryChange = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void queryChange() override {
-		if (handle__queryChange == 0) {
+		if (vtbl->queryChange == 0) {
 			QSqlTableModel::queryChange();
 			return;
 		}
 
-		miqt_exec_callback_QSqlTableModel_queryChange(this, handle__queryChange);
-
+		vtbl->queryChange(this);
 	}
 
-	friend void QSqlTableModel_virtualbase_queryChange(void* self);
+	friend void QSqlTableModel_virtualbase_queryChange(VirtualQSqlTableModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__index = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QModelIndex index(int row, int column, const QModelIndex& parent) const override {
-		if (handle__index == 0) {
+		if (vtbl->index == 0) {
 			return QSqlTableModel::index(row, column, parent);
 		}
 
@@ -786,18 +583,14 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&parent_ret);
-		QModelIndex* callback_return_value = miqt_exec_callback_QSqlTableModel_index(this, handle__index, sigval1, sigval2, sigval3);
+		QModelIndex* callback_return_value = vtbl->index(this, sigval1, sigval2, sigval3);
 		return *callback_return_value;
 	}
 
-	friend QModelIndex* QSqlTableModel_virtualbase_index(const void* self, int row, int column, QModelIndex* parent);
+	friend QModelIndex* QSqlTableModel_virtualbase_index(const VirtualQSqlTableModel* self, int row, int column, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sibling = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QModelIndex sibling(int row, int column, const QModelIndex& idx) const override {
-		if (handle__sibling == 0) {
+		if (vtbl->sibling == 0) {
 			return QSqlTableModel::sibling(row, column, idx);
 		}
 
@@ -806,18 +599,14 @@ public:
 		const QModelIndex& idx_ret = idx;
 		// Cast returned reference into pointer
 		QModelIndex* sigval3 = const_cast<QModelIndex*>(&idx_ret);
-		QModelIndex* callback_return_value = miqt_exec_callback_QSqlTableModel_sibling(this, handle__sibling, sigval1, sigval2, sigval3);
+		QModelIndex* callback_return_value = vtbl->sibling(this, sigval1, sigval2, sigval3);
 		return *callback_return_value;
 	}
 
-	friend QModelIndex* QSqlTableModel_virtualbase_sibling(const void* self, int row, int column, QModelIndex* idx);
+	friend QModelIndex* QSqlTableModel_virtualbase_sibling(const VirtualQSqlTableModel* self, int row, int column, QModelIndex* idx);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__dropMimeData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent) override {
-		if (handle__dropMimeData == 0) {
+		if (vtbl->dropMimeData == 0) {
 			return QSqlTableModel::dropMimeData(data, action, row, column, parent);
 		}
 
@@ -829,25 +618,21 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval5 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_dropMimeData(this, handle__dropMimeData, sigval1, sigval2, sigval3, sigval4, sigval5);
+		bool callback_return_value = vtbl->dropMimeData(this, sigval1, sigval2, sigval3, sigval4, sigval5);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_dropMimeData(void* self, QMimeData* data, int action, int row, int column, QModelIndex* parent);
+	friend bool QSqlTableModel_virtualbase_dropMimeData(VirtualQSqlTableModel* self, QMimeData* data, int action, int row, int column, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__itemData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QMap<int, QVariant> itemData(const QModelIndex& index) const override {
-		if (handle__itemData == 0) {
+		if (vtbl->itemData == 0) {
 			return QSqlTableModel::itemData(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		struct seaqt_map /* of int to QVariant* */  callback_return_value = miqt_exec_callback_QSqlTableModel_itemData(this, handle__itemData, sigval1);
+		struct seaqt_map /* of int to QVariant* */  callback_return_value = vtbl->itemData(this, sigval1);
 		QMap<int, QVariant> callback_return_value_QMap;
 		int* callback_return_value_karr = static_cast<int*>(callback_return_value.keys);
 		QVariant** callback_return_value_varr = static_cast<QVariant**>(callback_return_value.values);
@@ -857,14 +642,10 @@ public:
 		return callback_return_value_QMap;
 	}
 
-	friend struct seaqt_map /* of int to QVariant* */  QSqlTableModel_virtualbase_itemData(const void* self, QModelIndex* index);
+	friend struct seaqt_map /* of int to QVariant* */  QSqlTableModel_virtualbase_itemData(const VirtualQSqlTableModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setItemData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool setItemData(const QModelIndex& index, const QMap<int, QVariant>& roles) override {
-		if (handle__setItemData == 0) {
+		if (vtbl->setItemData == 0) {
 			return QSqlTableModel::setItemData(index, roles);
 		}
 
@@ -886,22 +667,18 @@ public:
 		roles_out.keys = static_cast<void*>(roles_karr);
 		roles_out.values = static_cast<void*>(roles_varr);
 		struct seaqt_map /* of int to QVariant* */  sigval2 = roles_out;
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_setItemData(this, handle__setItemData, sigval1, sigval2);
+		bool callback_return_value = vtbl->setItemData(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_setItemData(void* self, QModelIndex* index, struct seaqt_map /* of int to QVariant* */  roles);
+	friend bool QSqlTableModel_virtualbase_setItemData(VirtualQSqlTableModel* self, QModelIndex* index, struct seaqt_map /* of int to QVariant* */  roles);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mimeTypes = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QStringList mimeTypes() const override {
-		if (handle__mimeTypes == 0) {
+		if (vtbl->mimeTypes == 0) {
 			return QSqlTableModel::mimeTypes();
 		}
 
-		struct seaqt_array /* of struct seaqt_string */  callback_return_value = miqt_exec_callback_QSqlTableModel_mimeTypes(this, handle__mimeTypes);
+		struct seaqt_array /* of struct seaqt_string */  callback_return_value = vtbl->mimeTypes(this);
 		QStringList callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		struct seaqt_string* callback_return_value_arr = static_cast<struct seaqt_string*>(callback_return_value.data);
@@ -912,14 +689,10 @@ public:
 		return callback_return_value_QList;
 	}
 
-	friend struct seaqt_array /* of struct seaqt_string */  QSqlTableModel_virtualbase_mimeTypes(const void* self);
+	friend struct seaqt_array /* of struct seaqt_string */  QSqlTableModel_virtualbase_mimeTypes(const VirtualQSqlTableModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mimeData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QMimeData* mimeData(const QModelIndexList& indexes) const override {
-		if (handle__mimeData == 0) {
+		if (vtbl->mimeData == 0) {
 			return QSqlTableModel::mimeData(indexes);
 		}
 
@@ -933,18 +706,14 @@ public:
 		indexes_out.len = indexes_ret.length();
 		indexes_out.data = static_cast<void*>(indexes_arr);
 		struct seaqt_array /* of QModelIndex* */  sigval1 = indexes_out;
-		QMimeData* callback_return_value = miqt_exec_callback_QSqlTableModel_mimeData(this, handle__mimeData, sigval1);
+		QMimeData* callback_return_value = vtbl->mimeData(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QMimeData* QSqlTableModel_virtualbase_mimeData(const void* self, struct seaqt_array /* of QModelIndex* */  indexes);
+	friend QMimeData* QSqlTableModel_virtualbase_mimeData(const VirtualQSqlTableModel* self, struct seaqt_array /* of QModelIndex* */  indexes);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__canDropMimeData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool canDropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent) const override {
-		if (handle__canDropMimeData == 0) {
+		if (vtbl->canDropMimeData == 0) {
 			return QSqlTableModel::canDropMimeData(data, action, row, column, parent);
 		}
 
@@ -956,48 +725,36 @@ public:
 		const QModelIndex& parent_ret = parent;
 		// Cast returned reference into pointer
 		QModelIndex* sigval5 = const_cast<QModelIndex*>(&parent_ret);
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_canDropMimeData(this, handle__canDropMimeData, sigval1, sigval2, sigval3, sigval4, sigval5);
+		bool callback_return_value = vtbl->canDropMimeData(this, sigval1, sigval2, sigval3, sigval4, sigval5);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_canDropMimeData(const void* self, QMimeData* data, int action, int row, int column, QModelIndex* parent);
+	friend bool QSqlTableModel_virtualbase_canDropMimeData(const VirtualQSqlTableModel* self, QMimeData* data, int action, int row, int column, QModelIndex* parent);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__supportedDropActions = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual Qt::DropActions supportedDropActions() const override {
-		if (handle__supportedDropActions == 0) {
+		if (vtbl->supportedDropActions == 0) {
 			return QSqlTableModel::supportedDropActions();
 		}
 
-		int callback_return_value = miqt_exec_callback_QSqlTableModel_supportedDropActions(this, handle__supportedDropActions);
+		int callback_return_value = vtbl->supportedDropActions(this);
 		return static_cast<Qt::DropActions>(callback_return_value);
 	}
 
-	friend int QSqlTableModel_virtualbase_supportedDropActions(const void* self);
+	friend int QSqlTableModel_virtualbase_supportedDropActions(const VirtualQSqlTableModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__supportedDragActions = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual Qt::DropActions supportedDragActions() const override {
-		if (handle__supportedDragActions == 0) {
+		if (vtbl->supportedDragActions == 0) {
 			return QSqlTableModel::supportedDragActions();
 		}
 
-		int callback_return_value = miqt_exec_callback_QSqlTableModel_supportedDragActions(this, handle__supportedDragActions);
+		int callback_return_value = vtbl->supportedDragActions(this);
 		return static_cast<Qt::DropActions>(callback_return_value);
 	}
 
-	friend int QSqlTableModel_virtualbase_supportedDragActions(const void* self);
+	friend int QSqlTableModel_virtualbase_supportedDragActions(const VirtualQSqlTableModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__moveRows = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool moveRows(const QModelIndex& sourceParent, int sourceRow, int count, const QModelIndex& destinationParent, int destinationChild) override {
-		if (handle__moveRows == 0) {
+		if (vtbl->moveRows == 0) {
 			return QSqlTableModel::moveRows(sourceParent, sourceRow, count, destinationParent, destinationChild);
 		}
 
@@ -1010,18 +767,14 @@ public:
 		// Cast returned reference into pointer
 		QModelIndex* sigval4 = const_cast<QModelIndex*>(&destinationParent_ret);
 		int sigval5 = destinationChild;
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_moveRows(this, handle__moveRows, sigval1, sigval2, sigval3, sigval4, sigval5);
+		bool callback_return_value = vtbl->moveRows(this, sigval1, sigval2, sigval3, sigval4, sigval5);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_moveRows(void* self, QModelIndex* sourceParent, int sourceRow, int count, QModelIndex* destinationParent, int destinationChild);
+	friend bool QSqlTableModel_virtualbase_moveRows(VirtualQSqlTableModel* self, QModelIndex* sourceParent, int sourceRow, int count, QModelIndex* destinationParent, int destinationChild);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__moveColumns = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool moveColumns(const QModelIndex& sourceParent, int sourceColumn, int count, const QModelIndex& destinationParent, int destinationChild) override {
-		if (handle__moveColumns == 0) {
+		if (vtbl->moveColumns == 0) {
 			return QSqlTableModel::moveColumns(sourceParent, sourceColumn, count, destinationParent, destinationChild);
 		}
 
@@ -1034,36 +787,28 @@ public:
 		// Cast returned reference into pointer
 		QModelIndex* sigval4 = const_cast<QModelIndex*>(&destinationParent_ret);
 		int sigval5 = destinationChild;
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_moveColumns(this, handle__moveColumns, sigval1, sigval2, sigval3, sigval4, sigval5);
+		bool callback_return_value = vtbl->moveColumns(this, sigval1, sigval2, sigval3, sigval4, sigval5);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_moveColumns(void* self, QModelIndex* sourceParent, int sourceColumn, int count, QModelIndex* destinationParent, int destinationChild);
+	friend bool QSqlTableModel_virtualbase_moveColumns(VirtualQSqlTableModel* self, QModelIndex* sourceParent, int sourceColumn, int count, QModelIndex* destinationParent, int destinationChild);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__buddy = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QModelIndex buddy(const QModelIndex& index) const override {
-		if (handle__buddy == 0) {
+		if (vtbl->buddy == 0) {
 			return QSqlTableModel::buddy(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		QModelIndex* callback_return_value = miqt_exec_callback_QSqlTableModel_buddy(this, handle__buddy, sigval1);
+		QModelIndex* callback_return_value = vtbl->buddy(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QModelIndex* QSqlTableModel_virtualbase_buddy(const void* self, QModelIndex* index);
+	friend QModelIndex* QSqlTableModel_virtualbase_buddy(const VirtualQSqlTableModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__match = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QModelIndexList match(const QModelIndex& start, int role, const QVariant& value, int hits, Qt::MatchFlags flags) const override {
-		if (handle__match == 0) {
+		if (vtbl->match == 0) {
 			return QSqlTableModel::match(start, role, value, hits, flags);
 		}
 
@@ -1077,7 +822,7 @@ public:
 		int sigval4 = hits;
 		Qt::MatchFlags flags_ret = flags;
 		int sigval5 = static_cast<int>(flags_ret);
-		struct seaqt_array /* of QModelIndex* */  callback_return_value = miqt_exec_callback_QSqlTableModel_match(this, handle__match, sigval1, sigval2, sigval3, sigval4, sigval5);
+		struct seaqt_array /* of QModelIndex* */  callback_return_value = vtbl->match(this, sigval1, sigval2, sigval3, sigval4, sigval5);
 		QModelIndexList callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		QModelIndex** callback_return_value_arr = static_cast<QModelIndex**>(callback_return_value.data);
@@ -1087,32 +832,24 @@ public:
 		return callback_return_value_QList;
 	}
 
-	friend struct seaqt_array /* of QModelIndex* */  QSqlTableModel_virtualbase_match(const void* self, QModelIndex* start, int role, QVariant* value, int hits, int flags);
+	friend struct seaqt_array /* of QModelIndex* */  QSqlTableModel_virtualbase_match(const VirtualQSqlTableModel* self, QModelIndex* start, int role, QVariant* value, int hits, int flags);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__span = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSize span(const QModelIndex& index) const override {
-		if (handle__span == 0) {
+		if (vtbl->span == 0) {
 			return QSqlTableModel::span(index);
 		}
 
 		const QModelIndex& index_ret = index;
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
-		QSize* callback_return_value = miqt_exec_callback_QSqlTableModel_span(this, handle__span, sigval1);
+		QSize* callback_return_value = vtbl->span(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QSize* QSqlTableModel_virtualbase_span(const void* self, QModelIndex* index);
+	friend QSize* QSqlTableModel_virtualbase_span(const VirtualQSqlTableModel* self, QModelIndex* index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__multiData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void multiData(const QModelIndex& index, QModelRoleDataSpan roleDataSpan) const override {
-		if (handle__multiData == 0) {
+		if (vtbl->multiData == 0) {
 			QSqlTableModel::multiData(index, roleDataSpan);
 			return;
 		}
@@ -1121,118 +858,85 @@ public:
 		// Cast returned reference into pointer
 		QModelIndex* sigval1 = const_cast<QModelIndex*>(&index_ret);
 		QModelRoleDataSpan* sigval2 = new QModelRoleDataSpan(roleDataSpan);
-		miqt_exec_callback_QSqlTableModel_multiData(this, handle__multiData, sigval1, sigval2);
-
+		vtbl->multiData(this, sigval1, sigval2);
 	}
 
-	friend void QSqlTableModel_virtualbase_multiData(const void* self, QModelIndex* index, QModelRoleDataSpan* roleDataSpan);
+	friend void QSqlTableModel_virtualbase_multiData(const VirtualQSqlTableModel* self, QModelIndex* index, QModelRoleDataSpan* roleDataSpan);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__resetInternalData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void resetInternalData() override {
-		if (handle__resetInternalData == 0) {
+		if (vtbl->resetInternalData == 0) {
 			QSqlTableModel::resetInternalData();
 			return;
 		}
 
-		miqt_exec_callback_QSqlTableModel_resetInternalData(this, handle__resetInternalData);
-
+		vtbl->resetInternalData(this);
 	}
 
-	friend void QSqlTableModel_virtualbase_resetInternalData(void* self);
+	friend void QSqlTableModel_virtualbase_resetInternalData(VirtualQSqlTableModel* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QSqlTableModel::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_event(void* self, QEvent* event);
+	friend bool QSqlTableModel_virtualbase_event(VirtualQSqlTableModel* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QSqlTableModel::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QSqlTableModel_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QSqlTableModel_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QSqlTableModel_virtualbase_eventFilter(VirtualQSqlTableModel* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QSqlTableModel::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QSqlTableModel_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QSqlTableModel_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QSqlTableModel_virtualbase_timerEvent(VirtualQSqlTableModel* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QSqlTableModel::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QSqlTableModel_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QSqlTableModel_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QSqlTableModel_virtualbase_childEvent(VirtualQSqlTableModel* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QSqlTableModel::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QSqlTableModel_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QSqlTableModel_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QSqlTableModel_virtualbase_customEvent(VirtualQSqlTableModel* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QSqlTableModel::connectNotify(signal);
 			return;
 		}
@@ -1240,18 +944,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSqlTableModel_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QSqlTableModel_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QSqlTableModel_virtualbase_connectNotify(VirtualQSqlTableModel* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QSqlTableModel::disconnectNotify(signal);
 			return;
 		}
@@ -1259,53 +958,55 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSqlTableModel_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QSqlTableModel_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QSqlTableModel_virtualbase_disconnectNotify(VirtualQSqlTableModel* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend void QSqlTableModel_protectedbase_setPrimaryKey(bool* _dynamic_cast_ok, void* self, QSqlIndex* key);
-	friend void QSqlTableModel_protectedbase_setQuery(bool* _dynamic_cast_ok, void* self, QSqlQuery* query);
-	friend QSqlRecord* QSqlTableModel_protectedbase_primaryValues(bool* _dynamic_cast_ok, const void* self, int row);
-	friend void QSqlTableModel_protectedbase_beginInsertRows(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last);
-	friend void QSqlTableModel_protectedbase_endInsertRows(bool* _dynamic_cast_ok, void* self);
-	friend void QSqlTableModel_protectedbase_beginRemoveRows(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last);
-	friend void QSqlTableModel_protectedbase_endRemoveRows(bool* _dynamic_cast_ok, void* self);
-	friend void QSqlTableModel_protectedbase_beginInsertColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last);
-	friend void QSqlTableModel_protectedbase_endInsertColumns(bool* _dynamic_cast_ok, void* self);
-	friend void QSqlTableModel_protectedbase_beginRemoveColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last);
-	friend void QSqlTableModel_protectedbase_endRemoveColumns(bool* _dynamic_cast_ok, void* self);
-	friend void QSqlTableModel_protectedbase_beginResetModel(bool* _dynamic_cast_ok, void* self);
-	friend void QSqlTableModel_protectedbase_endResetModel(bool* _dynamic_cast_ok, void* self);
-	friend void QSqlTableModel_protectedbase_setLastError(bool* _dynamic_cast_ok, void* self, QSqlError* error);
-	friend QModelIndex* QSqlTableModel_protectedbase_createIndex(bool* _dynamic_cast_ok, const void* self, int row, int column);
-	friend void QSqlTableModel_protectedbase_encodeData(bool* _dynamic_cast_ok, const void* self, struct seaqt_array /* of QModelIndex* */  indexes, QDataStream* stream);
-	friend bool QSqlTableModel_protectedbase_decodeData(bool* _dynamic_cast_ok, void* self, int row, int column, QModelIndex* parent, QDataStream* stream);
-	friend bool QSqlTableModel_protectedbase_beginMoveRows(bool* _dynamic_cast_ok, void* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationRow);
-	friend void QSqlTableModel_protectedbase_endMoveRows(bool* _dynamic_cast_ok, void* self);
-	friend bool QSqlTableModel_protectedbase_beginMoveColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationColumn);
-	friend void QSqlTableModel_protectedbase_endMoveColumns(bool* _dynamic_cast_ok, void* self);
-	friend void QSqlTableModel_protectedbase_changePersistentIndex(bool* _dynamic_cast_ok, void* self, QModelIndex* from, QModelIndex* to);
-	friend void QSqlTableModel_protectedbase_changePersistentIndexList(bool* _dynamic_cast_ok, void* self, struct seaqt_array /* of QModelIndex* */  from, struct seaqt_array /* of QModelIndex* */  to);
-	friend struct seaqt_array /* of QModelIndex* */  QSqlTableModel_protectedbase_persistentIndexList(bool* _dynamic_cast_ok, const void* self);
-	friend QObject* QSqlTableModel_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QSqlTableModel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QSqlTableModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QSqlTableModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend void QSqlTableModel_protectedbase_setPrimaryKey(VirtualQSqlTableModel* self, QSqlIndex* key);
+	friend void QSqlTableModel_protectedbase_setQuery(VirtualQSqlTableModel* self, QSqlQuery* query);
+	friend QSqlRecord* QSqlTableModel_protectedbase_primaryValues(const VirtualQSqlTableModel* self, int row);
+	friend void QSqlTableModel_protectedbase_beginInsertRows(VirtualQSqlTableModel* self, QModelIndex* parent, int first, int last);
+	friend void QSqlTableModel_protectedbase_endInsertRows(VirtualQSqlTableModel* self);
+	friend void QSqlTableModel_protectedbase_beginRemoveRows(VirtualQSqlTableModel* self, QModelIndex* parent, int first, int last);
+	friend void QSqlTableModel_protectedbase_endRemoveRows(VirtualQSqlTableModel* self);
+	friend void QSqlTableModel_protectedbase_beginInsertColumns(VirtualQSqlTableModel* self, QModelIndex* parent, int first, int last);
+	friend void QSqlTableModel_protectedbase_endInsertColumns(VirtualQSqlTableModel* self);
+	friend void QSqlTableModel_protectedbase_beginRemoveColumns(VirtualQSqlTableModel* self, QModelIndex* parent, int first, int last);
+	friend void QSqlTableModel_protectedbase_endRemoveColumns(VirtualQSqlTableModel* self);
+	friend void QSqlTableModel_protectedbase_beginResetModel(VirtualQSqlTableModel* self);
+	friend void QSqlTableModel_protectedbase_endResetModel(VirtualQSqlTableModel* self);
+	friend void QSqlTableModel_protectedbase_setLastError(VirtualQSqlTableModel* self, QSqlError* error);
+	friend QModelIndex* QSqlTableModel_protectedbase_createIndex(const VirtualQSqlTableModel* self, int row, int column);
+	friend void QSqlTableModel_protectedbase_encodeData(const VirtualQSqlTableModel* self, struct seaqt_array /* of QModelIndex* */  indexes, QDataStream* stream);
+	friend bool QSqlTableModel_protectedbase_decodeData(VirtualQSqlTableModel* self, int row, int column, QModelIndex* parent, QDataStream* stream);
+	friend bool QSqlTableModel_protectedbase_beginMoveRows(VirtualQSqlTableModel* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationRow);
+	friend void QSqlTableModel_protectedbase_endMoveRows(VirtualQSqlTableModel* self);
+	friend bool QSqlTableModel_protectedbase_beginMoveColumns(VirtualQSqlTableModel* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationColumn);
+	friend void QSqlTableModel_protectedbase_endMoveColumns(VirtualQSqlTableModel* self);
+	friend void QSqlTableModel_protectedbase_changePersistentIndex(VirtualQSqlTableModel* self, QModelIndex* from, QModelIndex* to);
+	friend void QSqlTableModel_protectedbase_changePersistentIndexList(VirtualQSqlTableModel* self, struct seaqt_array /* of QModelIndex* */  from, struct seaqt_array /* of QModelIndex* */  to);
+	friend struct seaqt_array /* of QModelIndex* */  QSqlTableModel_protectedbase_persistentIndexList(const VirtualQSqlTableModel* self);
+	friend QObject* QSqlTableModel_protectedbase_sender(const VirtualQSqlTableModel* self);
+	friend int QSqlTableModel_protectedbase_senderSignalIndex(const VirtualQSqlTableModel* self);
+	friend int QSqlTableModel_protectedbase_receivers(const VirtualQSqlTableModel* self, const char* signal);
+	friend bool QSqlTableModel_protectedbase_isSignalConnected(const VirtualQSqlTableModel* self, QMetaMethod* signal);
 };
 
-QSqlTableModel* QSqlTableModel_new() {
-	return new (std::nothrow) VirtualQSqlTableModel();
+VirtualQSqlTableModel* QSqlTableModel_new(const QSqlTableModel_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSqlTableModel>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSqlTableModel(vtbl) : nullptr;
 }
 
-QSqlTableModel* QSqlTableModel_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQSqlTableModel(parent);
+VirtualQSqlTableModel* QSqlTableModel_new2(const QSqlTableModel_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSqlTableModel>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSqlTableModel(vtbl, parent) : nullptr;
 }
 
-QSqlTableModel* QSqlTableModel_new3(QObject* parent, QSqlDatabase* db) {
-	return new (std::nothrow) VirtualQSqlTableModel(parent, *db);
+VirtualQSqlTableModel* QSqlTableModel_new3(const QSqlTableModel_VTable* vtbl, size_t vdata, QObject* parent, QSqlDatabase* db) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSqlTableModel>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSqlTableModel(vtbl, parent, *db) : nullptr;
 }
 
 void QSqlTableModel_virtbase(QSqlTableModel* src, QSqlQueryModel** outptr_QSqlQueryModel) {
@@ -1565,385 +1266,145 @@ struct seaqt_string QSqlTableModel_tr3(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QSqlTableModel_staticMetaObject() { return &QSqlTableModel::staticMetaObject; }
-bool QSqlTableModel_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QSqlTableModel_vdata(VirtualQSqlTableModel* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQSqlTableModel>()); }
+VirtualQSqlTableModel* vdata_QSqlTableModel(void* vdata) { return reinterpret_cast<VirtualQSqlTableModel*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQSqlTableModel>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QSqlTableModel_virtualbase_metaObject(const VirtualQSqlTableModel* self) {
+
+	return (QMetaObject*) self->QSqlTableModel::metaObject();
 }
 
-QMetaObject* QSqlTableModel_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::metaObject();
+void* QSqlTableModel_virtualbase_metacast(VirtualQSqlTableModel* self, const char* param1) {
+
+	return self->QSqlTableModel::qt_metacast(param1);
 }
 
-bool QSqlTableModel_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QSqlTableModel_virtualbase_metacall(VirtualQSqlTableModel* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QSqlTableModel::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QSqlTableModel_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::qt_metacast(param1);
-}
-
-bool QSqlTableModel_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__metacall = slot;
-	return true;
-}
-
-int QSqlTableModel_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
-}
-
-bool QSqlTableModel_override_virtual_setTable(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setTable = slot;
-	return true;
-}
-
-void QSqlTableModel_virtualbase_setTable(void* self, struct seaqt_string tableName) {
+void QSqlTableModel_virtualbase_setTable(VirtualQSqlTableModel* self, struct seaqt_string tableName) {
 	QString tableName_QString = QString::fromUtf8(tableName.data, tableName.len);
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::setTable(tableName_QString);
+
+	self->QSqlTableModel::setTable(tableName_QString);
 }
 
-bool QSqlTableModel_override_virtual_flags(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QSqlTableModel_virtualbase_flags(const VirtualQSqlTableModel* self, QModelIndex* index) {
 
-	self_cast->handle__flags = slot;
-	return true;
-}
-
-int QSqlTableModel_virtualbase_flags(const void* self, QModelIndex* index) {
-	Qt::ItemFlags _ret = static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::flags(*index);
+	Qt::ItemFlags _ret = self->QSqlTableModel::flags(*index);
 	return static_cast<int>(_ret);
 }
 
-bool QSqlTableModel_override_virtual_data(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QVariant* QSqlTableModel_virtualbase_data(const VirtualQSqlTableModel* self, QModelIndex* idx, int role) {
 
-	self_cast->handle__data = slot;
-	return true;
+	return new QVariant(self->QSqlTableModel::data(*idx, static_cast<int>(role)));
 }
 
-QVariant* QSqlTableModel_virtualbase_data(const void* self, QModelIndex* idx, int role) {
-	return new QVariant(static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::data(*idx, static_cast<int>(role)));
+bool QSqlTableModel_virtualbase_setData(VirtualQSqlTableModel* self, QModelIndex* index, QVariant* value, int role) {
+
+	return self->QSqlTableModel::setData(*index, *value, static_cast<int>(role));
 }
 
-bool QSqlTableModel_override_virtual_setData(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSqlTableModel_virtualbase_clearItemData(VirtualQSqlTableModel* self, QModelIndex* index) {
 
-	self_cast->handle__setData = slot;
-	return true;
+	return self->QSqlTableModel::clearItemData(*index);
 }
 
-bool QSqlTableModel_virtualbase_setData(void* self, QModelIndex* index, QVariant* value, int role) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::setData(*index, *value, static_cast<int>(role));
+QVariant* QSqlTableModel_virtualbase_headerData(const VirtualQSqlTableModel* self, int section, int orientation, int role) {
+
+	return new QVariant(self->QSqlTableModel::headerData(static_cast<int>(section), static_cast<Qt::Orientation>(orientation), static_cast<int>(role)));
 }
 
-bool QSqlTableModel_override_virtual_clearItemData(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSqlTableModel_virtualbase_clear(VirtualQSqlTableModel* self) {
 
-	self_cast->handle__clearItemData = slot;
-	return true;
+	self->QSqlTableModel::clear();
 }
 
-bool QSqlTableModel_virtualbase_clearItemData(void* self, QModelIndex* index) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::clearItemData(*index);
+void QSqlTableModel_virtualbase_setEditStrategy(VirtualQSqlTableModel* self, int strategy) {
+
+	self->QSqlTableModel::setEditStrategy(static_cast<VirtualQSqlTableModel::EditStrategy>(strategy));
 }
 
-bool QSqlTableModel_override_virtual_headerData(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSqlTableModel_virtualbase_sort(VirtualQSqlTableModel* self, int column, int order) {
 
-	self_cast->handle__headerData = slot;
-	return true;
+	self->QSqlTableModel::sort(static_cast<int>(column), static_cast<Qt::SortOrder>(order));
 }
 
-QVariant* QSqlTableModel_virtualbase_headerData(const void* self, int section, int orientation, int role) {
-	return new QVariant(static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::headerData(static_cast<int>(section), static_cast<Qt::Orientation>(orientation), static_cast<int>(role)));
+void QSqlTableModel_virtualbase_setSort(VirtualQSqlTableModel* self, int column, int order) {
+
+	self->QSqlTableModel::setSort(static_cast<int>(column), static_cast<Qt::SortOrder>(order));
 }
 
-bool QSqlTableModel_override_virtual_clear(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__clear = slot;
-	return true;
-}
-
-void QSqlTableModel_virtualbase_clear(void* self) {
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::clear();
-}
-
-bool QSqlTableModel_override_virtual_setEditStrategy(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setEditStrategy = slot;
-	return true;
-}
-
-void QSqlTableModel_virtualbase_setEditStrategy(void* self, int strategy) {
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::setEditStrategy(static_cast<VirtualQSqlTableModel::EditStrategy>(strategy));
-}
-
-bool QSqlTableModel_override_virtual_sort(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__sort = slot;
-	return true;
-}
-
-void QSqlTableModel_virtualbase_sort(void* self, int column, int order) {
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::sort(static_cast<int>(column), static_cast<Qt::SortOrder>(order));
-}
-
-bool QSqlTableModel_override_virtual_setSort(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setSort = slot;
-	return true;
-}
-
-void QSqlTableModel_virtualbase_setSort(void* self, int column, int order) {
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::setSort(static_cast<int>(column), static_cast<Qt::SortOrder>(order));
-}
-
-bool QSqlTableModel_override_virtual_setFilter(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setFilter = slot;
-	return true;
-}
-
-void QSqlTableModel_virtualbase_setFilter(void* self, struct seaqt_string filter) {
+void QSqlTableModel_virtualbase_setFilter(VirtualQSqlTableModel* self, struct seaqt_string filter) {
 	QString filter_QString = QString::fromUtf8(filter.data, filter.len);
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::setFilter(filter_QString);
+
+	self->QSqlTableModel::setFilter(filter_QString);
 }
 
-bool QSqlTableModel_override_virtual_rowCount(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QSqlTableModel_virtualbase_rowCount(const VirtualQSqlTableModel* self, QModelIndex* parent) {
 
-	self_cast->handle__rowCount = slot;
-	return true;
+	return self->QSqlTableModel::rowCount(*parent);
 }
 
-int QSqlTableModel_virtualbase_rowCount(const void* self, QModelIndex* parent) {
-	return static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::rowCount(*parent);
+bool QSqlTableModel_virtualbase_removeColumns(VirtualQSqlTableModel* self, int column, int count, QModelIndex* parent) {
+
+	return self->QSqlTableModel::removeColumns(static_cast<int>(column), static_cast<int>(count), *parent);
 }
 
-bool QSqlTableModel_override_virtual_removeColumns(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSqlTableModel_virtualbase_removeRows(VirtualQSqlTableModel* self, int row, int count, QModelIndex* parent) {
 
-	self_cast->handle__removeColumns = slot;
-	return true;
+	return self->QSqlTableModel::removeRows(static_cast<int>(row), static_cast<int>(count), *parent);
 }
 
-bool QSqlTableModel_virtualbase_removeColumns(void* self, int column, int count, QModelIndex* parent) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::removeColumns(static_cast<int>(column), static_cast<int>(count), *parent);
+bool QSqlTableModel_virtualbase_insertRows(VirtualQSqlTableModel* self, int row, int count, QModelIndex* parent) {
+
+	return self->QSqlTableModel::insertRows(static_cast<int>(row), static_cast<int>(count), *parent);
 }
 
-bool QSqlTableModel_override_virtual_removeRows(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSqlTableModel_virtualbase_revertRow(VirtualQSqlTableModel* self, int row) {
 
-	self_cast->handle__removeRows = slot;
-	return true;
+	self->QSqlTableModel::revertRow(static_cast<int>(row));
 }
 
-bool QSqlTableModel_virtualbase_removeRows(void* self, int row, int count, QModelIndex* parent) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::removeRows(static_cast<int>(row), static_cast<int>(count), *parent);
+bool QSqlTableModel_virtualbase_select(VirtualQSqlTableModel* self) {
+
+	return self->QSqlTableModel::select();
 }
 
-bool QSqlTableModel_override_virtual_insertRows(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSqlTableModel_virtualbase_selectRow(VirtualQSqlTableModel* self, int row) {
 
-	self_cast->handle__insertRows = slot;
-	return true;
+	return self->QSqlTableModel::selectRow(static_cast<int>(row));
 }
 
-bool QSqlTableModel_virtualbase_insertRows(void* self, int row, int count, QModelIndex* parent) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::insertRows(static_cast<int>(row), static_cast<int>(count), *parent);
+bool QSqlTableModel_virtualbase_submit(VirtualQSqlTableModel* self) {
+
+	return self->QSqlTableModel::submit();
 }
 
-bool QSqlTableModel_override_virtual_revertRow(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSqlTableModel_virtualbase_revert(VirtualQSqlTableModel* self) {
 
-	self_cast->handle__revertRow = slot;
-	return true;
+	self->QSqlTableModel::revert();
 }
 
-void QSqlTableModel_virtualbase_revertRow(void* self, int row) {
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::revertRow(static_cast<int>(row));
+bool QSqlTableModel_virtualbase_updateRowInTable(VirtualQSqlTableModel* self, int row, QSqlRecord* values) {
+
+	return self->QSqlTableModel::updateRowInTable(static_cast<int>(row), *values);
 }
 
-bool QSqlTableModel_override_virtual_select(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSqlTableModel_virtualbase_insertRowIntoTable(VirtualQSqlTableModel* self, QSqlRecord* values) {
 
-	self_cast->handle__select = slot;
-	return true;
+	return self->QSqlTableModel::insertRowIntoTable(*values);
 }
 
-bool QSqlTableModel_virtualbase_select(void* self) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::select();
+bool QSqlTableModel_virtualbase_deleteRowFromTable(VirtualQSqlTableModel* self, int row) {
+
+	return self->QSqlTableModel::deleteRowFromTable(static_cast<int>(row));
 }
 
-bool QSqlTableModel_override_virtual_selectRow(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+struct seaqt_string QSqlTableModel_virtualbase_orderByClause(const VirtualQSqlTableModel* self) {
 
-	self_cast->handle__selectRow = slot;
-	return true;
-}
-
-bool QSqlTableModel_virtualbase_selectRow(void* self, int row) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::selectRow(static_cast<int>(row));
-}
-
-bool QSqlTableModel_override_virtual_submit(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__submit = slot;
-	return true;
-}
-
-bool QSqlTableModel_virtualbase_submit(void* self) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::submit();
-}
-
-bool QSqlTableModel_override_virtual_revert(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__revert = slot;
-	return true;
-}
-
-void QSqlTableModel_virtualbase_revert(void* self) {
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::revert();
-}
-
-bool QSqlTableModel_override_virtual_updateRowInTable(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__updateRowInTable = slot;
-	return true;
-}
-
-bool QSqlTableModel_virtualbase_updateRowInTable(void* self, int row, QSqlRecord* values) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::updateRowInTable(static_cast<int>(row), *values);
-}
-
-bool QSqlTableModel_override_virtual_insertRowIntoTable(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__insertRowIntoTable = slot;
-	return true;
-}
-
-bool QSqlTableModel_virtualbase_insertRowIntoTable(void* self, QSqlRecord* values) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::insertRowIntoTable(*values);
-}
-
-bool QSqlTableModel_override_virtual_deleteRowFromTable(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__deleteRowFromTable = slot;
-	return true;
-}
-
-bool QSqlTableModel_virtualbase_deleteRowFromTable(void* self, int row) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::deleteRowFromTable(static_cast<int>(row));
-}
-
-bool QSqlTableModel_override_virtual_orderByClause(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__orderByClause = slot;
-	return true;
-}
-
-struct seaqt_string QSqlTableModel_virtualbase_orderByClause(const void* self) {
-	QString _ret = static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::orderByClause();
+	QString _ret = self->QSqlTableModel::orderByClause();
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
 	QByteArray _b = _ret.toUtf8();
 	struct seaqt_string _ms;
@@ -1953,18 +1414,9 @@ struct seaqt_string QSqlTableModel_virtualbase_orderByClause(const void* self) {
 	return _ms;
 }
 
-bool QSqlTableModel_override_virtual_selectStatement(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+struct seaqt_string QSqlTableModel_virtualbase_selectStatement(const VirtualQSqlTableModel* self) {
 
-	self_cast->handle__selectStatement = slot;
-	return true;
-}
-
-struct seaqt_string QSqlTableModel_virtualbase_selectStatement(const void* self) {
-	QString _ret = static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::selectStatement();
+	QString _ret = self->QSqlTableModel::selectStatement();
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
 	QByteArray _b = _ret.toUtf8();
 	struct seaqt_string _ms;
@@ -1974,102 +1426,39 @@ struct seaqt_string QSqlTableModel_virtualbase_selectStatement(const void* self)
 	return _ms;
 }
 
-bool QSqlTableModel_override_virtual_indexInQuery(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QModelIndex* QSqlTableModel_virtualbase_indexInQuery(const VirtualQSqlTableModel* self, QModelIndex* item) {
 
-	self_cast->handle__indexInQuery = slot;
-	return true;
+	return new QModelIndex(self->QSqlTableModel::indexInQuery(*item));
 }
 
-QModelIndex* QSqlTableModel_virtualbase_indexInQuery(const void* self, QModelIndex* item) {
-	return new QModelIndex(static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::indexInQuery(*item));
+int QSqlTableModel_virtualbase_columnCount(const VirtualQSqlTableModel* self, QModelIndex* parent) {
+
+	return self->QSqlTableModel::columnCount(*parent);
 }
 
-bool QSqlTableModel_override_virtual_columnCount(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSqlTableModel_virtualbase_setHeaderData(VirtualQSqlTableModel* self, int section, int orientation, QVariant* value, int role) {
 
-	self_cast->handle__columnCount = slot;
-	return true;
+	return self->QSqlTableModel::setHeaderData(static_cast<int>(section), static_cast<Qt::Orientation>(orientation), *value, static_cast<int>(role));
 }
 
-int QSqlTableModel_virtualbase_columnCount(const void* self, QModelIndex* parent) {
-	return static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::columnCount(*parent);
+bool QSqlTableModel_virtualbase_insertColumns(VirtualQSqlTableModel* self, int column, int count, QModelIndex* parent) {
+
+	return self->QSqlTableModel::insertColumns(static_cast<int>(column), static_cast<int>(count), *parent);
 }
 
-bool QSqlTableModel_override_virtual_setHeaderData(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSqlTableModel_virtualbase_fetchMore(VirtualQSqlTableModel* self, QModelIndex* parent) {
 
-	self_cast->handle__setHeaderData = slot;
-	return true;
+	self->QSqlTableModel::fetchMore(*parent);
 }
 
-bool QSqlTableModel_virtualbase_setHeaderData(void* self, int section, int orientation, QVariant* value, int role) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::setHeaderData(static_cast<int>(section), static_cast<Qt::Orientation>(orientation), *value, static_cast<int>(role));
+bool QSqlTableModel_virtualbase_canFetchMore(const VirtualQSqlTableModel* self, QModelIndex* parent) {
+
+	return self->QSqlTableModel::canFetchMore(*parent);
 }
 
-bool QSqlTableModel_override_virtual_insertColumns(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+struct seaqt_map /* of int to struct seaqt_string */  QSqlTableModel_virtualbase_roleNames(const VirtualQSqlTableModel* self) {
 
-	self_cast->handle__insertColumns = slot;
-	return true;
-}
-
-bool QSqlTableModel_virtualbase_insertColumns(void* self, int column, int count, QModelIndex* parent) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::insertColumns(static_cast<int>(column), static_cast<int>(count), *parent);
-}
-
-bool QSqlTableModel_override_virtual_fetchMore(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__fetchMore = slot;
-	return true;
-}
-
-void QSqlTableModel_virtualbase_fetchMore(void* self, QModelIndex* parent) {
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::fetchMore(*parent);
-}
-
-bool QSqlTableModel_override_virtual_canFetchMore(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__canFetchMore = slot;
-	return true;
-}
-
-bool QSqlTableModel_virtualbase_canFetchMore(const void* self, QModelIndex* parent) {
-	return static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::canFetchMore(*parent);
-}
-
-bool QSqlTableModel_override_virtual_roleNames(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__roleNames = slot;
-	return true;
-}
-
-struct seaqt_map /* of int to struct seaqt_string */  QSqlTableModel_virtualbase_roleNames(const void* self) {
-	QHash<int, QByteArray> _ret = static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::roleNames();
+	QHash<int, QByteArray> _ret = self->QSqlTableModel::roleNames();
 	// Convert QMap<> from C++ memory to manually-managed C memory
 	int* _karr = static_cast<int*>(malloc(sizeof(int) * _ret.size()));
 	struct seaqt_string* _varr = static_cast<struct seaqt_string*>(malloc(sizeof(struct seaqt_string) * _ret.size()));
@@ -2091,74 +1480,29 @@ struct seaqt_map /* of int to struct seaqt_string */  QSqlTableModel_virtualbase
 	return _out;
 }
 
-bool QSqlTableModel_override_virtual_queryChange(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSqlTableModel_virtualbase_queryChange(VirtualQSqlTableModel* self) {
 
-	self_cast->handle__queryChange = slot;
-	return true;
+	self->QSqlTableModel::queryChange();
 }
 
-void QSqlTableModel_virtualbase_queryChange(void* self) {
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::queryChange();
+QModelIndex* QSqlTableModel_virtualbase_index(const VirtualQSqlTableModel* self, int row, int column, QModelIndex* parent) {
+
+	return new QModelIndex(self->QSqlTableModel::index(static_cast<int>(row), static_cast<int>(column), *parent));
 }
 
-bool QSqlTableModel_override_virtual_index(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QModelIndex* QSqlTableModel_virtualbase_sibling(const VirtualQSqlTableModel* self, int row, int column, QModelIndex* idx) {
 
-	self_cast->handle__index = slot;
-	return true;
+	return new QModelIndex(self->QSqlTableModel::sibling(static_cast<int>(row), static_cast<int>(column), *idx));
 }
 
-QModelIndex* QSqlTableModel_virtualbase_index(const void* self, int row, int column, QModelIndex* parent) {
-	return new QModelIndex(static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::index(static_cast<int>(row), static_cast<int>(column), *parent));
+bool QSqlTableModel_virtualbase_dropMimeData(VirtualQSqlTableModel* self, QMimeData* data, int action, int row, int column, QModelIndex* parent) {
+
+	return self->QSqlTableModel::dropMimeData(data, static_cast<Qt::DropAction>(action), static_cast<int>(row), static_cast<int>(column), *parent);
 }
 
-bool QSqlTableModel_override_virtual_sibling(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+struct seaqt_map /* of int to QVariant* */  QSqlTableModel_virtualbase_itemData(const VirtualQSqlTableModel* self, QModelIndex* index) {
 
-	self_cast->handle__sibling = slot;
-	return true;
-}
-
-QModelIndex* QSqlTableModel_virtualbase_sibling(const void* self, int row, int column, QModelIndex* idx) {
-	return new QModelIndex(static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::sibling(static_cast<int>(row), static_cast<int>(column), *idx));
-}
-
-bool QSqlTableModel_override_virtual_dropMimeData(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__dropMimeData = slot;
-	return true;
-}
-
-bool QSqlTableModel_virtualbase_dropMimeData(void* self, QMimeData* data, int action, int row, int column, QModelIndex* parent) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::dropMimeData(data, static_cast<Qt::DropAction>(action), static_cast<int>(row), static_cast<int>(column), *parent);
-}
-
-bool QSqlTableModel_override_virtual_itemData(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__itemData = slot;
-	return true;
-}
-
-struct seaqt_map /* of int to QVariant* */  QSqlTableModel_virtualbase_itemData(const void* self, QModelIndex* index) {
-	QMap<int, QVariant> _ret = static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::itemData(*index);
+	QMap<int, QVariant> _ret = self->QSqlTableModel::itemData(*index);
 	// Convert QMap<> from C++ memory to manually-managed C memory
 	int* _karr = static_cast<int*>(malloc(sizeof(int) * _ret.size()));
 	QVariant** _varr = static_cast<QVariant**>(malloc(sizeof(QVariant*) * _ret.size()));
@@ -2175,38 +1519,20 @@ struct seaqt_map /* of int to QVariant* */  QSqlTableModel_virtualbase_itemData(
 	return _out;
 }
 
-bool QSqlTableModel_override_virtual_setItemData(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setItemData = slot;
-	return true;
-}
-
-bool QSqlTableModel_virtualbase_setItemData(void* self, QModelIndex* index, struct seaqt_map /* of int to QVariant* */  roles) {
+bool QSqlTableModel_virtualbase_setItemData(VirtualQSqlTableModel* self, QModelIndex* index, struct seaqt_map /* of int to QVariant* */  roles) {
 	QMap<int, QVariant> roles_QMap;
 	int* roles_karr = static_cast<int*>(roles.keys);
 	QVariant** roles_varr = static_cast<QVariant**>(roles.values);
 	for(size_t i = 0; i < roles.len; ++i) {
 		roles_QMap[static_cast<int>(roles_karr[i])] = *(roles_varr[i]);
 	}
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::setItemData(*index, roles_QMap);
+
+	return self->QSqlTableModel::setItemData(*index, roles_QMap);
 }
 
-bool QSqlTableModel_override_virtual_mimeTypes(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+struct seaqt_array /* of struct seaqt_string */  QSqlTableModel_virtualbase_mimeTypes(const VirtualQSqlTableModel* self) {
 
-	self_cast->handle__mimeTypes = slot;
-	return true;
-}
-
-struct seaqt_array /* of struct seaqt_string */  QSqlTableModel_virtualbase_mimeTypes(const void* self) {
-	QStringList _ret = static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::mimeTypes();
+	QStringList _ret = self->QSqlTableModel::mimeTypes();
 	// Convert QList<> from C++ memory to manually-managed C memory
 	struct seaqt_string* _arr = static_cast<struct seaqt_string*>(malloc(sizeof(struct seaqt_string) * _ret.length()));
 	for (size_t i = 0, e = _ret.length(); i < e; ++i) {
@@ -2225,124 +1551,52 @@ struct seaqt_array /* of struct seaqt_string */  QSqlTableModel_virtualbase_mime
 	return _out;
 }
 
-bool QSqlTableModel_override_virtual_mimeData(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mimeData = slot;
-	return true;
-}
-
-QMimeData* QSqlTableModel_virtualbase_mimeData(const void* self, struct seaqt_array /* of QModelIndex* */  indexes) {
+QMimeData* QSqlTableModel_virtualbase_mimeData(const VirtualQSqlTableModel* self, struct seaqt_array /* of QModelIndex* */  indexes) {
 	QModelIndexList indexes_QList;
 	indexes_QList.reserve(indexes.len);
 	QModelIndex** indexes_arr = static_cast<QModelIndex**>(indexes.data);
 	for(size_t i = 0; i < indexes.len; ++i) {
 		indexes_QList.push_back(*(indexes_arr[i]));
 	}
-	return static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::mimeData(indexes_QList);
+
+	return self->QSqlTableModel::mimeData(indexes_QList);
 }
 
-bool QSqlTableModel_override_virtual_canDropMimeData(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSqlTableModel_virtualbase_canDropMimeData(const VirtualQSqlTableModel* self, QMimeData* data, int action, int row, int column, QModelIndex* parent) {
 
-	self_cast->handle__canDropMimeData = slot;
-	return true;
+	return self->QSqlTableModel::canDropMimeData(data, static_cast<Qt::DropAction>(action), static_cast<int>(row), static_cast<int>(column), *parent);
 }
 
-bool QSqlTableModel_virtualbase_canDropMimeData(const void* self, QMimeData* data, int action, int row, int column, QModelIndex* parent) {
-	return static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::canDropMimeData(data, static_cast<Qt::DropAction>(action), static_cast<int>(row), static_cast<int>(column), *parent);
-}
+int QSqlTableModel_virtualbase_supportedDropActions(const VirtualQSqlTableModel* self) {
 
-bool QSqlTableModel_override_virtual_supportedDropActions(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__supportedDropActions = slot;
-	return true;
-}
-
-int QSqlTableModel_virtualbase_supportedDropActions(const void* self) {
-	Qt::DropActions _ret = static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::supportedDropActions();
+	Qt::DropActions _ret = self->QSqlTableModel::supportedDropActions();
 	return static_cast<int>(_ret);
 }
 
-bool QSqlTableModel_override_virtual_supportedDragActions(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QSqlTableModel_virtualbase_supportedDragActions(const VirtualQSqlTableModel* self) {
 
-	self_cast->handle__supportedDragActions = slot;
-	return true;
-}
-
-int QSqlTableModel_virtualbase_supportedDragActions(const void* self) {
-	Qt::DropActions _ret = static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::supportedDragActions();
+	Qt::DropActions _ret = self->QSqlTableModel::supportedDragActions();
 	return static_cast<int>(_ret);
 }
 
-bool QSqlTableModel_override_virtual_moveRows(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSqlTableModel_virtualbase_moveRows(VirtualQSqlTableModel* self, QModelIndex* sourceParent, int sourceRow, int count, QModelIndex* destinationParent, int destinationChild) {
 
-	self_cast->handle__moveRows = slot;
-	return true;
+	return self->QSqlTableModel::moveRows(*sourceParent, static_cast<int>(sourceRow), static_cast<int>(count), *destinationParent, static_cast<int>(destinationChild));
 }
 
-bool QSqlTableModel_virtualbase_moveRows(void* self, QModelIndex* sourceParent, int sourceRow, int count, QModelIndex* destinationParent, int destinationChild) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::moveRows(*sourceParent, static_cast<int>(sourceRow), static_cast<int>(count), *destinationParent, static_cast<int>(destinationChild));
+bool QSqlTableModel_virtualbase_moveColumns(VirtualQSqlTableModel* self, QModelIndex* sourceParent, int sourceColumn, int count, QModelIndex* destinationParent, int destinationChild) {
+
+	return self->QSqlTableModel::moveColumns(*sourceParent, static_cast<int>(sourceColumn), static_cast<int>(count), *destinationParent, static_cast<int>(destinationChild));
 }
 
-bool QSqlTableModel_override_virtual_moveColumns(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QModelIndex* QSqlTableModel_virtualbase_buddy(const VirtualQSqlTableModel* self, QModelIndex* index) {
 
-	self_cast->handle__moveColumns = slot;
-	return true;
+	return new QModelIndex(self->QSqlTableModel::buddy(*index));
 }
 
-bool QSqlTableModel_virtualbase_moveColumns(void* self, QModelIndex* sourceParent, int sourceColumn, int count, QModelIndex* destinationParent, int destinationChild) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::moveColumns(*sourceParent, static_cast<int>(sourceColumn), static_cast<int>(count), *destinationParent, static_cast<int>(destinationChild));
-}
+struct seaqt_array /* of QModelIndex* */  QSqlTableModel_virtualbase_match(const VirtualQSqlTableModel* self, QModelIndex* start, int role, QVariant* value, int hits, int flags) {
 
-bool QSqlTableModel_override_virtual_buddy(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__buddy = slot;
-	return true;
-}
-
-QModelIndex* QSqlTableModel_virtualbase_buddy(const void* self, QModelIndex* index) {
-	return new QModelIndex(static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::buddy(*index));
-}
-
-bool QSqlTableModel_override_virtual_match(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__match = slot;
-	return true;
-}
-
-struct seaqt_array /* of QModelIndex* */  QSqlTableModel_virtualbase_match(const void* self, QModelIndex* start, int role, QVariant* value, int hits, int flags) {
-	QModelIndexList _ret = static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::match(*start, static_cast<int>(role), *value, static_cast<int>(hits), static_cast<Qt::MatchFlags>(flags));
+	QModelIndexList _ret = self->QSqlTableModel::match(*start, static_cast<int>(role), *value, static_cast<int>(hits), static_cast<Qt::MatchFlags>(flags));
 	// Convert QList<> from C++ memory to manually-managed C memory
 	QModelIndex** _arr = static_cast<QModelIndex**>(malloc(sizeof(QModelIndex*) * _ret.length()));
 	for (size_t i = 0, e = _ret.length(); i < e; ++i) {
@@ -2354,402 +1608,151 @@ struct seaqt_array /* of QModelIndex* */  QSqlTableModel_virtualbase_match(const
 	return _out;
 }
 
-bool QSqlTableModel_override_virtual_span(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QSize* QSqlTableModel_virtualbase_span(const VirtualQSqlTableModel* self, QModelIndex* index) {
 
-	self_cast->handle__span = slot;
-	return true;
+	return new QSize(self->QSqlTableModel::span(*index));
 }
 
-QSize* QSqlTableModel_virtualbase_span(const void* self, QModelIndex* index) {
-	return new QSize(static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::span(*index));
+void QSqlTableModel_virtualbase_multiData(const VirtualQSqlTableModel* self, QModelIndex* index, QModelRoleDataSpan* roleDataSpan) {
+
+	self->QSqlTableModel::multiData(*index, *roleDataSpan);
 }
 
-bool QSqlTableModel_override_virtual_multiData(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSqlTableModel_virtualbase_resetInternalData(VirtualQSqlTableModel* self) {
 
-	self_cast->handle__multiData = slot;
-	return true;
+	self->QSqlTableModel::resetInternalData();
 }
 
-void QSqlTableModel_virtualbase_multiData(const void* self, QModelIndex* index, QModelRoleDataSpan* roleDataSpan) {
-	static_cast<const VirtualQSqlTableModel*>(self)->QSqlTableModel::multiData(*index, *roleDataSpan);
+bool QSqlTableModel_virtualbase_event(VirtualQSqlTableModel* self, QEvent* event) {
+
+	return self->QSqlTableModel::event(event);
 }
 
-bool QSqlTableModel_override_virtual_resetInternalData(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSqlTableModel_virtualbase_eventFilter(VirtualQSqlTableModel* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__resetInternalData = slot;
-	return true;
+	return self->QSqlTableModel::eventFilter(watched, event);
 }
 
-void QSqlTableModel_virtualbase_resetInternalData(void* self) {
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::resetInternalData();
+void QSqlTableModel_virtualbase_timerEvent(VirtualQSqlTableModel* self, QTimerEvent* event) {
+
+	self->QSqlTableModel::timerEvent(event);
 }
 
-bool QSqlTableModel_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSqlTableModel_virtualbase_childEvent(VirtualQSqlTableModel* self, QChildEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QSqlTableModel::childEvent(event);
 }
 
-bool QSqlTableModel_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::event(event);
+void QSqlTableModel_virtualbase_customEvent(VirtualQSqlTableModel* self, QEvent* event) {
+
+	self->QSqlTableModel::customEvent(event);
 }
 
-bool QSqlTableModel_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSqlTableModel_virtualbase_connectNotify(VirtualQSqlTableModel* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QSqlTableModel::connectNotify(*signal);
 }
 
-bool QSqlTableModel_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::eventFilter(watched, event);
+void QSqlTableModel_virtualbase_disconnectNotify(VirtualQSqlTableModel* self, QMetaMethod* signal) {
+
+	self->QSqlTableModel::disconnectNotify(*signal);
 }
 
-bool QSqlTableModel_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+void QSqlTableModel_protectedbase_setPrimaryKey(VirtualQSqlTableModel* self, QSqlIndex* key) {
+	self->setPrimaryKey(*key);
 }
 
-void QSqlTableModel_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::timerEvent(event);
+void QSqlTableModel_protectedbase_setQuery(VirtualQSqlTableModel* self, QSqlQuery* query) {
+	self->setQuery(*query);
 }
 
-bool QSqlTableModel_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+QSqlRecord* QSqlTableModel_protectedbase_primaryValues(const VirtualQSqlTableModel* self, int row) {
+	return new QSqlRecord(self->primaryValues(static_cast<int>(row)));
 }
 
-void QSqlTableModel_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::childEvent(event);
+void QSqlTableModel_protectedbase_beginInsertRows(VirtualQSqlTableModel* self, QModelIndex* parent, int first, int last) {
+	self->beginInsertRows(*parent, static_cast<int>(first), static_cast<int>(last));
 }
 
-bool QSqlTableModel_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
+void QSqlTableModel_protectedbase_endInsertRows(VirtualQSqlTableModel* self) {
+	self->endInsertRows();
 }
 
-void QSqlTableModel_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::customEvent(event);
+void QSqlTableModel_protectedbase_beginRemoveRows(VirtualQSqlTableModel* self, QModelIndex* parent, int first, int last) {
+	self->beginRemoveRows(*parent, static_cast<int>(first), static_cast<int>(last));
 }
 
-bool QSqlTableModel_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
+void QSqlTableModel_protectedbase_endRemoveRows(VirtualQSqlTableModel* self) {
+	self->endRemoveRows();
 }
 
-void QSqlTableModel_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::connectNotify(*signal);
+void QSqlTableModel_protectedbase_beginInsertColumns(VirtualQSqlTableModel* self, QModelIndex* parent, int first, int last) {
+	self->beginInsertColumns(*parent, static_cast<int>(first), static_cast<int>(last));
 }
 
-bool QSqlTableModel_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
+void QSqlTableModel_protectedbase_endInsertColumns(VirtualQSqlTableModel* self) {
+	self->endInsertColumns();
 }
 
-void QSqlTableModel_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSqlTableModel*>(self)->QSqlTableModel::disconnectNotify(*signal);
+void QSqlTableModel_protectedbase_beginRemoveColumns(VirtualQSqlTableModel* self, QModelIndex* parent, int first, int last) {
+	self->beginRemoveColumns(*parent, static_cast<int>(first), static_cast<int>(last));
 }
 
-void QSqlTableModel_protectedbase_setPrimaryKey(bool* _dynamic_cast_ok, void* self, QSqlIndex* key) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setPrimaryKey(*key);
+void QSqlTableModel_protectedbase_endRemoveColumns(VirtualQSqlTableModel* self) {
+	self->endRemoveColumns();
 }
 
-void QSqlTableModel_protectedbase_setQuery(bool* _dynamic_cast_ok, void* self, QSqlQuery* query) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setQuery(*query);
+void QSqlTableModel_protectedbase_beginResetModel(VirtualQSqlTableModel* self) {
+	self->beginResetModel();
 }
 
-QSqlRecord* QSqlTableModel_protectedbase_primaryValues(bool* _dynamic_cast_ok, const void* self, int row) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return new QSqlRecord(self_cast->primaryValues(static_cast<int>(row)));
+void QSqlTableModel_protectedbase_endResetModel(VirtualQSqlTableModel* self) {
+	self->endResetModel();
 }
 
-void QSqlTableModel_protectedbase_beginInsertRows(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->beginInsertRows(*parent, static_cast<int>(first), static_cast<int>(last));
+void QSqlTableModel_protectedbase_setLastError(VirtualQSqlTableModel* self, QSqlError* error) {
+	self->setLastError(*error);
 }
 
-void QSqlTableModel_protectedbase_endInsertRows(bool* _dynamic_cast_ok, void* self) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endInsertRows();
+QModelIndex* QSqlTableModel_protectedbase_createIndex(const VirtualQSqlTableModel* self, int row, int column) {
+	return new QModelIndex(self->createIndex(static_cast<int>(row), static_cast<int>(column)));
 }
 
-void QSqlTableModel_protectedbase_beginRemoveRows(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->beginRemoveRows(*parent, static_cast<int>(first), static_cast<int>(last));
-}
-
-void QSqlTableModel_protectedbase_endRemoveRows(bool* _dynamic_cast_ok, void* self) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endRemoveRows();
-}
-
-void QSqlTableModel_protectedbase_beginInsertColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->beginInsertColumns(*parent, static_cast<int>(first), static_cast<int>(last));
-}
-
-void QSqlTableModel_protectedbase_endInsertColumns(bool* _dynamic_cast_ok, void* self) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endInsertColumns();
-}
-
-void QSqlTableModel_protectedbase_beginRemoveColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* parent, int first, int last) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->beginRemoveColumns(*parent, static_cast<int>(first), static_cast<int>(last));
-}
-
-void QSqlTableModel_protectedbase_endRemoveColumns(bool* _dynamic_cast_ok, void* self) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endRemoveColumns();
-}
-
-void QSqlTableModel_protectedbase_beginResetModel(bool* _dynamic_cast_ok, void* self) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->beginResetModel();
-}
-
-void QSqlTableModel_protectedbase_endResetModel(bool* _dynamic_cast_ok, void* self) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endResetModel();
-}
-
-void QSqlTableModel_protectedbase_setLastError(bool* _dynamic_cast_ok, void* self, QSqlError* error) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setLastError(*error);
-}
-
-QModelIndex* QSqlTableModel_protectedbase_createIndex(bool* _dynamic_cast_ok, const void* self, int row, int column) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return new QModelIndex(self_cast->createIndex(static_cast<int>(row), static_cast<int>(column)));
-}
-
-void QSqlTableModel_protectedbase_encodeData(bool* _dynamic_cast_ok, const void* self, struct seaqt_array /* of QModelIndex* */  indexes, QDataStream* stream) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
+void QSqlTableModel_protectedbase_encodeData(const VirtualQSqlTableModel* self, struct seaqt_array /* of QModelIndex* */  indexes, QDataStream* stream) {
 		QModelIndexList indexes_QList;
 		indexes_QList.reserve(indexes.len);
 		QModelIndex** indexes_arr = static_cast<QModelIndex**>(indexes.data);
 		for(size_t i = 0; i < indexes.len; ++i) {
 			indexes_QList.push_back(*(indexes_arr[i]));
 		}
-	self_cast->encodeData(indexes_QList, *stream);
+	self->encodeData(indexes_QList, *stream);
 }
 
-bool QSqlTableModel_protectedbase_decodeData(bool* _dynamic_cast_ok, void* self, int row, int column, QModelIndex* parent, QDataStream* stream) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->decodeData(static_cast<int>(row), static_cast<int>(column), *parent, *stream);
+bool QSqlTableModel_protectedbase_decodeData(VirtualQSqlTableModel* self, int row, int column, QModelIndex* parent, QDataStream* stream) {
+	return self->decodeData(static_cast<int>(row), static_cast<int>(column), *parent, *stream);
 }
 
-bool QSqlTableModel_protectedbase_beginMoveRows(bool* _dynamic_cast_ok, void* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationRow) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->beginMoveRows(*sourceParent, static_cast<int>(sourceFirst), static_cast<int>(sourceLast), *destinationParent, static_cast<int>(destinationRow));
+bool QSqlTableModel_protectedbase_beginMoveRows(VirtualQSqlTableModel* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationRow) {
+	return self->beginMoveRows(*sourceParent, static_cast<int>(sourceFirst), static_cast<int>(sourceLast), *destinationParent, static_cast<int>(destinationRow));
 }
 
-void QSqlTableModel_protectedbase_endMoveRows(bool* _dynamic_cast_ok, void* self) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endMoveRows();
+void QSqlTableModel_protectedbase_endMoveRows(VirtualQSqlTableModel* self) {
+	self->endMoveRows();
 }
 
-bool QSqlTableModel_protectedbase_beginMoveColumns(bool* _dynamic_cast_ok, void* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationColumn) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->beginMoveColumns(*sourceParent, static_cast<int>(sourceFirst), static_cast<int>(sourceLast), *destinationParent, static_cast<int>(destinationColumn));
+bool QSqlTableModel_protectedbase_beginMoveColumns(VirtualQSqlTableModel* self, QModelIndex* sourceParent, int sourceFirst, int sourceLast, QModelIndex* destinationParent, int destinationColumn) {
+	return self->beginMoveColumns(*sourceParent, static_cast<int>(sourceFirst), static_cast<int>(sourceLast), *destinationParent, static_cast<int>(destinationColumn));
 }
 
-void QSqlTableModel_protectedbase_endMoveColumns(bool* _dynamic_cast_ok, void* self) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->endMoveColumns();
+void QSqlTableModel_protectedbase_endMoveColumns(VirtualQSqlTableModel* self) {
+	self->endMoveColumns();
 }
 
-void QSqlTableModel_protectedbase_changePersistentIndex(bool* _dynamic_cast_ok, void* self, QModelIndex* from, QModelIndex* to) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->changePersistentIndex(*from, *to);
+void QSqlTableModel_protectedbase_changePersistentIndex(VirtualQSqlTableModel* self, QModelIndex* from, QModelIndex* to) {
+	self->changePersistentIndex(*from, *to);
 }
 
-void QSqlTableModel_protectedbase_changePersistentIndexList(bool* _dynamic_cast_ok, void* self, struct seaqt_array /* of QModelIndex* */  from, struct seaqt_array /* of QModelIndex* */  to) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
+void QSqlTableModel_protectedbase_changePersistentIndexList(VirtualQSqlTableModel* self, struct seaqt_array /* of QModelIndex* */  from, struct seaqt_array /* of QModelIndex* */  to) {
 		QModelIndexList from_QList;
 		from_QList.reserve(from.len);
 		QModelIndex** from_arr = static_cast<QModelIndex**>(from.data);
@@ -2762,18 +1765,11 @@ void QSqlTableModel_protectedbase_changePersistentIndexList(bool* _dynamic_cast_
 		for(size_t i = 0; i < to.len; ++i) {
 			to_QList.push_back(*(to_arr[i]));
 		}
-	self_cast->changePersistentIndexList(from_QList, to_QList);
+	self->changePersistentIndexList(from_QList, to_QList);
 }
 
-struct seaqt_array /* of QModelIndex* */  QSqlTableModel_protectedbase_persistentIndexList(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return (struct seaqt_array){};
-	}
-
-	*_dynamic_cast_ok = true;
-	QModelIndexList _ret = self_cast->persistentIndexList();
+struct seaqt_array /* of QModelIndex* */  QSqlTableModel_protectedbase_persistentIndexList(const VirtualQSqlTableModel* self) {
+	QModelIndexList _ret = self->persistentIndexList();
 	// Convert QList<> from C++ memory to manually-managed C memory
 	QModelIndex** _arr = static_cast<QModelIndex**>(malloc(sizeof(QModelIndex*) * _ret.length()));
 	for (size_t i = 0, e = _ret.length(); i < e; ++i) {
@@ -2785,48 +1781,20 @@ struct seaqt_array /* of QModelIndex* */  QSqlTableModel_protectedbase_persisten
 	return _out;
 }
 
-QObject* QSqlTableModel_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
+QObject* QSqlTableModel_protectedbase_sender(const VirtualQSqlTableModel* self) {
+	return self->sender();
 }
 
-int QSqlTableModel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
+int QSqlTableModel_protectedbase_senderSignalIndex(const VirtualQSqlTableModel* self) {
+	return self->senderSignalIndex();
 }
 
-int QSqlTableModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
+int QSqlTableModel_protectedbase_receivers(const VirtualQSqlTableModel* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QSqlTableModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQSqlTableModel* self_cast = dynamic_cast<VirtualQSqlTableModel*>( (QSqlTableModel*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QSqlTableModel_protectedbase_isSignalConnected(const VirtualQSqlTableModel* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QSqlTableModel_delete(QSqlTableModel* self) {

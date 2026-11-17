@@ -31,6 +31,7 @@ QCborStreamReader* QCborStreamReader_new2(const char* data, ptrdiff_t len);
 QCborStreamReader* QCborStreamReader_new3(const unsigned char* data, ptrdiff_t len);
 QCborStreamReader* QCborStreamReader_new4(struct seaqt_string data);
 QCborStreamReader* QCborStreamReader_new5(QIODevice* device);
+
 void QCborStreamReader_setDevice(QCborStreamReader* self, QIODevice* device);
 QIODevice* QCborStreamReader_device(const QCborStreamReader* self);
 void QCborStreamReader_addData(QCborStreamReader* self, struct seaqt_string data);

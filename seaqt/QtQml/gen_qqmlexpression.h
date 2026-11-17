@@ -42,13 +42,32 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QVariant QVariant;
 #endif
 
-QQmlExpression* QQmlExpression_new();
-QQmlExpression* QQmlExpression_new2(QQmlContext* param1, QObject* param2, struct seaqt_string param3);
-QQmlExpression* QQmlExpression_new3(QQmlScriptString* param1);
-QQmlExpression* QQmlExpression_new4(QQmlContext* param1, QObject* param2, struct seaqt_string param3, QObject* param4);
-QQmlExpression* QQmlExpression_new5(QQmlScriptString* param1, QQmlContext* param2);
-QQmlExpression* QQmlExpression_new6(QQmlScriptString* param1, QQmlContext* param2, QObject* param3);
-QQmlExpression* QQmlExpression_new7(QQmlScriptString* param1, QQmlContext* param2, QObject* param3, QObject* param4);
+typedef struct VirtualQQmlExpression VirtualQQmlExpression;
+typedef struct QQmlExpression_VTable{
+	void (*destructor)(VirtualQQmlExpression* self);
+	QMetaObject* (*metaObject)(const VirtualQQmlExpression* self);
+	void* (*metacast)(VirtualQQmlExpression* self, const char* param1);
+	int (*metacall)(VirtualQQmlExpression* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQQmlExpression* self, QEvent* event);
+	bool (*eventFilter)(VirtualQQmlExpression* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQQmlExpression* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQQmlExpression* self, QChildEvent* event);
+	void (*customEvent)(VirtualQQmlExpression* self, QEvent* event);
+	void (*connectNotify)(VirtualQQmlExpression* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQQmlExpression* self, QMetaMethod* signal);
+}QQmlExpression_VTable;
+
+void* QQmlExpression_vdata(VirtualQQmlExpression* self);
+VirtualQQmlExpression* vdata_QQmlExpression(void* vdata);
+
+VirtualQQmlExpression* QQmlExpression_new(const QQmlExpression_VTable* vtbl, size_t vdata);
+VirtualQQmlExpression* QQmlExpression_new2(const QQmlExpression_VTable* vtbl, size_t vdata, QQmlContext* param1, QObject* param2, struct seaqt_string param3);
+VirtualQQmlExpression* QQmlExpression_new3(const QQmlExpression_VTable* vtbl, size_t vdata, QQmlScriptString* param1);
+VirtualQQmlExpression* QQmlExpression_new4(const QQmlExpression_VTable* vtbl, size_t vdata, QQmlContext* param1, QObject* param2, struct seaqt_string param3, QObject* param4);
+VirtualQQmlExpression* QQmlExpression_new5(const QQmlExpression_VTable* vtbl, size_t vdata, QQmlScriptString* param1, QQmlContext* param2);
+VirtualQQmlExpression* QQmlExpression_new6(const QQmlExpression_VTable* vtbl, size_t vdata, QQmlScriptString* param1, QQmlContext* param2, QObject* param3);
+VirtualQQmlExpression* QQmlExpression_new7(const QQmlExpression_VTable* vtbl, size_t vdata, QQmlScriptString* param1, QQmlContext* param2, QObject* param3, QObject* param4);
+
 void QQmlExpression_virtbase(QQmlExpression* src, QObject** outptr_QObject);
 QMetaObject* QQmlExpression_metaObject(const QQmlExpression* self);
 void* QQmlExpression_metacast(QQmlExpression* self, const char* param1);
@@ -76,31 +95,21 @@ struct seaqt_string QQmlExpression_tr3(const char* s, const char* c, int n);
 void QQmlExpression_setSourceLocation2(QQmlExpression* self, struct seaqt_string fileName, int line, int column);
 QVariant* QQmlExpression_evaluateWithValueIsUndefined(QQmlExpression* self, bool* valueIsUndefined);
 
-bool QQmlExpression_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QQmlExpression_virtualbase_metaObject(const void* self);
-bool QQmlExpression_override_virtual_metacast(void* self, intptr_t slot);
-void* QQmlExpression_virtualbase_metacast(void* self, const char* param1);
-bool QQmlExpression_override_virtual_metacall(void* self, intptr_t slot);
-int QQmlExpression_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QQmlExpression_override_virtual_event(void* self, intptr_t slot);
-bool QQmlExpression_virtualbase_event(void* self, QEvent* event);
-bool QQmlExpression_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QQmlExpression_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QQmlExpression_override_virtual_timerEvent(void* self, intptr_t slot);
-void QQmlExpression_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QQmlExpression_override_virtual_childEvent(void* self, intptr_t slot);
-void QQmlExpression_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QQmlExpression_override_virtual_customEvent(void* self, intptr_t slot);
-void QQmlExpression_virtualbase_customEvent(void* self, QEvent* event);
-bool QQmlExpression_override_virtual_connectNotify(void* self, intptr_t slot);
-void QQmlExpression_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QQmlExpression_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QQmlExpression_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QQmlExpression_virtualbase_metaObject(const VirtualQQmlExpression* self);
+void* QQmlExpression_virtualbase_metacast(VirtualQQmlExpression* self, const char* param1);
+int QQmlExpression_virtualbase_metacall(VirtualQQmlExpression* self, int param1, int param2, void** param3);
+bool QQmlExpression_virtualbase_event(VirtualQQmlExpression* self, QEvent* event);
+bool QQmlExpression_virtualbase_eventFilter(VirtualQQmlExpression* self, QObject* watched, QEvent* event);
+void QQmlExpression_virtualbase_timerEvent(VirtualQQmlExpression* self, QTimerEvent* event);
+void QQmlExpression_virtualbase_childEvent(VirtualQQmlExpression* self, QChildEvent* event);
+void QQmlExpression_virtualbase_customEvent(VirtualQQmlExpression* self, QEvent* event);
+void QQmlExpression_virtualbase_connectNotify(VirtualQQmlExpression* self, QMetaMethod* signal);
+void QQmlExpression_virtualbase_disconnectNotify(VirtualQQmlExpression* self, QMetaMethod* signal);
 
-QObject* QQmlExpression_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QQmlExpression_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QQmlExpression_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QQmlExpression_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QQmlExpression_protectedbase_sender(const VirtualQQmlExpression* self);
+int QQmlExpression_protectedbase_senderSignalIndex(const VirtualQQmlExpression* self);
+int QQmlExpression_protectedbase_receivers(const VirtualQQmlExpression* self, const char* signal);
+bool QQmlExpression_protectedbase_isSignalConnected(const VirtualQQmlExpression* self, QMetaMethod* signal);
 
 const QMetaObject* QQmlExpression_staticMetaObject();
 void QQmlExpression_delete(QQmlExpression* self);

@@ -37,6 +37,7 @@ QLocale* QLocale_new4(unsigned short language);
 QLocale* QLocale_new5(QLocale* other);
 QLocale* QLocale_new6(unsigned short language, unsigned short script);
 QLocale* QLocale_new7(unsigned short language, unsigned short script, unsigned short territory);
+
 void QLocale_operatorAssign(QLocale* self, QLocale* other);
 void QLocale_swap(QLocale* self, QLocale* other);
 unsigned short QLocale_language(const QLocale* self);

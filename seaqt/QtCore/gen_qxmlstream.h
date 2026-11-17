@@ -38,6 +38,7 @@ QXmlStreamAttribute* QXmlStreamAttribute_new();
 QXmlStreamAttribute* QXmlStreamAttribute_new2(struct seaqt_string qualifiedName, struct seaqt_string value);
 QXmlStreamAttribute* QXmlStreamAttribute_new3(struct seaqt_string namespaceUri, struct seaqt_string name, struct seaqt_string value);
 QXmlStreamAttribute* QXmlStreamAttribute_new4(QXmlStreamAttribute* param1);
+
 bool QXmlStreamAttribute_isDefault(const QXmlStreamAttribute* self);
 bool QXmlStreamAttribute_operatorEqual(const QXmlStreamAttribute* self, QXmlStreamAttribute* other);
 bool QXmlStreamAttribute_operatorNotEqual(const QXmlStreamAttribute* self, QXmlStreamAttribute* other);
@@ -47,18 +48,21 @@ void QXmlStreamAttribute_delete(QXmlStreamAttribute* self);
 
 QXmlStreamNamespaceDeclaration* QXmlStreamNamespaceDeclaration_new();
 QXmlStreamNamespaceDeclaration* QXmlStreamNamespaceDeclaration_new2(struct seaqt_string prefix, struct seaqt_string namespaceUri);
+
 bool QXmlStreamNamespaceDeclaration_operatorEqual(const QXmlStreamNamespaceDeclaration* self, QXmlStreamNamespaceDeclaration* other);
 bool QXmlStreamNamespaceDeclaration_operatorNotEqual(const QXmlStreamNamespaceDeclaration* self, QXmlStreamNamespaceDeclaration* other);
 
 void QXmlStreamNamespaceDeclaration_delete(QXmlStreamNamespaceDeclaration* self);
 
 QXmlStreamNotationDeclaration* QXmlStreamNotationDeclaration_new();
+
 bool QXmlStreamNotationDeclaration_operatorEqual(const QXmlStreamNotationDeclaration* self, QXmlStreamNotationDeclaration* other);
 bool QXmlStreamNotationDeclaration_operatorNotEqual(const QXmlStreamNotationDeclaration* self, QXmlStreamNotationDeclaration* other);
 
 void QXmlStreamNotationDeclaration_delete(QXmlStreamNotationDeclaration* self);
 
 QXmlStreamEntityDeclaration* QXmlStreamEntityDeclaration_new();
+
 bool QXmlStreamEntityDeclaration_operatorEqual(const QXmlStreamEntityDeclaration* self, QXmlStreamEntityDeclaration* other);
 bool QXmlStreamEntityDeclaration_operatorNotEqual(const QXmlStreamEntityDeclaration* self, QXmlStreamEntityDeclaration* other);
 
@@ -74,6 +78,7 @@ QXmlStreamReader* QXmlStreamReader_new2(QIODevice* device);
 QXmlStreamReader* QXmlStreamReader_new3(struct seaqt_string data);
 QXmlStreamReader* QXmlStreamReader_new4(struct seaqt_string data);
 QXmlStreamReader* QXmlStreamReader_new5(const char* data);
+
 void QXmlStreamReader_setDevice(QXmlStreamReader* self, QIODevice* device);
 QIODevice* QXmlStreamReader_device(const QXmlStreamReader* self);
 void QXmlStreamReader_addData(QXmlStreamReader* self, struct seaqt_string data);
@@ -124,6 +129,7 @@ void QXmlStreamReader_delete(QXmlStreamReader* self);
 
 QXmlStreamWriter* QXmlStreamWriter_new();
 QXmlStreamWriter* QXmlStreamWriter_new2(QIODevice* device);
+
 void QXmlStreamWriter_setDevice(QXmlStreamWriter* self, QIODevice* device);
 QIODevice* QXmlStreamWriter_device(const QXmlStreamWriter* self);
 void QXmlStreamWriter_setAutoFormatting(QXmlStreamWriter* self, bool autoFormatting);

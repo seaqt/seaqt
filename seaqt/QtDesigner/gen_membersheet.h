@@ -20,7 +20,30 @@ class QDesignerMemberSheetExtension;
 typedef struct QDesignerMemberSheetExtension QDesignerMemberSheetExtension;
 #endif
 
-QDesignerMemberSheetExtension* QDesignerMemberSheetExtension_new();
+typedef struct VirtualQDesignerMemberSheetExtension VirtualQDesignerMemberSheetExtension;
+typedef struct QDesignerMemberSheetExtension_VTable{
+	void (*destructor)(VirtualQDesignerMemberSheetExtension* self);
+	int (*count)(const VirtualQDesignerMemberSheetExtension* self);
+	int (*indexOf)(const VirtualQDesignerMemberSheetExtension* self, struct seaqt_string name);
+	struct seaqt_string (*memberName)(const VirtualQDesignerMemberSheetExtension* self, int index);
+	struct seaqt_string (*memberGroup)(const VirtualQDesignerMemberSheetExtension* self, int index);
+	void (*setMemberGroup)(VirtualQDesignerMemberSheetExtension* self, int index, struct seaqt_string group);
+	bool (*isVisible)(const VirtualQDesignerMemberSheetExtension* self, int index);
+	void (*setVisible)(VirtualQDesignerMemberSheetExtension* self, int index, bool b);
+	bool (*isSignal)(const VirtualQDesignerMemberSheetExtension* self, int index);
+	bool (*isSlot)(const VirtualQDesignerMemberSheetExtension* self, int index);
+	bool (*inheritedFromWidget)(const VirtualQDesignerMemberSheetExtension* self, int index);
+	struct seaqt_string (*declaredInClass)(const VirtualQDesignerMemberSheetExtension* self, int index);
+	struct seaqt_string (*signature)(const VirtualQDesignerMemberSheetExtension* self, int index);
+	struct seaqt_array /* of struct seaqt_string */  (*parameterTypes)(const VirtualQDesignerMemberSheetExtension* self, int index);
+	struct seaqt_array /* of struct seaqt_string */  (*parameterNames)(const VirtualQDesignerMemberSheetExtension* self, int index);
+}QDesignerMemberSheetExtension_VTable;
+
+void* QDesignerMemberSheetExtension_vdata(VirtualQDesignerMemberSheetExtension* self);
+VirtualQDesignerMemberSheetExtension* vdata_QDesignerMemberSheetExtension(void* vdata);
+
+VirtualQDesignerMemberSheetExtension* QDesignerMemberSheetExtension_new(const QDesignerMemberSheetExtension_VTable* vtbl, size_t vdata);
+
 int QDesignerMemberSheetExtension_count(const QDesignerMemberSheetExtension* self);
 int QDesignerMemberSheetExtension_indexOf(const QDesignerMemberSheetExtension* self, struct seaqt_string name);
 struct seaqt_string QDesignerMemberSheetExtension_memberName(const QDesignerMemberSheetExtension* self, int index);
@@ -36,34 +59,20 @@ struct seaqt_string QDesignerMemberSheetExtension_signature(const QDesignerMembe
 struct seaqt_array /* of struct seaqt_string */  QDesignerMemberSheetExtension_parameterTypes(const QDesignerMemberSheetExtension* self, int index);
 struct seaqt_array /* of struct seaqt_string */  QDesignerMemberSheetExtension_parameterNames(const QDesignerMemberSheetExtension* self, int index);
 
-bool QDesignerMemberSheetExtension_override_virtual_count(void* self, intptr_t slot);
-int QDesignerMemberSheetExtension_virtualbase_count(const void* self);
-bool QDesignerMemberSheetExtension_override_virtual_indexOf(void* self, intptr_t slot);
-int QDesignerMemberSheetExtension_virtualbase_indexOf(const void* self, struct seaqt_string name);
-bool QDesignerMemberSheetExtension_override_virtual_memberName(void* self, intptr_t slot);
-struct seaqt_string QDesignerMemberSheetExtension_virtualbase_memberName(const void* self, int index);
-bool QDesignerMemberSheetExtension_override_virtual_memberGroup(void* self, intptr_t slot);
-struct seaqt_string QDesignerMemberSheetExtension_virtualbase_memberGroup(const void* self, int index);
-bool QDesignerMemberSheetExtension_override_virtual_setMemberGroup(void* self, intptr_t slot);
-void QDesignerMemberSheetExtension_virtualbase_setMemberGroup(void* self, int index, struct seaqt_string group);
-bool QDesignerMemberSheetExtension_override_virtual_isVisible(void* self, intptr_t slot);
-bool QDesignerMemberSheetExtension_virtualbase_isVisible(const void* self, int index);
-bool QDesignerMemberSheetExtension_override_virtual_setVisible(void* self, intptr_t slot);
-void QDesignerMemberSheetExtension_virtualbase_setVisible(void* self, int index, bool b);
-bool QDesignerMemberSheetExtension_override_virtual_isSignal(void* self, intptr_t slot);
-bool QDesignerMemberSheetExtension_virtualbase_isSignal(const void* self, int index);
-bool QDesignerMemberSheetExtension_override_virtual_isSlot(void* self, intptr_t slot);
-bool QDesignerMemberSheetExtension_virtualbase_isSlot(const void* self, int index);
-bool QDesignerMemberSheetExtension_override_virtual_inheritedFromWidget(void* self, intptr_t slot);
-bool QDesignerMemberSheetExtension_virtualbase_inheritedFromWidget(const void* self, int index);
-bool QDesignerMemberSheetExtension_override_virtual_declaredInClass(void* self, intptr_t slot);
-struct seaqt_string QDesignerMemberSheetExtension_virtualbase_declaredInClass(const void* self, int index);
-bool QDesignerMemberSheetExtension_override_virtual_signature(void* self, intptr_t slot);
-struct seaqt_string QDesignerMemberSheetExtension_virtualbase_signature(const void* self, int index);
-bool QDesignerMemberSheetExtension_override_virtual_parameterTypes(void* self, intptr_t slot);
-struct seaqt_array /* of struct seaqt_string */  QDesignerMemberSheetExtension_virtualbase_parameterTypes(const void* self, int index);
-bool QDesignerMemberSheetExtension_override_virtual_parameterNames(void* self, intptr_t slot);
-struct seaqt_array /* of struct seaqt_string */  QDesignerMemberSheetExtension_virtualbase_parameterNames(const void* self, int index);
+int QDesignerMemberSheetExtension_virtualbase_count(const VirtualQDesignerMemberSheetExtension* self);
+int QDesignerMemberSheetExtension_virtualbase_indexOf(const VirtualQDesignerMemberSheetExtension* self, struct seaqt_string name);
+struct seaqt_string QDesignerMemberSheetExtension_virtualbase_memberName(const VirtualQDesignerMemberSheetExtension* self, int index);
+struct seaqt_string QDesignerMemberSheetExtension_virtualbase_memberGroup(const VirtualQDesignerMemberSheetExtension* self, int index);
+void QDesignerMemberSheetExtension_virtualbase_setMemberGroup(VirtualQDesignerMemberSheetExtension* self, int index, struct seaqt_string group);
+bool QDesignerMemberSheetExtension_virtualbase_isVisible(const VirtualQDesignerMemberSheetExtension* self, int index);
+void QDesignerMemberSheetExtension_virtualbase_setVisible(VirtualQDesignerMemberSheetExtension* self, int index, bool b);
+bool QDesignerMemberSheetExtension_virtualbase_isSignal(const VirtualQDesignerMemberSheetExtension* self, int index);
+bool QDesignerMemberSheetExtension_virtualbase_isSlot(const VirtualQDesignerMemberSheetExtension* self, int index);
+bool QDesignerMemberSheetExtension_virtualbase_inheritedFromWidget(const VirtualQDesignerMemberSheetExtension* self, int index);
+struct seaqt_string QDesignerMemberSheetExtension_virtualbase_declaredInClass(const VirtualQDesignerMemberSheetExtension* self, int index);
+struct seaqt_string QDesignerMemberSheetExtension_virtualbase_signature(const VirtualQDesignerMemberSheetExtension* self, int index);
+struct seaqt_array /* of struct seaqt_string */  QDesignerMemberSheetExtension_virtualbase_parameterTypes(const VirtualQDesignerMemberSheetExtension* self, int index);
+struct seaqt_array /* of struct seaqt_string */  QDesignerMemberSheetExtension_virtualbase_parameterNames(const VirtualQDesignerMemberSheetExtension* self, int index);
 
 void QDesignerMemberSheetExtension_delete(QDesignerMemberSheetExtension* self);
 

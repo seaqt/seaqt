@@ -11,48 +11,49 @@
 #include <abstractmetadatabase.h>
 #include "gen_abstractmetadatabase.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-struct seaqt_string miqt_exec_callback_QDesignerMetaDataBaseItemInterface_name(const QDesignerMetaDataBaseItemInterface*, intptr_t);
-void miqt_exec_callback_QDesignerMetaDataBaseItemInterface_setName(QDesignerMetaDataBaseItemInterface*, intptr_t, struct seaqt_string);
-struct seaqt_array /* of QWidget* */  miqt_exec_callback_QDesignerMetaDataBaseItemInterface_tabOrder(const QDesignerMetaDataBaseItemInterface*, intptr_t);
-void miqt_exec_callback_QDesignerMetaDataBaseItemInterface_setTabOrder(QDesignerMetaDataBaseItemInterface*, intptr_t, struct seaqt_array /* of QWidget* */ );
-bool miqt_exec_callback_QDesignerMetaDataBaseItemInterface_enabled(const QDesignerMetaDataBaseItemInterface*, intptr_t);
-void miqt_exec_callback_QDesignerMetaDataBaseItemInterface_setEnabled(QDesignerMetaDataBaseItemInterface*, intptr_t, bool);
 void miqt_exec_callback_QDesignerMetaDataBaseInterface_changed(intptr_t);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQDesignerMetaDataBaseItemInterface final : public QDesignerMetaDataBaseItemInterface {
+	const QDesignerMetaDataBaseItemInterface_VTable* vtbl;
 public:
+	friend void* QDesignerMetaDataBaseItemInterface_vdata(VirtualQDesignerMetaDataBaseItemInterface* self);
+	friend VirtualQDesignerMetaDataBaseItemInterface* vdata_QDesignerMetaDataBaseItemInterface(void* vdata);
 
-	VirtualQDesignerMetaDataBaseItemInterface(): QDesignerMetaDataBaseItemInterface() {}
+	VirtualQDesignerMetaDataBaseItemInterface(const QDesignerMetaDataBaseItemInterface_VTable* vtbl): QDesignerMetaDataBaseItemInterface(), vtbl(vtbl) {}
 
-	virtual ~VirtualQDesignerMetaDataBaseItemInterface() override = default;
+	virtual ~VirtualQDesignerMetaDataBaseItemInterface() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__name = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual QString name() const override {
-		if (handle__name == 0) {
+		if (vtbl->name == 0) {
 			return QString(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_string callback_return_value = miqt_exec_callback_QDesignerMetaDataBaseItemInterface_name(this, handle__name);
+		struct seaqt_string callback_return_value = vtbl->name(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
 		return callback_return_value_QString;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setName = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setName(const QString& name) override {
-		if (handle__setName == 0) {
+		if (vtbl->setName == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -64,20 +65,15 @@ public:
 		name_ms.data = static_cast<char*>(malloc(name_ms.len));
 		memcpy(name_ms.data, name_b.data(), name_ms.len);
 		struct seaqt_string sigval1 = name_ms;
-		miqt_exec_callback_QDesignerMetaDataBaseItemInterface_setName(this, handle__setName, sigval1);
-
+		vtbl->setName(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__tabOrder = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QList<QWidget *> tabOrder() const override {
-		if (handle__tabOrder == 0) {
+		if (vtbl->tabOrder == 0) {
 			return QList<QWidget *>(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_array /* of QWidget* */  callback_return_value = miqt_exec_callback_QDesignerMetaDataBaseItemInterface_tabOrder(this, handle__tabOrder);
+		struct seaqt_array /* of QWidget* */  callback_return_value = vtbl->tabOrder(this);
 		QList<QWidget *> callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		QWidget** callback_return_value_arr = static_cast<QWidget**>(callback_return_value.data);
@@ -87,12 +83,8 @@ public:
 		return callback_return_value_QList;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setTabOrder = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setTabOrder(const QList<QWidget *>& tabOrder) override {
-		if (handle__setTabOrder == 0) {
+		if (vtbl->setTabOrder == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -106,41 +98,32 @@ public:
 		tabOrder_out.len = tabOrder_ret.length();
 		tabOrder_out.data = static_cast<void*>(tabOrder_arr);
 		struct seaqt_array /* of QWidget* */  sigval1 = tabOrder_out;
-		miqt_exec_callback_QDesignerMetaDataBaseItemInterface_setTabOrder(this, handle__setTabOrder, sigval1);
-
+		vtbl->setTabOrder(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__enabled = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool enabled() const override {
-		if (handle__enabled == 0) {
+		if (vtbl->enabled == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
-		bool callback_return_value = miqt_exec_callback_QDesignerMetaDataBaseItemInterface_enabled(this, handle__enabled);
+		bool callback_return_value = vtbl->enabled(this);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setEnabled = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setEnabled(bool b) override {
-		if (handle__setEnabled == 0) {
+		if (vtbl->setEnabled == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		bool sigval1 = b;
-		miqt_exec_callback_QDesignerMetaDataBaseItemInterface_setEnabled(this, handle__setEnabled, sigval1);
-
+		vtbl->setEnabled(this, sigval1);
 	}
 
 };
 
-QDesignerMetaDataBaseItemInterface* QDesignerMetaDataBaseItemInterface_new() {
-	return new (std::nothrow) VirtualQDesignerMetaDataBaseItemInterface();
+VirtualQDesignerMetaDataBaseItemInterface* QDesignerMetaDataBaseItemInterface_new(const QDesignerMetaDataBaseItemInterface_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQDesignerMetaDataBaseItemInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQDesignerMetaDataBaseItemInterface(vtbl) : nullptr;
 }
 
 struct seaqt_string QDesignerMetaDataBaseItemInterface_name(const QDesignerMetaDataBaseItemInterface* self) {
@@ -190,65 +173,8 @@ void QDesignerMetaDataBaseItemInterface_setEnabled(QDesignerMetaDataBaseItemInte
 	self->setEnabled(b);
 }
 
-bool QDesignerMetaDataBaseItemInterface_override_virtual_name(void* self, intptr_t slot) {
-	VirtualQDesignerMetaDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerMetaDataBaseItemInterface*>( (QDesignerMetaDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__name = slot;
-	return true;
-}
-
-bool QDesignerMetaDataBaseItemInterface_override_virtual_setName(void* self, intptr_t slot) {
-	VirtualQDesignerMetaDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerMetaDataBaseItemInterface*>( (QDesignerMetaDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setName = slot;
-	return true;
-}
-
-bool QDesignerMetaDataBaseItemInterface_override_virtual_tabOrder(void* self, intptr_t slot) {
-	VirtualQDesignerMetaDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerMetaDataBaseItemInterface*>( (QDesignerMetaDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__tabOrder = slot;
-	return true;
-}
-
-bool QDesignerMetaDataBaseItemInterface_override_virtual_setTabOrder(void* self, intptr_t slot) {
-	VirtualQDesignerMetaDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerMetaDataBaseItemInterface*>( (QDesignerMetaDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setTabOrder = slot;
-	return true;
-}
-
-bool QDesignerMetaDataBaseItemInterface_override_virtual_enabled(void* self, intptr_t slot) {
-	VirtualQDesignerMetaDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerMetaDataBaseItemInterface*>( (QDesignerMetaDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__enabled = slot;
-	return true;
-}
-
-bool QDesignerMetaDataBaseItemInterface_override_virtual_setEnabled(void* self, intptr_t slot) {
-	VirtualQDesignerMetaDataBaseItemInterface* self_cast = dynamic_cast<VirtualQDesignerMetaDataBaseItemInterface*>( (QDesignerMetaDataBaseItemInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__setEnabled = slot;
-	return true;
-}
+void* QDesignerMetaDataBaseItemInterface_vdata(VirtualQDesignerMetaDataBaseItemInterface* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQDesignerMetaDataBaseItemInterface>()); }
+VirtualQDesignerMetaDataBaseItemInterface* vdata_QDesignerMetaDataBaseItemInterface(void* vdata) { return reinterpret_cast<VirtualQDesignerMetaDataBaseItemInterface*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQDesignerMetaDataBaseItemInterface>()); }
 
 void QDesignerMetaDataBaseItemInterface_delete(QDesignerMetaDataBaseItemInterface* self) {
 	delete self;

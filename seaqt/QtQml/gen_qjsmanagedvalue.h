@@ -43,6 +43,7 @@ QJSManagedValue* QJSManagedValue_new2(QJSValue* value, QJSEngine* engine);
 QJSManagedValue* QJSManagedValue_new3(QJSPrimitiveValue* value, QJSEngine* engine);
 QJSManagedValue* QJSManagedValue_new4(QVariant* variant, QJSEngine* engine);
 QJSManagedValue* QJSManagedValue_new5(struct seaqt_string string, QJSEngine* engine);
+
 bool QJSManagedValue_equals(const QJSManagedValue* self, QJSManagedValue* other);
 bool QJSManagedValue_strictlyEquals(const QJSManagedValue* self, QJSManagedValue* other);
 QJSEngine* QJSManagedValue_engine(const QJSManagedValue* self);

@@ -37,6 +37,7 @@ QEventPoint* QEventPoint_new2(int pointId, uint8_t state, QPointF* scenePosition
 QEventPoint* QEventPoint_new3(QEventPoint* other);
 QEventPoint* QEventPoint_new4(int id);
 QEventPoint* QEventPoint_new5(int id, QPointingDevice* device);
+
 void QEventPoint_operatorAssign(QEventPoint* self, QEventPoint* other);
 bool QEventPoint_operatorEqual(const QEventPoint* self, QEventPoint* other);
 bool QEventPoint_operatorNotEqual(const QEventPoint* self, QEventPoint* other);

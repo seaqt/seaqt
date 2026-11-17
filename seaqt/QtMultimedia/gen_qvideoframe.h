@@ -41,6 +41,7 @@ typedef struct QVideoFrameFormat QVideoFrameFormat;
 QVideoFrame* QVideoFrame_new();
 QVideoFrame* QVideoFrame_new2(QVideoFrameFormat* format);
 QVideoFrame* QVideoFrame_new3(QVideoFrame* other);
+
 void QVideoFrame_swap(QVideoFrame* self, QVideoFrame* other);
 void QVideoFrame_operatorAssign(QVideoFrame* self, QVideoFrame* other);
 bool QVideoFrame_operatorEqual(const QVideoFrame* self, QVideoFrame* other);

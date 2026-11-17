@@ -28,6 +28,7 @@ QTextDocumentFragment* QTextDocumentFragment_new();
 QTextDocumentFragment* QTextDocumentFragment_new2(QTextDocument* document);
 QTextDocumentFragment* QTextDocumentFragment_new3(QTextCursor* range);
 QTextDocumentFragment* QTextDocumentFragment_new4(QTextDocumentFragment* rhs);
+
 void QTextDocumentFragment_operatorAssign(QTextDocumentFragment* self, QTextDocumentFragment* rhs);
 bool QTextDocumentFragment_isEmpty(const QTextDocumentFragment* self);
 struct seaqt_string QTextDocumentFragment_toPlainText(const QTextDocumentFragment* self);

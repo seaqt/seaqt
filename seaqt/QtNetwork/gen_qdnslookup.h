@@ -46,6 +46,7 @@ typedef struct QTimerEvent QTimerEvent;
 
 QDnsDomainNameRecord* QDnsDomainNameRecord_new();
 QDnsDomainNameRecord* QDnsDomainNameRecord_new2(QDnsDomainNameRecord* other);
+
 void QDnsDomainNameRecord_operatorAssign(QDnsDomainNameRecord* self, QDnsDomainNameRecord* other);
 void QDnsDomainNameRecord_swap(QDnsDomainNameRecord* self, QDnsDomainNameRecord* other);
 struct seaqt_string QDnsDomainNameRecord_name(const QDnsDomainNameRecord* self);
@@ -56,6 +57,7 @@ void QDnsDomainNameRecord_delete(QDnsDomainNameRecord* self);
 
 QDnsHostAddressRecord* QDnsHostAddressRecord_new();
 QDnsHostAddressRecord* QDnsHostAddressRecord_new2(QDnsHostAddressRecord* other);
+
 void QDnsHostAddressRecord_operatorAssign(QDnsHostAddressRecord* self, QDnsHostAddressRecord* other);
 void QDnsHostAddressRecord_swap(QDnsHostAddressRecord* self, QDnsHostAddressRecord* other);
 struct seaqt_string QDnsHostAddressRecord_name(const QDnsHostAddressRecord* self);
@@ -66,6 +68,7 @@ void QDnsHostAddressRecord_delete(QDnsHostAddressRecord* self);
 
 QDnsMailExchangeRecord* QDnsMailExchangeRecord_new();
 QDnsMailExchangeRecord* QDnsMailExchangeRecord_new2(QDnsMailExchangeRecord* other);
+
 void QDnsMailExchangeRecord_operatorAssign(QDnsMailExchangeRecord* self, QDnsMailExchangeRecord* other);
 void QDnsMailExchangeRecord_swap(QDnsMailExchangeRecord* self, QDnsMailExchangeRecord* other);
 struct seaqt_string QDnsMailExchangeRecord_exchange(const QDnsMailExchangeRecord* self);
@@ -77,6 +80,7 @@ void QDnsMailExchangeRecord_delete(QDnsMailExchangeRecord* self);
 
 QDnsServiceRecord* QDnsServiceRecord_new();
 QDnsServiceRecord* QDnsServiceRecord_new2(QDnsServiceRecord* other);
+
 void QDnsServiceRecord_operatorAssign(QDnsServiceRecord* self, QDnsServiceRecord* other);
 void QDnsServiceRecord_swap(QDnsServiceRecord* self, QDnsServiceRecord* other);
 struct seaqt_string QDnsServiceRecord_name(const QDnsServiceRecord* self);
@@ -90,6 +94,7 @@ void QDnsServiceRecord_delete(QDnsServiceRecord* self);
 
 QDnsTextRecord* QDnsTextRecord_new();
 QDnsTextRecord* QDnsTextRecord_new2(QDnsTextRecord* other);
+
 void QDnsTextRecord_operatorAssign(QDnsTextRecord* self, QDnsTextRecord* other);
 void QDnsTextRecord_swap(QDnsTextRecord* self, QDnsTextRecord* other);
 struct seaqt_string QDnsTextRecord_name(const QDnsTextRecord* self);
@@ -98,12 +103,31 @@ struct seaqt_array /* of struct seaqt_string */  QDnsTextRecord_values(const QDn
 
 void QDnsTextRecord_delete(QDnsTextRecord* self);
 
-QDnsLookup* QDnsLookup_new();
-QDnsLookup* QDnsLookup_new2(int type, struct seaqt_string name);
-QDnsLookup* QDnsLookup_new3(int type, struct seaqt_string name, QHostAddress* nameserver);
-QDnsLookup* QDnsLookup_new4(QObject* parent);
-QDnsLookup* QDnsLookup_new5(int type, struct seaqt_string name, QObject* parent);
-QDnsLookup* QDnsLookup_new6(int type, struct seaqt_string name, QHostAddress* nameserver, QObject* parent);
+typedef struct VirtualQDnsLookup VirtualQDnsLookup;
+typedef struct QDnsLookup_VTable{
+	void (*destructor)(VirtualQDnsLookup* self);
+	QMetaObject* (*metaObject)(const VirtualQDnsLookup* self);
+	void* (*metacast)(VirtualQDnsLookup* self, const char* param1);
+	int (*metacall)(VirtualQDnsLookup* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQDnsLookup* self, QEvent* event);
+	bool (*eventFilter)(VirtualQDnsLookup* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQDnsLookup* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQDnsLookup* self, QChildEvent* event);
+	void (*customEvent)(VirtualQDnsLookup* self, QEvent* event);
+	void (*connectNotify)(VirtualQDnsLookup* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQDnsLookup* self, QMetaMethod* signal);
+}QDnsLookup_VTable;
+
+void* QDnsLookup_vdata(VirtualQDnsLookup* self);
+VirtualQDnsLookup* vdata_QDnsLookup(void* vdata);
+
+VirtualQDnsLookup* QDnsLookup_new(const QDnsLookup_VTable* vtbl, size_t vdata);
+VirtualQDnsLookup* QDnsLookup_new2(const QDnsLookup_VTable* vtbl, size_t vdata, int type, struct seaqt_string name);
+VirtualQDnsLookup* QDnsLookup_new3(const QDnsLookup_VTable* vtbl, size_t vdata, int type, struct seaqt_string name, QHostAddress* nameserver);
+VirtualQDnsLookup* QDnsLookup_new4(const QDnsLookup_VTable* vtbl, size_t vdata, QObject* parent);
+VirtualQDnsLookup* QDnsLookup_new5(const QDnsLookup_VTable* vtbl, size_t vdata, int type, struct seaqt_string name, QObject* parent);
+VirtualQDnsLookup* QDnsLookup_new6(const QDnsLookup_VTable* vtbl, size_t vdata, int type, struct seaqt_string name, QHostAddress* nameserver, QObject* parent);
+
 void QDnsLookup_virtbase(QDnsLookup* src, QObject** outptr_QObject);
 QMetaObject* QDnsLookup_metaObject(const QDnsLookup* self);
 void* QDnsLookup_metacast(QDnsLookup* self, const char* param1);
@@ -138,31 +162,21 @@ void QDnsLookup_connect_nameserverChanged(QDnsLookup* self, intptr_t slot);
 struct seaqt_string QDnsLookup_tr2(const char* s, const char* c);
 struct seaqt_string QDnsLookup_tr3(const char* s, const char* c, int n);
 
-bool QDnsLookup_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QDnsLookup_virtualbase_metaObject(const void* self);
-bool QDnsLookup_override_virtual_metacast(void* self, intptr_t slot);
-void* QDnsLookup_virtualbase_metacast(void* self, const char* param1);
-bool QDnsLookup_override_virtual_metacall(void* self, intptr_t slot);
-int QDnsLookup_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QDnsLookup_override_virtual_event(void* self, intptr_t slot);
-bool QDnsLookup_virtualbase_event(void* self, QEvent* event);
-bool QDnsLookup_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QDnsLookup_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QDnsLookup_override_virtual_timerEvent(void* self, intptr_t slot);
-void QDnsLookup_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QDnsLookup_override_virtual_childEvent(void* self, intptr_t slot);
-void QDnsLookup_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QDnsLookup_override_virtual_customEvent(void* self, intptr_t slot);
-void QDnsLookup_virtualbase_customEvent(void* self, QEvent* event);
-bool QDnsLookup_override_virtual_connectNotify(void* self, intptr_t slot);
-void QDnsLookup_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QDnsLookup_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QDnsLookup_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QDnsLookup_virtualbase_metaObject(const VirtualQDnsLookup* self);
+void* QDnsLookup_virtualbase_metacast(VirtualQDnsLookup* self, const char* param1);
+int QDnsLookup_virtualbase_metacall(VirtualQDnsLookup* self, int param1, int param2, void** param3);
+bool QDnsLookup_virtualbase_event(VirtualQDnsLookup* self, QEvent* event);
+bool QDnsLookup_virtualbase_eventFilter(VirtualQDnsLookup* self, QObject* watched, QEvent* event);
+void QDnsLookup_virtualbase_timerEvent(VirtualQDnsLookup* self, QTimerEvent* event);
+void QDnsLookup_virtualbase_childEvent(VirtualQDnsLookup* self, QChildEvent* event);
+void QDnsLookup_virtualbase_customEvent(VirtualQDnsLookup* self, QEvent* event);
+void QDnsLookup_virtualbase_connectNotify(VirtualQDnsLookup* self, QMetaMethod* signal);
+void QDnsLookup_virtualbase_disconnectNotify(VirtualQDnsLookup* self, QMetaMethod* signal);
 
-QObject* QDnsLookup_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QDnsLookup_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QDnsLookup_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QDnsLookup_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QDnsLookup_protectedbase_sender(const VirtualQDnsLookup* self);
+int QDnsLookup_protectedbase_senderSignalIndex(const VirtualQDnsLookup* self);
+int QDnsLookup_protectedbase_receivers(const VirtualQDnsLookup* self, const char* signal);
+bool QDnsLookup_protectedbase_isSignalConnected(const VirtualQDnsLookup* self, QMetaMethod* signal);
 
 const QMetaObject* QDnsLookup_staticMetaObject();
 void QDnsLookup_delete(QDnsLookup* self);

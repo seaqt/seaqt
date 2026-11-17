@@ -34,9 +34,29 @@ typedef struct QTimeLine QTimeLine;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QTimeLine* QTimeLine_new();
-QTimeLine* QTimeLine_new2(int duration);
-QTimeLine* QTimeLine_new3(int duration, QObject* parent);
+typedef struct VirtualQTimeLine VirtualQTimeLine;
+typedef struct QTimeLine_VTable{
+	void (*destructor)(VirtualQTimeLine* self);
+	QMetaObject* (*metaObject)(const VirtualQTimeLine* self);
+	void* (*metacast)(VirtualQTimeLine* self, const char* param1);
+	int (*metacall)(VirtualQTimeLine* self, int param1, int param2, void** param3);
+	double (*valueForTime)(const VirtualQTimeLine* self, int msec);
+	void (*timerEvent)(VirtualQTimeLine* self, QTimerEvent* event);
+	bool (*event)(VirtualQTimeLine* self, QEvent* event);
+	bool (*eventFilter)(VirtualQTimeLine* self, QObject* watched, QEvent* event);
+	void (*childEvent)(VirtualQTimeLine* self, QChildEvent* event);
+	void (*customEvent)(VirtualQTimeLine* self, QEvent* event);
+	void (*connectNotify)(VirtualQTimeLine* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQTimeLine* self, QMetaMethod* signal);
+}QTimeLine_VTable;
+
+void* QTimeLine_vdata(VirtualQTimeLine* self);
+VirtualQTimeLine* vdata_QTimeLine(void* vdata);
+
+VirtualQTimeLine* QTimeLine_new(const QTimeLine_VTable* vtbl, size_t vdata);
+VirtualQTimeLine* QTimeLine_new2(const QTimeLine_VTable* vtbl, size_t vdata, int duration);
+VirtualQTimeLine* QTimeLine_new3(const QTimeLine_VTable* vtbl, size_t vdata, int duration, QObject* parent);
+
 void QTimeLine_virtbase(QTimeLine* src, QObject** outptr_QObject);
 QMetaObject* QTimeLine_metaObject(const QTimeLine* self);
 void* QTimeLine_metacast(QTimeLine* self, const char* param1);
@@ -73,38 +93,22 @@ void QTimeLine_timerEvent(QTimeLine* self, QTimerEvent* event);
 struct seaqt_string QTimeLine_tr2(const char* s, const char* c);
 struct seaqt_string QTimeLine_tr3(const char* s, const char* c, int n);
 
-bool QTimeLine_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QTimeLine_virtualbase_metaObject(const void* self);
-bool QTimeLine_override_virtual_metacast(void* self, intptr_t slot);
-void* QTimeLine_virtualbase_metacast(void* self, const char* param1);
-bool QTimeLine_override_virtual_metacall(void* self, intptr_t slot);
-int QTimeLine_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QTimeLine_override_virtual_valueForTime(void* self, intptr_t slot);
-double QTimeLine_virtualbase_valueForTime(const void* self, int msec);
-bool QTimeLine_override_virtual_timerEvent(void* self, intptr_t slot);
-void QTimeLine_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QTimeLine_override_virtual_event(void* self, intptr_t slot);
-bool QTimeLine_virtualbase_event(void* self, QEvent* event);
-bool QTimeLine_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QTimeLine_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QTimeLine_override_virtual_childEvent(void* self, intptr_t slot);
-void QTimeLine_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QTimeLine_override_virtual_customEvent(void* self, intptr_t slot);
-void QTimeLine_virtualbase_customEvent(void* self, QEvent* event);
-bool QTimeLine_override_virtual_connectNotify(void* self, intptr_t slot);
-void QTimeLine_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QTimeLine_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QTimeLine_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QTimeLine_virtualbase_metaObject(const VirtualQTimeLine* self);
+void* QTimeLine_virtualbase_metacast(VirtualQTimeLine* self, const char* param1);
+int QTimeLine_virtualbase_metacall(VirtualQTimeLine* self, int param1, int param2, void** param3);
+double QTimeLine_virtualbase_valueForTime(const VirtualQTimeLine* self, int msec);
+void QTimeLine_virtualbase_timerEvent(VirtualQTimeLine* self, QTimerEvent* event);
+bool QTimeLine_virtualbase_event(VirtualQTimeLine* self, QEvent* event);
+bool QTimeLine_virtualbase_eventFilter(VirtualQTimeLine* self, QObject* watched, QEvent* event);
+void QTimeLine_virtualbase_childEvent(VirtualQTimeLine* self, QChildEvent* event);
+void QTimeLine_virtualbase_customEvent(VirtualQTimeLine* self, QEvent* event);
+void QTimeLine_virtualbase_connectNotify(VirtualQTimeLine* self, QMetaMethod* signal);
+void QTimeLine_virtualbase_disconnectNotify(VirtualQTimeLine* self, QMetaMethod* signal);
 
-QObject* QTimeLine_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QTimeLine_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QTimeLine_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QTimeLine_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
-
-void QTimeLine_connect_valueChanged(QTimeLine* self, intptr_t slot);
-void QTimeLine_connect_frameChanged(QTimeLine* self, intptr_t slot);
-void QTimeLine_connect_stateChanged(QTimeLine* self, intptr_t slot);
-void QTimeLine_connect_finished(QTimeLine* self, intptr_t slot);
+QObject* QTimeLine_protectedbase_sender(const VirtualQTimeLine* self);
+int QTimeLine_protectedbase_senderSignalIndex(const VirtualQTimeLine* self);
+int QTimeLine_protectedbase_receivers(const VirtualQTimeLine* self, const char* signal);
+bool QTimeLine_protectedbase_isSignalConnected(const VirtualQTimeLine* self, QMetaMethod* signal);
 
 const QMetaObject* QTimeLine_staticMetaObject();
 void QTimeLine_delete(QTimeLine* self);

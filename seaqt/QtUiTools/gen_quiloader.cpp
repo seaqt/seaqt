@@ -18,73 +18,62 @@
 #include <quiloader.h>
 #include "gen_quiloader.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QUiLoader_metaObject(const QUiLoader*, intptr_t);
-void* miqt_exec_callback_QUiLoader_metacast(QUiLoader*, intptr_t, const char*);
-int miqt_exec_callback_QUiLoader_metacall(QUiLoader*, intptr_t, int, int, void**);
-QWidget* miqt_exec_callback_QUiLoader_createWidget(QUiLoader*, intptr_t, struct seaqt_string, QWidget*, struct seaqt_string);
-QLayout* miqt_exec_callback_QUiLoader_createLayout(QUiLoader*, intptr_t, struct seaqt_string, QObject*, struct seaqt_string);
-QActionGroup* miqt_exec_callback_QUiLoader_createActionGroup(QUiLoader*, intptr_t, QObject*, struct seaqt_string);
-QAction* miqt_exec_callback_QUiLoader_createAction(QUiLoader*, intptr_t, QObject*, struct seaqt_string);
-bool miqt_exec_callback_QUiLoader_event(QUiLoader*, intptr_t, QEvent*);
-bool miqt_exec_callback_QUiLoader_eventFilter(QUiLoader*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QUiLoader_timerEvent(QUiLoader*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QUiLoader_childEvent(QUiLoader*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QUiLoader_customEvent(QUiLoader*, intptr_t, QEvent*);
-void miqt_exec_callback_QUiLoader_connectNotify(QUiLoader*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QUiLoader_disconnectNotify(QUiLoader*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQUiLoader final : public QUiLoader {
+	const QUiLoader_VTable* vtbl;
 public:
+	friend void* QUiLoader_vdata(VirtualQUiLoader* self);
+	friend VirtualQUiLoader* vdata_QUiLoader(void* vdata);
 
-	VirtualQUiLoader(): QUiLoader() {}
-	VirtualQUiLoader(QObject* parent): QUiLoader(parent) {}
+	VirtualQUiLoader(const QUiLoader_VTable* vtbl): QUiLoader(), vtbl(vtbl) {}
+	VirtualQUiLoader(const QUiLoader_VTable* vtbl, QObject* parent): QUiLoader(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQUiLoader() override = default;
+	virtual ~VirtualQUiLoader() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QUiLoader::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QUiLoader_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QUiLoader_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QUiLoader_virtualbase_metaObject(const VirtualQUiLoader* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QUiLoader::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QUiLoader_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QUiLoader_virtualbase_metacast(void* self, const char* param1);
+	friend void* QUiLoader_virtualbase_metacast(VirtualQUiLoader* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QUiLoader::qt_metacall(param1, param2, param3);
 		}
 
@@ -92,18 +81,14 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QUiLoader_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QUiLoader_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QUiLoader_virtualbase_metacall(VirtualQUiLoader* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__createWidget = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QWidget* createWidget(const QString& className, QWidget* parent, const QString& name) override {
-		if (handle__createWidget == 0) {
+		if (vtbl->createWidget == 0) {
 			return QUiLoader::createWidget(className, parent, name);
 		}
 
@@ -124,18 +109,14 @@ public:
 		name_ms.data = static_cast<char*>(malloc(name_ms.len));
 		memcpy(name_ms.data, name_b.data(), name_ms.len);
 		struct seaqt_string sigval3 = name_ms;
-		QWidget* callback_return_value = miqt_exec_callback_QUiLoader_createWidget(this, handle__createWidget, sigval1, sigval2, sigval3);
+		QWidget* callback_return_value = vtbl->createWidget(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend QWidget* QUiLoader_virtualbase_createWidget(void* self, struct seaqt_string className, QWidget* parent, struct seaqt_string name);
+	friend QWidget* QUiLoader_virtualbase_createWidget(VirtualQUiLoader* self, struct seaqt_string className, QWidget* parent, struct seaqt_string name);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__createLayout = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QLayout* createLayout(const QString& className, QObject* parent, const QString& name) override {
-		if (handle__createLayout == 0) {
+		if (vtbl->createLayout == 0) {
 			return QUiLoader::createLayout(className, parent, name);
 		}
 
@@ -156,18 +137,14 @@ public:
 		name_ms.data = static_cast<char*>(malloc(name_ms.len));
 		memcpy(name_ms.data, name_b.data(), name_ms.len);
 		struct seaqt_string sigval3 = name_ms;
-		QLayout* callback_return_value = miqt_exec_callback_QUiLoader_createLayout(this, handle__createLayout, sigval1, sigval2, sigval3);
+		QLayout* callback_return_value = vtbl->createLayout(this, sigval1, sigval2, sigval3);
 		return callback_return_value;
 	}
 
-	friend QLayout* QUiLoader_virtualbase_createLayout(void* self, struct seaqt_string className, QObject* parent, struct seaqt_string name);
+	friend QLayout* QUiLoader_virtualbase_createLayout(VirtualQUiLoader* self, struct seaqt_string className, QObject* parent, struct seaqt_string name);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__createActionGroup = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QActionGroup* createActionGroup(QObject* parent, const QString& name) override {
-		if (handle__createActionGroup == 0) {
+		if (vtbl->createActionGroup == 0) {
 			return QUiLoader::createActionGroup(parent, name);
 		}
 
@@ -180,18 +157,14 @@ public:
 		name_ms.data = static_cast<char*>(malloc(name_ms.len));
 		memcpy(name_ms.data, name_b.data(), name_ms.len);
 		struct seaqt_string sigval2 = name_ms;
-		QActionGroup* callback_return_value = miqt_exec_callback_QUiLoader_createActionGroup(this, handle__createActionGroup, sigval1, sigval2);
+		QActionGroup* callback_return_value = vtbl->createActionGroup(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend QActionGroup* QUiLoader_virtualbase_createActionGroup(void* self, QObject* parent, struct seaqt_string name);
+	friend QActionGroup* QUiLoader_virtualbase_createActionGroup(VirtualQUiLoader* self, QObject* parent, struct seaqt_string name);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__createAction = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QAction* createAction(QObject* parent, const QString& name) override {
-		if (handle__createAction == 0) {
+		if (vtbl->createAction == 0) {
 			return QUiLoader::createAction(parent, name);
 		}
 
@@ -204,102 +177,75 @@ public:
 		name_ms.data = static_cast<char*>(malloc(name_ms.len));
 		memcpy(name_ms.data, name_b.data(), name_ms.len);
 		struct seaqt_string sigval2 = name_ms;
-		QAction* callback_return_value = miqt_exec_callback_QUiLoader_createAction(this, handle__createAction, sigval1, sigval2);
+		QAction* callback_return_value = vtbl->createAction(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend QAction* QUiLoader_virtualbase_createAction(void* self, QObject* parent, struct seaqt_string name);
+	friend QAction* QUiLoader_virtualbase_createAction(VirtualQUiLoader* self, QObject* parent, struct seaqt_string name);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QUiLoader::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QUiLoader_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QUiLoader_virtualbase_event(void* self, QEvent* event);
+	friend bool QUiLoader_virtualbase_event(VirtualQUiLoader* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QUiLoader::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QUiLoader_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QUiLoader_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QUiLoader_virtualbase_eventFilter(VirtualQUiLoader* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QUiLoader::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QUiLoader_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QUiLoader_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QUiLoader_virtualbase_timerEvent(VirtualQUiLoader* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QUiLoader::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QUiLoader_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QUiLoader_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QUiLoader_virtualbase_childEvent(VirtualQUiLoader* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QUiLoader::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QUiLoader_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QUiLoader_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QUiLoader_virtualbase_customEvent(VirtualQUiLoader* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QUiLoader::connectNotify(signal);
 			return;
 		}
@@ -307,18 +253,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QUiLoader_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QUiLoader_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QUiLoader_virtualbase_connectNotify(VirtualQUiLoader* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QUiLoader::disconnectNotify(signal);
 			return;
 		}
@@ -326,25 +267,26 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QUiLoader_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QUiLoader_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QUiLoader_virtualbase_disconnectNotify(VirtualQUiLoader* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QUiLoader_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QUiLoader_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QUiLoader_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QUiLoader_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QUiLoader_protectedbase_sender(const VirtualQUiLoader* self);
+	friend int QUiLoader_protectedbase_senderSignalIndex(const VirtualQUiLoader* self);
+	friend int QUiLoader_protectedbase_receivers(const VirtualQUiLoader* self, const char* signal);
+	friend bool QUiLoader_protectedbase_isSignalConnected(const VirtualQUiLoader* self, QMetaMethod* signal);
 };
 
-QUiLoader* QUiLoader_new() {
-	return new (std::nothrow) VirtualQUiLoader();
+VirtualQUiLoader* QUiLoader_new(const QUiLoader_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQUiLoader>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQUiLoader(vtbl) : nullptr;
 }
 
-QUiLoader* QUiLoader_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQUiLoader(parent);
+VirtualQUiLoader* QUiLoader_new2(const QUiLoader_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQUiLoader>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQUiLoader(vtbl, parent) : nullptr;
 }
 
 void QUiLoader_virtbase(QUiLoader* src, QObject** outptr_QObject) {
@@ -531,250 +473,99 @@ QWidget* QUiLoader_load2(QUiLoader* self, QIODevice* device, QWidget* parentWidg
 }
 
 const QMetaObject* QUiLoader_staticMetaObject() { return &QUiLoader::staticMetaObject; }
-bool QUiLoader_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QUiLoader_vdata(VirtualQUiLoader* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQUiLoader>()); }
+VirtualQUiLoader* vdata_QUiLoader(void* vdata) { return reinterpret_cast<VirtualQUiLoader*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQUiLoader>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QUiLoader_virtualbase_metaObject(const VirtualQUiLoader* self) {
+
+	return (QMetaObject*) self->QUiLoader::metaObject();
 }
 
-QMetaObject* QUiLoader_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQUiLoader*>(self)->QUiLoader::metaObject();
+void* QUiLoader_virtualbase_metacast(VirtualQUiLoader* self, const char* param1) {
+
+	return self->QUiLoader::qt_metacast(param1);
 }
 
-bool QUiLoader_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QUiLoader_virtualbase_metacall(VirtualQUiLoader* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QUiLoader::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QUiLoader_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQUiLoader*>(self)->QUiLoader::qt_metacast(param1);
-}
-
-bool QUiLoader_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__metacall = slot;
-	return true;
-}
-
-int QUiLoader_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQUiLoader*>(self)->QUiLoader::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
-}
-
-bool QUiLoader_override_virtual_createWidget(void* self, intptr_t slot) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__createWidget = slot;
-	return true;
-}
-
-QWidget* QUiLoader_virtualbase_createWidget(void* self, struct seaqt_string className, QWidget* parent, struct seaqt_string name) {
+QWidget* QUiLoader_virtualbase_createWidget(VirtualQUiLoader* self, struct seaqt_string className, QWidget* parent, struct seaqt_string name) {
 	QString className_QString = QString::fromUtf8(className.data, className.len);
 	QString name_QString = QString::fromUtf8(name.data, name.len);
-	return static_cast<VirtualQUiLoader*>(self)->QUiLoader::createWidget(className_QString, parent, name_QString);
+
+	return self->QUiLoader::createWidget(className_QString, parent, name_QString);
 }
 
-bool QUiLoader_override_virtual_createLayout(void* self, intptr_t slot) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__createLayout = slot;
-	return true;
-}
-
-QLayout* QUiLoader_virtualbase_createLayout(void* self, struct seaqt_string className, QObject* parent, struct seaqt_string name) {
+QLayout* QUiLoader_virtualbase_createLayout(VirtualQUiLoader* self, struct seaqt_string className, QObject* parent, struct seaqt_string name) {
 	QString className_QString = QString::fromUtf8(className.data, className.len);
 	QString name_QString = QString::fromUtf8(name.data, name.len);
-	return static_cast<VirtualQUiLoader*>(self)->QUiLoader::createLayout(className_QString, parent, name_QString);
+
+	return self->QUiLoader::createLayout(className_QString, parent, name_QString);
 }
 
-bool QUiLoader_override_virtual_createActionGroup(void* self, intptr_t slot) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__createActionGroup = slot;
-	return true;
-}
-
-QActionGroup* QUiLoader_virtualbase_createActionGroup(void* self, QObject* parent, struct seaqt_string name) {
+QActionGroup* QUiLoader_virtualbase_createActionGroup(VirtualQUiLoader* self, QObject* parent, struct seaqt_string name) {
 	QString name_QString = QString::fromUtf8(name.data, name.len);
-	return static_cast<VirtualQUiLoader*>(self)->QUiLoader::createActionGroup(parent, name_QString);
+
+	return self->QUiLoader::createActionGroup(parent, name_QString);
 }
 
-bool QUiLoader_override_virtual_createAction(void* self, intptr_t slot) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__createAction = slot;
-	return true;
-}
-
-QAction* QUiLoader_virtualbase_createAction(void* self, QObject* parent, struct seaqt_string name) {
+QAction* QUiLoader_virtualbase_createAction(VirtualQUiLoader* self, QObject* parent, struct seaqt_string name) {
 	QString name_QString = QString::fromUtf8(name.data, name.len);
-	return static_cast<VirtualQUiLoader*>(self)->QUiLoader::createAction(parent, name_QString);
+
+	return self->QUiLoader::createAction(parent, name_QString);
 }
 
-bool QUiLoader_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QUiLoader_virtualbase_event(VirtualQUiLoader* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	return self->QUiLoader::event(event);
 }
 
-bool QUiLoader_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQUiLoader*>(self)->QUiLoader::event(event);
+bool QUiLoader_virtualbase_eventFilter(VirtualQUiLoader* self, QObject* watched, QEvent* event) {
+
+	return self->QUiLoader::eventFilter(watched, event);
 }
 
-bool QUiLoader_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QUiLoader_virtualbase_timerEvent(VirtualQUiLoader* self, QTimerEvent* event) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QUiLoader::timerEvent(event);
 }
 
-bool QUiLoader_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQUiLoader*>(self)->QUiLoader::eventFilter(watched, event);
+void QUiLoader_virtualbase_childEvent(VirtualQUiLoader* self, QChildEvent* event) {
+
+	self->QUiLoader::childEvent(event);
 }
 
-bool QUiLoader_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QUiLoader_virtualbase_customEvent(VirtualQUiLoader* self, QEvent* event) {
 
-	self_cast->handle__timerEvent = slot;
-	return true;
+	self->QUiLoader::customEvent(event);
 }
 
-void QUiLoader_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQUiLoader*>(self)->QUiLoader::timerEvent(event);
+void QUiLoader_virtualbase_connectNotify(VirtualQUiLoader* self, QMetaMethod* signal) {
+
+	self->QUiLoader::connectNotify(*signal);
 }
 
-bool QUiLoader_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QUiLoader_virtualbase_disconnectNotify(VirtualQUiLoader* self, QMetaMethod* signal) {
 
-	self_cast->handle__childEvent = slot;
-	return true;
+	self->QUiLoader::disconnectNotify(*signal);
 }
 
-void QUiLoader_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQUiLoader*>(self)->QUiLoader::childEvent(event);
+QObject* QUiLoader_protectedbase_sender(const VirtualQUiLoader* self) {
+	return self->sender();
 }
 
-bool QUiLoader_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
+int QUiLoader_protectedbase_senderSignalIndex(const VirtualQUiLoader* self) {
+	return self->senderSignalIndex();
 }
 
-void QUiLoader_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQUiLoader*>(self)->QUiLoader::customEvent(event);
+int QUiLoader_protectedbase_receivers(const VirtualQUiLoader* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QUiLoader_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QUiLoader_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQUiLoader*>(self)->QUiLoader::connectNotify(*signal);
-}
-
-bool QUiLoader_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QUiLoader_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQUiLoader*>(self)->QUiLoader::disconnectNotify(*signal);
-}
-
-QObject* QUiLoader_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QUiLoader_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QUiLoader_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QUiLoader_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQUiLoader* self_cast = dynamic_cast<VirtualQUiLoader*>( (QUiLoader*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QUiLoader_protectedbase_isSignalConnected(const VirtualQUiLoader* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QUiLoader_delete(QUiLoader* self) {

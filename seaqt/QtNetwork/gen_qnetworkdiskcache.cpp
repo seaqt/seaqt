@@ -15,78 +15,62 @@
 #include <qnetworkdiskcache.h>
 #include "gen_qnetworkdiskcache.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QNetworkDiskCache_metaObject(const QNetworkDiskCache*, intptr_t);
-void* miqt_exec_callback_QNetworkDiskCache_metacast(QNetworkDiskCache*, intptr_t, const char*);
-int miqt_exec_callback_QNetworkDiskCache_metacall(QNetworkDiskCache*, intptr_t, int, int, void**);
-long long miqt_exec_callback_QNetworkDiskCache_cacheSize(const QNetworkDiskCache*, intptr_t);
-QNetworkCacheMetaData* miqt_exec_callback_QNetworkDiskCache_metaData(QNetworkDiskCache*, intptr_t, QUrl*);
-void miqt_exec_callback_QNetworkDiskCache_updateMetaData(QNetworkDiskCache*, intptr_t, QNetworkCacheMetaData*);
-QIODevice* miqt_exec_callback_QNetworkDiskCache_data(QNetworkDiskCache*, intptr_t, QUrl*);
-bool miqt_exec_callback_QNetworkDiskCache_remove(QNetworkDiskCache*, intptr_t, QUrl*);
-QIODevice* miqt_exec_callback_QNetworkDiskCache_prepare(QNetworkDiskCache*, intptr_t, QNetworkCacheMetaData*);
-void miqt_exec_callback_QNetworkDiskCache_insert(QNetworkDiskCache*, intptr_t, QIODevice*);
-void miqt_exec_callback_QNetworkDiskCache_clear(QNetworkDiskCache*, intptr_t);
-long long miqt_exec_callback_QNetworkDiskCache_expire(QNetworkDiskCache*, intptr_t);
-bool miqt_exec_callback_QNetworkDiskCache_event(QNetworkDiskCache*, intptr_t, QEvent*);
-bool miqt_exec_callback_QNetworkDiskCache_eventFilter(QNetworkDiskCache*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QNetworkDiskCache_timerEvent(QNetworkDiskCache*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QNetworkDiskCache_childEvent(QNetworkDiskCache*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QNetworkDiskCache_customEvent(QNetworkDiskCache*, intptr_t, QEvent*);
-void miqt_exec_callback_QNetworkDiskCache_connectNotify(QNetworkDiskCache*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QNetworkDiskCache_disconnectNotify(QNetworkDiskCache*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQNetworkDiskCache final : public QNetworkDiskCache {
+	const QNetworkDiskCache_VTable* vtbl;
 public:
+	friend void* QNetworkDiskCache_vdata(VirtualQNetworkDiskCache* self);
+	friend VirtualQNetworkDiskCache* vdata_QNetworkDiskCache(void* vdata);
 
-	VirtualQNetworkDiskCache(): QNetworkDiskCache() {}
-	VirtualQNetworkDiskCache(QObject* parent): QNetworkDiskCache(parent) {}
+	VirtualQNetworkDiskCache(const QNetworkDiskCache_VTable* vtbl): QNetworkDiskCache(), vtbl(vtbl) {}
+	VirtualQNetworkDiskCache(const QNetworkDiskCache_VTable* vtbl, QObject* parent): QNetworkDiskCache(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQNetworkDiskCache() override = default;
+	virtual ~VirtualQNetworkDiskCache() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QNetworkDiskCache::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QNetworkDiskCache_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QNetworkDiskCache_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QNetworkDiskCache_virtualbase_metaObject(const VirtualQNetworkDiskCache* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QNetworkDiskCache::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QNetworkDiskCache_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QNetworkDiskCache_virtualbase_metacast(void* self, const char* param1);
+	friend void* QNetworkDiskCache_virtualbase_metacast(VirtualQNetworkDiskCache* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QNetworkDiskCache::qt_metacall(param1, param2, param3);
 		}
 
@@ -94,51 +78,39 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QNetworkDiskCache_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QNetworkDiskCache_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QNetworkDiskCache_virtualbase_metacall(VirtualQNetworkDiskCache* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__cacheSize = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 cacheSize() const override {
-		if (handle__cacheSize == 0) {
+		if (vtbl->cacheSize == 0) {
 			return QNetworkDiskCache::cacheSize();
 		}
 
-		long long callback_return_value = miqt_exec_callback_QNetworkDiskCache_cacheSize(this, handle__cacheSize);
+		long long callback_return_value = vtbl->cacheSize(this);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QNetworkDiskCache_virtualbase_cacheSize(const void* self);
+	friend long long QNetworkDiskCache_virtualbase_cacheSize(const VirtualQNetworkDiskCache* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QNetworkCacheMetaData metaData(const QUrl& url) override {
-		if (handle__metaData == 0) {
+		if (vtbl->metaData == 0) {
 			return QNetworkDiskCache::metaData(url);
 		}
 
 		const QUrl& url_ret = url;
 		// Cast returned reference into pointer
 		QUrl* sigval1 = const_cast<QUrl*>(&url_ret);
-		QNetworkCacheMetaData* callback_return_value = miqt_exec_callback_QNetworkDiskCache_metaData(this, handle__metaData, sigval1);
+		QNetworkCacheMetaData* callback_return_value = vtbl->metaData(this, sigval1);
 		return *callback_return_value;
 	}
 
-	friend QNetworkCacheMetaData* QNetworkDiskCache_virtualbase_metaData(void* self, QUrl* url);
+	friend QNetworkCacheMetaData* QNetworkDiskCache_virtualbase_metaData(VirtualQNetworkDiskCache* self, QUrl* url);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__updateMetaData = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void updateMetaData(const QNetworkCacheMetaData& metaData) override {
-		if (handle__updateMetaData == 0) {
+		if (vtbl->updateMetaData == 0) {
 			QNetworkDiskCache::updateMetaData(metaData);
 			return;
 		}
@@ -146,204 +118,150 @@ public:
 		const QNetworkCacheMetaData& metaData_ret = metaData;
 		// Cast returned reference into pointer
 		QNetworkCacheMetaData* sigval1 = const_cast<QNetworkCacheMetaData*>(&metaData_ret);
-		miqt_exec_callback_QNetworkDiskCache_updateMetaData(this, handle__updateMetaData, sigval1);
-
+		vtbl->updateMetaData(this, sigval1);
 	}
 
-	friend void QNetworkDiskCache_virtualbase_updateMetaData(void* self, QNetworkCacheMetaData* metaData);
+	friend void QNetworkDiskCache_virtualbase_updateMetaData(VirtualQNetworkDiskCache* self, QNetworkCacheMetaData* metaData);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__data = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QIODevice* data(const QUrl& url) override {
-		if (handle__data == 0) {
+		if (vtbl->data == 0) {
 			return QNetworkDiskCache::data(url);
 		}
 
 		const QUrl& url_ret = url;
 		// Cast returned reference into pointer
 		QUrl* sigval1 = const_cast<QUrl*>(&url_ret);
-		QIODevice* callback_return_value = miqt_exec_callback_QNetworkDiskCache_data(this, handle__data, sigval1);
+		QIODevice* callback_return_value = vtbl->data(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QIODevice* QNetworkDiskCache_virtualbase_data(void* self, QUrl* url);
+	friend QIODevice* QNetworkDiskCache_virtualbase_data(VirtualQNetworkDiskCache* self, QUrl* url);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__remove = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool remove(const QUrl& url) override {
-		if (handle__remove == 0) {
+		if (vtbl->remove == 0) {
 			return QNetworkDiskCache::remove(url);
 		}
 
 		const QUrl& url_ret = url;
 		// Cast returned reference into pointer
 		QUrl* sigval1 = const_cast<QUrl*>(&url_ret);
-		bool callback_return_value = miqt_exec_callback_QNetworkDiskCache_remove(this, handle__remove, sigval1);
+		bool callback_return_value = vtbl->remove(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QNetworkDiskCache_virtualbase_remove(void* self, QUrl* url);
+	friend bool QNetworkDiskCache_virtualbase_remove(VirtualQNetworkDiskCache* self, QUrl* url);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__prepare = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QIODevice* prepare(const QNetworkCacheMetaData& metaData) override {
-		if (handle__prepare == 0) {
+		if (vtbl->prepare == 0) {
 			return QNetworkDiskCache::prepare(metaData);
 		}
 
 		const QNetworkCacheMetaData& metaData_ret = metaData;
 		// Cast returned reference into pointer
 		QNetworkCacheMetaData* sigval1 = const_cast<QNetworkCacheMetaData*>(&metaData_ret);
-		QIODevice* callback_return_value = miqt_exec_callback_QNetworkDiskCache_prepare(this, handle__prepare, sigval1);
+		QIODevice* callback_return_value = vtbl->prepare(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QIODevice* QNetworkDiskCache_virtualbase_prepare(void* self, QNetworkCacheMetaData* metaData);
+	friend QIODevice* QNetworkDiskCache_virtualbase_prepare(VirtualQNetworkDiskCache* self, QNetworkCacheMetaData* metaData);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__insert = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void insert(QIODevice* device) override {
-		if (handle__insert == 0) {
+		if (vtbl->insert == 0) {
 			QNetworkDiskCache::insert(device);
 			return;
 		}
 
 		QIODevice* sigval1 = device;
-		miqt_exec_callback_QNetworkDiskCache_insert(this, handle__insert, sigval1);
-
+		vtbl->insert(this, sigval1);
 	}
 
-	friend void QNetworkDiskCache_virtualbase_insert(void* self, QIODevice* device);
+	friend void QNetworkDiskCache_virtualbase_insert(VirtualQNetworkDiskCache* self, QIODevice* device);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__clear = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void clear() override {
-		if (handle__clear == 0) {
+		if (vtbl->clear == 0) {
 			QNetworkDiskCache::clear();
 			return;
 		}
 
-		miqt_exec_callback_QNetworkDiskCache_clear(this, handle__clear);
-
+		vtbl->clear(this);
 	}
 
-	friend void QNetworkDiskCache_virtualbase_clear(void* self);
+	friend void QNetworkDiskCache_virtualbase_clear(VirtualQNetworkDiskCache* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__expire = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual qint64 expire() override {
-		if (handle__expire == 0) {
+		if (vtbl->expire == 0) {
 			return QNetworkDiskCache::expire();
 		}
 
-		long long callback_return_value = miqt_exec_callback_QNetworkDiskCache_expire(this, handle__expire);
+		long long callback_return_value = vtbl->expire(this);
 		return static_cast<qint64>(callback_return_value);
 	}
 
-	friend long long QNetworkDiskCache_virtualbase_expire(void* self);
+	friend long long QNetworkDiskCache_virtualbase_expire(VirtualQNetworkDiskCache* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QNetworkDiskCache::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QNetworkDiskCache_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QNetworkDiskCache_virtualbase_event(void* self, QEvent* event);
+	friend bool QNetworkDiskCache_virtualbase_event(VirtualQNetworkDiskCache* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QNetworkDiskCache::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QNetworkDiskCache_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QNetworkDiskCache_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QNetworkDiskCache_virtualbase_eventFilter(VirtualQNetworkDiskCache* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QNetworkDiskCache::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QNetworkDiskCache_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QNetworkDiskCache_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QNetworkDiskCache_virtualbase_timerEvent(VirtualQNetworkDiskCache* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QNetworkDiskCache::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QNetworkDiskCache_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QNetworkDiskCache_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QNetworkDiskCache_virtualbase_childEvent(VirtualQNetworkDiskCache* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QNetworkDiskCache::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QNetworkDiskCache_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QNetworkDiskCache_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QNetworkDiskCache_virtualbase_customEvent(VirtualQNetworkDiskCache* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QNetworkDiskCache::connectNotify(signal);
 			return;
 		}
@@ -351,18 +269,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QNetworkDiskCache_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QNetworkDiskCache_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QNetworkDiskCache_virtualbase_connectNotify(VirtualQNetworkDiskCache* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QNetworkDiskCache::disconnectNotify(signal);
 			return;
 		}
@@ -370,25 +283,26 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QNetworkDiskCache_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QNetworkDiskCache_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QNetworkDiskCache_virtualbase_disconnectNotify(VirtualQNetworkDiskCache* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QNetworkDiskCache_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QNetworkDiskCache_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QNetworkDiskCache_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QNetworkDiskCache_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QNetworkDiskCache_protectedbase_sender(const VirtualQNetworkDiskCache* self);
+	friend int QNetworkDiskCache_protectedbase_senderSignalIndex(const VirtualQNetworkDiskCache* self);
+	friend int QNetworkDiskCache_protectedbase_receivers(const VirtualQNetworkDiskCache* self, const char* signal);
+	friend bool QNetworkDiskCache_protectedbase_isSignalConnected(const VirtualQNetworkDiskCache* self, QMetaMethod* signal);
 };
 
-QNetworkDiskCache* QNetworkDiskCache_new() {
-	return new (std::nothrow) VirtualQNetworkDiskCache();
+VirtualQNetworkDiskCache* QNetworkDiskCache_new(const QNetworkDiskCache_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQNetworkDiskCache>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQNetworkDiskCache(vtbl) : nullptr;
 }
 
-QNetworkDiskCache* QNetworkDiskCache_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQNetworkDiskCache(parent);
+VirtualQNetworkDiskCache* QNetworkDiskCache_new2(const QNetworkDiskCache_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQNetworkDiskCache>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQNetworkDiskCache(vtbl, parent) : nullptr;
 }
 
 void QNetworkDiskCache_virtbase(QNetworkDiskCache* src, QAbstractNetworkCache** outptr_QAbstractNetworkCache) {
@@ -504,316 +418,120 @@ struct seaqt_string QNetworkDiskCache_tr3(const char* s, const char* c, int n) {
 }
 
 const QMetaObject* QNetworkDiskCache_staticMetaObject() { return &QNetworkDiskCache::staticMetaObject; }
-bool QNetworkDiskCache_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QNetworkDiskCache_vdata(VirtualQNetworkDiskCache* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQNetworkDiskCache>()); }
+VirtualQNetworkDiskCache* vdata_QNetworkDiskCache(void* vdata) { return reinterpret_cast<VirtualQNetworkDiskCache*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQNetworkDiskCache>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QNetworkDiskCache_virtualbase_metaObject(const VirtualQNetworkDiskCache* self) {
+
+	return (QMetaObject*) self->QNetworkDiskCache::metaObject();
 }
 
-QMetaObject* QNetworkDiskCache_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::metaObject();
+void* QNetworkDiskCache_virtualbase_metacast(VirtualQNetworkDiskCache* self, const char* param1) {
+
+	return self->QNetworkDiskCache::qt_metacast(param1);
 }
 
-bool QNetworkDiskCache_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QNetworkDiskCache_virtualbase_metacall(VirtualQNetworkDiskCache* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QNetworkDiskCache::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QNetworkDiskCache_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::qt_metacast(param1);
-}
+long long QNetworkDiskCache_virtualbase_cacheSize(const VirtualQNetworkDiskCache* self) {
 
-bool QNetworkDiskCache_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__metacall = slot;
-	return true;
-}
-
-int QNetworkDiskCache_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
-}
-
-bool QNetworkDiskCache_override_virtual_cacheSize(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__cacheSize = slot;
-	return true;
-}
-
-long long QNetworkDiskCache_virtualbase_cacheSize(const void* self) {
-	qint64 _ret = static_cast<const VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::cacheSize();
+	qint64 _ret = self->QNetworkDiskCache::cacheSize();
 	return static_cast<long long>(_ret);
 }
 
-bool QNetworkDiskCache_override_virtual_metaData(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QNetworkCacheMetaData* QNetworkDiskCache_virtualbase_metaData(VirtualQNetworkDiskCache* self, QUrl* url) {
 
-	self_cast->handle__metaData = slot;
-	return true;
+	return new QNetworkCacheMetaData(self->QNetworkDiskCache::metaData(*url));
 }
 
-QNetworkCacheMetaData* QNetworkDiskCache_virtualbase_metaData(void* self, QUrl* url) {
-	return new QNetworkCacheMetaData(static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::metaData(*url));
+void QNetworkDiskCache_virtualbase_updateMetaData(VirtualQNetworkDiskCache* self, QNetworkCacheMetaData* metaData) {
+
+	self->QNetworkDiskCache::updateMetaData(*metaData);
 }
 
-bool QNetworkDiskCache_override_virtual_updateMetaData(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QIODevice* QNetworkDiskCache_virtualbase_data(VirtualQNetworkDiskCache* self, QUrl* url) {
 
-	self_cast->handle__updateMetaData = slot;
-	return true;
+	return self->QNetworkDiskCache::data(*url);
 }
 
-void QNetworkDiskCache_virtualbase_updateMetaData(void* self, QNetworkCacheMetaData* metaData) {
-	static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::updateMetaData(*metaData);
+bool QNetworkDiskCache_virtualbase_remove(VirtualQNetworkDiskCache* self, QUrl* url) {
+
+	return self->QNetworkDiskCache::remove(*url);
 }
 
-bool QNetworkDiskCache_override_virtual_data(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QIODevice* QNetworkDiskCache_virtualbase_prepare(VirtualQNetworkDiskCache* self, QNetworkCacheMetaData* metaData) {
 
-	self_cast->handle__data = slot;
-	return true;
+	return self->QNetworkDiskCache::prepare(*metaData);
 }
 
-QIODevice* QNetworkDiskCache_virtualbase_data(void* self, QUrl* url) {
-	return static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::data(*url);
+void QNetworkDiskCache_virtualbase_insert(VirtualQNetworkDiskCache* self, QIODevice* device) {
+
+	self->QNetworkDiskCache::insert(device);
 }
 
-bool QNetworkDiskCache_override_virtual_remove(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QNetworkDiskCache_virtualbase_clear(VirtualQNetworkDiskCache* self) {
 
-	self_cast->handle__remove = slot;
-	return true;
+	self->QNetworkDiskCache::clear();
 }
 
-bool QNetworkDiskCache_virtualbase_remove(void* self, QUrl* url) {
-	return static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::remove(*url);
-}
+long long QNetworkDiskCache_virtualbase_expire(VirtualQNetworkDiskCache* self) {
 
-bool QNetworkDiskCache_override_virtual_prepare(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__prepare = slot;
-	return true;
-}
-
-QIODevice* QNetworkDiskCache_virtualbase_prepare(void* self, QNetworkCacheMetaData* metaData) {
-	return static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::prepare(*metaData);
-}
-
-bool QNetworkDiskCache_override_virtual_insert(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__insert = slot;
-	return true;
-}
-
-void QNetworkDiskCache_virtualbase_insert(void* self, QIODevice* device) {
-	static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::insert(device);
-}
-
-bool QNetworkDiskCache_override_virtual_clear(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__clear = slot;
-	return true;
-}
-
-void QNetworkDiskCache_virtualbase_clear(void* self) {
-	static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::clear();
-}
-
-bool QNetworkDiskCache_override_virtual_expire(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__expire = slot;
-	return true;
-}
-
-long long QNetworkDiskCache_virtualbase_expire(void* self) {
-	qint64 _ret = static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::expire();
+	qint64 _ret = self->QNetworkDiskCache::expire();
 	return static_cast<long long>(_ret);
 }
 
-bool QNetworkDiskCache_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QNetworkDiskCache_virtualbase_event(VirtualQNetworkDiskCache* self, QEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	return self->QNetworkDiskCache::event(event);
 }
 
-bool QNetworkDiskCache_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::event(event);
+bool QNetworkDiskCache_virtualbase_eventFilter(VirtualQNetworkDiskCache* self, QObject* watched, QEvent* event) {
+
+	return self->QNetworkDiskCache::eventFilter(watched, event);
 }
 
-bool QNetworkDiskCache_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QNetworkDiskCache_virtualbase_timerEvent(VirtualQNetworkDiskCache* self, QTimerEvent* event) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QNetworkDiskCache::timerEvent(event);
 }
 
-bool QNetworkDiskCache_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::eventFilter(watched, event);
+void QNetworkDiskCache_virtualbase_childEvent(VirtualQNetworkDiskCache* self, QChildEvent* event) {
+
+	self->QNetworkDiskCache::childEvent(event);
 }
 
-bool QNetworkDiskCache_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QNetworkDiskCache_virtualbase_customEvent(VirtualQNetworkDiskCache* self, QEvent* event) {
 
-	self_cast->handle__timerEvent = slot;
-	return true;
+	self->QNetworkDiskCache::customEvent(event);
 }
 
-void QNetworkDiskCache_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::timerEvent(event);
+void QNetworkDiskCache_virtualbase_connectNotify(VirtualQNetworkDiskCache* self, QMetaMethod* signal) {
+
+	self->QNetworkDiskCache::connectNotify(*signal);
 }
 
-bool QNetworkDiskCache_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QNetworkDiskCache_virtualbase_disconnectNotify(VirtualQNetworkDiskCache* self, QMetaMethod* signal) {
 
-	self_cast->handle__childEvent = slot;
-	return true;
+	self->QNetworkDiskCache::disconnectNotify(*signal);
 }
 
-void QNetworkDiskCache_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::childEvent(event);
+QObject* QNetworkDiskCache_protectedbase_sender(const VirtualQNetworkDiskCache* self) {
+	return self->sender();
 }
 
-bool QNetworkDiskCache_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
+int QNetworkDiskCache_protectedbase_senderSignalIndex(const VirtualQNetworkDiskCache* self) {
+	return self->senderSignalIndex();
 }
 
-void QNetworkDiskCache_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::customEvent(event);
+int QNetworkDiskCache_protectedbase_receivers(const VirtualQNetworkDiskCache* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QNetworkDiskCache_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QNetworkDiskCache_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::connectNotify(*signal);
-}
-
-bool QNetworkDiskCache_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QNetworkDiskCache_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQNetworkDiskCache*>(self)->QNetworkDiskCache::disconnectNotify(*signal);
-}
-
-QObject* QNetworkDiskCache_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QNetworkDiskCache_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QNetworkDiskCache_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QNetworkDiskCache_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQNetworkDiskCache* self_cast = dynamic_cast<VirtualQNetworkDiskCache*>( (QNetworkDiskCache*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QNetworkDiskCache_protectedbase_isSignalConnected(const VirtualQNetworkDiskCache* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QNetworkDiskCache_delete(QNetworkDiskCache* self) {
