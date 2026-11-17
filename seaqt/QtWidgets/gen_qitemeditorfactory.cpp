@@ -69,6 +69,7 @@ public:
 		int sigval1 = userType;
 		struct seaqt_string callback_return_value = vtbl->valuePropertyName(this, sigval1);
 		QByteArray callback_return_value_QByteArray(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QByteArray;
 	}
 

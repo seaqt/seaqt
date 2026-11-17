@@ -134,7 +134,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->minimumSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QFormLayout_virtualbase_minimumSize(const VirtualQFormLayout* self);
@@ -145,7 +147,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->sizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QFormLayout_virtualbase_sizeHint(const VirtualQFormLayout* self);
@@ -212,7 +216,9 @@ public:
 		}
 
 		QRect* callback_return_value = vtbl->geometry(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRect* QFormLayout_virtualbase_geometry(const VirtualQFormLayout* self);
@@ -223,7 +229,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->maximumSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QFormLayout_virtualbase_maximumSize(const VirtualQFormLayout* self);

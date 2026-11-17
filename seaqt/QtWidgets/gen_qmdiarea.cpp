@@ -110,7 +110,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->sizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QMdiArea_virtualbase_sizeHint(const VirtualQMdiArea* self);
@@ -121,7 +123,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->minimumSizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QMdiArea_virtualbase_minimumSizeHint(const VirtualQMdiArea* self);
@@ -386,7 +390,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->viewportSizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QMdiArea_virtualbase_viewportSizeHint(const VirtualQMdiArea* self);
@@ -667,7 +673,9 @@ public:
 		Qt::InputMethodQuery param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
 		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QMdiArea_virtualbase_inputMethodQuery(const VirtualQMdiArea* self, int param1);

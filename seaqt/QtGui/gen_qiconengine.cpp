@@ -64,7 +64,9 @@ public:
 		QIcon::State state_ret = state;
 		int sigval3 = static_cast<int>(state_ret);
 		QSize* callback_return_value = vtbl->actualSize(this, sigval1, sigval2, sigval3);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QIconEngine_virtualbase_actualSize(VirtualQIconEngine* self, QSize* size, int mode, int state);
@@ -82,7 +84,9 @@ public:
 		QIcon::State state_ret = state;
 		int sigval3 = static_cast<int>(state_ret);
 		QPixmap* callback_return_value = vtbl->pixmap(this, sigval1, sigval2, sigval3);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QPixmap* QIconEngine_virtualbase_pixmap(VirtualQIconEngine* self, QSize* size, int mode, int state);
@@ -138,6 +142,7 @@ public:
 
 		struct seaqt_string callback_return_value = vtbl->key(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -196,6 +201,7 @@ public:
 		for(size_t i = 0; i < callback_return_value.len; ++i) {
 			callback_return_value_QList.push_back(*(callback_return_value_arr[i]));
 		}
+		free(callback_return_value.data);
 		return callback_return_value_QList;
 	}
 
@@ -208,6 +214,7 @@ public:
 
 		struct seaqt_string callback_return_value = vtbl->iconName(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 

@@ -195,7 +195,9 @@ public:
 		// Cast returned reference into pointer
 		QVariant* sigval2 = const_cast<QVariant*>(&argument_ret);
 		QVariant* callback_return_value = vtbl->extension(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QScriptEngineAgent_virtualbase_extension(VirtualQScriptEngineAgent* self, int extension, QVariant* argument);

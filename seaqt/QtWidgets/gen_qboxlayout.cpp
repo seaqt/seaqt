@@ -97,7 +97,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->sizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QBoxLayout_virtualbase_sizeHint(const VirtualQBoxLayout* self);
@@ -108,7 +110,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->minimumSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QBoxLayout_virtualbase_minimumSize(const VirtualQBoxLayout* self);
@@ -119,7 +123,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->maximumSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QBoxLayout_virtualbase_maximumSize(const VirtualQBoxLayout* self);
@@ -236,7 +242,9 @@ public:
 		}
 
 		QRect* callback_return_value = vtbl->geometry(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRect* QBoxLayout_virtualbase_geometry(const VirtualQBoxLayout* self);
@@ -931,7 +939,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->sizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QHBoxLayout_virtualbase_sizeHint(const VirtualQHBoxLayout* self);
@@ -942,7 +952,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->minimumSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QHBoxLayout_virtualbase_minimumSize(const VirtualQHBoxLayout* self);
@@ -953,7 +965,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->maximumSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QHBoxLayout_virtualbase_maximumSize(const VirtualQHBoxLayout* self);
@@ -1070,7 +1084,9 @@ public:
 		}
 
 		QRect* callback_return_value = vtbl->geometry(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRect* QHBoxLayout_virtualbase_geometry(const VirtualQHBoxLayout* self);
@@ -1599,7 +1615,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->sizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QVBoxLayout_virtualbase_sizeHint(const VirtualQVBoxLayout* self);
@@ -1610,7 +1628,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->minimumSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QVBoxLayout_virtualbase_minimumSize(const VirtualQVBoxLayout* self);
@@ -1621,7 +1641,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->maximumSize(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QVBoxLayout_virtualbase_maximumSize(const VirtualQVBoxLayout* self);
@@ -1738,7 +1760,9 @@ public:
 		}
 
 		QRect* callback_return_value = vtbl->geometry(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRect* QVBoxLayout_virtualbase_geometry(const VirtualQVBoxLayout* self);
