@@ -435,6 +435,14 @@ int QTextFrame_lastPosition(const QTextFrame* self) {
 	return self->lastPosition();
 }
 
+void* QTextFrame_layoutData(const QTextFrame* self) {
+	return self->layoutData();
+}
+
+void QTextFrame_setLayoutData(QTextFrame* self, void* data) {
+	self->setLayoutData(static_cast<QTextFrameLayoutData*>(data));
+}
+
 struct seaqt_array /* of QTextFrame* */  QTextFrame_childFrames(const QTextFrame* self) {
 	QList<QTextFrame *> _ret = self->childFrames();
 	// Convert QList<> from C++ memory to manually-managed C memory
