@@ -18,10 +18,12 @@ extern "C" {
 class QByteArrayView;
 class QCryptographicHash;
 class QIODevice;
+class QMetaObject;
 #else
 typedef struct QByteArrayView QByteArrayView;
 typedef struct QCryptographicHash QCryptographicHash;
 typedef struct QIODevice QIODevice;
+typedef struct QMetaObject QMetaObject;
 #endif
 
 QCryptographicHash* QCryptographicHash_new(int method);
@@ -34,6 +36,7 @@ QByteArrayView* QCryptographicHash_resultView(const QCryptographicHash* self);
 struct seaqt_string QCryptographicHash_hash(QByteArrayView* data, int method);
 int QCryptographicHash_hashLength(int method);
 
+const QMetaObject* QCryptographicHash_staticMetaObject();
 void QCryptographicHash_delete(QCryptographicHash* self);
 
 #ifdef __cplusplus

@@ -99,12 +99,19 @@ QImageIOPlugin* QImageIOPlugin_new2(QObject* parent);
 void QImageIOPlugin_virtbase(QImageIOPlugin* src, QObject** outptr_QObject);
 QMetaObject* QImageIOPlugin_metaObject(const QImageIOPlugin* self);
 void* QImageIOPlugin_metacast(QImageIOPlugin* self, const char* param1);
+int QImageIOPlugin_metacall(QImageIOPlugin* self, int param1, int param2, void** param3);
 struct seaqt_string QImageIOPlugin_tr(const char* s);
 int QImageIOPlugin_capabilities(const QImageIOPlugin* self, QIODevice* device, struct seaqt_string format);
 QImageIOHandler* QImageIOPlugin_create(const QImageIOPlugin* self, QIODevice* device, struct seaqt_string format);
 struct seaqt_string QImageIOPlugin_tr2(const char* s, const char* c);
 struct seaqt_string QImageIOPlugin_tr3(const char* s, const char* c, int n);
 
+bool QImageIOPlugin_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QImageIOPlugin_virtualbase_metaObject(const void* self);
+bool QImageIOPlugin_override_virtual_metacast(void* self, intptr_t slot);
+void* QImageIOPlugin_virtualbase_metacast(void* self, const char* param1);
+bool QImageIOPlugin_override_virtual_metacall(void* self, intptr_t slot);
+int QImageIOPlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QImageIOPlugin_override_virtual_capabilities(void* self, intptr_t slot);
 int QImageIOPlugin_virtualbase_capabilities(const void* self, QIODevice* device, struct seaqt_string format);
 bool QImageIOPlugin_override_virtual_create(void* self, intptr_t slot);
@@ -129,6 +136,7 @@ int QImageIOPlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const
 int QImageIOPlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QImageIOPlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QImageIOPlugin_staticMetaObject();
 void QImageIOPlugin_delete(QImageIOPlugin* self);
 
 #ifdef __cplusplus

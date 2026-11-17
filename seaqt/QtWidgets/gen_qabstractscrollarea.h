@@ -97,6 +97,7 @@ QAbstractScrollArea* QAbstractScrollArea_new2(QWidget* parent);
 void QAbstractScrollArea_virtbase(QAbstractScrollArea* src, QFrame** outptr_QFrame);
 QMetaObject* QAbstractScrollArea_metaObject(const QAbstractScrollArea* self);
 void* QAbstractScrollArea_metacast(QAbstractScrollArea* self, const char* param1);
+int QAbstractScrollArea_metacall(QAbstractScrollArea* self, int param1, int param2, void** param3);
 struct seaqt_string QAbstractScrollArea_tr(const char* s);
 int QAbstractScrollArea_verticalScrollBarPolicy(const QAbstractScrollArea* self);
 void QAbstractScrollArea_setVerticalScrollBarPolicy(QAbstractScrollArea* self, int verticalScrollBarPolicy);
@@ -139,6 +140,12 @@ QSize* QAbstractScrollArea_viewportSizeHint(const QAbstractScrollArea* self);
 struct seaqt_string QAbstractScrollArea_tr2(const char* s, const char* c);
 struct seaqt_string QAbstractScrollArea_tr3(const char* s, const char* c, int n);
 
+bool QAbstractScrollArea_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QAbstractScrollArea_virtualbase_metaObject(const void* self);
+bool QAbstractScrollArea_override_virtual_metacast(void* self, intptr_t slot);
+void* QAbstractScrollArea_virtualbase_metacast(void* self, const char* param1);
+bool QAbstractScrollArea_override_virtual_metacall(void* self, intptr_t slot);
+int QAbstractScrollArea_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QAbstractScrollArea_override_virtual_minimumSizeHint(void* self, intptr_t slot);
 QSize* QAbstractScrollArea_virtualbase_minimumSizeHint(const void* self);
 bool QAbstractScrollArea_override_virtual_sizeHint(void* self, intptr_t slot);
@@ -258,6 +265,7 @@ int QAbstractScrollArea_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, 
 int QAbstractScrollArea_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QAbstractScrollArea_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QAbstractScrollArea_staticMetaObject();
 void QAbstractScrollArea_delete(QAbstractScrollArea* self);
 
 #ifdef __cplusplus

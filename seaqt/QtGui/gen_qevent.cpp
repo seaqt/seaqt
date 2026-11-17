@@ -26,6 +26,7 @@
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QList>
+#include <QMetaObject>
 #include <QMimeData>
 #include <QMouseEvent>
 #include <QMoveEvent>
@@ -687,6 +688,7 @@ void QSinglePointEvent_setExclusivePointGrabber(QSinglePointEvent* self, QObject
 	self->setExclusivePointGrabber(exclusiveGrabber);
 }
 
+const QMetaObject* QSinglePointEvent_staticMetaObject() { return &QSinglePointEvent::staticMetaObject; }
 void QSinglePointEvent_delete(QSinglePointEvent* self) {
 	delete self;
 }
@@ -1638,6 +1640,7 @@ int QWheelEvent_source(const QWheelEvent* self) {
 	return static_cast<int>(_ret);
 }
 
+const QMetaObject* QWheelEvent_staticMetaObject() { return &QWheelEvent::staticMetaObject; }
 bool QWheelEvent_override_virtual_clone(void* self, intptr_t slot) {
 	VirtualQWheelEvent* self_cast = dynamic_cast<VirtualQWheelEvent*>( (QWheelEvent*)(self) );
 	if (self_cast == nullptr) {

@@ -41,6 +41,7 @@ typedef struct QWidget QWidget;
 void QDesignerFormWindowManagerInterface_virtbase(QDesignerFormWindowManagerInterface* src, QObject** outptr_QObject);
 QMetaObject* QDesignerFormWindowManagerInterface_metaObject(const QDesignerFormWindowManagerInterface* self);
 void* QDesignerFormWindowManagerInterface_metacast(QDesignerFormWindowManagerInterface* self, const char* param1);
+int QDesignerFormWindowManagerInterface_metacall(QDesignerFormWindowManagerInterface* self, int param1, int param2, void** param3);
 struct seaqt_string QDesignerFormWindowManagerInterface_tr(const char* s);
 QAction* QDesignerFormWindowManagerInterface_action(const QDesignerFormWindowManagerInterface* self, int action);
 QActionGroup* QDesignerFormWindowManagerInterface_actionGroup(const QDesignerFormWindowManagerInterface* self, int actionGroup);
@@ -85,6 +86,7 @@ void QDesignerFormWindowManagerInterface_showPluginDialog(QDesignerFormWindowMan
 struct seaqt_string QDesignerFormWindowManagerInterface_tr2(const char* s, const char* c);
 struct seaqt_string QDesignerFormWindowManagerInterface_tr3(const char* s, const char* c, int n);
 
+const QMetaObject* QDesignerFormWindowManagerInterface_staticMetaObject();
 void QDesignerFormWindowManagerInterface_delete(QDesignerFormWindowManagerInterface* self);
 
 #ifdef __cplusplus

@@ -126,6 +126,7 @@ QDesignerWidgetDataBaseInterface* QDesignerWidgetDataBaseInterface_new2(QObject*
 void QDesignerWidgetDataBaseInterface_virtbase(QDesignerWidgetDataBaseInterface* src, QObject** outptr_QObject);
 QMetaObject* QDesignerWidgetDataBaseInterface_metaObject(const QDesignerWidgetDataBaseInterface* self);
 void* QDesignerWidgetDataBaseInterface_metacast(QDesignerWidgetDataBaseInterface* self, const char* param1);
+int QDesignerWidgetDataBaseInterface_metacall(QDesignerWidgetDataBaseInterface* self, int param1, int param2, void** param3);
 struct seaqt_string QDesignerWidgetDataBaseInterface_tr(const char* s);
 int QDesignerWidgetDataBaseInterface_count(const QDesignerWidgetDataBaseInterface* self);
 QDesignerWidgetDataBaseItemInterface* QDesignerWidgetDataBaseInterface_item(const QDesignerWidgetDataBaseInterface* self, int index);
@@ -143,6 +144,12 @@ struct seaqt_string QDesignerWidgetDataBaseInterface_tr3(const char* s, const ch
 bool QDesignerWidgetDataBaseInterface_isContainer2(const QDesignerWidgetDataBaseInterface* self, QObject* object, bool resolveName);
 bool QDesignerWidgetDataBaseInterface_isCustom2(const QDesignerWidgetDataBaseInterface* self, QObject* object, bool resolveName);
 
+bool QDesignerWidgetDataBaseInterface_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QDesignerWidgetDataBaseInterface_virtualbase_metaObject(const void* self);
+bool QDesignerWidgetDataBaseInterface_override_virtual_metacast(void* self, intptr_t slot);
+void* QDesignerWidgetDataBaseInterface_virtualbase_metacast(void* self, const char* param1);
+bool QDesignerWidgetDataBaseInterface_override_virtual_metacall(void* self, intptr_t slot);
+int QDesignerWidgetDataBaseInterface_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QDesignerWidgetDataBaseInterface_override_virtual_count(void* self, intptr_t slot);
 int QDesignerWidgetDataBaseInterface_virtualbase_count(const void* self);
 bool QDesignerWidgetDataBaseInterface_override_virtual_item(void* self, intptr_t slot);
@@ -177,6 +184,7 @@ int QDesignerWidgetDataBaseInterface_protectedbase_senderSignalIndex(bool* _dyna
 int QDesignerWidgetDataBaseInterface_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QDesignerWidgetDataBaseInterface_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QDesignerWidgetDataBaseInterface_staticMetaObject();
 void QDesignerWidgetDataBaseInterface_delete(QDesignerWidgetDataBaseInterface* self);
 
 #ifdef __cplusplus

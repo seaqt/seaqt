@@ -1,3 +1,4 @@
+#include <QMetaObject>
 #include <QSize>
 #include <QSurface>
 #include <QSurfaceFormat>
@@ -38,6 +39,7 @@ void QSurface_operatorAssign(QSurface* self, QSurface* param1) {
 	self->operator=(*param1);
 }
 
+const QMetaObject* QSurface_staticMetaObject() { return &QSurface::staticMetaObject; }
 void QSurface_delete(QSurface* self) {
 	delete self;
 }

@@ -1,4 +1,5 @@
 #include <QList>
+#include <QMetaObject>
 #include <QPdfLink>
 #include <QPointF>
 #include <QRectF>
@@ -108,6 +109,7 @@ void QPdfLink_copyToClipboardWithMode(const QPdfLink* self, int mode) {
 	self->copyToClipboard(static_cast<QClipboard::Mode>(mode));
 }
 
+const QMetaObject* QPdfLink_staticMetaObject() { return &QPdfLink::staticMetaObject; }
 void QPdfLink_delete(QPdfLink* self) {
 	delete self;
 }

@@ -37,6 +37,7 @@ QTimer* QTimer_new2(QObject* parent);
 void QTimer_virtbase(QTimer* src, QObject** outptr_QObject);
 QMetaObject* QTimer_metaObject(const QTimer* self);
 void* QTimer_metacast(QTimer* self, const char* param1);
+int QTimer_metacall(QTimer* self, int param1, int param2, void** param3);
 struct seaqt_string QTimer_tr(const char* s);
 bool QTimer_isActive(const QTimer* self);
 int QTimer_timerId(const QTimer* self);
@@ -54,6 +55,12 @@ void QTimer_timerEvent(QTimer* self, QTimerEvent* param1);
 struct seaqt_string QTimer_tr2(const char* s, const char* c);
 struct seaqt_string QTimer_tr3(const char* s, const char* c, int n);
 
+bool QTimer_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QTimer_virtualbase_metaObject(const void* self);
+bool QTimer_override_virtual_metacast(void* self, intptr_t slot);
+void* QTimer_virtualbase_metacast(void* self, const char* param1);
+bool QTimer_override_virtual_metacall(void* self, intptr_t slot);
+int QTimer_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QTimer_override_virtual_timerEvent(void* self, intptr_t slot);
 void QTimer_virtualbase_timerEvent(void* self, QTimerEvent* param1);
 bool QTimer_override_virtual_event(void* self, intptr_t slot);
@@ -76,6 +83,7 @@ bool QTimer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* 
 
 void QTimer_connect_timeout(QTimer* self, intptr_t slot);
 
+const QMetaObject* QTimer_staticMetaObject();
 void QTimer_delete(QTimer* self);
 
 #ifdef __cplusplus

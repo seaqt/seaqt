@@ -1,4 +1,5 @@
 #include <QList>
+#include <QMetaObject>
 #include <QSslCertificate>
 #include <QString>
 #include <QByteArray>
@@ -73,6 +74,7 @@ struct seaqt_array /* of QSslCertificate* */  QWebEngineCertificateError_certifi
 	return _out;
 }
 
+const QMetaObject* QWebEngineCertificateError_staticMetaObject() { return &QWebEngineCertificateError::staticMetaObject; }
 void QWebEngineCertificateError_delete(QWebEngineCertificateError* self) {
 	delete self;
 }

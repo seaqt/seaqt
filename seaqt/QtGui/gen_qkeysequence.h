@@ -17,10 +17,12 @@ extern "C" {
 #ifdef __cplusplus
 class QKeyCombination;
 class QKeySequence;
+class QMetaObject;
 class QVariant;
 #else
 typedef struct QKeyCombination QKeyCombination;
 typedef struct QKeySequence QKeySequence;
+typedef struct QMetaObject QMetaObject;
 typedef struct QVariant QVariant;
 #endif
 
@@ -62,6 +64,7 @@ QKeySequence* QKeySequence_fromString2(struct seaqt_string str, int format);
 struct seaqt_array /* of QKeySequence* */  QKeySequence_listFromString2(struct seaqt_string str, int format);
 struct seaqt_string QKeySequence_listToString2(struct seaqt_array /* of QKeySequence* */  list, int format);
 
+const QMetaObject* QKeySequence_staticMetaObject();
 void QKeySequence_delete(QKeySequence* self);
 
 #ifdef __cplusplus

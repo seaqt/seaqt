@@ -15,10 +15,12 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
+class QMetaObject;
 class QSslCertificate;
 class QUrl;
 class QWebEngineCertificateError;
 #else
+typedef struct QMetaObject QMetaObject;
 typedef struct QSslCertificate QSslCertificate;
 typedef struct QUrl QUrl;
 typedef struct QWebEngineCertificateError QWebEngineCertificateError;
@@ -35,6 +37,7 @@ void QWebEngineCertificateError_rejectCertificate(QWebEngineCertificateError* se
 void QWebEngineCertificateError_acceptCertificate(QWebEngineCertificateError* self);
 struct seaqt_array /* of QSslCertificate* */  QWebEngineCertificateError_certificateChain(const QWebEngineCertificateError* self);
 
+const QMetaObject* QWebEngineCertificateError_staticMetaObject();
 void QWebEngineCertificateError_delete(QWebEngineCertificateError* self);
 
 #ifdef __cplusplus

@@ -33,6 +33,7 @@ typedef struct QWebEngineNotification QWebEngineNotification;
 void QWebEngineNotification_virtbase(QWebEngineNotification* src, QObject** outptr_QObject);
 QMetaObject* QWebEngineNotification_metaObject(const QWebEngineNotification* self);
 void* QWebEngineNotification_metacast(QWebEngineNotification* self, const char* param1);
+int QWebEngineNotification_metacall(QWebEngineNotification* self, int param1, int param2, void** param3);
 struct seaqt_string QWebEngineNotification_tr(const char* s);
 bool QWebEngineNotification_matches(const QWebEngineNotification* self, QWebEngineNotification* other);
 QUrl* QWebEngineNotification_origin(const QWebEngineNotification* self);
@@ -50,6 +51,7 @@ void QWebEngineNotification_connect_closed(QWebEngineNotification* self, intptr_
 struct seaqt_string QWebEngineNotification_tr2(const char* s, const char* c);
 struct seaqt_string QWebEngineNotification_tr3(const char* s, const char* c, int n);
 
+const QMetaObject* QWebEngineNotification_staticMetaObject();
 void QWebEngineNotification_delete(QWebEngineNotification* self);
 
 #ifdef __cplusplus

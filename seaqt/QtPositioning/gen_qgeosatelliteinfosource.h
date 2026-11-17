@@ -40,6 +40,7 @@ QGeoSatelliteInfoSource* QGeoSatelliteInfoSource_new(QObject* parent);
 void QGeoSatelliteInfoSource_virtbase(QGeoSatelliteInfoSource* src, QObject** outptr_QObject);
 QMetaObject* QGeoSatelliteInfoSource_metaObject(const QGeoSatelliteInfoSource* self);
 void* QGeoSatelliteInfoSource_metacast(QGeoSatelliteInfoSource* self, const char* param1);
+int QGeoSatelliteInfoSource_metacall(QGeoSatelliteInfoSource* self, int param1, int param2, void** param3);
 struct seaqt_string QGeoSatelliteInfoSource_tr(const char* s);
 QGeoSatelliteInfoSource* QGeoSatelliteInfoSource_createDefaultSource(QObject* parent);
 QGeoSatelliteInfoSource* QGeoSatelliteInfoSource_createSource(struct seaqt_string sourceName, QObject* parent);
@@ -65,6 +66,12 @@ void QGeoSatelliteInfoSource_connect_errorOccurred(QGeoSatelliteInfoSource* self
 struct seaqt_string QGeoSatelliteInfoSource_tr2(const char* s, const char* c);
 struct seaqt_string QGeoSatelliteInfoSource_tr3(const char* s, const char* c, int n);
 
+bool QGeoSatelliteInfoSource_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QGeoSatelliteInfoSource_virtualbase_metaObject(const void* self);
+bool QGeoSatelliteInfoSource_override_virtual_metacast(void* self, intptr_t slot);
+void* QGeoSatelliteInfoSource_virtualbase_metacast(void* self, const char* param1);
+bool QGeoSatelliteInfoSource_override_virtual_metacall(void* self, intptr_t slot);
+int QGeoSatelliteInfoSource_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QGeoSatelliteInfoSource_override_virtual_setUpdateInterval(void* self, intptr_t slot);
 void QGeoSatelliteInfoSource_virtualbase_setUpdateInterval(void* self, int msec);
 bool QGeoSatelliteInfoSource_override_virtual_minimumUpdateInterval(void* self, intptr_t slot);
@@ -101,6 +108,7 @@ int QGeoSatelliteInfoSource_protectedbase_senderSignalIndex(bool* _dynamic_cast_
 int QGeoSatelliteInfoSource_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QGeoSatelliteInfoSource_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QGeoSatelliteInfoSource_staticMetaObject();
 void QGeoSatelliteInfoSource_delete(QGeoSatelliteInfoSource* self);
 
 #ifdef __cplusplus

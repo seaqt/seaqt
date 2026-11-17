@@ -2,6 +2,7 @@
 #include <QGeoRectangle>
 #include <QGeoShape>
 #include <QList>
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -153,6 +154,7 @@ struct seaqt_string QGeoRectangle_toString(const QGeoRectangle* self) {
 	return _ms;
 }
 
+const QMetaObject* QGeoRectangle_staticMetaObject() { return &QGeoRectangle::staticMetaObject; }
 void QGeoRectangle_delete(QGeoRectangle* self) {
 	delete self;
 }

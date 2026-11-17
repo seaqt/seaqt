@@ -45,6 +45,7 @@ QDataWidgetMapper* QDataWidgetMapper_new2(QObject* parent);
 void QDataWidgetMapper_virtbase(QDataWidgetMapper* src, QObject** outptr_QObject);
 QMetaObject* QDataWidgetMapper_metaObject(const QDataWidgetMapper* self);
 void* QDataWidgetMapper_metacast(QDataWidgetMapper* self, const char* param1);
+int QDataWidgetMapper_metacall(QDataWidgetMapper* self, int param1, int param2, void** param3);
 struct seaqt_string QDataWidgetMapper_tr(const char* s);
 void QDataWidgetMapper_setModel(QDataWidgetMapper* self, QAbstractItemModel* model);
 QAbstractItemModel* QDataWidgetMapper_model(const QDataWidgetMapper* self);
@@ -77,6 +78,12 @@ void QDataWidgetMapper_connect_currentIndexChanged(QDataWidgetMapper* self, intp
 struct seaqt_string QDataWidgetMapper_tr2(const char* s, const char* c);
 struct seaqt_string QDataWidgetMapper_tr3(const char* s, const char* c, int n);
 
+bool QDataWidgetMapper_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QDataWidgetMapper_virtualbase_metaObject(const void* self);
+bool QDataWidgetMapper_override_virtual_metacast(void* self, intptr_t slot);
+void* QDataWidgetMapper_virtualbase_metacast(void* self, const char* param1);
+bool QDataWidgetMapper_override_virtual_metacall(void* self, intptr_t slot);
+int QDataWidgetMapper_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QDataWidgetMapper_override_virtual_setCurrentIndex(void* self, intptr_t slot);
 void QDataWidgetMapper_virtualbase_setCurrentIndex(void* self, int index);
 bool QDataWidgetMapper_override_virtual_event(void* self, intptr_t slot);
@@ -99,6 +106,7 @@ int QDataWidgetMapper_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, co
 int QDataWidgetMapper_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QDataWidgetMapper_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QDataWidgetMapper_staticMetaObject();
 void QDataWidgetMapper_delete(QDataWidgetMapper* self);
 
 #ifdef __cplusplus

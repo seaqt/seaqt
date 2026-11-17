@@ -89,6 +89,7 @@ QDesignerResourceBrowserInterface* QDesignerResourceBrowserInterface_new2(QWidge
 void QDesignerResourceBrowserInterface_virtbase(QDesignerResourceBrowserInterface* src, QWidget** outptr_QWidget);
 QMetaObject* QDesignerResourceBrowserInterface_metaObject(const QDesignerResourceBrowserInterface* self);
 void* QDesignerResourceBrowserInterface_metacast(QDesignerResourceBrowserInterface* self, const char* param1);
+int QDesignerResourceBrowserInterface_metacall(QDesignerResourceBrowserInterface* self, int param1, int param2, void** param3);
 struct seaqt_string QDesignerResourceBrowserInterface_tr(const char* s);
 void QDesignerResourceBrowserInterface_setCurrentPath(QDesignerResourceBrowserInterface* self, struct seaqt_string filePath);
 struct seaqt_string QDesignerResourceBrowserInterface_currentPath(const QDesignerResourceBrowserInterface* self);
@@ -99,6 +100,12 @@ void QDesignerResourceBrowserInterface_connect_pathActivated(QDesignerResourceBr
 struct seaqt_string QDesignerResourceBrowserInterface_tr2(const char* s, const char* c);
 struct seaqt_string QDesignerResourceBrowserInterface_tr3(const char* s, const char* c, int n);
 
+bool QDesignerResourceBrowserInterface_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QDesignerResourceBrowserInterface_virtualbase_metaObject(const void* self);
+bool QDesignerResourceBrowserInterface_override_virtual_metacast(void* self, intptr_t slot);
+void* QDesignerResourceBrowserInterface_virtualbase_metacast(void* self, const char* param1);
+bool QDesignerResourceBrowserInterface_override_virtual_metacall(void* self, intptr_t slot);
+int QDesignerResourceBrowserInterface_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QDesignerResourceBrowserInterface_override_virtual_setCurrentPath(void* self, intptr_t slot);
 void QDesignerResourceBrowserInterface_virtualbase_setCurrentPath(void* self, struct seaqt_string filePath);
 bool QDesignerResourceBrowserInterface_override_virtual_currentPath(void* self, intptr_t slot);
@@ -208,6 +215,7 @@ int QDesignerResourceBrowserInterface_protectedbase_senderSignalIndex(bool* _dyn
 int QDesignerResourceBrowserInterface_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QDesignerResourceBrowserInterface_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QDesignerResourceBrowserInterface_staticMetaObject();
 void QDesignerResourceBrowserInterface_delete(QDesignerResourceBrowserInterface* self);
 
 #ifdef __cplusplus

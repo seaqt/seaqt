@@ -16,6 +16,7 @@ extern "C" {
 
 #ifdef __cplusplus
 class QEventPoint;
+class QMetaObject;
 class QPointF;
 class QPointingDevice;
 class QPointingDeviceUniqueId;
@@ -23,6 +24,7 @@ class QSizeF;
 class QVector2D;
 #else
 typedef struct QEventPoint QEventPoint;
+typedef struct QMetaObject QMetaObject;
 typedef struct QPointF QPointF;
 typedef struct QPointingDevice QPointingDevice;
 typedef struct QPointingDeviceUniqueId QPointingDeviceUniqueId;
@@ -80,6 +82,7 @@ bool QEventPoint_isAccepted(const QEventPoint* self);
 void QEventPoint_setAccepted(QEventPoint* self);
 void QEventPoint_setAcceptedWithAccepted(QEventPoint* self, bool accepted);
 
+const QMetaObject* QEventPoint_staticMetaObject();
 void QEventPoint_delete(QEventPoint* self);
 
 #ifdef __cplusplus

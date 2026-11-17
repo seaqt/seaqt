@@ -56,6 +56,7 @@ void QDesignerMetaDataBaseItemInterface_delete(QDesignerMetaDataBaseItemInterfac
 void QDesignerMetaDataBaseInterface_virtbase(QDesignerMetaDataBaseInterface* src, QObject** outptr_QObject);
 QMetaObject* QDesignerMetaDataBaseInterface_metaObject(const QDesignerMetaDataBaseInterface* self);
 void* QDesignerMetaDataBaseInterface_metacast(QDesignerMetaDataBaseInterface* self, const char* param1);
+int QDesignerMetaDataBaseInterface_metacall(QDesignerMetaDataBaseInterface* self, int param1, int param2, void** param3);
 struct seaqt_string QDesignerMetaDataBaseInterface_tr(const char* s);
 QDesignerMetaDataBaseItemInterface* QDesignerMetaDataBaseInterface_item(const QDesignerMetaDataBaseInterface* self, QObject* object);
 void QDesignerMetaDataBaseInterface_add(QDesignerMetaDataBaseInterface* self, QObject* object);
@@ -66,6 +67,7 @@ void QDesignerMetaDataBaseInterface_connect_changed(QDesignerMetaDataBaseInterfa
 struct seaqt_string QDesignerMetaDataBaseInterface_tr2(const char* s, const char* c);
 struct seaqt_string QDesignerMetaDataBaseInterface_tr3(const char* s, const char* c, int n);
 
+const QMetaObject* QDesignerMetaDataBaseInterface_staticMetaObject();
 void QDesignerMetaDataBaseInterface_delete(QDesignerMetaDataBaseInterface* self);
 
 #ifdef __cplusplus

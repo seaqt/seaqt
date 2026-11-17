@@ -1,6 +1,7 @@
 #include <QGeoCoordinate>
 #include <QGeoRectangle>
 #include <QGeoShape>
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -63,6 +64,7 @@ struct seaqt_string QGeoShape_toString(const QGeoShape* self) {
 	return _ms;
 }
 
+const QMetaObject* QGeoShape_staticMetaObject() { return &QGeoShape::staticMetaObject; }
 void QGeoShape_delete(QGeoShape* self) {
 	delete self;
 }

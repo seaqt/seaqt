@@ -101,6 +101,7 @@ QPushButton* QPushButton_new6(QIcon* icon, struct seaqt_string text, QWidget* pa
 void QPushButton_virtbase(QPushButton* src, QAbstractButton** outptr_QAbstractButton);
 QMetaObject* QPushButton_metaObject(const QPushButton* self);
 void* QPushButton_metacast(QPushButton* self, const char* param1);
+int QPushButton_metacall(QPushButton* self, int param1, int param2, void** param3);
 struct seaqt_string QPushButton_tr(const char* s);
 QSize* QPushButton_sizeHint(const QPushButton* self);
 QSize* QPushButton_minimumSizeHint(const QPushButton* self);
@@ -124,6 +125,12 @@ bool QPushButton_hitButton(const QPushButton* self, QPoint* pos);
 struct seaqt_string QPushButton_tr2(const char* s, const char* c);
 struct seaqt_string QPushButton_tr3(const char* s, const char* c, int n);
 
+bool QPushButton_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QPushButton_virtualbase_metaObject(const void* self);
+bool QPushButton_override_virtual_metacast(void* self, intptr_t slot);
+void* QPushButton_virtualbase_metacast(void* self, const char* param1);
+bool QPushButton_override_virtual_metacall(void* self, intptr_t slot);
+int QPushButton_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QPushButton_override_virtual_sizeHint(void* self, intptr_t slot);
 QSize* QPushButton_virtualbase_sizeHint(const void* self);
 bool QPushButton_override_virtual_minimumSizeHint(void* self, intptr_t slot);
@@ -237,6 +244,7 @@ int QPushButton_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const vo
 int QPushButton_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QPushButton_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QPushButton_staticMetaObject();
 void QPushButton_delete(QPushButton* self);
 
 #ifdef __cplusplus

@@ -47,6 +47,7 @@ QTcpSocket* QTcpSocket_new2(QObject* parent);
 void QTcpSocket_virtbase(QTcpSocket* src, QAbstractSocket** outptr_QAbstractSocket);
 QMetaObject* QTcpSocket_metaObject(const QTcpSocket* self);
 void* QTcpSocket_metacast(QTcpSocket* self, const char* param1);
+int QTcpSocket_metacall(QTcpSocket* self, int param1, int param2, void** param3);
 struct seaqt_string QTcpSocket_tr(const char* s);
 bool QTcpSocket_bind(QTcpSocket* self, int addr);
 struct seaqt_string QTcpSocket_tr2(const char* s, const char* c);
@@ -54,6 +55,12 @@ struct seaqt_string QTcpSocket_tr3(const char* s, const char* c, int n);
 bool QTcpSocket_bind2(QTcpSocket* self, int addr, unsigned short port);
 bool QTcpSocket_bind3(QTcpSocket* self, int addr, unsigned short port, int mode);
 
+bool QTcpSocket_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QTcpSocket_virtualbase_metaObject(const void* self);
+bool QTcpSocket_override_virtual_metacast(void* self, intptr_t slot);
+void* QTcpSocket_virtualbase_metacast(void* self, const char* param1);
+bool QTcpSocket_override_virtual_metacall(void* self, intptr_t slot);
+int QTcpSocket_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QTcpSocket_override_virtual_resume(void* self, intptr_t slot);
 void QTcpSocket_virtualbase_resume(void* self);
 bool QTcpSocket_override_virtual_bind(void* self, intptr_t slot);
@@ -139,6 +146,7 @@ int QTcpSocket_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const voi
 int QTcpSocket_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QTcpSocket_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QTcpSocket_staticMetaObject();
 void QTcpSocket_delete(QTcpSocket* self);
 
 #ifdef __cplusplus

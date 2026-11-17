@@ -41,6 +41,7 @@ QNetworkCookieJar* QNetworkCookieJar_new2(QObject* parent);
 void QNetworkCookieJar_virtbase(QNetworkCookieJar* src, QObject** outptr_QObject);
 QMetaObject* QNetworkCookieJar_metaObject(const QNetworkCookieJar* self);
 void* QNetworkCookieJar_metacast(QNetworkCookieJar* self, const char* param1);
+int QNetworkCookieJar_metacall(QNetworkCookieJar* self, int param1, int param2, void** param3);
 struct seaqt_string QNetworkCookieJar_tr(const char* s);
 struct seaqt_array /* of QNetworkCookie* */  QNetworkCookieJar_cookiesForUrl(const QNetworkCookieJar* self, QUrl* url);
 bool QNetworkCookieJar_setCookiesFromUrl(QNetworkCookieJar* self, struct seaqt_array /* of QNetworkCookie* */  cookieList, QUrl* url);
@@ -51,6 +52,12 @@ bool QNetworkCookieJar_validateCookie(const QNetworkCookieJar* self, QNetworkCoo
 struct seaqt_string QNetworkCookieJar_tr2(const char* s, const char* c);
 struct seaqt_string QNetworkCookieJar_tr3(const char* s, const char* c, int n);
 
+bool QNetworkCookieJar_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QNetworkCookieJar_virtualbase_metaObject(const void* self);
+bool QNetworkCookieJar_override_virtual_metacast(void* self, intptr_t slot);
+void* QNetworkCookieJar_virtualbase_metacast(void* self, const char* param1);
+bool QNetworkCookieJar_override_virtual_metacall(void* self, intptr_t slot);
+int QNetworkCookieJar_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QNetworkCookieJar_override_virtual_cookiesForUrl(void* self, intptr_t slot);
 struct seaqt_array /* of QNetworkCookie* */  QNetworkCookieJar_virtualbase_cookiesForUrl(const void* self, QUrl* url);
 bool QNetworkCookieJar_override_virtual_setCookiesFromUrl(void* self, intptr_t slot);
@@ -85,6 +92,7 @@ int QNetworkCookieJar_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, co
 int QNetworkCookieJar_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QNetworkCookieJar_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QNetworkCookieJar_staticMetaObject();
 void QNetworkCookieJar_delete(QNetworkCookieJar* self);
 
 #ifdef __cplusplus

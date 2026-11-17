@@ -2,6 +2,7 @@
 #include <QGeoPath>
 #include <QGeoShape>
 #include <QList>
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -180,6 +181,7 @@ double QGeoPath_length2(const QGeoPath* self, ptrdiff_t indexFrom, ptrdiff_t ind
 	return self->length((qsizetype)(indexFrom), (qsizetype)(indexTo));
 }
 
+const QMetaObject* QGeoPath_staticMetaObject() { return &QGeoPath::staticMetaObject; }
 void QGeoPath_delete(QGeoPath* self) {
 	delete self;
 }

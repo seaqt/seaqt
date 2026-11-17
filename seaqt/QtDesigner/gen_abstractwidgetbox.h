@@ -104,6 +104,7 @@ QDesignerWidgetBoxInterface* QDesignerWidgetBoxInterface_new3(QWidget* parent, i
 void QDesignerWidgetBoxInterface_virtbase(QDesignerWidgetBoxInterface* src, QWidget** outptr_QWidget);
 QMetaObject* QDesignerWidgetBoxInterface_metaObject(const QDesignerWidgetBoxInterface* self);
 void* QDesignerWidgetBoxInterface_metacast(QDesignerWidgetBoxInterface* self, const char* param1);
+int QDesignerWidgetBoxInterface_metacall(QDesignerWidgetBoxInterface* self, int param1, int param2, void** param3);
 struct seaqt_string QDesignerWidgetBoxInterface_tr(const char* s);
 int QDesignerWidgetBoxInterface_categoryCount(const QDesignerWidgetBoxInterface* self);
 QDesignerWidgetBoxInterface__Category* QDesignerWidgetBoxInterface_category(const QDesignerWidgetBoxInterface* self, int cat_idx);
@@ -122,6 +123,12 @@ bool QDesignerWidgetBoxInterface_save(QDesignerWidgetBoxInterface* self);
 struct seaqt_string QDesignerWidgetBoxInterface_tr2(const char* s, const char* c);
 struct seaqt_string QDesignerWidgetBoxInterface_tr3(const char* s, const char* c, int n);
 
+bool QDesignerWidgetBoxInterface_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QDesignerWidgetBoxInterface_virtualbase_metaObject(const void* self);
+bool QDesignerWidgetBoxInterface_override_virtual_metacast(void* self, intptr_t slot);
+void* QDesignerWidgetBoxInterface_virtualbase_metacast(void* self, const char* param1);
+bool QDesignerWidgetBoxInterface_override_virtual_metacall(void* self, intptr_t slot);
+int QDesignerWidgetBoxInterface_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QDesignerWidgetBoxInterface_override_virtual_categoryCount(void* self, intptr_t slot);
 int QDesignerWidgetBoxInterface_virtualbase_categoryCount(const void* self);
 bool QDesignerWidgetBoxInterface_override_virtual_category(void* self, intptr_t slot);
@@ -253,6 +260,7 @@ int QDesignerWidgetBoxInterface_protectedbase_senderSignalIndex(bool* _dynamic_c
 int QDesignerWidgetBoxInterface_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QDesignerWidgetBoxInterface_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QDesignerWidgetBoxInterface_staticMetaObject();
 void QDesignerWidgetBoxInterface_delete(QDesignerWidgetBoxInterface* self);
 
 QDesignerWidgetBoxInterface__Widget* QDesignerWidgetBoxInterface__Widget_new();

@@ -31,6 +31,9 @@
 extern "C" {
 #endif
 
+QMetaObject* miqt_exec_callback_QSqlQueryModel_metaObject(const QSqlQueryModel*, intptr_t);
+void* miqt_exec_callback_QSqlQueryModel_metacast(QSqlQueryModel*, intptr_t, const char*);
+int miqt_exec_callback_QSqlQueryModel_metacall(QSqlQueryModel*, intptr_t, int, int, void**);
 int miqt_exec_callback_QSqlQueryModel_rowCount(const QSqlQueryModel*, intptr_t, QModelIndex*);
 int miqt_exec_callback_QSqlQueryModel_columnCount(const QSqlQueryModel*, intptr_t, QModelIndex*);
 QVariant* miqt_exec_callback_QSqlQueryModel_data(const QSqlQueryModel*, intptr_t, QModelIndex*, int);
@@ -87,6 +90,56 @@ public:
 	VirtualQSqlQueryModel(QObject* parent): QSqlQueryModel(parent) {}
 
 	virtual ~VirtualQSqlQueryModel() override = default;
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metaObject = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual const QMetaObject* metaObject() const override {
+		if (handle__metaObject == 0) {
+			return QSqlQueryModel::metaObject();
+		}
+
+		QMetaObject* callback_return_value = miqt_exec_callback_QSqlQueryModel_metaObject(this, handle__metaObject);
+		return callback_return_value;
+	}
+
+	friend QMetaObject* QSqlQueryModel_virtualbase_metaObject(const void* self);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacast = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual void* qt_metacast(const char* param1) override {
+		if (handle__metacast == 0) {
+			return QSqlQueryModel::qt_metacast(param1);
+		}
+
+		const char* sigval1 = (const char*) param1;
+		void* callback_return_value = miqt_exec_callback_QSqlQueryModel_metacast(this, handle__metacast, sigval1);
+		return callback_return_value;
+	}
+
+	friend void* QSqlQueryModel_virtualbase_metacast(void* self, const char* param1);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacall = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
+		if (handle__metacall == 0) {
+			return QSqlQueryModel::qt_metacall(param1, param2, param3);
+		}
+
+		QMetaObject::Call param1_ret = param1;
+		int sigval1 = static_cast<int>(param1_ret);
+		int sigval2 = param2;
+		void** sigval3 = param3;
+		int callback_return_value = miqt_exec_callback_QSqlQueryModel_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		return static_cast<int>(callback_return_value);
+	}
+
+	friend int QSqlQueryModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 
 	// cgo.Handle value for overwritten implementation
 	intptr_t handle__rowCount = 0;
@@ -1023,6 +1076,10 @@ void* QSqlQueryModel_metacast(QSqlQueryModel* self, const char* param1) {
 	return self->qt_metacast(param1);
 }
 
+int QSqlQueryModel_metacall(QSqlQueryModel* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+}
+
 struct seaqt_string QSqlQueryModel_tr(const char* s) {
 	QString _ret = QSqlQueryModel::tr(s);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
@@ -1147,6 +1204,49 @@ struct seaqt_string QSqlQueryModel_tr3(const char* s, const char* c, int n) {
 void QSqlQueryModel_setQuery2(QSqlQueryModel* self, struct seaqt_string query, QSqlDatabase* db) {
 	QString query_QString = QString::fromUtf8(query.data, query.len);
 	self->setQuery(query_QString, *db);
+}
+
+const QMetaObject* QSqlQueryModel_staticMetaObject() { return &QSqlQueryModel::staticMetaObject; }
+bool QSqlQueryModel_override_virtual_metaObject(void* self, intptr_t slot) {
+	VirtualQSqlQueryModel* self_cast = dynamic_cast<VirtualQSqlQueryModel*>( (QSqlQueryModel*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metaObject = slot;
+	return true;
+}
+
+QMetaObject* QSqlQueryModel_virtualbase_metaObject(const void* self) {
+	return (QMetaObject*) static_cast<const VirtualQSqlQueryModel*>(self)->QSqlQueryModel::metaObject();
+}
+
+bool QSqlQueryModel_override_virtual_metacast(void* self, intptr_t slot) {
+	VirtualQSqlQueryModel* self_cast = dynamic_cast<VirtualQSqlQueryModel*>( (QSqlQueryModel*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacast = slot;
+	return true;
+}
+
+void* QSqlQueryModel_virtualbase_metacast(void* self, const char* param1) {
+	return static_cast<VirtualQSqlQueryModel*>(self)->QSqlQueryModel::qt_metacast(param1);
+}
+
+bool QSqlQueryModel_override_virtual_metacall(void* self, intptr_t slot) {
+	VirtualQSqlQueryModel* self_cast = dynamic_cast<VirtualQSqlQueryModel*>( (QSqlQueryModel*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacall = slot;
+	return true;
+}
+
+int QSqlQueryModel_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
+	return static_cast<VirtualQSqlQueryModel*>(self)->QSqlQueryModel::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 bool QSqlQueryModel_override_virtual_rowCount(void* self, intptr_t slot) {

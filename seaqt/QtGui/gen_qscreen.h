@@ -41,6 +41,7 @@ typedef struct QTransform QTransform;
 void QScreen_virtbase(QScreen* src, QObject** outptr_QObject);
 QMetaObject* QScreen_metaObject(const QScreen* self);
 void* QScreen_metacast(QScreen* self, const char* param1);
+int QScreen_metacall(QScreen* self, int param1, int param2, void** param3);
 struct seaqt_string QScreen_tr(const char* s);
 struct seaqt_string QScreen_name(const QScreen* self);
 struct seaqt_string QScreen_manufacturer(const QScreen* self);
@@ -101,6 +102,7 @@ QPixmap* QScreen_grabWindow3(QScreen* self, uintptr_t window, int x, int y);
 QPixmap* QScreen_grabWindow4(QScreen* self, uintptr_t window, int x, int y, int w);
 QPixmap* QScreen_grabWindow5(QScreen* self, uintptr_t window, int x, int y, int w, int h);
 
+const QMetaObject* QScreen_staticMetaObject();
 void QScreen_delete(QScreen* self);
 
 #ifdef __cplusplus

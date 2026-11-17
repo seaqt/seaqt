@@ -89,6 +89,7 @@ QDesignerPropertyEditorInterface* QDesignerPropertyEditorInterface_new2(QWidget*
 void QDesignerPropertyEditorInterface_virtbase(QDesignerPropertyEditorInterface* src, QWidget** outptr_QWidget);
 QMetaObject* QDesignerPropertyEditorInterface_metaObject(const QDesignerPropertyEditorInterface* self);
 void* QDesignerPropertyEditorInterface_metacast(QDesignerPropertyEditorInterface* self, const char* param1);
+int QDesignerPropertyEditorInterface_metacall(QDesignerPropertyEditorInterface* self, int param1, int param2, void** param3);
 struct seaqt_string QDesignerPropertyEditorInterface_tr(const char* s);
 bool QDesignerPropertyEditorInterface_isReadOnly(const QDesignerPropertyEditorInterface* self);
 QObject* QDesignerPropertyEditorInterface_object(const QDesignerPropertyEditorInterface* self);
@@ -101,6 +102,12 @@ void QDesignerPropertyEditorInterface_setReadOnly(QDesignerPropertyEditorInterfa
 struct seaqt_string QDesignerPropertyEditorInterface_tr2(const char* s, const char* c);
 struct seaqt_string QDesignerPropertyEditorInterface_tr3(const char* s, const char* c, int n);
 
+bool QDesignerPropertyEditorInterface_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QDesignerPropertyEditorInterface_virtualbase_metaObject(const void* self);
+bool QDesignerPropertyEditorInterface_override_virtual_metacast(void* self, intptr_t slot);
+void* QDesignerPropertyEditorInterface_virtualbase_metacast(void* self, const char* param1);
+bool QDesignerPropertyEditorInterface_override_virtual_metacall(void* self, intptr_t slot);
+int QDesignerPropertyEditorInterface_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QDesignerPropertyEditorInterface_override_virtual_isReadOnly(void* self, intptr_t slot);
 bool QDesignerPropertyEditorInterface_virtualbase_isReadOnly(const void* self);
 bool QDesignerPropertyEditorInterface_override_virtual_object(void* self, intptr_t slot);
@@ -218,6 +225,7 @@ int QDesignerPropertyEditorInterface_protectedbase_senderSignalIndex(bool* _dyna
 int QDesignerPropertyEditorInterface_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QDesignerPropertyEditorInterface_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QDesignerPropertyEditorInterface_staticMetaObject();
 void QDesignerPropertyEditorInterface_delete(QDesignerPropertyEditorInterface* self);
 
 #ifdef __cplusplus

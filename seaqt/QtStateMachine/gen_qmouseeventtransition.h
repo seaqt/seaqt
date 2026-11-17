@@ -47,6 +47,7 @@ QMouseEventTransition* QMouseEventTransition_new4(QObject* object, int type, int
 void QMouseEventTransition_virtbase(QMouseEventTransition* src, QEventTransition** outptr_QEventTransition);
 QMetaObject* QMouseEventTransition_metaObject(const QMouseEventTransition* self);
 void* QMouseEventTransition_metacast(QMouseEventTransition* self, const char* param1);
+int QMouseEventTransition_metacall(QMouseEventTransition* self, int param1, int param2, void** param3);
 struct seaqt_string QMouseEventTransition_tr(const char* s);
 int QMouseEventTransition_button(const QMouseEventTransition* self);
 void QMouseEventTransition_setButton(QMouseEventTransition* self, int button);
@@ -59,6 +60,12 @@ bool QMouseEventTransition_eventTest(QMouseEventTransition* self, QEvent* event)
 struct seaqt_string QMouseEventTransition_tr2(const char* s, const char* c);
 struct seaqt_string QMouseEventTransition_tr3(const char* s, const char* c, int n);
 
+bool QMouseEventTransition_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QMouseEventTransition_virtualbase_metaObject(const void* self);
+bool QMouseEventTransition_override_virtual_metacast(void* self, intptr_t slot);
+void* QMouseEventTransition_virtualbase_metacast(void* self, const char* param1);
+bool QMouseEventTransition_override_virtual_metacall(void* self, intptr_t slot);
+int QMouseEventTransition_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QMouseEventTransition_override_virtual_onTransition(void* self, intptr_t slot);
 void QMouseEventTransition_virtualbase_onTransition(void* self, QEvent* event);
 bool QMouseEventTransition_override_virtual_eventTest(void* self, intptr_t slot);
@@ -83,6 +90,7 @@ int QMouseEventTransition_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok
 int QMouseEventTransition_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QMouseEventTransition_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QMouseEventTransition_staticMetaObject();
 void QMouseEventTransition_delete(QMouseEventTransition* self);
 
 #ifdef __cplusplus

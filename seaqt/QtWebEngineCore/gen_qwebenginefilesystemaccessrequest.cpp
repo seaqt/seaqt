@@ -1,3 +1,4 @@
+#include <QMetaObject>
 #include <QUrl>
 #include <QWebEngineFileSystemAccessRequest>
 #include <qwebenginefilesystemaccessrequest.h>
@@ -49,6 +50,7 @@ int QWebEngineFileSystemAccessRequest_accessFlags(const QWebEngineFileSystemAcce
 	return static_cast<int>(_ret);
 }
 
+const QMetaObject* QWebEngineFileSystemAccessRequest_staticMetaObject() { return &QWebEngineFileSystemAccessRequest::staticMetaObject; }
 void QWebEngineFileSystemAccessRequest_delete(QWebEngineFileSystemAccessRequest* self) {
 	delete self;
 }

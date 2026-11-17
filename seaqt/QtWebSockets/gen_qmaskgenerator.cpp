@@ -2,6 +2,7 @@
 #include <QEvent>
 #include <QMaskGenerator>
 #include <QMetaMethod>
+#include <QMetaObject>
 #include <QObject>
 #include <QTimerEvent>
 #include <qmaskgenerator.h>
@@ -13,6 +14,9 @@ extern "C" {
 
 bool miqt_exec_callback_QMaskGenerator_seed(QMaskGenerator*, intptr_t);
 unsigned int miqt_exec_callback_QMaskGenerator_nextMask(QMaskGenerator*, intptr_t);
+QMetaObject* miqt_exec_callback_QMaskGenerator_metaObject(const QMaskGenerator*, intptr_t);
+void* miqt_exec_callback_QMaskGenerator_metacast(QMaskGenerator*, intptr_t, const char*);
+int miqt_exec_callback_QMaskGenerator_metacall(QMaskGenerator*, intptr_t, int, int, void**);
 bool miqt_exec_callback_QMaskGenerator_event(QMaskGenerator*, intptr_t, QEvent*);
 bool miqt_exec_callback_QMaskGenerator_eventFilter(QMaskGenerator*, intptr_t, QObject*, QEvent*);
 void miqt_exec_callback_QMaskGenerator_timerEvent(QMaskGenerator*, intptr_t, QTimerEvent*);
@@ -57,6 +61,56 @@ public:
 		unsigned int callback_return_value = miqt_exec_callback_QMaskGenerator_nextMask(this, handle__nextMask);
 		return static_cast<quint32>(callback_return_value);
 	}
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metaObject = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual const QMetaObject* metaObject() const override {
+		if (handle__metaObject == 0) {
+			return QMaskGenerator::metaObject();
+		}
+
+		QMetaObject* callback_return_value = miqt_exec_callback_QMaskGenerator_metaObject(this, handle__metaObject);
+		return callback_return_value;
+	}
+
+	friend QMetaObject* QMaskGenerator_virtualbase_metaObject(const void* self);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacast = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual void* qt_metacast(const char* param1) override {
+		if (handle__metacast == 0) {
+			return QMaskGenerator::qt_metacast(param1);
+		}
+
+		const char* sigval1 = (const char*) param1;
+		void* callback_return_value = miqt_exec_callback_QMaskGenerator_metacast(this, handle__metacast, sigval1);
+		return callback_return_value;
+	}
+
+	friend void* QMaskGenerator_virtualbase_metacast(void* self, const char* param1);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacall = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
+		if (handle__metacall == 0) {
+			return QMaskGenerator::qt_metacall(param1, param2, param3);
+		}
+
+		QMetaObject::Call param1_ret = param1;
+		int sigval1 = static_cast<int>(param1_ret);
+		int sigval2 = param2;
+		void** sigval3 = param3;
+		int callback_return_value = miqt_exec_callback_QMaskGenerator_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		return static_cast<int>(callback_return_value);
+	}
+
+	friend int QMaskGenerator_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 
 	// cgo.Handle value for overwritten implementation
 	intptr_t handle__event = 0;
@@ -226,6 +280,48 @@ bool QMaskGenerator_override_virtual_nextMask(void* self, intptr_t slot) {
 
 	self_cast->handle__nextMask = slot;
 	return true;
+}
+
+bool QMaskGenerator_override_virtual_metaObject(void* self, intptr_t slot) {
+	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metaObject = slot;
+	return true;
+}
+
+QMetaObject* QMaskGenerator_virtualbase_metaObject(const void* self) {
+	return (QMetaObject*) static_cast<const VirtualQMaskGenerator*>(self)->QMaskGenerator::metaObject();
+}
+
+bool QMaskGenerator_override_virtual_metacast(void* self, intptr_t slot) {
+	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacast = slot;
+	return true;
+}
+
+void* QMaskGenerator_virtualbase_metacast(void* self, const char* param1) {
+	return static_cast<VirtualQMaskGenerator*>(self)->QMaskGenerator::qt_metacast(param1);
+}
+
+bool QMaskGenerator_override_virtual_metacall(void* self, intptr_t slot) {
+	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacall = slot;
+	return true;
+}
+
+int QMaskGenerator_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
+	return static_cast<VirtualQMaskGenerator*>(self)->QMaskGenerator::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 bool QMaskGenerator_override_virtual_event(void* self, intptr_t slot) {

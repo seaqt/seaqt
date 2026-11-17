@@ -15,9 +15,11 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
+class QMetaObject;
 class QUrl;
 class QWebEngineLoadingInfo;
 #else
+typedef struct QMetaObject QMetaObject;
 typedef struct QUrl QUrl;
 typedef struct QWebEngineLoadingInfo QWebEngineLoadingInfo;
 #endif
@@ -31,6 +33,7 @@ struct seaqt_string QWebEngineLoadingInfo_errorString(const QWebEngineLoadingInf
 int QWebEngineLoadingInfo_errorDomain(const QWebEngineLoadingInfo* self);
 int QWebEngineLoadingInfo_errorCode(const QWebEngineLoadingInfo* self);
 
+const QMetaObject* QWebEngineLoadingInfo_staticMetaObject();
 void QWebEngineLoadingInfo_delete(QWebEngineLoadingInfo* self);
 
 #ifdef __cplusplus

@@ -19,6 +19,7 @@ class QChildEvent;
 class QEvent;
 class QMaskGenerator;
 class QMetaMethod;
+class QMetaObject;
 class QObject;
 class QTimerEvent;
 #else
@@ -26,6 +27,7 @@ typedef struct QChildEvent QChildEvent;
 typedef struct QEvent QEvent;
 typedef struct QMaskGenerator QMaskGenerator;
 typedef struct QMetaMethod QMetaMethod;
+typedef struct QMetaObject QMetaObject;
 typedef struct QObject QObject;
 typedef struct QTimerEvent QTimerEvent;
 #endif
@@ -40,6 +42,12 @@ bool QMaskGenerator_override_virtual_seed(void* self, intptr_t slot);
 bool QMaskGenerator_virtualbase_seed(void* self);
 bool QMaskGenerator_override_virtual_nextMask(void* self, intptr_t slot);
 unsigned int QMaskGenerator_virtualbase_nextMask(void* self);
+bool QMaskGenerator_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QMaskGenerator_virtualbase_metaObject(const void* self);
+bool QMaskGenerator_override_virtual_metacast(void* self, intptr_t slot);
+void* QMaskGenerator_virtualbase_metacast(void* self, const char* param1);
+bool QMaskGenerator_override_virtual_metacall(void* self, intptr_t slot);
+int QMaskGenerator_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QMaskGenerator_override_virtual_event(void* self, intptr_t slot);
 bool QMaskGenerator_virtualbase_event(void* self, QEvent* event);
 bool QMaskGenerator_override_virtual_eventFilter(void* self, intptr_t slot);

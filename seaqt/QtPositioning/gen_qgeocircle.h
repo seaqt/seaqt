@@ -18,10 +18,12 @@ extern "C" {
 class QGeoCircle;
 class QGeoCoordinate;
 class QGeoShape;
+class QMetaObject;
 #else
 typedef struct QGeoCircle QGeoCircle;
 typedef struct QGeoCoordinate QGeoCoordinate;
 typedef struct QGeoShape QGeoShape;
+typedef struct QMetaObject QMetaObject;
 #endif
 
 QGeoCircle* QGeoCircle_new();
@@ -40,6 +42,7 @@ QGeoCircle* QGeoCircle_translated(const QGeoCircle* self, double degreesLatitude
 void QGeoCircle_extendCircle(QGeoCircle* self, QGeoCoordinate* coordinate);
 struct seaqt_string QGeoCircle_toString(const QGeoCircle* self);
 
+const QMetaObject* QGeoCircle_staticMetaObject();
 void QGeoCircle_delete(QGeoCircle* self);
 
 #ifdef __cplusplus

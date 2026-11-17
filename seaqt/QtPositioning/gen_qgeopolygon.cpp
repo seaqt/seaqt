@@ -2,6 +2,7 @@
 #include <QGeoPolygon>
 #include <QGeoShape>
 #include <QList>
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -183,6 +184,7 @@ double QGeoPolygon_length2(const QGeoPolygon* self, ptrdiff_t indexFrom, ptrdiff
 	return self->length((qsizetype)(indexFrom), (qsizetype)(indexTo));
 }
 
+const QMetaObject* QGeoPolygon_staticMetaObject() { return &QGeoPolygon::staticMetaObject; }
 void QGeoPolygon_delete(QGeoPolygon* self) {
 	delete self;
 }

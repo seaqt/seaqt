@@ -33,6 +33,7 @@ typedef struct QWidget QWidget;
 void QDesignerNewFormWidgetInterface_virtbase(QDesignerNewFormWidgetInterface* src, QWidget** outptr_QWidget);
 QMetaObject* QDesignerNewFormWidgetInterface_metaObject(const QDesignerNewFormWidgetInterface* self);
 void* QDesignerNewFormWidgetInterface_metacast(QDesignerNewFormWidgetInterface* self, const char* param1);
+int QDesignerNewFormWidgetInterface_metacall(QDesignerNewFormWidgetInterface* self, int param1, int param2, void** param3);
 struct seaqt_string QDesignerNewFormWidgetInterface_tr(const char* s);
 bool QDesignerNewFormWidgetInterface_hasCurrentTemplate(const QDesignerNewFormWidgetInterface* self);
 void QDesignerNewFormWidgetInterface_templateActivated(QDesignerNewFormWidgetInterface* self);
@@ -42,6 +43,7 @@ void QDesignerNewFormWidgetInterface_connect_currentTemplateChanged(QDesignerNew
 struct seaqt_string QDesignerNewFormWidgetInterface_tr2(const char* s, const char* c);
 struct seaqt_string QDesignerNewFormWidgetInterface_tr3(const char* s, const char* c, int n);
 
+const QMetaObject* QDesignerNewFormWidgetInterface_staticMetaObject();
 void QDesignerNewFormWidgetInterface_delete(QDesignerNewFormWidgetInterface* self);
 
 #ifdef __cplusplus

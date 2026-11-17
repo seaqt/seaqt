@@ -18,10 +18,12 @@ extern "C" {
 class QFont;
 class QFontDatabase;
 class QFontInfo;
+class QMetaObject;
 #else
 typedef struct QFont QFont;
 typedef struct QFontDatabase QFontDatabase;
 typedef struct QFontInfo QFontInfo;
+typedef struct QMetaObject QMetaObject;
 #endif
 
 QFontDatabase* QFontDatabase_new();
@@ -59,6 +61,7 @@ bool QFontDatabase_isSmoothlyScalable2(struct seaqt_string family, struct seaqt_
 bool QFontDatabase_isScalable2(struct seaqt_string family, struct seaqt_string style);
 bool QFontDatabase_isFixedPitch2(struct seaqt_string family, struct seaqt_string style);
 
+const QMetaObject* QFontDatabase_staticMetaObject();
 void QFontDatabase_delete(QFontDatabase* self);
 
 #ifdef __cplusplus

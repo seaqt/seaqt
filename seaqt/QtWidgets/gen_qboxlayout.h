@@ -53,6 +53,7 @@ QBoxLayout* QBoxLayout_new2(int param1, QWidget* parent);
 void QBoxLayout_virtbase(QBoxLayout* src, QLayout** outptr_QLayout);
 QMetaObject* QBoxLayout_metaObject(const QBoxLayout* self);
 void* QBoxLayout_metacast(QBoxLayout* self, const char* param1);
+int QBoxLayout_metacall(QBoxLayout* self, int param1, int param2, void** param3);
 struct seaqt_string QBoxLayout_tr(const char* s);
 int QBoxLayout_direction(const QBoxLayout* self);
 void QBoxLayout_setDirection(QBoxLayout* self, int direction);
@@ -98,6 +99,12 @@ void QBoxLayout_insertWidget2(QBoxLayout* self, int index, QWidget* widget, int 
 void QBoxLayout_insertWidget3(QBoxLayout* self, int index, QWidget* widget, int stretch, int alignment);
 void QBoxLayout_insertLayout2(QBoxLayout* self, int index, QLayout* layout, int stretch);
 
+bool QBoxLayout_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QBoxLayout_virtualbase_metaObject(const void* self);
+bool QBoxLayout_override_virtual_metacast(void* self, intptr_t slot);
+void* QBoxLayout_virtualbase_metacast(void* self, const char* param1);
+bool QBoxLayout_override_virtual_metacall(void* self, intptr_t slot);
+int QBoxLayout_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QBoxLayout_override_virtual_addItem(void* self, intptr_t slot);
 void QBoxLayout_virtualbase_addItem(void* self, QLayoutItem* param1);
 bool QBoxLayout_override_virtual_spacing(void* self, intptr_t slot);
@@ -169,6 +176,7 @@ int QBoxLayout_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const voi
 int QBoxLayout_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QBoxLayout_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QBoxLayout_staticMetaObject();
 void QBoxLayout_delete(QBoxLayout* self);
 
 QHBoxLayout* QHBoxLayout_new();
@@ -176,10 +184,17 @@ QHBoxLayout* QHBoxLayout_new2(QWidget* parent);
 void QHBoxLayout_virtbase(QHBoxLayout* src, QBoxLayout** outptr_QBoxLayout);
 QMetaObject* QHBoxLayout_metaObject(const QHBoxLayout* self);
 void* QHBoxLayout_metacast(QHBoxLayout* self, const char* param1);
+int QHBoxLayout_metacall(QHBoxLayout* self, int param1, int param2, void** param3);
 struct seaqt_string QHBoxLayout_tr(const char* s);
 struct seaqt_string QHBoxLayout_tr2(const char* s, const char* c);
 struct seaqt_string QHBoxLayout_tr3(const char* s, const char* c, int n);
 
+bool QHBoxLayout_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QHBoxLayout_virtualbase_metaObject(const void* self);
+bool QHBoxLayout_override_virtual_metacast(void* self, intptr_t slot);
+void* QHBoxLayout_virtualbase_metacast(void* self, const char* param1);
+bool QHBoxLayout_override_virtual_metacall(void* self, intptr_t slot);
+int QHBoxLayout_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QHBoxLayout_override_virtual_addItem(void* self, intptr_t slot);
 void QHBoxLayout_virtualbase_addItem(void* self, QLayoutItem* param1);
 bool QHBoxLayout_override_virtual_spacing(void* self, intptr_t slot);
@@ -251,6 +266,7 @@ int QHBoxLayout_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const vo
 int QHBoxLayout_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QHBoxLayout_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QHBoxLayout_staticMetaObject();
 void QHBoxLayout_delete(QHBoxLayout* self);
 
 QVBoxLayout* QVBoxLayout_new();
@@ -258,10 +274,17 @@ QVBoxLayout* QVBoxLayout_new2(QWidget* parent);
 void QVBoxLayout_virtbase(QVBoxLayout* src, QBoxLayout** outptr_QBoxLayout);
 QMetaObject* QVBoxLayout_metaObject(const QVBoxLayout* self);
 void* QVBoxLayout_metacast(QVBoxLayout* self, const char* param1);
+int QVBoxLayout_metacall(QVBoxLayout* self, int param1, int param2, void** param3);
 struct seaqt_string QVBoxLayout_tr(const char* s);
 struct seaqt_string QVBoxLayout_tr2(const char* s, const char* c);
 struct seaqt_string QVBoxLayout_tr3(const char* s, const char* c, int n);
 
+bool QVBoxLayout_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QVBoxLayout_virtualbase_metaObject(const void* self);
+bool QVBoxLayout_override_virtual_metacast(void* self, intptr_t slot);
+void* QVBoxLayout_virtualbase_metacast(void* self, const char* param1);
+bool QVBoxLayout_override_virtual_metacall(void* self, intptr_t slot);
+int QVBoxLayout_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QVBoxLayout_override_virtual_addItem(void* self, intptr_t slot);
 void QVBoxLayout_virtualbase_addItem(void* self, QLayoutItem* param1);
 bool QVBoxLayout_override_virtual_spacing(void* self, intptr_t slot);
@@ -333,6 +356,7 @@ int QVBoxLayout_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const vo
 int QVBoxLayout_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QVBoxLayout_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QVBoxLayout_staticMetaObject();
 void QVBoxLayout_delete(QVBoxLayout* self);
 
 #ifdef __cplusplus

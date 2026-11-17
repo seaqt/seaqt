@@ -17,9 +17,11 @@ extern "C" {
 #ifdef __cplusplus
 class QHostAddress;
 class QIPv6Address;
+class QMetaObject;
 #else
 typedef struct QHostAddress QHostAddress;
 typedef struct QIPv6Address QIPv6Address;
+typedef struct QMetaObject QMetaObject;
 #endif
 
 unsigned char QIPv6Address_operatorSubscript(const QIPv6Address* self, int index);
@@ -67,6 +69,7 @@ struct seaqt_map /* tuple of QHostAddress* and int */  QHostAddress_parseSubnet(
 unsigned int QHostAddress_toIPv4AddressWithOk(const QHostAddress* self, bool* ok);
 bool QHostAddress_isEqual2(const QHostAddress* self, QHostAddress* address, int mode);
 
+const QMetaObject* QHostAddress_staticMetaObject();
 void QHostAddress_delete(QHostAddress* self);
 
 #ifdef __cplusplus

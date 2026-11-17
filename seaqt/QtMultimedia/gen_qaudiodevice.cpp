@@ -2,6 +2,7 @@
 #include <QAudioFormat>
 #include <QByteArray>
 #include <QList>
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -116,6 +117,7 @@ uint32_t QAudioDevice_channelConfiguration(const QAudioDevice* self) {
 	return static_cast<uint32_t>(_ret);
 }
 
+const QMetaObject* QAudioDevice_staticMetaObject() { return &QAudioDevice::staticMetaObject; }
 void QAudioDevice_delete(QAudioDevice* self) {
 	delete self;
 }

@@ -93,6 +93,7 @@ QDesignerActionEditorInterface* QDesignerActionEditorInterface_new2(QWidget* par
 void QDesignerActionEditorInterface_virtbase(QDesignerActionEditorInterface* src, QWidget** outptr_QWidget);
 QMetaObject* QDesignerActionEditorInterface_metaObject(const QDesignerActionEditorInterface* self);
 void* QDesignerActionEditorInterface_metacast(QDesignerActionEditorInterface* self, const char* param1);
+int QDesignerActionEditorInterface_metacall(QDesignerActionEditorInterface* self, int param1, int param2, void** param3);
 struct seaqt_string QDesignerActionEditorInterface_tr(const char* s);
 void QDesignerActionEditorInterface_manageAction(QDesignerActionEditorInterface* self, QAction* action);
 void QDesignerActionEditorInterface_unmanageAction(QDesignerActionEditorInterface* self, QAction* action);
@@ -100,6 +101,12 @@ void QDesignerActionEditorInterface_setFormWindow(QDesignerActionEditorInterface
 struct seaqt_string QDesignerActionEditorInterface_tr2(const char* s, const char* c);
 struct seaqt_string QDesignerActionEditorInterface_tr3(const char* s, const char* c, int n);
 
+bool QDesignerActionEditorInterface_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QDesignerActionEditorInterface_virtualbase_metaObject(const void* self);
+bool QDesignerActionEditorInterface_override_virtual_metacast(void* self, intptr_t slot);
+void* QDesignerActionEditorInterface_virtualbase_metacast(void* self, const char* param1);
+bool QDesignerActionEditorInterface_override_virtual_metacall(void* self, intptr_t slot);
+int QDesignerActionEditorInterface_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QDesignerActionEditorInterface_override_virtual_manageAction(void* self, intptr_t slot);
 void QDesignerActionEditorInterface_virtualbase_manageAction(void* self, QAction* action);
 bool QDesignerActionEditorInterface_override_virtual_unmanageAction(void* self, intptr_t slot);
@@ -211,6 +218,7 @@ int QDesignerActionEditorInterface_protectedbase_senderSignalIndex(bool* _dynami
 int QDesignerActionEditorInterface_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QDesignerActionEditorInterface_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QDesignerActionEditorInterface_staticMetaObject();
 void QDesignerActionEditorInterface_delete(QDesignerActionEditorInterface* self);
 
 #ifdef __cplusplus

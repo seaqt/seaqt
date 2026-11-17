@@ -30,6 +30,10 @@ void* QDesignerWidgetFactoryInterface_metacast(QDesignerWidgetFactoryInterface* 
 	return self->qt_metacast(param1);
 }
 
+int QDesignerWidgetFactoryInterface_metacall(QDesignerWidgetFactoryInterface* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+}
+
 struct seaqt_string QDesignerWidgetFactoryInterface_tr(const char* s) {
 	QString _ret = QDesignerWidgetFactoryInterface::tr(s);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
@@ -88,6 +92,7 @@ struct seaqt_string QDesignerWidgetFactoryInterface_tr3(const char* s, const cha
 	return _ms;
 }
 
+const QMetaObject* QDesignerWidgetFactoryInterface_staticMetaObject() { return &QDesignerWidgetFactoryInterface::staticMetaObject; }
 void QDesignerWidgetFactoryInterface_delete(QDesignerWidgetFactoryInterface* self) {
 	delete self;
 }

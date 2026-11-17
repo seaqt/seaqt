@@ -47,6 +47,7 @@ QImageCapture* QImageCapture_new2(QObject* parent);
 void QImageCapture_virtbase(QImageCapture* src, QObject** outptr_QObject);
 QMetaObject* QImageCapture_metaObject(const QImageCapture* self);
 void* QImageCapture_metacast(QImageCapture* self, const char* param1);
+int QImageCapture_metacall(QImageCapture* self, int param1, int param2, void** param3);
 struct seaqt_string QImageCapture_tr(const char* s);
 bool QImageCapture_isAvailable(const QImageCapture* self);
 QMediaCaptureSession* QImageCapture_captureSession(const QImageCapture* self);
@@ -96,6 +97,12 @@ struct seaqt_string QImageCapture_tr2(const char* s, const char* c);
 struct seaqt_string QImageCapture_tr3(const char* s, const char* c, int n);
 int QImageCapture_captureToFileWithLocation(QImageCapture* self, struct seaqt_string location);
 
+bool QImageCapture_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QImageCapture_virtualbase_metaObject(const void* self);
+bool QImageCapture_override_virtual_metacast(void* self, intptr_t slot);
+void* QImageCapture_virtualbase_metacast(void* self, const char* param1);
+bool QImageCapture_override_virtual_metacall(void* self, intptr_t slot);
+int QImageCapture_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QImageCapture_override_virtual_event(void* self, intptr_t slot);
 bool QImageCapture_virtualbase_event(void* self, QEvent* event);
 bool QImageCapture_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -116,6 +123,7 @@ int QImageCapture_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const 
 int QImageCapture_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QImageCapture_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QImageCapture_staticMetaObject();
 void QImageCapture_delete(QImageCapture* self);
 
 #ifdef __cplusplus

@@ -16,6 +16,7 @@ extern "C" {
 
 #ifdef __cplusplus
 class QMetaMethod;
+class QMetaObject;
 class QMetaProperty;
 class QMetaType;
 class QObject;
@@ -25,6 +26,7 @@ class QQmlProperty;
 class QVariant;
 #else
 typedef struct QMetaMethod QMetaMethod;
+typedef struct QMetaObject QMetaObject;
 typedef struct QMetaProperty QMetaProperty;
 typedef struct QMetaType QMetaType;
 typedef struct QObject QObject;
@@ -76,6 +78,7 @@ int QQmlProperty_index(const QQmlProperty* self);
 QMetaProperty* QQmlProperty_property(const QQmlProperty* self);
 QMetaMethod* QQmlProperty_method(const QQmlProperty* self);
 
+const QMetaObject* QQmlProperty_staticMetaObject();
 void QQmlProperty_delete(QQmlProperty* self);
 
 #ifdef __cplusplus

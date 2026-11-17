@@ -3,6 +3,7 @@
 #include <QDateTime>
 #include <QList>
 #include <QLocale>
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -1370,6 +1371,7 @@ struct seaqt_string QLocale_quoteString2(const QLocale* self, struct seaqt_strin
 	return _ms;
 }
 
+const QMetaObject* QLocale_staticMetaObject() { return &QLocale::staticMetaObject; }
 void QLocale_delete(QLocale* self) {
 	delete self;
 }

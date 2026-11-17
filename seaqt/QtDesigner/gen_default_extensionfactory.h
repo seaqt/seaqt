@@ -41,6 +41,7 @@ QExtensionFactory* QExtensionFactory_new2(QExtensionManager* parent);
 void QExtensionFactory_virtbase(QExtensionFactory* src, QObject** outptr_QObject, QAbstractExtensionFactory** outptr_QAbstractExtensionFactory);
 QMetaObject* QExtensionFactory_metaObject(const QExtensionFactory* self);
 void* QExtensionFactory_metacast(QExtensionFactory* self, const char* param1);
+int QExtensionFactory_metacall(QExtensionFactory* self, int param1, int param2, void** param3);
 struct seaqt_string QExtensionFactory_tr(const char* s);
 QObject* QExtensionFactory_extension(const QExtensionFactory* self, QObject* object, struct seaqt_string iid);
 QExtensionManager* QExtensionFactory_extensionManager(const QExtensionFactory* self);
@@ -48,6 +49,12 @@ QObject* QExtensionFactory_createExtension(const QExtensionFactory* self, QObjec
 struct seaqt_string QExtensionFactory_tr2(const char* s, const char* c);
 struct seaqt_string QExtensionFactory_tr3(const char* s, const char* c, int n);
 
+bool QExtensionFactory_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QExtensionFactory_virtualbase_metaObject(const void* self);
+bool QExtensionFactory_override_virtual_metacast(void* self, intptr_t slot);
+void* QExtensionFactory_virtualbase_metacast(void* self, const char* param1);
+bool QExtensionFactory_override_virtual_metacall(void* self, intptr_t slot);
+int QExtensionFactory_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QExtensionFactory_override_virtual_extension(void* self, intptr_t slot);
 QObject* QExtensionFactory_virtualbase_extension(const void* self, QObject* object, struct seaqt_string iid);
 bool QExtensionFactory_override_virtual_createExtension(void* self, intptr_t slot);
@@ -72,6 +79,7 @@ int QExtensionFactory_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, co
 int QExtensionFactory_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QExtensionFactory_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QExtensionFactory_staticMetaObject();
 void QExtensionFactory_delete(QExtensionFactory* self);
 
 #ifdef __cplusplus

@@ -39,6 +39,10 @@ void* QDesignerFormWindowManagerInterface_metacast(QDesignerFormWindowManagerInt
 	return self->qt_metacast(param1);
 }
 
+int QDesignerFormWindowManagerInterface_metacall(QDesignerFormWindowManagerInterface* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+}
+
 struct seaqt_string QDesignerFormWindowManagerInterface_tr(const char* s) {
 	QString _ret = QDesignerFormWindowManagerInterface::tr(s);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
@@ -250,6 +254,7 @@ struct seaqt_string QDesignerFormWindowManagerInterface_tr3(const char* s, const
 	return _ms;
 }
 
+const QMetaObject* QDesignerFormWindowManagerInterface_staticMetaObject() { return &QDesignerFormWindowManagerInterface::staticMetaObject; }
 void QDesignerFormWindowManagerInterface_delete(QDesignerFormWindowManagerInterface* self) {
 	delete self;
 }

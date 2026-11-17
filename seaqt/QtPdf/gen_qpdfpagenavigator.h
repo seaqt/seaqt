@@ -41,6 +41,7 @@ QPdfPageNavigator* QPdfPageNavigator_new2(QObject* parent);
 void QPdfPageNavigator_virtbase(QPdfPageNavigator* src, QObject** outptr_QObject);
 QMetaObject* QPdfPageNavigator_metaObject(const QPdfPageNavigator* self);
 void* QPdfPageNavigator_metacast(QPdfPageNavigator* self, const char* param1);
+int QPdfPageNavigator_metacall(QPdfPageNavigator* self, int param1, int param2, void** param3);
 struct seaqt_string QPdfPageNavigator_tr(const char* s);
 int QPdfPageNavigator_currentPage(const QPdfPageNavigator* self);
 QPointF* QPdfPageNavigator_currentLocation(const QPdfPageNavigator* self);
@@ -69,6 +70,12 @@ struct seaqt_string QPdfPageNavigator_tr2(const char* s, const char* c);
 struct seaqt_string QPdfPageNavigator_tr3(const char* s, const char* c, int n);
 void QPdfPageNavigator_jump3(QPdfPageNavigator* self, int page, QPointF* location, double zoom);
 
+bool QPdfPageNavigator_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QPdfPageNavigator_virtualbase_metaObject(const void* self);
+bool QPdfPageNavigator_override_virtual_metacast(void* self, intptr_t slot);
+void* QPdfPageNavigator_virtualbase_metacast(void* self, const char* param1);
+bool QPdfPageNavigator_override_virtual_metacall(void* self, intptr_t slot);
+int QPdfPageNavigator_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QPdfPageNavigator_override_virtual_event(void* self, intptr_t slot);
 bool QPdfPageNavigator_virtualbase_event(void* self, QEvent* event);
 bool QPdfPageNavigator_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -90,6 +97,7 @@ int QPdfPageNavigator_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, co
 int QPdfPageNavigator_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QPdfPageNavigator_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QPdfPageNavigator_staticMetaObject();
 void QPdfPageNavigator_delete(QPdfPageNavigator* self);
 
 #ifdef __cplusplus

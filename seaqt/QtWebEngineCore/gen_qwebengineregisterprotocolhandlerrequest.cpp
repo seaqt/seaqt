@@ -1,3 +1,4 @@
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -57,6 +58,7 @@ void QWebEngineRegisterProtocolHandlerRequest_operatorAssign(QWebEngineRegisterP
 	self->operator=(*param1);
 }
 
+const QMetaObject* QWebEngineRegisterProtocolHandlerRequest_staticMetaObject() { return &QWebEngineRegisterProtocolHandlerRequest::staticMetaObject; }
 void QWebEngineRegisterProtocolHandlerRequest_delete(QWebEngineRegisterProtocolHandlerRequest* self) {
 	delete self;
 }

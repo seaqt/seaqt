@@ -59,6 +59,7 @@ QGraphicsEffect* QGraphicsEffect_new2(QObject* parent);
 void QGraphicsEffect_virtbase(QGraphicsEffect* src, QObject** outptr_QObject);
 QMetaObject* QGraphicsEffect_metaObject(const QGraphicsEffect* self);
 void* QGraphicsEffect_metacast(QGraphicsEffect* self, const char* param1);
+int QGraphicsEffect_metacall(QGraphicsEffect* self, int param1, int param2, void** param3);
 struct seaqt_string QGraphicsEffect_tr(const char* s);
 QRectF* QGraphicsEffect_boundingRectFor(const QGraphicsEffect* self, QRectF* sourceRect);
 QRectF* QGraphicsEffect_boundingRect(const QGraphicsEffect* self);
@@ -72,6 +73,12 @@ void QGraphicsEffect_sourceChanged(QGraphicsEffect* self, int flags);
 struct seaqt_string QGraphicsEffect_tr2(const char* s, const char* c);
 struct seaqt_string QGraphicsEffect_tr3(const char* s, const char* c, int n);
 
+bool QGraphicsEffect_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QGraphicsEffect_virtualbase_metaObject(const void* self);
+bool QGraphicsEffect_override_virtual_metacast(void* self, intptr_t slot);
+void* QGraphicsEffect_virtualbase_metacast(void* self, const char* param1);
+bool QGraphicsEffect_override_virtual_metacall(void* self, intptr_t slot);
+int QGraphicsEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QGraphicsEffect_override_virtual_boundingRectFor(void* self, intptr_t slot);
 QRectF* QGraphicsEffect_virtualbase_boundingRectFor(const void* self, QRectF* sourceRect);
 bool QGraphicsEffect_override_virtual_draw(void* self, intptr_t slot);
@@ -107,6 +114,7 @@ int QGraphicsEffect_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, cons
 int QGraphicsEffect_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QGraphicsEffect_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QGraphicsEffect_staticMetaObject();
 void QGraphicsEffect_delete(QGraphicsEffect* self);
 
 QGraphicsColorizeEffect* QGraphicsColorizeEffect_new();
@@ -114,6 +122,7 @@ QGraphicsColorizeEffect* QGraphicsColorizeEffect_new2(QObject* parent);
 void QGraphicsColorizeEffect_virtbase(QGraphicsColorizeEffect* src, QGraphicsEffect** outptr_QGraphicsEffect);
 QMetaObject* QGraphicsColorizeEffect_metaObject(const QGraphicsColorizeEffect* self);
 void* QGraphicsColorizeEffect_metacast(QGraphicsColorizeEffect* self, const char* param1);
+int QGraphicsColorizeEffect_metacall(QGraphicsColorizeEffect* self, int param1, int param2, void** param3);
 struct seaqt_string QGraphicsColorizeEffect_tr(const char* s);
 QColor* QGraphicsColorizeEffect_color(const QGraphicsColorizeEffect* self);
 double QGraphicsColorizeEffect_strength(const QGraphicsColorizeEffect* self);
@@ -127,6 +136,12 @@ void QGraphicsColorizeEffect_draw(QGraphicsColorizeEffect* self, QPainter* paint
 struct seaqt_string QGraphicsColorizeEffect_tr2(const char* s, const char* c);
 struct seaqt_string QGraphicsColorizeEffect_tr3(const char* s, const char* c, int n);
 
+bool QGraphicsColorizeEffect_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QGraphicsColorizeEffect_virtualbase_metaObject(const void* self);
+bool QGraphicsColorizeEffect_override_virtual_metacast(void* self, intptr_t slot);
+void* QGraphicsColorizeEffect_virtualbase_metacast(void* self, const char* param1);
+bool QGraphicsColorizeEffect_override_virtual_metacall(void* self, intptr_t slot);
+int QGraphicsColorizeEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QGraphicsColorizeEffect_override_virtual_draw(void* self, intptr_t slot);
 void QGraphicsColorizeEffect_virtualbase_draw(void* self, QPainter* painter);
 bool QGraphicsColorizeEffect_override_virtual_boundingRectFor(void* self, intptr_t slot);
@@ -158,6 +173,7 @@ int QGraphicsColorizeEffect_protectedbase_senderSignalIndex(bool* _dynamic_cast_
 int QGraphicsColorizeEffect_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QGraphicsColorizeEffect_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QGraphicsColorizeEffect_staticMetaObject();
 void QGraphicsColorizeEffect_delete(QGraphicsColorizeEffect* self);
 
 QGraphicsBlurEffect* QGraphicsBlurEffect_new();
@@ -165,6 +181,7 @@ QGraphicsBlurEffect* QGraphicsBlurEffect_new2(QObject* parent);
 void QGraphicsBlurEffect_virtbase(QGraphicsBlurEffect* src, QGraphicsEffect** outptr_QGraphicsEffect);
 QMetaObject* QGraphicsBlurEffect_metaObject(const QGraphicsBlurEffect* self);
 void* QGraphicsBlurEffect_metacast(QGraphicsBlurEffect* self, const char* param1);
+int QGraphicsBlurEffect_metacall(QGraphicsBlurEffect* self, int param1, int param2, void** param3);
 struct seaqt_string QGraphicsBlurEffect_tr(const char* s);
 QRectF* QGraphicsBlurEffect_boundingRectFor(const QGraphicsBlurEffect* self, QRectF* rect);
 double QGraphicsBlurEffect_blurRadius(const QGraphicsBlurEffect* self);
@@ -179,6 +196,12 @@ void QGraphicsBlurEffect_draw(QGraphicsBlurEffect* self, QPainter* painter);
 struct seaqt_string QGraphicsBlurEffect_tr2(const char* s, const char* c);
 struct seaqt_string QGraphicsBlurEffect_tr3(const char* s, const char* c, int n);
 
+bool QGraphicsBlurEffect_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QGraphicsBlurEffect_virtualbase_metaObject(const void* self);
+bool QGraphicsBlurEffect_override_virtual_metacast(void* self, intptr_t slot);
+void* QGraphicsBlurEffect_virtualbase_metacast(void* self, const char* param1);
+bool QGraphicsBlurEffect_override_virtual_metacall(void* self, intptr_t slot);
+int QGraphicsBlurEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QGraphicsBlurEffect_override_virtual_boundingRectFor(void* self, intptr_t slot);
 QRectF* QGraphicsBlurEffect_virtualbase_boundingRectFor(const void* self, QRectF* rect);
 bool QGraphicsBlurEffect_override_virtual_draw(void* self, intptr_t slot);
@@ -210,6 +233,7 @@ int QGraphicsBlurEffect_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, 
 int QGraphicsBlurEffect_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QGraphicsBlurEffect_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QGraphicsBlurEffect_staticMetaObject();
 void QGraphicsBlurEffect_delete(QGraphicsBlurEffect* self);
 
 QGraphicsDropShadowEffect* QGraphicsDropShadowEffect_new();
@@ -217,6 +241,7 @@ QGraphicsDropShadowEffect* QGraphicsDropShadowEffect_new2(QObject* parent);
 void QGraphicsDropShadowEffect_virtbase(QGraphicsDropShadowEffect* src, QGraphicsEffect** outptr_QGraphicsEffect);
 QMetaObject* QGraphicsDropShadowEffect_metaObject(const QGraphicsDropShadowEffect* self);
 void* QGraphicsDropShadowEffect_metacast(QGraphicsDropShadowEffect* self, const char* param1);
+int QGraphicsDropShadowEffect_metacall(QGraphicsDropShadowEffect* self, int param1, int param2, void** param3);
 struct seaqt_string QGraphicsDropShadowEffect_tr(const char* s);
 QRectF* QGraphicsDropShadowEffect_boundingRectFor(const QGraphicsDropShadowEffect* self, QRectF* rect);
 QPointF* QGraphicsDropShadowEffect_offset(const QGraphicsDropShadowEffect* self);
@@ -241,6 +266,12 @@ void QGraphicsDropShadowEffect_draw(QGraphicsDropShadowEffect* self, QPainter* p
 struct seaqt_string QGraphicsDropShadowEffect_tr2(const char* s, const char* c);
 struct seaqt_string QGraphicsDropShadowEffect_tr3(const char* s, const char* c, int n);
 
+bool QGraphicsDropShadowEffect_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QGraphicsDropShadowEffect_virtualbase_metaObject(const void* self);
+bool QGraphicsDropShadowEffect_override_virtual_metacast(void* self, intptr_t slot);
+void* QGraphicsDropShadowEffect_virtualbase_metacast(void* self, const char* param1);
+bool QGraphicsDropShadowEffect_override_virtual_metacall(void* self, intptr_t slot);
+int QGraphicsDropShadowEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QGraphicsDropShadowEffect_override_virtual_boundingRectFor(void* self, intptr_t slot);
 QRectF* QGraphicsDropShadowEffect_virtualbase_boundingRectFor(const void* self, QRectF* rect);
 bool QGraphicsDropShadowEffect_override_virtual_draw(void* self, intptr_t slot);
@@ -272,6 +303,7 @@ int QGraphicsDropShadowEffect_protectedbase_senderSignalIndex(bool* _dynamic_cas
 int QGraphicsDropShadowEffect_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QGraphicsDropShadowEffect_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QGraphicsDropShadowEffect_staticMetaObject();
 void QGraphicsDropShadowEffect_delete(QGraphicsDropShadowEffect* self);
 
 QGraphicsOpacityEffect* QGraphicsOpacityEffect_new();
@@ -279,6 +311,7 @@ QGraphicsOpacityEffect* QGraphicsOpacityEffect_new2(QObject* parent);
 void QGraphicsOpacityEffect_virtbase(QGraphicsOpacityEffect* src, QGraphicsEffect** outptr_QGraphicsEffect);
 QMetaObject* QGraphicsOpacityEffect_metaObject(const QGraphicsOpacityEffect* self);
 void* QGraphicsOpacityEffect_metacast(QGraphicsOpacityEffect* self, const char* param1);
+int QGraphicsOpacityEffect_metacall(QGraphicsOpacityEffect* self, int param1, int param2, void** param3);
 struct seaqt_string QGraphicsOpacityEffect_tr(const char* s);
 double QGraphicsOpacityEffect_opacity(const QGraphicsOpacityEffect* self);
 QBrush* QGraphicsOpacityEffect_opacityMask(const QGraphicsOpacityEffect* self);
@@ -292,6 +325,12 @@ void QGraphicsOpacityEffect_draw(QGraphicsOpacityEffect* self, QPainter* painter
 struct seaqt_string QGraphicsOpacityEffect_tr2(const char* s, const char* c);
 struct seaqt_string QGraphicsOpacityEffect_tr3(const char* s, const char* c, int n);
 
+bool QGraphicsOpacityEffect_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QGraphicsOpacityEffect_virtualbase_metaObject(const void* self);
+bool QGraphicsOpacityEffect_override_virtual_metacast(void* self, intptr_t slot);
+void* QGraphicsOpacityEffect_virtualbase_metacast(void* self, const char* param1);
+bool QGraphicsOpacityEffect_override_virtual_metacall(void* self, intptr_t slot);
+int QGraphicsOpacityEffect_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QGraphicsOpacityEffect_override_virtual_draw(void* self, intptr_t slot);
 void QGraphicsOpacityEffect_virtualbase_draw(void* self, QPainter* painter);
 bool QGraphicsOpacityEffect_override_virtual_boundingRectFor(void* self, intptr_t slot);
@@ -323,6 +362,7 @@ int QGraphicsOpacityEffect_protectedbase_senderSignalIndex(bool* _dynamic_cast_o
 int QGraphicsOpacityEffect_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QGraphicsOpacityEffect_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QGraphicsOpacityEffect_staticMetaObject();
 void QGraphicsOpacityEffect_delete(QGraphicsOpacityEffect* self);
 
 #ifdef __cplusplus
