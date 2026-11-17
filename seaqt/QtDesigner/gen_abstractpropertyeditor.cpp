@@ -123,6 +123,7 @@ public:
 
 		struct seaqt_string callback_return_value = vtbl->currentPropertyName(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -193,7 +194,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->sizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QDesignerPropertyEditorInterface_virtualbase_sizeHint(const VirtualQDesignerPropertyEditorInterface* self);
@@ -204,7 +207,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->minimumSizeHint(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QDesignerPropertyEditorInterface_virtualbase_minimumSizeHint(const VirtualQDesignerPropertyEditorInterface* self);
@@ -643,7 +648,9 @@ public:
 		Qt::InputMethodQuery param1_ret = param1;
 		int sigval1 = static_cast<int>(param1_ret);
 		QVariant* callback_return_value = vtbl->inputMethodQuery(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QDesignerPropertyEditorInterface_virtualbase_inputMethodQuery(const VirtualQDesignerPropertyEditorInterface* self, int param1);

@@ -43,6 +43,7 @@ public:
 
 		struct seaqt_string callback_return_value = vtbl->name(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -69,6 +70,7 @@ public:
 
 		struct seaqt_string callback_return_value = vtbl->group(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -95,6 +97,7 @@ public:
 
 		struct seaqt_string callback_return_value = vtbl->toolTip(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -121,6 +124,7 @@ public:
 
 		struct seaqt_string callback_return_value = vtbl->whatsThis(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -147,6 +151,7 @@ public:
 
 		struct seaqt_string callback_return_value = vtbl->includeFile(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -172,7 +177,9 @@ public:
 		}
 
 		QIcon* callback_return_value = vtbl->icon(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	virtual void setIcon(const QIcon& icon) override {
@@ -247,6 +254,7 @@ public:
 
 		struct seaqt_string callback_return_value = vtbl->pluginPath(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -291,6 +299,7 @@ public:
 
 		struct seaqt_string callback_return_value = vtbl->extends(this);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -340,6 +349,7 @@ public:
 		for(size_t i = 0; i < callback_return_value.len; ++i) {
 			callback_return_value_QList.push_back(*(callback_return_value_arr[i]));
 		}
+		free(callback_return_value.data);
 		return callback_return_value_QList;
 	}
 

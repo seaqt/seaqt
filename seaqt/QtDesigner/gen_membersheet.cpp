@@ -62,6 +62,7 @@ public:
 		int sigval1 = index;
 		struct seaqt_string callback_return_value = vtbl->memberName(this, sigval1);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -73,6 +74,7 @@ public:
 		int sigval1 = index;
 		struct seaqt_string callback_return_value = vtbl->memberGroup(this, sigval1);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -151,6 +153,7 @@ public:
 		int sigval1 = index;
 		struct seaqt_string callback_return_value = vtbl->declaredInClass(this, sigval1);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -162,6 +165,7 @@ public:
 		int sigval1 = index;
 		struct seaqt_string callback_return_value = vtbl->signature(this, sigval1);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -177,8 +181,10 @@ public:
 		struct seaqt_string* callback_return_value_arr = static_cast<struct seaqt_string*>(callback_return_value.data);
 		for(size_t i = 0; i < callback_return_value.len; ++i) {
 			QByteArray callback_return_value_arr_i_QByteArray(callback_return_value_arr[i].data, callback_return_value_arr[i].len);
+			free(callback_return_value_arr[i].data);
 			callback_return_value_QList.push_back(callback_return_value_arr_i_QByteArray);
 		}
+		free(callback_return_value.data);
 		return callback_return_value_QList;
 	}
 
@@ -194,8 +200,10 @@ public:
 		struct seaqt_string* callback_return_value_arr = static_cast<struct seaqt_string*>(callback_return_value.data);
 		for(size_t i = 0; i < callback_return_value.len; ++i) {
 			QByteArray callback_return_value_arr_i_QByteArray(callback_return_value_arr[i].data, callback_return_value_arr[i].len);
+			free(callback_return_value_arr[i].data);
 			callback_return_value_QList.push_back(callback_return_value_arr_i_QByteArray);
 		}
+		free(callback_return_value.data);
 		return callback_return_value_QList;
 	}
 

@@ -115,7 +115,9 @@ public:
 		}
 
 		QSurfaceFormat* callback_return_value = vtbl->format(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSurfaceFormat* QWindow_virtualbase_format(const VirtualQWindow* self);
@@ -126,7 +128,9 @@ public:
 		}
 
 		QSize* callback_return_value = vtbl->size(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSize* QWindow_virtualbase_size(const VirtualQWindow* self);

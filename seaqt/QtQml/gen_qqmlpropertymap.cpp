@@ -91,7 +91,9 @@ public:
 		// Cast returned reference into pointer
 		QVariant* sigval2 = const_cast<QVariant*>(&input_ret);
 		QVariant* callback_return_value = vtbl->updateValue(this, sigval1, sigval2);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QQmlPropertyMap_virtualbase_updateValue(VirtualQQmlPropertyMap* self, struct seaqt_string key, QVariant* input);

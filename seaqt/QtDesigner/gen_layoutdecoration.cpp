@@ -43,6 +43,7 @@ public:
 		for(size_t i = 0; i < callback_return_value.len; ++i) {
 			callback_return_value_QList.push_back(callback_return_value_arr[i]);
 		}
+		free(callback_return_value.data);
 		return callback_return_value_QList;
 	}
 
@@ -53,7 +54,9 @@ public:
 
 		int sigval1 = index;
 		QRect* callback_return_value = vtbl->itemInfo(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	virtual int indexOf(QWidget* widget) const override {
@@ -105,6 +108,8 @@ public:
 		int* callback_return_value_second_arr = static_cast<int*>(callback_return_value.values);
 		callback_return_value_QPair.first = static_cast<int>(callback_return_value_first_arr[0]);
 		callback_return_value_QPair.second = static_cast<int>(callback_return_value_second_arr[0]);
+		free(callback_return_value.keys);
+		free(callback_return_value.values);
 		return callback_return_value_QPair;
 	}
 

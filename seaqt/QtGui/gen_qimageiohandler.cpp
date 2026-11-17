@@ -80,7 +80,9 @@ public:
 		QImageIOHandler::ImageOption option_ret = option;
 		int sigval1 = static_cast<int>(option_ret);
 		QVariant* callback_return_value = vtbl->option(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QImageIOHandler_virtualbase_option(const VirtualQImageIOHandler* self, int option);
@@ -187,7 +189,9 @@ public:
 		}
 
 		QRect* callback_return_value = vtbl->currentImageRect(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QRect* QImageIOHandler_virtualbase_currentImageRect(const VirtualQImageIOHandler* self);

@@ -135,8 +135,10 @@ public:
 		struct seaqt_string* callback_return_value_arr = static_cast<struct seaqt_string*>(callback_return_value.data);
 		for(size_t i = 0; i < callback_return_value.len; ++i) {
 			QString callback_return_value_arr_i_QString = QString::fromUtf8(callback_return_value_arr[i].data, callback_return_value_arr[i].len);
+			free(callback_return_value_arr[i].data);
 			callback_return_value_QList.push_back(callback_return_value_arr_i_QString);
 		}
+		free(callback_return_value.data);
 		return callback_return_value_QList;
 	}
 
@@ -156,7 +158,9 @@ public:
 		memcpy(tableName_ms.data, tableName_b.data(), tableName_ms.len);
 		struct seaqt_string sigval1 = tableName_ms;
 		QSqlIndex* callback_return_value = vtbl->primaryIndex(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSqlIndex* QSqlDriver_virtualbase_primaryIndex(const VirtualQSqlDriver* self, struct seaqt_string tableName);
@@ -175,7 +179,9 @@ public:
 		memcpy(tableName_ms.data, tableName_b.data(), tableName_ms.len);
 		struct seaqt_string sigval1 = tableName_ms;
 		QSqlRecord* callback_return_value = vtbl->record(this, sigval1);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QSqlRecord* QSqlDriver_virtualbase_record(const VirtualQSqlDriver* self, struct seaqt_string tableName);
@@ -191,6 +197,7 @@ public:
 		bool sigval2 = trimStrings;
 		struct seaqt_string callback_return_value = vtbl->formatValue(this, sigval1, sigval2);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -213,6 +220,7 @@ public:
 		int sigval2 = static_cast<int>(type_ret);
 		struct seaqt_string callback_return_value = vtbl->escapeIdentifier(this, sigval1, sigval2);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -239,6 +247,7 @@ public:
 		bool sigval4 = preparedStatement;
 		struct seaqt_string callback_return_value = vtbl->sqlStatement(this, sigval1, sigval2, sigval3, sigval4);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
@@ -250,7 +259,9 @@ public:
 		}
 
 		QVariant* callback_return_value = vtbl->handle(this);
-		return *callback_return_value;
+		auto callback_return_value_Value = std::move(*callback_return_value);
+		delete callback_return_value;
+		return callback_return_value_Value;
 	}
 
 	friend QVariant* QSqlDriver_virtualbase_handle(const VirtualQSqlDriver* self);
@@ -382,8 +393,10 @@ public:
 		struct seaqt_string* callback_return_value_arr = static_cast<struct seaqt_string*>(callback_return_value.data);
 		for(size_t i = 0; i < callback_return_value.len; ++i) {
 			QString callback_return_value_arr_i_QString = QString::fromUtf8(callback_return_value_arr[i].data, callback_return_value_arr[i].len);
+			free(callback_return_value_arr[i].data);
 			callback_return_value_QList.push_back(callback_return_value_arr_i_QString);
 		}
+		free(callback_return_value.data);
 		return callback_return_value_QList;
 	}
 
@@ -427,6 +440,7 @@ public:
 		int sigval2 = static_cast<int>(type_ret);
 		struct seaqt_string callback_return_value = vtbl->stripDelimiters(this, sigval1, sigval2);
 		QString callback_return_value_QString = QString::fromUtf8(callback_return_value.data, callback_return_value.len);
+		free(callback_return_value.data);
 		return callback_return_value_QString;
 	}
 
