@@ -15,13 +15,11 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
-class QByteArrayView;
 class QChar;
 class QStringConverter;
 class QStringDecoder;
 class QStringEncoder;
 #else
-typedef struct QByteArrayView QByteArrayView;
 typedef struct QChar QChar;
 typedef struct QStringConverter QStringConverter;
 typedef struct QStringDecoder QStringDecoder;
@@ -47,8 +45,8 @@ QStringDecoder* QStringDecoder_new5(const char* name, int f);
 
 void QStringDecoder_virtbase(QStringDecoder* src, QStringConverter** outptr_QStringConverter);
 ptrdiff_t QStringDecoder_requiredSpace(const QStringDecoder* self, ptrdiff_t inputLength);
-QChar* QStringDecoder_appendToBuffer(QStringDecoder* self, QChar* out, QByteArrayView* ba);
-QStringDecoder* QStringDecoder_decoderForHtml(QByteArrayView* data);
+QChar* QStringDecoder_appendToBuffer(QStringDecoder* self, QChar* out, struct seaqt_string ba);
+QStringDecoder* QStringDecoder_decoderForHtml(struct seaqt_string data);
 
 void QStringDecoder_delete(QStringDecoder* self);
 
