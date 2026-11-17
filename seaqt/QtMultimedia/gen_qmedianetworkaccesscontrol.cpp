@@ -21,16 +21,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QMediaNetworkAccessControl_configurationChanged(intptr_t, QNetworkConfiguration*);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QMediaNetworkAccessControl_virtbase(QMediaNetworkAccessControl* src, QMediaControl** outptr_QMediaControl) {
 	*outptr_QMediaControl = static_cast<QMediaControl*>(src);
 }
@@ -87,13 +77,18 @@ void QMediaNetworkAccessControl_configurationChanged(QMediaNetworkAccessControl*
 	self->configurationChanged(*configuration);
 }
 
-void QMediaNetworkAccessControl_connect_configurationChanged(QMediaNetworkAccessControl* self, intptr_t slot) {
-	QMediaNetworkAccessControl::connect(self, static_cast<void (QMediaNetworkAccessControl::*)(const QNetworkConfiguration&)>(&QMediaNetworkAccessControl::configurationChanged), self, [=](const QNetworkConfiguration& configuration) {
-		const QNetworkConfiguration& configuration_ret = configuration;
-		// Cast returned reference into pointer
-		QNetworkConfiguration* sigval1 = const_cast<QNetworkConfiguration*>(&configuration_ret);
-		miqt_exec_callback_QMediaNetworkAccessControl_configurationChanged(slot, sigval1);
-	});
+void QMediaNetworkAccessControl_connect_configurationChanged(QMediaNetworkAccessControl* self, intptr_t slot, void (*callback)(intptr_t, QNetworkConfiguration*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QNetworkConfiguration*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QNetworkConfiguration*);
+		void operator()(const QNetworkConfiguration& configuration) {
+			const QNetworkConfiguration& configuration_ret = configuration;
+			// Cast returned reference into pointer
+			QNetworkConfiguration* sigval1 = const_cast<QNetworkConfiguration*>(&configuration_ret);
+			callback(slot, sigval1);
+		}
+	};
+	QMediaNetworkAccessControl::connect(self, static_cast<void (QMediaNetworkAccessControl::*)(const QNetworkConfiguration&)>(&QMediaNetworkAccessControl::configurationChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QMediaNetworkAccessControl_tr2(const char* s, const char* c) {

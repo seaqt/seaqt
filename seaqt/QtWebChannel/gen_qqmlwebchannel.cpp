@@ -24,15 +24,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQQmlWebChannel final : public QQmlWebChannel {
 	const QQmlWebChannel_VTable* vtbl;
 public:

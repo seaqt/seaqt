@@ -14,15 +14,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QPdfDestination* QPdfDestination_new(QPdfDestination* other) {
 	return new (std::nothrow) QPdfDestination(*other);
 }

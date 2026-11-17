@@ -15,15 +15,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QLoggingCategory* QLoggingCategory_new(const char* category) {
 	return new (std::nothrow) QLoggingCategory(category);
 }

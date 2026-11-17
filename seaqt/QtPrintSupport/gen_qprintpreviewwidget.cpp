@@ -48,17 +48,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QPrintPreviewWidget_paintRequested(intptr_t, QPrinter*);
-void miqt_exec_callback_QPrintPreviewWidget_previewChanged(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQPrintPreviewWidget final : public QPrintPreviewWidget {
 	const QPrintPreviewWidget_VTable* vtbl;
 public:
@@ -865,21 +854,31 @@ void QPrintPreviewWidget_paintRequested(QPrintPreviewWidget* self, QPrinter* pri
 	self->paintRequested(printer);
 }
 
-void QPrintPreviewWidget_connect_paintRequested(QPrintPreviewWidget* self, intptr_t slot) {
-	QPrintPreviewWidget::connect(self, static_cast<void (QPrintPreviewWidget::*)(QPrinter*)>(&QPrintPreviewWidget::paintRequested), self, [=](QPrinter* printer) {
-		QPrinter* sigval1 = printer;
-		miqt_exec_callback_QPrintPreviewWidget_paintRequested(slot, sigval1);
-	});
+void QPrintPreviewWidget_connect_paintRequested(QPrintPreviewWidget* self, intptr_t slot, void (*callback)(intptr_t, QPrinter*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QPrinter*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QPrinter*);
+		void operator()(QPrinter* printer) {
+			QPrinter* sigval1 = printer;
+			callback(slot, sigval1);
+		}
+	};
+	QPrintPreviewWidget::connect(self, static_cast<void (QPrintPreviewWidget::*)(QPrinter*)>(&QPrintPreviewWidget::paintRequested), self, local_caller{slot, callback, release});
 }
 
 void QPrintPreviewWidget_previewChanged(QPrintPreviewWidget* self) {
 	self->previewChanged();
 }
 
-void QPrintPreviewWidget_connect_previewChanged(QPrintPreviewWidget* self, intptr_t slot) {
-	QPrintPreviewWidget::connect(self, static_cast<void (QPrintPreviewWidget::*)()>(&QPrintPreviewWidget::previewChanged), self, [=]() {
-		miqt_exec_callback_QPrintPreviewWidget_previewChanged(slot);
-	});
+void QPrintPreviewWidget_connect_previewChanged(QPrintPreviewWidget* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QPrintPreviewWidget::connect(self, static_cast<void (QPrintPreviewWidget::*)()>(&QPrintPreviewWidget::previewChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QPrintPreviewWidget_tr2(const char* s, const char* c) {

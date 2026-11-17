@@ -40,9 +40,9 @@ struct seaqt_string QAudioInputSelectorControl_defaultInput(const QAudioInputSel
 struct seaqt_string QAudioInputSelectorControl_activeInput(const QAudioInputSelectorControl* self);
 void QAudioInputSelectorControl_setActiveInput(QAudioInputSelectorControl* self, struct seaqt_string name);
 void QAudioInputSelectorControl_activeInputChanged(QAudioInputSelectorControl* self, struct seaqt_string name);
-void QAudioInputSelectorControl_connect_activeInputChanged(QAudioInputSelectorControl* self, intptr_t slot);
+void QAudioInputSelectorControl_connect_activeInputChanged(QAudioInputSelectorControl* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_string), void (*release)(intptr_t));
 void QAudioInputSelectorControl_availableInputsChanged(QAudioInputSelectorControl* self);
-void QAudioInputSelectorControl_connect_availableInputsChanged(QAudioInputSelectorControl* self, intptr_t slot);
+void QAudioInputSelectorControl_connect_availableInputsChanged(QAudioInputSelectorControl* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 struct seaqt_string QAudioInputSelectorControl_tr2(const char* s, const char* c);
 struct seaqt_string QAudioInputSelectorControl_tr3(const char* s, const char* c, int n);
 struct seaqt_string QAudioInputSelectorControl_trUtf82(const char* s, const char* c);

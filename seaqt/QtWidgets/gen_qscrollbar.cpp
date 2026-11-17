@@ -49,15 +49,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQScrollBar final : public QScrollBar {
 	const QScrollBar_VTable* vtbl;
 public:

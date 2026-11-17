@@ -75,7 +75,7 @@ bool QAbstractVideoFilter_isActive(const QAbstractVideoFilter* self);
 void QAbstractVideoFilter_setActive(QAbstractVideoFilter* self, bool v);
 QVideoFilterRunnable* QAbstractVideoFilter_createFilterRunnable(QAbstractVideoFilter* self);
 void QAbstractVideoFilter_activeChanged(QAbstractVideoFilter* self);
-void QAbstractVideoFilter_connect_activeChanged(QAbstractVideoFilter* self, intptr_t slot);
+void QAbstractVideoFilter_connect_activeChanged(QAbstractVideoFilter* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 struct seaqt_string QAbstractVideoFilter_tr2(const char* s, const char* c);
 struct seaqt_string QAbstractVideoFilter_tr3(const char* s, const char* c, int n);
 struct seaqt_string QAbstractVideoFilter_trUtf82(const char* s, const char* c);

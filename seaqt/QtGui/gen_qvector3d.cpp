@@ -19,15 +19,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QVector3D* QVector3D_new() {
 	return new (std::nothrow) QVector3D();
 }

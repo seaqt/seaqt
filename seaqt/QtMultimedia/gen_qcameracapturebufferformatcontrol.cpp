@@ -20,16 +20,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QCameraCaptureBufferFormatControl_bufferFormatChanged(intptr_t, int);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QCameraCaptureBufferFormatControl_virtbase(QCameraCaptureBufferFormatControl* src, QMediaControl** outptr_QMediaControl) {
 	*outptr_QMediaControl = static_cast<QMediaControl*>(src);
 }
@@ -95,12 +85,17 @@ void QCameraCaptureBufferFormatControl_bufferFormatChanged(QCameraCaptureBufferF
 	self->bufferFormatChanged(static_cast<QVideoFrame::PixelFormat>(format));
 }
 
-void QCameraCaptureBufferFormatControl_connect_bufferFormatChanged(QCameraCaptureBufferFormatControl* self, intptr_t slot) {
-	QCameraCaptureBufferFormatControl::connect(self, static_cast<void (QCameraCaptureBufferFormatControl::*)(QVideoFrame::PixelFormat)>(&QCameraCaptureBufferFormatControl::bufferFormatChanged), self, [=](QVideoFrame::PixelFormat format) {
-		QVideoFrame::PixelFormat format_ret = format;
-		int sigval1 = static_cast<int>(format_ret);
-		miqt_exec_callback_QCameraCaptureBufferFormatControl_bufferFormatChanged(slot, sigval1);
-	});
+void QCameraCaptureBufferFormatControl_connect_bufferFormatChanged(QCameraCaptureBufferFormatControl* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(QVideoFrame::PixelFormat format) {
+			QVideoFrame::PixelFormat format_ret = format;
+			int sigval1 = static_cast<int>(format_ret);
+			callback(slot, sigval1);
+		}
+	};
+	QCameraCaptureBufferFormatControl::connect(self, static_cast<void (QCameraCaptureBufferFormatControl::*)(QVideoFrame::PixelFormat)>(&QCameraCaptureBufferFormatControl::bufferFormatChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QCameraCaptureBufferFormatControl_tr2(const char* s, const char* c) {

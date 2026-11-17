@@ -79,7 +79,7 @@ void QJSEngine_throwErrorWithErrorType(QJSEngine* self, int errorType);
 struct seaqt_string QJSEngine_uiLanguage(const QJSEngine* self);
 void QJSEngine_setUiLanguage(QJSEngine* self, struct seaqt_string language);
 void QJSEngine_uiLanguageChanged(QJSEngine* self);
-void QJSEngine_connect_uiLanguageChanged(QJSEngine* self, intptr_t slot);
+void QJSEngine_connect_uiLanguageChanged(QJSEngine* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 struct seaqt_string QJSEngine_tr2(const char* s, const char* c);
 struct seaqt_string QJSEngine_tr3(const char* s, const char* c, int n);
 struct seaqt_string QJSEngine_trUtf82(const char* s, const char* c);

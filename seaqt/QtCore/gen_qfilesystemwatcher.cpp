@@ -22,17 +22,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QFileSystemWatcher_fileChanged(intptr_t, struct seaqt_string);
-void miqt_exec_callback_QFileSystemWatcher_directoryChanged(intptr_t, struct seaqt_string);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQFileSystemWatcher final : public QFileSystemWatcher {
 	const QFileSystemWatcher_VTable* vtbl;
 public:

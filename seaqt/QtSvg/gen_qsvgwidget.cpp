@@ -48,15 +48,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQSvgWidget final : public QSvgWidget {
 	const QSvgWidget_VTable* vtbl;
 public:

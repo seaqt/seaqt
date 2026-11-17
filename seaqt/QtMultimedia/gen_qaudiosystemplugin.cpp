@@ -27,15 +27,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 struct seaqt_array /* of struct seaqt_string */  QAudioSystemFactoryInterface_availableDevices(const QAudioSystemFactoryInterface* self, int param1) {
 	QList<QByteArray> _ret = self->availableDevices(static_cast<QAudio::Mode>(param1));
 	// Convert QList<> from C++ memory to manually-managed C memory

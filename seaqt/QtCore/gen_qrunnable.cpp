@@ -12,15 +12,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQRunnable final : public QRunnable {
 	const QRunnable_VTable* vtbl;
 public:

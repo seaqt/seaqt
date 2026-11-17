@@ -15,15 +15,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QWebSocketCorsAuthenticator* QWebSocketCorsAuthenticator_new(struct seaqt_string origin) {
 	QString origin_QString = QString::fromUtf8(origin.data, origin.len);
 	return new (std::nothrow) QWebSocketCorsAuthenticator(origin_QString);

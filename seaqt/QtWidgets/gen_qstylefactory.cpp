@@ -17,15 +17,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 struct seaqt_array /* of struct seaqt_string */  QStyleFactory_keys() {
 	QStringList _ret = QStyleFactory::keys();
 	// Convert QList<> from C++ memory to manually-managed C memory

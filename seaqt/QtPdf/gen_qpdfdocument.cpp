@@ -29,19 +29,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QPdfDocument_passwordChanged(intptr_t);
-void miqt_exec_callback_QPdfDocument_passwordRequired(intptr_t);
-void miqt_exec_callback_QPdfDocument_statusChanged(intptr_t, int);
-void miqt_exec_callback_QPdfDocument_pageCountChanged(intptr_t, int);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQPdfDocument final : public QPdfDocument {
 	const QPdfDocument_VTable* vtbl;
 public:
@@ -308,43 +295,63 @@ void QPdfDocument_passwordChanged(QPdfDocument* self) {
 	self->passwordChanged();
 }
 
-void QPdfDocument_connect_passwordChanged(QPdfDocument* self, intptr_t slot) {
-	QPdfDocument::connect(self, static_cast<void (QPdfDocument::*)()>(&QPdfDocument::passwordChanged), self, [=]() {
-		miqt_exec_callback_QPdfDocument_passwordChanged(slot);
-	});
+void QPdfDocument_connect_passwordChanged(QPdfDocument* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QPdfDocument::connect(self, static_cast<void (QPdfDocument::*)()>(&QPdfDocument::passwordChanged), self, local_caller{slot, callback, release});
 }
 
 void QPdfDocument_passwordRequired(QPdfDocument* self) {
 	self->passwordRequired();
 }
 
-void QPdfDocument_connect_passwordRequired(QPdfDocument* self, intptr_t slot) {
-	QPdfDocument::connect(self, static_cast<void (QPdfDocument::*)()>(&QPdfDocument::passwordRequired), self, [=]() {
-		miqt_exec_callback_QPdfDocument_passwordRequired(slot);
-	});
+void QPdfDocument_connect_passwordRequired(QPdfDocument* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QPdfDocument::connect(self, static_cast<void (QPdfDocument::*)()>(&QPdfDocument::passwordRequired), self, local_caller{slot, callback, release});
 }
 
 void QPdfDocument_statusChanged(QPdfDocument* self, int status) {
 	self->statusChanged(static_cast<QPdfDocument::Status>(status));
 }
 
-void QPdfDocument_connect_statusChanged(QPdfDocument* self, intptr_t slot) {
-	QPdfDocument::connect(self, static_cast<void (QPdfDocument::*)(QPdfDocument::Status)>(&QPdfDocument::statusChanged), self, [=](QPdfDocument::Status status) {
-		QPdfDocument::Status status_ret = status;
-		int sigval1 = static_cast<int>(status_ret);
-		miqt_exec_callback_QPdfDocument_statusChanged(slot, sigval1);
-	});
+void QPdfDocument_connect_statusChanged(QPdfDocument* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(QPdfDocument::Status status) {
+			QPdfDocument::Status status_ret = status;
+			int sigval1 = static_cast<int>(status_ret);
+			callback(slot, sigval1);
+		}
+	};
+	QPdfDocument::connect(self, static_cast<void (QPdfDocument::*)(QPdfDocument::Status)>(&QPdfDocument::statusChanged), self, local_caller{slot, callback, release});
 }
 
 void QPdfDocument_pageCountChanged(QPdfDocument* self, int pageCount) {
 	self->pageCountChanged(static_cast<int>(pageCount));
 }
 
-void QPdfDocument_connect_pageCountChanged(QPdfDocument* self, intptr_t slot) {
-	QPdfDocument::connect(self, static_cast<void (QPdfDocument::*)(int)>(&QPdfDocument::pageCountChanged), self, [=](int pageCount) {
-		int sigval1 = pageCount;
-		miqt_exec_callback_QPdfDocument_pageCountChanged(slot, sigval1);
-	});
+void QPdfDocument_connect_pageCountChanged(QPdfDocument* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(int pageCount) {
+			int sigval1 = pageCount;
+			callback(slot, sigval1);
+		}
+	};
+	QPdfDocument::connect(self, static_cast<void (QPdfDocument::*)(int)>(&QPdfDocument::pageCountChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QPdfDocument_tr2(const char* s, const char* c) {

@@ -22,15 +22,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QSqlQuery* QSqlQuery_new(QSqlResult* r) {
 	return new (std::nothrow) QSqlQuery(r);
 }

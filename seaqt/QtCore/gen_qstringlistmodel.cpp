@@ -32,15 +32,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQStringListModel final : public QStringListModel {
 	const QStringListModel_VTable* vtbl;
 public:

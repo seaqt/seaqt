@@ -36,7 +36,7 @@ struct seaqt_string QMediaAvailabilityControl_tr(const char* s);
 struct seaqt_string QMediaAvailabilityControl_trUtf8(const char* s);
 int QMediaAvailabilityControl_availability(const QMediaAvailabilityControl* self);
 void QMediaAvailabilityControl_availabilityChanged(QMediaAvailabilityControl* self, int availability);
-void QMediaAvailabilityControl_connect_availabilityChanged(QMediaAvailabilityControl* self, intptr_t slot);
+void QMediaAvailabilityControl_connect_availabilityChanged(QMediaAvailabilityControl* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t));
 struct seaqt_string QMediaAvailabilityControl_tr2(const char* s, const char* c);
 struct seaqt_string QMediaAvailabilityControl_tr3(const char* s, const char* c, int n);
 struct seaqt_string QMediaAvailabilityControl_trUtf82(const char* s, const char* c);

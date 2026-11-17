@@ -20,17 +20,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QAudioOutputSelectorControl_activeOutputChanged(intptr_t, struct seaqt_string);
-void miqt_exec_callback_QAudioOutputSelectorControl_availableOutputsChanged(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QAudioOutputSelectorControl_virtbase(QAudioOutputSelectorControl* src, QMediaControl** outptr_QMediaControl) {
 	*outptr_QMediaControl = static_cast<QMediaControl*>(src);
 }
@@ -133,28 +122,38 @@ void QAudioOutputSelectorControl_activeOutputChanged(QAudioOutputSelectorControl
 	self->activeOutputChanged(name_QString);
 }
 
-void QAudioOutputSelectorControl_connect_activeOutputChanged(QAudioOutputSelectorControl* self, intptr_t slot) {
-	QAudioOutputSelectorControl::connect(self, static_cast<void (QAudioOutputSelectorControl::*)(const QString&)>(&QAudioOutputSelectorControl::activeOutputChanged), self, [=](const QString& name) {
-		const QString name_ret = name;
-		// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-		QByteArray name_b = name_ret.toUtf8();
-		struct seaqt_string name_ms;
-		name_ms.len = name_b.length();
-		name_ms.data = static_cast<char*>(malloc(name_ms.len));
-		memcpy(name_ms.data, name_b.data(), name_ms.len);
-		struct seaqt_string sigval1 = name_ms;
-		miqt_exec_callback_QAudioOutputSelectorControl_activeOutputChanged(slot, sigval1);
-	});
+void QAudioOutputSelectorControl_connect_activeOutputChanged(QAudioOutputSelectorControl* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_string), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, struct seaqt_string), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, struct seaqt_string);
+		void operator()(const QString& name) {
+			const QString name_ret = name;
+			// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
+			QByteArray name_b = name_ret.toUtf8();
+			struct seaqt_string name_ms;
+			name_ms.len = name_b.length();
+			name_ms.data = static_cast<char*>(malloc(name_ms.len));
+			memcpy(name_ms.data, name_b.data(), name_ms.len);
+			struct seaqt_string sigval1 = name_ms;
+			callback(slot, sigval1);
+		}
+	};
+	QAudioOutputSelectorControl::connect(self, static_cast<void (QAudioOutputSelectorControl::*)(const QString&)>(&QAudioOutputSelectorControl::activeOutputChanged), self, local_caller{slot, callback, release});
 }
 
 void QAudioOutputSelectorControl_availableOutputsChanged(QAudioOutputSelectorControl* self) {
 	self->availableOutputsChanged();
 }
 
-void QAudioOutputSelectorControl_connect_availableOutputsChanged(QAudioOutputSelectorControl* self, intptr_t slot) {
-	QAudioOutputSelectorControl::connect(self, static_cast<void (QAudioOutputSelectorControl::*)()>(&QAudioOutputSelectorControl::availableOutputsChanged), self, [=]() {
-		miqt_exec_callback_QAudioOutputSelectorControl_availableOutputsChanged(slot);
-	});
+void QAudioOutputSelectorControl_connect_availableOutputsChanged(QAudioOutputSelectorControl* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QAudioOutputSelectorControl::connect(self, static_cast<void (QAudioOutputSelectorControl::*)()>(&QAudioOutputSelectorControl::availableOutputsChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QAudioOutputSelectorControl_tr2(const char* s, const char* c) {

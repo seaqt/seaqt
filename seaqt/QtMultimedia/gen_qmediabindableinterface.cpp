@@ -13,15 +13,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QMediaObject* QMediaBindableInterface_mediaObject(const QMediaBindableInterface* self) {
 	return self->mediaObject();
 }

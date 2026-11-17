@@ -90,13 +90,13 @@ QPdfSelection* QPdfDocument_getSelection(QPdfDocument* self, int page, QPointF* 
 QPdfSelection* QPdfDocument_getSelectionAtIndex(QPdfDocument* self, int page, int startIndex, int maxLength);
 QPdfSelection* QPdfDocument_getAllText(QPdfDocument* self, int page);
 void QPdfDocument_passwordChanged(QPdfDocument* self);
-void QPdfDocument_connect_passwordChanged(QPdfDocument* self, intptr_t slot);
+void QPdfDocument_connect_passwordChanged(QPdfDocument* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 void QPdfDocument_passwordRequired(QPdfDocument* self);
-void QPdfDocument_connect_passwordRequired(QPdfDocument* self, intptr_t slot);
+void QPdfDocument_connect_passwordRequired(QPdfDocument* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 void QPdfDocument_statusChanged(QPdfDocument* self, int status);
-void QPdfDocument_connect_statusChanged(QPdfDocument* self, intptr_t slot);
+void QPdfDocument_connect_statusChanged(QPdfDocument* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t));
 void QPdfDocument_pageCountChanged(QPdfDocument* self, int pageCount);
-void QPdfDocument_connect_pageCountChanged(QPdfDocument* self, intptr_t slot);
+void QPdfDocument_connect_pageCountChanged(QPdfDocument* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t));
 struct seaqt_string QPdfDocument_tr2(const char* s, const char* c);
 struct seaqt_string QPdfDocument_tr3(const char* s, const char* c, int n);
 struct seaqt_string QPdfDocument_trUtf82(const char* s, const char* c);

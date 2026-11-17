@@ -20,17 +20,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QMediaAudioProbeControl_audioBufferProbed(intptr_t, QAudioBuffer*);
-void miqt_exec_callback_QMediaAudioProbeControl_flush(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QMediaAudioProbeControl_virtbase(QMediaAudioProbeControl* src, QMediaControl** outptr_QMediaControl) {
 	*outptr_QMediaControl = static_cast<QMediaControl*>(src);
 }
@@ -73,23 +62,33 @@ void QMediaAudioProbeControl_audioBufferProbed(QMediaAudioProbeControl* self, QA
 	self->audioBufferProbed(*buffer);
 }
 
-void QMediaAudioProbeControl_connect_audioBufferProbed(QMediaAudioProbeControl* self, intptr_t slot) {
-	QMediaAudioProbeControl::connect(self, static_cast<void (QMediaAudioProbeControl::*)(const QAudioBuffer&)>(&QMediaAudioProbeControl::audioBufferProbed), self, [=](const QAudioBuffer& buffer) {
-		const QAudioBuffer& buffer_ret = buffer;
-		// Cast returned reference into pointer
-		QAudioBuffer* sigval1 = const_cast<QAudioBuffer*>(&buffer_ret);
-		miqt_exec_callback_QMediaAudioProbeControl_audioBufferProbed(slot, sigval1);
-	});
+void QMediaAudioProbeControl_connect_audioBufferProbed(QMediaAudioProbeControl* self, intptr_t slot, void (*callback)(intptr_t, QAudioBuffer*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QAudioBuffer*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QAudioBuffer*);
+		void operator()(const QAudioBuffer& buffer) {
+			const QAudioBuffer& buffer_ret = buffer;
+			// Cast returned reference into pointer
+			QAudioBuffer* sigval1 = const_cast<QAudioBuffer*>(&buffer_ret);
+			callback(slot, sigval1);
+		}
+	};
+	QMediaAudioProbeControl::connect(self, static_cast<void (QMediaAudioProbeControl::*)(const QAudioBuffer&)>(&QMediaAudioProbeControl::audioBufferProbed), self, local_caller{slot, callback, release});
 }
 
 void QMediaAudioProbeControl_flush(QMediaAudioProbeControl* self) {
 	self->flush();
 }
 
-void QMediaAudioProbeControl_connect_flush(QMediaAudioProbeControl* self, intptr_t slot) {
-	QMediaAudioProbeControl::connect(self, static_cast<void (QMediaAudioProbeControl::*)()>(&QMediaAudioProbeControl::flush), self, [=]() {
-		miqt_exec_callback_QMediaAudioProbeControl_flush(slot);
-	});
+void QMediaAudioProbeControl_connect_flush(QMediaAudioProbeControl* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QMediaAudioProbeControl::connect(self, static_cast<void (QMediaAudioProbeControl::*)()>(&QMediaAudioProbeControl::flush), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QMediaAudioProbeControl_tr2(const char* s, const char* c) {

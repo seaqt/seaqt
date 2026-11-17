@@ -30,15 +30,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 long long QCborParserError_offset(const QCborParserError* self) {
 	qint64 offset_ret = self->offset;
 	return static_cast<long long>(offset_ret);

@@ -75,15 +75,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QInputEvent* QInputEvent_new(int type) {
 	return new (std::nothrow) QInputEvent(static_cast<QEvent::Type>(type));
 }

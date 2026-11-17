@@ -118,9 +118,9 @@ QVariant* QPdfSearchModel_data(const QPdfSearchModel* self, QModelIndex* index, 
 void QPdfSearchModel_setSearchString(QPdfSearchModel* self, struct seaqt_string searchString);
 void QPdfSearchModel_setDocument(QPdfSearchModel* self, QPdfDocument* document);
 void QPdfSearchModel_documentChanged(QPdfSearchModel* self);
-void QPdfSearchModel_connect_documentChanged(QPdfSearchModel* self, intptr_t slot);
+void QPdfSearchModel_connect_documentChanged(QPdfSearchModel* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 void QPdfSearchModel_searchStringChanged(QPdfSearchModel* self);
-void QPdfSearchModel_connect_searchStringChanged(QPdfSearchModel* self, intptr_t slot);
+void QPdfSearchModel_connect_searchStringChanged(QPdfSearchModel* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 void QPdfSearchModel_timerEvent(QPdfSearchModel* self, QTimerEvent* event);
 struct seaqt_string QPdfSearchModel_tr2(const char* s, const char* c);
 struct seaqt_string QPdfSearchModel_tr3(const char* s, const char* c, int n);
