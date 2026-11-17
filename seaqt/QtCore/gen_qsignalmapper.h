@@ -32,8 +32,27 @@ typedef struct QSignalMapper QSignalMapper;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QSignalMapper* QSignalMapper_new();
-QSignalMapper* QSignalMapper_new2(QObject* parent);
+typedef struct VirtualQSignalMapper VirtualQSignalMapper;
+typedef struct QSignalMapper_VTable{
+	void (*destructor)(VirtualQSignalMapper* self);
+	QMetaObject* (*metaObject)(const VirtualQSignalMapper* self);
+	void* (*metacast)(VirtualQSignalMapper* self, const char* param1);
+	int (*metacall)(VirtualQSignalMapper* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQSignalMapper* self, QEvent* event);
+	bool (*eventFilter)(VirtualQSignalMapper* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQSignalMapper* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQSignalMapper* self, QChildEvent* event);
+	void (*customEvent)(VirtualQSignalMapper* self, QEvent* event);
+	void (*connectNotify)(VirtualQSignalMapper* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQSignalMapper* self, QMetaMethod* signal);
+}QSignalMapper_VTable;
+
+void* QSignalMapper_vdata(VirtualQSignalMapper* self);
+VirtualQSignalMapper* vdata_QSignalMapper(void* vdata);
+
+VirtualQSignalMapper* QSignalMapper_new(const QSignalMapper_VTable* vtbl, size_t vdata);
+VirtualQSignalMapper* QSignalMapper_new2(const QSignalMapper_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QSignalMapper_virtbase(QSignalMapper* src, QObject** outptr_QObject);
 QMetaObject* QSignalMapper_metaObject(const QSignalMapper* self);
 void* QSignalMapper_metacast(QSignalMapper* self, const char* param1);
@@ -66,31 +85,21 @@ struct seaqt_string QSignalMapper_tr3(const char* s, const char* c, int n);
 struct seaqt_string QSignalMapper_trUtf82(const char* s, const char* c);
 struct seaqt_string QSignalMapper_trUtf83(const char* s, const char* c, int n);
 
-bool QSignalMapper_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QSignalMapper_virtualbase_metaObject(const void* self);
-bool QSignalMapper_override_virtual_metacast(void* self, intptr_t slot);
-void* QSignalMapper_virtualbase_metacast(void* self, const char* param1);
-bool QSignalMapper_override_virtual_metacall(void* self, intptr_t slot);
-int QSignalMapper_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QSignalMapper_override_virtual_event(void* self, intptr_t slot);
-bool QSignalMapper_virtualbase_event(void* self, QEvent* event);
-bool QSignalMapper_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QSignalMapper_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QSignalMapper_override_virtual_timerEvent(void* self, intptr_t slot);
-void QSignalMapper_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QSignalMapper_override_virtual_childEvent(void* self, intptr_t slot);
-void QSignalMapper_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QSignalMapper_override_virtual_customEvent(void* self, intptr_t slot);
-void QSignalMapper_virtualbase_customEvent(void* self, QEvent* event);
-bool QSignalMapper_override_virtual_connectNotify(void* self, intptr_t slot);
-void QSignalMapper_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QSignalMapper_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QSignalMapper_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QSignalMapper_virtualbase_metaObject(const VirtualQSignalMapper* self);
+void* QSignalMapper_virtualbase_metacast(VirtualQSignalMapper* self, const char* param1);
+int QSignalMapper_virtualbase_metacall(VirtualQSignalMapper* self, int param1, int param2, void** param3);
+bool QSignalMapper_virtualbase_event(VirtualQSignalMapper* self, QEvent* event);
+bool QSignalMapper_virtualbase_eventFilter(VirtualQSignalMapper* self, QObject* watched, QEvent* event);
+void QSignalMapper_virtualbase_timerEvent(VirtualQSignalMapper* self, QTimerEvent* event);
+void QSignalMapper_virtualbase_childEvent(VirtualQSignalMapper* self, QChildEvent* event);
+void QSignalMapper_virtualbase_customEvent(VirtualQSignalMapper* self, QEvent* event);
+void QSignalMapper_virtualbase_connectNotify(VirtualQSignalMapper* self, QMetaMethod* signal);
+void QSignalMapper_virtualbase_disconnectNotify(VirtualQSignalMapper* self, QMetaMethod* signal);
 
-QObject* QSignalMapper_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QSignalMapper_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QSignalMapper_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QSignalMapper_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QSignalMapper_protectedbase_sender(const VirtualQSignalMapper* self);
+int QSignalMapper_protectedbase_senderSignalIndex(const VirtualQSignalMapper* self);
+int QSignalMapper_protectedbase_receivers(const VirtualQSignalMapper* self, const char* signal);
+bool QSignalMapper_protectedbase_isSignalConnected(const VirtualQSignalMapper* self, QMetaMethod* signal);
 
 const QMetaObject* QSignalMapper_staticMetaObject();
 void QSignalMapper_delete(QSignalMapper* self);

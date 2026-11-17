@@ -21,6 +21,7 @@ typedef struct QElapsedTimer QElapsedTimer;
 #endif
 
 QElapsedTimer* QElapsedTimer_new();
+
 int QElapsedTimer_clockType();
 bool QElapsedTimer_isMonotonic();
 void QElapsedTimer_start(QElapsedTimer* self);

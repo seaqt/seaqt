@@ -42,8 +42,29 @@ typedef struct QRect QRect;
 typedef struct QSize QSize;
 #endif
 
-QIconEngine* QIconEngine_new();
-QIconEngine* QIconEngine_new2(QIconEngine* other);
+typedef struct VirtualQIconEngine VirtualQIconEngine;
+typedef struct QIconEngine_VTable{
+	void (*destructor)(VirtualQIconEngine* self);
+	void (*paint)(VirtualQIconEngine* self, QPainter* painter, QRect* rect, int mode, int state);
+	QSize* (*actualSize)(VirtualQIconEngine* self, QSize* size, int mode, int state);
+	QPixmap* (*pixmap)(VirtualQIconEngine* self, QSize* size, int mode, int state);
+	void (*addPixmap)(VirtualQIconEngine* self, QPixmap* pixmap, int mode, int state);
+	void (*addFile)(VirtualQIconEngine* self, struct seaqt_string fileName, QSize* size, int mode, int state);
+	struct seaqt_string (*key)(const VirtualQIconEngine* self);
+	QIconEngine* (*clone)(const VirtualQIconEngine* self);
+	bool (*read)(VirtualQIconEngine* self, QDataStream* in);
+	bool (*write)(const VirtualQIconEngine* self, QDataStream* out);
+	struct seaqt_array /* of QSize* */  (*availableSizes)(const VirtualQIconEngine* self, int mode, int state);
+	struct seaqt_string (*iconName)(const VirtualQIconEngine* self);
+	void (*virtualHook)(VirtualQIconEngine* self, int id, void* data);
+}QIconEngine_VTable;
+
+void* QIconEngine_vdata(VirtualQIconEngine* self);
+VirtualQIconEngine* vdata_QIconEngine(void* vdata);
+
+VirtualQIconEngine* QIconEngine_new(const QIconEngine_VTable* vtbl, size_t vdata);
+VirtualQIconEngine* QIconEngine_new2(const QIconEngine_VTable* vtbl, size_t vdata, QIconEngine* other);
+
 void QIconEngine_paint(QIconEngine* self, QPainter* painter, QRect* rect, int mode, int state);
 QSize* QIconEngine_actualSize(QIconEngine* self, QSize* size, int mode, int state);
 QPixmap* QIconEngine_pixmap(QIconEngine* self, QSize* size, int mode, int state);
@@ -59,34 +80,23 @@ bool QIconEngine_isNull(const QIconEngine* self);
 QPixmap* QIconEngine_scaledPixmap(QIconEngine* self, QSize* size, int mode, int state, double scale);
 void QIconEngine_virtualHook(QIconEngine* self, int id, void* data);
 
-bool QIconEngine_override_virtual_paint(void* self, intptr_t slot);
-void QIconEngine_virtualbase_paint(void* self, QPainter* painter, QRect* rect, int mode, int state);
-bool QIconEngine_override_virtual_actualSize(void* self, intptr_t slot);
-QSize* QIconEngine_virtualbase_actualSize(void* self, QSize* size, int mode, int state);
-bool QIconEngine_override_virtual_pixmap(void* self, intptr_t slot);
-QPixmap* QIconEngine_virtualbase_pixmap(void* self, QSize* size, int mode, int state);
-bool QIconEngine_override_virtual_addPixmap(void* self, intptr_t slot);
-void QIconEngine_virtualbase_addPixmap(void* self, QPixmap* pixmap, int mode, int state);
-bool QIconEngine_override_virtual_addFile(void* self, intptr_t slot);
-void QIconEngine_virtualbase_addFile(void* self, struct seaqt_string fileName, QSize* size, int mode, int state);
-bool QIconEngine_override_virtual_key(void* self, intptr_t slot);
-struct seaqt_string QIconEngine_virtualbase_key(const void* self);
-bool QIconEngine_override_virtual_clone(void* self, intptr_t slot);
-QIconEngine* QIconEngine_virtualbase_clone(const void* self);
-bool QIconEngine_override_virtual_read(void* self, intptr_t slot);
-bool QIconEngine_virtualbase_read(void* self, QDataStream* in);
-bool QIconEngine_override_virtual_write(void* self, intptr_t slot);
-bool QIconEngine_virtualbase_write(const void* self, QDataStream* out);
-bool QIconEngine_override_virtual_availableSizes(void* self, intptr_t slot);
-struct seaqt_array /* of QSize* */  QIconEngine_virtualbase_availableSizes(const void* self, int mode, int state);
-bool QIconEngine_override_virtual_iconName(void* self, intptr_t slot);
-struct seaqt_string QIconEngine_virtualbase_iconName(const void* self);
-bool QIconEngine_override_virtual_virtualHook(void* self, intptr_t slot);
-void QIconEngine_virtualbase_virtualHook(void* self, int id, void* data);
+void QIconEngine_virtualbase_paint(VirtualQIconEngine* self, QPainter* painter, QRect* rect, int mode, int state);
+QSize* QIconEngine_virtualbase_actualSize(VirtualQIconEngine* self, QSize* size, int mode, int state);
+QPixmap* QIconEngine_virtualbase_pixmap(VirtualQIconEngine* self, QSize* size, int mode, int state);
+void QIconEngine_virtualbase_addPixmap(VirtualQIconEngine* self, QPixmap* pixmap, int mode, int state);
+void QIconEngine_virtualbase_addFile(VirtualQIconEngine* self, struct seaqt_string fileName, QSize* size, int mode, int state);
+struct seaqt_string QIconEngine_virtualbase_key(const VirtualQIconEngine* self);
+QIconEngine* QIconEngine_virtualbase_clone(const VirtualQIconEngine* self);
+bool QIconEngine_virtualbase_read(VirtualQIconEngine* self, QDataStream* in);
+bool QIconEngine_virtualbase_write(const VirtualQIconEngine* self, QDataStream* out);
+struct seaqt_array /* of QSize* */  QIconEngine_virtualbase_availableSizes(const VirtualQIconEngine* self, int mode, int state);
+struct seaqt_string QIconEngine_virtualbase_iconName(const VirtualQIconEngine* self);
+void QIconEngine_virtualbase_virtualHook(VirtualQIconEngine* self, int id, void* data);
 
 void QIconEngine_delete(QIconEngine* self);
 
 QIconEngine__AvailableSizesArgument* QIconEngine__AvailableSizesArgument_new(QIconEngine__AvailableSizesArgument* param1);
+
 int QIconEngine__AvailableSizesArgument_mode(const QIconEngine__AvailableSizesArgument* self);
 void QIconEngine__AvailableSizesArgument_setMode(QIconEngine__AvailableSizesArgument* self, int mode);
 int QIconEngine__AvailableSizesArgument_state(const QIconEngine__AvailableSizesArgument* self);
@@ -98,6 +108,7 @@ void QIconEngine__AvailableSizesArgument_operatorAssign(QIconEngine__AvailableSi
 void QIconEngine__AvailableSizesArgument_delete(QIconEngine__AvailableSizesArgument* self);
 
 QIconEngine__ScaledPixmapArgument* QIconEngine__ScaledPixmapArgument_new(QIconEngine__ScaledPixmapArgument* param1);
+
 QSize* QIconEngine__ScaledPixmapArgument_size(const QIconEngine__ScaledPixmapArgument* self);
 void QIconEngine__ScaledPixmapArgument_setSize(QIconEngine__ScaledPixmapArgument* self, QSize* size);
 int QIconEngine__ScaledPixmapArgument_mode(const QIconEngine__ScaledPixmapArgument* self);

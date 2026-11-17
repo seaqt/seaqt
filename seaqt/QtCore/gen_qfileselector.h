@@ -34,8 +34,27 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QUrl QUrl;
 #endif
 
-QFileSelector* QFileSelector_new();
-QFileSelector* QFileSelector_new2(QObject* parent);
+typedef struct VirtualQFileSelector VirtualQFileSelector;
+typedef struct QFileSelector_VTable{
+	void (*destructor)(VirtualQFileSelector* self);
+	QMetaObject* (*metaObject)(const VirtualQFileSelector* self);
+	void* (*metacast)(VirtualQFileSelector* self, const char* param1);
+	int (*metacall)(VirtualQFileSelector* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQFileSelector* self, QEvent* event);
+	bool (*eventFilter)(VirtualQFileSelector* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQFileSelector* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQFileSelector* self, QChildEvent* event);
+	void (*customEvent)(VirtualQFileSelector* self, QEvent* event);
+	void (*connectNotify)(VirtualQFileSelector* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQFileSelector* self, QMetaMethod* signal);
+}QFileSelector_VTable;
+
+void* QFileSelector_vdata(VirtualQFileSelector* self);
+VirtualQFileSelector* vdata_QFileSelector(void* vdata);
+
+VirtualQFileSelector* QFileSelector_new(const QFileSelector_VTable* vtbl, size_t vdata);
+VirtualQFileSelector* QFileSelector_new2(const QFileSelector_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QFileSelector_virtbase(QFileSelector* src, QObject** outptr_QObject);
 QMetaObject* QFileSelector_metaObject(const QFileSelector* self);
 void* QFileSelector_metacast(QFileSelector* self, const char* param1);
@@ -52,31 +71,21 @@ struct seaqt_string QFileSelector_tr3(const char* s, const char* c, int n);
 struct seaqt_string QFileSelector_trUtf82(const char* s, const char* c);
 struct seaqt_string QFileSelector_trUtf83(const char* s, const char* c, int n);
 
-bool QFileSelector_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QFileSelector_virtualbase_metaObject(const void* self);
-bool QFileSelector_override_virtual_metacast(void* self, intptr_t slot);
-void* QFileSelector_virtualbase_metacast(void* self, const char* param1);
-bool QFileSelector_override_virtual_metacall(void* self, intptr_t slot);
-int QFileSelector_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QFileSelector_override_virtual_event(void* self, intptr_t slot);
-bool QFileSelector_virtualbase_event(void* self, QEvent* event);
-bool QFileSelector_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QFileSelector_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QFileSelector_override_virtual_timerEvent(void* self, intptr_t slot);
-void QFileSelector_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QFileSelector_override_virtual_childEvent(void* self, intptr_t slot);
-void QFileSelector_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QFileSelector_override_virtual_customEvent(void* self, intptr_t slot);
-void QFileSelector_virtualbase_customEvent(void* self, QEvent* event);
-bool QFileSelector_override_virtual_connectNotify(void* self, intptr_t slot);
-void QFileSelector_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QFileSelector_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QFileSelector_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QFileSelector_virtualbase_metaObject(const VirtualQFileSelector* self);
+void* QFileSelector_virtualbase_metacast(VirtualQFileSelector* self, const char* param1);
+int QFileSelector_virtualbase_metacall(VirtualQFileSelector* self, int param1, int param2, void** param3);
+bool QFileSelector_virtualbase_event(VirtualQFileSelector* self, QEvent* event);
+bool QFileSelector_virtualbase_eventFilter(VirtualQFileSelector* self, QObject* watched, QEvent* event);
+void QFileSelector_virtualbase_timerEvent(VirtualQFileSelector* self, QTimerEvent* event);
+void QFileSelector_virtualbase_childEvent(VirtualQFileSelector* self, QChildEvent* event);
+void QFileSelector_virtualbase_customEvent(VirtualQFileSelector* self, QEvent* event);
+void QFileSelector_virtualbase_connectNotify(VirtualQFileSelector* self, QMetaMethod* signal);
+void QFileSelector_virtualbase_disconnectNotify(VirtualQFileSelector* self, QMetaMethod* signal);
 
-QObject* QFileSelector_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QFileSelector_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QFileSelector_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QFileSelector_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QFileSelector_protectedbase_sender(const VirtualQFileSelector* self);
+int QFileSelector_protectedbase_senderSignalIndex(const VirtualQFileSelector* self);
+int QFileSelector_protectedbase_receivers(const VirtualQFileSelector* self, const char* signal);
+bool QFileSelector_protectedbase_isSignalConnected(const VirtualQFileSelector* self, QMetaMethod* signal);
 
 const QMetaObject* QFileSelector_staticMetaObject();
 void QFileSelector_delete(QFileSelector* self);

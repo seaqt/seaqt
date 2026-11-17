@@ -15,19 +15,21 @@
 #include <qgraphicsanchorlayout.h>
 #include "gen_qgraphicsanchorlayout.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void miqt_exec_callback_QGraphicsAnchorLayout_removeAt(QGraphicsAnchorLayout*, intptr_t, int);
-void miqt_exec_callback_QGraphicsAnchorLayout_setGeometry(QGraphicsAnchorLayout*, intptr_t, QRectF*);
-int miqt_exec_callback_QGraphicsAnchorLayout_count(const QGraphicsAnchorLayout*, intptr_t);
-QGraphicsLayoutItem* miqt_exec_callback_QGraphicsAnchorLayout_itemAt(const QGraphicsAnchorLayout*, intptr_t, int);
-void miqt_exec_callback_QGraphicsAnchorLayout_invalidate(QGraphicsAnchorLayout*, intptr_t);
-QSizeF* miqt_exec_callback_QGraphicsAnchorLayout_sizeHint(const QGraphicsAnchorLayout*, intptr_t, int, QSizeF*);
-void miqt_exec_callback_QGraphicsAnchorLayout_getContentsMargins(const QGraphicsAnchorLayout*, intptr_t, double*, double*, double*, double*);
-void miqt_exec_callback_QGraphicsAnchorLayout_updateGeometry(QGraphicsAnchorLayout*, intptr_t);
-void miqt_exec_callback_QGraphicsAnchorLayout_widgetEvent(QGraphicsAnchorLayout*, intptr_t, QEvent*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
@@ -142,36 +144,31 @@ void QGraphicsAnchor_delete(QGraphicsAnchor* self) {
 }
 
 class VirtualQGraphicsAnchorLayout final : public QGraphicsAnchorLayout {
+	const QGraphicsAnchorLayout_VTable* vtbl;
 public:
+	friend void* QGraphicsAnchorLayout_vdata(VirtualQGraphicsAnchorLayout* self);
+	friend VirtualQGraphicsAnchorLayout* vdata_QGraphicsAnchorLayout(void* vdata);
 
-	VirtualQGraphicsAnchorLayout(): QGraphicsAnchorLayout() {}
-	VirtualQGraphicsAnchorLayout(QGraphicsLayoutItem* parent): QGraphicsAnchorLayout(parent) {}
+	VirtualQGraphicsAnchorLayout(const QGraphicsAnchorLayout_VTable* vtbl): QGraphicsAnchorLayout(), vtbl(vtbl) {}
+	VirtualQGraphicsAnchorLayout(const QGraphicsAnchorLayout_VTable* vtbl, QGraphicsLayoutItem* parent): QGraphicsAnchorLayout(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQGraphicsAnchorLayout() override = default;
+	virtual ~VirtualQGraphicsAnchorLayout() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__removeAt = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual void removeAt(int index) override {
-		if (handle__removeAt == 0) {
+		if (vtbl->removeAt == 0) {
 			QGraphicsAnchorLayout::removeAt(index);
 			return;
 		}
 
 		int sigval1 = index;
-		miqt_exec_callback_QGraphicsAnchorLayout_removeAt(this, handle__removeAt, sigval1);
-
+		vtbl->removeAt(this, sigval1);
 	}
 
-	friend void QGraphicsAnchorLayout_virtualbase_removeAt(void* self, int index);
+	friend void QGraphicsAnchorLayout_virtualbase_removeAt(VirtualQGraphicsAnchorLayout* self, int index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setGeometry = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setGeometry(const QRectF& rect) override {
-		if (handle__setGeometry == 0) {
+		if (vtbl->setGeometry == 0) {
 			QGraphicsAnchorLayout::setGeometry(rect);
 			return;
 		}
@@ -179,65 +176,47 @@ public:
 		const QRectF& rect_ret = rect;
 		// Cast returned reference into pointer
 		QRectF* sigval1 = const_cast<QRectF*>(&rect_ret);
-		miqt_exec_callback_QGraphicsAnchorLayout_setGeometry(this, handle__setGeometry, sigval1);
-
+		vtbl->setGeometry(this, sigval1);
 	}
 
-	friend void QGraphicsAnchorLayout_virtualbase_setGeometry(void* self, QRectF* rect);
+	friend void QGraphicsAnchorLayout_virtualbase_setGeometry(VirtualQGraphicsAnchorLayout* self, QRectF* rect);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__count = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int count() const override {
-		if (handle__count == 0) {
+		if (vtbl->count == 0) {
 			return QGraphicsAnchorLayout::count();
 		}
 
-		int callback_return_value = miqt_exec_callback_QGraphicsAnchorLayout_count(this, handle__count);
+		int callback_return_value = vtbl->count(this);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QGraphicsAnchorLayout_virtualbase_count(const void* self);
+	friend int QGraphicsAnchorLayout_virtualbase_count(const VirtualQGraphicsAnchorLayout* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__itemAt = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QGraphicsLayoutItem* itemAt(int index) const override {
-		if (handle__itemAt == 0) {
+		if (vtbl->itemAt == 0) {
 			return QGraphicsAnchorLayout::itemAt(index);
 		}
 
 		int sigval1 = index;
-		QGraphicsLayoutItem* callback_return_value = miqt_exec_callback_QGraphicsAnchorLayout_itemAt(this, handle__itemAt, sigval1);
+		QGraphicsLayoutItem* callback_return_value = vtbl->itemAt(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend QGraphicsLayoutItem* QGraphicsAnchorLayout_virtualbase_itemAt(const void* self, int index);
+	friend QGraphicsLayoutItem* QGraphicsAnchorLayout_virtualbase_itemAt(const VirtualQGraphicsAnchorLayout* self, int index);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__invalidate = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void invalidate() override {
-		if (handle__invalidate == 0) {
+		if (vtbl->invalidate == 0) {
 			QGraphicsAnchorLayout::invalidate();
 			return;
 		}
 
-		miqt_exec_callback_QGraphicsAnchorLayout_invalidate(this, handle__invalidate);
-
+		vtbl->invalidate(this);
 	}
 
-	friend void QGraphicsAnchorLayout_virtualbase_invalidate(void* self);
+	friend void QGraphicsAnchorLayout_virtualbase_invalidate(VirtualQGraphicsAnchorLayout* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__sizeHint = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSizeF sizeHint(Qt::SizeHint which, const QSizeF& constraint) const override {
-		if (handle__sizeHint == 0) {
+		if (vtbl->sizeHint == 0) {
 			return QGraphicsAnchorLayout::sizeHint(which, constraint);
 		}
 
@@ -246,18 +225,14 @@ public:
 		const QSizeF& constraint_ret = constraint;
 		// Cast returned reference into pointer
 		QSizeF* sigval2 = const_cast<QSizeF*>(&constraint_ret);
-		QSizeF* callback_return_value = miqt_exec_callback_QGraphicsAnchorLayout_sizeHint(this, handle__sizeHint, sigval1, sigval2);
+		QSizeF* callback_return_value = vtbl->sizeHint(this, sigval1, sigval2);
 		return *callback_return_value;
 	}
 
-	friend QSizeF* QGraphicsAnchorLayout_virtualbase_sizeHint(const void* self, int which, QSizeF* constraint);
+	friend QSizeF* QGraphicsAnchorLayout_virtualbase_sizeHint(const VirtualQGraphicsAnchorLayout* self, int which, QSizeF* constraint);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__getContentsMargins = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void getContentsMargins(qreal* left, qreal* top, qreal* right, qreal* bottom) const override {
-		if (handle__getContentsMargins == 0) {
+		if (vtbl->getContentsMargins == 0) {
 			QGraphicsAnchorLayout::getContentsMargins(left, top, right, bottom);
 			return;
 		}
@@ -270,57 +245,48 @@ public:
 		double* sigval3 = static_cast<double*>(right_ret);
 		qreal* bottom_ret = bottom;
 		double* sigval4 = static_cast<double*>(bottom_ret);
-		miqt_exec_callback_QGraphicsAnchorLayout_getContentsMargins(this, handle__getContentsMargins, sigval1, sigval2, sigval3, sigval4);
-
+		vtbl->getContentsMargins(this, sigval1, sigval2, sigval3, sigval4);
 	}
 
-	friend void QGraphicsAnchorLayout_virtualbase_getContentsMargins(const void* self, double* left, double* top, double* right, double* bottom);
+	friend void QGraphicsAnchorLayout_virtualbase_getContentsMargins(const VirtualQGraphicsAnchorLayout* self, double* left, double* top, double* right, double* bottom);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__updateGeometry = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void updateGeometry() override {
-		if (handle__updateGeometry == 0) {
+		if (vtbl->updateGeometry == 0) {
 			QGraphicsAnchorLayout::updateGeometry();
 			return;
 		}
 
-		miqt_exec_callback_QGraphicsAnchorLayout_updateGeometry(this, handle__updateGeometry);
-
+		vtbl->updateGeometry(this);
 	}
 
-	friend void QGraphicsAnchorLayout_virtualbase_updateGeometry(void* self);
+	friend void QGraphicsAnchorLayout_virtualbase_updateGeometry(VirtualQGraphicsAnchorLayout* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__widgetEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void widgetEvent(QEvent* e) override {
-		if (handle__widgetEvent == 0) {
+		if (vtbl->widgetEvent == 0) {
 			QGraphicsAnchorLayout::widgetEvent(e);
 			return;
 		}
 
 		QEvent* sigval1 = e;
-		miqt_exec_callback_QGraphicsAnchorLayout_widgetEvent(this, handle__widgetEvent, sigval1);
-
+		vtbl->widgetEvent(this, sigval1);
 	}
 
-	friend void QGraphicsAnchorLayout_virtualbase_widgetEvent(void* self, QEvent* e);
+	friend void QGraphicsAnchorLayout_virtualbase_widgetEvent(VirtualQGraphicsAnchorLayout* self, QEvent* e);
 
 	// Wrappers to allow calling protected methods:
-	friend void QGraphicsAnchorLayout_protectedbase_addChildLayoutItem(bool* _dynamic_cast_ok, void* self, QGraphicsLayoutItem* layoutItem);
-	friend void QGraphicsAnchorLayout_protectedbase_setGraphicsItem(bool* _dynamic_cast_ok, void* self, QGraphicsItem* item);
-	friend void QGraphicsAnchorLayout_protectedbase_setOwnedByLayout(bool* _dynamic_cast_ok, void* self, bool ownedByLayout);
+	friend void QGraphicsAnchorLayout_protectedbase_addChildLayoutItem(VirtualQGraphicsAnchorLayout* self, QGraphicsLayoutItem* layoutItem);
+	friend void QGraphicsAnchorLayout_protectedbase_setGraphicsItem(VirtualQGraphicsAnchorLayout* self, QGraphicsItem* item);
+	friend void QGraphicsAnchorLayout_protectedbase_setOwnedByLayout(VirtualQGraphicsAnchorLayout* self, bool ownedByLayout);
 };
 
-QGraphicsAnchorLayout* QGraphicsAnchorLayout_new() {
-	return new (std::nothrow) VirtualQGraphicsAnchorLayout();
+VirtualQGraphicsAnchorLayout* QGraphicsAnchorLayout_new(const QGraphicsAnchorLayout_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsAnchorLayout>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsAnchorLayout(vtbl) : nullptr;
 }
 
-QGraphicsAnchorLayout* QGraphicsAnchorLayout_new2(QGraphicsLayoutItem* parent) {
-	return new (std::nothrow) VirtualQGraphicsAnchorLayout(parent);
+VirtualQGraphicsAnchorLayout* QGraphicsAnchorLayout_new2(const QGraphicsAnchorLayout_VTable* vtbl, size_t vdata, QGraphicsLayoutItem* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGraphicsAnchorLayout>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGraphicsAnchorLayout(vtbl, parent) : nullptr;
 }
 
 void QGraphicsAnchorLayout_virtbase(QGraphicsAnchorLayout* src, QGraphicsLayout** outptr_QGraphicsLayout) {
@@ -389,163 +355,64 @@ void QGraphicsAnchorLayout_addAnchors2(QGraphicsAnchorLayout* self, QGraphicsLay
 	self->addAnchors(firstItem, secondItem, static_cast<Qt::Orientations>(orientations));
 }
 
-bool QGraphicsAnchorLayout_override_virtual_removeAt(void* self, intptr_t slot) {
-	VirtualQGraphicsAnchorLayout* self_cast = dynamic_cast<VirtualQGraphicsAnchorLayout*>( (QGraphicsAnchorLayout*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGraphicsAnchorLayout_vdata(VirtualQGraphicsAnchorLayout* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGraphicsAnchorLayout>()); }
+VirtualQGraphicsAnchorLayout* vdata_QGraphicsAnchorLayout(void* vdata) { return reinterpret_cast<VirtualQGraphicsAnchorLayout*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGraphicsAnchorLayout>()); }
 
-	self_cast->handle__removeAt = slot;
-	return true;
+void QGraphicsAnchorLayout_virtualbase_removeAt(VirtualQGraphicsAnchorLayout* self, int index) {
+
+	self->QGraphicsAnchorLayout::removeAt(static_cast<int>(index));
 }
 
-void QGraphicsAnchorLayout_virtualbase_removeAt(void* self, int index) {
-	static_cast<VirtualQGraphicsAnchorLayout*>(self)->QGraphicsAnchorLayout::removeAt(static_cast<int>(index));
+void QGraphicsAnchorLayout_virtualbase_setGeometry(VirtualQGraphicsAnchorLayout* self, QRectF* rect) {
+
+	self->QGraphicsAnchorLayout::setGeometry(*rect);
 }
 
-bool QGraphicsAnchorLayout_override_virtual_setGeometry(void* self, intptr_t slot) {
-	VirtualQGraphicsAnchorLayout* self_cast = dynamic_cast<VirtualQGraphicsAnchorLayout*>( (QGraphicsAnchorLayout*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QGraphicsAnchorLayout_virtualbase_count(const VirtualQGraphicsAnchorLayout* self) {
 
-	self_cast->handle__setGeometry = slot;
-	return true;
+	return self->QGraphicsAnchorLayout::count();
 }
 
-void QGraphicsAnchorLayout_virtualbase_setGeometry(void* self, QRectF* rect) {
-	static_cast<VirtualQGraphicsAnchorLayout*>(self)->QGraphicsAnchorLayout::setGeometry(*rect);
+QGraphicsLayoutItem* QGraphicsAnchorLayout_virtualbase_itemAt(const VirtualQGraphicsAnchorLayout* self, int index) {
+
+	return self->QGraphicsAnchorLayout::itemAt(static_cast<int>(index));
 }
 
-bool QGraphicsAnchorLayout_override_virtual_count(void* self, intptr_t slot) {
-	VirtualQGraphicsAnchorLayout* self_cast = dynamic_cast<VirtualQGraphicsAnchorLayout*>( (QGraphicsAnchorLayout*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGraphicsAnchorLayout_virtualbase_invalidate(VirtualQGraphicsAnchorLayout* self) {
 
-	self_cast->handle__count = slot;
-	return true;
+	self->QGraphicsAnchorLayout::invalidate();
 }
 
-int QGraphicsAnchorLayout_virtualbase_count(const void* self) {
-	return static_cast<const VirtualQGraphicsAnchorLayout*>(self)->QGraphicsAnchorLayout::count();
+QSizeF* QGraphicsAnchorLayout_virtualbase_sizeHint(const VirtualQGraphicsAnchorLayout* self, int which, QSizeF* constraint) {
+
+	return new QSizeF(self->QGraphicsAnchorLayout::sizeHint(static_cast<Qt::SizeHint>(which), *constraint));
 }
 
-bool QGraphicsAnchorLayout_override_virtual_itemAt(void* self, intptr_t slot) {
-	VirtualQGraphicsAnchorLayout* self_cast = dynamic_cast<VirtualQGraphicsAnchorLayout*>( (QGraphicsAnchorLayout*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGraphicsAnchorLayout_virtualbase_getContentsMargins(const VirtualQGraphicsAnchorLayout* self, double* left, double* top, double* right, double* bottom) {
 
-	self_cast->handle__itemAt = slot;
-	return true;
+	self->QGraphicsAnchorLayout::getContentsMargins(static_cast<qreal*>(left), static_cast<qreal*>(top), static_cast<qreal*>(right), static_cast<qreal*>(bottom));
 }
 
-QGraphicsLayoutItem* QGraphicsAnchorLayout_virtualbase_itemAt(const void* self, int index) {
-	return static_cast<const VirtualQGraphicsAnchorLayout*>(self)->QGraphicsAnchorLayout::itemAt(static_cast<int>(index));
+void QGraphicsAnchorLayout_virtualbase_updateGeometry(VirtualQGraphicsAnchorLayout* self) {
+
+	self->QGraphicsAnchorLayout::updateGeometry();
 }
 
-bool QGraphicsAnchorLayout_override_virtual_invalidate(void* self, intptr_t slot) {
-	VirtualQGraphicsAnchorLayout* self_cast = dynamic_cast<VirtualQGraphicsAnchorLayout*>( (QGraphicsAnchorLayout*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGraphicsAnchorLayout_virtualbase_widgetEvent(VirtualQGraphicsAnchorLayout* self, QEvent* e) {
 
-	self_cast->handle__invalidate = slot;
-	return true;
+	self->QGraphicsAnchorLayout::widgetEvent(e);
 }
 
-void QGraphicsAnchorLayout_virtualbase_invalidate(void* self) {
-	static_cast<VirtualQGraphicsAnchorLayout*>(self)->QGraphicsAnchorLayout::invalidate();
+void QGraphicsAnchorLayout_protectedbase_addChildLayoutItem(VirtualQGraphicsAnchorLayout* self, QGraphicsLayoutItem* layoutItem) {
+	self->addChildLayoutItem(layoutItem);
 }
 
-bool QGraphicsAnchorLayout_override_virtual_sizeHint(void* self, intptr_t slot) {
-	VirtualQGraphicsAnchorLayout* self_cast = dynamic_cast<VirtualQGraphicsAnchorLayout*>( (QGraphicsAnchorLayout*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__sizeHint = slot;
-	return true;
+void QGraphicsAnchorLayout_protectedbase_setGraphicsItem(VirtualQGraphicsAnchorLayout* self, QGraphicsItem* item) {
+	self->setGraphicsItem(item);
 }
 
-QSizeF* QGraphicsAnchorLayout_virtualbase_sizeHint(const void* self, int which, QSizeF* constraint) {
-	return new QSizeF(static_cast<const VirtualQGraphicsAnchorLayout*>(self)->QGraphicsAnchorLayout::sizeHint(static_cast<Qt::SizeHint>(which), *constraint));
-}
-
-bool QGraphicsAnchorLayout_override_virtual_getContentsMargins(void* self, intptr_t slot) {
-	VirtualQGraphicsAnchorLayout* self_cast = dynamic_cast<VirtualQGraphicsAnchorLayout*>( (QGraphicsAnchorLayout*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__getContentsMargins = slot;
-	return true;
-}
-
-void QGraphicsAnchorLayout_virtualbase_getContentsMargins(const void* self, double* left, double* top, double* right, double* bottom) {
-	static_cast<const VirtualQGraphicsAnchorLayout*>(self)->QGraphicsAnchorLayout::getContentsMargins(static_cast<qreal*>(left), static_cast<qreal*>(top), static_cast<qreal*>(right), static_cast<qreal*>(bottom));
-}
-
-bool QGraphicsAnchorLayout_override_virtual_updateGeometry(void* self, intptr_t slot) {
-	VirtualQGraphicsAnchorLayout* self_cast = dynamic_cast<VirtualQGraphicsAnchorLayout*>( (QGraphicsAnchorLayout*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__updateGeometry = slot;
-	return true;
-}
-
-void QGraphicsAnchorLayout_virtualbase_updateGeometry(void* self) {
-	static_cast<VirtualQGraphicsAnchorLayout*>(self)->QGraphicsAnchorLayout::updateGeometry();
-}
-
-bool QGraphicsAnchorLayout_override_virtual_widgetEvent(void* self, intptr_t slot) {
-	VirtualQGraphicsAnchorLayout* self_cast = dynamic_cast<VirtualQGraphicsAnchorLayout*>( (QGraphicsAnchorLayout*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__widgetEvent = slot;
-	return true;
-}
-
-void QGraphicsAnchorLayout_virtualbase_widgetEvent(void* self, QEvent* e) {
-	static_cast<VirtualQGraphicsAnchorLayout*>(self)->QGraphicsAnchorLayout::widgetEvent(e);
-}
-
-void QGraphicsAnchorLayout_protectedbase_addChildLayoutItem(bool* _dynamic_cast_ok, void* self, QGraphicsLayoutItem* layoutItem) {
-	VirtualQGraphicsAnchorLayout* self_cast = dynamic_cast<VirtualQGraphicsAnchorLayout*>( (QGraphicsAnchorLayout*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->addChildLayoutItem(layoutItem);
-}
-
-void QGraphicsAnchorLayout_protectedbase_setGraphicsItem(bool* _dynamic_cast_ok, void* self, QGraphicsItem* item) {
-	VirtualQGraphicsAnchorLayout* self_cast = dynamic_cast<VirtualQGraphicsAnchorLayout*>( (QGraphicsAnchorLayout*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setGraphicsItem(item);
-}
-
-void QGraphicsAnchorLayout_protectedbase_setOwnedByLayout(bool* _dynamic_cast_ok, void* self, bool ownedByLayout) {
-	VirtualQGraphicsAnchorLayout* self_cast = dynamic_cast<VirtualQGraphicsAnchorLayout*>( (QGraphicsAnchorLayout*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return ;
-	}
-
-	*_dynamic_cast_ok = true;
-	self_cast->setOwnedByLayout(ownedByLayout);
+void QGraphicsAnchorLayout_protectedbase_setOwnedByLayout(VirtualQGraphicsAnchorLayout* self, bool ownedByLayout) {
+	self->setOwnedByLayout(ownedByLayout);
 }
 
 void QGraphicsAnchorLayout_delete(QGraphicsAnchorLayout* self) {

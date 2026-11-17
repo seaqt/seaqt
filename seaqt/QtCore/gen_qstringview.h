@@ -23,6 +23,7 @@ typedef struct QStringView QStringView;
 #endif
 
 QStringView* QStringView_new();
+
 struct seaqt_string QStringView_toString(const QStringView* self);
 ptrdiff_t QStringView_size(const QStringView* self);
 QChar* QStringView_data(const QStringView* self);

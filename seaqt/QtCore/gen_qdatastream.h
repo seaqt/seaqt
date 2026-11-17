@@ -25,6 +25,7 @@ typedef struct QIODevice QIODevice;
 QDataStream* QDataStream_new();
 QDataStream* QDataStream_new2(QIODevice* param1);
 QDataStream* QDataStream_new3(struct seaqt_string param1);
+
 QIODevice* QDataStream_device(const QDataStream* self);
 void QDataStream_setDevice(QDataStream* self, QIODevice* device);
 void QDataStream_unsetDevice(QDataStream* self);

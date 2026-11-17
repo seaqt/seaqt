@@ -32,10 +32,28 @@ typedef struct QRectF QRectF;
 typedef struct QSizeF QSizeF;
 #endif
 
-QGraphicsLinearLayout* QGraphicsLinearLayout_new();
-QGraphicsLinearLayout* QGraphicsLinearLayout_new2(int orientation);
-QGraphicsLinearLayout* QGraphicsLinearLayout_new3(QGraphicsLayoutItem* parent);
-QGraphicsLinearLayout* QGraphicsLinearLayout_new4(int orientation, QGraphicsLayoutItem* parent);
+typedef struct VirtualQGraphicsLinearLayout VirtualQGraphicsLinearLayout;
+typedef struct QGraphicsLinearLayout_VTable{
+	void (*destructor)(VirtualQGraphicsLinearLayout* self);
+	void (*removeAt)(VirtualQGraphicsLinearLayout* self, int index);
+	void (*setGeometry)(VirtualQGraphicsLinearLayout* self, QRectF* rect);
+	int (*count)(const VirtualQGraphicsLinearLayout* self);
+	QGraphicsLayoutItem* (*itemAt)(const VirtualQGraphicsLinearLayout* self, int index);
+	void (*invalidate)(VirtualQGraphicsLinearLayout* self);
+	QSizeF* (*sizeHint)(const VirtualQGraphicsLinearLayout* self, int which, QSizeF* constraint);
+	void (*getContentsMargins)(const VirtualQGraphicsLinearLayout* self, double* left, double* top, double* right, double* bottom);
+	void (*updateGeometry)(VirtualQGraphicsLinearLayout* self);
+	void (*widgetEvent)(VirtualQGraphicsLinearLayout* self, QEvent* e);
+}QGraphicsLinearLayout_VTable;
+
+void* QGraphicsLinearLayout_vdata(VirtualQGraphicsLinearLayout* self);
+VirtualQGraphicsLinearLayout* vdata_QGraphicsLinearLayout(void* vdata);
+
+VirtualQGraphicsLinearLayout* QGraphicsLinearLayout_new(const QGraphicsLinearLayout_VTable* vtbl, size_t vdata);
+VirtualQGraphicsLinearLayout* QGraphicsLinearLayout_new2(const QGraphicsLinearLayout_VTable* vtbl, size_t vdata, int orientation);
+VirtualQGraphicsLinearLayout* QGraphicsLinearLayout_new3(const QGraphicsLinearLayout_VTable* vtbl, size_t vdata, QGraphicsLayoutItem* parent);
+VirtualQGraphicsLinearLayout* QGraphicsLinearLayout_new4(const QGraphicsLinearLayout_VTable* vtbl, size_t vdata, int orientation, QGraphicsLayoutItem* parent);
+
 void QGraphicsLinearLayout_virtbase(QGraphicsLinearLayout* src, QGraphicsLayout** outptr_QGraphicsLayout);
 void QGraphicsLinearLayout_setOrientation(QGraphicsLinearLayout* self, int orientation);
 int QGraphicsLinearLayout_orientation(const QGraphicsLinearLayout* self);
@@ -63,28 +81,19 @@ void QGraphicsLinearLayout_addStretchWithStretch(QGraphicsLinearLayout* self, in
 void QGraphicsLinearLayout_insertStretch2(QGraphicsLinearLayout* self, int index, int stretch);
 void QGraphicsLinearLayout_dumpWithIndent(const QGraphicsLinearLayout* self, int indent);
 
-bool QGraphicsLinearLayout_override_virtual_removeAt(void* self, intptr_t slot);
-void QGraphicsLinearLayout_virtualbase_removeAt(void* self, int index);
-bool QGraphicsLinearLayout_override_virtual_setGeometry(void* self, intptr_t slot);
-void QGraphicsLinearLayout_virtualbase_setGeometry(void* self, QRectF* rect);
-bool QGraphicsLinearLayout_override_virtual_count(void* self, intptr_t slot);
-int QGraphicsLinearLayout_virtualbase_count(const void* self);
-bool QGraphicsLinearLayout_override_virtual_itemAt(void* self, intptr_t slot);
-QGraphicsLayoutItem* QGraphicsLinearLayout_virtualbase_itemAt(const void* self, int index);
-bool QGraphicsLinearLayout_override_virtual_invalidate(void* self, intptr_t slot);
-void QGraphicsLinearLayout_virtualbase_invalidate(void* self);
-bool QGraphicsLinearLayout_override_virtual_sizeHint(void* self, intptr_t slot);
-QSizeF* QGraphicsLinearLayout_virtualbase_sizeHint(const void* self, int which, QSizeF* constraint);
-bool QGraphicsLinearLayout_override_virtual_getContentsMargins(void* self, intptr_t slot);
-void QGraphicsLinearLayout_virtualbase_getContentsMargins(const void* self, double* left, double* top, double* right, double* bottom);
-bool QGraphicsLinearLayout_override_virtual_updateGeometry(void* self, intptr_t slot);
-void QGraphicsLinearLayout_virtualbase_updateGeometry(void* self);
-bool QGraphicsLinearLayout_override_virtual_widgetEvent(void* self, intptr_t slot);
-void QGraphicsLinearLayout_virtualbase_widgetEvent(void* self, QEvent* e);
+void QGraphicsLinearLayout_virtualbase_removeAt(VirtualQGraphicsLinearLayout* self, int index);
+void QGraphicsLinearLayout_virtualbase_setGeometry(VirtualQGraphicsLinearLayout* self, QRectF* rect);
+int QGraphicsLinearLayout_virtualbase_count(const VirtualQGraphicsLinearLayout* self);
+QGraphicsLayoutItem* QGraphicsLinearLayout_virtualbase_itemAt(const VirtualQGraphicsLinearLayout* self, int index);
+void QGraphicsLinearLayout_virtualbase_invalidate(VirtualQGraphicsLinearLayout* self);
+QSizeF* QGraphicsLinearLayout_virtualbase_sizeHint(const VirtualQGraphicsLinearLayout* self, int which, QSizeF* constraint);
+void QGraphicsLinearLayout_virtualbase_getContentsMargins(const VirtualQGraphicsLinearLayout* self, double* left, double* top, double* right, double* bottom);
+void QGraphicsLinearLayout_virtualbase_updateGeometry(VirtualQGraphicsLinearLayout* self);
+void QGraphicsLinearLayout_virtualbase_widgetEvent(VirtualQGraphicsLinearLayout* self, QEvent* e);
 
-void QGraphicsLinearLayout_protectedbase_addChildLayoutItem(bool* _dynamic_cast_ok, void* self, QGraphicsLayoutItem* layoutItem);
-void QGraphicsLinearLayout_protectedbase_setGraphicsItem(bool* _dynamic_cast_ok, void* self, QGraphicsItem* item);
-void QGraphicsLinearLayout_protectedbase_setOwnedByLayout(bool* _dynamic_cast_ok, void* self, bool ownedByLayout);
+void QGraphicsLinearLayout_protectedbase_addChildLayoutItem(VirtualQGraphicsLinearLayout* self, QGraphicsLayoutItem* layoutItem);
+void QGraphicsLinearLayout_protectedbase_setGraphicsItem(VirtualQGraphicsLinearLayout* self, QGraphicsItem* item);
+void QGraphicsLinearLayout_protectedbase_setOwnedByLayout(VirtualQGraphicsLinearLayout* self, bool ownedByLayout);
 
 void QGraphicsLinearLayout_delete(QGraphicsLinearLayout* self);
 

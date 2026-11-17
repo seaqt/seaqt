@@ -4,61 +4,58 @@
 #include <qabstractvideobuffer.h>
 #include "gen_qabstractvideobuffer.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void miqt_exec_callback_QAbstractVideoBuffer_release(QAbstractVideoBuffer*, intptr_t);
-int miqt_exec_callback_QAbstractVideoBuffer_mapMode(const QAbstractVideoBuffer*, intptr_t);
-unsigned char* miqt_exec_callback_QAbstractVideoBuffer_map(QAbstractVideoBuffer*, intptr_t, int, int*, int*);
-void miqt_exec_callback_QAbstractVideoBuffer_unmap(QAbstractVideoBuffer*, intptr_t);
-QVariant* miqt_exec_callback_QAbstractVideoBuffer_handle(const QAbstractVideoBuffer*, intptr_t);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQAbstractVideoBuffer final : public QAbstractVideoBuffer {
+	const QAbstractVideoBuffer_VTable* vtbl;
 public:
+	friend void* QAbstractVideoBuffer_vdata(VirtualQAbstractVideoBuffer* self);
+	friend VirtualQAbstractVideoBuffer* vdata_QAbstractVideoBuffer(void* vdata);
 
-	VirtualQAbstractVideoBuffer(QAbstractVideoBuffer::HandleType type): QAbstractVideoBuffer(type) {}
+	VirtualQAbstractVideoBuffer(const QAbstractVideoBuffer_VTable* vtbl, QAbstractVideoBuffer::HandleType type): QAbstractVideoBuffer(type), vtbl(vtbl) {}
 
-	virtual ~VirtualQAbstractVideoBuffer() override = default;
+	virtual ~VirtualQAbstractVideoBuffer() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__release = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual void release() override {
-		if (handle__release == 0) {
+		if (vtbl->release == 0) {
 			QAbstractVideoBuffer::release();
 			return;
 		}
 
-		miqt_exec_callback_QAbstractVideoBuffer_release(this, handle__release);
-
+		vtbl->release(this);
 	}
 
-	friend void QAbstractVideoBuffer_virtualbase_release(void* self);
+	friend void QAbstractVideoBuffer_virtualbase_release(VirtualQAbstractVideoBuffer* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__mapMode = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QAbstractVideoBuffer::MapMode mapMode() const override {
-		if (handle__mapMode == 0) {
+		if (vtbl->mapMode == 0) {
 			return (QAbstractVideoBuffer::MapMode)(0); // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QAbstractVideoBuffer_mapMode(this, handle__mapMode);
+		int callback_return_value = vtbl->mapMode(this);
 		return static_cast<QAbstractVideoBuffer::MapMode>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__map = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual uchar* map(QAbstractVideoBuffer::MapMode mode, int* numBytes, int* bytesPerLine) override {
-		if (handle__map == 0) {
+		if (vtbl->map == 0) {
 			return nullptr; // Pure virtual, there is no base we can call
 		}
 
@@ -66,42 +63,34 @@ public:
 		int sigval1 = static_cast<int>(mode_ret);
 		int* sigval2 = numBytes;
 		int* sigval3 = bytesPerLine;
-		unsigned char* callback_return_value = miqt_exec_callback_QAbstractVideoBuffer_map(this, handle__map, sigval1, sigval2, sigval3);
+		unsigned char* callback_return_value = vtbl->map(this, sigval1, sigval2, sigval3);
 		return static_cast<uchar*>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__unmap = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void unmap() override {
-		if (handle__unmap == 0) {
+		if (vtbl->unmap == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
-		miqt_exec_callback_QAbstractVideoBuffer_unmap(this, handle__unmap);
-
+		vtbl->unmap(this);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__handle = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QVariant handle() const override {
-		if (handle__handle == 0) {
+		if (vtbl->handle == 0) {
 			return QAbstractVideoBuffer::handle();
 		}
 
-		QVariant* callback_return_value = miqt_exec_callback_QAbstractVideoBuffer_handle(this, handle__handle);
+		QVariant* callback_return_value = vtbl->handle(this);
 		return *callback_return_value;
 	}
 
-	friend QVariant* QAbstractVideoBuffer_virtualbase_handle(const void* self);
+	friend QVariant* QAbstractVideoBuffer_virtualbase_handle(const VirtualQAbstractVideoBuffer* self);
 
 };
 
-QAbstractVideoBuffer* QAbstractVideoBuffer_new(int type) {
-	return new (std::nothrow) VirtualQAbstractVideoBuffer(static_cast<QAbstractVideoBuffer::HandleType>(type));
+VirtualQAbstractVideoBuffer* QAbstractVideoBuffer_new(const QAbstractVideoBuffer_VTable* vtbl, size_t vdata, int type) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQAbstractVideoBuffer>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQAbstractVideoBuffer(vtbl, static_cast<QAbstractVideoBuffer::HandleType>(type)) : nullptr;
 }
 
 void QAbstractVideoBuffer_release(QAbstractVideoBuffer* self) {
@@ -131,62 +120,17 @@ QVariant* QAbstractVideoBuffer_handle(const QAbstractVideoBuffer* self) {
 	return new QVariant(self->handle());
 }
 
-bool QAbstractVideoBuffer_override_virtual_release(void* self, intptr_t slot) {
-	VirtualQAbstractVideoBuffer* self_cast = dynamic_cast<VirtualQAbstractVideoBuffer*>( (QAbstractVideoBuffer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QAbstractVideoBuffer_vdata(VirtualQAbstractVideoBuffer* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQAbstractVideoBuffer>()); }
+VirtualQAbstractVideoBuffer* vdata_QAbstractVideoBuffer(void* vdata) { return reinterpret_cast<VirtualQAbstractVideoBuffer*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQAbstractVideoBuffer>()); }
 
-	self_cast->handle__release = slot;
-	return true;
+void QAbstractVideoBuffer_virtualbase_release(VirtualQAbstractVideoBuffer* self) {
+
+	self->QAbstractVideoBuffer::release();
 }
 
-void QAbstractVideoBuffer_virtualbase_release(void* self) {
-	static_cast<VirtualQAbstractVideoBuffer*>(self)->QAbstractVideoBuffer::release();
-}
+QVariant* QAbstractVideoBuffer_virtualbase_handle(const VirtualQAbstractVideoBuffer* self) {
 
-bool QAbstractVideoBuffer_override_virtual_mapMode(void* self, intptr_t slot) {
-	VirtualQAbstractVideoBuffer* self_cast = dynamic_cast<VirtualQAbstractVideoBuffer*>( (QAbstractVideoBuffer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__mapMode = slot;
-	return true;
-}
-
-bool QAbstractVideoBuffer_override_virtual_map(void* self, intptr_t slot) {
-	VirtualQAbstractVideoBuffer* self_cast = dynamic_cast<VirtualQAbstractVideoBuffer*>( (QAbstractVideoBuffer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__map = slot;
-	return true;
-}
-
-bool QAbstractVideoBuffer_override_virtual_unmap(void* self, intptr_t slot) {
-	VirtualQAbstractVideoBuffer* self_cast = dynamic_cast<VirtualQAbstractVideoBuffer*>( (QAbstractVideoBuffer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__unmap = slot;
-	return true;
-}
-
-bool QAbstractVideoBuffer_override_virtual_handle(void* self, intptr_t slot) {
-	VirtualQAbstractVideoBuffer* self_cast = dynamic_cast<VirtualQAbstractVideoBuffer*>( (QAbstractVideoBuffer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__handle = slot;
-	return true;
-}
-
-QVariant* QAbstractVideoBuffer_virtualbase_handle(const void* self) {
-	return new QVariant(static_cast<const VirtualQAbstractVideoBuffer*>(self)->QAbstractVideoBuffer::handle());
+	return new QVariant(self->QAbstractVideoBuffer::handle());
 }
 
 void QAbstractVideoBuffer_delete(QAbstractVideoBuffer* self) {

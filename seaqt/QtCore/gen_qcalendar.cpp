@@ -10,6 +10,17 @@
 #include <qcalendar.h>
 #include "gen_qcalendar.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -253,19 +264,19 @@ void QCalendar_delete(QCalendar* self) {
 }
 
 QCalendar__YearMonthDay* QCalendar__YearMonthDay_new() {
-	return new (std::nothrow) QCalendar::YearMonthDay();
+	return new (std::nothrow) QCalendar__YearMonthDay();
 }
 
 QCalendar__YearMonthDay* QCalendar__YearMonthDay_new2(int y) {
-	return new (std::nothrow) QCalendar::YearMonthDay(static_cast<int>(y));
+	return new (std::nothrow) QCalendar__YearMonthDay(static_cast<int>(y));
 }
 
 QCalendar__YearMonthDay* QCalendar__YearMonthDay_new3(int y, int m) {
-	return new (std::nothrow) QCalendar::YearMonthDay(static_cast<int>(y), static_cast<int>(m));
+	return new (std::nothrow) QCalendar__YearMonthDay(static_cast<int>(y), static_cast<int>(m));
 }
 
 QCalendar__YearMonthDay* QCalendar__YearMonthDay_new4(int y, int m, int d) {
-	return new (std::nothrow) QCalendar::YearMonthDay(static_cast<int>(y), static_cast<int>(m), static_cast<int>(d));
+	return new (std::nothrow) QCalendar__YearMonthDay(static_cast<int>(y), static_cast<int>(m), static_cast<int>(d));
 }
 
 bool QCalendar__YearMonthDay_isValid(const QCalendar__YearMonthDay* self) {

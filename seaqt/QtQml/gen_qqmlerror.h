@@ -26,6 +26,7 @@ typedef struct QUrl QUrl;
 
 QQmlError* QQmlError_new();
 QQmlError* QQmlError_new2(QQmlError* param1);
+
 void QQmlError_operatorAssign(QQmlError* self, QQmlError* param1);
 bool QQmlError_isValid(const QQmlError* self);
 QUrl* QQmlError_url(const QQmlError* self);

@@ -36,7 +36,26 @@ typedef struct QObject QObject;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QActionGroup* QActionGroup_new(QObject* parent);
+typedef struct VirtualQActionGroup VirtualQActionGroup;
+typedef struct QActionGroup_VTable{
+	void (*destructor)(VirtualQActionGroup* self);
+	QMetaObject* (*metaObject)(const VirtualQActionGroup* self);
+	void* (*metacast)(VirtualQActionGroup* self, const char* param1);
+	int (*metacall)(VirtualQActionGroup* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQActionGroup* self, QEvent* event);
+	bool (*eventFilter)(VirtualQActionGroup* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQActionGroup* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQActionGroup* self, QChildEvent* event);
+	void (*customEvent)(VirtualQActionGroup* self, QEvent* event);
+	void (*connectNotify)(VirtualQActionGroup* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQActionGroup* self, QMetaMethod* signal);
+}QActionGroup_VTable;
+
+void* QActionGroup_vdata(VirtualQActionGroup* self);
+VirtualQActionGroup* vdata_QActionGroup(void* vdata);
+
+VirtualQActionGroup* QActionGroup_new(const QActionGroup_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QActionGroup_virtbase(QActionGroup* src, QObject** outptr_QObject);
 QMetaObject* QActionGroup_metaObject(const QActionGroup* self);
 void* QActionGroup_metacast(QActionGroup* self, const char* param1);
@@ -67,31 +86,21 @@ struct seaqt_string QActionGroup_tr3(const char* s, const char* c, int n);
 struct seaqt_string QActionGroup_trUtf82(const char* s, const char* c);
 struct seaqt_string QActionGroup_trUtf83(const char* s, const char* c, int n);
 
-bool QActionGroup_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QActionGroup_virtualbase_metaObject(const void* self);
-bool QActionGroup_override_virtual_metacast(void* self, intptr_t slot);
-void* QActionGroup_virtualbase_metacast(void* self, const char* param1);
-bool QActionGroup_override_virtual_metacall(void* self, intptr_t slot);
-int QActionGroup_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QActionGroup_override_virtual_event(void* self, intptr_t slot);
-bool QActionGroup_virtualbase_event(void* self, QEvent* event);
-bool QActionGroup_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QActionGroup_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QActionGroup_override_virtual_timerEvent(void* self, intptr_t slot);
-void QActionGroup_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QActionGroup_override_virtual_childEvent(void* self, intptr_t slot);
-void QActionGroup_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QActionGroup_override_virtual_customEvent(void* self, intptr_t slot);
-void QActionGroup_virtualbase_customEvent(void* self, QEvent* event);
-bool QActionGroup_override_virtual_connectNotify(void* self, intptr_t slot);
-void QActionGroup_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QActionGroup_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QActionGroup_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QActionGroup_virtualbase_metaObject(const VirtualQActionGroup* self);
+void* QActionGroup_virtualbase_metacast(VirtualQActionGroup* self, const char* param1);
+int QActionGroup_virtualbase_metacall(VirtualQActionGroup* self, int param1, int param2, void** param3);
+bool QActionGroup_virtualbase_event(VirtualQActionGroup* self, QEvent* event);
+bool QActionGroup_virtualbase_eventFilter(VirtualQActionGroup* self, QObject* watched, QEvent* event);
+void QActionGroup_virtualbase_timerEvent(VirtualQActionGroup* self, QTimerEvent* event);
+void QActionGroup_virtualbase_childEvent(VirtualQActionGroup* self, QChildEvent* event);
+void QActionGroup_virtualbase_customEvent(VirtualQActionGroup* self, QEvent* event);
+void QActionGroup_virtualbase_connectNotify(VirtualQActionGroup* self, QMetaMethod* signal);
+void QActionGroup_virtualbase_disconnectNotify(VirtualQActionGroup* self, QMetaMethod* signal);
 
-QObject* QActionGroup_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QActionGroup_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QActionGroup_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QActionGroup_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QActionGroup_protectedbase_sender(const VirtualQActionGroup* self);
+int QActionGroup_protectedbase_senderSignalIndex(const VirtualQActionGroup* self);
+int QActionGroup_protectedbase_receivers(const VirtualQActionGroup* self, const char* signal);
+bool QActionGroup_protectedbase_isSignalConnected(const VirtualQActionGroup* self, QMetaMethod* signal);
 
 const QMetaObject* QActionGroup_staticMetaObject();
 void QActionGroup_delete(QActionGroup* self);

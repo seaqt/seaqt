@@ -38,6 +38,7 @@ QVector2D* QVector2D_new5(QPointF* point);
 QVector2D* QVector2D_new6(QVector3D* vector);
 QVector2D* QVector2D_new7(QVector4D* vector);
 QVector2D* QVector2D_new8(QVector2D* param1);
+
 bool QVector2D_isNull(const QVector2D* self);
 float QVector2D_x(const QVector2D* self);
 float QVector2D_y(const QVector2D* self);

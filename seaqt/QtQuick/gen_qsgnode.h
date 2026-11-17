@@ -42,7 +42,18 @@ typedef struct QSGRootNode QSGRootNode;
 typedef struct QSGTransformNode QSGTransformNode;
 #endif
 
-QSGNode* QSGNode_new();
+typedef struct VirtualQSGNode VirtualQSGNode;
+typedef struct QSGNode_VTable{
+	void (*destructor)(VirtualQSGNode* self);
+	bool (*isSubtreeBlocked)(const VirtualQSGNode* self);
+	void (*preprocess)(VirtualQSGNode* self);
+}QSGNode_VTable;
+
+void* QSGNode_vdata(VirtualQSGNode* self);
+VirtualQSGNode* vdata_QSGNode(void* vdata);
+
+VirtualQSGNode* QSGNode_new(const QSGNode_VTable* vtbl, size_t vdata);
+
 QSGNode* QSGNode_parent(const QSGNode* self);
 void QSGNode_removeChildNode(QSGNode* self, QSGNode* node);
 void QSGNode_removeAllChildNodes(QSGNode* self);
@@ -69,10 +80,8 @@ void QSGNode_preprocess(QSGNode* self);
 void QSGNode_setFlag2(QSGNode* self, int param1, bool param2);
 void QSGNode_setFlags2(QSGNode* self, int param1, bool param2);
 
-bool QSGNode_override_virtual_isSubtreeBlocked(void* self, intptr_t slot);
-bool QSGNode_virtualbase_isSubtreeBlocked(const void* self);
-bool QSGNode_override_virtual_preprocess(void* self, intptr_t slot);
-void QSGNode_virtualbase_preprocess(void* self);
+bool QSGNode_virtualbase_isSubtreeBlocked(const VirtualQSGNode* self);
+void QSGNode_virtualbase_preprocess(VirtualQSGNode* self);
 
 void QSGNode_delete(QSGNode* self);
 
@@ -87,7 +96,18 @@ void QSGBasicGeometryNode_setRendererClipList(QSGBasicGeometryNode* self, QSGCli
 
 void QSGBasicGeometryNode_delete(QSGBasicGeometryNode* self);
 
-QSGGeometryNode* QSGGeometryNode_new();
+typedef struct VirtualQSGGeometryNode VirtualQSGGeometryNode;
+typedef struct QSGGeometryNode_VTable{
+	void (*destructor)(VirtualQSGGeometryNode* self);
+	bool (*isSubtreeBlocked)(const VirtualQSGGeometryNode* self);
+	void (*preprocess)(VirtualQSGGeometryNode* self);
+}QSGGeometryNode_VTable;
+
+void* QSGGeometryNode_vdata(VirtualQSGGeometryNode* self);
+VirtualQSGGeometryNode* vdata_QSGGeometryNode(void* vdata);
+
+VirtualQSGGeometryNode* QSGGeometryNode_new(const QSGGeometryNode_VTable* vtbl, size_t vdata);
+
 void QSGGeometryNode_virtbase(QSGGeometryNode* src, QSGBasicGeometryNode** outptr_QSGBasicGeometryNode);
 void QSGGeometryNode_setMaterial(QSGGeometryNode* self, QSGMaterial* material);
 QSGMaterial* QSGGeometryNode_material(const QSGGeometryNode* self);
@@ -99,51 +119,87 @@ int QSGGeometryNode_renderOrder(const QSGGeometryNode* self);
 void QSGGeometryNode_setInheritedOpacity(QSGGeometryNode* self, double opacity);
 double QSGGeometryNode_inheritedOpacity(const QSGGeometryNode* self);
 
-bool QSGGeometryNode_override_virtual_isSubtreeBlocked(void* self, intptr_t slot);
-bool QSGGeometryNode_virtualbase_isSubtreeBlocked(const void* self);
-bool QSGGeometryNode_override_virtual_preprocess(void* self, intptr_t slot);
-void QSGGeometryNode_virtualbase_preprocess(void* self);
+bool QSGGeometryNode_virtualbase_isSubtreeBlocked(const VirtualQSGGeometryNode* self);
+void QSGGeometryNode_virtualbase_preprocess(VirtualQSGGeometryNode* self);
 
 void QSGGeometryNode_delete(QSGGeometryNode* self);
 
-QSGClipNode* QSGClipNode_new();
+typedef struct VirtualQSGClipNode VirtualQSGClipNode;
+typedef struct QSGClipNode_VTable{
+	void (*destructor)(VirtualQSGClipNode* self);
+	bool (*isSubtreeBlocked)(const VirtualQSGClipNode* self);
+	void (*preprocess)(VirtualQSGClipNode* self);
+}QSGClipNode_VTable;
+
+void* QSGClipNode_vdata(VirtualQSGClipNode* self);
+VirtualQSGClipNode* vdata_QSGClipNode(void* vdata);
+
+VirtualQSGClipNode* QSGClipNode_new(const QSGClipNode_VTable* vtbl, size_t vdata);
+
 void QSGClipNode_virtbase(QSGClipNode* src, QSGBasicGeometryNode** outptr_QSGBasicGeometryNode);
 void QSGClipNode_setIsRectangular(QSGClipNode* self, bool rectHint);
 bool QSGClipNode_isRectangular(const QSGClipNode* self);
 void QSGClipNode_setClipRect(QSGClipNode* self, QRectF* clipRect);
 QRectF* QSGClipNode_clipRect(const QSGClipNode* self);
 
-bool QSGClipNode_override_virtual_isSubtreeBlocked(void* self, intptr_t slot);
-bool QSGClipNode_virtualbase_isSubtreeBlocked(const void* self);
-bool QSGClipNode_override_virtual_preprocess(void* self, intptr_t slot);
-void QSGClipNode_virtualbase_preprocess(void* self);
+bool QSGClipNode_virtualbase_isSubtreeBlocked(const VirtualQSGClipNode* self);
+void QSGClipNode_virtualbase_preprocess(VirtualQSGClipNode* self);
 
 void QSGClipNode_delete(QSGClipNode* self);
 
-QSGTransformNode* QSGTransformNode_new();
+typedef struct VirtualQSGTransformNode VirtualQSGTransformNode;
+typedef struct QSGTransformNode_VTable{
+	void (*destructor)(VirtualQSGTransformNode* self);
+	bool (*isSubtreeBlocked)(const VirtualQSGTransformNode* self);
+	void (*preprocess)(VirtualQSGTransformNode* self);
+}QSGTransformNode_VTable;
+
+void* QSGTransformNode_vdata(VirtualQSGTransformNode* self);
+VirtualQSGTransformNode* vdata_QSGTransformNode(void* vdata);
+
+VirtualQSGTransformNode* QSGTransformNode_new(const QSGTransformNode_VTable* vtbl, size_t vdata);
+
 void QSGTransformNode_virtbase(QSGTransformNode* src, QSGNode** outptr_QSGNode);
 void QSGTransformNode_setMatrix(QSGTransformNode* self, QMatrix4x4* matrix);
 QMatrix4x4* QSGTransformNode_matrix(const QSGTransformNode* self);
 void QSGTransformNode_setCombinedMatrix(QSGTransformNode* self, QMatrix4x4* matrix);
 QMatrix4x4* QSGTransformNode_combinedMatrix(const QSGTransformNode* self);
 
-bool QSGTransformNode_override_virtual_isSubtreeBlocked(void* self, intptr_t slot);
-bool QSGTransformNode_virtualbase_isSubtreeBlocked(const void* self);
-bool QSGTransformNode_override_virtual_preprocess(void* self, intptr_t slot);
-void QSGTransformNode_virtualbase_preprocess(void* self);
+bool QSGTransformNode_virtualbase_isSubtreeBlocked(const VirtualQSGTransformNode* self);
+void QSGTransformNode_virtualbase_preprocess(VirtualQSGTransformNode* self);
 
 void QSGTransformNode_delete(QSGTransformNode* self);
 
-QSGRootNode* QSGRootNode_new();
+typedef struct VirtualQSGRootNode VirtualQSGRootNode;
+typedef struct QSGRootNode_VTable{
+	void (*destructor)(VirtualQSGRootNode* self);
+	bool (*isSubtreeBlocked)(const VirtualQSGRootNode* self);
+	void (*preprocess)(VirtualQSGRootNode* self);
+}QSGRootNode_VTable;
+
+void* QSGRootNode_vdata(VirtualQSGRootNode* self);
+VirtualQSGRootNode* vdata_QSGRootNode(void* vdata);
+
+VirtualQSGRootNode* QSGRootNode_new(const QSGRootNode_VTable* vtbl, size_t vdata);
+
 void QSGRootNode_virtbase(QSGRootNode* src, QSGNode** outptr_QSGNode);
-bool QSGRootNode_override_virtual_isSubtreeBlocked(void* self, intptr_t slot);
-bool QSGRootNode_virtualbase_isSubtreeBlocked(const void* self);
-bool QSGRootNode_override_virtual_preprocess(void* self, intptr_t slot);
-void QSGRootNode_virtualbase_preprocess(void* self);
+bool QSGRootNode_virtualbase_isSubtreeBlocked(const VirtualQSGRootNode* self);
+void QSGRootNode_virtualbase_preprocess(VirtualQSGRootNode* self);
 
 void QSGRootNode_delete(QSGRootNode* self);
 
-QSGOpacityNode* QSGOpacityNode_new();
+typedef struct VirtualQSGOpacityNode VirtualQSGOpacityNode;
+typedef struct QSGOpacityNode_VTable{
+	void (*destructor)(VirtualQSGOpacityNode* self);
+	bool (*isSubtreeBlocked)(const VirtualQSGOpacityNode* self);
+	void (*preprocess)(VirtualQSGOpacityNode* self);
+}QSGOpacityNode_VTable;
+
+void* QSGOpacityNode_vdata(VirtualQSGOpacityNode* self);
+VirtualQSGOpacityNode* vdata_QSGOpacityNode(void* vdata);
+
+VirtualQSGOpacityNode* QSGOpacityNode_new(const QSGOpacityNode_VTable* vtbl, size_t vdata);
+
 void QSGOpacityNode_virtbase(QSGOpacityNode* src, QSGNode** outptr_QSGNode);
 void QSGOpacityNode_setOpacity(QSGOpacityNode* self, double opacity);
 double QSGOpacityNode_opacity(const QSGOpacityNode* self);
@@ -151,10 +207,8 @@ void QSGOpacityNode_setCombinedOpacity(QSGOpacityNode* self, double opacity);
 double QSGOpacityNode_combinedOpacity(const QSGOpacityNode* self);
 bool QSGOpacityNode_isSubtreeBlocked(const QSGOpacityNode* self);
 
-bool QSGOpacityNode_override_virtual_isSubtreeBlocked(void* self, intptr_t slot);
-bool QSGOpacityNode_virtualbase_isSubtreeBlocked(const void* self);
-bool QSGOpacityNode_override_virtual_preprocess(void* self, intptr_t slot);
-void QSGOpacityNode_virtualbase_preprocess(void* self);
+bool QSGOpacityNode_virtualbase_isSubtreeBlocked(const VirtualQSGOpacityNode* self);
+void QSGOpacityNode_virtualbase_preprocess(VirtualQSGOpacityNode* self);
 
 void QSGOpacityNode_delete(QSGOpacityNode* self);
 

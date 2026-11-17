@@ -27,6 +27,7 @@ QSqlField* QSqlField_new2(struct seaqt_string fieldName, int type, struct seaqt_
 QSqlField* QSqlField_new3(QSqlField* other);
 QSqlField* QSqlField_new4(struct seaqt_string fieldName);
 QSqlField* QSqlField_new5(struct seaqt_string fieldName, int type);
+
 void QSqlField_operatorAssign(QSqlField* self, QSqlField* other);
 bool QSqlField_operatorEqual(const QSqlField* self, QSqlField* other);
 bool QSqlField_operatorNotEqual(const QSqlField* self, QSqlField* other);

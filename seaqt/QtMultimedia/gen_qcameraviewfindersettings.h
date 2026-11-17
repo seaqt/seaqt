@@ -24,6 +24,7 @@ typedef struct QSize QSize;
 
 QCameraViewfinderSettings* QCameraViewfinderSettings_new();
 QCameraViewfinderSettings* QCameraViewfinderSettings_new2(QCameraViewfinderSettings* other);
+
 void QCameraViewfinderSettings_operatorAssign(QCameraViewfinderSettings* self, QCameraViewfinderSettings* other);
 void QCameraViewfinderSettings_swap(QCameraViewfinderSettings* self, QCameraViewfinderSettings* other);
 bool QCameraViewfinderSettings_isNull(const QCameraViewfinderSettings* self);

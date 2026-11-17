@@ -48,6 +48,7 @@ QMediaServiceProviderHint* QMediaServiceProviderHint_new3(struct seaqt_string de
 QMediaServiceProviderHint* QMediaServiceProviderHint_new4(int position);
 QMediaServiceProviderHint* QMediaServiceProviderHint_new5(int features);
 QMediaServiceProviderHint* QMediaServiceProviderHint_new6(QMediaServiceProviderHint* other);
+
 void QMediaServiceProviderHint_operatorAssign(QMediaServiceProviderHint* self, QMediaServiceProviderHint* other);
 bool QMediaServiceProviderHint_operatorEqual(const QMediaServiceProviderHint* self, QMediaServiceProviderHint* other);
 bool QMediaServiceProviderHint_operatorNotEqual(const QMediaServiceProviderHint* self, QMediaServiceProviderHint* other);

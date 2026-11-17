@@ -36,6 +36,7 @@ QColor* QColor_new9(QColor* color);
 QColor* QColor_new10(int spec, unsigned short a1, unsigned short a2, unsigned short a3, unsigned short a4);
 QColor* QColor_new11(int r, int g, int b, int a);
 QColor* QColor_new12(int spec, unsigned short a1, unsigned short a2, unsigned short a3, unsigned short a4, unsigned short a5);
+
 void QColor_operatorAssign(QColor* self, QColor* param1);
 void QColor_operatorAssignWithColor(QColor* self, int color);
 bool QColor_isValid(const QColor* self);

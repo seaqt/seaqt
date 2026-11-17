@@ -46,6 +46,7 @@ QItemSelectionRange* QItemSelectionRange_new();
 QItemSelectionRange* QItemSelectionRange_new2(QItemSelectionRange* other);
 QItemSelectionRange* QItemSelectionRange_new3(QModelIndex* topL, QModelIndex* bottomR);
 QItemSelectionRange* QItemSelectionRange_new4(QModelIndex* index);
+
 void QItemSelectionRange_operatorAssign(QItemSelectionRange* self, QItemSelectionRange* other);
 void QItemSelectionRange_swap(QItemSelectionRange* self, QItemSelectionRange* other);
 int QItemSelectionRange_top(const QItemSelectionRange* self);
@@ -71,9 +72,34 @@ struct seaqt_array /* of QModelIndex* */  QItemSelectionRange_indexes(const QIte
 
 void QItemSelectionRange_delete(QItemSelectionRange* self);
 
-QItemSelectionModel* QItemSelectionModel_new();
-QItemSelectionModel* QItemSelectionModel_new2(QAbstractItemModel* model, QObject* parent);
-QItemSelectionModel* QItemSelectionModel_new3(QAbstractItemModel* model);
+typedef struct VirtualQItemSelectionModel VirtualQItemSelectionModel;
+typedef struct QItemSelectionModel_VTable{
+	void (*destructor)(VirtualQItemSelectionModel* self);
+	QMetaObject* (*metaObject)(const VirtualQItemSelectionModel* self);
+	void* (*metacast)(VirtualQItemSelectionModel* self, const char* param1);
+	int (*metacall)(VirtualQItemSelectionModel* self, int param1, int param2, void** param3);
+	void (*setCurrentIndex)(VirtualQItemSelectionModel* self, QModelIndex* index, int command);
+	void (*select)(VirtualQItemSelectionModel* self, QModelIndex* index, int command);
+	void (*select2)(VirtualQItemSelectionModel* self, QItemSelection* selection, int command);
+	void (*clear)(VirtualQItemSelectionModel* self);
+	void (*reset)(VirtualQItemSelectionModel* self);
+	void (*clearCurrentIndex)(VirtualQItemSelectionModel* self);
+	bool (*event)(VirtualQItemSelectionModel* self, QEvent* event);
+	bool (*eventFilter)(VirtualQItemSelectionModel* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQItemSelectionModel* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQItemSelectionModel* self, QChildEvent* event);
+	void (*customEvent)(VirtualQItemSelectionModel* self, QEvent* event);
+	void (*connectNotify)(VirtualQItemSelectionModel* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQItemSelectionModel* self, QMetaMethod* signal);
+}QItemSelectionModel_VTable;
+
+void* QItemSelectionModel_vdata(VirtualQItemSelectionModel* self);
+VirtualQItemSelectionModel* vdata_QItemSelectionModel(void* vdata);
+
+VirtualQItemSelectionModel* QItemSelectionModel_new(const QItemSelectionModel_VTable* vtbl, size_t vdata);
+VirtualQItemSelectionModel* QItemSelectionModel_new2(const QItemSelectionModel_VTable* vtbl, size_t vdata, QAbstractItemModel* model, QObject* parent);
+VirtualQItemSelectionModel* QItemSelectionModel_new3(const QItemSelectionModel_VTable* vtbl, size_t vdata, QAbstractItemModel* model);
+
 void QItemSelectionModel_virtbase(QItemSelectionModel* src, QObject** outptr_QObject);
 QMetaObject* QItemSelectionModel_metaObject(const QItemSelectionModel* self);
 void* QItemSelectionModel_metacast(QItemSelectionModel* self, const char* param1);
@@ -122,44 +148,28 @@ bool QItemSelectionModel_columnIntersectsSelection2(const QItemSelectionModel* s
 struct seaqt_array /* of QModelIndex* */  QItemSelectionModel_selectedRowsWithColumn(const QItemSelectionModel* self, int column);
 struct seaqt_array /* of QModelIndex* */  QItemSelectionModel_selectedColumnsWithRow(const QItemSelectionModel* self, int row);
 
-bool QItemSelectionModel_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QItemSelectionModel_virtualbase_metaObject(const void* self);
-bool QItemSelectionModel_override_virtual_metacast(void* self, intptr_t slot);
-void* QItemSelectionModel_virtualbase_metacast(void* self, const char* param1);
-bool QItemSelectionModel_override_virtual_metacall(void* self, intptr_t slot);
-int QItemSelectionModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QItemSelectionModel_override_virtual_setCurrentIndex(void* self, intptr_t slot);
-void QItemSelectionModel_virtualbase_setCurrentIndex(void* self, QModelIndex* index, int command);
-bool QItemSelectionModel_override_virtual_select(void* self, intptr_t slot);
-void QItemSelectionModel_virtualbase_select(void* self, QModelIndex* index, int command);
-bool QItemSelectionModel_override_virtual_select2(void* self, intptr_t slot);
-void QItemSelectionModel_virtualbase_select2(void* self, QItemSelection* selection, int command);
-bool QItemSelectionModel_override_virtual_clear(void* self, intptr_t slot);
-void QItemSelectionModel_virtualbase_clear(void* self);
-bool QItemSelectionModel_override_virtual_reset(void* self, intptr_t slot);
-void QItemSelectionModel_virtualbase_reset(void* self);
-bool QItemSelectionModel_override_virtual_clearCurrentIndex(void* self, intptr_t slot);
-void QItemSelectionModel_virtualbase_clearCurrentIndex(void* self);
-bool QItemSelectionModel_override_virtual_event(void* self, intptr_t slot);
-bool QItemSelectionModel_virtualbase_event(void* self, QEvent* event);
-bool QItemSelectionModel_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QItemSelectionModel_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QItemSelectionModel_override_virtual_timerEvent(void* self, intptr_t slot);
-void QItemSelectionModel_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QItemSelectionModel_override_virtual_childEvent(void* self, intptr_t slot);
-void QItemSelectionModel_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QItemSelectionModel_override_virtual_customEvent(void* self, intptr_t slot);
-void QItemSelectionModel_virtualbase_customEvent(void* self, QEvent* event);
-bool QItemSelectionModel_override_virtual_connectNotify(void* self, intptr_t slot);
-void QItemSelectionModel_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QItemSelectionModel_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QItemSelectionModel_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QItemSelectionModel_virtualbase_metaObject(const VirtualQItemSelectionModel* self);
+void* QItemSelectionModel_virtualbase_metacast(VirtualQItemSelectionModel* self, const char* param1);
+int QItemSelectionModel_virtualbase_metacall(VirtualQItemSelectionModel* self, int param1, int param2, void** param3);
+void QItemSelectionModel_virtualbase_setCurrentIndex(VirtualQItemSelectionModel* self, QModelIndex* index, int command);
+void QItemSelectionModel_virtualbase_select(VirtualQItemSelectionModel* self, QModelIndex* index, int command);
+void QItemSelectionModel_virtualbase_select2(VirtualQItemSelectionModel* self, QItemSelection* selection, int command);
+void QItemSelectionModel_virtualbase_clear(VirtualQItemSelectionModel* self);
+void QItemSelectionModel_virtualbase_reset(VirtualQItemSelectionModel* self);
+void QItemSelectionModel_virtualbase_clearCurrentIndex(VirtualQItemSelectionModel* self);
+bool QItemSelectionModel_virtualbase_event(VirtualQItemSelectionModel* self, QEvent* event);
+bool QItemSelectionModel_virtualbase_eventFilter(VirtualQItemSelectionModel* self, QObject* watched, QEvent* event);
+void QItemSelectionModel_virtualbase_timerEvent(VirtualQItemSelectionModel* self, QTimerEvent* event);
+void QItemSelectionModel_virtualbase_childEvent(VirtualQItemSelectionModel* self, QChildEvent* event);
+void QItemSelectionModel_virtualbase_customEvent(VirtualQItemSelectionModel* self, QEvent* event);
+void QItemSelectionModel_virtualbase_connectNotify(VirtualQItemSelectionModel* self, QMetaMethod* signal);
+void QItemSelectionModel_virtualbase_disconnectNotify(VirtualQItemSelectionModel* self, QMetaMethod* signal);
 
-void QItemSelectionModel_protectedbase_emitSelectionChanged(bool* _dynamic_cast_ok, void* self, QItemSelection* newSelection, QItemSelection* oldSelection);
-QObject* QItemSelectionModel_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QItemSelectionModel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QItemSelectionModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QItemSelectionModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+void QItemSelectionModel_protectedbase_emitSelectionChanged(VirtualQItemSelectionModel* self, QItemSelection* newSelection, QItemSelection* oldSelection);
+QObject* QItemSelectionModel_protectedbase_sender(const VirtualQItemSelectionModel* self);
+int QItemSelectionModel_protectedbase_senderSignalIndex(const VirtualQItemSelectionModel* self);
+int QItemSelectionModel_protectedbase_receivers(const VirtualQItemSelectionModel* self, const char* signal);
+bool QItemSelectionModel_protectedbase_isSignalConnected(const VirtualQItemSelectionModel* self, QMetaMethod* signal);
 
 const QMetaObject* QItemSelectionModel_staticMetaObject();
 void QItemSelectionModel_delete(QItemSelectionModel* self);
@@ -167,6 +177,7 @@ void QItemSelectionModel_delete(QItemSelectionModel* self);
 QItemSelection* QItemSelection_new();
 QItemSelection* QItemSelection_new2(QModelIndex* topLeft, QModelIndex* bottomRight);
 QItemSelection* QItemSelection_new3(QItemSelection* param1);
+
 void QItemSelection_select(QItemSelection* self, QModelIndex* topLeft, QModelIndex* bottomRight);
 bool QItemSelection_contains(const QItemSelection* self, QModelIndex* index);
 struct seaqt_array /* of QModelIndex* */  QItemSelection_indexes(const QItemSelection* self);

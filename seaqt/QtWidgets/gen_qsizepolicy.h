@@ -28,6 +28,7 @@ QSizePolicy* QSizePolicy_new();
 QSizePolicy* QSizePolicy_new2(int horizontal, int vertical);
 QSizePolicy* QSizePolicy_new3(QSizePolicy* param1);
 QSizePolicy* QSizePolicy_new4(int horizontal, int vertical, int type);
+
 int QSizePolicy_horizontalPolicy(const QSizePolicy* self);
 int QSizePolicy_verticalPolicy(const QSizePolicy* self);
 int QSizePolicy_controlType(const QSizePolicy* self);

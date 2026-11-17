@@ -74,10 +74,32 @@ void QAbstractUndoItem_operatorAssign(QAbstractUndoItem* self, QAbstractUndoItem
 
 void QAbstractUndoItem_delete(QAbstractUndoItem* self);
 
-QTextDocument* QTextDocument_new();
-QTextDocument* QTextDocument_new2(struct seaqt_string text);
-QTextDocument* QTextDocument_new3(QObject* parent);
-QTextDocument* QTextDocument_new4(struct seaqt_string text, QObject* parent);
+typedef struct VirtualQTextDocument VirtualQTextDocument;
+typedef struct QTextDocument_VTable{
+	void (*destructor)(VirtualQTextDocument* self);
+	QMetaObject* (*metaObject)(const VirtualQTextDocument* self);
+	void* (*metacast)(VirtualQTextDocument* self, const char* param1);
+	int (*metacall)(VirtualQTextDocument* self, int param1, int param2, void** param3);
+	void (*clear)(VirtualQTextDocument* self);
+	QTextObject* (*createObject)(VirtualQTextDocument* self, QTextFormat* f);
+	QVariant* (*loadResource)(VirtualQTextDocument* self, int type, QUrl* name);
+	bool (*event)(VirtualQTextDocument* self, QEvent* event);
+	bool (*eventFilter)(VirtualQTextDocument* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQTextDocument* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQTextDocument* self, QChildEvent* event);
+	void (*customEvent)(VirtualQTextDocument* self, QEvent* event);
+	void (*connectNotify)(VirtualQTextDocument* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQTextDocument* self, QMetaMethod* signal);
+}QTextDocument_VTable;
+
+void* QTextDocument_vdata(VirtualQTextDocument* self);
+VirtualQTextDocument* vdata_QTextDocument(void* vdata);
+
+VirtualQTextDocument* QTextDocument_new(const QTextDocument_VTable* vtbl, size_t vdata);
+VirtualQTextDocument* QTextDocument_new2(const QTextDocument_VTable* vtbl, size_t vdata, struct seaqt_string text);
+VirtualQTextDocument* QTextDocument_new3(const QTextDocument_VTable* vtbl, size_t vdata, QObject* parent);
+VirtualQTextDocument* QTextDocument_new4(const QTextDocument_VTable* vtbl, size_t vdata, struct seaqt_string text, QObject* parent);
+
 void QTextDocument_virtbase(QTextDocument* src, QObject** outptr_QObject);
 QMetaObject* QTextDocument_metaObject(const QTextDocument* self);
 void* QTextDocument_metacast(QTextDocument* self, const char* param1);
@@ -209,37 +231,24 @@ void QTextDocument_drawContents2(QTextDocument* self, QPainter* painter, QRectF*
 void QTextDocument_clearUndoRedoStacksWithHistoryToClear(QTextDocument* self, int historyToClear);
 void QTextDocument_setModifiedWithBool(QTextDocument* self, bool m);
 
-bool QTextDocument_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QTextDocument_virtualbase_metaObject(const void* self);
-bool QTextDocument_override_virtual_metacast(void* self, intptr_t slot);
-void* QTextDocument_virtualbase_metacast(void* self, const char* param1);
-bool QTextDocument_override_virtual_metacall(void* self, intptr_t slot);
-int QTextDocument_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QTextDocument_override_virtual_clear(void* self, intptr_t slot);
-void QTextDocument_virtualbase_clear(void* self);
-bool QTextDocument_override_virtual_createObject(void* self, intptr_t slot);
-QTextObject* QTextDocument_virtualbase_createObject(void* self, QTextFormat* f);
-bool QTextDocument_override_virtual_loadResource(void* self, intptr_t slot);
-QVariant* QTextDocument_virtualbase_loadResource(void* self, int type, QUrl* name);
-bool QTextDocument_override_virtual_event(void* self, intptr_t slot);
-bool QTextDocument_virtualbase_event(void* self, QEvent* event);
-bool QTextDocument_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QTextDocument_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QTextDocument_override_virtual_timerEvent(void* self, intptr_t slot);
-void QTextDocument_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QTextDocument_override_virtual_childEvent(void* self, intptr_t slot);
-void QTextDocument_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QTextDocument_override_virtual_customEvent(void* self, intptr_t slot);
-void QTextDocument_virtualbase_customEvent(void* self, QEvent* event);
-bool QTextDocument_override_virtual_connectNotify(void* self, intptr_t slot);
-void QTextDocument_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QTextDocument_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QTextDocument_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QTextDocument_virtualbase_metaObject(const VirtualQTextDocument* self);
+void* QTextDocument_virtualbase_metacast(VirtualQTextDocument* self, const char* param1);
+int QTextDocument_virtualbase_metacall(VirtualQTextDocument* self, int param1, int param2, void** param3);
+void QTextDocument_virtualbase_clear(VirtualQTextDocument* self);
+QTextObject* QTextDocument_virtualbase_createObject(VirtualQTextDocument* self, QTextFormat* f);
+QVariant* QTextDocument_virtualbase_loadResource(VirtualQTextDocument* self, int type, QUrl* name);
+bool QTextDocument_virtualbase_event(VirtualQTextDocument* self, QEvent* event);
+bool QTextDocument_virtualbase_eventFilter(VirtualQTextDocument* self, QObject* watched, QEvent* event);
+void QTextDocument_virtualbase_timerEvent(VirtualQTextDocument* self, QTimerEvent* event);
+void QTextDocument_virtualbase_childEvent(VirtualQTextDocument* self, QChildEvent* event);
+void QTextDocument_virtualbase_customEvent(VirtualQTextDocument* self, QEvent* event);
+void QTextDocument_virtualbase_connectNotify(VirtualQTextDocument* self, QMetaMethod* signal);
+void QTextDocument_virtualbase_disconnectNotify(VirtualQTextDocument* self, QMetaMethod* signal);
 
-QObject* QTextDocument_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QTextDocument_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QTextDocument_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QTextDocument_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QTextDocument_protectedbase_sender(const VirtualQTextDocument* self);
+int QTextDocument_protectedbase_senderSignalIndex(const VirtualQTextDocument* self);
+int QTextDocument_protectedbase_receivers(const VirtualQTextDocument* self, const char* signal);
+bool QTextDocument_protectedbase_isSignalConnected(const VirtualQTextDocument* self, QMetaMethod* signal);
 
 const QMetaObject* QTextDocument_staticMetaObject();
 void QTextDocument_delete(QTextDocument* self);

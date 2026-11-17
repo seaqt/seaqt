@@ -34,8 +34,28 @@ typedef struct QObject QObject;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QIconEnginePlugin* QIconEnginePlugin_new();
-QIconEnginePlugin* QIconEnginePlugin_new2(QObject* parent);
+typedef struct VirtualQIconEnginePlugin VirtualQIconEnginePlugin;
+typedef struct QIconEnginePlugin_VTable{
+	void (*destructor)(VirtualQIconEnginePlugin* self);
+	QMetaObject* (*metaObject)(const VirtualQIconEnginePlugin* self);
+	void* (*metacast)(VirtualQIconEnginePlugin* self, const char* param1);
+	int (*metacall)(VirtualQIconEnginePlugin* self, int param1, int param2, void** param3);
+	QIconEngine* (*create)(VirtualQIconEnginePlugin* self, struct seaqt_string filename);
+	bool (*event)(VirtualQIconEnginePlugin* self, QEvent* event);
+	bool (*eventFilter)(VirtualQIconEnginePlugin* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQIconEnginePlugin* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQIconEnginePlugin* self, QChildEvent* event);
+	void (*customEvent)(VirtualQIconEnginePlugin* self, QEvent* event);
+	void (*connectNotify)(VirtualQIconEnginePlugin* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQIconEnginePlugin* self, QMetaMethod* signal);
+}QIconEnginePlugin_VTable;
+
+void* QIconEnginePlugin_vdata(VirtualQIconEnginePlugin* self);
+VirtualQIconEnginePlugin* vdata_QIconEnginePlugin(void* vdata);
+
+VirtualQIconEnginePlugin* QIconEnginePlugin_new(const QIconEnginePlugin_VTable* vtbl, size_t vdata);
+VirtualQIconEnginePlugin* QIconEnginePlugin_new2(const QIconEnginePlugin_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QIconEnginePlugin_virtbase(QIconEnginePlugin* src, QObject** outptr_QObject);
 QMetaObject* QIconEnginePlugin_metaObject(const QIconEnginePlugin* self);
 void* QIconEnginePlugin_metacast(QIconEnginePlugin* self, const char* param1);
@@ -48,33 +68,22 @@ struct seaqt_string QIconEnginePlugin_tr3(const char* s, const char* c, int n);
 struct seaqt_string QIconEnginePlugin_trUtf82(const char* s, const char* c);
 struct seaqt_string QIconEnginePlugin_trUtf83(const char* s, const char* c, int n);
 
-bool QIconEnginePlugin_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QIconEnginePlugin_virtualbase_metaObject(const void* self);
-bool QIconEnginePlugin_override_virtual_metacast(void* self, intptr_t slot);
-void* QIconEnginePlugin_virtualbase_metacast(void* self, const char* param1);
-bool QIconEnginePlugin_override_virtual_metacall(void* self, intptr_t slot);
-int QIconEnginePlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QIconEnginePlugin_override_virtual_create(void* self, intptr_t slot);
-QIconEngine* QIconEnginePlugin_virtualbase_create(void* self, struct seaqt_string filename);
-bool QIconEnginePlugin_override_virtual_event(void* self, intptr_t slot);
-bool QIconEnginePlugin_virtualbase_event(void* self, QEvent* event);
-bool QIconEnginePlugin_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QIconEnginePlugin_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QIconEnginePlugin_override_virtual_timerEvent(void* self, intptr_t slot);
-void QIconEnginePlugin_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QIconEnginePlugin_override_virtual_childEvent(void* self, intptr_t slot);
-void QIconEnginePlugin_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QIconEnginePlugin_override_virtual_customEvent(void* self, intptr_t slot);
-void QIconEnginePlugin_virtualbase_customEvent(void* self, QEvent* event);
-bool QIconEnginePlugin_override_virtual_connectNotify(void* self, intptr_t slot);
-void QIconEnginePlugin_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QIconEnginePlugin_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QIconEnginePlugin_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QIconEnginePlugin_virtualbase_metaObject(const VirtualQIconEnginePlugin* self);
+void* QIconEnginePlugin_virtualbase_metacast(VirtualQIconEnginePlugin* self, const char* param1);
+int QIconEnginePlugin_virtualbase_metacall(VirtualQIconEnginePlugin* self, int param1, int param2, void** param3);
+QIconEngine* QIconEnginePlugin_virtualbase_create(VirtualQIconEnginePlugin* self, struct seaqt_string filename);
+bool QIconEnginePlugin_virtualbase_event(VirtualQIconEnginePlugin* self, QEvent* event);
+bool QIconEnginePlugin_virtualbase_eventFilter(VirtualQIconEnginePlugin* self, QObject* watched, QEvent* event);
+void QIconEnginePlugin_virtualbase_timerEvent(VirtualQIconEnginePlugin* self, QTimerEvent* event);
+void QIconEnginePlugin_virtualbase_childEvent(VirtualQIconEnginePlugin* self, QChildEvent* event);
+void QIconEnginePlugin_virtualbase_customEvent(VirtualQIconEnginePlugin* self, QEvent* event);
+void QIconEnginePlugin_virtualbase_connectNotify(VirtualQIconEnginePlugin* self, QMetaMethod* signal);
+void QIconEnginePlugin_virtualbase_disconnectNotify(VirtualQIconEnginePlugin* self, QMetaMethod* signal);
 
-QObject* QIconEnginePlugin_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QIconEnginePlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QIconEnginePlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QIconEnginePlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QIconEnginePlugin_protectedbase_sender(const VirtualQIconEnginePlugin* self);
+int QIconEnginePlugin_protectedbase_senderSignalIndex(const VirtualQIconEnginePlugin* self);
+int QIconEnginePlugin_protectedbase_receivers(const VirtualQIconEnginePlugin* self, const char* signal);
+bool QIconEnginePlugin_protectedbase_isSignalConnected(const VirtualQIconEnginePlugin* self, QMetaMethod* signal);
 
 const QMetaObject* QIconEnginePlugin_staticMetaObject();
 void QIconEnginePlugin_delete(QIconEnginePlugin* self);

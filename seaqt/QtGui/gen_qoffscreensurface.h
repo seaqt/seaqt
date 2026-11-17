@@ -40,9 +40,31 @@ typedef struct QSurfaceFormat QSurfaceFormat;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QOffscreenSurface* QOffscreenSurface_new(QScreen* screen, QObject* parent);
-QOffscreenSurface* QOffscreenSurface_new2();
-QOffscreenSurface* QOffscreenSurface_new3(QScreen* screen);
+typedef struct VirtualQOffscreenSurface VirtualQOffscreenSurface;
+typedef struct QOffscreenSurface_VTable{
+	void (*destructor)(VirtualQOffscreenSurface* self);
+	QMetaObject* (*metaObject)(const VirtualQOffscreenSurface* self);
+	void* (*metacast)(VirtualQOffscreenSurface* self, const char* param1);
+	int (*metacall)(VirtualQOffscreenSurface* self, int param1, int param2, void** param3);
+	int (*surfaceType)(const VirtualQOffscreenSurface* self);
+	QSurfaceFormat* (*format)(const VirtualQOffscreenSurface* self);
+	QSize* (*size)(const VirtualQOffscreenSurface* self);
+	bool (*event)(VirtualQOffscreenSurface* self, QEvent* event);
+	bool (*eventFilter)(VirtualQOffscreenSurface* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQOffscreenSurface* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQOffscreenSurface* self, QChildEvent* event);
+	void (*customEvent)(VirtualQOffscreenSurface* self, QEvent* event);
+	void (*connectNotify)(VirtualQOffscreenSurface* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQOffscreenSurface* self, QMetaMethod* signal);
+}QOffscreenSurface_VTable;
+
+void* QOffscreenSurface_vdata(VirtualQOffscreenSurface* self);
+VirtualQOffscreenSurface* vdata_QOffscreenSurface(void* vdata);
+
+VirtualQOffscreenSurface* QOffscreenSurface_new(const QOffscreenSurface_VTable* vtbl, size_t vdata, QScreen* screen, QObject* parent);
+VirtualQOffscreenSurface* QOffscreenSurface_new2(const QOffscreenSurface_VTable* vtbl, size_t vdata);
+VirtualQOffscreenSurface* QOffscreenSurface_new3(const QOffscreenSurface_VTable* vtbl, size_t vdata, QScreen* screen);
+
 void QOffscreenSurface_virtbase(QOffscreenSurface* src, QObject** outptr_QObject, QSurface** outptr_QSurface);
 QMetaObject* QOffscreenSurface_metaObject(const QOffscreenSurface* self);
 void* QOffscreenSurface_metacast(QOffscreenSurface* self, const char* param1);
@@ -68,37 +90,24 @@ struct seaqt_string QOffscreenSurface_tr3(const char* s, const char* c, int n);
 struct seaqt_string QOffscreenSurface_trUtf82(const char* s, const char* c);
 struct seaqt_string QOffscreenSurface_trUtf83(const char* s, const char* c, int n);
 
-bool QOffscreenSurface_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QOffscreenSurface_virtualbase_metaObject(const void* self);
-bool QOffscreenSurface_override_virtual_metacast(void* self, intptr_t slot);
-void* QOffscreenSurface_virtualbase_metacast(void* self, const char* param1);
-bool QOffscreenSurface_override_virtual_metacall(void* self, intptr_t slot);
-int QOffscreenSurface_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QOffscreenSurface_override_virtual_surfaceType(void* self, intptr_t slot);
-int QOffscreenSurface_virtualbase_surfaceType(const void* self);
-bool QOffscreenSurface_override_virtual_format(void* self, intptr_t slot);
-QSurfaceFormat* QOffscreenSurface_virtualbase_format(const void* self);
-bool QOffscreenSurface_override_virtual_size(void* self, intptr_t slot);
-QSize* QOffscreenSurface_virtualbase_size(const void* self);
-bool QOffscreenSurface_override_virtual_event(void* self, intptr_t slot);
-bool QOffscreenSurface_virtualbase_event(void* self, QEvent* event);
-bool QOffscreenSurface_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QOffscreenSurface_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QOffscreenSurface_override_virtual_timerEvent(void* self, intptr_t slot);
-void QOffscreenSurface_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QOffscreenSurface_override_virtual_childEvent(void* self, intptr_t slot);
-void QOffscreenSurface_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QOffscreenSurface_override_virtual_customEvent(void* self, intptr_t slot);
-void QOffscreenSurface_virtualbase_customEvent(void* self, QEvent* event);
-bool QOffscreenSurface_override_virtual_connectNotify(void* self, intptr_t slot);
-void QOffscreenSurface_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QOffscreenSurface_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QOffscreenSurface_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QOffscreenSurface_virtualbase_metaObject(const VirtualQOffscreenSurface* self);
+void* QOffscreenSurface_virtualbase_metacast(VirtualQOffscreenSurface* self, const char* param1);
+int QOffscreenSurface_virtualbase_metacall(VirtualQOffscreenSurface* self, int param1, int param2, void** param3);
+int QOffscreenSurface_virtualbase_surfaceType(const VirtualQOffscreenSurface* self);
+QSurfaceFormat* QOffscreenSurface_virtualbase_format(const VirtualQOffscreenSurface* self);
+QSize* QOffscreenSurface_virtualbase_size(const VirtualQOffscreenSurface* self);
+bool QOffscreenSurface_virtualbase_event(VirtualQOffscreenSurface* self, QEvent* event);
+bool QOffscreenSurface_virtualbase_eventFilter(VirtualQOffscreenSurface* self, QObject* watched, QEvent* event);
+void QOffscreenSurface_virtualbase_timerEvent(VirtualQOffscreenSurface* self, QTimerEvent* event);
+void QOffscreenSurface_virtualbase_childEvent(VirtualQOffscreenSurface* self, QChildEvent* event);
+void QOffscreenSurface_virtualbase_customEvent(VirtualQOffscreenSurface* self, QEvent* event);
+void QOffscreenSurface_virtualbase_connectNotify(VirtualQOffscreenSurface* self, QMetaMethod* signal);
+void QOffscreenSurface_virtualbase_disconnectNotify(VirtualQOffscreenSurface* self, QMetaMethod* signal);
 
-QObject* QOffscreenSurface_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QOffscreenSurface_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QOffscreenSurface_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QOffscreenSurface_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QOffscreenSurface_protectedbase_sender(const VirtualQOffscreenSurface* self);
+int QOffscreenSurface_protectedbase_senderSignalIndex(const VirtualQOffscreenSurface* self);
+int QOffscreenSurface_protectedbase_receivers(const VirtualQOffscreenSurface* self, const char* signal);
+bool QOffscreenSurface_protectedbase_isSignalConnected(const VirtualQOffscreenSurface* self, QMetaMethod* signal);
 
 const QMetaObject* QOffscreenSurface_staticMetaObject();
 void QOffscreenSurface_delete(QOffscreenSurface* self);

@@ -42,7 +42,30 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QVariant QVariant;
 #endif
 
-QImageIOHandler* QImageIOHandler_new();
+typedef struct VirtualQImageIOHandler VirtualQImageIOHandler;
+typedef struct QImageIOHandler_VTable{
+	void (*destructor)(VirtualQImageIOHandler* self);
+	struct seaqt_string (*name)(const VirtualQImageIOHandler* self);
+	bool (*canRead)(const VirtualQImageIOHandler* self);
+	bool (*read)(VirtualQImageIOHandler* self, QImage* image);
+	bool (*write)(VirtualQImageIOHandler* self, QImage* image);
+	QVariant* (*option)(const VirtualQImageIOHandler* self, int option);
+	void (*setOption)(VirtualQImageIOHandler* self, int option, QVariant* value);
+	bool (*supportsOption)(const VirtualQImageIOHandler* self, int option);
+	bool (*jumpToNextImage)(VirtualQImageIOHandler* self);
+	bool (*jumpToImage)(VirtualQImageIOHandler* self, int imageNumber);
+	int (*loopCount)(const VirtualQImageIOHandler* self);
+	int (*imageCount)(const VirtualQImageIOHandler* self);
+	int (*nextImageDelay)(const VirtualQImageIOHandler* self);
+	int (*currentImageNumber)(const VirtualQImageIOHandler* self);
+	QRect* (*currentImageRect)(const VirtualQImageIOHandler* self);
+}QImageIOHandler_VTable;
+
+void* QImageIOHandler_vdata(VirtualQImageIOHandler* self);
+VirtualQImageIOHandler* vdata_QImageIOHandler(void* vdata);
+
+VirtualQImageIOHandler* QImageIOHandler_new(const QImageIOHandler_VTable* vtbl, size_t vdata);
+
 void QImageIOHandler_setDevice(QImageIOHandler* self, QIODevice* device);
 QIODevice* QImageIOHandler_device(const QImageIOHandler* self);
 void QImageIOHandler_setFormat(QImageIOHandler* self, struct seaqt_string format);
@@ -63,39 +86,46 @@ int QImageIOHandler_nextImageDelay(const QImageIOHandler* self);
 int QImageIOHandler_currentImageNumber(const QImageIOHandler* self);
 QRect* QImageIOHandler_currentImageRect(const QImageIOHandler* self);
 
-bool QImageIOHandler_override_virtual_name(void* self, intptr_t slot);
-struct seaqt_string QImageIOHandler_virtualbase_name(const void* self);
-bool QImageIOHandler_override_virtual_canRead(void* self, intptr_t slot);
-bool QImageIOHandler_virtualbase_canRead(const void* self);
-bool QImageIOHandler_override_virtual_read(void* self, intptr_t slot);
-bool QImageIOHandler_virtualbase_read(void* self, QImage* image);
-bool QImageIOHandler_override_virtual_write(void* self, intptr_t slot);
-bool QImageIOHandler_virtualbase_write(void* self, QImage* image);
-bool QImageIOHandler_override_virtual_option(void* self, intptr_t slot);
-QVariant* QImageIOHandler_virtualbase_option(const void* self, int option);
-bool QImageIOHandler_override_virtual_setOption(void* self, intptr_t slot);
-void QImageIOHandler_virtualbase_setOption(void* self, int option, QVariant* value);
-bool QImageIOHandler_override_virtual_supportsOption(void* self, intptr_t slot);
-bool QImageIOHandler_virtualbase_supportsOption(const void* self, int option);
-bool QImageIOHandler_override_virtual_jumpToNextImage(void* self, intptr_t slot);
-bool QImageIOHandler_virtualbase_jumpToNextImage(void* self);
-bool QImageIOHandler_override_virtual_jumpToImage(void* self, intptr_t slot);
-bool QImageIOHandler_virtualbase_jumpToImage(void* self, int imageNumber);
-bool QImageIOHandler_override_virtual_loopCount(void* self, intptr_t slot);
-int QImageIOHandler_virtualbase_loopCount(const void* self);
-bool QImageIOHandler_override_virtual_imageCount(void* self, intptr_t slot);
-int QImageIOHandler_virtualbase_imageCount(const void* self);
-bool QImageIOHandler_override_virtual_nextImageDelay(void* self, intptr_t slot);
-int QImageIOHandler_virtualbase_nextImageDelay(const void* self);
-bool QImageIOHandler_override_virtual_currentImageNumber(void* self, intptr_t slot);
-int QImageIOHandler_virtualbase_currentImageNumber(const void* self);
-bool QImageIOHandler_override_virtual_currentImageRect(void* self, intptr_t slot);
-QRect* QImageIOHandler_virtualbase_currentImageRect(const void* self);
+struct seaqt_string QImageIOHandler_virtualbase_name(const VirtualQImageIOHandler* self);
+bool QImageIOHandler_virtualbase_canRead(const VirtualQImageIOHandler* self);
+bool QImageIOHandler_virtualbase_read(VirtualQImageIOHandler* self, QImage* image);
+bool QImageIOHandler_virtualbase_write(VirtualQImageIOHandler* self, QImage* image);
+QVariant* QImageIOHandler_virtualbase_option(const VirtualQImageIOHandler* self, int option);
+void QImageIOHandler_virtualbase_setOption(VirtualQImageIOHandler* self, int option, QVariant* value);
+bool QImageIOHandler_virtualbase_supportsOption(const VirtualQImageIOHandler* self, int option);
+bool QImageIOHandler_virtualbase_jumpToNextImage(VirtualQImageIOHandler* self);
+bool QImageIOHandler_virtualbase_jumpToImage(VirtualQImageIOHandler* self, int imageNumber);
+int QImageIOHandler_virtualbase_loopCount(const VirtualQImageIOHandler* self);
+int QImageIOHandler_virtualbase_imageCount(const VirtualQImageIOHandler* self);
+int QImageIOHandler_virtualbase_nextImageDelay(const VirtualQImageIOHandler* self);
+int QImageIOHandler_virtualbase_currentImageNumber(const VirtualQImageIOHandler* self);
+QRect* QImageIOHandler_virtualbase_currentImageRect(const VirtualQImageIOHandler* self);
 
 void QImageIOHandler_delete(QImageIOHandler* self);
 
-QImageIOPlugin* QImageIOPlugin_new();
-QImageIOPlugin* QImageIOPlugin_new2(QObject* parent);
+typedef struct VirtualQImageIOPlugin VirtualQImageIOPlugin;
+typedef struct QImageIOPlugin_VTable{
+	void (*destructor)(VirtualQImageIOPlugin* self);
+	QMetaObject* (*metaObject)(const VirtualQImageIOPlugin* self);
+	void* (*metacast)(VirtualQImageIOPlugin* self, const char* param1);
+	int (*metacall)(VirtualQImageIOPlugin* self, int param1, int param2, void** param3);
+	int (*capabilities)(const VirtualQImageIOPlugin* self, QIODevice* device, struct seaqt_string format);
+	QImageIOHandler* (*create)(const VirtualQImageIOPlugin* self, QIODevice* device, struct seaqt_string format);
+	bool (*event)(VirtualQImageIOPlugin* self, QEvent* event);
+	bool (*eventFilter)(VirtualQImageIOPlugin* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQImageIOPlugin* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQImageIOPlugin* self, QChildEvent* event);
+	void (*customEvent)(VirtualQImageIOPlugin* self, QEvent* event);
+	void (*connectNotify)(VirtualQImageIOPlugin* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQImageIOPlugin* self, QMetaMethod* signal);
+}QImageIOPlugin_VTable;
+
+void* QImageIOPlugin_vdata(VirtualQImageIOPlugin* self);
+VirtualQImageIOPlugin* vdata_QImageIOPlugin(void* vdata);
+
+VirtualQImageIOPlugin* QImageIOPlugin_new(const QImageIOPlugin_VTable* vtbl, size_t vdata);
+VirtualQImageIOPlugin* QImageIOPlugin_new2(const QImageIOPlugin_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QImageIOPlugin_virtbase(QImageIOPlugin* src, QObject** outptr_QObject);
 QMetaObject* QImageIOPlugin_metaObject(const QImageIOPlugin* self);
 void* QImageIOPlugin_metacast(QImageIOPlugin* self, const char* param1);
@@ -109,35 +139,23 @@ struct seaqt_string QImageIOPlugin_tr3(const char* s, const char* c, int n);
 struct seaqt_string QImageIOPlugin_trUtf82(const char* s, const char* c);
 struct seaqt_string QImageIOPlugin_trUtf83(const char* s, const char* c, int n);
 
-bool QImageIOPlugin_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QImageIOPlugin_virtualbase_metaObject(const void* self);
-bool QImageIOPlugin_override_virtual_metacast(void* self, intptr_t slot);
-void* QImageIOPlugin_virtualbase_metacast(void* self, const char* param1);
-bool QImageIOPlugin_override_virtual_metacall(void* self, intptr_t slot);
-int QImageIOPlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QImageIOPlugin_override_virtual_capabilities(void* self, intptr_t slot);
-int QImageIOPlugin_virtualbase_capabilities(const void* self, QIODevice* device, struct seaqt_string format);
-bool QImageIOPlugin_override_virtual_create(void* self, intptr_t slot);
-QImageIOHandler* QImageIOPlugin_virtualbase_create(const void* self, QIODevice* device, struct seaqt_string format);
-bool QImageIOPlugin_override_virtual_event(void* self, intptr_t slot);
-bool QImageIOPlugin_virtualbase_event(void* self, QEvent* event);
-bool QImageIOPlugin_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QImageIOPlugin_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QImageIOPlugin_override_virtual_timerEvent(void* self, intptr_t slot);
-void QImageIOPlugin_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QImageIOPlugin_override_virtual_childEvent(void* self, intptr_t slot);
-void QImageIOPlugin_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QImageIOPlugin_override_virtual_customEvent(void* self, intptr_t slot);
-void QImageIOPlugin_virtualbase_customEvent(void* self, QEvent* event);
-bool QImageIOPlugin_override_virtual_connectNotify(void* self, intptr_t slot);
-void QImageIOPlugin_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QImageIOPlugin_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QImageIOPlugin_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QImageIOPlugin_virtualbase_metaObject(const VirtualQImageIOPlugin* self);
+void* QImageIOPlugin_virtualbase_metacast(VirtualQImageIOPlugin* self, const char* param1);
+int QImageIOPlugin_virtualbase_metacall(VirtualQImageIOPlugin* self, int param1, int param2, void** param3);
+int QImageIOPlugin_virtualbase_capabilities(const VirtualQImageIOPlugin* self, QIODevice* device, struct seaqt_string format);
+QImageIOHandler* QImageIOPlugin_virtualbase_create(const VirtualQImageIOPlugin* self, QIODevice* device, struct seaqt_string format);
+bool QImageIOPlugin_virtualbase_event(VirtualQImageIOPlugin* self, QEvent* event);
+bool QImageIOPlugin_virtualbase_eventFilter(VirtualQImageIOPlugin* self, QObject* watched, QEvent* event);
+void QImageIOPlugin_virtualbase_timerEvent(VirtualQImageIOPlugin* self, QTimerEvent* event);
+void QImageIOPlugin_virtualbase_childEvent(VirtualQImageIOPlugin* self, QChildEvent* event);
+void QImageIOPlugin_virtualbase_customEvent(VirtualQImageIOPlugin* self, QEvent* event);
+void QImageIOPlugin_virtualbase_connectNotify(VirtualQImageIOPlugin* self, QMetaMethod* signal);
+void QImageIOPlugin_virtualbase_disconnectNotify(VirtualQImageIOPlugin* self, QMetaMethod* signal);
 
-QObject* QImageIOPlugin_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QImageIOPlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QImageIOPlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QImageIOPlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QImageIOPlugin_protectedbase_sender(const VirtualQImageIOPlugin* self);
+int QImageIOPlugin_protectedbase_senderSignalIndex(const VirtualQImageIOPlugin* self);
+int QImageIOPlugin_protectedbase_receivers(const VirtualQImageIOPlugin* self, const char* signal);
+bool QImageIOPlugin_protectedbase_isSignalConnected(const VirtualQImageIOPlugin* self, QMetaMethod* signal);
 
 const QMetaObject* QImageIOPlugin_staticMetaObject();
 void QImageIOPlugin_delete(QImageIOPlugin* self);

@@ -22,6 +22,7 @@ typedef struct QWebEngineScript QWebEngineScript;
 
 QWebEngineScript* QWebEngineScript_new();
 QWebEngineScript* QWebEngineScript_new2(QWebEngineScript* other);
+
 void QWebEngineScript_operatorAssign(QWebEngineScript* self, QWebEngineScript* other);
 bool QWebEngineScript_isNull(const QWebEngineScript* self);
 struct seaqt_string QWebEngineScript_name(const QWebEngineScript* self);

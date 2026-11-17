@@ -2,53 +2,57 @@
 #include <qqmlparserstatus.h>
 #include "gen_qqmlparserstatus.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void miqt_exec_callback_QQmlParserStatus_classBegin(QQmlParserStatus*, intptr_t);
-void miqt_exec_callback_QQmlParserStatus_componentComplete(QQmlParserStatus*, intptr_t);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQQmlParserStatus final : public QQmlParserStatus {
+	const QQmlParserStatus_VTable* vtbl;
 public:
+	friend void* QQmlParserStatus_vdata(VirtualQQmlParserStatus* self);
+	friend VirtualQQmlParserStatus* vdata_QQmlParserStatus(void* vdata);
 
-	VirtualQQmlParserStatus(): QQmlParserStatus() {}
+	VirtualQQmlParserStatus(const QQmlParserStatus_VTable* vtbl): QQmlParserStatus(), vtbl(vtbl) {}
 
-	virtual ~VirtualQQmlParserStatus() override = default;
+	virtual ~VirtualQQmlParserStatus() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__classBegin = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual void classBegin() override {
-		if (handle__classBegin == 0) {
+		if (vtbl->classBegin == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
-		miqt_exec_callback_QQmlParserStatus_classBegin(this, handle__classBegin);
-
+		vtbl->classBegin(this);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__componentComplete = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void componentComplete() override {
-		if (handle__componentComplete == 0) {
+		if (vtbl->componentComplete == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
-		miqt_exec_callback_QQmlParserStatus_componentComplete(this, handle__componentComplete);
-
+		vtbl->componentComplete(this);
 	}
 
 };
 
-QQmlParserStatus* QQmlParserStatus_new() {
-	return new (std::nothrow) VirtualQQmlParserStatus();
+VirtualQQmlParserStatus* QQmlParserStatus_new(const QQmlParserStatus_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQQmlParserStatus>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQQmlParserStatus(vtbl) : nullptr;
 }
 
 void QQmlParserStatus_classBegin(QQmlParserStatus* self) {
@@ -63,25 +67,8 @@ void QQmlParserStatus_operatorAssign(QQmlParserStatus* self, QQmlParserStatus* p
 	self->operator=(*param1);
 }
 
-bool QQmlParserStatus_override_virtual_classBegin(void* self, intptr_t slot) {
-	VirtualQQmlParserStatus* self_cast = dynamic_cast<VirtualQQmlParserStatus*>( (QQmlParserStatus*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__classBegin = slot;
-	return true;
-}
-
-bool QQmlParserStatus_override_virtual_componentComplete(void* self, intptr_t slot) {
-	VirtualQQmlParserStatus* self_cast = dynamic_cast<VirtualQQmlParserStatus*>( (QQmlParserStatus*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__componentComplete = slot;
-	return true;
-}
+void* QQmlParserStatus_vdata(VirtualQQmlParserStatus* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQQmlParserStatus>()); }
+VirtualQQmlParserStatus* vdata_QQmlParserStatus(void* vdata) { return reinterpret_cast<VirtualQQmlParserStatus*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQQmlParserStatus>()); }
 
 void QQmlParserStatus_delete(QQmlParserStatus* self) {
 	delete self;

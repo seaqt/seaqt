@@ -11,71 +11,62 @@
 #include <qwebhistoryinterface.h>
 #include "gen_qwebhistoryinterface.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-QMetaObject* miqt_exec_callback_QWebHistoryInterface_metaObject(const QWebHistoryInterface*, intptr_t);
-void* miqt_exec_callback_QWebHistoryInterface_metacast(QWebHistoryInterface*, intptr_t, const char*);
-int miqt_exec_callback_QWebHistoryInterface_metacall(QWebHistoryInterface*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QWebHistoryInterface_historyContains(const QWebHistoryInterface*, intptr_t, struct seaqt_string);
-void miqt_exec_callback_QWebHistoryInterface_addHistoryEntry(QWebHistoryInterface*, intptr_t, struct seaqt_string);
-bool miqt_exec_callback_QWebHistoryInterface_event(QWebHistoryInterface*, intptr_t, QEvent*);
-bool miqt_exec_callback_QWebHistoryInterface_eventFilter(QWebHistoryInterface*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QWebHistoryInterface_timerEvent(QWebHistoryInterface*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QWebHistoryInterface_childEvent(QWebHistoryInterface*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QWebHistoryInterface_customEvent(QWebHistoryInterface*, intptr_t, QEvent*);
-void miqt_exec_callback_QWebHistoryInterface_connectNotify(QWebHistoryInterface*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QWebHistoryInterface_disconnectNotify(QWebHistoryInterface*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQWebHistoryInterface final : public QWebHistoryInterface {
+	const QWebHistoryInterface_VTable* vtbl;
 public:
+	friend void* QWebHistoryInterface_vdata(VirtualQWebHistoryInterface* self);
+	friend VirtualQWebHistoryInterface* vdata_QWebHistoryInterface(void* vdata);
 
-	VirtualQWebHistoryInterface(): QWebHistoryInterface() {}
-	VirtualQWebHistoryInterface(QObject* parent): QWebHistoryInterface(parent) {}
+	VirtualQWebHistoryInterface(const QWebHistoryInterface_VTable* vtbl): QWebHistoryInterface(), vtbl(vtbl) {}
+	VirtualQWebHistoryInterface(const QWebHistoryInterface_VTable* vtbl, QObject* parent): QWebHistoryInterface(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQWebHistoryInterface() override = default;
+	virtual ~VirtualQWebHistoryInterface() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QWebHistoryInterface::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QWebHistoryInterface_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QWebHistoryInterface_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QWebHistoryInterface_virtualbase_metaObject(const VirtualQWebHistoryInterface* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QWebHistoryInterface::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QWebHistoryInterface_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QWebHistoryInterface_virtualbase_metacast(void* self, const char* param1);
+	friend void* QWebHistoryInterface_virtualbase_metacast(VirtualQWebHistoryInterface* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QWebHistoryInterface::qt_metacall(param1, param2, param3);
 		}
 
@@ -83,18 +74,14 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QWebHistoryInterface_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QWebHistoryInterface_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QWebHistoryInterface_virtualbase_metacall(VirtualQWebHistoryInterface* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__historyContains = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool historyContains(const QString& url) const override {
-		if (handle__historyContains == 0) {
+		if (vtbl->historyContains == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
@@ -106,16 +93,12 @@ public:
 		url_ms.data = static_cast<char*>(malloc(url_ms.len));
 		memcpy(url_ms.data, url_b.data(), url_ms.len);
 		struct seaqt_string sigval1 = url_ms;
-		bool callback_return_value = miqt_exec_callback_QWebHistoryInterface_historyContains(this, handle__historyContains, sigval1);
+		bool callback_return_value = vtbl->historyContains(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__addHistoryEntry = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void addHistoryEntry(const QString& url) override {
-		if (handle__addHistoryEntry == 0) {
+		if (vtbl->addHistoryEntry == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
@@ -127,100 +110,72 @@ public:
 		url_ms.data = static_cast<char*>(malloc(url_ms.len));
 		memcpy(url_ms.data, url_b.data(), url_ms.len);
 		struct seaqt_string sigval1 = url_ms;
-		miqt_exec_callback_QWebHistoryInterface_addHistoryEntry(this, handle__addHistoryEntry, sigval1);
-
+		vtbl->addHistoryEntry(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QWebHistoryInterface::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QWebHistoryInterface_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QWebHistoryInterface_virtualbase_event(void* self, QEvent* event);
+	friend bool QWebHistoryInterface_virtualbase_event(VirtualQWebHistoryInterface* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QWebHistoryInterface::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QWebHistoryInterface_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QWebHistoryInterface_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QWebHistoryInterface_virtualbase_eventFilter(VirtualQWebHistoryInterface* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QWebHistoryInterface::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QWebHistoryInterface_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QWebHistoryInterface_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QWebHistoryInterface_virtualbase_timerEvent(VirtualQWebHistoryInterface* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QWebHistoryInterface::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QWebHistoryInterface_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QWebHistoryInterface_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QWebHistoryInterface_virtualbase_childEvent(VirtualQWebHistoryInterface* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QWebHistoryInterface::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QWebHistoryInterface_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QWebHistoryInterface_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QWebHistoryInterface_virtualbase_customEvent(VirtualQWebHistoryInterface* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QWebHistoryInterface::connectNotify(signal);
 			return;
 		}
@@ -228,18 +183,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QWebHistoryInterface_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QWebHistoryInterface_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QWebHistoryInterface_virtualbase_connectNotify(VirtualQWebHistoryInterface* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QWebHistoryInterface::disconnectNotify(signal);
 			return;
 		}
@@ -247,25 +197,26 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QWebHistoryInterface_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QWebHistoryInterface_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QWebHistoryInterface_virtualbase_disconnectNotify(VirtualQWebHistoryInterface* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QWebHistoryInterface_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QWebHistoryInterface_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QWebHistoryInterface_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QWebHistoryInterface_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QWebHistoryInterface_protectedbase_sender(const VirtualQWebHistoryInterface* self);
+	friend int QWebHistoryInterface_protectedbase_senderSignalIndex(const VirtualQWebHistoryInterface* self);
+	friend int QWebHistoryInterface_protectedbase_receivers(const VirtualQWebHistoryInterface* self, const char* signal);
+	friend bool QWebHistoryInterface_protectedbase_isSignalConnected(const VirtualQWebHistoryInterface* self, QMetaMethod* signal);
 };
 
-QWebHistoryInterface* QWebHistoryInterface_new() {
-	return new (std::nothrow) VirtualQWebHistoryInterface();
+VirtualQWebHistoryInterface* QWebHistoryInterface_new(const QWebHistoryInterface_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWebHistoryInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWebHistoryInterface(vtbl) : nullptr;
 }
 
-QWebHistoryInterface* QWebHistoryInterface_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQWebHistoryInterface(parent);
+VirtualQWebHistoryInterface* QWebHistoryInterface_new2(const QWebHistoryInterface_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQWebHistoryInterface>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQWebHistoryInterface(vtbl, parent) : nullptr;
 }
 
 void QWebHistoryInterface_virtbase(QWebHistoryInterface* src, QObject** outptr_QObject) {
@@ -369,208 +320,73 @@ struct seaqt_string QWebHistoryInterface_trUtf83(const char* s, const char* c, i
 }
 
 const QMetaObject* QWebHistoryInterface_staticMetaObject() { return &QWebHistoryInterface::staticMetaObject; }
-bool QWebHistoryInterface_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QWebHistoryInterface_vdata(VirtualQWebHistoryInterface* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQWebHistoryInterface>()); }
+VirtualQWebHistoryInterface* vdata_QWebHistoryInterface(void* vdata) { return reinterpret_cast<VirtualQWebHistoryInterface*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQWebHistoryInterface>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QWebHistoryInterface_virtualbase_metaObject(const VirtualQWebHistoryInterface* self) {
+
+	return (QMetaObject*) self->QWebHistoryInterface::metaObject();
 }
 
-QMetaObject* QWebHistoryInterface_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQWebHistoryInterface*>(self)->QWebHistoryInterface::metaObject();
+void* QWebHistoryInterface_virtualbase_metacast(VirtualQWebHistoryInterface* self, const char* param1) {
+
+	return self->QWebHistoryInterface::qt_metacast(param1);
 }
 
-bool QWebHistoryInterface_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QWebHistoryInterface_virtualbase_metacall(VirtualQWebHistoryInterface* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QWebHistoryInterface::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QWebHistoryInterface_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQWebHistoryInterface*>(self)->QWebHistoryInterface::qt_metacast(param1);
+bool QWebHistoryInterface_virtualbase_event(VirtualQWebHistoryInterface* self, QEvent* event) {
+
+	return self->QWebHistoryInterface::event(event);
 }
 
-bool QWebHistoryInterface_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QWebHistoryInterface_virtualbase_eventFilter(VirtualQWebHistoryInterface* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QWebHistoryInterface::eventFilter(watched, event);
 }
 
-int QWebHistoryInterface_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQWebHistoryInterface*>(self)->QWebHistoryInterface::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+void QWebHistoryInterface_virtualbase_timerEvent(VirtualQWebHistoryInterface* self, QTimerEvent* event) {
+
+	self->QWebHistoryInterface::timerEvent(event);
 }
 
-bool QWebHistoryInterface_override_virtual_historyContains(void* self, intptr_t slot) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebHistoryInterface_virtualbase_childEvent(VirtualQWebHistoryInterface* self, QChildEvent* event) {
 
-	self_cast->handle__historyContains = slot;
-	return true;
+	self->QWebHistoryInterface::childEvent(event);
 }
 
-bool QWebHistoryInterface_override_virtual_addHistoryEntry(void* self, intptr_t slot) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebHistoryInterface_virtualbase_customEvent(VirtualQWebHistoryInterface* self, QEvent* event) {
 
-	self_cast->handle__addHistoryEntry = slot;
-	return true;
+	self->QWebHistoryInterface::customEvent(event);
 }
 
-bool QWebHistoryInterface_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QWebHistoryInterface_virtualbase_connectNotify(VirtualQWebHistoryInterface* self, QMetaMethod* signal) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QWebHistoryInterface::connectNotify(*signal);
 }
 
-bool QWebHistoryInterface_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQWebHistoryInterface*>(self)->QWebHistoryInterface::event(event);
+void QWebHistoryInterface_virtualbase_disconnectNotify(VirtualQWebHistoryInterface* self, QMetaMethod* signal) {
+
+	self->QWebHistoryInterface::disconnectNotify(*signal);
 }
 
-bool QWebHistoryInterface_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
+QObject* QWebHistoryInterface_protectedbase_sender(const VirtualQWebHistoryInterface* self) {
+	return self->sender();
 }
 
-bool QWebHistoryInterface_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQWebHistoryInterface*>(self)->QWebHistoryInterface::eventFilter(watched, event);
+int QWebHistoryInterface_protectedbase_senderSignalIndex(const VirtualQWebHistoryInterface* self) {
+	return self->senderSignalIndex();
 }
 
-bool QWebHistoryInterface_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+int QWebHistoryInterface_protectedbase_receivers(const VirtualQWebHistoryInterface* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QWebHistoryInterface_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQWebHistoryInterface*>(self)->QWebHistoryInterface::timerEvent(event);
-}
-
-bool QWebHistoryInterface_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QWebHistoryInterface_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQWebHistoryInterface*>(self)->QWebHistoryInterface::childEvent(event);
-}
-
-bool QWebHistoryInterface_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QWebHistoryInterface_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQWebHistoryInterface*>(self)->QWebHistoryInterface::customEvent(event);
-}
-
-bool QWebHistoryInterface_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QWebHistoryInterface_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQWebHistoryInterface*>(self)->QWebHistoryInterface::connectNotify(*signal);
-}
-
-bool QWebHistoryInterface_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QWebHistoryInterface_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQWebHistoryInterface*>(self)->QWebHistoryInterface::disconnectNotify(*signal);
-}
-
-QObject* QWebHistoryInterface_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QWebHistoryInterface_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QWebHistoryInterface_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QWebHistoryInterface_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQWebHistoryInterface* self_cast = dynamic_cast<VirtualQWebHistoryInterface*>( (QWebHistoryInterface*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QWebHistoryInterface_protectedbase_isSignalConnected(const VirtualQWebHistoryInterface* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QWebHistoryInterface_delete(QWebHistoryInterface* self) {

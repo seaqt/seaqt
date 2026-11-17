@@ -48,8 +48,27 @@ typedef struct QSize QSize;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QSGEngine* QSGEngine_new();
-QSGEngine* QSGEngine_new2(QObject* parent);
+typedef struct VirtualQSGEngine VirtualQSGEngine;
+typedef struct QSGEngine_VTable{
+	void (*destructor)(VirtualQSGEngine* self);
+	QMetaObject* (*metaObject)(const VirtualQSGEngine* self);
+	void* (*metacast)(VirtualQSGEngine* self, const char* param1);
+	int (*metacall)(VirtualQSGEngine* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQSGEngine* self, QEvent* event);
+	bool (*eventFilter)(VirtualQSGEngine* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQSGEngine* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQSGEngine* self, QChildEvent* event);
+	void (*customEvent)(VirtualQSGEngine* self, QEvent* event);
+	void (*connectNotify)(VirtualQSGEngine* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQSGEngine* self, QMetaMethod* signal);
+}QSGEngine_VTable;
+
+void* QSGEngine_vdata(VirtualQSGEngine* self);
+VirtualQSGEngine* vdata_QSGEngine(void* vdata);
+
+VirtualQSGEngine* QSGEngine_new(const QSGEngine_VTable* vtbl, size_t vdata);
+VirtualQSGEngine* QSGEngine_new2(const QSGEngine_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QSGEngine_virtbase(QSGEngine* src, QObject** outptr_QObject);
 QMetaObject* QSGEngine_metaObject(const QSGEngine* self);
 void* QSGEngine_metacast(QSGEngine* self, const char* param1);
@@ -71,31 +90,21 @@ struct seaqt_string QSGEngine_trUtf83(const char* s, const char* c, int n);
 QSGTexture* QSGEngine_createTextureFromImage2(const QSGEngine* self, QImage* image, int options);
 QSGTexture* QSGEngine_createTextureFromId2(const QSGEngine* self, unsigned int id, QSize* size, int options);
 
-bool QSGEngine_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QSGEngine_virtualbase_metaObject(const void* self);
-bool QSGEngine_override_virtual_metacast(void* self, intptr_t slot);
-void* QSGEngine_virtualbase_metacast(void* self, const char* param1);
-bool QSGEngine_override_virtual_metacall(void* self, intptr_t slot);
-int QSGEngine_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QSGEngine_override_virtual_event(void* self, intptr_t slot);
-bool QSGEngine_virtualbase_event(void* self, QEvent* event);
-bool QSGEngine_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QSGEngine_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QSGEngine_override_virtual_timerEvent(void* self, intptr_t slot);
-void QSGEngine_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QSGEngine_override_virtual_childEvent(void* self, intptr_t slot);
-void QSGEngine_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QSGEngine_override_virtual_customEvent(void* self, intptr_t slot);
-void QSGEngine_virtualbase_customEvent(void* self, QEvent* event);
-bool QSGEngine_override_virtual_connectNotify(void* self, intptr_t slot);
-void QSGEngine_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QSGEngine_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QSGEngine_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QSGEngine_virtualbase_metaObject(const VirtualQSGEngine* self);
+void* QSGEngine_virtualbase_metacast(VirtualQSGEngine* self, const char* param1);
+int QSGEngine_virtualbase_metacall(VirtualQSGEngine* self, int param1, int param2, void** param3);
+bool QSGEngine_virtualbase_event(VirtualQSGEngine* self, QEvent* event);
+bool QSGEngine_virtualbase_eventFilter(VirtualQSGEngine* self, QObject* watched, QEvent* event);
+void QSGEngine_virtualbase_timerEvent(VirtualQSGEngine* self, QTimerEvent* event);
+void QSGEngine_virtualbase_childEvent(VirtualQSGEngine* self, QChildEvent* event);
+void QSGEngine_virtualbase_customEvent(VirtualQSGEngine* self, QEvent* event);
+void QSGEngine_virtualbase_connectNotify(VirtualQSGEngine* self, QMetaMethod* signal);
+void QSGEngine_virtualbase_disconnectNotify(VirtualQSGEngine* self, QMetaMethod* signal);
 
-QObject* QSGEngine_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QSGEngine_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QSGEngine_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QSGEngine_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QSGEngine_protectedbase_sender(const VirtualQSGEngine* self);
+int QSGEngine_protectedbase_senderSignalIndex(const VirtualQSGEngine* self);
+int QSGEngine_protectedbase_receivers(const VirtualQSGEngine* self, const char* signal);
+bool QSGEngine_protectedbase_isSignalConnected(const VirtualQSGEngine* self, QMetaMethod* signal);
 
 const QMetaObject* QSGEngine_staticMetaObject();
 void QSGEngine_delete(QSGEngine* self);

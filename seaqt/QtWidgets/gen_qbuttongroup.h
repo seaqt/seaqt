@@ -34,8 +34,27 @@ typedef struct QObject QObject;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QButtonGroup* QButtonGroup_new();
-QButtonGroup* QButtonGroup_new2(QObject* parent);
+typedef struct VirtualQButtonGroup VirtualQButtonGroup;
+typedef struct QButtonGroup_VTable{
+	void (*destructor)(VirtualQButtonGroup* self);
+	QMetaObject* (*metaObject)(const VirtualQButtonGroup* self);
+	void* (*metacast)(VirtualQButtonGroup* self, const char* param1);
+	int (*metacall)(VirtualQButtonGroup* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQButtonGroup* self, QEvent* event);
+	bool (*eventFilter)(VirtualQButtonGroup* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQButtonGroup* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQButtonGroup* self, QChildEvent* event);
+	void (*customEvent)(VirtualQButtonGroup* self, QEvent* event);
+	void (*connectNotify)(VirtualQButtonGroup* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQButtonGroup* self, QMetaMethod* signal);
+}QButtonGroup_VTable;
+
+void* QButtonGroup_vdata(VirtualQButtonGroup* self);
+VirtualQButtonGroup* vdata_QButtonGroup(void* vdata);
+
+VirtualQButtonGroup* QButtonGroup_new(const QButtonGroup_VTable* vtbl, size_t vdata);
+VirtualQButtonGroup* QButtonGroup_new2(const QButtonGroup_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QButtonGroup_virtbase(QButtonGroup* src, QObject** outptr_QObject);
 QMetaObject* QButtonGroup_metaObject(const QButtonGroup* self);
 void* QButtonGroup_metacast(QButtonGroup* self, const char* param1);
@@ -82,31 +101,21 @@ struct seaqt_string QButtonGroup_trUtf82(const char* s, const char* c);
 struct seaqt_string QButtonGroup_trUtf83(const char* s, const char* c, int n);
 void QButtonGroup_addButton2(QButtonGroup* self, QAbstractButton* param1, int id);
 
-bool QButtonGroup_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QButtonGroup_virtualbase_metaObject(const void* self);
-bool QButtonGroup_override_virtual_metacast(void* self, intptr_t slot);
-void* QButtonGroup_virtualbase_metacast(void* self, const char* param1);
-bool QButtonGroup_override_virtual_metacall(void* self, intptr_t slot);
-int QButtonGroup_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QButtonGroup_override_virtual_event(void* self, intptr_t slot);
-bool QButtonGroup_virtualbase_event(void* self, QEvent* event);
-bool QButtonGroup_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QButtonGroup_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QButtonGroup_override_virtual_timerEvent(void* self, intptr_t slot);
-void QButtonGroup_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QButtonGroup_override_virtual_childEvent(void* self, intptr_t slot);
-void QButtonGroup_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QButtonGroup_override_virtual_customEvent(void* self, intptr_t slot);
-void QButtonGroup_virtualbase_customEvent(void* self, QEvent* event);
-bool QButtonGroup_override_virtual_connectNotify(void* self, intptr_t slot);
-void QButtonGroup_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QButtonGroup_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QButtonGroup_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QButtonGroup_virtualbase_metaObject(const VirtualQButtonGroup* self);
+void* QButtonGroup_virtualbase_metacast(VirtualQButtonGroup* self, const char* param1);
+int QButtonGroup_virtualbase_metacall(VirtualQButtonGroup* self, int param1, int param2, void** param3);
+bool QButtonGroup_virtualbase_event(VirtualQButtonGroup* self, QEvent* event);
+bool QButtonGroup_virtualbase_eventFilter(VirtualQButtonGroup* self, QObject* watched, QEvent* event);
+void QButtonGroup_virtualbase_timerEvent(VirtualQButtonGroup* self, QTimerEvent* event);
+void QButtonGroup_virtualbase_childEvent(VirtualQButtonGroup* self, QChildEvent* event);
+void QButtonGroup_virtualbase_customEvent(VirtualQButtonGroup* self, QEvent* event);
+void QButtonGroup_virtualbase_connectNotify(VirtualQButtonGroup* self, QMetaMethod* signal);
+void QButtonGroup_virtualbase_disconnectNotify(VirtualQButtonGroup* self, QMetaMethod* signal);
 
-QObject* QButtonGroup_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QButtonGroup_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QButtonGroup_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QButtonGroup_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QButtonGroup_protectedbase_sender(const VirtualQButtonGroup* self);
+int QButtonGroup_protectedbase_senderSignalIndex(const VirtualQButtonGroup* self);
+int QButtonGroup_protectedbase_receivers(const VirtualQButtonGroup* self, const char* signal);
+bool QButtonGroup_protectedbase_isSignalConnected(const VirtualQButtonGroup* self, QMetaMethod* signal);
 
 const QMetaObject* QButtonGroup_staticMetaObject();
 void QButtonGroup_delete(QButtonGroup* self);

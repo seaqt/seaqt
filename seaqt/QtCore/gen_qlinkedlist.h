@@ -21,6 +21,7 @@ typedef struct QLinkedListData QLinkedListData;
 #endif
 
 QLinkedListData* QLinkedListData_new();
+
 QLinkedListData* QLinkedListData_n(const QLinkedListData* self);
 void QLinkedListData_setN(QLinkedListData* self, QLinkedListData* n);
 QLinkedListData* QLinkedListData_p(const QLinkedListData* self);

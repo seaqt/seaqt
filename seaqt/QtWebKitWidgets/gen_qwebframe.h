@@ -62,6 +62,7 @@ typedef struct QWebSecurityOrigin QWebSecurityOrigin;
 
 QWebHitTestResult* QWebHitTestResult_new();
 QWebHitTestResult* QWebHitTestResult_new2(QWebHitTestResult* other);
+
 void QWebHitTestResult_operatorAssign(QWebHitTestResult* self, QWebHitTestResult* other);
 bool QWebHitTestResult_isNull(const QWebHitTestResult* self);
 QPoint* QWebHitTestResult_pos(const QWebHitTestResult* self);

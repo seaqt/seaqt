@@ -31,6 +31,7 @@ typedef struct QTransform QTransform;
 QStaticText* QStaticText_new();
 QStaticText* QStaticText_new2(struct seaqt_string text);
 QStaticText* QStaticText_new3(QStaticText* other);
+
 void QStaticText_operatorAssign(QStaticText* self, QStaticText* param1);
 void QStaticText_swap(QStaticText* self, QStaticText* other);
 void QStaticText_setText(QStaticText* self, struct seaqt_string text);

@@ -34,8 +34,29 @@ typedef struct QTimerEvent QTimerEvent;
 typedef struct QTranslator QTranslator;
 #endif
 
-QTranslator* QTranslator_new();
-QTranslator* QTranslator_new2(QObject* parent);
+typedef struct VirtualQTranslator VirtualQTranslator;
+typedef struct QTranslator_VTable{
+	void (*destructor)(VirtualQTranslator* self);
+	QMetaObject* (*metaObject)(const VirtualQTranslator* self);
+	void* (*metacast)(VirtualQTranslator* self, const char* param1);
+	int (*metacall)(VirtualQTranslator* self, int param1, int param2, void** param3);
+	struct seaqt_string (*translate)(const VirtualQTranslator* self, const char* context, const char* sourceText, const char* disambiguation, int n);
+	bool (*isEmpty)(const VirtualQTranslator* self);
+	bool (*event)(VirtualQTranslator* self, QEvent* event);
+	bool (*eventFilter)(VirtualQTranslator* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQTranslator* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQTranslator* self, QChildEvent* event);
+	void (*customEvent)(VirtualQTranslator* self, QEvent* event);
+	void (*connectNotify)(VirtualQTranslator* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQTranslator* self, QMetaMethod* signal);
+}QTranslator_VTable;
+
+void* QTranslator_vdata(VirtualQTranslator* self);
+VirtualQTranslator* vdata_QTranslator(void* vdata);
+
+VirtualQTranslator* QTranslator_new(const QTranslator_VTable* vtbl, size_t vdata);
+VirtualQTranslator* QTranslator_new2(const QTranslator_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QTranslator_virtbase(QTranslator* src, QObject** outptr_QObject);
 QMetaObject* QTranslator_metaObject(const QTranslator* self);
 void* QTranslator_metacast(QTranslator* self, const char* param1);
@@ -61,35 +82,23 @@ bool QTranslator_load8(QTranslator* self, QLocale* locale, struct seaqt_string f
 bool QTranslator_load9(QTranslator* self, QLocale* locale, struct seaqt_string filename, struct seaqt_string prefix, struct seaqt_string directory, struct seaqt_string suffix);
 bool QTranslator_load10(QTranslator* self, const unsigned char* data, int len, struct seaqt_string directory);
 
-bool QTranslator_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QTranslator_virtualbase_metaObject(const void* self);
-bool QTranslator_override_virtual_metacast(void* self, intptr_t slot);
-void* QTranslator_virtualbase_metacast(void* self, const char* param1);
-bool QTranslator_override_virtual_metacall(void* self, intptr_t slot);
-int QTranslator_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QTranslator_override_virtual_translate(void* self, intptr_t slot);
-struct seaqt_string QTranslator_virtualbase_translate(const void* self, const char* context, const char* sourceText, const char* disambiguation, int n);
-bool QTranslator_override_virtual_isEmpty(void* self, intptr_t slot);
-bool QTranslator_virtualbase_isEmpty(const void* self);
-bool QTranslator_override_virtual_event(void* self, intptr_t slot);
-bool QTranslator_virtualbase_event(void* self, QEvent* event);
-bool QTranslator_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QTranslator_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QTranslator_override_virtual_timerEvent(void* self, intptr_t slot);
-void QTranslator_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QTranslator_override_virtual_childEvent(void* self, intptr_t slot);
-void QTranslator_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QTranslator_override_virtual_customEvent(void* self, intptr_t slot);
-void QTranslator_virtualbase_customEvent(void* self, QEvent* event);
-bool QTranslator_override_virtual_connectNotify(void* self, intptr_t slot);
-void QTranslator_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QTranslator_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QTranslator_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QTranslator_virtualbase_metaObject(const VirtualQTranslator* self);
+void* QTranslator_virtualbase_metacast(VirtualQTranslator* self, const char* param1);
+int QTranslator_virtualbase_metacall(VirtualQTranslator* self, int param1, int param2, void** param3);
+struct seaqt_string QTranslator_virtualbase_translate(const VirtualQTranslator* self, const char* context, const char* sourceText, const char* disambiguation, int n);
+bool QTranslator_virtualbase_isEmpty(const VirtualQTranslator* self);
+bool QTranslator_virtualbase_event(VirtualQTranslator* self, QEvent* event);
+bool QTranslator_virtualbase_eventFilter(VirtualQTranslator* self, QObject* watched, QEvent* event);
+void QTranslator_virtualbase_timerEvent(VirtualQTranslator* self, QTimerEvent* event);
+void QTranslator_virtualbase_childEvent(VirtualQTranslator* self, QChildEvent* event);
+void QTranslator_virtualbase_customEvent(VirtualQTranslator* self, QEvent* event);
+void QTranslator_virtualbase_connectNotify(VirtualQTranslator* self, QMetaMethod* signal);
+void QTranslator_virtualbase_disconnectNotify(VirtualQTranslator* self, QMetaMethod* signal);
 
-QObject* QTranslator_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QTranslator_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QTranslator_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QTranslator_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QTranslator_protectedbase_sender(const VirtualQTranslator* self);
+int QTranslator_protectedbase_senderSignalIndex(const VirtualQTranslator* self);
+int QTranslator_protectedbase_receivers(const VirtualQTranslator* self, const char* signal);
+bool QTranslator_protectedbase_isSignalConnected(const VirtualQTranslator* self, QMetaMethod* signal);
 
 const QMetaObject* QTranslator_staticMetaObject();
 void QTranslator_delete(QTranslator* self);

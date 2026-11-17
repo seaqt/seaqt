@@ -20,14 +20,23 @@ class QRunnable;
 typedef struct QRunnable QRunnable;
 #endif
 
-QRunnable* QRunnable_new();
+typedef struct VirtualQRunnable VirtualQRunnable;
+typedef struct QRunnable_VTable{
+	void (*destructor)(VirtualQRunnable* self);
+	void (*run)(VirtualQRunnable* self);
+}QRunnable_VTable;
+
+void* QRunnable_vdata(VirtualQRunnable* self);
+VirtualQRunnable* vdata_QRunnable(void* vdata);
+
+VirtualQRunnable* QRunnable_new(const QRunnable_VTable* vtbl, size_t vdata);
+
 void QRunnable_run(QRunnable* self);
 bool QRunnable_autoDelete(const QRunnable* self);
 void QRunnable_setAutoDelete(QRunnable* self, bool _autoDelete);
 void QRunnable_operatorAssign(QRunnable* self, QRunnable* param1);
 
-bool QRunnable_override_virtual_run(void* self, intptr_t slot);
-void QRunnable_virtualbase_run(void* self);
+void QRunnable_virtualbase_run(VirtualQRunnable* self);
 
 void QRunnable_delete(QRunnable* self);
 

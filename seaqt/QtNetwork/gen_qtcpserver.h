@@ -38,8 +38,30 @@ typedef struct QTcpSocket QTcpSocket;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QTcpServer* QTcpServer_new();
-QTcpServer* QTcpServer_new2(QObject* parent);
+typedef struct VirtualQTcpServer VirtualQTcpServer;
+typedef struct QTcpServer_VTable{
+	void (*destructor)(VirtualQTcpServer* self);
+	QMetaObject* (*metaObject)(const VirtualQTcpServer* self);
+	void* (*metacast)(VirtualQTcpServer* self, const char* param1);
+	int (*metacall)(VirtualQTcpServer* self, int param1, int param2, void** param3);
+	bool (*hasPendingConnections)(const VirtualQTcpServer* self);
+	QTcpSocket* (*nextPendingConnection)(VirtualQTcpServer* self);
+	void (*incomingConnection)(VirtualQTcpServer* self, intptr_t handle);
+	bool (*event)(VirtualQTcpServer* self, QEvent* event);
+	bool (*eventFilter)(VirtualQTcpServer* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQTcpServer* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQTcpServer* self, QChildEvent* event);
+	void (*customEvent)(VirtualQTcpServer* self, QEvent* event);
+	void (*connectNotify)(VirtualQTcpServer* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQTcpServer* self, QMetaMethod* signal);
+}QTcpServer_VTable;
+
+void* QTcpServer_vdata(VirtualQTcpServer* self);
+VirtualQTcpServer* vdata_QTcpServer(void* vdata);
+
+VirtualQTcpServer* QTcpServer_new(const QTcpServer_VTable* vtbl, size_t vdata);
+VirtualQTcpServer* QTcpServer_new2(const QTcpServer_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QTcpServer_virtbase(QTcpServer* src, QObject** outptr_QObject);
 QMetaObject* QTcpServer_metaObject(const QTcpServer* self);
 void* QTcpServer_metacast(QTcpServer* self, const char* param1);
@@ -78,38 +100,25 @@ bool QTcpServer_listen2(QTcpServer* self, QHostAddress* address, unsigned short 
 bool QTcpServer_waitForNewConnectionWithMsec(QTcpServer* self, int msec);
 bool QTcpServer_waitForNewConnection2(QTcpServer* self, int msec, bool* timedOut);
 
-bool QTcpServer_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QTcpServer_virtualbase_metaObject(const void* self);
-bool QTcpServer_override_virtual_metacast(void* self, intptr_t slot);
-void* QTcpServer_virtualbase_metacast(void* self, const char* param1);
-bool QTcpServer_override_virtual_metacall(void* self, intptr_t slot);
-int QTcpServer_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QTcpServer_override_virtual_hasPendingConnections(void* self, intptr_t slot);
-bool QTcpServer_virtualbase_hasPendingConnections(const void* self);
-bool QTcpServer_override_virtual_nextPendingConnection(void* self, intptr_t slot);
-QTcpSocket* QTcpServer_virtualbase_nextPendingConnection(void* self);
-bool QTcpServer_override_virtual_incomingConnection(void* self, intptr_t slot);
-void QTcpServer_virtualbase_incomingConnection(void* self, intptr_t handle);
-bool QTcpServer_override_virtual_event(void* self, intptr_t slot);
-bool QTcpServer_virtualbase_event(void* self, QEvent* event);
-bool QTcpServer_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QTcpServer_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QTcpServer_override_virtual_timerEvent(void* self, intptr_t slot);
-void QTcpServer_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QTcpServer_override_virtual_childEvent(void* self, intptr_t slot);
-void QTcpServer_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QTcpServer_override_virtual_customEvent(void* self, intptr_t slot);
-void QTcpServer_virtualbase_customEvent(void* self, QEvent* event);
-bool QTcpServer_override_virtual_connectNotify(void* self, intptr_t slot);
-void QTcpServer_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QTcpServer_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QTcpServer_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QTcpServer_virtualbase_metaObject(const VirtualQTcpServer* self);
+void* QTcpServer_virtualbase_metacast(VirtualQTcpServer* self, const char* param1);
+int QTcpServer_virtualbase_metacall(VirtualQTcpServer* self, int param1, int param2, void** param3);
+bool QTcpServer_virtualbase_hasPendingConnections(const VirtualQTcpServer* self);
+QTcpSocket* QTcpServer_virtualbase_nextPendingConnection(VirtualQTcpServer* self);
+void QTcpServer_virtualbase_incomingConnection(VirtualQTcpServer* self, intptr_t handle);
+bool QTcpServer_virtualbase_event(VirtualQTcpServer* self, QEvent* event);
+bool QTcpServer_virtualbase_eventFilter(VirtualQTcpServer* self, QObject* watched, QEvent* event);
+void QTcpServer_virtualbase_timerEvent(VirtualQTcpServer* self, QTimerEvent* event);
+void QTcpServer_virtualbase_childEvent(VirtualQTcpServer* self, QChildEvent* event);
+void QTcpServer_virtualbase_customEvent(VirtualQTcpServer* self, QEvent* event);
+void QTcpServer_virtualbase_connectNotify(VirtualQTcpServer* self, QMetaMethod* signal);
+void QTcpServer_virtualbase_disconnectNotify(VirtualQTcpServer* self, QMetaMethod* signal);
 
-void QTcpServer_protectedbase_addPendingConnection(bool* _dynamic_cast_ok, void* self, QTcpSocket* socket);
-QObject* QTcpServer_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QTcpServer_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QTcpServer_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QTcpServer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+void QTcpServer_protectedbase_addPendingConnection(VirtualQTcpServer* self, QTcpSocket* socket);
+QObject* QTcpServer_protectedbase_sender(const VirtualQTcpServer* self);
+int QTcpServer_protectedbase_senderSignalIndex(const VirtualQTcpServer* self);
+int QTcpServer_protectedbase_receivers(const VirtualQTcpServer* self, const char* signal);
+bool QTcpServer_protectedbase_isSignalConnected(const VirtualQTcpServer* self, QMetaMethod* signal);
 
 const QMetaObject* QTcpServer_staticMetaObject();
 void QTcpServer_delete(QTcpServer* self);

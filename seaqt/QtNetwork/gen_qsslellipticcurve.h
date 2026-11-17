@@ -22,6 +22,7 @@ typedef struct QSslEllipticCurve QSslEllipticCurve;
 
 QSslEllipticCurve* QSslEllipticCurve_new();
 QSslEllipticCurve* QSslEllipticCurve_new2(QSslEllipticCurve* param1);
+
 QSslEllipticCurve* QSslEllipticCurve_fromShortName(struct seaqt_string name);
 QSslEllipticCurve* QSslEllipticCurve_fromLongName(struct seaqt_string name);
 struct seaqt_string QSslEllipticCurve_shortName(const QSslEllipticCurve* self);

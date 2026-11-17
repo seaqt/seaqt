@@ -43,8 +43,28 @@ void QVideoFilterRunnable_operatorAssign(QVideoFilterRunnable* self, QVideoFilte
 
 void QVideoFilterRunnable_delete(QVideoFilterRunnable* self);
 
-QAbstractVideoFilter* QAbstractVideoFilter_new();
-QAbstractVideoFilter* QAbstractVideoFilter_new2(QObject* parent);
+typedef struct VirtualQAbstractVideoFilter VirtualQAbstractVideoFilter;
+typedef struct QAbstractVideoFilter_VTable{
+	void (*destructor)(VirtualQAbstractVideoFilter* self);
+	QMetaObject* (*metaObject)(const VirtualQAbstractVideoFilter* self);
+	void* (*metacast)(VirtualQAbstractVideoFilter* self, const char* param1);
+	int (*metacall)(VirtualQAbstractVideoFilter* self, int param1, int param2, void** param3);
+	QVideoFilterRunnable* (*createFilterRunnable)(VirtualQAbstractVideoFilter* self);
+	bool (*event)(VirtualQAbstractVideoFilter* self, QEvent* event);
+	bool (*eventFilter)(VirtualQAbstractVideoFilter* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQAbstractVideoFilter* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQAbstractVideoFilter* self, QChildEvent* event);
+	void (*customEvent)(VirtualQAbstractVideoFilter* self, QEvent* event);
+	void (*connectNotify)(VirtualQAbstractVideoFilter* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQAbstractVideoFilter* self, QMetaMethod* signal);
+}QAbstractVideoFilter_VTable;
+
+void* QAbstractVideoFilter_vdata(VirtualQAbstractVideoFilter* self);
+VirtualQAbstractVideoFilter* vdata_QAbstractVideoFilter(void* vdata);
+
+VirtualQAbstractVideoFilter* QAbstractVideoFilter_new(const QAbstractVideoFilter_VTable* vtbl, size_t vdata);
+VirtualQAbstractVideoFilter* QAbstractVideoFilter_new2(const QAbstractVideoFilter_VTable* vtbl, size_t vdata, QObject* parent);
+
 void QAbstractVideoFilter_virtbase(QAbstractVideoFilter* src, QObject** outptr_QObject);
 QMetaObject* QAbstractVideoFilter_metaObject(const QAbstractVideoFilter* self);
 void* QAbstractVideoFilter_metacast(QAbstractVideoFilter* self, const char* param1);
@@ -61,33 +81,22 @@ struct seaqt_string QAbstractVideoFilter_tr3(const char* s, const char* c, int n
 struct seaqt_string QAbstractVideoFilter_trUtf82(const char* s, const char* c);
 struct seaqt_string QAbstractVideoFilter_trUtf83(const char* s, const char* c, int n);
 
-bool QAbstractVideoFilter_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QAbstractVideoFilter_virtualbase_metaObject(const void* self);
-bool QAbstractVideoFilter_override_virtual_metacast(void* self, intptr_t slot);
-void* QAbstractVideoFilter_virtualbase_metacast(void* self, const char* param1);
-bool QAbstractVideoFilter_override_virtual_metacall(void* self, intptr_t slot);
-int QAbstractVideoFilter_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QAbstractVideoFilter_override_virtual_createFilterRunnable(void* self, intptr_t slot);
-QVideoFilterRunnable* QAbstractVideoFilter_virtualbase_createFilterRunnable(void* self);
-bool QAbstractVideoFilter_override_virtual_event(void* self, intptr_t slot);
-bool QAbstractVideoFilter_virtualbase_event(void* self, QEvent* event);
-bool QAbstractVideoFilter_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QAbstractVideoFilter_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QAbstractVideoFilter_override_virtual_timerEvent(void* self, intptr_t slot);
-void QAbstractVideoFilter_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QAbstractVideoFilter_override_virtual_childEvent(void* self, intptr_t slot);
-void QAbstractVideoFilter_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QAbstractVideoFilter_override_virtual_customEvent(void* self, intptr_t slot);
-void QAbstractVideoFilter_virtualbase_customEvent(void* self, QEvent* event);
-bool QAbstractVideoFilter_override_virtual_connectNotify(void* self, intptr_t slot);
-void QAbstractVideoFilter_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QAbstractVideoFilter_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QAbstractVideoFilter_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QAbstractVideoFilter_virtualbase_metaObject(const VirtualQAbstractVideoFilter* self);
+void* QAbstractVideoFilter_virtualbase_metacast(VirtualQAbstractVideoFilter* self, const char* param1);
+int QAbstractVideoFilter_virtualbase_metacall(VirtualQAbstractVideoFilter* self, int param1, int param2, void** param3);
+QVideoFilterRunnable* QAbstractVideoFilter_virtualbase_createFilterRunnable(VirtualQAbstractVideoFilter* self);
+bool QAbstractVideoFilter_virtualbase_event(VirtualQAbstractVideoFilter* self, QEvent* event);
+bool QAbstractVideoFilter_virtualbase_eventFilter(VirtualQAbstractVideoFilter* self, QObject* watched, QEvent* event);
+void QAbstractVideoFilter_virtualbase_timerEvent(VirtualQAbstractVideoFilter* self, QTimerEvent* event);
+void QAbstractVideoFilter_virtualbase_childEvent(VirtualQAbstractVideoFilter* self, QChildEvent* event);
+void QAbstractVideoFilter_virtualbase_customEvent(VirtualQAbstractVideoFilter* self, QEvent* event);
+void QAbstractVideoFilter_virtualbase_connectNotify(VirtualQAbstractVideoFilter* self, QMetaMethod* signal);
+void QAbstractVideoFilter_virtualbase_disconnectNotify(VirtualQAbstractVideoFilter* self, QMetaMethod* signal);
 
-QObject* QAbstractVideoFilter_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QAbstractVideoFilter_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QAbstractVideoFilter_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QAbstractVideoFilter_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QAbstractVideoFilter_protectedbase_sender(const VirtualQAbstractVideoFilter* self);
+int QAbstractVideoFilter_protectedbase_senderSignalIndex(const VirtualQAbstractVideoFilter* self);
+int QAbstractVideoFilter_protectedbase_receivers(const VirtualQAbstractVideoFilter* self, const char* signal);
+bool QAbstractVideoFilter_protectedbase_isSignalConnected(const VirtualQAbstractVideoFilter* self, QMetaMethod* signal);
 
 const QMetaObject* QAbstractVideoFilter_staticMetaObject();
 void QAbstractVideoFilter_delete(QAbstractVideoFilter* self);

@@ -38,10 +38,31 @@ typedef struct QState QState;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QHistoryState* QHistoryState_new();
-QHistoryState* QHistoryState_new2(int type);
-QHistoryState* QHistoryState_new3(QState* parent);
-QHistoryState* QHistoryState_new4(int type, QState* parent);
+typedef struct VirtualQHistoryState VirtualQHistoryState;
+typedef struct QHistoryState_VTable{
+	void (*destructor)(VirtualQHistoryState* self);
+	QMetaObject* (*metaObject)(const VirtualQHistoryState* self);
+	void* (*metacast)(VirtualQHistoryState* self, const char* param1);
+	int (*metacall)(VirtualQHistoryState* self, int param1, int param2, void** param3);
+	void (*onEntry)(VirtualQHistoryState* self, QEvent* event);
+	void (*onExit)(VirtualQHistoryState* self, QEvent* event);
+	bool (*event)(VirtualQHistoryState* self, QEvent* e);
+	bool (*eventFilter)(VirtualQHistoryState* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQHistoryState* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQHistoryState* self, QChildEvent* event);
+	void (*customEvent)(VirtualQHistoryState* self, QEvent* event);
+	void (*connectNotify)(VirtualQHistoryState* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQHistoryState* self, QMetaMethod* signal);
+}QHistoryState_VTable;
+
+void* QHistoryState_vdata(VirtualQHistoryState* self);
+VirtualQHistoryState* vdata_QHistoryState(void* vdata);
+
+VirtualQHistoryState* QHistoryState_new(const QHistoryState_VTable* vtbl, size_t vdata);
+VirtualQHistoryState* QHistoryState_new2(const QHistoryState_VTable* vtbl, size_t vdata, int type);
+VirtualQHistoryState* QHistoryState_new3(const QHistoryState_VTable* vtbl, size_t vdata, QState* parent);
+VirtualQHistoryState* QHistoryState_new4(const QHistoryState_VTable* vtbl, size_t vdata, int type, QState* parent);
+
 void QHistoryState_virtbase(QHistoryState* src, QAbstractState** outptr_QAbstractState);
 QMetaObject* QHistoryState_metaObject(const QHistoryState* self);
 void* QHistoryState_metacast(QHistoryState* self, const char* param1);
@@ -62,39 +83,23 @@ struct seaqt_string QHistoryState_tr3(const char* s, const char* c, int n);
 struct seaqt_string QHistoryState_trUtf82(const char* s, const char* c);
 struct seaqt_string QHistoryState_trUtf83(const char* s, const char* c, int n);
 
-bool QHistoryState_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QHistoryState_virtualbase_metaObject(const void* self);
-bool QHistoryState_override_virtual_metacast(void* self, intptr_t slot);
-void* QHistoryState_virtualbase_metacast(void* self, const char* param1);
-bool QHistoryState_override_virtual_metacall(void* self, intptr_t slot);
-int QHistoryState_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QHistoryState_override_virtual_onEntry(void* self, intptr_t slot);
-void QHistoryState_virtualbase_onEntry(void* self, QEvent* event);
-bool QHistoryState_override_virtual_onExit(void* self, intptr_t slot);
-void QHistoryState_virtualbase_onExit(void* self, QEvent* event);
-bool QHistoryState_override_virtual_event(void* self, intptr_t slot);
-bool QHistoryState_virtualbase_event(void* self, QEvent* e);
-bool QHistoryState_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QHistoryState_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QHistoryState_override_virtual_timerEvent(void* self, intptr_t slot);
-void QHistoryState_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QHistoryState_override_virtual_childEvent(void* self, intptr_t slot);
-void QHistoryState_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QHistoryState_override_virtual_customEvent(void* self, intptr_t slot);
-void QHistoryState_virtualbase_customEvent(void* self, QEvent* event);
-bool QHistoryState_override_virtual_connectNotify(void* self, intptr_t slot);
-void QHistoryState_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QHistoryState_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QHistoryState_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QHistoryState_virtualbase_metaObject(const VirtualQHistoryState* self);
+void* QHistoryState_virtualbase_metacast(VirtualQHistoryState* self, const char* param1);
+int QHistoryState_virtualbase_metacall(VirtualQHistoryState* self, int param1, int param2, void** param3);
+void QHistoryState_virtualbase_onEntry(VirtualQHistoryState* self, QEvent* event);
+void QHistoryState_virtualbase_onExit(VirtualQHistoryState* self, QEvent* event);
+bool QHistoryState_virtualbase_event(VirtualQHistoryState* self, QEvent* e);
+bool QHistoryState_virtualbase_eventFilter(VirtualQHistoryState* self, QObject* watched, QEvent* event);
+void QHistoryState_virtualbase_timerEvent(VirtualQHistoryState* self, QTimerEvent* event);
+void QHistoryState_virtualbase_childEvent(VirtualQHistoryState* self, QChildEvent* event);
+void QHistoryState_virtualbase_customEvent(VirtualQHistoryState* self, QEvent* event);
+void QHistoryState_virtualbase_connectNotify(VirtualQHistoryState* self, QMetaMethod* signal);
+void QHistoryState_virtualbase_disconnectNotify(VirtualQHistoryState* self, QMetaMethod* signal);
 
-QObject* QHistoryState_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QHistoryState_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QHistoryState_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QHistoryState_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
-
-void QHistoryState_connect_defaultTransitionChanged(QHistoryState* self, intptr_t slot);
-void QHistoryState_connect_defaultStateChanged(QHistoryState* self, intptr_t slot);
-void QHistoryState_connect_historyTypeChanged(QHistoryState* self, intptr_t slot);
+QObject* QHistoryState_protectedbase_sender(const VirtualQHistoryState* self);
+int QHistoryState_protectedbase_senderSignalIndex(const VirtualQHistoryState* self);
+int QHistoryState_protectedbase_receivers(const VirtualQHistoryState* self, const char* signal);
+bool QHistoryState_protectedbase_isSignalConnected(const VirtualQHistoryState* self, QMetaMethod* signal);
 
 const QMetaObject* QHistoryState_staticMetaObject();
 void QHistoryState_delete(QHistoryState* self);

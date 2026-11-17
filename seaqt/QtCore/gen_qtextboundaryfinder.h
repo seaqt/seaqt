@@ -28,6 +28,7 @@ QTextBoundaryFinder* QTextBoundaryFinder_new3(int type, struct seaqt_string stri
 QTextBoundaryFinder* QTextBoundaryFinder_new4(int type, QChar* chars, int length);
 QTextBoundaryFinder* QTextBoundaryFinder_new5(int type, QChar* chars, int length, unsigned char* buffer);
 QTextBoundaryFinder* QTextBoundaryFinder_new6(int type, QChar* chars, int length, unsigned char* buffer, int bufferSize);
+
 void QTextBoundaryFinder_operatorAssign(QTextBoundaryFinder* self, QTextBoundaryFinder* other);
 bool QTextBoundaryFinder_isValid(const QTextBoundaryFinder* self);
 int QTextBoundaryFinder_type(const QTextBoundaryFinder* self);

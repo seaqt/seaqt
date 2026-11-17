@@ -7,6 +7,17 @@
 #include <qpixmapcache.h>
 #include "gen_qpixmapcache.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -73,11 +84,11 @@ void QPixmapCache_delete(QPixmapCache* self) {
 }
 
 QPixmapCache__Key* QPixmapCache__Key_new() {
-	return new (std::nothrow) QPixmapCache::Key();
+	return new (std::nothrow) QPixmapCache__Key();
 }
 
 QPixmapCache__Key* QPixmapCache__Key_new2(QPixmapCache__Key* other) {
-	return new (std::nothrow) QPixmapCache::Key(*other);
+	return new (std::nothrow) QPixmapCache__Key(*other);
 }
 
 bool QPixmapCache__Key_operatorEqual(const QPixmapCache__Key* self, QPixmapCache__Key* key) {

@@ -26,6 +26,7 @@ typedef struct QVariant QVariant;
 
 QSqlRecord* QSqlRecord_new();
 QSqlRecord* QSqlRecord_new2(QSqlRecord* other);
+
 void QSqlRecord_operatorAssign(QSqlRecord* self, QSqlRecord* other);
 bool QSqlRecord_operatorEqual(const QSqlRecord* self, QSqlRecord* other);
 bool QSqlRecord_operatorNotEqual(const QSqlRecord* self, QSqlRecord* other);

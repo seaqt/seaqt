@@ -21,6 +21,7 @@ typedef struct QLoggingCategory QLoggingCategory;
 #endif
 
 QLoggingCategory* QLoggingCategory_new(const char* category);
+
 bool QLoggingCategory_isDebugEnabled(const QLoggingCategory* self);
 bool QLoggingCategory_isInfoEnabled(const QLoggingCategory* self);
 bool QLoggingCategory_isWarningEnabled(const QLoggingCategory* self);

@@ -31,6 +31,7 @@ typedef struct QWebHistoryItem QWebHistoryItem;
 #endif
 
 QWebHistoryItem* QWebHistoryItem_new(QWebHistoryItem* other);
+
 void QWebHistoryItem_operatorAssign(QWebHistoryItem* self, QWebHistoryItem* other);
 QUrl* QWebHistoryItem_originalUrl(const QWebHistoryItem* self);
 QUrl* QWebHistoryItem_url(const QWebHistoryItem* self);

@@ -46,8 +46,29 @@ typedef struct QVariant QVariant;
 typedef struct QVideoEncoderSettings QVideoEncoderSettings;
 #endif
 
-QMediaRecorder* QMediaRecorder_new(QMediaObject* mediaObject);
-QMediaRecorder* QMediaRecorder_new2(QMediaObject* mediaObject, QObject* parent);
+typedef struct VirtualQMediaRecorder VirtualQMediaRecorder;
+typedef struct QMediaRecorder_VTable{
+	void (*destructor)(VirtualQMediaRecorder* self);
+	QMetaObject* (*metaObject)(const VirtualQMediaRecorder* self);
+	void* (*metacast)(VirtualQMediaRecorder* self, const char* param1);
+	int (*metacall)(VirtualQMediaRecorder* self, int param1, int param2, void** param3);
+	QMediaObject* (*mediaObject)(const VirtualQMediaRecorder* self);
+	bool (*setMediaObject)(VirtualQMediaRecorder* self, QMediaObject* object);
+	bool (*event)(VirtualQMediaRecorder* self, QEvent* event);
+	bool (*eventFilter)(VirtualQMediaRecorder* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQMediaRecorder* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQMediaRecorder* self, QChildEvent* event);
+	void (*customEvent)(VirtualQMediaRecorder* self, QEvent* event);
+	void (*connectNotify)(VirtualQMediaRecorder* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQMediaRecorder* self, QMetaMethod* signal);
+}QMediaRecorder_VTable;
+
+void* QMediaRecorder_vdata(VirtualQMediaRecorder* self);
+VirtualQMediaRecorder* vdata_QMediaRecorder(void* vdata);
+
+VirtualQMediaRecorder* QMediaRecorder_new(const QMediaRecorder_VTable* vtbl, size_t vdata, QMediaObject* mediaObject);
+VirtualQMediaRecorder* QMediaRecorder_new2(const QMediaRecorder_VTable* vtbl, size_t vdata, QMediaObject* mediaObject, QObject* parent);
+
 void QMediaRecorder_virtbase(QMediaRecorder* src, QObject** outptr_QObject, QMediaBindableInterface** outptr_QMediaBindableInterface);
 QMetaObject* QMediaRecorder_metaObject(const QMediaRecorder* self);
 void* QMediaRecorder_metacast(QMediaRecorder* self, const char* param1);
@@ -133,35 +154,23 @@ struct seaqt_array /* of double */  QMediaRecorder_supportedFrameRates2(const QM
 void QMediaRecorder_setEncodingSettings2(QMediaRecorder* self, QAudioEncoderSettings* audioSettings, QVideoEncoderSettings* videoSettings);
 void QMediaRecorder_setEncodingSettings3(QMediaRecorder* self, QAudioEncoderSettings* audioSettings, QVideoEncoderSettings* videoSettings, struct seaqt_string containerMimeType);
 
-bool QMediaRecorder_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QMediaRecorder_virtualbase_metaObject(const void* self);
-bool QMediaRecorder_override_virtual_metacast(void* self, intptr_t slot);
-void* QMediaRecorder_virtualbase_metacast(void* self, const char* param1);
-bool QMediaRecorder_override_virtual_metacall(void* self, intptr_t slot);
-int QMediaRecorder_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QMediaRecorder_override_virtual_mediaObject(void* self, intptr_t slot);
-QMediaObject* QMediaRecorder_virtualbase_mediaObject(const void* self);
-bool QMediaRecorder_override_virtual_setMediaObject(void* self, intptr_t slot);
-bool QMediaRecorder_virtualbase_setMediaObject(void* self, QMediaObject* object);
-bool QMediaRecorder_override_virtual_event(void* self, intptr_t slot);
-bool QMediaRecorder_virtualbase_event(void* self, QEvent* event);
-bool QMediaRecorder_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QMediaRecorder_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QMediaRecorder_override_virtual_timerEvent(void* self, intptr_t slot);
-void QMediaRecorder_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QMediaRecorder_override_virtual_childEvent(void* self, intptr_t slot);
-void QMediaRecorder_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QMediaRecorder_override_virtual_customEvent(void* self, intptr_t slot);
-void QMediaRecorder_virtualbase_customEvent(void* self, QEvent* event);
-bool QMediaRecorder_override_virtual_connectNotify(void* self, intptr_t slot);
-void QMediaRecorder_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QMediaRecorder_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QMediaRecorder_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QMediaRecorder_virtualbase_metaObject(const VirtualQMediaRecorder* self);
+void* QMediaRecorder_virtualbase_metacast(VirtualQMediaRecorder* self, const char* param1);
+int QMediaRecorder_virtualbase_metacall(VirtualQMediaRecorder* self, int param1, int param2, void** param3);
+QMediaObject* QMediaRecorder_virtualbase_mediaObject(const VirtualQMediaRecorder* self);
+bool QMediaRecorder_virtualbase_setMediaObject(VirtualQMediaRecorder* self, QMediaObject* object);
+bool QMediaRecorder_virtualbase_event(VirtualQMediaRecorder* self, QEvent* event);
+bool QMediaRecorder_virtualbase_eventFilter(VirtualQMediaRecorder* self, QObject* watched, QEvent* event);
+void QMediaRecorder_virtualbase_timerEvent(VirtualQMediaRecorder* self, QTimerEvent* event);
+void QMediaRecorder_virtualbase_childEvent(VirtualQMediaRecorder* self, QChildEvent* event);
+void QMediaRecorder_virtualbase_customEvent(VirtualQMediaRecorder* self, QEvent* event);
+void QMediaRecorder_virtualbase_connectNotify(VirtualQMediaRecorder* self, QMetaMethod* signal);
+void QMediaRecorder_virtualbase_disconnectNotify(VirtualQMediaRecorder* self, QMetaMethod* signal);
 
-QObject* QMediaRecorder_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QMediaRecorder_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QMediaRecorder_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QMediaRecorder_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QMediaRecorder_protectedbase_sender(const VirtualQMediaRecorder* self);
+int QMediaRecorder_protectedbase_senderSignalIndex(const VirtualQMediaRecorder* self);
+int QMediaRecorder_protectedbase_receivers(const VirtualQMediaRecorder* self, const char* signal);
+bool QMediaRecorder_protectedbase_isSignalConnected(const VirtualQMediaRecorder* self, QMetaMethod* signal);
 
 const QMetaObject* QMediaRecorder_staticMetaObject();
 void QMediaRecorder_delete(QMediaRecorder* self);

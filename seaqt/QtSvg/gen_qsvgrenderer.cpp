@@ -19,76 +19,69 @@
 #include <qsvgrenderer.h>
 #include "gen_qsvgrenderer.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void miqt_exec_callback_QSvgRenderer_repaintNeeded(intptr_t);
-QMetaObject* miqt_exec_callback_QSvgRenderer_metaObject(const QSvgRenderer*, intptr_t);
-void* miqt_exec_callback_QSvgRenderer_metacast(QSvgRenderer*, intptr_t, const char*);
-int miqt_exec_callback_QSvgRenderer_metacall(QSvgRenderer*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QSvgRenderer_event(QSvgRenderer*, intptr_t, QEvent*);
-bool miqt_exec_callback_QSvgRenderer_eventFilter(QSvgRenderer*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QSvgRenderer_timerEvent(QSvgRenderer*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QSvgRenderer_childEvent(QSvgRenderer*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QSvgRenderer_customEvent(QSvgRenderer*, intptr_t, QEvent*);
-void miqt_exec_callback_QSvgRenderer_connectNotify(QSvgRenderer*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QSvgRenderer_disconnectNotify(QSvgRenderer*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQSvgRenderer final : public QSvgRenderer {
+	const QSvgRenderer_VTable* vtbl;
 public:
+	friend void* QSvgRenderer_vdata(VirtualQSvgRenderer* self);
+	friend VirtualQSvgRenderer* vdata_QSvgRenderer(void* vdata);
 
-	VirtualQSvgRenderer(): QSvgRenderer() {}
-	VirtualQSvgRenderer(const QString& filename): QSvgRenderer(filename) {}
-	VirtualQSvgRenderer(const QByteArray& contents): QSvgRenderer(contents) {}
-	VirtualQSvgRenderer(QXmlStreamReader* contents): QSvgRenderer(contents) {}
-	VirtualQSvgRenderer(QObject* parent): QSvgRenderer(parent) {}
-	VirtualQSvgRenderer(const QString& filename, QObject* parent): QSvgRenderer(filename, parent) {}
-	VirtualQSvgRenderer(const QByteArray& contents, QObject* parent): QSvgRenderer(contents, parent) {}
-	VirtualQSvgRenderer(QXmlStreamReader* contents, QObject* parent): QSvgRenderer(contents, parent) {}
+	VirtualQSvgRenderer(const QSvgRenderer_VTable* vtbl): QSvgRenderer(), vtbl(vtbl) {}
+	VirtualQSvgRenderer(const QSvgRenderer_VTable* vtbl, const QString& filename): QSvgRenderer(filename), vtbl(vtbl) {}
+	VirtualQSvgRenderer(const QSvgRenderer_VTable* vtbl, const QByteArray& contents): QSvgRenderer(contents), vtbl(vtbl) {}
+	VirtualQSvgRenderer(const QSvgRenderer_VTable* vtbl, QXmlStreamReader* contents): QSvgRenderer(contents), vtbl(vtbl) {}
+	VirtualQSvgRenderer(const QSvgRenderer_VTable* vtbl, QObject* parent): QSvgRenderer(parent), vtbl(vtbl) {}
+	VirtualQSvgRenderer(const QSvgRenderer_VTable* vtbl, const QString& filename, QObject* parent): QSvgRenderer(filename, parent), vtbl(vtbl) {}
+	VirtualQSvgRenderer(const QSvgRenderer_VTable* vtbl, const QByteArray& contents, QObject* parent): QSvgRenderer(contents, parent), vtbl(vtbl) {}
+	VirtualQSvgRenderer(const QSvgRenderer_VTable* vtbl, QXmlStreamReader* contents, QObject* parent): QSvgRenderer(contents, parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQSvgRenderer() override = default;
+	virtual ~VirtualQSvgRenderer() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QSvgRenderer::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QSvgRenderer_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QSvgRenderer_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QSvgRenderer_virtualbase_metaObject(const VirtualQSvgRenderer* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QSvgRenderer::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QSvgRenderer_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QSvgRenderer_virtualbase_metacast(void* self, const char* param1);
+	friend void* QSvgRenderer_virtualbase_metacast(VirtualQSvgRenderer* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QSvgRenderer::qt_metacall(param1, param2, param3);
 		}
 
@@ -96,102 +89,75 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QSvgRenderer_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QSvgRenderer_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QSvgRenderer_virtualbase_metacall(VirtualQSvgRenderer* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QSvgRenderer::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QSvgRenderer_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QSvgRenderer_virtualbase_event(void* self, QEvent* event);
+	friend bool QSvgRenderer_virtualbase_event(VirtualQSvgRenderer* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QSvgRenderer::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QSvgRenderer_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QSvgRenderer_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QSvgRenderer_virtualbase_eventFilter(VirtualQSvgRenderer* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QSvgRenderer::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QSvgRenderer_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QSvgRenderer_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QSvgRenderer_virtualbase_timerEvent(VirtualQSvgRenderer* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QSvgRenderer::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QSvgRenderer_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QSvgRenderer_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QSvgRenderer_virtualbase_childEvent(VirtualQSvgRenderer* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QSvgRenderer::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QSvgRenderer_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QSvgRenderer_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QSvgRenderer_virtualbase_customEvent(VirtualQSvgRenderer* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QSvgRenderer::connectNotify(signal);
 			return;
 		}
@@ -199,18 +165,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSvgRenderer_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QSvgRenderer_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QSvgRenderer_virtualbase_connectNotify(VirtualQSvgRenderer* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QSvgRenderer::disconnectNotify(signal);
 			return;
 		}
@@ -218,53 +179,60 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QSvgRenderer_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QSvgRenderer_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QSvgRenderer_virtualbase_disconnectNotify(VirtualQSvgRenderer* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QSvgRenderer_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QSvgRenderer_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QSvgRenderer_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QSvgRenderer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QSvgRenderer_protectedbase_sender(const VirtualQSvgRenderer* self);
+	friend int QSvgRenderer_protectedbase_senderSignalIndex(const VirtualQSvgRenderer* self);
+	friend int QSvgRenderer_protectedbase_receivers(const VirtualQSvgRenderer* self, const char* signal);
+	friend bool QSvgRenderer_protectedbase_isSignalConnected(const VirtualQSvgRenderer* self, QMetaMethod* signal);
 };
 
-QSvgRenderer* QSvgRenderer_new() {
-	return new (std::nothrow) VirtualQSvgRenderer();
+VirtualQSvgRenderer* QSvgRenderer_new(const QSvgRenderer_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSvgRenderer>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSvgRenderer(vtbl) : nullptr;
 }
 
-QSvgRenderer* QSvgRenderer_new2(struct seaqt_string filename) {
+VirtualQSvgRenderer* QSvgRenderer_new2(const QSvgRenderer_VTable* vtbl, size_t vdata, struct seaqt_string filename) {
 	QString filename_QString = QString::fromUtf8(filename.data, filename.len);
-	return new (std::nothrow) VirtualQSvgRenderer(filename_QString);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSvgRenderer>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSvgRenderer(vtbl, filename_QString) : nullptr;
 }
 
-QSvgRenderer* QSvgRenderer_new3(struct seaqt_string contents) {
+VirtualQSvgRenderer* QSvgRenderer_new3(const QSvgRenderer_VTable* vtbl, size_t vdata, struct seaqt_string contents) {
 	QByteArray contents_QByteArray(contents.data, contents.len);
-	return new (std::nothrow) VirtualQSvgRenderer(contents_QByteArray);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSvgRenderer>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSvgRenderer(vtbl, contents_QByteArray) : nullptr;
 }
 
-QSvgRenderer* QSvgRenderer_new4(QXmlStreamReader* contents) {
-	return new (std::nothrow) VirtualQSvgRenderer(contents);
+VirtualQSvgRenderer* QSvgRenderer_new4(const QSvgRenderer_VTable* vtbl, size_t vdata, QXmlStreamReader* contents) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSvgRenderer>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSvgRenderer(vtbl, contents) : nullptr;
 }
 
-QSvgRenderer* QSvgRenderer_new5(QObject* parent) {
-	return new (std::nothrow) VirtualQSvgRenderer(parent);
+VirtualQSvgRenderer* QSvgRenderer_new5(const QSvgRenderer_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSvgRenderer>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSvgRenderer(vtbl, parent) : nullptr;
 }
 
-QSvgRenderer* QSvgRenderer_new6(struct seaqt_string filename, QObject* parent) {
+VirtualQSvgRenderer* QSvgRenderer_new6(const QSvgRenderer_VTable* vtbl, size_t vdata, struct seaqt_string filename, QObject* parent) {
 	QString filename_QString = QString::fromUtf8(filename.data, filename.len);
-	return new (std::nothrow) VirtualQSvgRenderer(filename_QString, parent);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSvgRenderer>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSvgRenderer(vtbl, filename_QString, parent) : nullptr;
 }
 
-QSvgRenderer* QSvgRenderer_new7(struct seaqt_string contents, QObject* parent) {
+VirtualQSvgRenderer* QSvgRenderer_new7(const QSvgRenderer_VTable* vtbl, size_t vdata, struct seaqt_string contents, QObject* parent) {
 	QByteArray contents_QByteArray(contents.data, contents.len);
-	return new (std::nothrow) VirtualQSvgRenderer(contents_QByteArray, parent);
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSvgRenderer>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSvgRenderer(vtbl, contents_QByteArray, parent) : nullptr;
 }
 
-QSvgRenderer* QSvgRenderer_new8(QXmlStreamReader* contents, QObject* parent) {
-	return new (std::nothrow) VirtualQSvgRenderer(contents, parent);
+VirtualQSvgRenderer* QSvgRenderer_new8(const QSvgRenderer_VTable* vtbl, size_t vdata, QXmlStreamReader* contents, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSvgRenderer>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSvgRenderer(vtbl, contents, parent) : nullptr;
 }
 
 void QSvgRenderer_virtbase(QSvgRenderer* src, QObject** outptr_QObject) {
@@ -469,188 +437,73 @@ void QSvgRenderer_render4(QSvgRenderer* self, QPainter* p, struct seaqt_string e
 }
 
 const QMetaObject* QSvgRenderer_staticMetaObject() { return &QSvgRenderer::staticMetaObject; }
-bool QSvgRenderer_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQSvgRenderer* self_cast = dynamic_cast<VirtualQSvgRenderer*>( (QSvgRenderer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QSvgRenderer_vdata(VirtualQSvgRenderer* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQSvgRenderer>()); }
+VirtualQSvgRenderer* vdata_QSvgRenderer(void* vdata) { return reinterpret_cast<VirtualQSvgRenderer*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQSvgRenderer>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QSvgRenderer_virtualbase_metaObject(const VirtualQSvgRenderer* self) {
+
+	return (QMetaObject*) self->QSvgRenderer::metaObject();
 }
 
-QMetaObject* QSvgRenderer_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQSvgRenderer*>(self)->QSvgRenderer::metaObject();
+void* QSvgRenderer_virtualbase_metacast(VirtualQSvgRenderer* self, const char* param1) {
+
+	return self->QSvgRenderer::qt_metacast(param1);
 }
 
-bool QSvgRenderer_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQSvgRenderer* self_cast = dynamic_cast<VirtualQSvgRenderer*>( (QSvgRenderer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QSvgRenderer_virtualbase_metacall(VirtualQSvgRenderer* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QSvgRenderer::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QSvgRenderer_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQSvgRenderer*>(self)->QSvgRenderer::qt_metacast(param1);
+bool QSvgRenderer_virtualbase_event(VirtualQSvgRenderer* self, QEvent* event) {
+
+	return self->QSvgRenderer::event(event);
 }
 
-bool QSvgRenderer_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQSvgRenderer* self_cast = dynamic_cast<VirtualQSvgRenderer*>( (QSvgRenderer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QSvgRenderer_virtualbase_eventFilter(VirtualQSvgRenderer* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QSvgRenderer::eventFilter(watched, event);
 }
 
-int QSvgRenderer_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQSvgRenderer*>(self)->QSvgRenderer::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+void QSvgRenderer_virtualbase_timerEvent(VirtualQSvgRenderer* self, QTimerEvent* event) {
+
+	self->QSvgRenderer::timerEvent(event);
 }
 
-bool QSvgRenderer_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQSvgRenderer* self_cast = dynamic_cast<VirtualQSvgRenderer*>( (QSvgRenderer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSvgRenderer_virtualbase_childEvent(VirtualQSvgRenderer* self, QChildEvent* event) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QSvgRenderer::childEvent(event);
 }
 
-bool QSvgRenderer_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQSvgRenderer*>(self)->QSvgRenderer::event(event);
+void QSvgRenderer_virtualbase_customEvent(VirtualQSvgRenderer* self, QEvent* event) {
+
+	self->QSvgRenderer::customEvent(event);
 }
 
-bool QSvgRenderer_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQSvgRenderer* self_cast = dynamic_cast<VirtualQSvgRenderer*>( (QSvgRenderer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSvgRenderer_virtualbase_connectNotify(VirtualQSvgRenderer* self, QMetaMethod* signal) {
 
-	self_cast->handle__eventFilter = slot;
-	return true;
+	self->QSvgRenderer::connectNotify(*signal);
 }
 
-bool QSvgRenderer_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQSvgRenderer*>(self)->QSvgRenderer::eventFilter(watched, event);
+void QSvgRenderer_virtualbase_disconnectNotify(VirtualQSvgRenderer* self, QMetaMethod* signal) {
+
+	self->QSvgRenderer::disconnectNotify(*signal);
 }
 
-bool QSvgRenderer_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQSvgRenderer* self_cast = dynamic_cast<VirtualQSvgRenderer*>( (QSvgRenderer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+QObject* QSvgRenderer_protectedbase_sender(const VirtualQSvgRenderer* self) {
+	return self->sender();
 }
 
-void QSvgRenderer_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQSvgRenderer*>(self)->QSvgRenderer::timerEvent(event);
+int QSvgRenderer_protectedbase_senderSignalIndex(const VirtualQSvgRenderer* self) {
+	return self->senderSignalIndex();
 }
 
-bool QSvgRenderer_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQSvgRenderer* self_cast = dynamic_cast<VirtualQSvgRenderer*>( (QSvgRenderer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
+int QSvgRenderer_protectedbase_receivers(const VirtualQSvgRenderer* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QSvgRenderer_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQSvgRenderer*>(self)->QSvgRenderer::childEvent(event);
-}
-
-bool QSvgRenderer_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQSvgRenderer* self_cast = dynamic_cast<VirtualQSvgRenderer*>( (QSvgRenderer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QSvgRenderer_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQSvgRenderer*>(self)->QSvgRenderer::customEvent(event);
-}
-
-bool QSvgRenderer_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQSvgRenderer* self_cast = dynamic_cast<VirtualQSvgRenderer*>( (QSvgRenderer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QSvgRenderer_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSvgRenderer*>(self)->QSvgRenderer::connectNotify(*signal);
-}
-
-bool QSvgRenderer_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQSvgRenderer* self_cast = dynamic_cast<VirtualQSvgRenderer*>( (QSvgRenderer*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QSvgRenderer_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQSvgRenderer*>(self)->QSvgRenderer::disconnectNotify(*signal);
-}
-
-QObject* QSvgRenderer_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSvgRenderer* self_cast = dynamic_cast<VirtualQSvgRenderer*>( (QSvgRenderer*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QSvgRenderer_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQSvgRenderer* self_cast = dynamic_cast<VirtualQSvgRenderer*>( (QSvgRenderer*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QSvgRenderer_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQSvgRenderer* self_cast = dynamic_cast<VirtualQSvgRenderer*>( (QSvgRenderer*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QSvgRenderer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQSvgRenderer* self_cast = dynamic_cast<VirtualQSvgRenderer*>( (QSvgRenderer*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QSvgRenderer_protectedbase_isSignalConnected(const VirtualQSvgRenderer* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QSvgRenderer_delete(QSvgRenderer* self) {

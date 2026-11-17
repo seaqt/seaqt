@@ -16,6 +16,17 @@
 #include <qgeoareamonitorsource.h>
 #include "gen_qgeoareamonitorsource.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -24,73 +35,46 @@ void miqt_exec_callback_QGeoAreaMonitorSource_areaEntered(intptr_t, QGeoAreaMoni
 void miqt_exec_callback_QGeoAreaMonitorSource_areaExited(intptr_t, QGeoAreaMonitorInfo*, QGeoPositionInfo*);
 void miqt_exec_callback_QGeoAreaMonitorSource_monitorExpired(intptr_t, QGeoAreaMonitorInfo*);
 void miqt_exec_callback_QGeoAreaMonitorSource_errorWithError(intptr_t, int);
-QMetaObject* miqt_exec_callback_QGeoAreaMonitorSource_metaObject(const QGeoAreaMonitorSource*, intptr_t);
-void* miqt_exec_callback_QGeoAreaMonitorSource_metacast(QGeoAreaMonitorSource*, intptr_t, const char*);
-int miqt_exec_callback_QGeoAreaMonitorSource_metacall(QGeoAreaMonitorSource*, intptr_t, int, int, void**);
-void miqt_exec_callback_QGeoAreaMonitorSource_setPositionInfoSource(QGeoAreaMonitorSource*, intptr_t, QGeoPositionInfoSource*);
-QGeoPositionInfoSource* miqt_exec_callback_QGeoAreaMonitorSource_positionInfoSource(const QGeoAreaMonitorSource*, intptr_t);
-int miqt_exec_callback_QGeoAreaMonitorSource_error(const QGeoAreaMonitorSource*, intptr_t);
-int miqt_exec_callback_QGeoAreaMonitorSource_supportedAreaMonitorFeatures(const QGeoAreaMonitorSource*, intptr_t);
-bool miqt_exec_callback_QGeoAreaMonitorSource_startMonitoring(QGeoAreaMonitorSource*, intptr_t, QGeoAreaMonitorInfo*);
-bool miqt_exec_callback_QGeoAreaMonitorSource_stopMonitoring(QGeoAreaMonitorSource*, intptr_t, QGeoAreaMonitorInfo*);
-bool miqt_exec_callback_QGeoAreaMonitorSource_requestUpdate(QGeoAreaMonitorSource*, intptr_t, QGeoAreaMonitorInfo*, const char*);
-struct seaqt_array /* of QGeoAreaMonitorInfo* */  miqt_exec_callback_QGeoAreaMonitorSource_activeMonitors(const QGeoAreaMonitorSource*, intptr_t);
-struct seaqt_array /* of QGeoAreaMonitorInfo* */  miqt_exec_callback_QGeoAreaMonitorSource_activeMonitorsWithLookupArea(const QGeoAreaMonitorSource*, intptr_t, QGeoShape*);
-bool miqt_exec_callback_QGeoAreaMonitorSource_event(QGeoAreaMonitorSource*, intptr_t, QEvent*);
-bool miqt_exec_callback_QGeoAreaMonitorSource_eventFilter(QGeoAreaMonitorSource*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QGeoAreaMonitorSource_timerEvent(QGeoAreaMonitorSource*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QGeoAreaMonitorSource_childEvent(QGeoAreaMonitorSource*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QGeoAreaMonitorSource_customEvent(QGeoAreaMonitorSource*, intptr_t, QEvent*);
-void miqt_exec_callback_QGeoAreaMonitorSource_connectNotify(QGeoAreaMonitorSource*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QGeoAreaMonitorSource_disconnectNotify(QGeoAreaMonitorSource*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQGeoAreaMonitorSource final : public QGeoAreaMonitorSource {
+	const QGeoAreaMonitorSource_VTable* vtbl;
 public:
+	friend void* QGeoAreaMonitorSource_vdata(VirtualQGeoAreaMonitorSource* self);
+	friend VirtualQGeoAreaMonitorSource* vdata_QGeoAreaMonitorSource(void* vdata);
 
-	VirtualQGeoAreaMonitorSource(QObject* parent): QGeoAreaMonitorSource(parent) {}
+	VirtualQGeoAreaMonitorSource(const QGeoAreaMonitorSource_VTable* vtbl, QObject* parent): QGeoAreaMonitorSource(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQGeoAreaMonitorSource() override = default;
+	virtual ~VirtualQGeoAreaMonitorSource() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QGeoAreaMonitorSource::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QGeoAreaMonitorSource_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QGeoAreaMonitorSource_virtualbase_metaObject(const VirtualQGeoAreaMonitorSource* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QGeoAreaMonitorSource::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QGeoAreaMonitorSource_virtualbase_metacast(void* self, const char* param1);
+	friend void* QGeoAreaMonitorSource_virtualbase_metacast(VirtualQGeoAreaMonitorSource* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QGeoAreaMonitorSource::qt_metacall(param1, param2, param3);
 		}
 
@@ -98,108 +82,79 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QGeoAreaMonitorSource_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QGeoAreaMonitorSource_virtualbase_metacall(VirtualQGeoAreaMonitorSource* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__setPositionInfoSource = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void setPositionInfoSource(QGeoPositionInfoSource* source) override {
-		if (handle__setPositionInfoSource == 0) {
+		if (vtbl->setPositionInfoSource == 0) {
 			QGeoAreaMonitorSource::setPositionInfoSource(source);
 			return;
 		}
 
 		QGeoPositionInfoSource* sigval1 = source;
-		miqt_exec_callback_QGeoAreaMonitorSource_setPositionInfoSource(this, handle__setPositionInfoSource, sigval1);
-
+		vtbl->setPositionInfoSource(this, sigval1);
 	}
 
-	friend void QGeoAreaMonitorSource_virtualbase_setPositionInfoSource(void* self, QGeoPositionInfoSource* source);
+	friend void QGeoAreaMonitorSource_virtualbase_setPositionInfoSource(VirtualQGeoAreaMonitorSource* self, QGeoPositionInfoSource* source);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__positionInfoSource = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QGeoPositionInfoSource* positionInfoSource() const override {
-		if (handle__positionInfoSource == 0) {
+		if (vtbl->positionInfoSource == 0) {
 			return QGeoAreaMonitorSource::positionInfoSource();
 		}
 
-		QGeoPositionInfoSource* callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_positionInfoSource(this, handle__positionInfoSource);
+		QGeoPositionInfoSource* callback_return_value = vtbl->positionInfoSource(this);
 		return callback_return_value;
 	}
 
-	friend QGeoPositionInfoSource* QGeoAreaMonitorSource_virtualbase_positionInfoSource(const void* self);
+	friend QGeoPositionInfoSource* QGeoAreaMonitorSource_virtualbase_positionInfoSource(const VirtualQGeoAreaMonitorSource* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__error = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QGeoAreaMonitorSource::Error error() const override {
-		if (handle__error == 0) {
+		if (vtbl->error == 0) {
 			return (QGeoAreaMonitorSource::Error)(0); // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_error(this, handle__error);
+		int callback_return_value = vtbl->error(this);
 		return static_cast<QGeoAreaMonitorSource::Error>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__supportedAreaMonitorFeatures = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QGeoAreaMonitorSource::AreaMonitorFeatures supportedAreaMonitorFeatures() const override {
-		if (handle__supportedAreaMonitorFeatures == 0) {
+		if (vtbl->supportedAreaMonitorFeatures == 0) {
 			return QGeoAreaMonitorSource::AreaMonitorFeatures(); // Pure virtual, there is no base we can call
 		}
 
-		int callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_supportedAreaMonitorFeatures(this, handle__supportedAreaMonitorFeatures);
+		int callback_return_value = vtbl->supportedAreaMonitorFeatures(this);
 		return static_cast<QGeoAreaMonitorSource::AreaMonitorFeatures>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__startMonitoring = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool startMonitoring(const QGeoAreaMonitorInfo& monitor) override {
-		if (handle__startMonitoring == 0) {
+		if (vtbl->startMonitoring == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
 		const QGeoAreaMonitorInfo& monitor_ret = monitor;
 		// Cast returned reference into pointer
 		QGeoAreaMonitorInfo* sigval1 = const_cast<QGeoAreaMonitorInfo*>(&monitor_ret);
-		bool callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_startMonitoring(this, handle__startMonitoring, sigval1);
+		bool callback_return_value = vtbl->startMonitoring(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__stopMonitoring = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool stopMonitoring(const QGeoAreaMonitorInfo& monitor) override {
-		if (handle__stopMonitoring == 0) {
+		if (vtbl->stopMonitoring == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
 		const QGeoAreaMonitorInfo& monitor_ret = monitor;
 		// Cast returned reference into pointer
 		QGeoAreaMonitorInfo* sigval1 = const_cast<QGeoAreaMonitorInfo*>(&monitor_ret);
-		bool callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_stopMonitoring(this, handle__stopMonitoring, sigval1);
+		bool callback_return_value = vtbl->stopMonitoring(this, sigval1);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__requestUpdate = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool requestUpdate(const QGeoAreaMonitorInfo& monitor, const char* signal) override {
-		if (handle__requestUpdate == 0) {
+		if (vtbl->requestUpdate == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
@@ -207,20 +162,16 @@ public:
 		// Cast returned reference into pointer
 		QGeoAreaMonitorInfo* sigval1 = const_cast<QGeoAreaMonitorInfo*>(&monitor_ret);
 		const char* sigval2 = (const char*) signal;
-		bool callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_requestUpdate(this, handle__requestUpdate, sigval1, sigval2);
+		bool callback_return_value = vtbl->requestUpdate(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__activeMonitors = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QList<QGeoAreaMonitorInfo> activeMonitors() const override {
-		if (handle__activeMonitors == 0) {
+		if (vtbl->activeMonitors == 0) {
 			return QList<QGeoAreaMonitorInfo>(); // Pure virtual, there is no base we can call
 		}
 
-		struct seaqt_array /* of QGeoAreaMonitorInfo* */  callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_activeMonitors(this, handle__activeMonitors);
+		struct seaqt_array /* of QGeoAreaMonitorInfo* */  callback_return_value = vtbl->activeMonitors(this);
 		QList<QGeoAreaMonitorInfo> callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		QGeoAreaMonitorInfo** callback_return_value_arr = static_cast<QGeoAreaMonitorInfo**>(callback_return_value.data);
@@ -230,19 +181,15 @@ public:
 		return callback_return_value_QList;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__activeMonitorsWithLookupArea = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QList<QGeoAreaMonitorInfo> activeMonitors(const QGeoShape& lookupArea) const override {
-		if (handle__activeMonitorsWithLookupArea == 0) {
+		if (vtbl->activeMonitorsWithLookupArea == 0) {
 			return QList<QGeoAreaMonitorInfo>(); // Pure virtual, there is no base we can call
 		}
 
 		const QGeoShape& lookupArea_ret = lookupArea;
 		// Cast returned reference into pointer
 		QGeoShape* sigval1 = const_cast<QGeoShape*>(&lookupArea_ret);
-		struct seaqt_array /* of QGeoAreaMonitorInfo* */  callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_activeMonitorsWithLookupArea(this, handle__activeMonitorsWithLookupArea, sigval1);
+		struct seaqt_array /* of QGeoAreaMonitorInfo* */  callback_return_value = vtbl->activeMonitorsWithLookupArea(this, sigval1);
 		QList<QGeoAreaMonitorInfo> callback_return_value_QList;
 		callback_return_value_QList.reserve(callback_return_value.len);
 		QGeoAreaMonitorInfo** callback_return_value_arr = static_cast<QGeoAreaMonitorInfo**>(callback_return_value.data);
@@ -252,96 +199,69 @@ public:
 		return callback_return_value_QList;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QGeoAreaMonitorSource::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QGeoAreaMonitorSource_virtualbase_event(void* self, QEvent* event);
+	friend bool QGeoAreaMonitorSource_virtualbase_event(VirtualQGeoAreaMonitorSource* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QGeoAreaMonitorSource::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QGeoAreaMonitorSource_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QGeoAreaMonitorSource_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QGeoAreaMonitorSource_virtualbase_eventFilter(VirtualQGeoAreaMonitorSource* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QGeoAreaMonitorSource::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QGeoAreaMonitorSource_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QGeoAreaMonitorSource_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QGeoAreaMonitorSource_virtualbase_timerEvent(VirtualQGeoAreaMonitorSource* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QGeoAreaMonitorSource::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QGeoAreaMonitorSource_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QGeoAreaMonitorSource_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QGeoAreaMonitorSource_virtualbase_childEvent(VirtualQGeoAreaMonitorSource* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QGeoAreaMonitorSource::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QGeoAreaMonitorSource_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QGeoAreaMonitorSource_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QGeoAreaMonitorSource_virtualbase_customEvent(VirtualQGeoAreaMonitorSource* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QGeoAreaMonitorSource::connectNotify(signal);
 			return;
 		}
@@ -349,18 +269,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGeoAreaMonitorSource_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QGeoAreaMonitorSource_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QGeoAreaMonitorSource_virtualbase_connectNotify(VirtualQGeoAreaMonitorSource* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QGeoAreaMonitorSource::disconnectNotify(signal);
 			return;
 		}
@@ -368,21 +283,21 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QGeoAreaMonitorSource_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QGeoAreaMonitorSource_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QGeoAreaMonitorSource_virtualbase_disconnectNotify(VirtualQGeoAreaMonitorSource* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QGeoAreaMonitorSource_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QGeoAreaMonitorSource_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QGeoAreaMonitorSource_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QGeoAreaMonitorSource_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QGeoAreaMonitorSource_protectedbase_sender(const VirtualQGeoAreaMonitorSource* self);
+	friend int QGeoAreaMonitorSource_protectedbase_senderSignalIndex(const VirtualQGeoAreaMonitorSource* self);
+	friend int QGeoAreaMonitorSource_protectedbase_receivers(const VirtualQGeoAreaMonitorSource* self, const char* signal);
+	friend bool QGeoAreaMonitorSource_protectedbase_isSignalConnected(const VirtualQGeoAreaMonitorSource* self, QMetaMethod* signal);
 };
 
-QGeoAreaMonitorSource* QGeoAreaMonitorSource_new(QObject* parent) {
-	return new (std::nothrow) VirtualQGeoAreaMonitorSource(parent);
+VirtualQGeoAreaMonitorSource* QGeoAreaMonitorSource_new(const QGeoAreaMonitorSource_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQGeoAreaMonitorSource>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQGeoAreaMonitorSource(vtbl, parent) : nullptr;
 }
 
 void QGeoAreaMonitorSource_virtbase(QGeoAreaMonitorSource* src, QObject** outptr_QObject) {
@@ -621,286 +536,83 @@ struct seaqt_string QGeoAreaMonitorSource_trUtf83(const char* s, const char* c, 
 }
 
 const QMetaObject* QGeoAreaMonitorSource_staticMetaObject() { return &QGeoAreaMonitorSource::staticMetaObject; }
-bool QGeoAreaMonitorSource_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QGeoAreaMonitorSource_vdata(VirtualQGeoAreaMonitorSource* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQGeoAreaMonitorSource>()); }
+VirtualQGeoAreaMonitorSource* vdata_QGeoAreaMonitorSource(void* vdata) { return reinterpret_cast<VirtualQGeoAreaMonitorSource*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQGeoAreaMonitorSource>()); }
 
-	self_cast->handle__metaObject = slot;
-	return true;
+QMetaObject* QGeoAreaMonitorSource_virtualbase_metaObject(const VirtualQGeoAreaMonitorSource* self) {
+
+	return (QMetaObject*) self->QGeoAreaMonitorSource::metaObject();
 }
 
-QMetaObject* QGeoAreaMonitorSource_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQGeoAreaMonitorSource*>(self)->QGeoAreaMonitorSource::metaObject();
+void* QGeoAreaMonitorSource_virtualbase_metacast(VirtualQGeoAreaMonitorSource* self, const char* param1) {
+
+	return self->QGeoAreaMonitorSource::qt_metacast(param1);
 }
 
-bool QGeoAreaMonitorSource_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QGeoAreaMonitorSource_virtualbase_metacall(VirtualQGeoAreaMonitorSource* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QGeoAreaMonitorSource::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-void* QGeoAreaMonitorSource_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQGeoAreaMonitorSource*>(self)->QGeoAreaMonitorSource::qt_metacast(param1);
+void QGeoAreaMonitorSource_virtualbase_setPositionInfoSource(VirtualQGeoAreaMonitorSource* self, QGeoPositionInfoSource* source) {
+
+	self->QGeoAreaMonitorSource::setPositionInfoSource(source);
 }
 
-bool QGeoAreaMonitorSource_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QGeoPositionInfoSource* QGeoAreaMonitorSource_virtualbase_positionInfoSource(const VirtualQGeoAreaMonitorSource* self) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	return self->QGeoAreaMonitorSource::positionInfoSource();
 }
 
-int QGeoAreaMonitorSource_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQGeoAreaMonitorSource*>(self)->QGeoAreaMonitorSource::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+bool QGeoAreaMonitorSource_virtualbase_event(VirtualQGeoAreaMonitorSource* self, QEvent* event) {
+
+	return self->QGeoAreaMonitorSource::event(event);
 }
 
-bool QGeoAreaMonitorSource_override_virtual_setPositionInfoSource(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QGeoAreaMonitorSource_virtualbase_eventFilter(VirtualQGeoAreaMonitorSource* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__setPositionInfoSource = slot;
-	return true;
+	return self->QGeoAreaMonitorSource::eventFilter(watched, event);
 }
 
-void QGeoAreaMonitorSource_virtualbase_setPositionInfoSource(void* self, QGeoPositionInfoSource* source) {
-	static_cast<VirtualQGeoAreaMonitorSource*>(self)->QGeoAreaMonitorSource::setPositionInfoSource(source);
+void QGeoAreaMonitorSource_virtualbase_timerEvent(VirtualQGeoAreaMonitorSource* self, QTimerEvent* event) {
+
+	self->QGeoAreaMonitorSource::timerEvent(event);
 }
 
-bool QGeoAreaMonitorSource_override_virtual_positionInfoSource(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGeoAreaMonitorSource_virtualbase_childEvent(VirtualQGeoAreaMonitorSource* self, QChildEvent* event) {
 
-	self_cast->handle__positionInfoSource = slot;
-	return true;
+	self->QGeoAreaMonitorSource::childEvent(event);
 }
 
-QGeoPositionInfoSource* QGeoAreaMonitorSource_virtualbase_positionInfoSource(const void* self) {
-	return static_cast<const VirtualQGeoAreaMonitorSource*>(self)->QGeoAreaMonitorSource::positionInfoSource();
+void QGeoAreaMonitorSource_virtualbase_customEvent(VirtualQGeoAreaMonitorSource* self, QEvent* event) {
+
+	self->QGeoAreaMonitorSource::customEvent(event);
 }
 
-bool QGeoAreaMonitorSource_override_virtual_error(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGeoAreaMonitorSource_virtualbase_connectNotify(VirtualQGeoAreaMonitorSource* self, QMetaMethod* signal) {
 
-	self_cast->handle__error = slot;
-	return true;
+	self->QGeoAreaMonitorSource::connectNotify(*signal);
 }
 
-bool QGeoAreaMonitorSource_override_virtual_supportedAreaMonitorFeatures(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QGeoAreaMonitorSource_virtualbase_disconnectNotify(VirtualQGeoAreaMonitorSource* self, QMetaMethod* signal) {
 
-	self_cast->handle__supportedAreaMonitorFeatures = slot;
-	return true;
+	self->QGeoAreaMonitorSource::disconnectNotify(*signal);
 }
 
-bool QGeoAreaMonitorSource_override_virtual_startMonitoring(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__startMonitoring = slot;
-	return true;
+QObject* QGeoAreaMonitorSource_protectedbase_sender(const VirtualQGeoAreaMonitorSource* self) {
+	return self->sender();
 }
 
-bool QGeoAreaMonitorSource_override_virtual_stopMonitoring(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__stopMonitoring = slot;
-	return true;
+int QGeoAreaMonitorSource_protectedbase_senderSignalIndex(const VirtualQGeoAreaMonitorSource* self) {
+	return self->senderSignalIndex();
 }
 
-bool QGeoAreaMonitorSource_override_virtual_requestUpdate(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__requestUpdate = slot;
-	return true;
+int QGeoAreaMonitorSource_protectedbase_receivers(const VirtualQGeoAreaMonitorSource* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-bool QGeoAreaMonitorSource_override_virtual_activeMonitors(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__activeMonitors = slot;
-	return true;
-}
-
-bool QGeoAreaMonitorSource_override_virtual_activeMonitorsWithLookupArea(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__activeMonitorsWithLookupArea = slot;
-	return true;
-}
-
-bool QGeoAreaMonitorSource_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__event = slot;
-	return true;
-}
-
-bool QGeoAreaMonitorSource_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQGeoAreaMonitorSource*>(self)->QGeoAreaMonitorSource::event(event);
-}
-
-bool QGeoAreaMonitorSource_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
-}
-
-bool QGeoAreaMonitorSource_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQGeoAreaMonitorSource*>(self)->QGeoAreaMonitorSource::eventFilter(watched, event);
-}
-
-bool QGeoAreaMonitorSource_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
-}
-
-void QGeoAreaMonitorSource_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQGeoAreaMonitorSource*>(self)->QGeoAreaMonitorSource::timerEvent(event);
-}
-
-bool QGeoAreaMonitorSource_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QGeoAreaMonitorSource_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQGeoAreaMonitorSource*>(self)->QGeoAreaMonitorSource::childEvent(event);
-}
-
-bool QGeoAreaMonitorSource_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QGeoAreaMonitorSource_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQGeoAreaMonitorSource*>(self)->QGeoAreaMonitorSource::customEvent(event);
-}
-
-bool QGeoAreaMonitorSource_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QGeoAreaMonitorSource_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGeoAreaMonitorSource*>(self)->QGeoAreaMonitorSource::connectNotify(*signal);
-}
-
-bool QGeoAreaMonitorSource_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QGeoAreaMonitorSource_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQGeoAreaMonitorSource*>(self)->QGeoAreaMonitorSource::disconnectNotify(*signal);
-}
-
-QObject* QGeoAreaMonitorSource_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QGeoAreaMonitorSource_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QGeoAreaMonitorSource_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QGeoAreaMonitorSource_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQGeoAreaMonitorSource* self_cast = dynamic_cast<VirtualQGeoAreaMonitorSource*>( (QGeoAreaMonitorSource*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QGeoAreaMonitorSource_protectedbase_isSignalConnected(const VirtualQGeoAreaMonitorSource* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QGeoAreaMonitorSource_delete(QGeoAreaMonitorSource* self) {

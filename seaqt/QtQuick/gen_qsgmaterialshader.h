@@ -32,7 +32,24 @@ typedef struct QSGMaterialShader QSGMaterialShader;
 typedef struct QSGMaterialShader__RenderState QSGMaterialShader__RenderState;
 #endif
 
-QSGMaterialShader* QSGMaterialShader_new();
+typedef struct VirtualQSGMaterialShader VirtualQSGMaterialShader;
+typedef struct QSGMaterialShader_VTable{
+	void (*destructor)(VirtualQSGMaterialShader* self);
+	void (*activate)(VirtualQSGMaterialShader* self);
+	void (*deactivate)(VirtualQSGMaterialShader* self);
+	void (*updateState)(VirtualQSGMaterialShader* self, QSGMaterialShader__RenderState* state, QSGMaterial* newMaterial, QSGMaterial* oldMaterial);
+	const char** (*attributeNames)(const VirtualQSGMaterialShader* self);
+	void (*compile)(VirtualQSGMaterialShader* self);
+	void (*initialize)(VirtualQSGMaterialShader* self);
+	const char* (*vertexShader)(const VirtualQSGMaterialShader* self);
+	const char* (*fragmentShader)(const VirtualQSGMaterialShader* self);
+}QSGMaterialShader_VTable;
+
+void* QSGMaterialShader_vdata(VirtualQSGMaterialShader* self);
+VirtualQSGMaterialShader* vdata_QSGMaterialShader(void* vdata);
+
+VirtualQSGMaterialShader* QSGMaterialShader_new(const QSGMaterialShader_VTable* vtbl, size_t vdata);
+
 void QSGMaterialShader_activate(QSGMaterialShader* self);
 void QSGMaterialShader_deactivate(QSGMaterialShader* self);
 void QSGMaterialShader_updateState(QSGMaterialShader* self, QSGMaterialShader__RenderState* state, QSGMaterial* newMaterial, QSGMaterial* oldMaterial);
@@ -42,22 +59,14 @@ void QSGMaterialShader_initialize(QSGMaterialShader* self);
 const char* QSGMaterialShader_vertexShader(const QSGMaterialShader* self);
 const char* QSGMaterialShader_fragmentShader(const QSGMaterialShader* self);
 
-bool QSGMaterialShader_override_virtual_activate(void* self, intptr_t slot);
-void QSGMaterialShader_virtualbase_activate(void* self);
-bool QSGMaterialShader_override_virtual_deactivate(void* self, intptr_t slot);
-void QSGMaterialShader_virtualbase_deactivate(void* self);
-bool QSGMaterialShader_override_virtual_updateState(void* self, intptr_t slot);
-void QSGMaterialShader_virtualbase_updateState(void* self, QSGMaterialShader__RenderState* state, QSGMaterial* newMaterial, QSGMaterial* oldMaterial);
-bool QSGMaterialShader_override_virtual_attributeNames(void* self, intptr_t slot);
-const char** QSGMaterialShader_virtualbase_attributeNames(const void* self);
-bool QSGMaterialShader_override_virtual_compile(void* self, intptr_t slot);
-void QSGMaterialShader_virtualbase_compile(void* self);
-bool QSGMaterialShader_override_virtual_initialize(void* self, intptr_t slot);
-void QSGMaterialShader_virtualbase_initialize(void* self);
-bool QSGMaterialShader_override_virtual_vertexShader(void* self, intptr_t slot);
-const char* QSGMaterialShader_virtualbase_vertexShader(const void* self);
-bool QSGMaterialShader_override_virtual_fragmentShader(void* self, intptr_t slot);
-const char* QSGMaterialShader_virtualbase_fragmentShader(const void* self);
+void QSGMaterialShader_virtualbase_activate(VirtualQSGMaterialShader* self);
+void QSGMaterialShader_virtualbase_deactivate(VirtualQSGMaterialShader* self);
+void QSGMaterialShader_virtualbase_updateState(VirtualQSGMaterialShader* self, QSGMaterialShader__RenderState* state, QSGMaterial* newMaterial, QSGMaterial* oldMaterial);
+const char** QSGMaterialShader_virtualbase_attributeNames(const VirtualQSGMaterialShader* self);
+void QSGMaterialShader_virtualbase_compile(VirtualQSGMaterialShader* self);
+void QSGMaterialShader_virtualbase_initialize(VirtualQSGMaterialShader* self);
+const char* QSGMaterialShader_virtualbase_vertexShader(const VirtualQSGMaterialShader* self);
+const char* QSGMaterialShader_virtualbase_fragmentShader(const VirtualQSGMaterialShader* self);
 
 void QSGMaterialShader_delete(QSGMaterialShader* self);
 

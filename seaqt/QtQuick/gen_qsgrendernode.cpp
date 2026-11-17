@@ -9,138 +9,116 @@
 #include <qsgrendernode.h>
 #include "gen_qsgrendernode.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-int miqt_exec_callback_QSGRenderNode_changedStates(const QSGRenderNode*, intptr_t);
-void miqt_exec_callback_QSGRenderNode_render(QSGRenderNode*, intptr_t, QSGRenderNode__RenderState*);
-void miqt_exec_callback_QSGRenderNode_releaseResources(QSGRenderNode*, intptr_t);
-int miqt_exec_callback_QSGRenderNode_flags(const QSGRenderNode*, intptr_t);
-QRectF* miqt_exec_callback_QSGRenderNode_rect(const QSGRenderNode*, intptr_t);
-bool miqt_exec_callback_QSGRenderNode_isSubtreeBlocked(const QSGRenderNode*, intptr_t);
-void miqt_exec_callback_QSGRenderNode_preprocess(QSGRenderNode*, intptr_t);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQSGRenderNode final : public QSGRenderNode {
+	const QSGRenderNode_VTable* vtbl;
 public:
+	friend void* QSGRenderNode_vdata(VirtualQSGRenderNode* self);
+	friend VirtualQSGRenderNode* vdata_QSGRenderNode(void* vdata);
 
-	VirtualQSGRenderNode(): QSGRenderNode() {}
+	VirtualQSGRenderNode(const QSGRenderNode_VTable* vtbl): QSGRenderNode(), vtbl(vtbl) {}
 
-	virtual ~VirtualQSGRenderNode() override = default;
+	virtual ~VirtualQSGRenderNode() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__changedStates = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual QSGRenderNode::StateFlags changedStates() const override {
-		if (handle__changedStates == 0) {
+		if (vtbl->changedStates == 0) {
 			return QSGRenderNode::changedStates();
 		}
 
-		int callback_return_value = miqt_exec_callback_QSGRenderNode_changedStates(this, handle__changedStates);
+		int callback_return_value = vtbl->changedStates(this);
 		return static_cast<QSGRenderNode::StateFlags>(callback_return_value);
 	}
 
-	friend int QSGRenderNode_virtualbase_changedStates(const void* self);
+	friend int QSGRenderNode_virtualbase_changedStates(const VirtualQSGRenderNode* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__render = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void render(const QSGRenderNode::RenderState* state) override {
-		if (handle__render == 0) {
+		if (vtbl->render == 0) {
 			return; // Pure virtual, there is no base we can call
 		}
 
 		QSGRenderNode__RenderState* sigval1 = (QSGRenderNode__RenderState*) state;
-		miqt_exec_callback_QSGRenderNode_render(this, handle__render, sigval1);
-
+		vtbl->render(this, sigval1);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__releaseResources = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void releaseResources() override {
-		if (handle__releaseResources == 0) {
+		if (vtbl->releaseResources == 0) {
 			QSGRenderNode::releaseResources();
 			return;
 		}
 
-		miqt_exec_callback_QSGRenderNode_releaseResources(this, handle__releaseResources);
-
+		vtbl->releaseResources(this);
 	}
 
-	friend void QSGRenderNode_virtualbase_releaseResources(void* self);
+	friend void QSGRenderNode_virtualbase_releaseResources(VirtualQSGRenderNode* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__flags = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QSGRenderNode::RenderingFlags flags() const override {
-		if (handle__flags == 0) {
+		if (vtbl->flags == 0) {
 			return QSGRenderNode::flags();
 		}
 
-		int callback_return_value = miqt_exec_callback_QSGRenderNode_flags(this, handle__flags);
+		int callback_return_value = vtbl->flags(this);
 		return static_cast<QSGRenderNode::RenderingFlags>(callback_return_value);
 	}
 
-	friend int QSGRenderNode_virtualbase_flags(const void* self);
+	friend int QSGRenderNode_virtualbase_flags(const VirtualQSGRenderNode* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__rect = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual QRectF rect() const override {
-		if (handle__rect == 0) {
+		if (vtbl->rect == 0) {
 			return QSGRenderNode::rect();
 		}
 
-		QRectF* callback_return_value = miqt_exec_callback_QSGRenderNode_rect(this, handle__rect);
+		QRectF* callback_return_value = vtbl->rect(this);
 		return *callback_return_value;
 	}
 
-	friend QRectF* QSGRenderNode_virtualbase_rect(const void* self);
+	friend QRectF* QSGRenderNode_virtualbase_rect(const VirtualQSGRenderNode* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__isSubtreeBlocked = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool isSubtreeBlocked() const override {
-		if (handle__isSubtreeBlocked == 0) {
+		if (vtbl->isSubtreeBlocked == 0) {
 			return QSGRenderNode::isSubtreeBlocked();
 		}
 
-		bool callback_return_value = miqt_exec_callback_QSGRenderNode_isSubtreeBlocked(this, handle__isSubtreeBlocked);
+		bool callback_return_value = vtbl->isSubtreeBlocked(this);
 		return callback_return_value;
 	}
 
-	friend bool QSGRenderNode_virtualbase_isSubtreeBlocked(const void* self);
+	friend bool QSGRenderNode_virtualbase_isSubtreeBlocked(const VirtualQSGRenderNode* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__preprocess = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void preprocess() override {
-		if (handle__preprocess == 0) {
+		if (vtbl->preprocess == 0) {
 			QSGRenderNode::preprocess();
 			return;
 		}
 
-		miqt_exec_callback_QSGRenderNode_preprocess(this, handle__preprocess);
-
+		vtbl->preprocess(this);
 	}
 
-	friend void QSGRenderNode_virtualbase_preprocess(void* self);
+	friend void QSGRenderNode_virtualbase_preprocess(VirtualQSGRenderNode* self);
 
 };
 
-QSGRenderNode* QSGRenderNode_new() {
-	return new (std::nothrow) VirtualQSGRenderNode();
+VirtualQSGRenderNode* QSGRenderNode_new(const QSGRenderNode_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQSGRenderNode>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQSGRenderNode(vtbl) : nullptr;
 }
 
 void QSGRenderNode_virtbase(QSGRenderNode* src, QSGNode** outptr_QSGNode) {
@@ -182,100 +160,39 @@ double QSGRenderNode_inheritedOpacity(const QSGRenderNode* self) {
 	return static_cast<double>(_ret);
 }
 
-bool QSGRenderNode_override_virtual_changedStates(void* self, intptr_t slot) {
-	VirtualQSGRenderNode* self_cast = dynamic_cast<VirtualQSGRenderNode*>( (QSGRenderNode*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QSGRenderNode_vdata(VirtualQSGRenderNode* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQSGRenderNode>()); }
+VirtualQSGRenderNode* vdata_QSGRenderNode(void* vdata) { return reinterpret_cast<VirtualQSGRenderNode*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQSGRenderNode>()); }
 
-	self_cast->handle__changedStates = slot;
-	return true;
-}
+int QSGRenderNode_virtualbase_changedStates(const VirtualQSGRenderNode* self) {
 
-int QSGRenderNode_virtualbase_changedStates(const void* self) {
-	VirtualQSGRenderNode::StateFlags _ret = static_cast<const VirtualQSGRenderNode*>(self)->QSGRenderNode::changedStates();
+	VirtualQSGRenderNode::StateFlags _ret = self->QSGRenderNode::changedStates();
 	return static_cast<int>(_ret);
 }
 
-bool QSGRenderNode_override_virtual_render(void* self, intptr_t slot) {
-	VirtualQSGRenderNode* self_cast = dynamic_cast<VirtualQSGRenderNode*>( (QSGRenderNode*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSGRenderNode_virtualbase_releaseResources(VirtualQSGRenderNode* self) {
 
-	self_cast->handle__render = slot;
-	return true;
+	self->QSGRenderNode::releaseResources();
 }
 
-bool QSGRenderNode_override_virtual_releaseResources(void* self, intptr_t slot) {
-	VirtualQSGRenderNode* self_cast = dynamic_cast<VirtualQSGRenderNode*>( (QSGRenderNode*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QSGRenderNode_virtualbase_flags(const VirtualQSGRenderNode* self) {
 
-	self_cast->handle__releaseResources = slot;
-	return true;
-}
-
-void QSGRenderNode_virtualbase_releaseResources(void* self) {
-	static_cast<VirtualQSGRenderNode*>(self)->QSGRenderNode::releaseResources();
-}
-
-bool QSGRenderNode_override_virtual_flags(void* self, intptr_t slot) {
-	VirtualQSGRenderNode* self_cast = dynamic_cast<VirtualQSGRenderNode*>( (QSGRenderNode*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__flags = slot;
-	return true;
-}
-
-int QSGRenderNode_virtualbase_flags(const void* self) {
-	VirtualQSGRenderNode::RenderingFlags _ret = static_cast<const VirtualQSGRenderNode*>(self)->QSGRenderNode::flags();
+	VirtualQSGRenderNode::RenderingFlags _ret = self->QSGRenderNode::flags();
 	return static_cast<int>(_ret);
 }
 
-bool QSGRenderNode_override_virtual_rect(void* self, intptr_t slot) {
-	VirtualQSGRenderNode* self_cast = dynamic_cast<VirtualQSGRenderNode*>( (QSGRenderNode*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+QRectF* QSGRenderNode_virtualbase_rect(const VirtualQSGRenderNode* self) {
 
-	self_cast->handle__rect = slot;
-	return true;
+	return new QRectF(self->QSGRenderNode::rect());
 }
 
-QRectF* QSGRenderNode_virtualbase_rect(const void* self) {
-	return new QRectF(static_cast<const VirtualQSGRenderNode*>(self)->QSGRenderNode::rect());
+bool QSGRenderNode_virtualbase_isSubtreeBlocked(const VirtualQSGRenderNode* self) {
+
+	return self->QSGRenderNode::isSubtreeBlocked();
 }
 
-bool QSGRenderNode_override_virtual_isSubtreeBlocked(void* self, intptr_t slot) {
-	VirtualQSGRenderNode* self_cast = dynamic_cast<VirtualQSGRenderNode*>( (QSGRenderNode*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QSGRenderNode_virtualbase_preprocess(VirtualQSGRenderNode* self) {
 
-	self_cast->handle__isSubtreeBlocked = slot;
-	return true;
-}
-
-bool QSGRenderNode_virtualbase_isSubtreeBlocked(const void* self) {
-	return static_cast<const VirtualQSGRenderNode*>(self)->QSGRenderNode::isSubtreeBlocked();
-}
-
-bool QSGRenderNode_override_virtual_preprocess(void* self, intptr_t slot) {
-	VirtualQSGRenderNode* self_cast = dynamic_cast<VirtualQSGRenderNode*>( (QSGRenderNode*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__preprocess = slot;
-	return true;
-}
-
-void QSGRenderNode_virtualbase_preprocess(void* self) {
-	static_cast<VirtualQSGRenderNode*>(self)->QSGRenderNode::preprocess();
+	self->QSGRenderNode::preprocess();
 }
 
 void QSGRenderNode_delete(QSGRenderNode* self) {

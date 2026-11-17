@@ -45,6 +45,7 @@ typedef struct QWindow QWindow;
 QAccessibleWidget* QAccessibleWidget_new(QWidget* o);
 QAccessibleWidget* QAccessibleWidget_new2(QWidget* o, int r);
 QAccessibleWidget* QAccessibleWidget_new3(QWidget* o, int r, struct seaqt_string name);
+
 void QAccessibleWidget_virtbase(QAccessibleWidget* src, QAccessibleObject** outptr_QAccessibleObject, QAccessibleActionInterface** outptr_QAccessibleActionInterface);
 bool QAccessibleWidget_isValid(const QAccessibleWidget* self);
 QWindow* QAccessibleWidget_window(const QAccessibleWidget* self);

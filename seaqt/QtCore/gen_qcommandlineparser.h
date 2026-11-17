@@ -25,6 +25,7 @@ typedef struct QCoreApplication QCoreApplication;
 #endif
 
 QCommandLineParser* QCommandLineParser_new();
+
 struct seaqt_string QCommandLineParser_tr(const char* sourceText);
 struct seaqt_string QCommandLineParser_trUtf8(const char* sourceText);
 void QCommandLineParser_setSingleDashWordOptionMode(QCommandLineParser* self, int parsingMode);

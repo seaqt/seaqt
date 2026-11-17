@@ -8,97 +8,80 @@
 #include <qmaskgenerator.h>
 #include "gen_qmaskgenerator.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-bool miqt_exec_callback_QMaskGenerator_seed(QMaskGenerator*, intptr_t);
-unsigned int miqt_exec_callback_QMaskGenerator_nextMask(QMaskGenerator*, intptr_t);
-QMetaObject* miqt_exec_callback_QMaskGenerator_metaObject(const QMaskGenerator*, intptr_t);
-void* miqt_exec_callback_QMaskGenerator_metacast(QMaskGenerator*, intptr_t, const char*);
-int miqt_exec_callback_QMaskGenerator_metacall(QMaskGenerator*, intptr_t, int, int, void**);
-bool miqt_exec_callback_QMaskGenerator_event(QMaskGenerator*, intptr_t, QEvent*);
-bool miqt_exec_callback_QMaskGenerator_eventFilter(QMaskGenerator*, intptr_t, QObject*, QEvent*);
-void miqt_exec_callback_QMaskGenerator_timerEvent(QMaskGenerator*, intptr_t, QTimerEvent*);
-void miqt_exec_callback_QMaskGenerator_childEvent(QMaskGenerator*, intptr_t, QChildEvent*);
-void miqt_exec_callback_QMaskGenerator_customEvent(QMaskGenerator*, intptr_t, QEvent*);
-void miqt_exec_callback_QMaskGenerator_connectNotify(QMaskGenerator*, intptr_t, QMetaMethod*);
-void miqt_exec_callback_QMaskGenerator_disconnectNotify(QMaskGenerator*, intptr_t, QMetaMethod*);
 #ifdef __cplusplus
 } /* extern C */
 #endif
 
 class VirtualQMaskGenerator final : public QMaskGenerator {
+	const QMaskGenerator_VTable* vtbl;
 public:
+	friend void* QMaskGenerator_vdata(VirtualQMaskGenerator* self);
+	friend VirtualQMaskGenerator* vdata_QMaskGenerator(void* vdata);
 
-	VirtualQMaskGenerator(): QMaskGenerator() {}
-	VirtualQMaskGenerator(QObject* parent): QMaskGenerator(parent) {}
+	VirtualQMaskGenerator(const QMaskGenerator_VTable* vtbl): QMaskGenerator(), vtbl(vtbl) {}
+	VirtualQMaskGenerator(const QMaskGenerator_VTable* vtbl, QObject* parent): QMaskGenerator(parent), vtbl(vtbl) {}
 
-	virtual ~VirtualQMaskGenerator() override = default;
+	virtual ~VirtualQMaskGenerator() override { if(vtbl->destructor) vtbl->destructor(this); }
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__seed = 0;
-
-	// Subclass to allow providing a Go implementation
+	void operator delete(void* p) { ::operator delete(p); }
 	virtual bool seed() override {
-		if (handle__seed == 0) {
+		if (vtbl->seed == 0) {
 			return false; // Pure virtual, there is no base we can call
 		}
 
-		bool callback_return_value = miqt_exec_callback_QMaskGenerator_seed(this, handle__seed);
+		bool callback_return_value = vtbl->seed(this);
 		return callback_return_value;
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__nextMask = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual quint32 nextMask() override {
-		if (handle__nextMask == 0) {
+		if (vtbl->nextMask == 0) {
 			return 0; // Pure virtual, there is no base we can call
 		}
 
-		unsigned int callback_return_value = miqt_exec_callback_QMaskGenerator_nextMask(this, handle__nextMask);
+		unsigned int callback_return_value = vtbl->nextMask(this);
 		return static_cast<quint32>(callback_return_value);
 	}
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metaObject = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual const QMetaObject* metaObject() const override {
-		if (handle__metaObject == 0) {
+		if (vtbl->metaObject == 0) {
 			return QMaskGenerator::metaObject();
 		}
 
-		QMetaObject* callback_return_value = miqt_exec_callback_QMaskGenerator_metaObject(this, handle__metaObject);
+		QMetaObject* callback_return_value = vtbl->metaObject(this);
 		return callback_return_value;
 	}
 
-	friend QMetaObject* QMaskGenerator_virtualbase_metaObject(const void* self);
+	friend QMetaObject* QMaskGenerator_virtualbase_metaObject(const VirtualQMaskGenerator* self);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacast = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void* qt_metacast(const char* param1) override {
-		if (handle__metacast == 0) {
+		if (vtbl->metacast == 0) {
 			return QMaskGenerator::qt_metacast(param1);
 		}
 
 		const char* sigval1 = (const char*) param1;
-		void* callback_return_value = miqt_exec_callback_QMaskGenerator_metacast(this, handle__metacast, sigval1);
+		void* callback_return_value = vtbl->metacast(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend void* QMaskGenerator_virtualbase_metacast(void* self, const char* param1);
+	friend void* QMaskGenerator_virtualbase_metacast(VirtualQMaskGenerator* self, const char* param1);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__metacall = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
-		if (handle__metacall == 0) {
+		if (vtbl->metacall == 0) {
 			return QMaskGenerator::qt_metacall(param1, param2, param3);
 		}
 
@@ -106,102 +89,75 @@ public:
 		int sigval1 = static_cast<int>(param1_ret);
 		int sigval2 = param2;
 		void** sigval3 = param3;
-		int callback_return_value = miqt_exec_callback_QMaskGenerator_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		int callback_return_value = vtbl->metacall(this, sigval1, sigval2, sigval3);
 		return static_cast<int>(callback_return_value);
 	}
 
-	friend int QMaskGenerator_virtualbase_metacall(void* self, int param1, int param2, void** param3);
+	friend int QMaskGenerator_virtualbase_metacall(VirtualQMaskGenerator* self, int param1, int param2, void** param3);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__event = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool event(QEvent* event) override {
-		if (handle__event == 0) {
+		if (vtbl->event == 0) {
 			return QMaskGenerator::event(event);
 		}
 
 		QEvent* sigval1 = event;
-		bool callback_return_value = miqt_exec_callback_QMaskGenerator_event(this, handle__event, sigval1);
+		bool callback_return_value = vtbl->event(this, sigval1);
 		return callback_return_value;
 	}
 
-	friend bool QMaskGenerator_virtualbase_event(void* self, QEvent* event);
+	friend bool QMaskGenerator_virtualbase_event(VirtualQMaskGenerator* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__eventFilter = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual bool eventFilter(QObject* watched, QEvent* event) override {
-		if (handle__eventFilter == 0) {
+		if (vtbl->eventFilter == 0) {
 			return QMaskGenerator::eventFilter(watched, event);
 		}
 
 		QObject* sigval1 = watched;
 		QEvent* sigval2 = event;
-		bool callback_return_value = miqt_exec_callback_QMaskGenerator_eventFilter(this, handle__eventFilter, sigval1, sigval2);
+		bool callback_return_value = vtbl->eventFilter(this, sigval1, sigval2);
 		return callback_return_value;
 	}
 
-	friend bool QMaskGenerator_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
+	friend bool QMaskGenerator_virtualbase_eventFilter(VirtualQMaskGenerator* self, QObject* watched, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__timerEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void timerEvent(QTimerEvent* event) override {
-		if (handle__timerEvent == 0) {
+		if (vtbl->timerEvent == 0) {
 			QMaskGenerator::timerEvent(event);
 			return;
 		}
 
 		QTimerEvent* sigval1 = event;
-		miqt_exec_callback_QMaskGenerator_timerEvent(this, handle__timerEvent, sigval1);
-
+		vtbl->timerEvent(this, sigval1);
 	}
 
-	friend void QMaskGenerator_virtualbase_timerEvent(void* self, QTimerEvent* event);
+	friend void QMaskGenerator_virtualbase_timerEvent(VirtualQMaskGenerator* self, QTimerEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__childEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void childEvent(QChildEvent* event) override {
-		if (handle__childEvent == 0) {
+		if (vtbl->childEvent == 0) {
 			QMaskGenerator::childEvent(event);
 			return;
 		}
 
 		QChildEvent* sigval1 = event;
-		miqt_exec_callback_QMaskGenerator_childEvent(this, handle__childEvent, sigval1);
-
+		vtbl->childEvent(this, sigval1);
 	}
 
-	friend void QMaskGenerator_virtualbase_childEvent(void* self, QChildEvent* event);
+	friend void QMaskGenerator_virtualbase_childEvent(VirtualQMaskGenerator* self, QChildEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__customEvent = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void customEvent(QEvent* event) override {
-		if (handle__customEvent == 0) {
+		if (vtbl->customEvent == 0) {
 			QMaskGenerator::customEvent(event);
 			return;
 		}
 
 		QEvent* sigval1 = event;
-		miqt_exec_callback_QMaskGenerator_customEvent(this, handle__customEvent, sigval1);
-
+		vtbl->customEvent(this, sigval1);
 	}
 
-	friend void QMaskGenerator_virtualbase_customEvent(void* self, QEvent* event);
+	friend void QMaskGenerator_virtualbase_customEvent(VirtualQMaskGenerator* self, QEvent* event);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__connectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void connectNotify(const QMetaMethod& signal) override {
-		if (handle__connectNotify == 0) {
+		if (vtbl->connectNotify == 0) {
 			QMaskGenerator::connectNotify(signal);
 			return;
 		}
@@ -209,18 +165,13 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QMaskGenerator_connectNotify(this, handle__connectNotify, sigval1);
-
+		vtbl->connectNotify(this, sigval1);
 	}
 
-	friend void QMaskGenerator_virtualbase_connectNotify(void* self, QMetaMethod* signal);
+	friend void QMaskGenerator_virtualbase_connectNotify(VirtualQMaskGenerator* self, QMetaMethod* signal);
 
-	// cgo.Handle value for overwritten implementation
-	intptr_t handle__disconnectNotify = 0;
-
-	// Subclass to allow providing a Go implementation
 	virtual void disconnectNotify(const QMetaMethod& signal) override {
-		if (handle__disconnectNotify == 0) {
+		if (vtbl->disconnectNotify == 0) {
 			QMaskGenerator::disconnectNotify(signal);
 			return;
 		}
@@ -228,25 +179,26 @@ public:
 		const QMetaMethod& signal_ret = signal;
 		// Cast returned reference into pointer
 		QMetaMethod* sigval1 = const_cast<QMetaMethod*>(&signal_ret);
-		miqt_exec_callback_QMaskGenerator_disconnectNotify(this, handle__disconnectNotify, sigval1);
-
+		vtbl->disconnectNotify(this, sigval1);
 	}
 
-	friend void QMaskGenerator_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+	friend void QMaskGenerator_virtualbase_disconnectNotify(VirtualQMaskGenerator* self, QMetaMethod* signal);
 
 	// Wrappers to allow calling protected methods:
-	friend QObject* QMaskGenerator_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-	friend int QMaskGenerator_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-	friend int QMaskGenerator_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-	friend bool QMaskGenerator_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+	friend QObject* QMaskGenerator_protectedbase_sender(const VirtualQMaskGenerator* self);
+	friend int QMaskGenerator_protectedbase_senderSignalIndex(const VirtualQMaskGenerator* self);
+	friend int QMaskGenerator_protectedbase_receivers(const VirtualQMaskGenerator* self, const char* signal);
+	friend bool QMaskGenerator_protectedbase_isSignalConnected(const VirtualQMaskGenerator* self, QMetaMethod* signal);
 };
 
-QMaskGenerator* QMaskGenerator_new() {
-	return new (std::nothrow) VirtualQMaskGenerator();
+VirtualQMaskGenerator* QMaskGenerator_new(const QMaskGenerator_VTable* vtbl, size_t vdata) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQMaskGenerator>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQMaskGenerator(vtbl) : nullptr;
 }
 
-QMaskGenerator* QMaskGenerator_new2(QObject* parent) {
-	return new (std::nothrow) VirtualQMaskGenerator(parent);
+VirtualQMaskGenerator* QMaskGenerator_new2(const QMaskGenerator_VTable* vtbl, size_t vdata, QObject* parent) {
+	void* _mem_ = ::operator new(seaqt_aligned_sizeof<VirtualQMaskGenerator>() + vdata, std::nothrow);
+	return _mem_ ? new (_mem_)VirtualQMaskGenerator(vtbl, parent) : nullptr;
 }
 
 void QMaskGenerator_virtbase(QMaskGenerator* src, QObject** outptr_QObject) {
@@ -262,208 +214,73 @@ unsigned int QMaskGenerator_nextMask(QMaskGenerator* self) {
 	return static_cast<unsigned int>(_ret);
 }
 
-bool QMaskGenerator_override_virtual_seed(void* self, intptr_t slot) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QMaskGenerator_vdata(VirtualQMaskGenerator* self) { return reinterpret_cast<void*>(reinterpret_cast<char*>(self) + seaqt_aligned_sizeof<VirtualQMaskGenerator>()); }
+VirtualQMaskGenerator* vdata_QMaskGenerator(void* vdata) { return reinterpret_cast<VirtualQMaskGenerator*>(reinterpret_cast<char*>(vdata) - seaqt_aligned_sizeof<VirtualQMaskGenerator>()); }
 
-	self_cast->handle__seed = slot;
-	return true;
+QMetaObject* QMaskGenerator_virtualbase_metaObject(const VirtualQMaskGenerator* self) {
+
+	return (QMetaObject*) self->QMaskGenerator::metaObject();
 }
 
-bool QMaskGenerator_override_virtual_nextMask(void* self, intptr_t slot) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void* QMaskGenerator_virtualbase_metacast(VirtualQMaskGenerator* self, const char* param1) {
 
-	self_cast->handle__nextMask = slot;
-	return true;
+	return self->QMaskGenerator::qt_metacast(param1);
 }
 
-bool QMaskGenerator_override_virtual_metaObject(void* self, intptr_t slot) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+int QMaskGenerator_virtualbase_metacall(VirtualQMaskGenerator* self, int param1, int param2, void** param3) {
 
-	self_cast->handle__metaObject = slot;
-	return true;
+	return self->QMaskGenerator::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
-QMetaObject* QMaskGenerator_virtualbase_metaObject(const void* self) {
-	return (QMetaObject*) static_cast<const VirtualQMaskGenerator*>(self)->QMaskGenerator::metaObject();
+bool QMaskGenerator_virtualbase_event(VirtualQMaskGenerator* self, QEvent* event) {
+
+	return self->QMaskGenerator::event(event);
 }
 
-bool QMaskGenerator_override_virtual_metacast(void* self, intptr_t slot) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+bool QMaskGenerator_virtualbase_eventFilter(VirtualQMaskGenerator* self, QObject* watched, QEvent* event) {
 
-	self_cast->handle__metacast = slot;
-	return true;
+	return self->QMaskGenerator::eventFilter(watched, event);
 }
 
-void* QMaskGenerator_virtualbase_metacast(void* self, const char* param1) {
-	return static_cast<VirtualQMaskGenerator*>(self)->QMaskGenerator::qt_metacast(param1);
+void QMaskGenerator_virtualbase_timerEvent(VirtualQMaskGenerator* self, QTimerEvent* event) {
+
+	self->QMaskGenerator::timerEvent(event);
 }
 
-bool QMaskGenerator_override_virtual_metacall(void* self, intptr_t slot) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QMaskGenerator_virtualbase_childEvent(VirtualQMaskGenerator* self, QChildEvent* event) {
 
-	self_cast->handle__metacall = slot;
-	return true;
+	self->QMaskGenerator::childEvent(event);
 }
 
-int QMaskGenerator_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
-	return static_cast<VirtualQMaskGenerator*>(self)->QMaskGenerator::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+void QMaskGenerator_virtualbase_customEvent(VirtualQMaskGenerator* self, QEvent* event) {
+
+	self->QMaskGenerator::customEvent(event);
 }
 
-bool QMaskGenerator_override_virtual_event(void* self, intptr_t slot) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
+void QMaskGenerator_virtualbase_connectNotify(VirtualQMaskGenerator* self, QMetaMethod* signal) {
 
-	self_cast->handle__event = slot;
-	return true;
+	self->QMaskGenerator::connectNotify(*signal);
 }
 
-bool QMaskGenerator_virtualbase_event(void* self, QEvent* event) {
-	return static_cast<VirtualQMaskGenerator*>(self)->QMaskGenerator::event(event);
+void QMaskGenerator_virtualbase_disconnectNotify(VirtualQMaskGenerator* self, QMetaMethod* signal) {
+
+	self->QMaskGenerator::disconnectNotify(*signal);
 }
 
-bool QMaskGenerator_override_virtual_eventFilter(void* self, intptr_t slot) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__eventFilter = slot;
-	return true;
+QObject* QMaskGenerator_protectedbase_sender(const VirtualQMaskGenerator* self) {
+	return self->sender();
 }
 
-bool QMaskGenerator_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event) {
-	return static_cast<VirtualQMaskGenerator*>(self)->QMaskGenerator::eventFilter(watched, event);
+int QMaskGenerator_protectedbase_senderSignalIndex(const VirtualQMaskGenerator* self) {
+	return self->senderSignalIndex();
 }
 
-bool QMaskGenerator_override_virtual_timerEvent(void* self, intptr_t slot) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__timerEvent = slot;
-	return true;
+int QMaskGenerator_protectedbase_receivers(const VirtualQMaskGenerator* self, const char* signal) {
+	return self->receivers(signal);
 }
 
-void QMaskGenerator_virtualbase_timerEvent(void* self, QTimerEvent* event) {
-	static_cast<VirtualQMaskGenerator*>(self)->QMaskGenerator::timerEvent(event);
-}
-
-bool QMaskGenerator_override_virtual_childEvent(void* self, intptr_t slot) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__childEvent = slot;
-	return true;
-}
-
-void QMaskGenerator_virtualbase_childEvent(void* self, QChildEvent* event) {
-	static_cast<VirtualQMaskGenerator*>(self)->QMaskGenerator::childEvent(event);
-}
-
-bool QMaskGenerator_override_virtual_customEvent(void* self, intptr_t slot) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__customEvent = slot;
-	return true;
-}
-
-void QMaskGenerator_virtualbase_customEvent(void* self, QEvent* event) {
-	static_cast<VirtualQMaskGenerator*>(self)->QMaskGenerator::customEvent(event);
-}
-
-bool QMaskGenerator_override_virtual_connectNotify(void* self, intptr_t slot) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__connectNotify = slot;
-	return true;
-}
-
-void QMaskGenerator_virtualbase_connectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQMaskGenerator*>(self)->QMaskGenerator::connectNotify(*signal);
-}
-
-bool QMaskGenerator_override_virtual_disconnectNotify(void* self, intptr_t slot) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		return false;
-	}
-
-	self_cast->handle__disconnectNotify = slot;
-	return true;
-}
-
-void QMaskGenerator_virtualbase_disconnectNotify(void* self, QMetaMethod* signal) {
-	static_cast<VirtualQMaskGenerator*>(self)->QMaskGenerator::disconnectNotify(*signal);
-}
-
-QObject* QMaskGenerator_protectedbase_sender(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return nullptr;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->sender();
-}
-
-int QMaskGenerator_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->senderSignalIndex();
-}
-
-int QMaskGenerator_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return 0;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->receivers(signal);
-}
-
-bool QMaskGenerator_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal) {
-	VirtualQMaskGenerator* self_cast = dynamic_cast<VirtualQMaskGenerator*>( (QMaskGenerator*)(self) );
-	if (self_cast == nullptr) {
-		*_dynamic_cast_ok = false;
-		return false;
-	}
-
-	*_dynamic_cast_ok = true;
-	return self_cast->isSignalConnected(*signal);
+bool QMaskGenerator_protectedbase_isSignalConnected(const VirtualQMaskGenerator* self, QMetaMethod* signal) {
+	return self->isSignalConnected(*signal);
 }
 
 void QMaskGenerator_delete(QMaskGenerator* self) {

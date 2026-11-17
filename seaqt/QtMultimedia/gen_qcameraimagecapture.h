@@ -46,8 +46,29 @@ typedef struct QVariant QVariant;
 typedef struct QVideoFrame QVideoFrame;
 #endif
 
-QCameraImageCapture* QCameraImageCapture_new(QMediaObject* mediaObject);
-QCameraImageCapture* QCameraImageCapture_new2(QMediaObject* mediaObject, QObject* parent);
+typedef struct VirtualQCameraImageCapture VirtualQCameraImageCapture;
+typedef struct QCameraImageCapture_VTable{
+	void (*destructor)(VirtualQCameraImageCapture* self);
+	QMetaObject* (*metaObject)(const VirtualQCameraImageCapture* self);
+	void* (*metacast)(VirtualQCameraImageCapture* self, const char* param1);
+	int (*metacall)(VirtualQCameraImageCapture* self, int param1, int param2, void** param3);
+	QMediaObject* (*mediaObject)(const VirtualQCameraImageCapture* self);
+	bool (*setMediaObject)(VirtualQCameraImageCapture* self, QMediaObject* mediaObject);
+	bool (*event)(VirtualQCameraImageCapture* self, QEvent* event);
+	bool (*eventFilter)(VirtualQCameraImageCapture* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQCameraImageCapture* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQCameraImageCapture* self, QChildEvent* event);
+	void (*customEvent)(VirtualQCameraImageCapture* self, QEvent* event);
+	void (*connectNotify)(VirtualQCameraImageCapture* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQCameraImageCapture* self, QMetaMethod* signal);
+}QCameraImageCapture_VTable;
+
+void* QCameraImageCapture_vdata(VirtualQCameraImageCapture* self);
+VirtualQCameraImageCapture* vdata_QCameraImageCapture(void* vdata);
+
+VirtualQCameraImageCapture* QCameraImageCapture_new(const QCameraImageCapture_VTable* vtbl, size_t vdata, QMediaObject* mediaObject);
+VirtualQCameraImageCapture* QCameraImageCapture_new2(const QCameraImageCapture_VTable* vtbl, size_t vdata, QMediaObject* mediaObject, QObject* parent);
+
 void QCameraImageCapture_virtbase(QCameraImageCapture* src, QObject** outptr_QObject, QMediaBindableInterface** outptr_QMediaBindableInterface);
 QMetaObject* QCameraImageCapture_metaObject(const QCameraImageCapture* self);
 void* QCameraImageCapture_metacast(QCameraImageCapture* self, const char* param1);
@@ -100,35 +121,23 @@ struct seaqt_array /* of QSize* */  QCameraImageCapture_supportedResolutionsWith
 struct seaqt_array /* of QSize* */  QCameraImageCapture_supportedResolutions2(const QCameraImageCapture* self, QImageEncoderSettings* settings, bool* continuous);
 int QCameraImageCapture_captureWithLocation(QCameraImageCapture* self, struct seaqt_string location);
 
-bool QCameraImageCapture_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QCameraImageCapture_virtualbase_metaObject(const void* self);
-bool QCameraImageCapture_override_virtual_metacast(void* self, intptr_t slot);
-void* QCameraImageCapture_virtualbase_metacast(void* self, const char* param1);
-bool QCameraImageCapture_override_virtual_metacall(void* self, intptr_t slot);
-int QCameraImageCapture_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QCameraImageCapture_override_virtual_mediaObject(void* self, intptr_t slot);
-QMediaObject* QCameraImageCapture_virtualbase_mediaObject(const void* self);
-bool QCameraImageCapture_override_virtual_setMediaObject(void* self, intptr_t slot);
-bool QCameraImageCapture_virtualbase_setMediaObject(void* self, QMediaObject* mediaObject);
-bool QCameraImageCapture_override_virtual_event(void* self, intptr_t slot);
-bool QCameraImageCapture_virtualbase_event(void* self, QEvent* event);
-bool QCameraImageCapture_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QCameraImageCapture_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QCameraImageCapture_override_virtual_timerEvent(void* self, intptr_t slot);
-void QCameraImageCapture_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QCameraImageCapture_override_virtual_childEvent(void* self, intptr_t slot);
-void QCameraImageCapture_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QCameraImageCapture_override_virtual_customEvent(void* self, intptr_t slot);
-void QCameraImageCapture_virtualbase_customEvent(void* self, QEvent* event);
-bool QCameraImageCapture_override_virtual_connectNotify(void* self, intptr_t slot);
-void QCameraImageCapture_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QCameraImageCapture_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QCameraImageCapture_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QCameraImageCapture_virtualbase_metaObject(const VirtualQCameraImageCapture* self);
+void* QCameraImageCapture_virtualbase_metacast(VirtualQCameraImageCapture* self, const char* param1);
+int QCameraImageCapture_virtualbase_metacall(VirtualQCameraImageCapture* self, int param1, int param2, void** param3);
+QMediaObject* QCameraImageCapture_virtualbase_mediaObject(const VirtualQCameraImageCapture* self);
+bool QCameraImageCapture_virtualbase_setMediaObject(VirtualQCameraImageCapture* self, QMediaObject* mediaObject);
+bool QCameraImageCapture_virtualbase_event(VirtualQCameraImageCapture* self, QEvent* event);
+bool QCameraImageCapture_virtualbase_eventFilter(VirtualQCameraImageCapture* self, QObject* watched, QEvent* event);
+void QCameraImageCapture_virtualbase_timerEvent(VirtualQCameraImageCapture* self, QTimerEvent* event);
+void QCameraImageCapture_virtualbase_childEvent(VirtualQCameraImageCapture* self, QChildEvent* event);
+void QCameraImageCapture_virtualbase_customEvent(VirtualQCameraImageCapture* self, QEvent* event);
+void QCameraImageCapture_virtualbase_connectNotify(VirtualQCameraImageCapture* self, QMetaMethod* signal);
+void QCameraImageCapture_virtualbase_disconnectNotify(VirtualQCameraImageCapture* self, QMetaMethod* signal);
 
-QObject* QCameraImageCapture_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QCameraImageCapture_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QCameraImageCapture_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QCameraImageCapture_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QCameraImageCapture_protectedbase_sender(const VirtualQCameraImageCapture* self);
+int QCameraImageCapture_protectedbase_senderSignalIndex(const VirtualQCameraImageCapture* self);
+int QCameraImageCapture_protectedbase_receivers(const VirtualQCameraImageCapture* self, const char* signal);
+bool QCameraImageCapture_protectedbase_isSignalConnected(const VirtualQCameraImageCapture* self, QMetaMethod* signal);
 
 const QMetaObject* QCameraImageCapture_staticMetaObject();
 void QCameraImageCapture_delete(QCameraImageCapture* self);

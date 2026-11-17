@@ -25,6 +25,7 @@ typedef struct QScriptContextInfo QScriptContextInfo;
 QScriptContextInfo* QScriptContextInfo_new(QScriptContext* context);
 QScriptContextInfo* QScriptContextInfo_new2(QScriptContextInfo* other);
 QScriptContextInfo* QScriptContextInfo_new3();
+
 void QScriptContextInfo_operatorAssign(QScriptContextInfo* self, QScriptContextInfo* other);
 bool QScriptContextInfo_isNull(const QScriptContextInfo* self);
 long long QScriptContextInfo_scriptId(const QScriptContextInfo* self);

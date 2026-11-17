@@ -32,6 +32,7 @@ QTextDocumentWriter* QTextDocumentWriter_new();
 QTextDocumentWriter* QTextDocumentWriter_new2(QIODevice* device, struct seaqt_string format);
 QTextDocumentWriter* QTextDocumentWriter_new3(struct seaqt_string fileName);
 QTextDocumentWriter* QTextDocumentWriter_new4(struct seaqt_string fileName, struct seaqt_string format);
+
 void QTextDocumentWriter_setFormat(QTextDocumentWriter* self, struct seaqt_string format);
 struct seaqt_string QTextDocumentWriter_format(const QTextDocumentWriter* self);
 void QTextDocumentWriter_setDevice(QTextDocumentWriter* self, QIODevice* device);

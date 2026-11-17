@@ -27,6 +27,7 @@ typedef struct QRecursiveMutex QRecursiveMutex;
 #endif
 
 QBasicMutex* QBasicMutex_new();
+
 void QBasicMutex_lock(QBasicMutex* self);
 void QBasicMutex_unlock(QBasicMutex* self);
 bool QBasicMutex_tryLock(QBasicMutex* self);
@@ -38,6 +39,7 @@ void QBasicMutex_delete(QBasicMutex* self);
 
 QMutex* QMutex_new();
 QMutex* QMutex_new2(int mode);
+
 void QMutex_virtbase(QMutex* src, QBasicMutex** outptr_QBasicMutex);
 void QMutex_lock(QMutex* self);
 bool QMutex_tryLock(QMutex* self);
@@ -49,10 +51,12 @@ bool QMutex_tryLockWithTimeout(QMutex* self, int timeout);
 void QMutex_delete(QMutex* self);
 
 QRecursiveMutex* QRecursiveMutex_new();
+
 void QRecursiveMutex_delete(QRecursiveMutex* self);
 
 QMutexLocker* QMutexLocker_new(QBasicMutex* m);
 QMutexLocker* QMutexLocker_new2(QRecursiveMutex* m);
+
 void QMutexLocker_unlock(QMutexLocker* self);
 void QMutexLocker_relock(QMutexLocker* self);
 QMutex* QMutexLocker_mutex(const QMutexLocker* self);

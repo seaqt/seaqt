@@ -33,6 +33,7 @@ typedef struct QVariant QVariant;
 QNetworkRequest* QNetworkRequest_new();
 QNetworkRequest* QNetworkRequest_new2(QUrl* url);
 QNetworkRequest* QNetworkRequest_new3(QNetworkRequest* other);
+
 void QNetworkRequest_operatorAssign(QNetworkRequest* self, QNetworkRequest* other);
 void QNetworkRequest_swap(QNetworkRequest* self, QNetworkRequest* other);
 bool QNetworkRequest_operatorEqual(const QNetworkRequest* self, QNetworkRequest* other);

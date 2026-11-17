@@ -48,10 +48,29 @@ typedef struct QWebEngineUrlRequestInterceptor QWebEngineUrlRequestInterceptor;
 typedef struct QWebEngineUrlSchemeHandler QWebEngineUrlSchemeHandler;
 #endif
 
-QWebEngineProfile* QWebEngineProfile_new();
-QWebEngineProfile* QWebEngineProfile_new2(struct seaqt_string name);
-QWebEngineProfile* QWebEngineProfile_new3(QObject* parent);
-QWebEngineProfile* QWebEngineProfile_new4(struct seaqt_string name, QObject* parent);
+typedef struct VirtualQWebEngineProfile VirtualQWebEngineProfile;
+typedef struct QWebEngineProfile_VTable{
+	void (*destructor)(VirtualQWebEngineProfile* self);
+	QMetaObject* (*metaObject)(const VirtualQWebEngineProfile* self);
+	void* (*metacast)(VirtualQWebEngineProfile* self, const char* param1);
+	int (*metacall)(VirtualQWebEngineProfile* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQWebEngineProfile* self, QEvent* event);
+	bool (*eventFilter)(VirtualQWebEngineProfile* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQWebEngineProfile* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQWebEngineProfile* self, QChildEvent* event);
+	void (*customEvent)(VirtualQWebEngineProfile* self, QEvent* event);
+	void (*connectNotify)(VirtualQWebEngineProfile* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQWebEngineProfile* self, QMetaMethod* signal);
+}QWebEngineProfile_VTable;
+
+void* QWebEngineProfile_vdata(VirtualQWebEngineProfile* self);
+VirtualQWebEngineProfile* vdata_QWebEngineProfile(void* vdata);
+
+VirtualQWebEngineProfile* QWebEngineProfile_new(const QWebEngineProfile_VTable* vtbl, size_t vdata);
+VirtualQWebEngineProfile* QWebEngineProfile_new2(const QWebEngineProfile_VTable* vtbl, size_t vdata, struct seaqt_string name);
+VirtualQWebEngineProfile* QWebEngineProfile_new3(const QWebEngineProfile_VTable* vtbl, size_t vdata, QObject* parent);
+VirtualQWebEngineProfile* QWebEngineProfile_new4(const QWebEngineProfile_VTable* vtbl, size_t vdata, struct seaqt_string name, QObject* parent);
+
 void QWebEngineProfile_virtbase(QWebEngineProfile* src, QObject** outptr_QObject);
 QMetaObject* QWebEngineProfile_metaObject(const QWebEngineProfile* self);
 void* QWebEngineProfile_metacast(QWebEngineProfile* self, const char* param1);
@@ -106,31 +125,21 @@ struct seaqt_string QWebEngineProfile_trUtf82(const char* s, const char* c);
 struct seaqt_string QWebEngineProfile_trUtf83(const char* s, const char* c, int n);
 void QWebEngineProfile_setUseForGlobalCertificateVerificationWithEnabled(QWebEngineProfile* self, bool enabled);
 
-bool QWebEngineProfile_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QWebEngineProfile_virtualbase_metaObject(const void* self);
-bool QWebEngineProfile_override_virtual_metacast(void* self, intptr_t slot);
-void* QWebEngineProfile_virtualbase_metacast(void* self, const char* param1);
-bool QWebEngineProfile_override_virtual_metacall(void* self, intptr_t slot);
-int QWebEngineProfile_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QWebEngineProfile_override_virtual_event(void* self, intptr_t slot);
-bool QWebEngineProfile_virtualbase_event(void* self, QEvent* event);
-bool QWebEngineProfile_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QWebEngineProfile_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QWebEngineProfile_override_virtual_timerEvent(void* self, intptr_t slot);
-void QWebEngineProfile_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QWebEngineProfile_override_virtual_childEvent(void* self, intptr_t slot);
-void QWebEngineProfile_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QWebEngineProfile_override_virtual_customEvent(void* self, intptr_t slot);
-void QWebEngineProfile_virtualbase_customEvent(void* self, QEvent* event);
-bool QWebEngineProfile_override_virtual_connectNotify(void* self, intptr_t slot);
-void QWebEngineProfile_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QWebEngineProfile_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QWebEngineProfile_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QWebEngineProfile_virtualbase_metaObject(const VirtualQWebEngineProfile* self);
+void* QWebEngineProfile_virtualbase_metacast(VirtualQWebEngineProfile* self, const char* param1);
+int QWebEngineProfile_virtualbase_metacall(VirtualQWebEngineProfile* self, int param1, int param2, void** param3);
+bool QWebEngineProfile_virtualbase_event(VirtualQWebEngineProfile* self, QEvent* event);
+bool QWebEngineProfile_virtualbase_eventFilter(VirtualQWebEngineProfile* self, QObject* watched, QEvent* event);
+void QWebEngineProfile_virtualbase_timerEvent(VirtualQWebEngineProfile* self, QTimerEvent* event);
+void QWebEngineProfile_virtualbase_childEvent(VirtualQWebEngineProfile* self, QChildEvent* event);
+void QWebEngineProfile_virtualbase_customEvent(VirtualQWebEngineProfile* self, QEvent* event);
+void QWebEngineProfile_virtualbase_connectNotify(VirtualQWebEngineProfile* self, QMetaMethod* signal);
+void QWebEngineProfile_virtualbase_disconnectNotify(VirtualQWebEngineProfile* self, QMetaMethod* signal);
 
-QObject* QWebEngineProfile_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QWebEngineProfile_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QWebEngineProfile_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QWebEngineProfile_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QWebEngineProfile_protectedbase_sender(const VirtualQWebEngineProfile* self);
+int QWebEngineProfile_protectedbase_senderSignalIndex(const VirtualQWebEngineProfile* self);
+int QWebEngineProfile_protectedbase_receivers(const VirtualQWebEngineProfile* self, const char* signal);
+bool QWebEngineProfile_protectedbase_isSignalConnected(const VirtualQWebEngineProfile* self, QMetaMethod* signal);
 
 const QMetaObject* QWebEngineProfile_staticMetaObject();
 void QWebEngineProfile_delete(QWebEngineProfile* self);

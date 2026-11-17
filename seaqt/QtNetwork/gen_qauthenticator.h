@@ -24,6 +24,7 @@ typedef struct QVariant QVariant;
 
 QAuthenticator* QAuthenticator_new();
 QAuthenticator* QAuthenticator_new2(QAuthenticator* other);
+
 void QAuthenticator_operatorAssign(QAuthenticator* self, QAuthenticator* other);
 bool QAuthenticator_operatorEqual(const QAuthenticator* self, QAuthenticator* other);
 bool QAuthenticator_operatorNotEqual(const QAuthenticator* self, QAuthenticator* other);

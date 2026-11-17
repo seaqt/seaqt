@@ -28,6 +28,7 @@ typedef struct QMetaObject QMetaObject;
 
 QGeoShape* QGeoShape_new();
 QGeoShape* QGeoShape_new2(QGeoShape* other);
+
 int QGeoShape_type(const QGeoShape* self);
 bool QGeoShape_isValid(const QGeoShape* self);
 bool QGeoShape_isEmpty(const QGeoShape* self);

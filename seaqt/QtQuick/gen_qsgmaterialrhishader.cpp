@@ -7,6 +7,17 @@
 #include <qsgmaterialrhishader.h>
 #include "gen_qsgmaterialrhishader.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -74,7 +85,7 @@ void QSGMaterialRhiShader__RenderState_delete(QSGMaterialRhiShader__RenderState*
 }
 
 QSGMaterialRhiShader__GraphicsPipelineState* QSGMaterialRhiShader__GraphicsPipelineState_new(QSGMaterialRhiShader__GraphicsPipelineState* param1) {
-	return new (std::nothrow) QSGMaterialRhiShader::GraphicsPipelineState(*param1);
+	return new (std::nothrow) QSGMaterialRhiShader__GraphicsPipelineState(*param1);
 }
 
 bool QSGMaterialRhiShader__GraphicsPipelineState_blendEnable(const QSGMaterialRhiShader__GraphicsPipelineState* self) {

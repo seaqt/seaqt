@@ -26,6 +26,7 @@ QHstsPolicy* QHstsPolicy_new();
 QHstsPolicy* QHstsPolicy_new2(QDateTime* expiry, int flags, struct seaqt_string host);
 QHstsPolicy* QHstsPolicy_new3(QHstsPolicy* rhs);
 QHstsPolicy* QHstsPolicy_new4(QDateTime* expiry, int flags, struct seaqt_string host, int mode);
+
 void QHstsPolicy_operatorAssign(QHstsPolicy* self, QHstsPolicy* rhs);
 void QHstsPolicy_swap(QHstsPolicy* self, QHstsPolicy* other);
 void QHstsPolicy_setHost(QHstsPolicy* self, struct seaqt_string host);

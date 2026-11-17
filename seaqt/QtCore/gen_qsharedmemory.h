@@ -32,10 +32,29 @@ typedef struct QSharedMemory QSharedMemory;
 typedef struct QTimerEvent QTimerEvent;
 #endif
 
-QSharedMemory* QSharedMemory_new();
-QSharedMemory* QSharedMemory_new2(struct seaqt_string key);
-QSharedMemory* QSharedMemory_new3(QObject* parent);
-QSharedMemory* QSharedMemory_new4(struct seaqt_string key, QObject* parent);
+typedef struct VirtualQSharedMemory VirtualQSharedMemory;
+typedef struct QSharedMemory_VTable{
+	void (*destructor)(VirtualQSharedMemory* self);
+	QMetaObject* (*metaObject)(const VirtualQSharedMemory* self);
+	void* (*metacast)(VirtualQSharedMemory* self, const char* param1);
+	int (*metacall)(VirtualQSharedMemory* self, int param1, int param2, void** param3);
+	bool (*event)(VirtualQSharedMemory* self, QEvent* event);
+	bool (*eventFilter)(VirtualQSharedMemory* self, QObject* watched, QEvent* event);
+	void (*timerEvent)(VirtualQSharedMemory* self, QTimerEvent* event);
+	void (*childEvent)(VirtualQSharedMemory* self, QChildEvent* event);
+	void (*customEvent)(VirtualQSharedMemory* self, QEvent* event);
+	void (*connectNotify)(VirtualQSharedMemory* self, QMetaMethod* signal);
+	void (*disconnectNotify)(VirtualQSharedMemory* self, QMetaMethod* signal);
+}QSharedMemory_VTable;
+
+void* QSharedMemory_vdata(VirtualQSharedMemory* self);
+VirtualQSharedMemory* vdata_QSharedMemory(void* vdata);
+
+VirtualQSharedMemory* QSharedMemory_new(const QSharedMemory_VTable* vtbl, size_t vdata);
+VirtualQSharedMemory* QSharedMemory_new2(const QSharedMemory_VTable* vtbl, size_t vdata, struct seaqt_string key);
+VirtualQSharedMemory* QSharedMemory_new3(const QSharedMemory_VTable* vtbl, size_t vdata, QObject* parent);
+VirtualQSharedMemory* QSharedMemory_new4(const QSharedMemory_VTable* vtbl, size_t vdata, struct seaqt_string key, QObject* parent);
+
 void QSharedMemory_virtbase(QSharedMemory* src, QObject** outptr_QObject);
 QMetaObject* QSharedMemory_metaObject(const QSharedMemory* self);
 void* QSharedMemory_metacast(QSharedMemory* self, const char* param1);
@@ -65,31 +84,21 @@ struct seaqt_string QSharedMemory_trUtf83(const char* s, const char* c, int n);
 bool QSharedMemory_create2(QSharedMemory* self, int size, int mode);
 bool QSharedMemory_attachWithMode(QSharedMemory* self, int mode);
 
-bool QSharedMemory_override_virtual_metaObject(void* self, intptr_t slot);
-QMetaObject* QSharedMemory_virtualbase_metaObject(const void* self);
-bool QSharedMemory_override_virtual_metacast(void* self, intptr_t slot);
-void* QSharedMemory_virtualbase_metacast(void* self, const char* param1);
-bool QSharedMemory_override_virtual_metacall(void* self, intptr_t slot);
-int QSharedMemory_virtualbase_metacall(void* self, int param1, int param2, void** param3);
-bool QSharedMemory_override_virtual_event(void* self, intptr_t slot);
-bool QSharedMemory_virtualbase_event(void* self, QEvent* event);
-bool QSharedMemory_override_virtual_eventFilter(void* self, intptr_t slot);
-bool QSharedMemory_virtualbase_eventFilter(void* self, QObject* watched, QEvent* event);
-bool QSharedMemory_override_virtual_timerEvent(void* self, intptr_t slot);
-void QSharedMemory_virtualbase_timerEvent(void* self, QTimerEvent* event);
-bool QSharedMemory_override_virtual_childEvent(void* self, intptr_t slot);
-void QSharedMemory_virtualbase_childEvent(void* self, QChildEvent* event);
-bool QSharedMemory_override_virtual_customEvent(void* self, intptr_t slot);
-void QSharedMemory_virtualbase_customEvent(void* self, QEvent* event);
-bool QSharedMemory_override_virtual_connectNotify(void* self, intptr_t slot);
-void QSharedMemory_virtualbase_connectNotify(void* self, QMetaMethod* signal);
-bool QSharedMemory_override_virtual_disconnectNotify(void* self, intptr_t slot);
-void QSharedMemory_virtualbase_disconnectNotify(void* self, QMetaMethod* signal);
+QMetaObject* QSharedMemory_virtualbase_metaObject(const VirtualQSharedMemory* self);
+void* QSharedMemory_virtualbase_metacast(VirtualQSharedMemory* self, const char* param1);
+int QSharedMemory_virtualbase_metacall(VirtualQSharedMemory* self, int param1, int param2, void** param3);
+bool QSharedMemory_virtualbase_event(VirtualQSharedMemory* self, QEvent* event);
+bool QSharedMemory_virtualbase_eventFilter(VirtualQSharedMemory* self, QObject* watched, QEvent* event);
+void QSharedMemory_virtualbase_timerEvent(VirtualQSharedMemory* self, QTimerEvent* event);
+void QSharedMemory_virtualbase_childEvent(VirtualQSharedMemory* self, QChildEvent* event);
+void QSharedMemory_virtualbase_customEvent(VirtualQSharedMemory* self, QEvent* event);
+void QSharedMemory_virtualbase_connectNotify(VirtualQSharedMemory* self, QMetaMethod* signal);
+void QSharedMemory_virtualbase_disconnectNotify(VirtualQSharedMemory* self, QMetaMethod* signal);
 
-QObject* QSharedMemory_protectedbase_sender(bool* _dynamic_cast_ok, const void* self);
-int QSharedMemory_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* self);
-int QSharedMemory_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
-bool QSharedMemory_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
+QObject* QSharedMemory_protectedbase_sender(const VirtualQSharedMemory* self);
+int QSharedMemory_protectedbase_senderSignalIndex(const VirtualQSharedMemory* self);
+int QSharedMemory_protectedbase_receivers(const VirtualQSharedMemory* self, const char* signal);
+bool QSharedMemory_protectedbase_isSignalConnected(const VirtualQSharedMemory* self, QMetaMethod* signal);
 
 const QMetaObject* QSharedMemory_staticMetaObject();
 void QSharedMemory_delete(QSharedMemory* self);

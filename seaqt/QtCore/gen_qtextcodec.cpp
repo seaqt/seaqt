@@ -11,6 +11,17 @@
 #include <qtextcodec.h>
 #include "gen_qtextcodec.h"
 
+#ifndef SEAQT_ALIGNED_SIZEOF
+#define SEAQT_ALIGNED_SIZEOF 1
+#include <cstddef>
+template<typename T>
+static constexpr std::size_t seaqt_aligned_sizeof() {
+	constexpr auto alignment = sizeof(std::max_align_t);
+	return (sizeof(T) + alignment - 1) & ~(alignment - 1);
+}
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -299,11 +310,11 @@ void QTextDecoder_delete(QTextDecoder* self) {
 }
 
 QTextCodec__ConverterState* QTextCodec__ConverterState_new() {
-	return new (std::nothrow) QTextCodec::ConverterState();
+	return new (std::nothrow) QTextCodec__ConverterState();
 }
 
 QTextCodec__ConverterState* QTextCodec__ConverterState_new2(int f) {
-	return new (std::nothrow) QTextCodec::ConverterState(static_cast<QTextCodec::ConversionFlags>(f));
+	return new (std::nothrow) QTextCodec__ConverterState(static_cast<QTextCodec::ConversionFlags>(f));
 }
 
 int QTextCodec__ConverterState_flags(const QTextCodec__ConverterState* self) {
