@@ -15,7 +15,6 @@
 #include "gen_qsgimagenode.cpp"
 #include "gen_qsgmaterial.cpp"
 #include "gen_qsgmaterialshader.cpp"
-#include "gen_qsgmaterialtype.cpp"
 #include "gen_qsgninepatchnode.cpp"
 #include "gen_qsgnode.cpp"
 #include "gen_qsgrectanglenode.cpp"

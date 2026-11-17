@@ -21,8 +21,6 @@
 #include "gen_qnetworkreply.cpp"
 #include "gen_qnetworkrequest.cpp"
 #include "gen_qocspresponse.cpp"
-#include "gen_qsctpserver.cpp"
-#include "gen_qsctpsocket.cpp"
 #include "gen_qssl.cpp"
 #include "gen_qsslcertificate.cpp"
 #include "gen_qsslcertificateextension.cpp"
