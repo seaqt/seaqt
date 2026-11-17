@@ -18,15 +18,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 unsigned char QIPv6Address_operatorSubscript(const QIPv6Address* self, int index) {
 	quint8 _ret = self->operator[](static_cast<int>(index));
 	return static_cast<unsigned char>(_ret);

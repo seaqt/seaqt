@@ -72,7 +72,7 @@ void QDesignerMetaDataBaseInterface_add(QDesignerMetaDataBaseInterface* self, QO
 void QDesignerMetaDataBaseInterface_remove(QDesignerMetaDataBaseInterface* self, QObject* object);
 struct seaqt_array /* of QObject* */  QDesignerMetaDataBaseInterface_objects(const QDesignerMetaDataBaseInterface* self);
 void QDesignerMetaDataBaseInterface_changed(QDesignerMetaDataBaseInterface* self);
-void QDesignerMetaDataBaseInterface_connect_changed(QDesignerMetaDataBaseInterface* self, intptr_t slot);
+void QDesignerMetaDataBaseInterface_connect_changed(QDesignerMetaDataBaseInterface* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 struct seaqt_string QDesignerMetaDataBaseInterface_tr2(const char* s, const char* c);
 struct seaqt_string QDesignerMetaDataBaseInterface_tr3(const char* s, const char* c, int n);
 

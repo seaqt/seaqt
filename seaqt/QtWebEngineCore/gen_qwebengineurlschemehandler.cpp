@@ -22,15 +22,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQWebEngineUrlSchemeHandler final : public QWebEngineUrlSchemeHandler {
 	const QWebEngineUrlSchemeHandler_VTable* vtbl;
 public:

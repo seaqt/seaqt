@@ -24,17 +24,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QSignalTransition_senderObjectChanged(intptr_t);
-void miqt_exec_callback_QSignalTransition_signalChanged(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQSignalTransition final : public QSignalTransition {
 	const QSignalTransition_VTable* vtbl;
 public:

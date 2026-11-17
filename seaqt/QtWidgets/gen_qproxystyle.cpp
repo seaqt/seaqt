@@ -36,15 +36,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQProxyStyle final : public QProxyStyle {
 	const QProxyStyle_VTable* vtbl;
 public:

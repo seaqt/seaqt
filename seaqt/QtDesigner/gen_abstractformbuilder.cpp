@@ -23,15 +23,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQAbstractFormBuilder final : public QAbstractFormBuilder {
 	const QAbstractFormBuilder_VTable* vtbl;
 public:

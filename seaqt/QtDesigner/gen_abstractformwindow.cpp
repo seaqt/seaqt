@@ -26,29 +26,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QDesignerFormWindowInterface_mainContainerChanged(intptr_t, QWidget*);
-void miqt_exec_callback_QDesignerFormWindowInterface_toolChanged(intptr_t, int);
-void miqt_exec_callback_QDesignerFormWindowInterface_fileNameChanged(intptr_t, struct seaqt_string);
-void miqt_exec_callback_QDesignerFormWindowInterface_featureChanged(intptr_t, int);
-void miqt_exec_callback_QDesignerFormWindowInterface_selectionChanged(intptr_t);
-void miqt_exec_callback_QDesignerFormWindowInterface_geometryChanged(intptr_t);
-void miqt_exec_callback_QDesignerFormWindowInterface_resourceFilesChanged(intptr_t);
-void miqt_exec_callback_QDesignerFormWindowInterface_widgetManaged(intptr_t, QWidget*);
-void miqt_exec_callback_QDesignerFormWindowInterface_widgetUnmanaged(intptr_t, QWidget*);
-void miqt_exec_callback_QDesignerFormWindowInterface_aboutToUnmanageWidget(intptr_t, QWidget*);
-void miqt_exec_callback_QDesignerFormWindowInterface_activated(intptr_t, QWidget*);
-void miqt_exec_callback_QDesignerFormWindowInterface_changed(intptr_t);
-void miqt_exec_callback_QDesignerFormWindowInterface_widgetRemoved(intptr_t, QWidget*);
-void miqt_exec_callback_QDesignerFormWindowInterface_objectRemoved(intptr_t, QObject*);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QDesignerFormWindowInterface_virtbase(QDesignerFormWindowInterface* src, QWidget** outptr_QWidget) {
 	*outptr_QWidget = static_cast<QWidget*>(src);
 }
@@ -443,22 +420,32 @@ void QDesignerFormWindowInterface_mainContainerChanged(QDesignerFormWindowInterf
 	self->mainContainerChanged(mainContainer);
 }
 
-void QDesignerFormWindowInterface_connect_mainContainerChanged(QDesignerFormWindowInterface* self, intptr_t slot) {
-	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QWidget*)>(&QDesignerFormWindowInterface::mainContainerChanged), self, [=](QWidget* mainContainer) {
-		QWidget* sigval1 = mainContainer;
-		miqt_exec_callback_QDesignerFormWindowInterface_mainContainerChanged(slot, sigval1);
-	});
+void QDesignerFormWindowInterface_connect_mainContainerChanged(QDesignerFormWindowInterface* self, intptr_t slot, void (*callback)(intptr_t, QWidget*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QWidget*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QWidget*);
+		void operator()(QWidget* mainContainer) {
+			QWidget* sigval1 = mainContainer;
+			callback(slot, sigval1);
+		}
+	};
+	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QWidget*)>(&QDesignerFormWindowInterface::mainContainerChanged), self, local_caller{slot, callback, release});
 }
 
 void QDesignerFormWindowInterface_toolChanged(QDesignerFormWindowInterface* self, int toolIndex) {
 	self->toolChanged(static_cast<int>(toolIndex));
 }
 
-void QDesignerFormWindowInterface_connect_toolChanged(QDesignerFormWindowInterface* self, intptr_t slot) {
-	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(int)>(&QDesignerFormWindowInterface::toolChanged), self, [=](int toolIndex) {
-		int sigval1 = toolIndex;
-		miqt_exec_callback_QDesignerFormWindowInterface_toolChanged(slot, sigval1);
-	});
+void QDesignerFormWindowInterface_connect_toolChanged(QDesignerFormWindowInterface* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(int toolIndex) {
+			int sigval1 = toolIndex;
+			callback(slot, sigval1);
+		}
+	};
+	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(int)>(&QDesignerFormWindowInterface::toolChanged), self, local_caller{slot, callback, release});
 }
 
 void QDesignerFormWindowInterface_fileNameChanged(QDesignerFormWindowInterface* self, struct seaqt_string fileName) {
@@ -466,136 +453,196 @@ void QDesignerFormWindowInterface_fileNameChanged(QDesignerFormWindowInterface* 
 	self->fileNameChanged(fileName_QString);
 }
 
-void QDesignerFormWindowInterface_connect_fileNameChanged(QDesignerFormWindowInterface* self, intptr_t slot) {
-	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(const QString&)>(&QDesignerFormWindowInterface::fileNameChanged), self, [=](const QString& fileName) {
-		const QString fileName_ret = fileName;
-		// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-		QByteArray fileName_b = fileName_ret.toUtf8();
-		struct seaqt_string fileName_ms;
-		fileName_ms.len = fileName_b.length();
-		fileName_ms.data = static_cast<char*>(malloc(fileName_ms.len));
-		memcpy(fileName_ms.data, fileName_b.data(), fileName_ms.len);
-		struct seaqt_string sigval1 = fileName_ms;
-		miqt_exec_callback_QDesignerFormWindowInterface_fileNameChanged(slot, sigval1);
-	});
+void QDesignerFormWindowInterface_connect_fileNameChanged(QDesignerFormWindowInterface* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_string), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, struct seaqt_string), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, struct seaqt_string);
+		void operator()(const QString& fileName) {
+			const QString fileName_ret = fileName;
+			// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
+			QByteArray fileName_b = fileName_ret.toUtf8();
+			struct seaqt_string fileName_ms;
+			fileName_ms.len = fileName_b.length();
+			fileName_ms.data = static_cast<char*>(malloc(fileName_ms.len));
+			memcpy(fileName_ms.data, fileName_b.data(), fileName_ms.len);
+			struct seaqt_string sigval1 = fileName_ms;
+			callback(slot, sigval1);
+		}
+	};
+	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(const QString&)>(&QDesignerFormWindowInterface::fileNameChanged), self, local_caller{slot, callback, release});
 }
 
 void QDesignerFormWindowInterface_featureChanged(QDesignerFormWindowInterface* self, int f) {
 	self->featureChanged(static_cast<QDesignerFormWindowInterface::Feature>(f));
 }
 
-void QDesignerFormWindowInterface_connect_featureChanged(QDesignerFormWindowInterface* self, intptr_t slot) {
-	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QDesignerFormWindowInterface::Feature)>(&QDesignerFormWindowInterface::featureChanged), self, [=](QDesignerFormWindowInterface::Feature f) {
-		QDesignerFormWindowInterface::Feature f_ret = f;
-		int sigval1 = static_cast<int>(f_ret);
-		miqt_exec_callback_QDesignerFormWindowInterface_featureChanged(slot, sigval1);
-	});
+void QDesignerFormWindowInterface_connect_featureChanged(QDesignerFormWindowInterface* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(QDesignerFormWindowInterface::Feature f) {
+			QDesignerFormWindowInterface::Feature f_ret = f;
+			int sigval1 = static_cast<int>(f_ret);
+			callback(slot, sigval1);
+		}
+	};
+	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QDesignerFormWindowInterface::Feature)>(&QDesignerFormWindowInterface::featureChanged), self, local_caller{slot, callback, release});
 }
 
 void QDesignerFormWindowInterface_selectionChanged(QDesignerFormWindowInterface* self) {
 	self->selectionChanged();
 }
 
-void QDesignerFormWindowInterface_connect_selectionChanged(QDesignerFormWindowInterface* self, intptr_t slot) {
-	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)()>(&QDesignerFormWindowInterface::selectionChanged), self, [=]() {
-		miqt_exec_callback_QDesignerFormWindowInterface_selectionChanged(slot);
-	});
+void QDesignerFormWindowInterface_connect_selectionChanged(QDesignerFormWindowInterface* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)()>(&QDesignerFormWindowInterface::selectionChanged), self, local_caller{slot, callback, release});
 }
 
 void QDesignerFormWindowInterface_geometryChanged(QDesignerFormWindowInterface* self) {
 	self->geometryChanged();
 }
 
-void QDesignerFormWindowInterface_connect_geometryChanged(QDesignerFormWindowInterface* self, intptr_t slot) {
-	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)()>(&QDesignerFormWindowInterface::geometryChanged), self, [=]() {
-		miqt_exec_callback_QDesignerFormWindowInterface_geometryChanged(slot);
-	});
+void QDesignerFormWindowInterface_connect_geometryChanged(QDesignerFormWindowInterface* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)()>(&QDesignerFormWindowInterface::geometryChanged), self, local_caller{slot, callback, release});
 }
 
 void QDesignerFormWindowInterface_resourceFilesChanged(QDesignerFormWindowInterface* self) {
 	self->resourceFilesChanged();
 }
 
-void QDesignerFormWindowInterface_connect_resourceFilesChanged(QDesignerFormWindowInterface* self, intptr_t slot) {
-	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)()>(&QDesignerFormWindowInterface::resourceFilesChanged), self, [=]() {
-		miqt_exec_callback_QDesignerFormWindowInterface_resourceFilesChanged(slot);
-	});
+void QDesignerFormWindowInterface_connect_resourceFilesChanged(QDesignerFormWindowInterface* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)()>(&QDesignerFormWindowInterface::resourceFilesChanged), self, local_caller{slot, callback, release});
 }
 
 void QDesignerFormWindowInterface_widgetManaged(QDesignerFormWindowInterface* self, QWidget* widget) {
 	self->widgetManaged(widget);
 }
 
-void QDesignerFormWindowInterface_connect_widgetManaged(QDesignerFormWindowInterface* self, intptr_t slot) {
-	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QWidget*)>(&QDesignerFormWindowInterface::widgetManaged), self, [=](QWidget* widget) {
-		QWidget* sigval1 = widget;
-		miqt_exec_callback_QDesignerFormWindowInterface_widgetManaged(slot, sigval1);
-	});
+void QDesignerFormWindowInterface_connect_widgetManaged(QDesignerFormWindowInterface* self, intptr_t slot, void (*callback)(intptr_t, QWidget*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QWidget*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QWidget*);
+		void operator()(QWidget* widget) {
+			QWidget* sigval1 = widget;
+			callback(slot, sigval1);
+		}
+	};
+	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QWidget*)>(&QDesignerFormWindowInterface::widgetManaged), self, local_caller{slot, callback, release});
 }
 
 void QDesignerFormWindowInterface_widgetUnmanaged(QDesignerFormWindowInterface* self, QWidget* widget) {
 	self->widgetUnmanaged(widget);
 }
 
-void QDesignerFormWindowInterface_connect_widgetUnmanaged(QDesignerFormWindowInterface* self, intptr_t slot) {
-	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QWidget*)>(&QDesignerFormWindowInterface::widgetUnmanaged), self, [=](QWidget* widget) {
-		QWidget* sigval1 = widget;
-		miqt_exec_callback_QDesignerFormWindowInterface_widgetUnmanaged(slot, sigval1);
-	});
+void QDesignerFormWindowInterface_connect_widgetUnmanaged(QDesignerFormWindowInterface* self, intptr_t slot, void (*callback)(intptr_t, QWidget*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QWidget*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QWidget*);
+		void operator()(QWidget* widget) {
+			QWidget* sigval1 = widget;
+			callback(slot, sigval1);
+		}
+	};
+	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QWidget*)>(&QDesignerFormWindowInterface::widgetUnmanaged), self, local_caller{slot, callback, release});
 }
 
 void QDesignerFormWindowInterface_aboutToUnmanageWidget(QDesignerFormWindowInterface* self, QWidget* widget) {
 	self->aboutToUnmanageWidget(widget);
 }
 
-void QDesignerFormWindowInterface_connect_aboutToUnmanageWidget(QDesignerFormWindowInterface* self, intptr_t slot) {
-	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QWidget*)>(&QDesignerFormWindowInterface::aboutToUnmanageWidget), self, [=](QWidget* widget) {
-		QWidget* sigval1 = widget;
-		miqt_exec_callback_QDesignerFormWindowInterface_aboutToUnmanageWidget(slot, sigval1);
-	});
+void QDesignerFormWindowInterface_connect_aboutToUnmanageWidget(QDesignerFormWindowInterface* self, intptr_t slot, void (*callback)(intptr_t, QWidget*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QWidget*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QWidget*);
+		void operator()(QWidget* widget) {
+			QWidget* sigval1 = widget;
+			callback(slot, sigval1);
+		}
+	};
+	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QWidget*)>(&QDesignerFormWindowInterface::aboutToUnmanageWidget), self, local_caller{slot, callback, release});
 }
 
 void QDesignerFormWindowInterface_activated(QDesignerFormWindowInterface* self, QWidget* widget) {
 	self->activated(widget);
 }
 
-void QDesignerFormWindowInterface_connect_activated(QDesignerFormWindowInterface* self, intptr_t slot) {
-	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QWidget*)>(&QDesignerFormWindowInterface::activated), self, [=](QWidget* widget) {
-		QWidget* sigval1 = widget;
-		miqt_exec_callback_QDesignerFormWindowInterface_activated(slot, sigval1);
-	});
+void QDesignerFormWindowInterface_connect_activated(QDesignerFormWindowInterface* self, intptr_t slot, void (*callback)(intptr_t, QWidget*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QWidget*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QWidget*);
+		void operator()(QWidget* widget) {
+			QWidget* sigval1 = widget;
+			callback(slot, sigval1);
+		}
+	};
+	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QWidget*)>(&QDesignerFormWindowInterface::activated), self, local_caller{slot, callback, release});
 }
 
 void QDesignerFormWindowInterface_changed(QDesignerFormWindowInterface* self) {
 	self->changed();
 }
 
-void QDesignerFormWindowInterface_connect_changed(QDesignerFormWindowInterface* self, intptr_t slot) {
-	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)()>(&QDesignerFormWindowInterface::changed), self, [=]() {
-		miqt_exec_callback_QDesignerFormWindowInterface_changed(slot);
-	});
+void QDesignerFormWindowInterface_connect_changed(QDesignerFormWindowInterface* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)()>(&QDesignerFormWindowInterface::changed), self, local_caller{slot, callback, release});
 }
 
 void QDesignerFormWindowInterface_widgetRemoved(QDesignerFormWindowInterface* self, QWidget* w) {
 	self->widgetRemoved(w);
 }
 
-void QDesignerFormWindowInterface_connect_widgetRemoved(QDesignerFormWindowInterface* self, intptr_t slot) {
-	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QWidget*)>(&QDesignerFormWindowInterface::widgetRemoved), self, [=](QWidget* w) {
-		QWidget* sigval1 = w;
-		miqt_exec_callback_QDesignerFormWindowInterface_widgetRemoved(slot, sigval1);
-	});
+void QDesignerFormWindowInterface_connect_widgetRemoved(QDesignerFormWindowInterface* self, intptr_t slot, void (*callback)(intptr_t, QWidget*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QWidget*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QWidget*);
+		void operator()(QWidget* w) {
+			QWidget* sigval1 = w;
+			callback(slot, sigval1);
+		}
+	};
+	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QWidget*)>(&QDesignerFormWindowInterface::widgetRemoved), self, local_caller{slot, callback, release});
 }
 
 void QDesignerFormWindowInterface_objectRemoved(QDesignerFormWindowInterface* self, QObject* o) {
 	self->objectRemoved(o);
 }
 
-void QDesignerFormWindowInterface_connect_objectRemoved(QDesignerFormWindowInterface* self, intptr_t slot) {
-	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QObject*)>(&QDesignerFormWindowInterface::objectRemoved), self, [=](QObject* o) {
-		QObject* sigval1 = o;
-		miqt_exec_callback_QDesignerFormWindowInterface_objectRemoved(slot, sigval1);
-	});
+void QDesignerFormWindowInterface_connect_objectRemoved(QDesignerFormWindowInterface* self, intptr_t slot, void (*callback)(intptr_t, QObject*), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, QObject*), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, QObject*);
+		void operator()(QObject* o) {
+			QObject* sigval1 = o;
+			callback(slot, sigval1);
+		}
+	};
+	QDesignerFormWindowInterface::connect(self, static_cast<void (QDesignerFormWindowInterface::*)(QObject*)>(&QDesignerFormWindowInterface::objectRemoved), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QDesignerFormWindowInterface_tr2(const char* s, const char* c) {

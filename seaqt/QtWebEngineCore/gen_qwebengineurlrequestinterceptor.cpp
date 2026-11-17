@@ -22,15 +22,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQWebEngineUrlRequestInterceptor final : public QWebEngineUrlRequestInterceptor {
 	const QWebEngineUrlRequestInterceptor_VTable* vtbl;
 public:

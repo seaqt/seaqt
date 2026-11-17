@@ -173,7 +173,7 @@ int QDesignerWidgetDataBaseInterface_indexOfClassName(const QDesignerWidgetDataB
 bool QDesignerWidgetDataBaseInterface_isContainer(const QDesignerWidgetDataBaseInterface* self, QObject* object);
 bool QDesignerWidgetDataBaseInterface_isCustom(const QDesignerWidgetDataBaseInterface* self, QObject* object);
 void QDesignerWidgetDataBaseInterface_changed(QDesignerWidgetDataBaseInterface* self);
-void QDesignerWidgetDataBaseInterface_connect_changed(QDesignerWidgetDataBaseInterface* self, intptr_t slot);
+void QDesignerWidgetDataBaseInterface_connect_changed(QDesignerWidgetDataBaseInterface* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 struct seaqt_string QDesignerWidgetDataBaseInterface_tr2(const char* s, const char* c);
 struct seaqt_string QDesignerWidgetDataBaseInterface_tr3(const char* s, const char* c, int n);
 bool QDesignerWidgetDataBaseInterface_isContainer2(const QDesignerWidgetDataBaseInterface* self, QObject* object, bool resolveName);

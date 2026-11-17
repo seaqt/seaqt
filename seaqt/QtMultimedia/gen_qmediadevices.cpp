@@ -24,18 +24,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QMediaDevices_audioInputsChanged(intptr_t);
-void miqt_exec_callback_QMediaDevices_audioOutputsChanged(intptr_t);
-void miqt_exec_callback_QMediaDevices_videoInputsChanged(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQMediaDevices final : public QMediaDevices {
 	const QMediaDevices_VTable* vtbl;
 public:
@@ -274,30 +262,45 @@ void QMediaDevices_audioInputsChanged(QMediaDevices* self) {
 	self->audioInputsChanged();
 }
 
-void QMediaDevices_connect_audioInputsChanged(QMediaDevices* self, intptr_t slot) {
-	QMediaDevices::connect(self, static_cast<void (QMediaDevices::*)()>(&QMediaDevices::audioInputsChanged), self, [=]() {
-		miqt_exec_callback_QMediaDevices_audioInputsChanged(slot);
-	});
+void QMediaDevices_connect_audioInputsChanged(QMediaDevices* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QMediaDevices::connect(self, static_cast<void (QMediaDevices::*)()>(&QMediaDevices::audioInputsChanged), self, local_caller{slot, callback, release});
 }
 
 void QMediaDevices_audioOutputsChanged(QMediaDevices* self) {
 	self->audioOutputsChanged();
 }
 
-void QMediaDevices_connect_audioOutputsChanged(QMediaDevices* self, intptr_t slot) {
-	QMediaDevices::connect(self, static_cast<void (QMediaDevices::*)()>(&QMediaDevices::audioOutputsChanged), self, [=]() {
-		miqt_exec_callback_QMediaDevices_audioOutputsChanged(slot);
-	});
+void QMediaDevices_connect_audioOutputsChanged(QMediaDevices* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QMediaDevices::connect(self, static_cast<void (QMediaDevices::*)()>(&QMediaDevices::audioOutputsChanged), self, local_caller{slot, callback, release});
 }
 
 void QMediaDevices_videoInputsChanged(QMediaDevices* self) {
 	self->videoInputsChanged();
 }
 
-void QMediaDevices_connect_videoInputsChanged(QMediaDevices* self, intptr_t slot) {
-	QMediaDevices::connect(self, static_cast<void (QMediaDevices::*)()>(&QMediaDevices::videoInputsChanged), self, [=]() {
-		miqt_exec_callback_QMediaDevices_videoInputsChanged(slot);
-	});
+void QMediaDevices_connect_videoInputsChanged(QMediaDevices* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QMediaDevices::connect(self, static_cast<void (QMediaDevices::*)()>(&QMediaDevices::videoInputsChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QMediaDevices_tr2(const char* s, const char* c) {

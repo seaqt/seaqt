@@ -22,19 +22,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QTimeLine_valueChanged(intptr_t, double);
-void miqt_exec_callback_QTimeLine_frameChanged(intptr_t, int);
-void miqt_exec_callback_QTimeLine_stateChanged(intptr_t, int);
-void miqt_exec_callback_QTimeLine_finished(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQTimeLine final : public QTimeLine {
 	const QTimeLine_VTable* vtbl;
 public:

@@ -14,15 +14,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QCborStreamWriter* QCborStreamWriter_new(QIODevice* device) {
 	return new (std::nothrow) QCborStreamWriter(device);
 }

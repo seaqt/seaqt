@@ -16,15 +16,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QFontInfo* QFontInfo_new(QFont* param1) {
 	return new (std::nothrow) QFontInfo(*param1);
 }

@@ -85,11 +85,11 @@ void QGeoSatelliteInfoSource_startUpdates(QGeoSatelliteInfoSource* self);
 void QGeoSatelliteInfoSource_stopUpdates(QGeoSatelliteInfoSource* self);
 void QGeoSatelliteInfoSource_requestUpdate(QGeoSatelliteInfoSource* self, int timeout);
 void QGeoSatelliteInfoSource_satellitesInViewUpdated(QGeoSatelliteInfoSource* self, struct seaqt_array /* of QGeoSatelliteInfo* */  satellites);
-void QGeoSatelliteInfoSource_connect_satellitesInViewUpdated(QGeoSatelliteInfoSource* self, intptr_t slot);
+void QGeoSatelliteInfoSource_connect_satellitesInViewUpdated(QGeoSatelliteInfoSource* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_array /* of QGeoSatelliteInfo* */ ), void (*release)(intptr_t));
 void QGeoSatelliteInfoSource_satellitesInUseUpdated(QGeoSatelliteInfoSource* self, struct seaqt_array /* of QGeoSatelliteInfo* */  satellites);
-void QGeoSatelliteInfoSource_connect_satellitesInUseUpdated(QGeoSatelliteInfoSource* self, intptr_t slot);
+void QGeoSatelliteInfoSource_connect_satellitesInUseUpdated(QGeoSatelliteInfoSource* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_array /* of QGeoSatelliteInfo* */ ), void (*release)(intptr_t));
 void QGeoSatelliteInfoSource_errorOccurred(QGeoSatelliteInfoSource* self, int param1);
-void QGeoSatelliteInfoSource_connect_errorOccurred(QGeoSatelliteInfoSource* self, intptr_t slot);
+void QGeoSatelliteInfoSource_connect_errorOccurred(QGeoSatelliteInfoSource* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t));
 struct seaqt_string QGeoSatelliteInfoSource_tr2(const char* s, const char* c);
 struct seaqt_string QGeoSatelliteInfoSource_tr3(const char* s, const char* c, int n);
 

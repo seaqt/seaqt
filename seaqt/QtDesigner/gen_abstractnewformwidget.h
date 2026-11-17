@@ -37,9 +37,9 @@ int QDesignerNewFormWidgetInterface_metacall(QDesignerNewFormWidgetInterface* se
 struct seaqt_string QDesignerNewFormWidgetInterface_tr(const char* s);
 bool QDesignerNewFormWidgetInterface_hasCurrentTemplate(const QDesignerNewFormWidgetInterface* self);
 void QDesignerNewFormWidgetInterface_templateActivated(QDesignerNewFormWidgetInterface* self);
-void QDesignerNewFormWidgetInterface_connect_templateActivated(QDesignerNewFormWidgetInterface* self, intptr_t slot);
+void QDesignerNewFormWidgetInterface_connect_templateActivated(QDesignerNewFormWidgetInterface* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 void QDesignerNewFormWidgetInterface_currentTemplateChanged(QDesignerNewFormWidgetInterface* self, bool templateSelected);
-void QDesignerNewFormWidgetInterface_connect_currentTemplateChanged(QDesignerNewFormWidgetInterface* self, intptr_t slot);
+void QDesignerNewFormWidgetInterface_connect_currentTemplateChanged(QDesignerNewFormWidgetInterface* self, intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t));
 struct seaqt_string QDesignerNewFormWidgetInterface_tr2(const char* s, const char* c);
 struct seaqt_string QDesignerNewFormWidgetInterface_tr3(const char* s, const char* c, int n);
 

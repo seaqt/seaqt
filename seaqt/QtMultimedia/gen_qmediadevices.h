@@ -69,11 +69,11 @@ QAudioDevice* QMediaDevices_defaultAudioInput();
 QAudioDevice* QMediaDevices_defaultAudioOutput();
 QCameraDevice* QMediaDevices_defaultVideoInput();
 void QMediaDevices_audioInputsChanged(QMediaDevices* self);
-void QMediaDevices_connect_audioInputsChanged(QMediaDevices* self, intptr_t slot);
+void QMediaDevices_connect_audioInputsChanged(QMediaDevices* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 void QMediaDevices_audioOutputsChanged(QMediaDevices* self);
-void QMediaDevices_connect_audioOutputsChanged(QMediaDevices* self, intptr_t slot);
+void QMediaDevices_connect_audioOutputsChanged(QMediaDevices* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 void QMediaDevices_videoInputsChanged(QMediaDevices* self);
-void QMediaDevices_connect_videoInputsChanged(QMediaDevices* self, intptr_t slot);
+void QMediaDevices_connect_videoInputsChanged(QMediaDevices* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 struct seaqt_string QMediaDevices_tr2(const char* s, const char* c);
 struct seaqt_string QMediaDevices_tr3(const char* s, const char* c, int n);
 

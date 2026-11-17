@@ -14,15 +14,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQDesignerTaskMenuExtension final : public QDesignerTaskMenuExtension {
 	const QDesignerTaskMenuExtension_VTable* vtbl;
 public:

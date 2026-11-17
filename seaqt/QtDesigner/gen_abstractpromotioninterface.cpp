@@ -19,15 +19,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 struct seaqt_array /* of QDesignerPromotionInterface__PromotedClass* */  QDesignerPromotionInterface_promotedClasses(const QDesignerPromotionInterface* self) {
 	QDesignerPromotionInterface::PromotedClasses _ret = self->promotedClasses();
 	// Convert QList<> from C++ memory to manually-managed C memory

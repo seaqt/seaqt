@@ -51,15 +51,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQAbstractPrintDialog final : public QAbstractPrintDialog {
 	const QAbstractPrintDialog_VTable* vtbl;
 public:

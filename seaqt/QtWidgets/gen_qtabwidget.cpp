@@ -51,19 +51,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QTabWidget_currentChanged(intptr_t, int);
-void miqt_exec_callback_QTabWidget_tabCloseRequested(intptr_t, int);
-void miqt_exec_callback_QTabWidget_tabBarClicked(intptr_t, int);
-void miqt_exec_callback_QTabWidget_tabBarDoubleClicked(intptr_t, int);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQTabWidget final : public QTabWidget {
 	const QTabWidget_VTable* vtbl;
 public:
@@ -1008,44 +995,64 @@ void QTabWidget_currentChanged(QTabWidget* self, int index) {
 	self->currentChanged(static_cast<int>(index));
 }
 
-void QTabWidget_connect_currentChanged(QTabWidget* self, intptr_t slot) {
-	QTabWidget::connect(self, static_cast<void (QTabWidget::*)(int)>(&QTabWidget::currentChanged), self, [=](int index) {
-		int sigval1 = index;
-		miqt_exec_callback_QTabWidget_currentChanged(slot, sigval1);
-	});
+void QTabWidget_connect_currentChanged(QTabWidget* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(int index) {
+			int sigval1 = index;
+			callback(slot, sigval1);
+		}
+	};
+	QTabWidget::connect(self, static_cast<void (QTabWidget::*)(int)>(&QTabWidget::currentChanged), self, local_caller{slot, callback, release});
 }
 
 void QTabWidget_tabCloseRequested(QTabWidget* self, int index) {
 	self->tabCloseRequested(static_cast<int>(index));
 }
 
-void QTabWidget_connect_tabCloseRequested(QTabWidget* self, intptr_t slot) {
-	QTabWidget::connect(self, static_cast<void (QTabWidget::*)(int)>(&QTabWidget::tabCloseRequested), self, [=](int index) {
-		int sigval1 = index;
-		miqt_exec_callback_QTabWidget_tabCloseRequested(slot, sigval1);
-	});
+void QTabWidget_connect_tabCloseRequested(QTabWidget* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(int index) {
+			int sigval1 = index;
+			callback(slot, sigval1);
+		}
+	};
+	QTabWidget::connect(self, static_cast<void (QTabWidget::*)(int)>(&QTabWidget::tabCloseRequested), self, local_caller{slot, callback, release});
 }
 
 void QTabWidget_tabBarClicked(QTabWidget* self, int index) {
 	self->tabBarClicked(static_cast<int>(index));
 }
 
-void QTabWidget_connect_tabBarClicked(QTabWidget* self, intptr_t slot) {
-	QTabWidget::connect(self, static_cast<void (QTabWidget::*)(int)>(&QTabWidget::tabBarClicked), self, [=](int index) {
-		int sigval1 = index;
-		miqt_exec_callback_QTabWidget_tabBarClicked(slot, sigval1);
-	});
+void QTabWidget_connect_tabBarClicked(QTabWidget* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(int index) {
+			int sigval1 = index;
+			callback(slot, sigval1);
+		}
+	};
+	QTabWidget::connect(self, static_cast<void (QTabWidget::*)(int)>(&QTabWidget::tabBarClicked), self, local_caller{slot, callback, release});
 }
 
 void QTabWidget_tabBarDoubleClicked(QTabWidget* self, int index) {
 	self->tabBarDoubleClicked(static_cast<int>(index));
 }
 
-void QTabWidget_connect_tabBarDoubleClicked(QTabWidget* self, intptr_t slot) {
-	QTabWidget::connect(self, static_cast<void (QTabWidget::*)(int)>(&QTabWidget::tabBarDoubleClicked), self, [=](int index) {
-		int sigval1 = index;
-		miqt_exec_callback_QTabWidget_tabBarDoubleClicked(slot, sigval1);
-	});
+void QTabWidget_connect_tabBarDoubleClicked(QTabWidget* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(int index) {
+			int sigval1 = index;
+			callback(slot, sigval1);
+		}
+	};
+	QTabWidget::connect(self, static_cast<void (QTabWidget::*)(int)>(&QTabWidget::tabBarDoubleClicked), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QTabWidget_tr2(const char* s, const char* c) {

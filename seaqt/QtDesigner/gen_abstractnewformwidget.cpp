@@ -20,17 +20,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QDesignerNewFormWidgetInterface_templateActivated(intptr_t);
-void miqt_exec_callback_QDesignerNewFormWidgetInterface_currentTemplateChanged(intptr_t, bool);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void QDesignerNewFormWidgetInterface_virtbase(QDesignerNewFormWidgetInterface* src, QWidget** outptr_QWidget) {
 	*outptr_QWidget = static_cast<QWidget*>(src);
 }
@@ -66,21 +55,31 @@ void QDesignerNewFormWidgetInterface_templateActivated(QDesignerNewFormWidgetInt
 	self->templateActivated();
 }
 
-void QDesignerNewFormWidgetInterface_connect_templateActivated(QDesignerNewFormWidgetInterface* self, intptr_t slot) {
-	QDesignerNewFormWidgetInterface::connect(self, static_cast<void (QDesignerNewFormWidgetInterface::*)()>(&QDesignerNewFormWidgetInterface::templateActivated), self, [=]() {
-		miqt_exec_callback_QDesignerNewFormWidgetInterface_templateActivated(slot);
-	});
+void QDesignerNewFormWidgetInterface_connect_templateActivated(QDesignerNewFormWidgetInterface* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QDesignerNewFormWidgetInterface::connect(self, static_cast<void (QDesignerNewFormWidgetInterface::*)()>(&QDesignerNewFormWidgetInterface::templateActivated), self, local_caller{slot, callback, release});
 }
 
 void QDesignerNewFormWidgetInterface_currentTemplateChanged(QDesignerNewFormWidgetInterface* self, bool templateSelected) {
 	self->currentTemplateChanged(templateSelected);
 }
 
-void QDesignerNewFormWidgetInterface_connect_currentTemplateChanged(QDesignerNewFormWidgetInterface* self, intptr_t slot) {
-	QDesignerNewFormWidgetInterface::connect(self, static_cast<void (QDesignerNewFormWidgetInterface::*)(bool)>(&QDesignerNewFormWidgetInterface::currentTemplateChanged), self, [=](bool templateSelected) {
-		bool sigval1 = templateSelected;
-		miqt_exec_callback_QDesignerNewFormWidgetInterface_currentTemplateChanged(slot, sigval1);
-	});
+void QDesignerNewFormWidgetInterface_connect_currentTemplateChanged(QDesignerNewFormWidgetInterface* self, intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, bool);
+		void operator()(bool templateSelected) {
+			bool sigval1 = templateSelected;
+			callback(slot, sigval1);
+		}
+	};
+	QDesignerNewFormWidgetInterface::connect(self, static_cast<void (QDesignerNewFormWidgetInterface::*)(bool)>(&QDesignerNewFormWidgetInterface::currentTemplateChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QDesignerNewFormWidgetInterface_tr2(const char* s, const char* c) {

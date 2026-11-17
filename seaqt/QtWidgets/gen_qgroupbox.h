@@ -167,9 +167,9 @@ void QGroupBox_setCheckable(QGroupBox* self, bool checkable);
 bool QGroupBox_isChecked(const QGroupBox* self);
 void QGroupBox_setChecked(QGroupBox* self, bool checked);
 void QGroupBox_clicked(QGroupBox* self);
-void QGroupBox_connect_clicked(QGroupBox* self, intptr_t slot);
+void QGroupBox_connect_clicked(QGroupBox* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 void QGroupBox_toggled(QGroupBox* self, bool param1);
-void QGroupBox_connect_toggled(QGroupBox* self, intptr_t slot);
+void QGroupBox_connect_toggled(QGroupBox* self, intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t));
 bool QGroupBox_event(QGroupBox* self, QEvent* event);
 void QGroupBox_childEvent(QGroupBox* self, QChildEvent* event);
 void QGroupBox_resizeEvent(QGroupBox* self, QResizeEvent* event);
@@ -183,7 +183,7 @@ void QGroupBox_initStyleOption(const QGroupBox* self, QStyleOptionGroupBox* opti
 struct seaqt_string QGroupBox_tr2(const char* s, const char* c);
 struct seaqt_string QGroupBox_tr3(const char* s, const char* c, int n);
 void QGroupBox_clickedWithChecked(QGroupBox* self, bool checked);
-void QGroupBox_connect_clickedWithChecked(QGroupBox* self, intptr_t slot);
+void QGroupBox_connect_clickedWithChecked(QGroupBox* self, intptr_t slot, void (*callback)(intptr_t, bool), void (*release)(intptr_t));
 
 QMetaObject* QGroupBox_virtualbase_metaObject(const VirtualQGroupBox* self);
 void* QGroupBox_virtualbase_metacast(VirtualQGroupBox* self, const char* param1);

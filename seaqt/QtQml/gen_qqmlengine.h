@@ -127,11 +127,11 @@ QQmlContext* QQmlEngine_contextForObject(QObject* param1);
 void QQmlEngine_setContextForObject(QObject* param1, QQmlContext* param2);
 bool QQmlEngine_event(QQmlEngine* self, QEvent* param1);
 void QQmlEngine_quit(QQmlEngine* self);
-void QQmlEngine_connect_quit(QQmlEngine* self, intptr_t slot);
+void QQmlEngine_connect_quit(QQmlEngine* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t));
 void QQmlEngine_exit(QQmlEngine* self, int retCode);
-void QQmlEngine_connect_exit(QQmlEngine* self, intptr_t slot);
+void QQmlEngine_connect_exit(QQmlEngine* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t));
 void QQmlEngine_warnings(QQmlEngine* self, struct seaqt_array /* of QQmlError* */  warnings);
-void QQmlEngine_connect_warnings(QQmlEngine* self, intptr_t slot);
+void QQmlEngine_connect_warnings(QQmlEngine* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_array /* of QQmlError* */ ), void (*release)(intptr_t));
 struct seaqt_string QQmlEngine_tr2(const char* s, const char* c);
 struct seaqt_string QQmlEngine_tr3(const char* s, const char* c, int n);
 

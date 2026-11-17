@@ -18,15 +18,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QDirIterator* QDirIterator_new(QDir* dir) {
 	return new (std::nothrow) QDirIterator(*dir);
 }

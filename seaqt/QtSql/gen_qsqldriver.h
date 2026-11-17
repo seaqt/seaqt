@@ -123,7 +123,7 @@ int QSqlDriver_dbmsType(const QSqlDriver* self);
 int QSqlDriver_maximumIdentifierLength(const QSqlDriver* self, int type);
 bool QSqlDriver_cancelQuery(QSqlDriver* self);
 void QSqlDriver_notification(QSqlDriver* self, struct seaqt_string name, int source, QVariant* payload);
-void QSqlDriver_connect_notification(QSqlDriver* self, intptr_t slot);
+void QSqlDriver_connect_notification(QSqlDriver* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_string, int, QVariant*), void (*release)(intptr_t));
 void QSqlDriver_setOpen(QSqlDriver* self, bool o);
 void QSqlDriver_setOpenError(QSqlDriver* self, bool e);
 void QSqlDriver_setLastError(QSqlDriver* self, QSqlError* e);

@@ -14,15 +14,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 void* QBindingStatus_threadId(const QBindingStatus* self) {
 	Qt::HANDLE threadId_ret = self->threadId;
 	return static_cast<void*>(threadId_ret);

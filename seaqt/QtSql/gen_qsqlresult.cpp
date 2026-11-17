@@ -20,15 +20,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QVariant* QSqlResult_handle(const QSqlResult* self) {
 	return new QVariant(self->handle());
 }

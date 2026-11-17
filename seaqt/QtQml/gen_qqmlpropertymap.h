@@ -74,7 +74,7 @@ bool QQmlPropertyMap_contains(const QQmlPropertyMap* self, struct seaqt_string k
 QVariant* QQmlPropertyMap_operatorSubscript(QQmlPropertyMap* self, struct seaqt_string key);
 QVariant* QQmlPropertyMap_operatorSubscriptWithKey(const QQmlPropertyMap* self, struct seaqt_string key);
 void QQmlPropertyMap_valueChanged(QQmlPropertyMap* self, struct seaqt_string key, QVariant* value);
-void QQmlPropertyMap_connect_valueChanged(QQmlPropertyMap* self, intptr_t slot);
+void QQmlPropertyMap_connect_valueChanged(QQmlPropertyMap* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_string, QVariant*), void (*release)(intptr_t));
 QVariant* QQmlPropertyMap_updateValue(QQmlPropertyMap* self, struct seaqt_string key, QVariant* input);
 struct seaqt_string QQmlPropertyMap_tr2(const char* s, const char* c);
 struct seaqt_string QQmlPropertyMap_tr3(const char* s, const char* c, int n);

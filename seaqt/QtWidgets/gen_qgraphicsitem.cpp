@@ -64,29 +64,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QGraphicsObject_parentChanged(intptr_t);
-void miqt_exec_callback_QGraphicsObject_opacityChanged(intptr_t);
-void miqt_exec_callback_QGraphicsObject_visibleChanged(intptr_t);
-void miqt_exec_callback_QGraphicsObject_enabledChanged(intptr_t);
-void miqt_exec_callback_QGraphicsObject_xChanged(intptr_t);
-void miqt_exec_callback_QGraphicsObject_yChanged(intptr_t);
-void miqt_exec_callback_QGraphicsObject_zChanged(intptr_t);
-void miqt_exec_callback_QGraphicsObject_rotationChanged(intptr_t);
-void miqt_exec_callback_QGraphicsObject_scaleChanged(intptr_t);
-void miqt_exec_callback_QGraphicsObject_childrenChanged(intptr_t);
-void miqt_exec_callback_QGraphicsObject_widthChanged(intptr_t);
-void miqt_exec_callback_QGraphicsObject_heightChanged(intptr_t);
-void miqt_exec_callback_QGraphicsTextItem_linkActivated(intptr_t, struct seaqt_string);
-void miqt_exec_callback_QGraphicsTextItem_linkHovered(intptr_t, struct seaqt_string);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQGraphicsItem final : public QGraphicsItem {
 	const QGraphicsItem_VTable* vtbl;
 public:
@@ -2135,120 +2112,180 @@ void QGraphicsObject_parentChanged(QGraphicsObject* self) {
 	self->parentChanged();
 }
 
-void QGraphicsObject_connect_parentChanged(QGraphicsObject* self, intptr_t slot) {
-	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::parentChanged), self, [=]() {
-		miqt_exec_callback_QGraphicsObject_parentChanged(slot);
-	});
+void QGraphicsObject_connect_parentChanged(QGraphicsObject* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::parentChanged), self, local_caller{slot, callback, release});
 }
 
 void QGraphicsObject_opacityChanged(QGraphicsObject* self) {
 	self->opacityChanged();
 }
 
-void QGraphicsObject_connect_opacityChanged(QGraphicsObject* self, intptr_t slot) {
-	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::opacityChanged), self, [=]() {
-		miqt_exec_callback_QGraphicsObject_opacityChanged(slot);
-	});
+void QGraphicsObject_connect_opacityChanged(QGraphicsObject* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::opacityChanged), self, local_caller{slot, callback, release});
 }
 
 void QGraphicsObject_visibleChanged(QGraphicsObject* self) {
 	self->visibleChanged();
 }
 
-void QGraphicsObject_connect_visibleChanged(QGraphicsObject* self, intptr_t slot) {
-	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::visibleChanged), self, [=]() {
-		miqt_exec_callback_QGraphicsObject_visibleChanged(slot);
-	});
+void QGraphicsObject_connect_visibleChanged(QGraphicsObject* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::visibleChanged), self, local_caller{slot, callback, release});
 }
 
 void QGraphicsObject_enabledChanged(QGraphicsObject* self) {
 	self->enabledChanged();
 }
 
-void QGraphicsObject_connect_enabledChanged(QGraphicsObject* self, intptr_t slot) {
-	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::enabledChanged), self, [=]() {
-		miqt_exec_callback_QGraphicsObject_enabledChanged(slot);
-	});
+void QGraphicsObject_connect_enabledChanged(QGraphicsObject* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::enabledChanged), self, local_caller{slot, callback, release});
 }
 
 void QGraphicsObject_xChanged(QGraphicsObject* self) {
 	self->xChanged();
 }
 
-void QGraphicsObject_connect_xChanged(QGraphicsObject* self, intptr_t slot) {
-	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::xChanged), self, [=]() {
-		miqt_exec_callback_QGraphicsObject_xChanged(slot);
-	});
+void QGraphicsObject_connect_xChanged(QGraphicsObject* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::xChanged), self, local_caller{slot, callback, release});
 }
 
 void QGraphicsObject_yChanged(QGraphicsObject* self) {
 	self->yChanged();
 }
 
-void QGraphicsObject_connect_yChanged(QGraphicsObject* self, intptr_t slot) {
-	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::yChanged), self, [=]() {
-		miqt_exec_callback_QGraphicsObject_yChanged(slot);
-	});
+void QGraphicsObject_connect_yChanged(QGraphicsObject* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::yChanged), self, local_caller{slot, callback, release});
 }
 
 void QGraphicsObject_zChanged(QGraphicsObject* self) {
 	self->zChanged();
 }
 
-void QGraphicsObject_connect_zChanged(QGraphicsObject* self, intptr_t slot) {
-	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::zChanged), self, [=]() {
-		miqt_exec_callback_QGraphicsObject_zChanged(slot);
-	});
+void QGraphicsObject_connect_zChanged(QGraphicsObject* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::zChanged), self, local_caller{slot, callback, release});
 }
 
 void QGraphicsObject_rotationChanged(QGraphicsObject* self) {
 	self->rotationChanged();
 }
 
-void QGraphicsObject_connect_rotationChanged(QGraphicsObject* self, intptr_t slot) {
-	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::rotationChanged), self, [=]() {
-		miqt_exec_callback_QGraphicsObject_rotationChanged(slot);
-	});
+void QGraphicsObject_connect_rotationChanged(QGraphicsObject* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::rotationChanged), self, local_caller{slot, callback, release});
 }
 
 void QGraphicsObject_scaleChanged(QGraphicsObject* self) {
 	self->scaleChanged();
 }
 
-void QGraphicsObject_connect_scaleChanged(QGraphicsObject* self, intptr_t slot) {
-	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::scaleChanged), self, [=]() {
-		miqt_exec_callback_QGraphicsObject_scaleChanged(slot);
-	});
+void QGraphicsObject_connect_scaleChanged(QGraphicsObject* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::scaleChanged), self, local_caller{slot, callback, release});
 }
 
 void QGraphicsObject_childrenChanged(QGraphicsObject* self) {
 	self->childrenChanged();
 }
 
-void QGraphicsObject_connect_childrenChanged(QGraphicsObject* self, intptr_t slot) {
-	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::childrenChanged), self, [=]() {
-		miqt_exec_callback_QGraphicsObject_childrenChanged(slot);
-	});
+void QGraphicsObject_connect_childrenChanged(QGraphicsObject* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::childrenChanged), self, local_caller{slot, callback, release});
 }
 
 void QGraphicsObject_widthChanged(QGraphicsObject* self) {
 	self->widthChanged();
 }
 
-void QGraphicsObject_connect_widthChanged(QGraphicsObject* self, intptr_t slot) {
-	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::widthChanged), self, [=]() {
-		miqt_exec_callback_QGraphicsObject_widthChanged(slot);
-	});
+void QGraphicsObject_connect_widthChanged(QGraphicsObject* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::widthChanged), self, local_caller{slot, callback, release});
 }
 
 void QGraphicsObject_heightChanged(QGraphicsObject* self) {
 	self->heightChanged();
 }
 
-void QGraphicsObject_connect_heightChanged(QGraphicsObject* self, intptr_t slot) {
-	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::heightChanged), self, [=]() {
-		miqt_exec_callback_QGraphicsObject_heightChanged(slot);
-	});
+void QGraphicsObject_connect_heightChanged(QGraphicsObject* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QGraphicsObject::connect(self, static_cast<void (QGraphicsObject::*)()>(&QGraphicsObject::heightChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QGraphicsObject_tr2(const char* s, const char* c) {
@@ -8385,18 +8422,23 @@ void QGraphicsTextItem_linkActivated(QGraphicsTextItem* self, struct seaqt_strin
 	self->linkActivated(param1_QString);
 }
 
-void QGraphicsTextItem_connect_linkActivated(QGraphicsTextItem* self, intptr_t slot) {
-	QGraphicsTextItem::connect(self, static_cast<void (QGraphicsTextItem::*)(const QString&)>(&QGraphicsTextItem::linkActivated), self, [=](const QString& param1) {
-		const QString param1_ret = param1;
-		// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-		QByteArray param1_b = param1_ret.toUtf8();
-		struct seaqt_string param1_ms;
-		param1_ms.len = param1_b.length();
-		param1_ms.data = static_cast<char*>(malloc(param1_ms.len));
-		memcpy(param1_ms.data, param1_b.data(), param1_ms.len);
-		struct seaqt_string sigval1 = param1_ms;
-		miqt_exec_callback_QGraphicsTextItem_linkActivated(slot, sigval1);
-	});
+void QGraphicsTextItem_connect_linkActivated(QGraphicsTextItem* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_string), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, struct seaqt_string), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, struct seaqt_string);
+		void operator()(const QString& param1) {
+			const QString param1_ret = param1;
+			// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
+			QByteArray param1_b = param1_ret.toUtf8();
+			struct seaqt_string param1_ms;
+			param1_ms.len = param1_b.length();
+			param1_ms.data = static_cast<char*>(malloc(param1_ms.len));
+			memcpy(param1_ms.data, param1_b.data(), param1_ms.len);
+			struct seaqt_string sigval1 = param1_ms;
+			callback(slot, sigval1);
+		}
+	};
+	QGraphicsTextItem::connect(self, static_cast<void (QGraphicsTextItem::*)(const QString&)>(&QGraphicsTextItem::linkActivated), self, local_caller{slot, callback, release});
 }
 
 void QGraphicsTextItem_linkHovered(QGraphicsTextItem* self, struct seaqt_string param1) {
@@ -8404,18 +8446,23 @@ void QGraphicsTextItem_linkHovered(QGraphicsTextItem* self, struct seaqt_string 
 	self->linkHovered(param1_QString);
 }
 
-void QGraphicsTextItem_connect_linkHovered(QGraphicsTextItem* self, intptr_t slot) {
-	QGraphicsTextItem::connect(self, static_cast<void (QGraphicsTextItem::*)(const QString&)>(&QGraphicsTextItem::linkHovered), self, [=](const QString& param1) {
-		const QString param1_ret = param1;
-		// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
-		QByteArray param1_b = param1_ret.toUtf8();
-		struct seaqt_string param1_ms;
-		param1_ms.len = param1_b.length();
-		param1_ms.data = static_cast<char*>(malloc(param1_ms.len));
-		memcpy(param1_ms.data, param1_b.data(), param1_ms.len);
-		struct seaqt_string sigval1 = param1_ms;
-		miqt_exec_callback_QGraphicsTextItem_linkHovered(slot, sigval1);
-	});
+void QGraphicsTextItem_connect_linkHovered(QGraphicsTextItem* self, intptr_t slot, void (*callback)(intptr_t, struct seaqt_string), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, struct seaqt_string), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, struct seaqt_string);
+		void operator()(const QString& param1) {
+			const QString param1_ret = param1;
+			// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
+			QByteArray param1_b = param1_ret.toUtf8();
+			struct seaqt_string param1_ms;
+			param1_ms.len = param1_b.length();
+			param1_ms.data = static_cast<char*>(malloc(param1_ms.len));
+			memcpy(param1_ms.data, param1_b.data(), param1_ms.len);
+			struct seaqt_string sigval1 = param1_ms;
+			callback(slot, sigval1);
+		}
+	};
+	QGraphicsTextItem::connect(self, static_cast<void (QGraphicsTextItem::*)(const QString&)>(&QGraphicsTextItem::linkHovered), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QGraphicsTextItem_tr2(const char* s, const char* c) {

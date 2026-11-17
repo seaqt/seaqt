@@ -49,16 +49,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QProgressBar_valueChanged(intptr_t, int);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQProgressBar final : public QProgressBar {
 	const QProgressBar_VTable* vtbl;
 public:
@@ -873,11 +863,16 @@ void QProgressBar_valueChanged(QProgressBar* self, int value) {
 	self->valueChanged(static_cast<int>(value));
 }
 
-void QProgressBar_connect_valueChanged(QProgressBar* self, intptr_t slot) {
-	QProgressBar::connect(self, static_cast<void (QProgressBar::*)(int)>(&QProgressBar::valueChanged), self, [=](int value) {
-		int sigval1 = value;
-		miqt_exec_callback_QProgressBar_valueChanged(slot, sigval1);
-	});
+void QProgressBar_connect_valueChanged(QProgressBar* self, intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t, int), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t, int);
+		void operator()(int value) {
+			int sigval1 = value;
+			callback(slot, sigval1);
+		}
+	};
+	QProgressBar::connect(self, static_cast<void (QProgressBar::*)(int)>(&QProgressBar::valueChanged), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QProgressBar_tr2(const char* s, const char* c) {

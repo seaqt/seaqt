@@ -50,16 +50,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void miqt_exec_callback_QAbstractSpinBox_editingFinished(intptr_t);
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQAbstractSpinBox final : public QAbstractSpinBox {
 	const QAbstractSpinBox_VTable* vtbl;
 public:
@@ -980,10 +970,15 @@ void QAbstractSpinBox_editingFinished(QAbstractSpinBox* self) {
 	self->editingFinished();
 }
 
-void QAbstractSpinBox_connect_editingFinished(QAbstractSpinBox* self, intptr_t slot) {
-	QAbstractSpinBox::connect(self, static_cast<void (QAbstractSpinBox::*)()>(&QAbstractSpinBox::editingFinished), self, [=]() {
-		miqt_exec_callback_QAbstractSpinBox_editingFinished(slot);
-	});
+void QAbstractSpinBox_connect_editingFinished(QAbstractSpinBox* self, intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) {
+	struct local_caller : seaqt::caller {
+		constexpr local_caller(intptr_t slot, void (*callback)(intptr_t), void (*release)(intptr_t)) : callback(callback), caller{slot, release} {}
+		void (*callback)(intptr_t);
+		void operator()() {
+			callback(slot);
+		}
+	};
+	QAbstractSpinBox::connect(self, static_cast<void (QAbstractSpinBox::*)()>(&QAbstractSpinBox::editingFinished), self, local_caller{slot, callback, release});
 }
 
 struct seaqt_string QAbstractSpinBox_tr2(const char* s, const char* c) {

@@ -23,15 +23,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 class VirtualQQuickTextDocument final : public QQuickTextDocument {
 	const QQuickTextDocument_VTable* vtbl;
 public:

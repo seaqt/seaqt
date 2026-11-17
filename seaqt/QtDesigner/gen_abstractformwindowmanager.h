@@ -70,13 +70,13 @@ QDesignerFormWindowInterface* QDesignerFormWindowManagerInterface_createFormWind
 void QDesignerFormWindowManagerInterface_dragItems(QDesignerFormWindowManagerInterface* self, struct seaqt_array /* of QDesignerDnDItemInterface* */  item_list);
 QPixmap* QDesignerFormWindowManagerInterface_createPreviewPixmap(const QDesignerFormWindowManagerInterface* self);
 void QDesignerFormWindowManagerInterface_formWindowAdded(QDesignerFormWindowManagerInterface* self, QDesignerFormWindowInterface* formWindow);
-void QDesignerFormWindowManagerInterface_connect_formWindowAdded(QDesignerFormWindowManagerInterface* self, intptr_t slot);
+void QDesignerFormWindowManagerInterface_connect_formWindowAdded(QDesignerFormWindowManagerInterface* self, intptr_t slot, void (*callback)(intptr_t, QDesignerFormWindowInterface*), void (*release)(intptr_t));
 void QDesignerFormWindowManagerInterface_formWindowRemoved(QDesignerFormWindowManagerInterface* self, QDesignerFormWindowInterface* formWindow);
-void QDesignerFormWindowManagerInterface_connect_formWindowRemoved(QDesignerFormWindowManagerInterface* self, intptr_t slot);
+void QDesignerFormWindowManagerInterface_connect_formWindowRemoved(QDesignerFormWindowManagerInterface* self, intptr_t slot, void (*callback)(intptr_t, QDesignerFormWindowInterface*), void (*release)(intptr_t));
 void QDesignerFormWindowManagerInterface_activeFormWindowChanged(QDesignerFormWindowManagerInterface* self, QDesignerFormWindowInterface* formWindow);
-void QDesignerFormWindowManagerInterface_connect_activeFormWindowChanged(QDesignerFormWindowManagerInterface* self, intptr_t slot);
+void QDesignerFormWindowManagerInterface_connect_activeFormWindowChanged(QDesignerFormWindowManagerInterface* self, intptr_t slot, void (*callback)(intptr_t, QDesignerFormWindowInterface*), void (*release)(intptr_t));
 void QDesignerFormWindowManagerInterface_formWindowSettingsChanged(QDesignerFormWindowManagerInterface* self, QDesignerFormWindowInterface* fw);
-void QDesignerFormWindowManagerInterface_connect_formWindowSettingsChanged(QDesignerFormWindowManagerInterface* self, intptr_t slot);
+void QDesignerFormWindowManagerInterface_connect_formWindowSettingsChanged(QDesignerFormWindowManagerInterface* self, intptr_t slot, void (*callback)(intptr_t, QDesignerFormWindowInterface*), void (*release)(intptr_t));
 void QDesignerFormWindowManagerInterface_addFormWindow(QDesignerFormWindowManagerInterface* self, QDesignerFormWindowInterface* formWindow);
 void QDesignerFormWindowManagerInterface_removeFormWindow(QDesignerFormWindowManagerInterface* self, QDesignerFormWindowInterface* formWindow);
 void QDesignerFormWindowManagerInterface_setActiveFormWindow(QDesignerFormWindowManagerInterface* self, QDesignerFormWindowInterface* formWindow);

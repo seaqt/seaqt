@@ -21,15 +21,6 @@ static constexpr std::size_t seaqt_aligned_sizeof() {
 }
 #endif
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-} /* extern C */
-#endif
-
 QGeoPositionInfoSource* QGeoPositionInfoSourceFactory_positionInfoSource(QGeoPositionInfoSourceFactory* self, QObject* parent, struct seaqt_map /* of struct seaqt_string to QVariant* */  parameters) {
 	QVariantMap parameters_QMap;
 	struct seaqt_string* parameters_karr = static_cast<struct seaqt_string*>(parameters.keys);
