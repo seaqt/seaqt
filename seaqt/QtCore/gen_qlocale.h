@@ -20,6 +20,7 @@ class QChar;
 class QDate;
 class QDateTime;
 class QLocale;
+class QMetaObject;
 class QTime;
 #else
 typedef struct QCalendar QCalendar;
@@ -27,6 +28,7 @@ typedef struct QChar QChar;
 typedef struct QDate QDate;
 typedef struct QDateTime QDateTime;
 typedef struct QLocale QLocale;
+typedef struct QMetaObject QMetaObject;
 typedef struct QTime QTime;
 #endif
 
@@ -178,6 +180,7 @@ struct seaqt_string QLocale_formattedDataSize4(const QLocale* self, long long by
 struct seaqt_string QLocale_formattedDataSize5(const QLocale* self, long long bytes, int precision, int format);
 struct seaqt_string QLocale_quoteString2(const QLocale* self, struct seaqt_string str, int style);
 
+const QMetaObject* QLocale_staticMetaObject();
 void QLocale_delete(QLocale* self);
 
 #ifdef __cplusplus

@@ -88,6 +88,7 @@ QDialog* QDialog_new3(QWidget* parent, int f);
 void QDialog_virtbase(QDialog* src, QWidget** outptr_QWidget);
 QMetaObject* QDialog_metaObject(const QDialog* self);
 void* QDialog_metacast(QDialog* self, const char* param1);
+int QDialog_metacall(QDialog* self, int param1, int param2, void** param3);
 struct seaqt_string QDialog_tr(const char* s);
 struct seaqt_string QDialog_trUtf8(const char* s);
 int QDialog_result(const QDialog* self);
@@ -125,6 +126,12 @@ struct seaqt_string QDialog_tr3(const char* s, const char* c, int n);
 struct seaqt_string QDialog_trUtf82(const char* s, const char* c);
 struct seaqt_string QDialog_trUtf83(const char* s, const char* c, int n);
 
+bool QDialog_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QDialog_virtualbase_metaObject(const void* self);
+bool QDialog_override_virtual_metacast(void* self, intptr_t slot);
+void* QDialog_virtualbase_metacast(void* self, const char* param1);
+bool QDialog_override_virtual_metacall(void* self, intptr_t slot);
+int QDialog_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QDialog_override_virtual_setVisible(void* self, intptr_t slot);
 void QDialog_virtualbase_setVisible(void* self, bool visible);
 bool QDialog_override_virtual_sizeHint(void* self, intptr_t slot);
@@ -241,6 +248,7 @@ int QDialog_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* 
 int QDialog_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QDialog_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QDialog_staticMetaObject();
 void QDialog_delete(QDialog* self);
 
 #ifdef __cplusplus

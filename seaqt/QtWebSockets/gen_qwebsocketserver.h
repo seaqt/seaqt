@@ -55,6 +55,7 @@ QWebSocketServer* QWebSocketServer_new2(struct seaqt_string serverName, int secu
 void QWebSocketServer_virtbase(QWebSocketServer* src, QObject** outptr_QObject);
 QMetaObject* QWebSocketServer_metaObject(const QWebSocketServer* self);
 void* QWebSocketServer_metacast(QWebSocketServer* self, const char* param1);
+int QWebSocketServer_metacall(QWebSocketServer* self, int param1, int param2, void** param3);
 struct seaqt_string QWebSocketServer_tr(const char* s);
 struct seaqt_string QWebSocketServer_trUtf8(const char* s);
 bool QWebSocketServer_listen(QWebSocketServer* self);
@@ -109,6 +110,12 @@ struct seaqt_string QWebSocketServer_trUtf83(const char* s, const char* c, int n
 bool QWebSocketServer_listenWithAddress(QWebSocketServer* self, QHostAddress* address);
 bool QWebSocketServer_listen2(QWebSocketServer* self, QHostAddress* address, unsigned short port);
 
+bool QWebSocketServer_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QWebSocketServer_virtualbase_metaObject(const void* self);
+bool QWebSocketServer_override_virtual_metacast(void* self, intptr_t slot);
+void* QWebSocketServer_virtualbase_metacast(void* self, const char* param1);
+bool QWebSocketServer_override_virtual_metacall(void* self, intptr_t slot);
+int QWebSocketServer_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QWebSocketServer_override_virtual_nextPendingConnection(void* self, intptr_t slot);
 QWebSocket* QWebSocketServer_virtualbase_nextPendingConnection(void* self);
 bool QWebSocketServer_override_virtual_event(void* self, intptr_t slot);
@@ -131,6 +138,7 @@ int QWebSocketServer_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, con
 int QWebSocketServer_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QWebSocketServer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QWebSocketServer_staticMetaObject();
 void QWebSocketServer_delete(QWebSocketServer* self);
 
 #ifdef __cplusplus

@@ -16,8 +16,10 @@ extern "C" {
 
 #ifdef __cplusplus
 class QGeoCoordinate;
+class QMetaObject;
 #else
 typedef struct QGeoCoordinate QGeoCoordinate;
+typedef struct QMetaObject QMetaObject;
 #endif
 
 QGeoCoordinate* QGeoCoordinate_new();
@@ -42,6 +44,7 @@ struct seaqt_string QGeoCoordinate_toString(const QGeoCoordinate* self);
 QGeoCoordinate* QGeoCoordinate_atDistanceAndAzimuth2(const QGeoCoordinate* self, double distance, double azimuth, double distanceUp);
 struct seaqt_string QGeoCoordinate_toStringWithFormat(const QGeoCoordinate* self, int format);
 
+const QMetaObject* QGeoCoordinate_staticMetaObject();
 void QGeoCoordinate_delete(QGeoCoordinate* self);
 
 #ifdef __cplusplus

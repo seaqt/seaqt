@@ -35,6 +35,7 @@ typedef struct QUrl QUrl;
 void QQuickItemGrabResult_virtbase(QQuickItemGrabResult* src, QObject** outptr_QObject);
 QMetaObject* QQuickItemGrabResult_metaObject(const QQuickItemGrabResult* self);
 void* QQuickItemGrabResult_metacast(QQuickItemGrabResult* self, const char* param1);
+int QQuickItemGrabResult_metacall(QQuickItemGrabResult* self, int param1, int param2, void** param3);
 struct seaqt_string QQuickItemGrabResult_tr(const char* s);
 struct seaqt_string QQuickItemGrabResult_trUtf8(const char* s);
 QImage* QQuickItemGrabResult_image(const QQuickItemGrabResult* self);
@@ -49,6 +50,7 @@ struct seaqt_string QQuickItemGrabResult_tr3(const char* s, const char* c, int n
 struct seaqt_string QQuickItemGrabResult_trUtf82(const char* s, const char* c);
 struct seaqt_string QQuickItemGrabResult_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QQuickItemGrabResult_staticMetaObject();
 void QQuickItemGrabResult_delete(QQuickItemGrabResult* self);
 
 #ifdef __cplusplus

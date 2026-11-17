@@ -44,6 +44,7 @@ class QAccessibleTextUpdateEvent;
 class QAccessibleValueChangeEvent;
 class QAccessibleValueInterface;
 class QColor;
+class QMetaObject;
 class QObject;
 class QPoint;
 class QRect;
@@ -73,6 +74,7 @@ typedef struct QAccessibleTextUpdateEvent QAccessibleTextUpdateEvent;
 typedef struct QAccessibleValueChangeEvent QAccessibleValueChangeEvent;
 typedef struct QAccessibleValueInterface QAccessibleValueInterface;
 typedef struct QColor QColor;
+typedef struct QMetaObject QMetaObject;
 typedef struct QObject QObject;
 typedef struct QPoint QPoint;
 typedef struct QRect QRect;
@@ -96,6 +98,7 @@ void QAccessible_setRootObject(QObject* object);
 void QAccessible_cleanup();
 struct seaqt_map /* tuple of int and int */  QAccessible_qAccessibleTextBoundaryHelper(QTextCursor* cursor, int boundaryType);
 
+const QMetaObject* QAccessible_staticMetaObject();
 void QAccessible_delete(QAccessible* self);
 
 bool QAccessibleInterface_isValid(const QAccessibleInterface* self);

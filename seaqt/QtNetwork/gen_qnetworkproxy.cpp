@@ -1,5 +1,6 @@
 #include <QByteArray>
 #include <QList>
+#include <QMetaObject>
 #include <QNetworkConfiguration>
 #include <QNetworkProxy>
 #include <QNetworkProxyFactory>
@@ -196,6 +197,7 @@ void QNetworkProxyQuery_setNetworkConfiguration(QNetworkProxyQuery* self, QNetwo
 	self->setNetworkConfiguration(*networkConfiguration);
 }
 
+const QMetaObject* QNetworkProxyQuery_staticMetaObject() { return &QNetworkProxyQuery::staticMetaObject; }
 void QNetworkProxyQuery_delete(QNetworkProxyQuery* self) {
 	delete self;
 }

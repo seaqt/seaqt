@@ -43,6 +43,7 @@ class QInputMethodEvent__Attribute;
 class QInputMethodQueryEvent;
 class QKeyEvent;
 class QKeySequence;
+class QMetaObject;
 class QMimeData;
 class QMouseEvent;
 class QMoveEvent;
@@ -107,6 +108,7 @@ typedef struct QInputMethodEvent__Attribute QInputMethodEvent__Attribute;
 typedef struct QInputMethodQueryEvent QInputMethodQueryEvent;
 typedef struct QKeyEvent QKeyEvent;
 typedef struct QKeySequence QKeySequence;
+typedef struct QMetaObject QMetaObject;
 typedef struct QMimeData QMimeData;
 typedef struct QMouseEvent QMouseEvent;
 typedef struct QMoveEvent QMoveEvent;
@@ -270,6 +272,7 @@ int QTabletEvent_button(const QTabletEvent* self);
 int QTabletEvent_buttons(const QTabletEvent* self);
 void QTabletEvent_operatorAssign(QTabletEvent* self, QTabletEvent* param1);
 
+const QMetaObject* QTabletEvent_staticMetaObject();
 void QTabletEvent_delete(QTabletEvent* self);
 
 QNativeGestureEvent* QNativeGestureEvent_new(int type, QPointF* localPos, QPointF* windowPos, QPointF* screenPos, double value, unsigned long sequenceId, unsigned long long intArgument);
@@ -563,6 +566,7 @@ QPointingDeviceUniqueId* QPointingDeviceUniqueId_fromNumericId(long long id);
 bool QPointingDeviceUniqueId_isValid(const QPointingDeviceUniqueId* self);
 long long QPointingDeviceUniqueId_numericId(const QPointingDeviceUniqueId* self);
 
+const QMetaObject* QPointingDeviceUniqueId_staticMetaObject();
 void QPointingDeviceUniqueId_delete(QPointingDeviceUniqueId* self);
 
 QTouchEvent* QTouchEvent_new(int eventType);

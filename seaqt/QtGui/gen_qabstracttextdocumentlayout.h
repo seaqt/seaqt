@@ -76,6 +76,7 @@ QAbstractTextDocumentLayout* QAbstractTextDocumentLayout_new(QTextDocument* doc)
 void QAbstractTextDocumentLayout_virtbase(QAbstractTextDocumentLayout* src, QObject** outptr_QObject);
 QMetaObject* QAbstractTextDocumentLayout_metaObject(const QAbstractTextDocumentLayout* self);
 void* QAbstractTextDocumentLayout_metacast(QAbstractTextDocumentLayout* self, const char* param1);
+int QAbstractTextDocumentLayout_metacall(QAbstractTextDocumentLayout* self, int param1, int param2, void** param3);
 struct seaqt_string QAbstractTextDocumentLayout_tr(const char* s);
 struct seaqt_string QAbstractTextDocumentLayout_trUtf8(const char* s);
 void QAbstractTextDocumentLayout_draw(QAbstractTextDocumentLayout* self, QPainter* painter, QAbstractTextDocumentLayout__PaintContext* context);
@@ -114,6 +115,12 @@ void QAbstractTextDocumentLayout_unregisterHandler2(QAbstractTextDocumentLayout*
 void QAbstractTextDocumentLayout_updateWithQRectF(QAbstractTextDocumentLayout* self, QRectF* param1);
 void QAbstractTextDocumentLayout_connect_updateWithQRectF(QAbstractTextDocumentLayout* self, intptr_t slot);
 
+bool QAbstractTextDocumentLayout_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QAbstractTextDocumentLayout_virtualbase_metaObject(const void* self);
+bool QAbstractTextDocumentLayout_override_virtual_metacast(void* self, intptr_t slot);
+void* QAbstractTextDocumentLayout_virtualbase_metacast(void* self, const char* param1);
+bool QAbstractTextDocumentLayout_override_virtual_metacall(void* self, intptr_t slot);
+int QAbstractTextDocumentLayout_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QAbstractTextDocumentLayout_override_virtual_draw(void* self, intptr_t slot);
 void QAbstractTextDocumentLayout_virtualbase_draw(void* self, QPainter* painter, QAbstractTextDocumentLayout__PaintContext* context);
 bool QAbstractTextDocumentLayout_override_virtual_hitTest(void* self, intptr_t slot);
@@ -156,6 +163,7 @@ int QAbstractTextDocumentLayout_protectedbase_senderSignalIndex(bool* _dynamic_c
 int QAbstractTextDocumentLayout_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QAbstractTextDocumentLayout_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QAbstractTextDocumentLayout_staticMetaObject();
 void QAbstractTextDocumentLayout_delete(QAbstractTextDocumentLayout* self);
 
 QSizeF* QTextObjectInterface_intrinsicSize(QTextObjectInterface* self, QTextDocument* doc, int posInDocument, QTextFormat* format);

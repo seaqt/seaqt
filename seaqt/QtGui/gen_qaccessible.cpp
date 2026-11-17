@@ -20,6 +20,7 @@
 #include <QAccessibleValueInterface>
 #include <QColor>
 #include <QList>
+#include <QMetaObject>
 #include <QObject>
 #include <QPair>
 #include <QPoint>
@@ -116,6 +117,7 @@ struct seaqt_map /* tuple of int and int */  QAccessible_qAccessibleTextBoundary
 	return _out;
 }
 
+const QMetaObject* QAccessible_staticMetaObject() { return &QAccessible::staticMetaObject; }
 void QAccessible_delete(QAccessible* self) {
 	delete self;
 }

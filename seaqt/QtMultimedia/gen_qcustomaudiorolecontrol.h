@@ -31,6 +31,7 @@ typedef struct QObject QObject;
 void QCustomAudioRoleControl_virtbase(QCustomAudioRoleControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QCustomAudioRoleControl_metaObject(const QCustomAudioRoleControl* self);
 void* QCustomAudioRoleControl_metacast(QCustomAudioRoleControl* self, const char* param1);
+int QCustomAudioRoleControl_metacall(QCustomAudioRoleControl* self, int param1, int param2, void** param3);
 struct seaqt_string QCustomAudioRoleControl_tr(const char* s);
 struct seaqt_string QCustomAudioRoleControl_trUtf8(const char* s);
 struct seaqt_string QCustomAudioRoleControl_customAudioRole(const QCustomAudioRoleControl* self);
@@ -43,6 +44,7 @@ struct seaqt_string QCustomAudioRoleControl_tr3(const char* s, const char* c, in
 struct seaqt_string QCustomAudioRoleControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QCustomAudioRoleControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QCustomAudioRoleControl_staticMetaObject();
 void QCustomAudioRoleControl_delete(QCustomAudioRoleControl* self);
 
 #ifdef __cplusplus

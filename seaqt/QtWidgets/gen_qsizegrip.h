@@ -86,6 +86,7 @@ QSizeGrip* QSizeGrip_new(QWidget* parent);
 void QSizeGrip_virtbase(QSizeGrip* src, QWidget** outptr_QWidget);
 QMetaObject* QSizeGrip_metaObject(const QSizeGrip* self);
 void* QSizeGrip_metacast(QSizeGrip* self, const char* param1);
+int QSizeGrip_metacall(QSizeGrip* self, int param1, int param2, void** param3);
 struct seaqt_string QSizeGrip_tr(const char* s);
 struct seaqt_string QSizeGrip_trUtf8(const char* s);
 QSize* QSizeGrip_sizeHint(const QSizeGrip* self);
@@ -104,6 +105,12 @@ struct seaqt_string QSizeGrip_tr3(const char* s, const char* c, int n);
 struct seaqt_string QSizeGrip_trUtf82(const char* s, const char* c);
 struct seaqt_string QSizeGrip_trUtf83(const char* s, const char* c, int n);
 
+bool QSizeGrip_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QSizeGrip_virtualbase_metaObject(const void* self);
+bool QSizeGrip_override_virtual_metacast(void* self, intptr_t slot);
+void* QSizeGrip_virtualbase_metacast(void* self, const char* param1);
+bool QSizeGrip_override_virtual_metacall(void* self, intptr_t slot);
+int QSizeGrip_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QSizeGrip_override_virtual_sizeHint(void* self, intptr_t slot);
 QSize* QSizeGrip_virtualbase_sizeHint(const void* self);
 bool QSizeGrip_override_virtual_setVisible(void* self, intptr_t slot);
@@ -209,6 +216,7 @@ int QSizeGrip_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void
 int QSizeGrip_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QSizeGrip_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QSizeGrip_staticMetaObject();
 void QSizeGrip_delete(QSizeGrip* self);
 
 #ifdef __cplusplus

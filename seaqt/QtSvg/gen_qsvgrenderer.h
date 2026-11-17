@@ -57,6 +57,7 @@ QSvgRenderer* QSvgRenderer_new8(QXmlStreamReader* contents, QObject* parent);
 void QSvgRenderer_virtbase(QSvgRenderer* src, QObject** outptr_QObject);
 QMetaObject* QSvgRenderer_metaObject(const QSvgRenderer* self);
 void* QSvgRenderer_metacast(QSvgRenderer* self, const char* param1);
+int QSvgRenderer_metacall(QSvgRenderer* self, int param1, int param2, void** param3);
 struct seaqt_string QSvgRenderer_tr(const char* s);
 struct seaqt_string QSvgRenderer_trUtf8(const char* s);
 bool QSvgRenderer_isValid(const QSvgRenderer* self);
@@ -91,6 +92,12 @@ struct seaqt_string QSvgRenderer_trUtf82(const char* s, const char* c);
 struct seaqt_string QSvgRenderer_trUtf83(const char* s, const char* c, int n);
 void QSvgRenderer_render4(QSvgRenderer* self, QPainter* p, struct seaqt_string elementId, QRectF* bounds);
 
+bool QSvgRenderer_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QSvgRenderer_virtualbase_metaObject(const void* self);
+bool QSvgRenderer_override_virtual_metacast(void* self, intptr_t slot);
+void* QSvgRenderer_virtualbase_metacast(void* self, const char* param1);
+bool QSvgRenderer_override_virtual_metacall(void* self, intptr_t slot);
+int QSvgRenderer_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QSvgRenderer_override_virtual_event(void* self, intptr_t slot);
 bool QSvgRenderer_virtualbase_event(void* self, QEvent* event);
 bool QSvgRenderer_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -111,6 +118,7 @@ int QSvgRenderer_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const v
 int QSvgRenderer_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QSvgRenderer_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QSvgRenderer_staticMetaObject();
 void QSvgRenderer_delete(QSvgRenderer* self);
 
 #ifdef __cplusplus

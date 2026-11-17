@@ -101,6 +101,7 @@ QWebEngineView* QWebEngineView_new2(QWidget* parent);
 void QWebEngineView_virtbase(QWebEngineView* src, QWidget** outptr_QWidget);
 QMetaObject* QWebEngineView_metaObject(const QWebEngineView* self);
 void* QWebEngineView_metacast(QWebEngineView* self, const char* param1);
+int QWebEngineView_metacall(QWebEngineView* self, int param1, int param2, void** param3);
 struct seaqt_string QWebEngineView_tr(const char* s);
 struct seaqt_string QWebEngineView_trUtf8(const char* s);
 QWebEnginePage* QWebEngineView_page(const QWebEngineView* self);
@@ -166,6 +167,12 @@ void QWebEngineView_setContent3(QWebEngineView* self, struct seaqt_string data, 
 void QWebEngineView_triggerPageAction2(QWebEngineView* self, int action, bool checked);
 void QWebEngineView_findText2(QWebEngineView* self, struct seaqt_string subString, int options);
 
+bool QWebEngineView_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QWebEngineView_virtualbase_metaObject(const void* self);
+bool QWebEngineView_override_virtual_metacast(void* self, intptr_t slot);
+void* QWebEngineView_virtualbase_metacast(void* self, const char* param1);
+bool QWebEngineView_override_virtual_metacall(void* self, intptr_t slot);
+int QWebEngineView_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QWebEngineView_override_virtual_sizeHint(void* self, intptr_t slot);
 QSize* QWebEngineView_virtualbase_sizeHint(const void* self);
 bool QWebEngineView_override_virtual_createWindow(void* self, intptr_t slot);
@@ -273,6 +280,7 @@ int QWebEngineView_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const
 int QWebEngineView_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QWebEngineView_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QWebEngineView_staticMetaObject();
 void QWebEngineView_delete(QWebEngineView* self);
 
 #ifdef __cplusplus

@@ -81,6 +81,7 @@ typedef struct QTimerEvent QTimerEvent;
 void QTextObject_virtbase(QTextObject* src, QObject** outptr_QObject);
 QMetaObject* QTextObject_metaObject(const QTextObject* self);
 void* QTextObject_metacast(QTextObject* self, const char* param1);
+int QTextObject_metacall(QTextObject* self, int param1, int param2, void** param3);
 struct seaqt_string QTextObject_tr(const char* s);
 struct seaqt_string QTextObject_trUtf8(const char* s);
 QTextFormat* QTextObject_format(const QTextObject* self);
@@ -92,10 +93,12 @@ struct seaqt_string QTextObject_tr3(const char* s, const char* c, int n);
 struct seaqt_string QTextObject_trUtf82(const char* s, const char* c);
 struct seaqt_string QTextObject_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QTextObject_staticMetaObject();
 
 void QTextBlockGroup_virtbase(QTextBlockGroup* src, QTextObject** outptr_QTextObject);
 QMetaObject* QTextBlockGroup_metaObject(const QTextBlockGroup* self);
 void* QTextBlockGroup_metacast(QTextBlockGroup* self, const char* param1);
+int QTextBlockGroup_metacall(QTextBlockGroup* self, int param1, int param2, void** param3);
 struct seaqt_string QTextBlockGroup_tr(const char* s);
 struct seaqt_string QTextBlockGroup_trUtf8(const char* s);
 void QTextBlockGroup_blockInserted(QTextBlockGroup* self, QTextBlock* block);
@@ -106,11 +109,13 @@ struct seaqt_string QTextBlockGroup_tr3(const char* s, const char* c, int n);
 struct seaqt_string QTextBlockGroup_trUtf82(const char* s, const char* c);
 struct seaqt_string QTextBlockGroup_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QTextBlockGroup_staticMetaObject();
 
 QTextFrame* QTextFrame_new(QTextDocument* doc);
 void QTextFrame_virtbase(QTextFrame* src, QTextObject** outptr_QTextObject);
 QMetaObject* QTextFrame_metaObject(const QTextFrame* self);
 void* QTextFrame_metacast(QTextFrame* self, const char* param1);
+int QTextFrame_metacall(QTextFrame* self, int param1, int param2, void** param3);
 struct seaqt_string QTextFrame_tr(const char* s);
 struct seaqt_string QTextFrame_trUtf8(const char* s);
 void QTextFrame_setFrameFormat(QTextFrame* self, QTextFrameFormat* format);
@@ -128,6 +133,12 @@ struct seaqt_string QTextFrame_tr3(const char* s, const char* c, int n);
 struct seaqt_string QTextFrame_trUtf82(const char* s, const char* c);
 struct seaqt_string QTextFrame_trUtf83(const char* s, const char* c, int n);
 
+bool QTextFrame_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QTextFrame_virtualbase_metaObject(const void* self);
+bool QTextFrame_override_virtual_metacast(void* self, intptr_t slot);
+void* QTextFrame_virtualbase_metacast(void* self, const char* param1);
+bool QTextFrame_override_virtual_metacall(void* self, intptr_t slot);
+int QTextFrame_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QTextFrame_override_virtual_event(void* self, intptr_t slot);
 bool QTextFrame_virtualbase_event(void* self, QEvent* event);
 bool QTextFrame_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -149,6 +160,7 @@ int QTextFrame_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const voi
 int QTextFrame_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QTextFrame_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QTextFrame_staticMetaObject();
 void QTextFrame_delete(QTextFrame* self);
 
 void QTextBlockUserData_operatorAssign(QTextBlockUserData* self, QTextBlockUserData* param1);

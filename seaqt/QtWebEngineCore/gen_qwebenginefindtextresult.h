@@ -15,8 +15,10 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
+class QMetaObject;
 class QWebEngineFindTextResult;
 #else
+typedef struct QMetaObject QMetaObject;
 typedef struct QWebEngineFindTextResult QWebEngineFindTextResult;
 #endif
 
@@ -26,6 +28,7 @@ int QWebEngineFindTextResult_numberOfMatches(const QWebEngineFindTextResult* sel
 int QWebEngineFindTextResult_activeMatch(const QWebEngineFindTextResult* self);
 void QWebEngineFindTextResult_operatorAssign(QWebEngineFindTextResult* self, QWebEngineFindTextResult* other);
 
+const QMetaObject* QWebEngineFindTextResult_staticMetaObject();
 void QWebEngineFindTextResult_delete(QWebEngineFindTextResult* self);
 
 #ifdef __cplusplus

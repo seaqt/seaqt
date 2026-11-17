@@ -17,11 +17,13 @@ extern "C" {
 #ifdef __cplusplus
 class QDeadlineTimer;
 class QHostAddress;
+class QMetaObject;
 class QNetworkAddressEntry;
 class QNetworkInterface;
 #else
 typedef struct QDeadlineTimer QDeadlineTimer;
 typedef struct QHostAddress QHostAddress;
+typedef struct QMetaObject QMetaObject;
 typedef struct QNetworkAddressEntry QNetworkAddressEntry;
 typedef struct QNetworkInterface QNetworkInterface;
 #endif
@@ -72,6 +74,7 @@ struct seaqt_string QNetworkInterface_interfaceNameFromIndex(int index);
 struct seaqt_array /* of QNetworkInterface* */  QNetworkInterface_allInterfaces();
 struct seaqt_array /* of QHostAddress* */  QNetworkInterface_allAddresses();
 
+const QMetaObject* QNetworkInterface_staticMetaObject();
 void QNetworkInterface_delete(QNetworkInterface* self);
 
 #ifdef __cplusplus

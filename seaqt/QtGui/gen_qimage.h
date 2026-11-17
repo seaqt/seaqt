@@ -21,6 +21,7 @@ class QColorTransform;
 class QIODevice;
 class QImage;
 class QMatrix;
+class QMetaObject;
 class QPaintDevice;
 class QPaintEngine;
 class QPainter;
@@ -37,6 +38,7 @@ typedef struct QColorTransform QColorTransform;
 typedef struct QIODevice QIODevice;
 typedef struct QImage QImage;
 typedef struct QMatrix QMatrix;
+typedef struct QMetaObject QMetaObject;
 typedef struct QPaintDevice QPaintDevice;
 typedef struct QPaintEngine QPaintEngine;
 typedef struct QPainter QPainter;
@@ -210,6 +212,7 @@ QImage* QImage_protectedbase_convertToFormatHelper(bool* _dynamic_cast_ok, const
 bool QImage_protectedbase_convertToFormatInplace(bool* _dynamic_cast_ok, void* self, int format, int flags);
 QImage* QImage_protectedbase_smoothScaled(bool* _dynamic_cast_ok, const void* self, int w, int h);
 
+const QMetaObject* QImage_staticMetaObject();
 void QImage_delete(QImage* self);
 
 #ifdef __cplusplus

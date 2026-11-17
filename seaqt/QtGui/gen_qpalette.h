@@ -17,11 +17,13 @@ extern "C" {
 #ifdef __cplusplus
 class QBrush;
 class QColor;
+class QMetaObject;
 class QPalette;
 class QVariant;
 #else
 typedef struct QBrush QBrush;
 typedef struct QColor QColor;
+typedef struct QMetaObject QMetaObject;
 typedef struct QPalette QPalette;
 typedef struct QVariant QVariant;
 #endif
@@ -79,6 +81,7 @@ QPalette* QPalette_resolve(const QPalette* self, QPalette* param1);
 unsigned int QPalette_resolve2(const QPalette* self);
 void QPalette_resolveWithMask(QPalette* self, unsigned int mask);
 
+const QMetaObject* QPalette_staticMetaObject();
 void QPalette_delete(QPalette* self);
 
 #ifdef __cplusplus

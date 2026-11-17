@@ -94,6 +94,7 @@ QToolBox* QToolBox_new3(QWidget* parent, int f);
 void QToolBox_virtbase(QToolBox* src, QFrame** outptr_QFrame);
 QMetaObject* QToolBox_metaObject(const QToolBox* self);
 void* QToolBox_metacast(QToolBox* self, const char* param1);
+int QToolBox_metacall(QToolBox* self, int param1, int param2, void** param3);
 struct seaqt_string QToolBox_tr(const char* s);
 struct seaqt_string QToolBox_trUtf8(const char* s);
 int QToolBox_addItem(QToolBox* self, QWidget* widget, struct seaqt_string text);
@@ -128,6 +129,12 @@ struct seaqt_string QToolBox_tr3(const char* s, const char* c, int n);
 struct seaqt_string QToolBox_trUtf82(const char* s, const char* c);
 struct seaqt_string QToolBox_trUtf83(const char* s, const char* c, int n);
 
+bool QToolBox_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QToolBox_virtualbase_metaObject(const void* self);
+bool QToolBox_override_virtual_metacast(void* self, intptr_t slot);
+void* QToolBox_virtualbase_metacast(void* self, const char* param1);
+bool QToolBox_override_virtual_metacall(void* self, intptr_t slot);
+int QToolBox_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QToolBox_override_virtual_event(void* self, intptr_t slot);
 bool QToolBox_virtualbase_event(void* self, QEvent* e);
 bool QToolBox_override_virtual_itemInserted(void* self, intptr_t slot);
@@ -239,6 +246,7 @@ int QToolBox_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void*
 int QToolBox_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QToolBox_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QToolBox_staticMetaObject();
 void QToolBox_delete(QToolBox* self);
 
 #ifdef __cplusplus

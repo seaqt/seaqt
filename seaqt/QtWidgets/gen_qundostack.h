@@ -68,6 +68,7 @@ QUndoStack* QUndoStack_new2(QObject* parent);
 void QUndoStack_virtbase(QUndoStack* src, QObject** outptr_QObject);
 QMetaObject* QUndoStack_metaObject(const QUndoStack* self);
 void* QUndoStack_metacast(QUndoStack* self, const char* param1);
+int QUndoStack_metacall(QUndoStack* self, int param1, int param2, void** param3);
 struct seaqt_string QUndoStack_tr(const char* s);
 struct seaqt_string QUndoStack_trUtf8(const char* s);
 void QUndoStack_clear(QUndoStack* self);
@@ -115,6 +116,12 @@ QAction* QUndoStack_createUndoAction2(const QUndoStack* self, QObject* parent, s
 QAction* QUndoStack_createRedoAction2(const QUndoStack* self, QObject* parent, struct seaqt_string prefix);
 void QUndoStack_setActiveWithActive(QUndoStack* self, bool active);
 
+bool QUndoStack_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QUndoStack_virtualbase_metaObject(const void* self);
+bool QUndoStack_override_virtual_metacast(void* self, intptr_t slot);
+void* QUndoStack_virtualbase_metacast(void* self, const char* param1);
+bool QUndoStack_override_virtual_metacall(void* self, intptr_t slot);
+int QUndoStack_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QUndoStack_override_virtual_event(void* self, intptr_t slot);
 bool QUndoStack_virtualbase_event(void* self, QEvent* event);
 bool QUndoStack_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -135,6 +142,7 @@ int QUndoStack_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const voi
 int QUndoStack_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QUndoStack_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QUndoStack_staticMetaObject();
 void QUndoStack_delete(QUndoStack* self);
 
 #ifdef __cplusplus

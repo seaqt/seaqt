@@ -93,6 +93,7 @@ QLCDNumber* QLCDNumber_new4(unsigned int numDigits, QWidget* parent);
 void QLCDNumber_virtbase(QLCDNumber* src, QFrame** outptr_QFrame);
 QMetaObject* QLCDNumber_metaObject(const QLCDNumber* self);
 void* QLCDNumber_metacast(QLCDNumber* self, const char* param1);
+int QLCDNumber_metacall(QLCDNumber* self, int param1, int param2, void** param3);
 struct seaqt_string QLCDNumber_tr(const char* s);
 struct seaqt_string QLCDNumber_trUtf8(const char* s);
 bool QLCDNumber_smallDecimalPoint(const QLCDNumber* self);
@@ -124,6 +125,12 @@ struct seaqt_string QLCDNumber_tr3(const char* s, const char* c, int n);
 struct seaqt_string QLCDNumber_trUtf82(const char* s, const char* c);
 struct seaqt_string QLCDNumber_trUtf83(const char* s, const char* c, int n);
 
+bool QLCDNumber_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QLCDNumber_virtualbase_metaObject(const void* self);
+bool QLCDNumber_override_virtual_metacast(void* self, intptr_t slot);
+void* QLCDNumber_virtualbase_metacast(void* self, const char* param1);
+bool QLCDNumber_override_virtual_metacall(void* self, intptr_t slot);
+int QLCDNumber_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QLCDNumber_override_virtual_sizeHint(void* self, intptr_t slot);
 QSize* QLCDNumber_virtualbase_sizeHint(const void* self);
 bool QLCDNumber_override_virtual_event(void* self, intptr_t slot);
@@ -231,6 +238,7 @@ int QLCDNumber_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const voi
 int QLCDNumber_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QLCDNumber_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QLCDNumber_staticMetaObject();
 void QLCDNumber_delete(QLCDNumber* self);
 
 #ifdef __cplusplus

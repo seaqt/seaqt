@@ -31,6 +31,7 @@ typedef struct QVideoDeviceSelectorControl QVideoDeviceSelectorControl;
 void QVideoDeviceSelectorControl_virtbase(QVideoDeviceSelectorControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QVideoDeviceSelectorControl_metaObject(const QVideoDeviceSelectorControl* self);
 void* QVideoDeviceSelectorControl_metacast(QVideoDeviceSelectorControl* self, const char* param1);
+int QVideoDeviceSelectorControl_metacall(QVideoDeviceSelectorControl* self, int param1, int param2, void** param3);
 struct seaqt_string QVideoDeviceSelectorControl_tr(const char* s);
 struct seaqt_string QVideoDeviceSelectorControl_trUtf8(const char* s);
 int QVideoDeviceSelectorControl_deviceCount(const QVideoDeviceSelectorControl* self);
@@ -50,6 +51,7 @@ struct seaqt_string QVideoDeviceSelectorControl_tr3(const char* s, const char* c
 struct seaqt_string QVideoDeviceSelectorControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QVideoDeviceSelectorControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QVideoDeviceSelectorControl_staticMetaObject();
 void QVideoDeviceSelectorControl_delete(QVideoDeviceSelectorControl* self);
 
 #ifdef __cplusplus

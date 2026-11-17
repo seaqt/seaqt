@@ -45,6 +45,7 @@ QGraphicsTransform* QGraphicsTransform_new2(QObject* parent);
 void QGraphicsTransform_virtbase(QGraphicsTransform* src, QObject** outptr_QObject);
 QMetaObject* QGraphicsTransform_metaObject(const QGraphicsTransform* self);
 void* QGraphicsTransform_metacast(QGraphicsTransform* self, const char* param1);
+int QGraphicsTransform_metacall(QGraphicsTransform* self, int param1, int param2, void** param3);
 struct seaqt_string QGraphicsTransform_tr(const char* s);
 struct seaqt_string QGraphicsTransform_trUtf8(const char* s);
 void QGraphicsTransform_applyTo(const QGraphicsTransform* self, QMatrix4x4* matrix);
@@ -53,6 +54,12 @@ struct seaqt_string QGraphicsTransform_tr3(const char* s, const char* c, int n);
 struct seaqt_string QGraphicsTransform_trUtf82(const char* s, const char* c);
 struct seaqt_string QGraphicsTransform_trUtf83(const char* s, const char* c, int n);
 
+bool QGraphicsTransform_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QGraphicsTransform_virtualbase_metaObject(const void* self);
+bool QGraphicsTransform_override_virtual_metacast(void* self, intptr_t slot);
+void* QGraphicsTransform_virtualbase_metacast(void* self, const char* param1);
+bool QGraphicsTransform_override_virtual_metacall(void* self, intptr_t slot);
+int QGraphicsTransform_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QGraphicsTransform_override_virtual_applyTo(void* self, intptr_t slot);
 void QGraphicsTransform_virtualbase_applyTo(const void* self, QMatrix4x4* matrix);
 bool QGraphicsTransform_override_virtual_event(void* self, intptr_t slot);
@@ -76,6 +83,7 @@ int QGraphicsTransform_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, c
 int QGraphicsTransform_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QGraphicsTransform_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QGraphicsTransform_staticMetaObject();
 void QGraphicsTransform_delete(QGraphicsTransform* self);
 
 QGraphicsScale* QGraphicsScale_new();
@@ -83,6 +91,7 @@ QGraphicsScale* QGraphicsScale_new2(QObject* parent);
 void QGraphicsScale_virtbase(QGraphicsScale* src, QGraphicsTransform** outptr_QGraphicsTransform);
 QMetaObject* QGraphicsScale_metaObject(const QGraphicsScale* self);
 void* QGraphicsScale_metacast(QGraphicsScale* self, const char* param1);
+int QGraphicsScale_metacall(QGraphicsScale* self, int param1, int param2, void** param3);
 struct seaqt_string QGraphicsScale_tr(const char* s);
 struct seaqt_string QGraphicsScale_trUtf8(const char* s);
 QVector3D* QGraphicsScale_origin(const QGraphicsScale* self);
@@ -109,6 +118,12 @@ struct seaqt_string QGraphicsScale_tr3(const char* s, const char* c, int n);
 struct seaqt_string QGraphicsScale_trUtf82(const char* s, const char* c);
 struct seaqt_string QGraphicsScale_trUtf83(const char* s, const char* c, int n);
 
+bool QGraphicsScale_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QGraphicsScale_virtualbase_metaObject(const void* self);
+bool QGraphicsScale_override_virtual_metacast(void* self, intptr_t slot);
+void* QGraphicsScale_virtualbase_metacast(void* self, const char* param1);
+bool QGraphicsScale_override_virtual_metacall(void* self, intptr_t slot);
+int QGraphicsScale_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QGraphicsScale_override_virtual_applyTo(void* self, intptr_t slot);
 void QGraphicsScale_virtualbase_applyTo(const void* self, QMatrix4x4* matrix);
 bool QGraphicsScale_override_virtual_event(void* self, intptr_t slot);
@@ -132,6 +147,7 @@ int QGraphicsScale_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const
 int QGraphicsScale_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QGraphicsScale_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QGraphicsScale_staticMetaObject();
 void QGraphicsScale_delete(QGraphicsScale* self);
 
 QGraphicsRotation* QGraphicsRotation_new();
@@ -139,6 +155,7 @@ QGraphicsRotation* QGraphicsRotation_new2(QObject* parent);
 void QGraphicsRotation_virtbase(QGraphicsRotation* src, QGraphicsTransform** outptr_QGraphicsTransform);
 QMetaObject* QGraphicsRotation_metaObject(const QGraphicsRotation* self);
 void* QGraphicsRotation_metacast(QGraphicsRotation* self, const char* param1);
+int QGraphicsRotation_metacall(QGraphicsRotation* self, int param1, int param2, void** param3);
 struct seaqt_string QGraphicsRotation_tr(const char* s);
 struct seaqt_string QGraphicsRotation_trUtf8(const char* s);
 QVector3D* QGraphicsRotation_origin(const QGraphicsRotation* self);
@@ -160,6 +177,12 @@ struct seaqt_string QGraphicsRotation_tr3(const char* s, const char* c, int n);
 struct seaqt_string QGraphicsRotation_trUtf82(const char* s, const char* c);
 struct seaqt_string QGraphicsRotation_trUtf83(const char* s, const char* c, int n);
 
+bool QGraphicsRotation_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QGraphicsRotation_virtualbase_metaObject(const void* self);
+bool QGraphicsRotation_override_virtual_metacast(void* self, intptr_t slot);
+void* QGraphicsRotation_virtualbase_metacast(void* self, const char* param1);
+bool QGraphicsRotation_override_virtual_metacall(void* self, intptr_t slot);
+int QGraphicsRotation_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QGraphicsRotation_override_virtual_applyTo(void* self, intptr_t slot);
 void QGraphicsRotation_virtualbase_applyTo(const void* self, QMatrix4x4* matrix);
 bool QGraphicsRotation_override_virtual_event(void* self, intptr_t slot);
@@ -183,6 +206,7 @@ int QGraphicsRotation_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, co
 int QGraphicsRotation_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QGraphicsRotation_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QGraphicsRotation_staticMetaObject();
 void QGraphicsRotation_delete(QGraphicsRotation* self);
 
 #ifdef __cplusplus

@@ -1,3 +1,4 @@
+#include <QMetaObject>
 #include <QSizePolicy>
 #include <QVariant>
 #include <qsizepolicy.h>
@@ -123,6 +124,7 @@ void QSizePolicy_operatorAssign(QSizePolicy* self, QSizePolicy* param1) {
 	self->operator=(*param1);
 }
 
+const QMetaObject* QSizePolicy_staticMetaObject() { return &QSizePolicy::staticMetaObject; }
 void QSizePolicy_delete(QSizePolicy* self) {
 	delete self;
 }

@@ -55,6 +55,7 @@ QFormLayout* QFormLayout_new2(QWidget* parent);
 void QFormLayout_virtbase(QFormLayout* src, QLayout** outptr_QLayout);
 QMetaObject* QFormLayout_metaObject(const QFormLayout* self);
 void* QFormLayout_metacast(QFormLayout* self, const char* param1);
+int QFormLayout_metacall(QFormLayout* self, int param1, int param2, void** param3);
 struct seaqt_string QFormLayout_tr(const char* s);
 struct seaqt_string QFormLayout_trUtf8(const char* s);
 void QFormLayout_setFieldGrowthPolicy(QFormLayout* self, int policy);
@@ -112,6 +113,12 @@ struct seaqt_string QFormLayout_tr3(const char* s, const char* c, int n);
 struct seaqt_string QFormLayout_trUtf82(const char* s, const char* c);
 struct seaqt_string QFormLayout_trUtf83(const char* s, const char* c, int n);
 
+bool QFormLayout_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QFormLayout_virtualbase_metaObject(const void* self);
+bool QFormLayout_override_virtual_metacast(void* self, intptr_t slot);
+void* QFormLayout_virtualbase_metacast(void* self, const char* param1);
+bool QFormLayout_override_virtual_metacall(void* self, intptr_t slot);
+int QFormLayout_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QFormLayout_override_virtual_addItem(void* self, intptr_t slot);
 void QFormLayout_virtualbase_addItem(void* self, QLayoutItem* item);
 bool QFormLayout_override_virtual_itemAtWithIndex(void* self, intptr_t slot);
@@ -177,6 +184,7 @@ int QFormLayout_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const vo
 int QFormLayout_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QFormLayout_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QFormLayout_staticMetaObject();
 void QFormLayout_delete(QFormLayout* self);
 
 QLayoutItem* QFormLayout__TakeRowResult_labelItem(const QFormLayout__TakeRowResult* self);

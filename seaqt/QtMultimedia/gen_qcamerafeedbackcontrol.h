@@ -31,6 +31,7 @@ typedef struct QObject QObject;
 void QCameraFeedbackControl_virtbase(QCameraFeedbackControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QCameraFeedbackControl_metaObject(const QCameraFeedbackControl* self);
 void* QCameraFeedbackControl_metacast(QCameraFeedbackControl* self, const char* param1);
+int QCameraFeedbackControl_metacall(QCameraFeedbackControl* self, int param1, int param2, void** param3);
 struct seaqt_string QCameraFeedbackControl_tr(const char* s);
 struct seaqt_string QCameraFeedbackControl_trUtf8(const char* s);
 bool QCameraFeedbackControl_isEventFeedbackLocked(const QCameraFeedbackControl* self, int param1);
@@ -43,6 +44,7 @@ struct seaqt_string QCameraFeedbackControl_tr3(const char* s, const char* c, int
 struct seaqt_string QCameraFeedbackControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QCameraFeedbackControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QCameraFeedbackControl_staticMetaObject();
 void QCameraFeedbackControl_delete(QCameraFeedbackControl* self);
 
 #ifdef __cplusplus

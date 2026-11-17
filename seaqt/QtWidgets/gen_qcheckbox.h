@@ -93,6 +93,7 @@ QCheckBox* QCheckBox_new4(struct seaqt_string text, QWidget* parent);
 void QCheckBox_virtbase(QCheckBox* src, QAbstractButton** outptr_QAbstractButton);
 QMetaObject* QCheckBox_metaObject(const QCheckBox* self);
 void* QCheckBox_metacast(QCheckBox* self, const char* param1);
+int QCheckBox_metacall(QCheckBox* self, int param1, int param2, void** param3);
 struct seaqt_string QCheckBox_tr(const char* s);
 struct seaqt_string QCheckBox_trUtf8(const char* s);
 QSize* QCheckBox_sizeHint(const QCheckBox* self);
@@ -115,6 +116,12 @@ struct seaqt_string QCheckBox_trUtf82(const char* s, const char* c);
 struct seaqt_string QCheckBox_trUtf83(const char* s, const char* c, int n);
 void QCheckBox_setTristateWithBool(QCheckBox* self, bool y);
 
+bool QCheckBox_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QCheckBox_virtualbase_metaObject(const void* self);
+bool QCheckBox_override_virtual_metacast(void* self, intptr_t slot);
+void* QCheckBox_virtualbase_metacast(void* self, const char* param1);
+bool QCheckBox_override_virtual_metacall(void* self, intptr_t slot);
+int QCheckBox_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QCheckBox_override_virtual_sizeHint(void* self, intptr_t slot);
 QSize* QCheckBox_virtualbase_sizeHint(const void* self);
 bool QCheckBox_override_virtual_minimumSizeHint(void* self, intptr_t slot);
@@ -227,6 +234,7 @@ int QCheckBox_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void
 int QCheckBox_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QCheckBox_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QCheckBox_staticMetaObject();
 void QCheckBox_delete(QCheckBox* self);
 
 #ifdef __cplusplus

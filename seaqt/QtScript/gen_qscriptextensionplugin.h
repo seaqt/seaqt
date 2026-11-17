@@ -45,6 +45,7 @@ QScriptExtensionPlugin* QScriptExtensionPlugin_new2(QObject* parent);
 void QScriptExtensionPlugin_virtbase(QScriptExtensionPlugin* src, QObject** outptr_QObject, QScriptExtensionInterface** outptr_QScriptExtensionInterface);
 QMetaObject* QScriptExtensionPlugin_metaObject(const QScriptExtensionPlugin* self);
 void* QScriptExtensionPlugin_metacast(QScriptExtensionPlugin* self, const char* param1);
+int QScriptExtensionPlugin_metacall(QScriptExtensionPlugin* self, int param1, int param2, void** param3);
 struct seaqt_string QScriptExtensionPlugin_tr(const char* s);
 struct seaqt_string QScriptExtensionPlugin_trUtf8(const char* s);
 struct seaqt_array /* of struct seaqt_string */  QScriptExtensionPlugin_keys(const QScriptExtensionPlugin* self);
@@ -55,6 +56,12 @@ struct seaqt_string QScriptExtensionPlugin_tr3(const char* s, const char* c, int
 struct seaqt_string QScriptExtensionPlugin_trUtf82(const char* s, const char* c);
 struct seaqt_string QScriptExtensionPlugin_trUtf83(const char* s, const char* c, int n);
 
+bool QScriptExtensionPlugin_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QScriptExtensionPlugin_virtualbase_metaObject(const void* self);
+bool QScriptExtensionPlugin_override_virtual_metacast(void* self, intptr_t slot);
+void* QScriptExtensionPlugin_virtualbase_metacast(void* self, const char* param1);
+bool QScriptExtensionPlugin_override_virtual_metacall(void* self, intptr_t slot);
+int QScriptExtensionPlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QScriptExtensionPlugin_override_virtual_keys(void* self, intptr_t slot);
 struct seaqt_array /* of struct seaqt_string */  QScriptExtensionPlugin_virtualbase_keys(const void* self);
 bool QScriptExtensionPlugin_override_virtual_initialize(void* self, intptr_t slot);
@@ -79,6 +86,7 @@ int QScriptExtensionPlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_o
 int QScriptExtensionPlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QScriptExtensionPlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QScriptExtensionPlugin_staticMetaObject();
 void QScriptExtensionPlugin_delete(QScriptExtensionPlugin* self);
 
 #ifdef __cplusplus

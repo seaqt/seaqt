@@ -43,6 +43,7 @@ QVariantAnimation* QVariantAnimation_new2(QObject* parent);
 void QVariantAnimation_virtbase(QVariantAnimation* src, QAbstractAnimation** outptr_QAbstractAnimation);
 QMetaObject* QVariantAnimation_metaObject(const QVariantAnimation* self);
 void* QVariantAnimation_metacast(QVariantAnimation* self, const char* param1);
+int QVariantAnimation_metacall(QVariantAnimation* self, int param1, int param2, void** param3);
 struct seaqt_string QVariantAnimation_tr(const char* s);
 struct seaqt_string QVariantAnimation_trUtf8(const char* s);
 QVariant* QVariantAnimation_startValue(const QVariantAnimation* self);
@@ -70,6 +71,12 @@ struct seaqt_string QVariantAnimation_tr3(const char* s, const char* c, int n);
 struct seaqt_string QVariantAnimation_trUtf82(const char* s, const char* c);
 struct seaqt_string QVariantAnimation_trUtf83(const char* s, const char* c, int n);
 
+bool QVariantAnimation_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QVariantAnimation_virtualbase_metaObject(const void* self);
+bool QVariantAnimation_override_virtual_metacast(void* self, intptr_t slot);
+void* QVariantAnimation_virtualbase_metacast(void* self, const char* param1);
+bool QVariantAnimation_override_virtual_metacall(void* self, intptr_t slot);
+int QVariantAnimation_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QVariantAnimation_override_virtual_duration(void* self, intptr_t slot);
 int QVariantAnimation_virtualbase_duration(const void* self);
 bool QVariantAnimation_override_virtual_event(void* self, intptr_t slot);
@@ -102,6 +109,7 @@ int QVariantAnimation_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, co
 int QVariantAnimation_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QVariantAnimation_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QVariantAnimation_staticMetaObject();
 void QVariantAnimation_delete(QVariantAnimation* self);
 
 #ifdef __cplusplus

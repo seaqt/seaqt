@@ -33,6 +33,7 @@ typedef struct QVariant QVariant;
 void QCameraImageProcessingControl_virtbase(QCameraImageProcessingControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QCameraImageProcessingControl_metaObject(const QCameraImageProcessingControl* self);
 void* QCameraImageProcessingControl_metacast(QCameraImageProcessingControl* self, const char* param1);
+int QCameraImageProcessingControl_metacall(QCameraImageProcessingControl* self, int param1, int param2, void** param3);
 struct seaqt_string QCameraImageProcessingControl_tr(const char* s);
 struct seaqt_string QCameraImageProcessingControl_trUtf8(const char* s);
 bool QCameraImageProcessingControl_isParameterSupported(const QCameraImageProcessingControl* self, int param1);
@@ -44,6 +45,7 @@ struct seaqt_string QCameraImageProcessingControl_tr3(const char* s, const char*
 struct seaqt_string QCameraImageProcessingControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QCameraImageProcessingControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QCameraImageProcessingControl_staticMetaObject();
 void QCameraImageProcessingControl_delete(QCameraImageProcessingControl* self);
 
 #ifdef __cplusplus

@@ -45,6 +45,7 @@ QAbstractTransition* QAbstractTransition_new2(QState* sourceState);
 void QAbstractTransition_virtbase(QAbstractTransition* src, QObject** outptr_QObject);
 QMetaObject* QAbstractTransition_metaObject(const QAbstractTransition* self);
 void* QAbstractTransition_metacast(QAbstractTransition* self, const char* param1);
+int QAbstractTransition_metacall(QAbstractTransition* self, int param1, int param2, void** param3);
 struct seaqt_string QAbstractTransition_tr(const char* s);
 struct seaqt_string QAbstractTransition_trUtf8(const char* s);
 QState* QAbstractTransition_sourceState(const QAbstractTransition* self);
@@ -66,6 +67,12 @@ struct seaqt_string QAbstractTransition_tr3(const char* s, const char* c, int n)
 struct seaqt_string QAbstractTransition_trUtf82(const char* s, const char* c);
 struct seaqt_string QAbstractTransition_trUtf83(const char* s, const char* c, int n);
 
+bool QAbstractTransition_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QAbstractTransition_virtualbase_metaObject(const void* self);
+bool QAbstractTransition_override_virtual_metacast(void* self, intptr_t slot);
+void* QAbstractTransition_virtualbase_metacast(void* self, const char* param1);
+bool QAbstractTransition_override_virtual_metacall(void* self, intptr_t slot);
+int QAbstractTransition_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QAbstractTransition_override_virtual_eventTest(void* self, intptr_t slot);
 bool QAbstractTransition_virtualbase_eventTest(void* self, QEvent* event);
 bool QAbstractTransition_override_virtual_onTransition(void* self, intptr_t slot);
@@ -94,6 +101,7 @@ void QAbstractTransition_connect_triggered(QAbstractTransition* self, intptr_t s
 void QAbstractTransition_connect_targetStateChanged(QAbstractTransition* self, intptr_t slot);
 void QAbstractTransition_connect_targetStatesChanged(QAbstractTransition* self, intptr_t slot);
 
+const QMetaObject* QAbstractTransition_staticMetaObject();
 void QAbstractTransition_delete(QAbstractTransition* self);
 
 #ifdef __cplusplus

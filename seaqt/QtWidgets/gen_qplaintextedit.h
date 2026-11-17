@@ -147,6 +147,7 @@ QPlainTextEdit* QPlainTextEdit_new4(struct seaqt_string text, QWidget* parent);
 void QPlainTextEdit_virtbase(QPlainTextEdit* src, QAbstractScrollArea** outptr_QAbstractScrollArea);
 QMetaObject* QPlainTextEdit_metaObject(const QPlainTextEdit* self);
 void* QPlainTextEdit_metacast(QPlainTextEdit* self, const char* param1);
+int QPlainTextEdit_metacall(QPlainTextEdit* self, int param1, int param2, void** param3);
 struct seaqt_string QPlainTextEdit_tr(const char* s);
 struct seaqt_string QPlainTextEdit_trUtf8(const char* s);
 void QPlainTextEdit_setDocument(QPlainTextEdit* self, QTextDocument* document);
@@ -276,6 +277,12 @@ void QPlainTextEdit_moveCursor2(QPlainTextEdit* self, int operation, int mode);
 void QPlainTextEdit_zoomInWithRange(QPlainTextEdit* self, int range);
 void QPlainTextEdit_zoomOutWithRange(QPlainTextEdit* self, int range);
 
+bool QPlainTextEdit_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QPlainTextEdit_virtualbase_metaObject(const void* self);
+bool QPlainTextEdit_override_virtual_metacast(void* self, intptr_t slot);
+void* QPlainTextEdit_virtualbase_metacast(void* self, const char* param1);
+bool QPlainTextEdit_override_virtual_metacall(void* self, intptr_t slot);
+int QPlainTextEdit_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QPlainTextEdit_override_virtual_loadResource(void* self, intptr_t slot);
 QVariant* QPlainTextEdit_virtualbase_loadResource(void* self, int type, QUrl* name);
 bool QPlainTextEdit_override_virtual_inputMethodQuery(void* self, intptr_t slot);
@@ -409,12 +416,14 @@ int QPlainTextEdit_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const
 int QPlainTextEdit_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QPlainTextEdit_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QPlainTextEdit_staticMetaObject();
 void QPlainTextEdit_delete(QPlainTextEdit* self);
 
 QPlainTextDocumentLayout* QPlainTextDocumentLayout_new(QTextDocument* document);
 void QPlainTextDocumentLayout_virtbase(QPlainTextDocumentLayout* src, QAbstractTextDocumentLayout** outptr_QAbstractTextDocumentLayout);
 QMetaObject* QPlainTextDocumentLayout_metaObject(const QPlainTextDocumentLayout* self);
 void* QPlainTextDocumentLayout_metacast(QPlainTextDocumentLayout* self, const char* param1);
+int QPlainTextDocumentLayout_metacall(QPlainTextDocumentLayout* self, int param1, int param2, void** param3);
 struct seaqt_string QPlainTextDocumentLayout_tr(const char* s);
 struct seaqt_string QPlainTextDocumentLayout_trUtf8(const char* s);
 void QPlainTextDocumentLayout_draw(QPlainTextDocumentLayout* self, QPainter* param1, QAbstractTextDocumentLayout__PaintContext* param2);
@@ -433,6 +442,12 @@ struct seaqt_string QPlainTextDocumentLayout_tr3(const char* s, const char* c, i
 struct seaqt_string QPlainTextDocumentLayout_trUtf82(const char* s, const char* c);
 struct seaqt_string QPlainTextDocumentLayout_trUtf83(const char* s, const char* c, int n);
 
+bool QPlainTextDocumentLayout_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QPlainTextDocumentLayout_virtualbase_metaObject(const void* self);
+bool QPlainTextDocumentLayout_override_virtual_metacast(void* self, intptr_t slot);
+void* QPlainTextDocumentLayout_virtualbase_metacast(void* self, const char* param1);
+bool QPlainTextDocumentLayout_override_virtual_metacall(void* self, intptr_t slot);
+int QPlainTextDocumentLayout_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QPlainTextDocumentLayout_override_virtual_draw(void* self, intptr_t slot);
 void QPlainTextDocumentLayout_virtualbase_draw(void* self, QPainter* param1, QAbstractTextDocumentLayout__PaintContext* param2);
 bool QPlainTextDocumentLayout_override_virtual_hitTest(void* self, intptr_t slot);
@@ -475,6 +490,7 @@ int QPlainTextDocumentLayout_protectedbase_senderSignalIndex(bool* _dynamic_cast
 int QPlainTextDocumentLayout_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QPlainTextDocumentLayout_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QPlainTextDocumentLayout_staticMetaObject();
 void QPlainTextDocumentLayout_delete(QPlainTextDocumentLayout* self);
 
 #ifdef __cplusplus

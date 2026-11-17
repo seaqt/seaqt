@@ -57,6 +57,7 @@ QSortFilterProxyModel* QSortFilterProxyModel_new2(QObject* parent);
 void QSortFilterProxyModel_virtbase(QSortFilterProxyModel* src, QAbstractProxyModel** outptr_QAbstractProxyModel);
 QMetaObject* QSortFilterProxyModel_metaObject(const QSortFilterProxyModel* self);
 void* QSortFilterProxyModel_metacast(QSortFilterProxyModel* self, const char* param1);
+int QSortFilterProxyModel_metacall(QSortFilterProxyModel* self, int param1, int param2, void** param3);
 struct seaqt_string QSortFilterProxyModel_tr(const char* s);
 struct seaqt_string QSortFilterProxyModel_trUtf8(const char* s);
 void QSortFilterProxyModel_setSourceModel(QSortFilterProxyModel* self, QAbstractItemModel* sourceModel);
@@ -139,6 +140,12 @@ struct seaqt_string QSortFilterProxyModel_tr3(const char* s, const char* c, int 
 struct seaqt_string QSortFilterProxyModel_trUtf82(const char* s, const char* c);
 struct seaqt_string QSortFilterProxyModel_trUtf83(const char* s, const char* c, int n);
 
+bool QSortFilterProxyModel_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QSortFilterProxyModel_virtualbase_metaObject(const void* self);
+bool QSortFilterProxyModel_override_virtual_metacast(void* self, intptr_t slot);
+void* QSortFilterProxyModel_virtualbase_metacast(void* self, const char* param1);
+bool QSortFilterProxyModel_override_virtual_metacall(void* self, intptr_t slot);
+int QSortFilterProxyModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QSortFilterProxyModel_override_virtual_setSourceModel(void* self, intptr_t slot);
 void QSortFilterProxyModel_virtualbase_setSourceModel(void* self, QAbstractItemModel* sourceModel);
 bool QSortFilterProxyModel_override_virtual_mapToSource(void* self, intptr_t slot);
@@ -266,6 +273,7 @@ int QSortFilterProxyModel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok
 int QSortFilterProxyModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QSortFilterProxyModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QSortFilterProxyModel_staticMetaObject();
 void QSortFilterProxyModel_delete(QSortFilterProxyModel* self);
 
 #ifdef __cplusplus

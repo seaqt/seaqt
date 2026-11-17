@@ -97,6 +97,7 @@ QCommandLinkButton* QCommandLinkButton_new6(struct seaqt_string text, struct sea
 void QCommandLinkButton_virtbase(QCommandLinkButton* src, QPushButton** outptr_QPushButton);
 QMetaObject* QCommandLinkButton_metaObject(const QCommandLinkButton* self);
 void* QCommandLinkButton_metacast(QCommandLinkButton* self, const char* param1);
+int QCommandLinkButton_metacall(QCommandLinkButton* self, int param1, int param2, void** param3);
 struct seaqt_string QCommandLinkButton_tr(const char* s);
 struct seaqt_string QCommandLinkButton_trUtf8(const char* s);
 struct seaqt_string QCommandLinkButton_description(const QCommandLinkButton* self);
@@ -111,6 +112,12 @@ struct seaqt_string QCommandLinkButton_tr3(const char* s, const char* c, int n);
 struct seaqt_string QCommandLinkButton_trUtf82(const char* s, const char* c);
 struct seaqt_string QCommandLinkButton_trUtf83(const char* s, const char* c, int n);
 
+bool QCommandLinkButton_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QCommandLinkButton_virtualbase_metaObject(const void* self);
+bool QCommandLinkButton_override_virtual_metacast(void* self, intptr_t slot);
+void* QCommandLinkButton_virtualbase_metacast(void* self, const char* param1);
+bool QCommandLinkButton_override_virtual_metacall(void* self, intptr_t slot);
+int QCommandLinkButton_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QCommandLinkButton_override_virtual_sizeHint(void* self, intptr_t slot);
 QSize* QCommandLinkButton_virtualbase_sizeHint(const void* self);
 bool QCommandLinkButton_override_virtual_heightForWidth(void* self, intptr_t slot);
@@ -223,6 +230,7 @@ int QCommandLinkButton_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, c
 int QCommandLinkButton_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QCommandLinkButton_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QCommandLinkButton_staticMetaObject();
 void QCommandLinkButton_delete(QCommandLinkButton* self);
 
 #ifdef __cplusplus

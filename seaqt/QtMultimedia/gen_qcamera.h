@@ -67,6 +67,7 @@ QCamera* QCamera_new8(int position, QObject* parent);
 void QCamera_virtbase(QCamera* src, QMediaObject** outptr_QMediaObject);
 QMetaObject* QCamera_metaObject(const QCamera* self);
 void* QCamera_metacast(QCamera* self, const char* param1);
+int QCamera_metacall(QCamera* self, int param1, int param2, void** param3);
 struct seaqt_string QCamera_tr(const char* s);
 struct seaqt_string QCamera_trUtf8(const char* s);
 struct seaqt_array /* of struct seaqt_string */  QCamera_availableDevices();
@@ -128,6 +129,12 @@ struct seaqt_array /* of QSize* */  QCamera_supportedViewfinderResolutionsWithSe
 struct seaqt_array /* of QCamera__FrameRateRange* */  QCamera_supportedViewfinderFrameRateRangesWithSettings(const QCamera* self, QCameraViewfinderSettings* settings);
 struct seaqt_array /* of int */  QCamera_supportedViewfinderPixelFormatsWithSettings(const QCamera* self, QCameraViewfinderSettings* settings);
 
+bool QCamera_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QCamera_virtualbase_metaObject(const void* self);
+bool QCamera_override_virtual_metacast(void* self, intptr_t slot);
+void* QCamera_virtualbase_metacast(void* self, const char* param1);
+bool QCamera_override_virtual_metacall(void* self, intptr_t slot);
+int QCamera_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QCamera_override_virtual_availability(void* self, intptr_t slot);
 int QCamera_virtualbase_availability(const void* self);
 bool QCamera_override_virtual_isAvailable(void* self, intptr_t slot);
@@ -160,6 +167,7 @@ int QCamera_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const void* 
 int QCamera_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QCamera_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QCamera_staticMetaObject();
 void QCamera_delete(QCamera* self);
 
 QCamera__FrameRateRange* QCamera__FrameRateRange_new();

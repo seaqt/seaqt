@@ -33,6 +33,7 @@ typedef struct QVideoFrame QVideoFrame;
 void QMediaVideoProbeControl_virtbase(QMediaVideoProbeControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QMediaVideoProbeControl_metaObject(const QMediaVideoProbeControl* self);
 void* QMediaVideoProbeControl_metacast(QMediaVideoProbeControl* self, const char* param1);
+int QMediaVideoProbeControl_metacall(QMediaVideoProbeControl* self, int param1, int param2, void** param3);
 struct seaqt_string QMediaVideoProbeControl_tr(const char* s);
 struct seaqt_string QMediaVideoProbeControl_trUtf8(const char* s);
 void QMediaVideoProbeControl_videoFrameProbed(QMediaVideoProbeControl* self, QVideoFrame* frame);
@@ -44,6 +45,7 @@ struct seaqt_string QMediaVideoProbeControl_tr3(const char* s, const char* c, in
 struct seaqt_string QMediaVideoProbeControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QMediaVideoProbeControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QMediaVideoProbeControl_staticMetaObject();
 void QMediaVideoProbeControl_delete(QMediaVideoProbeControl* self);
 
 #ifdef __cplusplus

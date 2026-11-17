@@ -43,6 +43,7 @@ QAudioProbe* QAudioProbe_new2(QObject* parent);
 void QAudioProbe_virtbase(QAudioProbe* src, QObject** outptr_QObject);
 QMetaObject* QAudioProbe_metaObject(const QAudioProbe* self);
 void* QAudioProbe_metacast(QAudioProbe* self, const char* param1);
+int QAudioProbe_metacall(QAudioProbe* self, int param1, int param2, void** param3);
 struct seaqt_string QAudioProbe_tr(const char* s);
 struct seaqt_string QAudioProbe_trUtf8(const char* s);
 bool QAudioProbe_setSource(QAudioProbe* self, QMediaObject* source);
@@ -57,6 +58,12 @@ struct seaqt_string QAudioProbe_tr3(const char* s, const char* c, int n);
 struct seaqt_string QAudioProbe_trUtf82(const char* s, const char* c);
 struct seaqt_string QAudioProbe_trUtf83(const char* s, const char* c, int n);
 
+bool QAudioProbe_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QAudioProbe_virtualbase_metaObject(const void* self);
+bool QAudioProbe_override_virtual_metacast(void* self, intptr_t slot);
+void* QAudioProbe_virtualbase_metacast(void* self, const char* param1);
+bool QAudioProbe_override_virtual_metacall(void* self, intptr_t slot);
+int QAudioProbe_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QAudioProbe_override_virtual_event(void* self, intptr_t slot);
 bool QAudioProbe_virtualbase_event(void* self, QEvent* event);
 bool QAudioProbe_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -77,6 +84,7 @@ int QAudioProbe_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const vo
 int QAudioProbe_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QAudioProbe_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QAudioProbe_staticMetaObject();
 void QAudioProbe_delete(QAudioProbe* self);
 
 #ifdef __cplusplus

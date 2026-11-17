@@ -49,6 +49,7 @@ QAccessibleBridgePlugin* QAccessibleBridgePlugin_new2(QObject* parent);
 void QAccessibleBridgePlugin_virtbase(QAccessibleBridgePlugin* src, QObject** outptr_QObject);
 QMetaObject* QAccessibleBridgePlugin_metaObject(const QAccessibleBridgePlugin* self);
 void* QAccessibleBridgePlugin_metacast(QAccessibleBridgePlugin* self, const char* param1);
+int QAccessibleBridgePlugin_metacall(QAccessibleBridgePlugin* self, int param1, int param2, void** param3);
 struct seaqt_string QAccessibleBridgePlugin_tr(const char* s);
 struct seaqt_string QAccessibleBridgePlugin_trUtf8(const char* s);
 QAccessibleBridge* QAccessibleBridgePlugin_create(QAccessibleBridgePlugin* self, struct seaqt_string key);
@@ -57,6 +58,12 @@ struct seaqt_string QAccessibleBridgePlugin_tr3(const char* s, const char* c, in
 struct seaqt_string QAccessibleBridgePlugin_trUtf82(const char* s, const char* c);
 struct seaqt_string QAccessibleBridgePlugin_trUtf83(const char* s, const char* c, int n);
 
+bool QAccessibleBridgePlugin_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QAccessibleBridgePlugin_virtualbase_metaObject(const void* self);
+bool QAccessibleBridgePlugin_override_virtual_metacast(void* self, intptr_t slot);
+void* QAccessibleBridgePlugin_virtualbase_metacast(void* self, const char* param1);
+bool QAccessibleBridgePlugin_override_virtual_metacall(void* self, intptr_t slot);
+int QAccessibleBridgePlugin_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QAccessibleBridgePlugin_override_virtual_create(void* self, intptr_t slot);
 QAccessibleBridge* QAccessibleBridgePlugin_virtualbase_create(void* self, struct seaqt_string key);
 bool QAccessibleBridgePlugin_override_virtual_event(void* self, intptr_t slot);
@@ -79,6 +86,7 @@ int QAccessibleBridgePlugin_protectedbase_senderSignalIndex(bool* _dynamic_cast_
 int QAccessibleBridgePlugin_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QAccessibleBridgePlugin_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QAccessibleBridgePlugin_staticMetaObject();
 void QAccessibleBridgePlugin_delete(QAccessibleBridgePlugin* self);
 
 #ifdef __cplusplus

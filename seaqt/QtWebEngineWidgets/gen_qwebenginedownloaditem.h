@@ -33,6 +33,7 @@ typedef struct QWebEnginePage QWebEnginePage;
 void QWebEngineDownloadItem_virtbase(QWebEngineDownloadItem* src, QObject** outptr_QObject);
 QMetaObject* QWebEngineDownloadItem_metaObject(const QWebEngineDownloadItem* self);
 void* QWebEngineDownloadItem_metacast(QWebEngineDownloadItem* self, const char* param1);
+int QWebEngineDownloadItem_metacall(QWebEngineDownloadItem* self, int param1, int param2, void** param3);
 struct seaqt_string QWebEngineDownloadItem_tr(const char* s);
 struct seaqt_string QWebEngineDownloadItem_trUtf8(const char* s);
 unsigned int QWebEngineDownloadItem_id(const QWebEngineDownloadItem* self);
@@ -74,6 +75,7 @@ struct seaqt_string QWebEngineDownloadItem_tr3(const char* s, const char* c, int
 struct seaqt_string QWebEngineDownloadItem_trUtf82(const char* s, const char* c);
 struct seaqt_string QWebEngineDownloadItem_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QWebEngineDownloadItem_staticMetaObject();
 void QWebEngineDownloadItem_delete(QWebEngineDownloadItem* self);
 
 #ifdef __cplusplus

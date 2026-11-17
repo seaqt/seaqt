@@ -41,6 +41,7 @@ QFinalState* QFinalState_new2(QState* parent);
 void QFinalState_virtbase(QFinalState* src, QAbstractState** outptr_QAbstractState);
 QMetaObject* QFinalState_metaObject(const QFinalState* self);
 void* QFinalState_metacast(QFinalState* self, const char* param1);
+int QFinalState_metacall(QFinalState* self, int param1, int param2, void** param3);
 struct seaqt_string QFinalState_tr(const char* s);
 struct seaqt_string QFinalState_trUtf8(const char* s);
 void QFinalState_onEntry(QFinalState* self, QEvent* event);
@@ -51,6 +52,12 @@ struct seaqt_string QFinalState_tr3(const char* s, const char* c, int n);
 struct seaqt_string QFinalState_trUtf82(const char* s, const char* c);
 struct seaqt_string QFinalState_trUtf83(const char* s, const char* c, int n);
 
+bool QFinalState_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QFinalState_virtualbase_metaObject(const void* self);
+bool QFinalState_override_virtual_metacast(void* self, intptr_t slot);
+void* QFinalState_virtualbase_metacast(void* self, const char* param1);
+bool QFinalState_override_virtual_metacall(void* self, intptr_t slot);
+int QFinalState_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QFinalState_override_virtual_onEntry(void* self, intptr_t slot);
 void QFinalState_virtualbase_onEntry(void* self, QEvent* event);
 bool QFinalState_override_virtual_onExit(void* self, intptr_t slot);
@@ -75,6 +82,7 @@ int QFinalState_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const vo
 int QFinalState_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QFinalState_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QFinalState_staticMetaObject();
 void QFinalState_delete(QFinalState* self);
 
 #ifdef __cplusplus

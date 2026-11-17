@@ -15,9 +15,11 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
+class QMetaObject;
 class QSizePolicy;
 class QVariant;
 #else
+typedef struct QMetaObject QMetaObject;
 typedef struct QSizePolicy QSizePolicy;
 typedef struct QVariant QVariant;
 #endif
@@ -50,6 +52,7 @@ void QSizePolicy_transpose(QSizePolicy* self);
 QSizePolicy* QSizePolicy_transposed(const QSizePolicy* self);
 void QSizePolicy_operatorAssign(QSizePolicy* self, QSizePolicy* param1);
 
+const QMetaObject* QSizePolicy_staticMetaObject();
 void QSizePolicy_delete(QSizePolicy* self);
 
 #ifdef __cplusplus

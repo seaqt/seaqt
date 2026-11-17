@@ -16,9 +16,11 @@ extern "C" {
 
 #ifdef __cplusplus
 class QEasingCurve;
+class QMetaObject;
 class QPointF;
 #else
 typedef struct QEasingCurve QEasingCurve;
+typedef struct QMetaObject QMetaObject;
 typedef struct QPointF QPointF;
 #endif
 
@@ -42,6 +44,7 @@ int QEasingCurve_type(const QEasingCurve* self);
 void QEasingCurve_setType(QEasingCurve* self, int type);
 double QEasingCurve_valueForProgress(const QEasingCurve* self, double progress);
 
+const QMetaObject* QEasingCurve_staticMetaObject();
 void QEasingCurve_delete(QEasingCurve* self);
 
 #ifdef __cplusplus

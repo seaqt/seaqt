@@ -45,6 +45,7 @@ typedef struct QVariant QVariant;
 void QNetworkReply_virtbase(QNetworkReply* src, QIODevice** outptr_QIODevice);
 QMetaObject* QNetworkReply_metaObject(const QNetworkReply* self);
 void* QNetworkReply_metacast(QNetworkReply* self, const char* param1);
+int QNetworkReply_metacall(QNetworkReply* self, int param1, int param2, void** param3);
 struct seaqt_string QNetworkReply_tr(const char* s);
 struct seaqt_string QNetworkReply_trUtf8(const char* s);
 void QNetworkReply_close(QNetworkReply* self);
@@ -100,6 +101,7 @@ struct seaqt_string QNetworkReply_tr3(const char* s, const char* c, int n);
 struct seaqt_string QNetworkReply_trUtf82(const char* s, const char* c);
 struct seaqt_string QNetworkReply_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QNetworkReply_staticMetaObject();
 void QNetworkReply_delete(QNetworkReply* self);
 
 #ifdef __cplusplus

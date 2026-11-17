@@ -31,6 +31,7 @@ typedef struct QObject QObject;
 void QCameraControl_virtbase(QCameraControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QCameraControl_metaObject(const QCameraControl* self);
 void* QCameraControl_metacast(QCameraControl* self, const char* param1);
+int QCameraControl_metacall(QCameraControl* self, int param1, int param2, void** param3);
 struct seaqt_string QCameraControl_tr(const char* s);
 struct seaqt_string QCameraControl_trUtf8(const char* s);
 int QCameraControl_state(const QCameraControl* self);
@@ -53,6 +54,7 @@ struct seaqt_string QCameraControl_tr3(const char* s, const char* c, int n);
 struct seaqt_string QCameraControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QCameraControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QCameraControl_staticMetaObject();
 void QCameraControl_delete(QCameraControl* self);
 
 #ifdef __cplusplus

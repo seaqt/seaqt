@@ -21,6 +21,9 @@ void miqt_exec_callback_QPdfPageNavigation_currentPageChanged(intptr_t, int);
 void miqt_exec_callback_QPdfPageNavigation_pageCountChanged(intptr_t, int);
 void miqt_exec_callback_QPdfPageNavigation_canGoToPreviousPageChanged(intptr_t, bool);
 void miqt_exec_callback_QPdfPageNavigation_canGoToNextPageChanged(intptr_t, bool);
+QMetaObject* miqt_exec_callback_QPdfPageNavigation_metaObject(const QPdfPageNavigation*, intptr_t);
+void* miqt_exec_callback_QPdfPageNavigation_metacast(QPdfPageNavigation*, intptr_t, const char*);
+int miqt_exec_callback_QPdfPageNavigation_metacall(QPdfPageNavigation*, intptr_t, int, int, void**);
 bool miqt_exec_callback_QPdfPageNavigation_event(QPdfPageNavigation*, intptr_t, QEvent*);
 bool miqt_exec_callback_QPdfPageNavigation_eventFilter(QPdfPageNavigation*, intptr_t, QObject*, QEvent*);
 void miqt_exec_callback_QPdfPageNavigation_timerEvent(QPdfPageNavigation*, intptr_t, QTimerEvent*);
@@ -39,6 +42,56 @@ public:
 	VirtualQPdfPageNavigation(QObject* parent): QPdfPageNavigation(parent) {}
 
 	virtual ~VirtualQPdfPageNavigation() override = default;
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metaObject = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual const QMetaObject* metaObject() const override {
+		if (handle__metaObject == 0) {
+			return QPdfPageNavigation::metaObject();
+		}
+
+		QMetaObject* callback_return_value = miqt_exec_callback_QPdfPageNavigation_metaObject(this, handle__metaObject);
+		return callback_return_value;
+	}
+
+	friend QMetaObject* QPdfPageNavigation_virtualbase_metaObject(const void* self);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacast = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual void* qt_metacast(const char* param1) override {
+		if (handle__metacast == 0) {
+			return QPdfPageNavigation::qt_metacast(param1);
+		}
+
+		const char* sigval1 = (const char*) param1;
+		void* callback_return_value = miqt_exec_callback_QPdfPageNavigation_metacast(this, handle__metacast, sigval1);
+		return callback_return_value;
+	}
+
+	friend void* QPdfPageNavigation_virtualbase_metacast(void* self, const char* param1);
+
+	// cgo.Handle value for overwritten implementation
+	intptr_t handle__metacall = 0;
+
+	// Subclass to allow providing a Go implementation
+	virtual int qt_metacall(QMetaObject::Call param1, int param2, void** param3) override {
+		if (handle__metacall == 0) {
+			return QPdfPageNavigation::qt_metacall(param1, param2, param3);
+		}
+
+		QMetaObject::Call param1_ret = param1;
+		int sigval1 = static_cast<int>(param1_ret);
+		int sigval2 = param2;
+		void** sigval3 = param3;
+		int callback_return_value = miqt_exec_callback_QPdfPageNavigation_metacall(this, handle__metacall, sigval1, sigval2, sigval3);
+		return static_cast<int>(callback_return_value);
+	}
+
+	friend int QPdfPageNavigation_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 
 	// cgo.Handle value for overwritten implementation
 	intptr_t handle__event = 0;
@@ -187,6 +240,10 @@ QMetaObject* QPdfPageNavigation_metaObject(const QPdfPageNavigation* self) {
 
 void* QPdfPageNavigation_metacast(QPdfPageNavigation* self, const char* param1) {
 	return self->qt_metacast(param1);
+}
+
+int QPdfPageNavigation_metacall(QPdfPageNavigation* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 struct seaqt_string QPdfPageNavigation_tr(const char* s) {
@@ -344,6 +401,49 @@ struct seaqt_string QPdfPageNavigation_trUtf83(const char* s, const char* c, int
 	_ms.data = static_cast<char*>(malloc(_ms.len));
 	memcpy(_ms.data, _b.data(), _ms.len);
 	return _ms;
+}
+
+const QMetaObject* QPdfPageNavigation_staticMetaObject() { return &QPdfPageNavigation::staticMetaObject; }
+bool QPdfPageNavigation_override_virtual_metaObject(void* self, intptr_t slot) {
+	VirtualQPdfPageNavigation* self_cast = dynamic_cast<VirtualQPdfPageNavigation*>( (QPdfPageNavigation*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metaObject = slot;
+	return true;
+}
+
+QMetaObject* QPdfPageNavigation_virtualbase_metaObject(const void* self) {
+	return (QMetaObject*) static_cast<const VirtualQPdfPageNavigation*>(self)->QPdfPageNavigation::metaObject();
+}
+
+bool QPdfPageNavigation_override_virtual_metacast(void* self, intptr_t slot) {
+	VirtualQPdfPageNavigation* self_cast = dynamic_cast<VirtualQPdfPageNavigation*>( (QPdfPageNavigation*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacast = slot;
+	return true;
+}
+
+void* QPdfPageNavigation_virtualbase_metacast(void* self, const char* param1) {
+	return static_cast<VirtualQPdfPageNavigation*>(self)->QPdfPageNavigation::qt_metacast(param1);
+}
+
+bool QPdfPageNavigation_override_virtual_metacall(void* self, intptr_t slot) {
+	VirtualQPdfPageNavigation* self_cast = dynamic_cast<VirtualQPdfPageNavigation*>( (QPdfPageNavigation*)(self) );
+	if (self_cast == nullptr) {
+		return false;
+	}
+
+	self_cast->handle__metacall = slot;
+	return true;
+}
+
+int QPdfPageNavigation_virtualbase_metacall(void* self, int param1, int param2, void** param3) {
+	return static_cast<VirtualQPdfPageNavigation*>(self)->QPdfPageNavigation::qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
 }
 
 bool QPdfPageNavigation_override_virtual_event(void* self, intptr_t slot) {

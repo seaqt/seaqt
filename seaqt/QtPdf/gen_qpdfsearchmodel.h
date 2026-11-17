@@ -55,6 +55,7 @@ QPdfSearchModel* QPdfSearchModel_new2(QObject* parent);
 void QPdfSearchModel_virtbase(QPdfSearchModel* src, QAbstractListModel** outptr_QAbstractListModel);
 QMetaObject* QPdfSearchModel_metaObject(const QPdfSearchModel* self);
 void* QPdfSearchModel_metacast(QPdfSearchModel* self, const char* param1);
+int QPdfSearchModel_metacall(QPdfSearchModel* self, int param1, int param2, void** param3);
 struct seaqt_string QPdfSearchModel_tr(const char* s);
 struct seaqt_string QPdfSearchModel_trUtf8(const char* s);
 struct seaqt_array /* of QPdfSearchResult* */  QPdfSearchModel_resultsOnPage(const QPdfSearchModel* self, int page);
@@ -76,6 +77,12 @@ struct seaqt_string QPdfSearchModel_tr3(const char* s, const char* c, int n);
 struct seaqt_string QPdfSearchModel_trUtf82(const char* s, const char* c);
 struct seaqt_string QPdfSearchModel_trUtf83(const char* s, const char* c, int n);
 
+bool QPdfSearchModel_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QPdfSearchModel_virtualbase_metaObject(const void* self);
+bool QPdfSearchModel_override_virtual_metacast(void* self, intptr_t slot);
+void* QPdfSearchModel_virtualbase_metacast(void* self, const char* param1);
+bool QPdfSearchModel_override_virtual_metacall(void* self, intptr_t slot);
+int QPdfSearchModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QPdfSearchModel_override_virtual_roleNames(void* self, intptr_t slot);
 struct seaqt_map /* of int to struct seaqt_string */  QPdfSearchModel_virtualbase_roleNames(const void* self);
 bool QPdfSearchModel_override_virtual_rowCount(void* self, intptr_t slot);
@@ -180,6 +187,7 @@ int QPdfSearchModel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, cons
 int QPdfSearchModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QPdfSearchModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QPdfSearchModel_staticMetaObject();
 void QPdfSearchModel_delete(QPdfSearchModel* self);
 
 #ifdef __cplusplus

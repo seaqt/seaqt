@@ -1,3 +1,4 @@
+#include <QMetaObject>
 #include <QPdfDestination>
 #include <QPointF>
 #include <qpdfdestination.h>
@@ -40,6 +41,7 @@ double QPdfDestination_zoom(const QPdfDestination* self) {
 	return static_cast<double>(_ret);
 }
 
+const QMetaObject* QPdfDestination_staticMetaObject() { return &QPdfDestination::staticMetaObject; }
 void QPdfDestination_delete(QPdfDestination* self) {
 	delete self;
 }

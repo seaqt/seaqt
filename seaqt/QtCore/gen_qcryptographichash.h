@@ -17,9 +17,11 @@ extern "C" {
 #ifdef __cplusplus
 class QCryptographicHash;
 class QIODevice;
+class QMetaObject;
 #else
 typedef struct QCryptographicHash QCryptographicHash;
 typedef struct QIODevice QIODevice;
+typedef struct QMetaObject QMetaObject;
 #endif
 
 QCryptographicHash* QCryptographicHash_new(int method);
@@ -31,6 +33,7 @@ struct seaqt_string QCryptographicHash_result(const QCryptographicHash* self);
 struct seaqt_string QCryptographicHash_hash(struct seaqt_string data, int method);
 int QCryptographicHash_hashLength(int method);
 
+const QMetaObject* QCryptographicHash_staticMetaObject();
 void QCryptographicHash_delete(QCryptographicHash* self);
 
 #ifdef __cplusplus

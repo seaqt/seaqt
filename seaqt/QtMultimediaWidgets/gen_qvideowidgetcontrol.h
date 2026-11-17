@@ -33,6 +33,7 @@ typedef struct QWidget QWidget;
 void QVideoWidgetControl_virtbase(QVideoWidgetControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QVideoWidgetControl_metaObject(const QVideoWidgetControl* self);
 void* QVideoWidgetControl_metacast(QVideoWidgetControl* self, const char* param1);
+int QVideoWidgetControl_metacall(QVideoWidgetControl* self, int param1, int param2, void** param3);
 struct seaqt_string QVideoWidgetControl_tr(const char* s);
 struct seaqt_string QVideoWidgetControl_trUtf8(const char* s);
 QWidget* QVideoWidgetControl_videoWidget(QVideoWidgetControl* self);
@@ -63,6 +64,7 @@ struct seaqt_string QVideoWidgetControl_tr3(const char* s, const char* c, int n)
 struct seaqt_string QVideoWidgetControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QVideoWidgetControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QVideoWidgetControl_staticMetaObject();
 void QVideoWidgetControl_delete(QVideoWidgetControl* self);
 
 #ifdef __cplusplus

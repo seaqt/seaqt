@@ -8,6 +8,7 @@
 #include <QLine>
 #include <QLineF>
 #include <QMatrix>
+#include <QMetaObject>
 #include <QPaintDevice>
 #include <QPaintEngine>
 #include <QPainter>
@@ -1106,6 +1107,7 @@ QPaintDevice* QPainter_redirected2(QPaintDevice* device, QPoint* offset) {
 	return QPainter::redirected(device, offset);
 }
 
+const QMetaObject* QPainter_staticMetaObject() { return &QPainter::staticMetaObject; }
 void QPainter_delete(QPainter* self) {
 	delete self;
 }

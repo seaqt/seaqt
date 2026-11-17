@@ -49,6 +49,7 @@ QQmlApplicationEngine* QQmlApplicationEngine_new6(struct seaqt_string filePath, 
 void QQmlApplicationEngine_virtbase(QQmlApplicationEngine* src, QQmlEngine** outptr_QQmlEngine);
 QMetaObject* QQmlApplicationEngine_metaObject(const QQmlApplicationEngine* self);
 void* QQmlApplicationEngine_metacast(QQmlApplicationEngine* self, const char* param1);
+int QQmlApplicationEngine_metacall(QQmlApplicationEngine* self, int param1, int param2, void** param3);
 struct seaqt_string QQmlApplicationEngine_tr(const char* s);
 struct seaqt_string QQmlApplicationEngine_trUtf8(const char* s);
 struct seaqt_array /* of QObject* */  QQmlApplicationEngine_rootObjects(QQmlApplicationEngine* self);
@@ -65,6 +66,12 @@ struct seaqt_string QQmlApplicationEngine_trUtf82(const char* s, const char* c);
 struct seaqt_string QQmlApplicationEngine_trUtf83(const char* s, const char* c, int n);
 void QQmlApplicationEngine_loadData2(QQmlApplicationEngine* self, struct seaqt_string data, QUrl* url);
 
+bool QQmlApplicationEngine_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QQmlApplicationEngine_virtualbase_metaObject(const void* self);
+bool QQmlApplicationEngine_override_virtual_metacast(void* self, intptr_t slot);
+void* QQmlApplicationEngine_virtualbase_metacast(void* self, const char* param1);
+bool QQmlApplicationEngine_override_virtual_metacall(void* self, intptr_t slot);
+int QQmlApplicationEngine_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QQmlApplicationEngine_override_virtual_event(void* self, intptr_t slot);
 bool QQmlApplicationEngine_virtualbase_event(void* self, QEvent* param1);
 bool QQmlApplicationEngine_override_virtual_eventFilter(void* self, intptr_t slot);
@@ -85,6 +92,7 @@ int QQmlApplicationEngine_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok
 int QQmlApplicationEngine_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QQmlApplicationEngine_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QQmlApplicationEngine_staticMetaObject();
 void QQmlApplicationEngine_delete(QQmlApplicationEngine* self);
 
 #ifdef __cplusplus

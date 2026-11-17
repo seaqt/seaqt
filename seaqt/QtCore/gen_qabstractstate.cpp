@@ -34,6 +34,10 @@ void* QAbstractState_metacast(QAbstractState* self, const char* param1) {
 	return self->qt_metacast(param1);
 }
 
+int QAbstractState_metacall(QAbstractState* self, int param1, int param2, void** param3) {
+	return self->qt_metacall(static_cast<QMetaObject::Call>(param1), static_cast<int>(param2), param3);
+}
+
 struct seaqt_string QAbstractState_tr(const char* s) {
 	QString _ret = QAbstractState::tr(s);
 	// Convert QString from UTF-16 in C++ RAII memory to UTF-8 in manually-managed C memory
@@ -123,6 +127,7 @@ struct seaqt_string QAbstractState_trUtf83(const char* s, const char* c, int n) 
 	return _ms;
 }
 
+const QMetaObject* QAbstractState_staticMetaObject() { return &QAbstractState::staticMetaObject; }
 void QAbstractState_connect_entered(QAbstractState* self, intptr_t slot) {
 	QAbstractState::connect(self, &QAbstractState::entered, self, [=]() {
 		miqt_exec_callback_QAbstractState_entered(slot);

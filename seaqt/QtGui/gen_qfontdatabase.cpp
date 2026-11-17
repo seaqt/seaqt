@@ -3,6 +3,7 @@
 #include <QFontDatabase>
 #include <QFontInfo>
 #include <QList>
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -336,6 +337,7 @@ bool QFontDatabase_isFixedPitch2(const QFontDatabase* self, struct seaqt_string 
 	return self->isFixedPitch(family_QString, style_QString);
 }
 
+const QMetaObject* QFontDatabase_staticMetaObject() { return &QFontDatabase::staticMetaObject; }
 void QFontDatabase_delete(QFontDatabase* self) {
 	delete self;
 }

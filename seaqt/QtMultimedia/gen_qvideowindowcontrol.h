@@ -35,6 +35,7 @@ typedef struct QVideoWindowControl QVideoWindowControl;
 void QVideoWindowControl_virtbase(QVideoWindowControl* src, QMediaControl** outptr_QMediaControl);
 QMetaObject* QVideoWindowControl_metaObject(const QVideoWindowControl* self);
 void* QVideoWindowControl_metacast(QVideoWindowControl* self, const char* param1);
+int QVideoWindowControl_metacall(QVideoWindowControl* self, int param1, int param2, void** param3);
 struct seaqt_string QVideoWindowControl_tr(const char* s);
 struct seaqt_string QVideoWindowControl_trUtf8(const char* s);
 uintptr_t QVideoWindowControl_winId(const QVideoWindowControl* self);
@@ -72,6 +73,7 @@ struct seaqt_string QVideoWindowControl_tr3(const char* s, const char* c, int n)
 struct seaqt_string QVideoWindowControl_trUtf82(const char* s, const char* c);
 struct seaqt_string QVideoWindowControl_trUtf83(const char* s, const char* c, int n);
 
+const QMetaObject* QVideoWindowControl_staticMetaObject();
 void QVideoWindowControl_delete(QVideoWindowControl* self);
 
 #ifdef __cplusplus

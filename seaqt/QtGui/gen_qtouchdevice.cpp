@@ -1,4 +1,5 @@
 #include <QList>
+#include <QMetaObject>
 #include <QString>
 #include <QByteArray>
 #include <cstring>
@@ -73,6 +74,7 @@ void QTouchDevice_setMaximumTouchPoints(QTouchDevice* self, int max) {
 	self->setMaximumTouchPoints(static_cast<int>(max));
 }
 
+const QMetaObject* QTouchDevice_staticMetaObject() { return &QTouchDevice::staticMetaObject; }
 void QTouchDevice_delete(QTouchDevice* self) {
 	delete self;
 }

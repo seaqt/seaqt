@@ -93,6 +93,7 @@ QRadioButton* QRadioButton_new4(struct seaqt_string text, QWidget* parent);
 void QRadioButton_virtbase(QRadioButton* src, QAbstractButton** outptr_QAbstractButton);
 QMetaObject* QRadioButton_metaObject(const QRadioButton* self);
 void* QRadioButton_metacast(QRadioButton* self, const char* param1);
+int QRadioButton_metacall(QRadioButton* self, int param1, int param2, void** param3);
 struct seaqt_string QRadioButton_tr(const char* s);
 struct seaqt_string QRadioButton_trUtf8(const char* s);
 QSize* QRadioButton_sizeHint(const QRadioButton* self);
@@ -106,6 +107,12 @@ struct seaqt_string QRadioButton_tr3(const char* s, const char* c, int n);
 struct seaqt_string QRadioButton_trUtf82(const char* s, const char* c);
 struct seaqt_string QRadioButton_trUtf83(const char* s, const char* c, int n);
 
+bool QRadioButton_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QRadioButton_virtualbase_metaObject(const void* self);
+bool QRadioButton_override_virtual_metacast(void* self, intptr_t slot);
+void* QRadioButton_virtualbase_metacast(void* self, const char* param1);
+bool QRadioButton_override_virtual_metacall(void* self, intptr_t slot);
+int QRadioButton_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QRadioButton_override_virtual_sizeHint(void* self, intptr_t slot);
 QSize* QRadioButton_virtualbase_sizeHint(const void* self);
 bool QRadioButton_override_virtual_minimumSizeHint(void* self, intptr_t slot);
@@ -218,6 +225,7 @@ int QRadioButton_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok, const v
 int QRadioButton_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QRadioButton_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QRadioButton_staticMetaObject();
 void QRadioButton_delete(QRadioButton* self);
 
 #ifdef __cplusplus

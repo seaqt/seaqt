@@ -35,6 +35,7 @@ typedef struct QStateMachine QStateMachine;
 void QAbstractState_virtbase(QAbstractState* src, QObject** outptr_QObject);
 QMetaObject* QAbstractState_metaObject(const QAbstractState* self);
 void* QAbstractState_metacast(QAbstractState* self, const char* param1);
+int QAbstractState_metacall(QAbstractState* self, int param1, int param2, void** param3);
 struct seaqt_string QAbstractState_tr(const char* s);
 struct seaqt_string QAbstractState_trUtf8(const char* s);
 QState* QAbstractState_parentState(const QAbstractState* self);
@@ -53,6 +54,7 @@ struct seaqt_string QAbstractState_trUtf83(const char* s, const char* c, int n);
 void QAbstractState_connect_entered(QAbstractState* self, intptr_t slot);
 void QAbstractState_connect_exited(QAbstractState* self, intptr_t slot);
 
+const QMetaObject* QAbstractState_staticMetaObject();
 void QAbstractState_delete(QAbstractState* self);
 
 #ifdef __cplusplus

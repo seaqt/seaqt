@@ -53,6 +53,7 @@ QTransposeProxyModel* QTransposeProxyModel_new2(QObject* parent);
 void QTransposeProxyModel_virtbase(QTransposeProxyModel* src, QAbstractProxyModel** outptr_QAbstractProxyModel);
 QMetaObject* QTransposeProxyModel_metaObject(const QTransposeProxyModel* self);
 void* QTransposeProxyModel_metacast(QTransposeProxyModel* self, const char* param1);
+int QTransposeProxyModel_metacall(QTransposeProxyModel* self, int param1, int param2, void** param3);
 struct seaqt_string QTransposeProxyModel_tr(const char* s);
 struct seaqt_string QTransposeProxyModel_trUtf8(const char* s);
 void QTransposeProxyModel_setSourceModel(QTransposeProxyModel* self, QAbstractItemModel* newSourceModel);
@@ -79,6 +80,12 @@ struct seaqt_string QTransposeProxyModel_tr3(const char* s, const char* c, int n
 struct seaqt_string QTransposeProxyModel_trUtf82(const char* s, const char* c);
 struct seaqt_string QTransposeProxyModel_trUtf83(const char* s, const char* c, int n);
 
+bool QTransposeProxyModel_override_virtual_metaObject(void* self, intptr_t slot);
+QMetaObject* QTransposeProxyModel_virtualbase_metaObject(const void* self);
+bool QTransposeProxyModel_override_virtual_metacast(void* self, intptr_t slot);
+void* QTransposeProxyModel_virtualbase_metacast(void* self, const char* param1);
+bool QTransposeProxyModel_override_virtual_metacall(void* self, intptr_t slot);
+int QTransposeProxyModel_virtualbase_metacall(void* self, int param1, int param2, void** param3);
 bool QTransposeProxyModel_override_virtual_setSourceModel(void* self, intptr_t slot);
 void QTransposeProxyModel_virtualbase_setSourceModel(void* self, QAbstractItemModel* newSourceModel);
 bool QTransposeProxyModel_override_virtual_rowCount(void* self, intptr_t slot);
@@ -198,6 +205,7 @@ int QTransposeProxyModel_protectedbase_senderSignalIndex(bool* _dynamic_cast_ok,
 int QTransposeProxyModel_protectedbase_receivers(bool* _dynamic_cast_ok, const void* self, const char* signal);
 bool QTransposeProxyModel_protectedbase_isSignalConnected(bool* _dynamic_cast_ok, const void* self, QMetaMethod* signal);
 
+const QMetaObject* QTransposeProxyModel_staticMetaObject();
 void QTransposeProxyModel_delete(QTransposeProxyModel* self);
 
 #ifdef __cplusplus
