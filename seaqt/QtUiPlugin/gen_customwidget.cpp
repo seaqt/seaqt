@@ -1,6 +1,5 @@
 #include <QDesignerCustomWidgetCollectionInterface>
 #include <QDesignerCustomWidgetInterface>
-#include <QDesignerFormEditorInterface>
 #include <QIcon>
 #include <QString>
 #include <QByteArray>
@@ -86,10 +85,6 @@ QWidget* QDesignerCustomWidgetInterface_createWidget(QDesignerCustomWidgetInterf
 
 bool QDesignerCustomWidgetInterface_isInitialized(const QDesignerCustomWidgetInterface* self) {
 	return self->isInitialized();
-}
-
-void QDesignerCustomWidgetInterface_initialize(QDesignerCustomWidgetInterface* self, QDesignerFormEditorInterface* core) {
-	self->initialize(core);
 }
 
 struct seaqt_string QDesignerCustomWidgetInterface_domXml(const QDesignerCustomWidgetInterface* self) {

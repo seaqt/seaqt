@@ -17,13 +17,11 @@ extern "C" {
 #ifdef __cplusplus
 class QDesignerCustomWidgetCollectionInterface;
 class QDesignerCustomWidgetInterface;
-class QDesignerFormEditorInterface;
 class QIcon;
 class QWidget;
 #else
 typedef struct QDesignerCustomWidgetCollectionInterface QDesignerCustomWidgetCollectionInterface;
 typedef struct QDesignerCustomWidgetInterface QDesignerCustomWidgetInterface;
-typedef struct QDesignerFormEditorInterface QDesignerFormEditorInterface;
 typedef struct QIcon QIcon;
 typedef struct QWidget QWidget;
 #endif
@@ -37,7 +35,6 @@ QIcon* QDesignerCustomWidgetInterface_icon(const QDesignerCustomWidgetInterface*
 bool QDesignerCustomWidgetInterface_isContainer(const QDesignerCustomWidgetInterface* self);
 QWidget* QDesignerCustomWidgetInterface_createWidget(QDesignerCustomWidgetInterface* self, QWidget* parent);
 bool QDesignerCustomWidgetInterface_isInitialized(const QDesignerCustomWidgetInterface* self);
-void QDesignerCustomWidgetInterface_initialize(QDesignerCustomWidgetInterface* self, QDesignerFormEditorInterface* core);
 struct seaqt_string QDesignerCustomWidgetInterface_domXml(const QDesignerCustomWidgetInterface* self);
 struct seaqt_string QDesignerCustomWidgetInterface_codeTemplate(const QDesignerCustomWidgetInterface* self);
 

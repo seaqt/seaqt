@@ -15,7 +15,6 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
-class QDesignerFormEditorInterface;
 class QDesignerFormWindowInterface;
 class QDesignerLanguageExtension;
 class QDesignerResourceBrowserInterface;
@@ -23,7 +22,6 @@ class QDialog;
 class QObject;
 class QWidget;
 #else
-typedef struct QDesignerFormEditorInterface QDesignerFormEditorInterface;
 typedef struct QDesignerFormWindowInterface QDesignerFormWindowInterface;
 typedef struct QDesignerLanguageExtension QDesignerLanguageExtension;
 typedef struct QDesignerResourceBrowserInterface QDesignerResourceBrowserInterface;
@@ -35,7 +33,6 @@ typedef struct QWidget QWidget;
 struct seaqt_string QDesignerLanguageExtension_name(const QDesignerLanguageExtension* self);
 QDialog* QDesignerLanguageExtension_createFormWindowSettingsDialog(QDesignerLanguageExtension* self, QDesignerFormWindowInterface* formWindow, QWidget* parentWidget);
 QDesignerResourceBrowserInterface* QDesignerLanguageExtension_createResourceBrowser(QDesignerLanguageExtension* self, QWidget* parentWidget);
-QDialog* QDesignerLanguageExtension_createPromotionDialog(QDesignerLanguageExtension* self, QDesignerFormEditorInterface* formEditor, QWidget* parentWidget);
 bool QDesignerLanguageExtension_isLanguageResource(const QDesignerLanguageExtension* self, struct seaqt_string path);
 struct seaqt_string QDesignerLanguageExtension_classNameOf(const QDesignerLanguageExtension* self, QObject* object);
 bool QDesignerLanguageExtension_signalMatchesSlot(const QDesignerLanguageExtension* self, struct seaqt_string signal, struct seaqt_string slot);

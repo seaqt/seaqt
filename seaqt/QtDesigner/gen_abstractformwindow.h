@@ -15,7 +15,6 @@ extern "C" {
 #endif
 
 #ifdef __cplusplus
-class QDesignerFormEditorInterface;
 class QDesignerFormWindowCursorInterface;
 class QDesignerFormWindowInterface;
 class QDesignerFormWindowToolInterface;
@@ -28,7 +27,6 @@ class QPoint;
 class QUndoStack;
 class QWidget;
 #else
-typedef struct QDesignerFormEditorInterface QDesignerFormEditorInterface;
 typedef struct QDesignerFormWindowCursorInterface QDesignerFormWindowCursorInterface;
 typedef struct QDesignerFormWindowInterface QDesignerFormWindowInterface;
 typedef struct QDesignerFormWindowToolInterface QDesignerFormWindowToolInterface;
@@ -68,7 +66,6 @@ void QDesignerFormWindowInterface_setIncludeHints(QDesignerFormWindowInterface* 
 int QDesignerFormWindowInterface_resourceFileSaveMode(const QDesignerFormWindowInterface* self);
 void QDesignerFormWindowInterface_setResourceFileSaveMode(QDesignerFormWindowInterface* self, int behaviour);
 struct seaqt_array /* of struct seaqt_string */  QDesignerFormWindowInterface_activeResourceFilePaths(const QDesignerFormWindowInterface* self);
-QDesignerFormEditorInterface* QDesignerFormWindowInterface_core(const QDesignerFormWindowInterface* self);
 QDesignerFormWindowCursorInterface* QDesignerFormWindowInterface_cursor(const QDesignerFormWindowInterface* self);
 int QDesignerFormWindowInterface_toolCount(const QDesignerFormWindowInterface* self);
 int QDesignerFormWindowInterface_currentTool(const QDesignerFormWindowInterface* self);

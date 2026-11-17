@@ -1,4 +1,3 @@
-#include <QDesignerFormEditorInterface>
 #include <QDesignerFormWindowCursorInterface>
 #include <QDesignerFormWindowInterface>
 #include <QDesignerFormWindowToolInterface>
@@ -253,10 +252,6 @@ struct seaqt_array /* of struct seaqt_string */  QDesignerFormWindowInterface_ac
 	_out.len = _ret.length();
 	_out.data = static_cast<void*>(_arr);
 	return _out;
-}
-
-QDesignerFormEditorInterface* QDesignerFormWindowInterface_core(const QDesignerFormWindowInterface* self) {
-	return self->core();
 }
 
 QDesignerFormWindowCursorInterface* QDesignerFormWindowInterface_cursor(const QDesignerFormWindowInterface* self) {

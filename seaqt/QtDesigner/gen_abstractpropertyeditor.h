@@ -19,7 +19,6 @@ class QActionEvent;
 class QChildEvent;
 class QCloseEvent;
 class QContextMenuEvent;
-class QDesignerFormEditorInterface;
 class QDesignerPropertyEditorInterface;
 class QDragEnterEvent;
 class QDragLeaveEvent;
@@ -54,7 +53,6 @@ typedef struct QActionEvent QActionEvent;
 typedef struct QChildEvent QChildEvent;
 typedef struct QCloseEvent QCloseEvent;
 typedef struct QContextMenuEvent QContextMenuEvent;
-typedef struct QDesignerFormEditorInterface QDesignerFormEditorInterface;
 typedef struct QDesignerPropertyEditorInterface QDesignerPropertyEditorInterface;
 typedef struct QDragEnterEvent QDragEnterEvent;
 typedef struct QDragLeaveEvent QDragLeaveEvent;
@@ -92,7 +90,6 @@ void QDesignerPropertyEditorInterface_virtbase(QDesignerPropertyEditorInterface*
 QMetaObject* QDesignerPropertyEditorInterface_metaObject(const QDesignerPropertyEditorInterface* self);
 void* QDesignerPropertyEditorInterface_metacast(QDesignerPropertyEditorInterface* self, const char* param1);
 struct seaqt_string QDesignerPropertyEditorInterface_tr(const char* s);
-QDesignerFormEditorInterface* QDesignerPropertyEditorInterface_core(const QDesignerPropertyEditorInterface* self);
 bool QDesignerPropertyEditorInterface_isReadOnly(const QDesignerPropertyEditorInterface* self);
 QObject* QDesignerPropertyEditorInterface_object(const QDesignerPropertyEditorInterface* self);
 struct seaqt_string QDesignerPropertyEditorInterface_currentPropertyName(const QDesignerPropertyEditorInterface* self);
@@ -104,8 +101,6 @@ void QDesignerPropertyEditorInterface_setReadOnly(QDesignerPropertyEditorInterfa
 struct seaqt_string QDesignerPropertyEditorInterface_tr2(const char* s, const char* c);
 struct seaqt_string QDesignerPropertyEditorInterface_tr3(const char* s, const char* c, int n);
 
-bool QDesignerPropertyEditorInterface_override_virtual_core(void* self, intptr_t slot);
-QDesignerFormEditorInterface* QDesignerPropertyEditorInterface_virtualbase_core(const void* self);
 bool QDesignerPropertyEditorInterface_override_virtual_isReadOnly(void* self, intptr_t slot);
 bool QDesignerPropertyEditorInterface_virtualbase_isReadOnly(const void* self);
 bool QDesignerPropertyEditorInterface_override_virtual_object(void* self, intptr_t slot);

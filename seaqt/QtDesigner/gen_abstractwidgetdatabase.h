@@ -16,7 +16,6 @@ extern "C" {
 
 #ifdef __cplusplus
 class QChildEvent;
-class QDesignerFormEditorInterface;
 class QDesignerWidgetDataBaseInterface;
 class QDesignerWidgetDataBaseItemInterface;
 class QEvent;
@@ -28,7 +27,6 @@ class QTimerEvent;
 class QVariant;
 #else
 typedef struct QChildEvent QChildEvent;
-typedef struct QDesignerFormEditorInterface QDesignerFormEditorInterface;
 typedef struct QDesignerWidgetDataBaseInterface QDesignerWidgetDataBaseInterface;
 typedef struct QDesignerWidgetDataBaseItemInterface QDesignerWidgetDataBaseItemInterface;
 typedef struct QEvent QEvent;
@@ -136,7 +134,6 @@ void QDesignerWidgetDataBaseInterface_insert(QDesignerWidgetDataBaseInterface* s
 void QDesignerWidgetDataBaseInterface_append(QDesignerWidgetDataBaseInterface* self, QDesignerWidgetDataBaseItemInterface* item);
 int QDesignerWidgetDataBaseInterface_indexOfObject(const QDesignerWidgetDataBaseInterface* self, QObject* object, bool resolveName);
 int QDesignerWidgetDataBaseInterface_indexOfClassName(const QDesignerWidgetDataBaseInterface* self, struct seaqt_string className, bool resolveName);
-QDesignerFormEditorInterface* QDesignerWidgetDataBaseInterface_core(const QDesignerWidgetDataBaseInterface* self);
 bool QDesignerWidgetDataBaseInterface_isContainer(const QDesignerWidgetDataBaseInterface* self, QObject* object);
 bool QDesignerWidgetDataBaseInterface_isCustom(const QDesignerWidgetDataBaseInterface* self, QObject* object);
 void QDesignerWidgetDataBaseInterface_changed(QDesignerWidgetDataBaseInterface* self);
@@ -160,8 +157,6 @@ bool QDesignerWidgetDataBaseInterface_override_virtual_indexOfObject(void* self,
 int QDesignerWidgetDataBaseInterface_virtualbase_indexOfObject(const void* self, QObject* object, bool resolveName);
 bool QDesignerWidgetDataBaseInterface_override_virtual_indexOfClassName(void* self, intptr_t slot);
 int QDesignerWidgetDataBaseInterface_virtualbase_indexOfClassName(const void* self, struct seaqt_string className, bool resolveName);
-bool QDesignerWidgetDataBaseInterface_override_virtual_core(void* self, intptr_t slot);
-QDesignerFormEditorInterface* QDesignerWidgetDataBaseInterface_virtualbase_core(const void* self);
 bool QDesignerWidgetDataBaseInterface_override_virtual_event(void* self, intptr_t slot);
 bool QDesignerWidgetDataBaseInterface_virtualbase_event(void* self, QEvent* event);
 bool QDesignerWidgetDataBaseInterface_override_virtual_eventFilter(void* self, intptr_t slot);
