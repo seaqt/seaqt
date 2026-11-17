@@ -34,6 +34,7 @@ class QLine;
 class QLineF;
 class QLocale;
 class QModelIndex;
+class QObject;
 class QPersistentModelIndex;
 class QPoint;
 class QPointF;
@@ -74,6 +75,7 @@ typedef struct QLine QLine;
 typedef struct QLineF QLineF;
 typedef struct QLocale QLocale;
 typedef struct QModelIndex QModelIndex;
+typedef struct QObject QObject;
 typedef struct QPersistentModelIndex QPersistentModelIndex;
 typedef struct QPoint QPoint;
 typedef struct QPointF QPointF;
@@ -209,6 +211,7 @@ unsigned long long QVariant_toULongLongWithOk(const QVariant* self, bool* ok);
 double QVariant_toDoubleWithOk(const QVariant* self, bool* ok);
 float QVariant_toFloatWithOk(const QVariant* self, bool* ok);
 double QVariant_toRealWithOk(const QVariant* self, bool* ok);
+QVariant* QVariant_fromValue(QObject* value);
 
 void QVariant_delete(QVariant* self);
 
