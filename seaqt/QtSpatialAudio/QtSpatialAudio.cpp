@@ -1,0 +1,5 @@
+#include "gen_qambientsound.cpp"
+#include "gen_qaudioengine.cpp"
+#include "gen_qaudiolistener.cpp"
+#include "gen_qaudioroom.cpp"
+#include "gen_qspatialsound.cpp"
